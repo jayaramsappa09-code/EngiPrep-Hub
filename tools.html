@@ -91,6 +91,34 @@
                 </div>
             </div>
 
+            <!-- Smart Note Summarizer -->
+            <div class="glass-card p-10 group hover:border-purple-500/30 transition-all col-span-1 md:col-span-2 lg:col-span-1">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    </div>
+                    <h2 class="text-2xl font-black italic">Revision <span class="text-purple-400">Assistant</span></h2>
+                </div>
+
+                <div class="space-y-6">
+                    <textarea id="summary-input" placeholder="Paste your complex notes or textbook paragraphs here..." class="w-full h-40 bg-black/40 border border-white/5 rounded-2xl px-6 py-4 text-sm font-medium focus:border-purple-500/50 outline-none transition-all resize-none"></textarea>
+                    
+                    <button id="summarize-btn" class="w-full py-4 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 text-[10px] font-black uppercase tracking-widest rounded-2xl border border-purple-500/20 transition-all">Generate Cheat Sheet</button>
+
+                    <div id="summary-output-container" class="hidden">
+                        <div class="bg-purple-500/5 border border-purple-500/10 p-6 rounded-2xl">
+                            <div class="text-[10px] font-black uppercase tracking-widest text-purple-400/70 mb-4 flex justify-between items-center">
+                                <span>High-Yield Revision Points</span>
+                                <button onclick="copySummary()" class="hover:text-white transition-colors">Copy</button>
+                            </div>
+                            <div id="summary-output" class="text-sm font-medium text-gray-300 space-y-2 prose prose-invert prose-sm">
+                                <!-- AI Content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Unit Converter -->
             <div class="glass-card p-10 group hover:border-blue-400/30 transition-all">
                 <div class="flex items-center gap-4 mb-8">
@@ -240,6 +268,59 @@
         toSelect.addEventListener('change', convert);
         input.addEventListener('input', convert);
         updateUnits();
+
+        // Revision Assistant Logic
+        const summarizeBtn = document.getElementById('summarize-btn');
+        const summaryInput = document.getElementById('summary-input');
+        const summaryOutput = document.getElementById('summary-output');
+        const summaryOutputContainer = document.getElementById('summary-output-container');
+
+        async function generateSummary() {
+            const content = summaryInput.value.trim();
+            if (!content) return alert('Please enter some text to summarize.');
+
+            summarizeBtn.disabled = true;
+            summarizeBtn.innerText = 'Analyzing Concept...';
+            summaryOutputContainer.classList.remove('hidden');
+            summaryOutput.innerHTML = '<div class="animate-pulse flex space-x-4"><div class="flex-1 space-y-4 py-1"><div class="h-2 bg-purple-500/20 rounded w-3/4"></div><div class="space-y-2"><div class="h-2 bg-purple-500/20 rounded"></div><div class="h-2 bg-purple-500/20 rounded w-5/6"></div></div></div></div>';
+
+            try {
+                const res = await fetch('/api/ai/summary', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content })
+                });
+                
+                const data = await res.json();
+                
+                if (data.error) throw new Error(data.error);
+                
+                const text = data.summary || "Unable to summarize. Try a shorter or more clear text.";
+                // Format markdown-like bullet points
+                summaryOutput.innerHTML = text
+                    .replace(/\n- /g, '<br>• ')
+                    .replace(/\n\d\. /g, '<br>• ')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-purple-400 font-bold">$1</strong>')
+                    .replace(/\n/g, '<br>');
+
+            } catch (err) {
+                summaryOutput.innerHTML = `<span class="text-rose-500">Error: ${err.message}. Please check your connection.</span>`;
+            } finally {
+                summarizeBtn.disabled = false;
+                summarizeBtn.innerText = 'Generate Cheat Sheet';
+            }
+        }
+
+        summarizeBtn.addEventListener('click', generateSummary);
+
+        window.copySummary = function() {
+            const text = summaryOutput.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.currentTarget;
+                btn.innerText = 'Copied!';
+                setTimeout(() => btn.innerText = 'Copy', 2000);
+            });
+        }
     </script>
 </body>
 </html>

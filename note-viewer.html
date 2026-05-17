@@ -44,6 +44,10 @@
             @apply bg-transparent p-0 text-gray-300 text-sm leading-relaxed;
         }
 
+        .prose-premium b { @apply text-primary font-bold; }
+        .prose-premium ul { @apply list-disc list-inside space-y-2 mt-2; }
+        .prose-premium li { @apply text-gray-400; }
+
         /* Focus Mode Styles */
         body.focus-mode nav, 
         body.focus-mode #toc-sidebar,
@@ -320,7 +324,15 @@
                         })
                         const data = await res.json()
                         const rawText = data.explanation || data.summary || data.text
-                        aiResponse.innerHTML = rawText.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+                        
+                        // Enhanced Formatting
+                        const formatted = rawText
+                            .replace(/\n- /g, '</li><li>')
+                            .replace(/\n\d\. /g, '</li><li>')
+                            .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+                            .replace(/\n/g, '<br>')
+                        
+                        aiResponse.innerHTML = formatted.includes('<li>') ? `<ul class="list-disc pl-4">${formatted.replace('</li>', '')}</li></ul>` : formatted
                     } catch (err) {
                         aiResponse.innerText = 'Scholar, I encountered an error. Please try again.'
                     }
