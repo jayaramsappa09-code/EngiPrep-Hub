@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Tools - EngiPrep Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/src/index.css">
+</head>
+<body class="bg-[#0a0a0f] text-white min-h-screen">
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 bg-black/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="/index.html" class="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">ENGIPREP</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="/semester-1.html" class="text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Semesters</a>
+                    <a href="/videos.html" class="text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Videos</a>
+                    <a href="/tools.html" class="text-sm font-bold uppercase tracking-widest text-primary transition-colors">Tools</a>
+                </div>
+                <a href="/dashboard.html" class="px-6 py-2 bg-white text-black text-xs font-black uppercase tracking-widest rounded-full hover:bg-primary transition-all">My Hub</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <div class="mb-12">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-4">Engineering <span class="text-primary italic">Tools</span></h1>
+            <p class="text-gray-400 max-w-2xl">Essential calculators and utilities to simplify your academic tasks.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- GPA Calculator -->
+            <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-primary/30 transition-colors">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold tracking-tight">GPA Calculator</h2>
+                </div>
+                
+                <div id="gpa-rows" class="space-y-3 mb-6">
+                    <div class="flex gap-4">
+                        <input type="number" placeholder="Credits" class="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm credit-input">
+                        <select class="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm grade-input">
+                            <option value="10">O (10)</option>
+                            <option value="9">A+ (9)</option>
+                            <option value="8">A (8)</option>
+                            <option value="7">B+ (7)</option>
+                            <option value="6">B (6)</option>
+                            <option value="0">F (0)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="addGPARow()" class="w-full py-3 border border-dashed border-white/10 rounded-xl text-xs font-black uppercase tracking-widest text-gray-500 hover:text-white hover:border-white/20 transition-all mb-6">+ Add Course</button>
+                
+                <div class="bg-primary/10 border border-primary/20 p-6 rounded-2xl flex justify-between items-center">
+                    <span class="text-sm font-bold uppercase tracking-widest text-primary/80">Your SGPA</span>
+                    <span id="gpa-result" class="text-3xl font-black italic">0.00</span>
+                </div>
+            </div>
+
+            <!-- Unit Converter -->
+            <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-blue-400/30 transition-colors">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-blue-400/20 rounded-2xl flex items-center justify-center text-blue-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold tracking-tight">Engineering Units</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">Category</label>
+                        <select id="conv-category" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm">
+                            <option value="length">Length</option>
+                            <option value="mass">Mass</option>
+                            <option value="pressure">Pressure (Pa, psi, bar)</option>
+                            <option value="force">Force (N, kgf, lbf)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="number" id="conv-input" value="1" class="bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm">
+                        <select id="conv-from" class="bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm"></select>
+                    </div>
+
+                    <div class="text-center text-gray-500 uppercase font-black text-[10px] tracking-tighter">to</div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div id="conv-output" class="bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-sm flex items-center font-bold">1.00</div>
+                        <select id="conv-to" class="bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // GPA Logic
+        function addGPARow() {
+            const container = document.getElementById('gpa-rows');
+            const row = document.createElement('div');
+            row.className = 'flex gap-4';
+            row.innerHTML = `
+                <input type="number" placeholder="Credits" class="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm credit-input">
+                <select class="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm grade-input">
+                    <option value="10">O (10)</option>
+                    <option value="9">A+ (9)</option>
+                    <option value="8">A (8)</option>
+                    <option value="7">B+ (7)</option>
+                    <option value="6">B (6)</option>
+                    <option value="0">F (0)</option>
+                </select>
+            `;
+            container.appendChild(row);
+            attachGPAListeners();
+        }
+
+        function calculateGPA() {
+            const credits = document.querySelectorAll('.credit-input');
+            const grades = document.querySelectorAll('.grade-input');
+            let totalPoints = 0;
+            let totalCredits = 0;
+
+            credits.forEach((input, index) => {
+                const c = parseFloat(input.value) || 0;
+                const g = parseFloat(grades[index].value) || 0;
+                totalPoints += (c * g);
+                totalCredits += c;
+            });
+
+            const result = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : '0.00';
+            document.getElementById('gpa-result').innerText = result;
+        }
+
+        function attachGPAListeners() {
+            document.querySelectorAll('.credit-input, .grade-input').forEach(el => {
+                el.addEventListener('input', calculateGPA);
+            });
+        }
+        attachGPAListeners();
+
+        // Unit Converter Logic
+        const units = {
+            length: { m: 1, km: 0.001, mm: 1000, inch: 39.37, feet: 3.28 },
+            mass: { kg: 1, g: 1000, lbs: 2.204, ton: 0.001 },
+            pressure: { pa: 1, bar: 0.00001, psi: 0.000145, atm: 0.0000098 },
+            force: { n: 1, kgf: 0.1019, lbf: 0.2248, dyne: 100000 }
+        };
+
+        const catSelect = document.getElementById('conv-category');
+        const fromSelect = document.getElementById('conv-from');
+        const toSelect = document.getElementById('conv-to');
+        const input = document.getElementById('conv-input');
+        const output = document.getElementById('conv-output');
+
+        function updateUnits() {
+            const cat = catSelect.value;
+            const options = Object.keys(units[cat]).map(u => `<option value="${u}">${u.toUpperCase()}</option>`).join('');
+            fromSelect.innerHTML = options;
+            toSelect.innerHTML = options;
+            convert();
+        }
+
+        function convert() {
+            const cat = catSelect.value;
+            const from = fromSelect.value;
+            const to = toSelect.value;
+            const val = parseFloat(input.value) || 0;
+            
+            const baseVal = val / units[cat][from];
+            const result = baseVal * units[cat][to];
+            output.innerText = result.toLocaleString(undefined, { maximumFractionDigits: 4 });
+        }
+
+        catSelect.addEventListener('change', updateUnits);
+        fromSelect.addEventListener('change', convert);
+        toSelect.addEventListener('change', convert);
+        input.addEventListener('input', convert);
+        updateUnits();
+    </script>
+</body>
+</html>

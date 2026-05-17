@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard – EngiPrep Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="flex bg-[#0a0a0f] min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-72 border-r border-white/5 bg-[#0d0d12] hidden md:flex flex-col p-6 sticky top-0 h-screen">
+        <div class="flex items-center gap-3 mb-12">
+            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-black">E</div>
+            <span class="font-black text-lg tracking-tight">EngiPrep Hub</span>
+        </div>
+
+        <nav class="flex-1">
+            <a href="/dashboard.html" class="sidebar-link active">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                Overview
+            </a>
+            <a href="/semester-1.html" class="sidebar-link">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                Semester 1
+            </a>
+            <a href="/semester-2.html" class="sidebar-link">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                Semester 2
+            </a>
+            <a href="/bookmarks.html" class="sidebar-link">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                Bookmarks
+            </a>
+            <a href="/videos.html" class="sidebar-link">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                Videos
+            </a>
+            <a href="/tools.html" class="sidebar-link">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                Tools
+            </a>
+            <button onclick="toggleModal('profile-modal')" class="sidebar-link w-full text-left">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                My Profile
+            </button>
+            <div id="sidebar-pro-badge" class="mt-6 p-4 glass-card border-emerald-500/20 bg-emerald-500/5 hidden">
+                <div class="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-1">PRO Membership</div>
+                <div class="text-xs text-gray-400">All features unlocked.</div>
+            </div>
+            <a href="/notifications.html" class="sidebar-link mt-6 md:hidden">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                Notifications
+            </a>
+        </nav>
+
+        <div class="mt-auto pt-6 border-t border-white/5">
+            <button id="logout-btn" class="sidebar-link w-full text-red-500 hover:bg-red-500/5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                Log Out
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 md:p-10">
+        <header class="flex items-center justify-between mb-12">
+            <div>
+                <h1 class="text-3xl font-black">Welcome back, <span id="user-name" class="text-primary italic">Topper</span></h1>
+                <p class="text-gray-400 mt-1">Check your current academic standing.</p>
+            </div>
+            <div class="flex-1 max-w-md mx-8 hidden lg:block">
+                <div class="relative">
+                    <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <input type="text" id="global-search" placeholder="Search notes, programs..." class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-primary transition-all">
+                    <div id="search-results" class="absolute top-full left-0 w-full mt-2 glass-card hidden z-[100] max-h-60 overflow-y-auto"></div>
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Notifications Bell -->
+                <div class="relative hidden sm:block">
+                    <button id="noti-btn" class="text-gray-500 hover:text-white transition-colors relative">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                        <span id="noti-badge" class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full hidden"></span>
+                    </button>
+                    <!-- Noti Dropdown -->
+                    <div id="noti-dropdown" class="absolute right-0 mt-4 w-80 glass-card p-6 hidden z-[100] animate-fade shadow-2xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[10px] font-black uppercase tracking-widest text-primary">Notifications</span>
+                            <button onclick="window.markAllRead()" class="text-[9px] text-gray-500 hover:text-white uppercase font-bold">Mark all read</button>
+                        </div>
+                        <div id="noti-list" class="space-y-4 max-h-60 overflow-y-auto">
+                            <div class="text-center py-4 text-[10px] text-gray-600 italic">No new notifications.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 border-l border-white/5 pl-6">
+                <div class="hidden sm:flex flex-col items-end">
+                    <span class="text-sm font-bold" id="user-email">...</span>
+                    <span class="text-[10px] text-gray-500 uppercase tracking-widest font-black" id="user-role">Student</span>
+                </div>
+                <div id="header-avatar-placeholder" class="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-primary font-bold">U</div>
+                <img id="header-avatar" src="" class="w-12 h-12 rounded-full hidden object-cover border border-white/10">
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="glass-card p-6">
+                <div class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">Overall Progress</div>
+                <div class="flex items-end gap-3 mb-4">
+                    <span class="text-4xl font-black">32%</span>
+                    <span class="text-sm text-emerald-500 mb-1">+5% this week</span>
+                </div>
+                <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary" style="width: 32%"></div>
+                </div>
+            </div>
+            <a href="/tools.html" class="glass-card p-6 group hover:border-primary/30 transition-all">
+                <div class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">Engineering Tools</div>
+                <div class="flex items-center justify-between">
+                    <div class="text-4xl font-black group-hover:text-primary transition-colors">GPA & Units</div>
+                    <div class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:text-black transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                    </div>
+                </div>
+            </a>
+            <a href="/videos.html" class="glass-card p-6 group hover:border-blue-400/30 transition-all">
+                <div class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">Featured Lectures</div>
+                <div class="flex items-center justify-between">
+                    <div class="text-4xl font-black group-hover:text-blue-400 transition-colors">Videos</div>
+                    <div class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center group-hover:bg-blue-400 group-hover:text-black transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- PRO STATUS / UPGRADE -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div id="stripe-upgrade-card" class="glass-card p-6 group hover:border-emerald-500/30 transition-all border-emerald-500/10 hidden">
+                <div class="text-emerald-500 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Premium Access</div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-2xl font-black mb-1">Upgrade to <span class="italic text-emerald-500">PRO</span></div>
+                        <p class="text-gray-500 text-xs">Unlock verified notes & expert support.</p>
+                    </div>
+                    <button id="checkout-button" class="px-6 py-3 bg-emerald-500 text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.2)]">Get Pro - $9.99</button>
+                </div>
+            </div>
+            
+            <div id="pro-badge-card" class="glass-card p-6 border-emerald-500/30 bg-emerald-500/5 hidden flex items-center gap-4">
+                <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-black shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                </div>
+                <div>
+                    <div class="text-xl font-black text-emerald-500 uppercase italic tracking-tighter">Pro Member</div>
+                    <div class="text-[10px] text-gray-500 uppercase font-bold tracking-widest leading-none">Lifetime Access Active</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <!-- Recent Activity -->
+            <div class="glass-card p-8">
+                <h3 class="text-xl font-bold mb-6">Continue Learning</h3>
+                <div id="continue-learning" class="space-y-4">
+                    <div class="skeleton h-20 w-full"></div>
+                </div>
+            </div>
+
+            <!-- Study Goals -->
+            <div class="glass-card p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold">Study Goals</h3>
+                    <button id="add-goal-btn" class="text-[10px] font-black uppercase tracking-widest text-primary hover:text-white transition-colors">Add Goal +</button>
+                </div>
+                
+                <!-- Add Goal Form (Hidden by default) -->
+                <div id="goal-form" class="hidden mb-6 p-4 bg-white/5 rounded-xl border border-white/10 animate-fadeIn">
+                    <input type="text" id="goal-input" placeholder="What's your goal? (e.g. Finish Unit 1)" 
+                           class="w-full bg-black/20 border border-white/5 rounded-lg py-2 px-3 text-sm mb-3 focus:outline-none focus:border-primary">
+                    <div class="flex gap-2">
+                        <select id="goal-subject" class="bg-black/20 border border-white/5 rounded-lg py-2 px-3 text-xs text-gray-400 focus:outline-none focus:border-primary">
+                            <option value="">All Subjects</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="C Programming">C Programming</option>
+                            <option value="Data Structures">Data Structures</option>
+                        </select>
+                        <input type="date" id="goal-date" class="bg-black/20 border border-white/5 rounded-lg py-2 px-3 text-xs text-gray-400 focus:outline-none focus:border-primary">
+                        <button id="save-goal" class="btn-primary py-2 px-4 text-xs ml-auto">Save</button>
+                    </div>
+                </div>
+
+                <div id="goals-list" class="space-y-3">
+                    <div class="skeleton h-12 w-full"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subject Shortcut -->
+        <div class="glass-card p-8">
+                <h3 class="text-xl font-bold mb-6">Subject Shortcuts</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="/c-programming-notes.html" class="p-4 bg-white/5 border border-white/5 rounded-xl hover:border-primary transition-all text-center">
+                        <div class="text-xs font-black text-gray-500 mb-2">Sem 1</div>
+                        <div class="font-bold text-sm">C Programming</div>
+                    </a>
+                    <a href="/physics-notes.html" class="p-4 bg-white/5 border border-white/5 rounded-xl hover:border-primary transition-all text-center">
+                        <div class="text-xs font-black text-gray-500 mb-2">Sem 1</div>
+                        <div class="font-bold text-sm">Engineering Physics</div>
+                    </a>
+                    <a href="/data-structures-basics.html" class="p-4 bg-white/5 border border-white/5 rounded-xl hover:border-primary transition-all text-center">
+                        <div class="text-xs font-black text-gray-500 mb-2">Sem 2</div>
+                        <div class="font-bold text-sm">Data Structures</div>
+                    </a>
+                    <a href="/chemistry-topper-notes.html" class="p-4 bg-white/5 border border-white/5 rounded-xl hover:border-primary transition-all text-center">
+                        <div class="text-xs font-black text-gray-500 mb-2">Sem 2</div>
+                        <div class="font-bold text-sm">Chem Topper Notes</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden">
+        <div class="w-full max-w-lg glass-card p-10 bg-[#0d0d12]">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-black italic">Profile <span class="text-primary">Settings</span></h2>
+                <button onclick="toggleModal('profile-modal')" class="text-gray-500 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            
+            <form id="profile-form" class="space-y-6">
+                <div>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block">Full Name</label>
+                    <input type="text" id="profile-name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-primary focus:outline-none transition-all" placeholder="Your Name">
+                </div>
+                <div>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block">Public Bio (Optional)</label>
+                    <textarea id="profile-bio" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-primary focus:outline-none transition-all h-24" placeholder="Briefly introduce yourself..."></textarea>
+                    <p class="text-[9px] text-gray-600 mt-2">This bio will appear on your blog posts.</p>
+                </div>
+                <div>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block">Avatar URL</label>
+                    <input type="text" id="profile-avatar-url" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-primary focus:outline-none transition-all" placeholder="https://unsplash.com/...">
+                </div>
+                
+                <div class="pt-4 border-t border-white/5 flex gap-4">
+                    <button type="submit" id="profile-save-btn" class="flex-1 btn-primary py-3">Save Profile</button>
+                    <button type="button" onclick="toggleModal('profile-modal')" class="flex-1 py-3 border border-white/10 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-white/5 transition-all">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="/src/config-check.js"></script>
+    <script type="module">
+        import { supabase, getCurrentUser, getUserProfile } from './src/supabase.js'
+        import { signOut } from './src/auth.js'
+        import { fetchGoals, createGoal, toggleGoal, deleteGoal } from './src/notes.js'
+        import { logActivity } from './src/utils/analytics.js'
+        import { getNotifications, markAsRead } from './src/utils/notifications.js'
+        
+        const userName = document.getElementById('user-name')
+        const userEmail = document.getElementById('user-email')
+        const userRole = document.getElementById('user-role')
+        const logoutBtn = document.getElementById('logout-btn')
+        const bookmarkCount = document.getElementById('bookmark-count')
+        const continueLearning = document.getElementById('continue-learning')
+        const goalsList = document.getElementById('goals-list')
+        const addGoalBtn = document.getElementById('add-goal-btn')
+        const goalForm = document.getElementById('goal-form')
+        const saveGoalBtn = document.getElementById('save-goal')
+
+        async function init() {
+            console.log('Dashboard initializing...')
+            
+            // Give Supabase a moment to recover session from storage
+            let user = await getCurrentUser()
+            console.log('Initial user check:', user ? user.email : 'No user')
+            
+            if (!user) {
+                // Try one more time after a short delay
+                await new Promise(resolve => setTimeout(resolve, 1000))
+                user = await getCurrentUser()
+                console.log('Secondary user check:', user ? user.email : 'Still no user')
+            }
+
+            if (!user) {
+                console.log('No user session found, redirecting to login...')
+                window.location.href = '/auth.html'
+                return
+            }
+
+            userName.innerText = 'Topper' // Placeholder until profile loads
+            userEmail.innerText = user.email
+
+            const profile = await getUserProfile(user.id)
+            console.log('User profile:', profile)
+            
+            if (profile) {
+                userName.innerText = profile.full_name || 'Topper'
+                userRole.innerText = profile.role || 'Student'
+                
+                if (profile.is_pro) {
+                    document.getElementById('pro-badge-card').classList.remove('hidden')
+                    document.getElementById('sidebar-pro-badge').classList.remove('hidden')
+                } else {
+                    document.getElementById('stripe-upgrade-card').classList.remove('hidden')
+                }
+
+                // Update Profile Form inputs
+                document.getElementById('profile-name').value = profile.full_name || ''
+                document.getElementById('profile-bio').value = profile.bio || ''
+                document.getElementById('profile-avatar-url').value = profile.avatar_url || ''
+
+                // Update Header Avatar
+                if (profile.avatar_url) {
+                    const headerImg = document.getElementById('header-avatar')
+                    headerImg.src = profile.avatar_url
+                    headerImg.classList.remove('hidden')
+                    document.getElementById('header-avatar-placeholder').classList.add('hidden')
+                } else if (profile.full_name) {
+                    document.getElementById('header-avatar-placeholder').innerText = profile.full_name.charAt(0)
+                }
+            }
+
+            // Recent Searches Logic
+            const RECENT_SEARCHES_KEY = 'engiprep_recent_searches'
+            
+            function getRecentSearches() {
+                const stored = localStorage.getItem(RECENT_SEARCHES_KEY)
+                return stored ? JSON.parse(stored) : []
+            }
+
+            function addRecentSearch(query) {
+                if (!query || query.trim().length === 0) return
+                let searches = getRecentSearches()
+                searches = [query, ...searches.filter(s => s !== query)].slice(0, 5)
+                localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(searches))
+            }
+
+            function showRecentSearches() {
+                const searches = getRecentSearches()
+                if (searches.length === 0) {
+                    searchResults.classList.add('hidden')
+                    return
+                }
+
+                searchResults.innerHTML = `
+                    <div class="px-4 py-3 border-b border-white/5">
+                        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">Recent Searches</span>
+                    </div>
+                    ${searches.map(s => `
+                        <button class="w-full text-left p-4 hover:bg-white/5 border-b border-white/5 last:border-0 flex items-center justify-between group recent-search-item">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-sm text-gray-400 font-medium group-hover:text-white transition-colors">${s}</span>
+                            </div>
+                            <svg class="w-4 h-4 text-gray-700 opacity-0 group-hover:opacity-100 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </button>
+                    `).join('')}
+                    <button id="clear-recent" class="w-full text-center p-3 text-[9px] font-black uppercase tracking-widest text-gray-600 hover:text-red-500 transition-colors">Clear History</button>
+                `
+                searchResults.classList.remove('hidden')
+
+                // Re-bind listeners for recent items
+                document.querySelectorAll('.recent-search-item').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const query = btn.querySelector('span').innerText
+                        searchInput.value = query
+                        searchInput.dispatchEvent(new Event('input'))
+                    })
+                })
+
+                document.getElementById('clear-recent')?.addEventListener('click', (e) => {
+                    e.stopPropagation()
+                    localStorage.removeItem(RECENT_SEARCHES_KEY)
+                    showRecentSearches()
+                })
+            }
+
+            // Search Logic
+            const searchInput = document.getElementById('global-search')
+            const searchResults = document.getElementById('search-results')
+            
+            if (searchInput) {
+                searchInput.addEventListener('focus', () => {
+                    if (searchInput.value.length === 0) {
+                        showRecentSearches()
+                    }
+                })
+
+                searchInput.addEventListener('input', async (e) => {
+                    const query = e.target.value
+                    if (query.length < 2) {
+                        if (query.length === 0) showRecentSearches()
+                        else searchResults.classList.add('hidden')
+                        return
+                    }
+
+                    const { data } = await supabase
+                        .from('notes')
+                        .select('title, slug, subject')
+                        .ilike('title', `%${query}%`)
+                        .limit(5)
+                    
+                    if (data && data.length > 0) {
+                        searchResults.innerHTML = `
+                            <div class="px-4 py-3 border-b border-white/5">
+                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Matching Results</span>
+                            </div>
+                            ${data.map(n => `
+                                <a href="/note-viewer.html?slug=${n.slug}" class="block p-4 hover:bg-white/5 border-b border-white/5 last:border-0 search-result-item" data-title="${n.title}">
+                                    <div class="text-sm font-bold text-white">${n.title}</div>
+                                    <div class="text-[9px] text-gray-500 uppercase tracking-widest">${n.subject}</div>
+                                </a>
+                            `).join('')}
+                        `
+                        searchResults.classList.remove('hidden')
+
+                        // Save search on click
+                        document.querySelectorAll('.search-result-item').forEach(item => {
+                            item.addEventListener('click', () => {
+                                addRecentSearch(item.getAttribute('data-title'))
+                            })
+                        })
+                    } else {
+                        searchResults.innerHTML = '<div class="p-4 text-xs text-gray-500 italic">No results found</div>'
+                        searchResults.classList.remove('hidden')
+                    }
+                })
+
+                searchInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && searchInput.value.length > 0) {
+                        addRecentSearch(searchInput.value)
+                    }
+                })
+
+                document.addEventListener('click', (e) => {
+                    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                        searchResults.classList.add('hidden')
+                    }
+                })
+            }
+
+            // Handle payment return flags
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('payment') === 'success') {
+                // In a real production app, use Stripe Webhooks. 
+                // For this demo, we verify the redirect and update the DB.
+                if (user && profile && !profile.is_pro) {
+                    await supabase.from('profiles').update({ is_pro: true }).eq('id', user.id);
+                    // Clear the URL and reload
+                    window.location.href = '/dashboard.html';
+                    return;
+                }
+            }
+
+            await loadProgress(user.id)
+            await loadBookmarks(user.id)
+            await loadGoals()
+            await loadNotifications()
+            
+            // Log Login Activity
+            logActivity('dashboard_visited')
+        }
+
+        async function loadNotifications() {
+            const list = await getNotifications()
+            const container = document.getElementById('noti-list')
+            const badge = document.getElementById('noti-badge')
+            
+            if (list && list.length > 0) {
+                const unreadCount = list.filter(n => !n.is_read).length
+                if (unreadCount > 0) badge.classList.remove('hidden')
+                else badge.classList.add('hidden')
+
+                container.innerHTML = list.map(n => `
+                    <div class="p-3 bg-white/5 rounded-lg border border-white/5 ${n.is_read ? 'opacity-60' : 'border-primary/20'}">
+                        <div class="text-[11px] font-bold text-white mb-1">${n.title}</div>
+                        <div class="text-[9px] text-gray-500 leading-relaxed">${n.message}</div>
+                        <div class="text-[8px] text-gray-600 mt-2">${new Date(n.created_at).toLocaleDateString()}</div>
+                    </div>
+                `).join('')
+            }
+        }
+
+        const notiBtn = document.getElementById('noti-btn')
+        const notiDropdown = document.getElementById('noti-dropdown')
+        if (notiBtn) {
+            notiBtn.addEventListener('click', (e) => {
+                e.stopPropagation()
+                notiDropdown.classList.toggle('hidden')
+            })
+            document.addEventListener('click', () => notiDropdown.classList.add('hidden'))
+            notiDropdown.addEventListener('click', (e) => e.stopPropagation())
+        }
+
+        // Stripe Checkout Logic
+        document.getElementById('checkout-button').addEventListener('click', async () => {
+            const user = await getCurrentUser()
+            if (!user) return
+
+            const btn = document.getElementById('checkout-button')
+            const originalText = btn.innerText
+            btn.disabled = true
+            btn.innerText = 'REDIRECTING...'
+
+            const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+            if (!stripeKey) {
+                alert('⚠️ API KEY MISSING: Please add VITE_STRIPE_PUBLISHABLE_KEY to your project Settings.')
+                btn.disabled = false
+                btn.innerText = originalText
+                return
+            }
+
+            const stripe = Stripe(stripeKey)
+            
+            try {
+                const response = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: user.id, userEmail: user.email })
+                })
+                
+                const session = await response.json()
+                if (session.error) throw new Error(session.error)
+                
+                await stripe.redirectToCheckout({ sessionId: session.id })
+            } catch (err) {
+                console.error('Payment redirect error:', err)
+                alert('Connection failed: ' + err.message)
+                btn.disabled = false
+                btn.innerText = originalText
+            }
+        })
+
+        async function loadProgress(userId) {
+            const { data: progressData } = await supabase
+                .from('user_progress')
+                .select('note_id, status, notes (title, slug, subject)')
+                .eq('user_id', userId)
+                .order('updated_at', { ascending: false });
+
+            if (progressData && progressData.length > 0) {
+                continueLearning.innerHTML = progressData.map(item => `
+                    <a href="/note-viewer.html?slug=${item.notes.slug}" class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 hover:border-primary transition-all">
+                        <div class="w-10 h-10 bg-primary/20 text-primary rounded-lg flex items-center justify-center font-bold">
+                            ${item.notes.subject.charAt(0)}
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-bold text-sm text-white">${item.notes.title}</div>
+                            <div class="text-[10px] text-gray-500 uppercase tracking-widest mt-1">
+                                ${item.status ? 'Completed' : 'In Progress'}
+                            </div>
+                        </div>
+                        ${item.status ? '<svg class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>' : ''}
+                    </a>
+                `).join('')
+            } else {
+                continueLearning.innerHTML = `
+                    <div class="text-center py-10">
+                        <p class="text-gray-500 text-sm italic">No recent activity found.</p>
+                        <a href="/semester-1.html" class="text-primary text-xs font-bold uppercase tracking-widest mt-4 inline-block">Start Learning →</a>
+                    </div>
+                `
+            }
+        }
+
+        async function loadBookmarks(userId) {
+            const { count } = await supabase
+                .from('bookmarks')
+                .select('*', { count: 'exact', head: true })
+                .eq('user_id', userId)
+            
+            bookmarkCount.innerText = count || 0
+        }
+
+        async function loadGoals() {
+            try {
+                const goals = await fetchGoals()
+                if (goals.length === 0) {
+                    goalsList.innerHTML = `
+                        <div class="text-center py-6 border-2 border-dashed border-white/5 rounded-xl">
+                            <p class="text-xs text-gray-500 italic">No goals set yet.</p>
+                        </div>
+                    `
+                    return
+                }
+
+                goalsList.innerHTML = goals.map(goal => `
+                    <div class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 group hover:border-primary/30 transition-all ${goal.is_completed ? 'opacity-50' : ''}">
+                        <input type="checkbox" ${goal.is_completed ? 'checked' : ''} 
+                               onchange="window.updateGoal('${goal.id}', this.checked)"
+                               class="w-4 h-4 rounded border-white/10 bg-black text-primary focus:ring-primary focus:ring-offset-0">
+                        <div class="flex-1">
+                            <div class="text-sm font-bold ${goal.is_completed ? 'line-through text-gray-500' : 'text-white'}">${goal.title}</div>
+                            <div class="flex items-center gap-3 mt-1">
+                                <span class="text-[9px] font-black uppercase tracking-widest text-primary/60">${goal.subject || 'General'}</span>
+                                <span class="text-[9px] text-gray-500 uppercase tracking-widest">${goal.target_date ? new Date(goal.target_date).toLocaleDateString() : 'No date'}</span>
+                            </div>
+                        </div>
+                        <button onclick="window.removeGoal('${goal.id}')" class="text-gray-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+                    </div>
+                `).join('')
+            } catch (err) {
+                console.error('Error loading goals:', err)
+            }
+        }
+
+        window.updateGoal = async (id, status) => {
+            await toggleGoal(id, status)
+            await loadGoals()
+        }
+
+        window.removeGoal = async (id) => {
+            if (confirm('Delete this goal?')) {
+                await deleteGoal(id)
+                await loadGoals()
+            }
+        }
+
+        window.toggleModal = (id) => {
+            document.getElementById(id).classList.toggle('hidden')
+        }
+
+        const profileForm = document.getElementById('profile-form')
+        profileForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const user = await getCurrentUser()
+            if (!user) return
+
+            const saveBtn = document.getElementById('profile-save-btn')
+            const originalText = saveBtn.innerText
+            saveBtn.disabled = true
+            saveBtn.innerText = 'SAVING...'
+
+            const payload = {
+                full_name: document.getElementById('profile-name').value,
+                bio: document.getElementById('profile-bio').value,
+                avatar_url: document.getElementById('profile-avatar-url').value
+            }
+
+            const { error } = await supabase
+                .from('profiles')
+                .update(payload)
+                .eq('id', user.id)
+
+            if (error) {
+                alert(error.message)
+            } else {
+                alert('Profile updated!')
+                toggleModal('profile-modal')
+                // Refresh data
+                init()
+            }
+            saveBtn.disabled = false
+            saveBtn.innerText = originalText
+        })
+
+        addGoalBtn.addEventListener('click', () => {
+            goalForm.classList.toggle('hidden')
+        })
+
+        saveGoalBtn.addEventListener('click', async () => {
+            const title = document.getElementById('goal-input').value
+            const subject = document.getElementById('goal-subject').value
+            const target_date = document.getElementById('goal-date').value
+
+            if (!title) return
+
+            saveGoalBtn.disabled = true
+            saveGoalBtn.innerText = '...'
+
+            try {
+                await createGoal({ title, subject, target_date })
+                document.getElementById('goal-input').value = ''
+                goalForm.classList.add('hidden')
+                await loadGoals()
+            } catch (err) {
+                alert(err.message)
+            } finally {
+                saveGoalBtn.disabled = false
+                saveGoalBtn.innerText = 'Save'
+            }
+        })
+
+        logoutBtn.addEventListener('click', signOut)
+        init()
+    </script>
+</body>
+</html>

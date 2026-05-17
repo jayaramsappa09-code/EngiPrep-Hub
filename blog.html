@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EngiPrep Blog – Engineering Career Tips & JNTUK Updates</title>
+    <meta name="description" content="Stay updated with the latest engineering tips, career guidance, and JNTUK R23 academic updates on the EngiPrep Hub blog.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="bg-[#0a0a0f] text-white">
+    <!-- Navbar -->
+    <nav class="border-b border-white/5 bg-black/50 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="/index.html" class="font-black text-xl tracking-tight uppercase">EngiPrep <span class="text-primary italic">Hub</span></a>
+            <div class="hidden md:flex items-center gap-8 text-[10px] uppercase font-black tracking-widest text-gray-500">
+                <a href="/semester-1.html" class="hover:text-white">Semesters</a>
+                <a href="/videos.html" class="hover:text-white">Videos</a>
+                <a href="/tools.html" class="hover:text-white">Tools</a>
+                <a href="/blog.html" class="text-primary">Blog</a>
+            </div>
+            <a href="/dashboard.html" class="btn-primary py-2 px-6 text-xs uppercase tracking-widest font-black">My Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-20">
+        <header class="text-center mb-20 animate-fade">
+            <span class="text-[10px] text-primary font-black uppercase tracking-[0.3em] mb-4 inline-block">Engineering Culture</span>
+            <h1 class="text-6xl font-black tracking-tighter mb-6">The <span class="text-primary italic">EngiPrep</span> Blog</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">Latest updates on JNTUK curriculum, career advice for budding engineers, and platform news.</p>
+        </header>
+
+        <!-- AdSense Slot (Example) -->
+        <div class="w-full h-24 bg-white/5 border border-white/5 rounded-2xl mb-20 flex items-center justify-center text-gray-600 text-xs font-black uppercase tracking-widest">
+            Advertisement Slot
+        </div>
+
+        <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Skeleton items -->
+            <div class="glass-card p-4 animate-pulse">
+                <div class="w-full aspect-video bg-white/5 rounded-xl mb-6"></div>
+                <div class="h-4 w-1/4 bg-white/5 rounded mb-4"></div>
+                <div class="h-8 w-full bg-white/5 rounded mb-4"></div>
+                <div class="h-4 w-3/4 bg-white/5 rounded"></div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { supabase } from './src/supabase.js'
+
+        async function loadBlogPosts() {
+            const { data, error } = await supabase
+                .from('blog_posts')
+                .select('*')
+                .eq('is_published', true)
+                .order('created_at', { ascending: false })
+
+            const grid = document.getElementById('blog-grid')
+            
+            if (error || !data || data.length === 0) {
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-500 font-bold italic">No blog posts found. Check back soon!</div>'
+                return
+            }
+
+            grid.innerHTML = data.map(post => `
+                <article class="glass-card group cursor-pointer overflow-hidden p-4 hover:border-primary/40 transition-all">
+                    <a href="/blog-post.html?slug=${post.slug}">
+                        <div class="aspect-video bg-white/5 rounded-xl mb-6 overflow-hidden relative">
+                             <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60">
+                             <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent"></div>
+                        </div>
+                        <span class="text-[10px] text-primary font-black uppercase tracking-widest mb-3 inline-block">Academic Updates</span>
+                        <h2 class="text-xl font-bold leading-tight group-hover:text-primary transition-colors mb-3">${post.title}</h2>
+                        <p class="text-gray-500 text-sm line-clamp-2">${post.excerpt || 'Read the full article on EngiPrep Hub.'}</p>
+                        <div class="mt-6 flex items-center justify-between">
+                            <span class="text-[10px] text-gray-600 font-black uppercase tracking-widest">${new Date(post.created_at).toLocaleDateString()}</span>
+                            <span class="text-primary group-hover:translate-x-1 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </span>
+                        </div>
+                    </a>
+                </article>
+            `).join('')
+        }
+
+        loadBlogPosts()
+    </script>
+</body>
+</html>

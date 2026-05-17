@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Quiz - JNTUK R23 Self Assessment</title>
+    <meta name="description" content="Interactive multiple-choice quiz for JNTUK R23 subjects. Test your knowledge in C programming and Data Structures.">
+    <link rel="stylesheet" href="/src/index.css">
+</head>
+<body class="bg-slate-950">
+    <nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="/index.html" class="font-bold text-xl">EngHub <span class="text-blue-500">R23</span></a>
+            <div class="space-x-8 flex items-center">
+                <a href="/index.html" class="nav-link">Home</a>
+                <a href="/semester-1.html" class="nav-link">Semesters</a>
+                <a href="/quiz.html" class="nav-link text-white">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto px-4 pt-32 pb-20 min-h-screen">
+        <div id="quiz-container" class="glass-card p-10 animate-fadeIn">
+            <!-- Start Screen -->
+            <div id="quiz-start">
+                <div class="subject-pill bg-orange-500/20 text-orange-400">Knowledge Check</div>
+                <h1 class="text-4xl font-bold mb-6">Interactive <span class="neon-text">Subject Quiz</span></h1>
+                <p class="text-slate-400 text-lg mb-10">Select a topic to start your self-assessment. Each quiz has 5-10 questions to test your core understanding.</p>
+                
+                <div class="space-y-4">
+                    <button onclick="startQuiz('c')" class="w-full text-left p-6 bg-white/5 border border-white/5 hover:border-blue-500/50 rounded-2xl transition-all group flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Problem Solving with C</h3>
+                            <p class="text-sm text-slate-500">Syntax, Loops, Arrays, and Pointers</p>
+                        </div>
+                        <svg class="w-6 h-6 text-white/20 group-hover:text-blue-400 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
+                    
+                    <button onclick="startQuiz('ds')" class="w-full text-left p-6 bg-white/5 border border-white/5 hover:border-purple-500/50 rounded-2xl transition-all group flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Data Structures Basics</h3>
+                            <p class="text-sm text-slate-500">Stacks, Queues, Lists, and Trees</p>
+                        </div>
+                        <svg class="w-6 h-6 text-white/20 group-hover:text-purple-400 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
+
+                    <button onclick="startQuiz('maths')" class="w-full text-left p-6 bg-white/5 border border-white/5 hover:border-purple-500/50 rounded-2xl transition-all group flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Engineering Mathematics I</h3>
+                            <p class="text-sm text-slate-500">Matrices and Mean Value Theorems</p>
+                        </div>
+                        <svg class="w-6 h-6 text-white/20 group-hover:text-purple-400 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
+
+                    <button onclick="startQuiz('physics')" class="w-full text-left p-6 bg-white/5 border border-white/5 hover:border-orange-500/50 rounded-2xl transition-all group flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Engineering Physics</h3>
+                            <p class="text-sm text-slate-500">Wave Optics and Semiconductors</p>
+                        </div>
+                        <svg class="w-6 h-6 text-white/20 group-hover:text-orange-400 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
+
+                    <button onclick="startQuiz('chemistry')" class="w-full text-left p-6 bg-white/5 border border-white/5 hover:border-emerald-500/50 rounded-2xl transition-all group flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Engineering Chemistry</h3>
+                            <p class="text-sm text-slate-500">Structure & Bonding / Engineering Materials</p>
+                        </div>
+                        <svg class="w-6 h-6 text-white/20 group-hover:text-emerald-400 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-active" class="hidden">
+                <div class="flex items-center justify-between mb-8">
+                    <div id="quiz-topic" class="subject-pill">Topic Name</div>
+                    <div id="quiz-progress" class="text-xs font-mono text-white/40 uppercase tracking-widest">Question 1/5</div>
+                </div>
+                
+                <h2 id="quiz-question" class="text-2xl font-bold mb-8 leading-tight">Question text goes here?</h2>
+                
+                <div id="quiz-options" class="space-y-3 mb-10">
+                    <!-- Options injected by JS -->
+                </div>
+
+                <div id="quiz-feedback" class="hidden mb-10 p-4 rounded-xl border flex items-start gap-3 animate-fadeIn">
+                    <div id="feedback-icon" class="w-6 h-6 shrink-0 mt-1"></div>
+                    <div>
+                        <p id="feedback-text" class="text-sm font-medium mb-1"></p>
+                        <p id="feedback-desc" class="text-xs opacity-70"></p>
+                    </div>
+                </div>
+
+                <button id="next-btn" class="hidden w-full btn-primary">Next Question</button>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="quiz-results" class="hidden text-center py-10">
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-blue-500/10 rounded-full mb-8">
+                    <svg class="w-12 h-12 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                </div>
+                <h2 class="text-3xl font-bold mb-2">Quiz Completed!</h2>
+                <p class="text-slate-400 mb-8">Great job on finishing the self-assessment session.</p>
+                
+                <div class="flex items-center justify-center gap-12 mb-12">
+                    <div>
+                        <div id="final-score" class="text-5xl font-black neon-text">80%</div>
+                        <div class="text-[10px] uppercase tracking-widest text-white/30 mt-2">Overall Score</div>
+                    </div>
+                    <div class="w-px h-16 bg-white/10"></div>
+                    <div>
+                        <div id="correct-count" class="text-5xl font-black text-white/80">4/5</div>
+                        <div class="text-[10px] uppercase tracking-widest text-white/30 mt-2">Correct Answers</div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <button onclick="location.reload()" class="flex-1 px-6 py-3 border border-white/10 rounded-xl hover:bg-white/5 transition-all font-bold">Try Another Quiz</button>
+                    <a href="/index.html" class="flex-1 btn-primary">Back to Hub</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="/src/quiz.js"></script>
+</body>
+</html>

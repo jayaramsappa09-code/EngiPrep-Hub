@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Note – EngiPrep Hub</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        .content-body h1 { @apply text-3xl font-black mb-6 mt-10; }
+        .content-body h2 { @apply text-2xl font-bold mb-4 mt-8; }
+        .content-body p { @apply text-gray-300 leading-relaxed mb-6; }
+        .content-body ul { @apply list-disc list-inside mb-6 space-y-2 text-gray-400; }
+        .content-body code { @apply bg-white/5 px-1.5 py-0.5 rounded text-primary font-mono text-sm; }
+        .content-body pre { @apply bg-black/40 border border-white/5 p-6 rounded-2xl mb-8 overflow-x-auto; }
+        .content-body strong { @apply text-white font-bold; }
+    </style>
+</head>
+<body class="bg-[#0a0a0f] selection:bg-primary/30">
+    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-6">
+                <a href="/index.html" class="font-black text-lg">E</a>
+                <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
+                <div class="hidden sm:flex flex-col">
+                    <span id="nav-subject" class="text-[10px] text-gray-500 font-black uppercase tracking-widest">...</span>
+                    <span id="nav-title" class="text-xs font-bold text-white truncate max-w-[200px]">...</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="bookmark-btn" class="p-2 text-gray-500 hover:text-primary transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                </button>
+                <div class="w-px h-6 bg-white/10 mx-2"></div>
+                <button onclick="window.print()" class="text-xs font-bold text-gray-400 hover:text-white transition-all flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                    Print
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 pt-32 pb-40 min-h-screen">
+        <article class="animate-fade">
+            <div id="meta" class="mb-12 text-center">
+                <span id="note-type" class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-4 inline-block">...</span>
+                <h1 id="main-title" class="text-5xl font-black tracking-tighter mb-4">...</h1>
+                <div class="flex items-center justify-center gap-6 text-xs text-gray-500 font-bold">
+                    <span id="pub-date">...</span>
+                    <span>•</span>
+                    <span id="read-time">5 min read</span>
+                </div>
+            </div>
+
+            <div id="content" class="content-body">
+                <!-- Dynamic content injected here -->
+                <div class="flex flex-col gap-4">
+                    <div class="skeleton h-6 w-full"></div>
+                    <div class="skeleton h-6 w-3/4"></div>
+                    <div class="skeleton h-48 w-full mt-6"></div>
+                </div>
+            </div>
+
+            <div class="mt-20 pt-12 border-t border-white/5 flex flex-col items-center">
+                <h3 class="text-lg font-bold mb-6 italic text-gray-400">Did you find this helpful?</h3>
+                <div class="flex items-center gap-4">
+                    <button id="complete-btn" class="btn-primary flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Mark as Completed
+                    </button>
+                    <button id="set-goal-btn" class="btn-ghost flex items-center gap-2 border-white/10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Set as Goal
+                    </button>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <script type="module">
+        import { fetchNoteBySlug, updateProgress, toggleBookmark, createGoal } from './src/notes.js'
+        import { getCurrentUser } from './src/supabase.js'
+        import { logActivity } from './src/utils/analytics.js'
+
+        const params = new URLSearchParams(window.location.search)
+        const slug = params.get('slug')
+
+        async function init() {
+            if (!slug) return window.location.href = '/dashboard.html'
+            
+            try {
+                const note = await fetchNoteBySlug(slug)
+                const user = await getCurrentUser()
+
+                document.title = `${note.title} – EngiPrep Hub`
+                document.getElementById('nav-subject').innerText = note.subject
+                document.getElementById('nav-title').innerText = note.title
+                document.getElementById('note-type').innerText = note.type
+                document.getElementById('main-title').innerText = note.title
+                document.getElementById('pub-date').innerText = new Date(note.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+                document.getElementById('content').innerHTML = note.content
+
+                // Log View Activity
+                logActivity('view_note', { note_id: note.id, title: note.title })
+
+                // Handle completion
+                const completeBtn = document.getElementById('complete-btn')
+                completeBtn.addEventListener('click', async () => {
+                    if (!user) return alert('Login to save progress!')
+                    try {
+                        await updateProgress(user.id, note.id, true)
+                        completeBtn.innerText = 'Completed!'
+                        completeBtn.classList.add('bg-emerald-500')
+                        logActivity('complete_note', { note_id: note.id, title: note.title })
+                    } catch (err) { alert(err.message) }
+                })
+
+                // Handle bookmark
+                const bookmarkBtn = document.getElementById('bookmark-btn')
+                bookmarkBtn.addEventListener('click', async () => {
+                    if (!user) return alert('Login to bookmark!')
+                    try {
+                        const result = await toggleBookmark(user.id, note.id)
+                        if (result.status === 'added') {
+                            bookmarkBtn.classList.add('text-primary')
+                            logActivity('bookmark_added', { note_id: note.id, title: note.title })
+                        } else {
+                            bookmarkBtn.classList.remove('text-primary')
+                            logActivity('bookmark_removed', { note_id: note.id, title: note.title })
+                        }
+                    } catch (err) { alert(err.message) }
+                })
+
+                // Handle Goal
+                const setGoalBtn = document.getElementById('set-goal-btn')
+                setGoalBtn.addEventListener('click', async () => {
+                    if (!user) return alert('Login to set goals!')
+                    try {
+                        await createGoal({
+                            title: `Master ${note.title}`,
+                            subject: note.subject,
+                            target_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] // 1 week from now
+                        })
+                        setGoalBtn.innerText = 'Goal Set!'
+                        setGoalBtn.disabled = true
+                    } catch (err) { alert(err.message) }
+                })
+
+            } catch (err) {
+                console.error(err)
+                document.getElementById('content').innerHTML = `
+                    <div class="text-center py-20 text-red-400">
+                        Error loading note. It might be unpublished or removed.
+                    </div>
+                `
+            }
+        }
+
+        init()
+    </script>
+</body>
+</html>

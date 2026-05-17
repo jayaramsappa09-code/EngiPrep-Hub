@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookmarks – EngiPrep Hub</title>
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="bg-[#0a0a0f]">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+                    <span class="font-black text-xl">E</span>
+                </div>
+                <span class="text-xl font-black tracking-tighter uppercase">EngiPrep <span class="text-primary italic">Hub</span></span>
+            </a>
+            
+            <div id="nav-actions" class="flex items-center gap-4">
+                <div class="skeleton w-20 h-8 opacity-20"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 pt-32 pb-20">
+        <header class="mb-12">
+            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tighter">Your <span class="text-primary">Library</span></h1>
+            <p class="text-gray-400">Quick access to the topics you've saved for revision.</p>
+        </header>
+
+        <div id="bookmarks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Loading State -->
+            <div class="animate-pulse bg-white/5 h-48 rounded-3xl"></div>
+            <div class="animate-pulse bg-white/5 h-48 rounded-3xl"></div>
+            <div class="animate-pulse bg-white/5 h-48 rounded-3xl"></div>
+        </div>
+
+        <div id="empty-state" class="hidden text-center py-20 bg-white/5 rounded-3xl border border-dashed border-white/10">
+            <div class="text-4xl mb-4">📚</div>
+            <h3 class="text-xl font-bold mb-2">No bookmarks yet</h3>
+            <p class="text-gray-500 mb-8">Save important topics to find them quickly later.</p>
+            <a href="/semester-1.html" class="btn-primary">Explore Subjects</a>
+        </div>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/config-check.js"></script>
+    <script type="module">
+        import { supabase, getCurrentUser } from './src/supabase.js'
+        import { getBookmarks, removeBookmark } from './src/notes.js'
+
+        async function init() {
+            const user = await getCurrentUser()
+            if (!user) {
+                window.location.href = '/auth.html'
+                return
+            }
+
+            loadBookmarks()
+        }
+
+        async function loadBookmarks() {
+            const container = document.getElementById('bookmarks-container')
+            const emptyState = document.getElementById('empty-state')
+            
+            try {
+                const bookmarks = await getBookmarks()
+                
+                if (!bookmarks || bookmarks.length === 0) {
+                    container.innerHTML = ''
+                    emptyState.classList.remove('hidden')
+                    return
+                }
+
+                emptyState.classList.add('hidden')
+                container.innerHTML = bookmarks.map(bm => {
+                    const note = bm.notes
+                    if (!note) return ''; // Handle case where note might be missing
+                    return `
+                        <div class="glass-card p-6 flex flex-col justify-between group h-full" id="bm-${bm.id}">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="text-[10px] font-black uppercase tracking-widest text-primary px-2 py-0.5 bg-primary/10 rounded border border-primary/20">
+                                        ${note.subject}
+                                    </span>
+                                    <button onclick="window.unbookmark('${bm.id}', '${note.id}')" class="text-gray-500 hover:text-red-500 transition-colors">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                                    </button>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">${note.title}</h3>
+                                <p class="text-gray-500 text-sm mb-6 line-clamp-2">${(note.content || '').replace(/<[^>]*>/g, '')}</p>
+                            </div>
+                            <a href="/note-viewer.html?slug=${note.slug}" class="btn-ghost text-xs py-2 w-full text-center">Open Note</a>
+                        </div>
+                    `
+                }).join('')
+
+                window.unbookmark = async (bookmarkId, noteId) => {
+                    const success = await removeBookmark(noteId)
+                    if (success) {
+                        const el = document.getElementById(`bm-${bookmarkId}`)
+                        el.style.opacity = '0'
+                        el.style.transform = 'scale(0.9)'
+                        setTimeout(() => {
+                            el.remove()
+                            if (container.children.length === 0) {
+                                emptyState.classList.remove('hidden')
+                            }
+                        }, 300)
+                    }
+                }
+
+            } catch (error) {
+                console.error(error)
+                container.innerHTML = '<p class="text-red-500">Failed to load bookmarks.</p>'
+            }
+        }
+
+        init()
+    </script>
+</body>
+</html>
