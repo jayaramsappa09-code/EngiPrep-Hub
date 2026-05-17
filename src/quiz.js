@@ -142,6 +142,48 @@ window.startQuiz = (topic) => {
     showQuestion();
 };
 
+window.startAIQuiz = async () => {
+    const topic = document.getElementById('custom-topic').value.trim();
+    if (!topic) return alert('Please enter a topic for the AI to generate questions.');
+
+    const btn = document.getElementById('ai-quiz-btn');
+    btn.disabled = true;
+    btn.innerText = 'Crafting...';
+
+    try {
+        const res = await fetch('/api/ai/quiz', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ topic })
+        });
+        const data = await res.json();
+        
+        if (data.error) throw new Error(data.error);
+
+        // Map AI format to quiz app format
+        currentQuiz = data.quiz.map(q => ({
+            q: q.question,
+            options: q.options,
+            correct: q.options.indexOf(q.answer),
+            desc: q.explanation
+        }));
+
+        currentQuestionIndex = 0;
+        score = 0;
+        
+        document.getElementById('quiz-start').classList.add('hidden');
+        document.getElementById('quiz-active').classList.remove('hidden');
+        document.getElementById('quiz-topic').innerText = topic;
+        
+        showQuestion();
+    } catch (err) {
+        alert('AI Professor is currently unavailable: ' + err.message);
+    } finally {
+        btn.disabled = false;
+        btn.innerText = 'Generate';
+    }
+};
+
 function showQuestion() {
     answered = false;
     const qData = currentQuiz[currentQuestionIndex];

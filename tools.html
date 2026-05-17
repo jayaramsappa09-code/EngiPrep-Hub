@@ -92,7 +92,7 @@
             </div>
 
             <!-- Smart Note Summarizer -->
-            <div class="glass-card p-10 group hover:border-purple-500/30 transition-all col-span-1 md:col-span-2 lg:col-span-1">
+            <div class="glass-card p-10 group hover:border-purple-500/30 transition-all">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
@@ -114,6 +114,28 @@
                             <div id="summary-output" class="text-sm font-medium text-gray-300 space-y-2 prose prose-invert prose-sm">
                                 <!-- AI Content -->
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Quiz Generator -->
+            <div class="glass-card p-10 group hover:border-orange-500/30 transition-all">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-orange-500/20 rounded-2xl flex items-center justify-center text-orange-400 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    </div>
+                    <h2 class="text-2xl font-black italic">Quiz <span class="text-orange-400">Master</span></h2>
+                </div>
+
+                <div class="space-y-6">
+                    <input type="text" id="quiz-topic" placeholder="Enter topic (e.g. Thermodynamics, Python Arrays)" class="w-full bg-black/40 border border-white/5 rounded-xl px-6 py-4 text-sm font-bold focus:border-orange-500/50 outline-none transition-all">
+                    
+                    <button id="quiz-gen-btn" class="w-full py-4 bg-orange-600/20 hover:bg-orange-600/30 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-2xl border border-orange-500/20 transition-all">Generate Quick Quiz</button>
+
+                    <div id="quiz-output-container" class="hidden">
+                        <div id="quiz-questions" class="space-y-6 mt-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                            <!-- Questions go here -->
                         </div>
                     </div>
                 </div>
@@ -321,6 +343,77 @@
                 setTimeout(() => btn.innerText = 'Copy', 2000);
             });
         }
+
+        // Quiz Generator Logic
+        const quizGenBtn = document.getElementById('quiz-gen-btn');
+        const quizTopic = document.getElementById('quiz-topic');
+        const quizQuestions = document.getElementById('quiz-questions');
+        const quizOutputContainer = document.getElementById('quiz-output-container');
+
+        async function generateQuiz() {
+            const topic = quizTopic.value.trim();
+            if (!topic) return alert('Please enter a topic for the quiz.');
+
+            quizGenBtn.disabled = true;
+            quizGenBtn.innerText = 'Generating Quest...';
+            quizOutputContainer.classList.remove('hidden');
+            quizQuestions.innerHTML = '<div class="space-y-4 animate-pulse"><div class="h-4 bg-orange-500/10 rounded w-3/4"></div><div class="h-24 bg-orange-500/5 rounded"></div><div class="h-4 bg-orange-500/10 rounded w-1/2"></div></div>';
+
+            try {
+                const res = await fetch('/api/ai/quiz', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topic })
+                });
+
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+
+                const quiz = data.quiz;
+                quizQuestions.innerHTML = quiz.map((q, i) => `
+                    <div class="bg-black/40 border border-white/5 p-6 rounded-2xl group/q hover:border-orange-500/20 transition-all">
+                        <div class="text-[10px] font-black uppercase text-orange-400/50 mb-2">Question ${i + 1}</div>
+                        <div class="font-bold text-white mb-4 leading-relaxed">${q.question}</div>
+                        <div class="grid gap-2">
+                            ${q.options.map(opt => `
+                                <button onclick="checkAnswer(this, '${opt === q.answer}')" class="text-left px-4 py-3 bg-white/5 border border-white/5 rounded-xl text-xs font-medium hover:bg-white/10 transition-all">
+                                    ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div class="explanation-box hidden mt-4 p-4 bg-orange-500/5 border border-orange-500/10 rounded-xl">
+                            <div class="text-[9px] font-black uppercase text-orange-400 mb-1">Explanation</div>
+                            <div class="text-xs text-gray-400 leading-relaxed">${q.explanation}</div>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (err) {
+                quizQuestions.innerHTML = `<div class="text-rose-500 text-sm font-bold">Error: ${err.message}</div>`;
+            } finally {
+                quizGenBtn.disabled = false;
+                quizGenBtn.innerText = 'Generate Quick Quiz';
+            }
+        }
+
+        window.checkAnswer = function(btn, isCorrect) {
+            const parent = btn.parentElement;
+            const card = parent.parentElement;
+            const explanation = card.querySelector('.explanation-box');
+            
+            // Disable all buttons in this question
+            parent.querySelectorAll('button').forEach(b => {
+                b.disabled = true;
+                if (b.innerText.trim() === btn.innerText.trim()) {
+                    b.classList.add(isCorrect === 'true' ? 'bg-emerald-500/20' : 'bg-rose-500/20');
+                    b.classList.add(isCorrect === 'true' ? 'border-emerald-500/30' : 'border-rose-500/30');
+                }
+            });
+
+            explanation.classList.remove('hidden');
+        }
+
+        quizGenBtn.addEventListener('click', generateQuiz);
     </script>
 </body>
 </html>
