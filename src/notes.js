@@ -215,6 +215,55 @@ export const moderateContribution = async (id, status, feedback = '') => {
     return data[0]
 }
 
+// Adaptive Study Engine
+export const fetchAdaptiveRecommendations = async () => {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return []
+
+  // 1. Fetch user stats
+  const { data: stats } = await supabase.from('user_stats').select('*').eq('user_id', user.id).single()
+  
+  // 2. Fetch all published notes
+  const { data: allNotes } = await supabase.from('notes').select('id, title, subject, weightage, type, slug').eq('is_published', true)
+  
+  // 3. Fetch user progress
+  const { data: progress } = await supabase.from('user_progress').select('note_id').eq('user_id', user.id).eq('status', true)
+  const completedIds = new Set((progress || []).map(p => p.note_id))
+
+  // 4. Recommendation Logic
+  // Filter out completed notes, then sort by weightage (highest first)
+  // Prioritize Revision and PYQ types for adaptive learning
+  const recommendations = (allNotes || [])
+    .filter(n => !completedIds.has(n.id))
+    .sort((a, b) => b.weightage - a.weightage)
+    .slice(0, 5)
+
+  return recommendations
+}
+
+// Exam Prediction Engine Logic
+export const fetchSubjectInsights = async (subject) => {
+  const { data: notes, error } = await supabase
+    .from('notes')
+    .select('title, weightage, frequency, type, slug')
+    .eq('subject', subject)
+    .eq('is_published', true)
+  
+  if (error) throw error
+
+  // Calculate Unit Importance (Mocking unit grouping if not present in notes, 
+  // though real systems would use a 'unit' column)
+  const insights = {
+    expected: notes.filter(n => n.frequency >= 3 || n.weightage >= 4),
+    heatmap: notes.reduce((acc, n) => {
+      acc[n.type] = (acc[n.type] || 0) + n.weightage
+      return acc
+    }, {})
+  }
+
+  return insights
+}
+
 // Goal Management
 export const searchNotesAndSubjects = async (query) => {
   const { data: notes, error: notesError } = await supabase

@@ -58,6 +58,25 @@
 
             <!-- PYQ Intelligence Sidebar -->
             <aside class="space-y-6">
+                <!-- Smart Prediction Engine -->
+                <div class="glass-card p-6 border-amber-500/20 bg-amber-500/[0.02]">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-sm font-black italic tracking-tight"><span class="text-amber-500">Smart</span> Prediction</h3>
+                        <div class="px-2 py-0.5 bg-amber-500/20 text-amber-500 text-[8px] font-black rounded uppercase">Most Expected</div>
+                    </div>
+                    <div id="smart-predictions" class="space-y-4">
+                        <div class="skeleton h-12 w-full rounded-xl opacity-20"></div>
+                    </div>
+                </div>
+
+                <!-- Unit Importance Heatmap -->
+                <div class="glass-card p-6 border-white/5">
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-6">Type Density Heatmap</h3>
+                    <div id="heatmap-container" class="space-y-3">
+                        <!-- Dynamic bars -->
+                    </div>
+                </div>
+
                 <div class="glass-card p-6 border-blue-500/10">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-sm font-black italic tracking-tight"><span class="text-blue-500">PYQ</span> Weightage</h3>
@@ -87,7 +106,7 @@
     </main>
 
     <script type="module">
-        import { fetchNotesBySubject, fetchPYQAnalytics, fetchRevisionNotes } from './src/notes.js'
+        import { fetchNotesBySubject, fetchPYQAnalytics, fetchRevisionNotes, fetchSubjectInsights } from './src/notes.js'
         import { supabase } from './src/supabase.js'
         
         const params = new URLSearchParams(window.location.search)
@@ -102,17 +121,53 @@
         async function loadContent() {
             try {
                 // Parallel load
-                const [notes, pyqs] = await Promise.all([
+                const [notes, pyqs, insights] = await Promise.all([
                     fetchNotesBySubject(subject),
-                    fetchPYQAnalytics(subject)
+                    fetchPYQAnalytics(subject),
+                    fetchSubjectInsights(subject)
                 ])
 
                 currentNotes = notes
                 renderGrid()
                 renderAnalytics(pyqs)
+                renderInsights(insights)
             } catch (err) {
                 console.error(err)
             }
+        }
+
+        function renderInsights(insights) {
+            const predContainer = document.getElementById('smart-predictions')
+            const heatmapContainer = document.getElementById('heatmap-container')
+
+            // Predicted Questions
+            if (insights.expected.length === 0) {
+                predContainer.innerHTML = '<p class="text-[10px] text-gray-600 italic">Not enough data for predictions.</p>'
+            } else {
+                predContainer.innerHTML = insights.expected.slice(0, 3).map(n => `
+                    <a href="/note-viewer.html?slug=${n.slug}" class="block group">
+                        <div class="text-[10px] font-bold text-white group-hover:text-amber-500 transition-colors truncate">${n.title}</div>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-[8px] text-gray-500 uppercase font-black tracking-tight">${n.type}</span>
+                            <span class="text-[8px] text-emerald-500 font-bold uppercase">${Math.round((n.weightage + n.frequency)/10 * 100)}% Match</span>
+                        </div>
+                    </a>
+                `).join('')
+            }
+
+            // Heatmap
+            const totalWeight = Object.values(insights.heatmap).reduce((a, b) => a + b, 0)
+            heatmapContainer.innerHTML = Object.entries(insights.heatmap).map(([type, weight]) => `
+                <div class="space-y-1">
+                    <div class="flex justify-between text-[8px] uppercase font-black tracking-widest text-gray-400">
+                        <span>${type}</span>
+                        <span>${Math.round((weight/totalWeight)*100)}%</span>
+                    </div>
+                    <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary" style="width: ${(weight/totalWeight)*100}%"></div>
+                    </div>
+                </div>
+            `).join('')
         }
 
         function renderAnalytics(pyqs) {

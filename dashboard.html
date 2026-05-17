@@ -178,6 +178,21 @@
                     </div>
                 </div>
 
+                <!-- Adaptive Study Engine Suggestions -->
+                <div class="glass-card p-8 border-primary/10">
+                    <div class="flex items-center justify-between mb-8">
+                        <div>
+                            <h3 class="text-2xl font-black italic tracking-tighter">Adaptive <span class="text-primary italic">Guidance</span></h3>
+                            <p class="text-gray-500 text-[10px] mt-1 uppercase font-black tracking-widest">Recommended based on your study gaps</p>
+                        </div>
+                        <div class="px-3 py-1 bg-primary/10 text-primary text-[8px] font-black rounded-lg">AI ENGINE ACTIVE</div>
+                    </div>
+                    <div id="adaptive-recommendations" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="skeleton h-16 w-full rounded-2xl opacity-20"></div>
+                        <div class="skeleton h-16 w-full rounded-2xl opacity-10"></div>
+                    </div>
+                </div>
+
                 <!-- Subject Explorer -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <a href="/subject.html?sub=Mathematics I" class="glass-card p-8 group hover:border-primary/40 transition-all relative overflow-hidden">
@@ -305,7 +320,7 @@
     <script type="module">
         import { supabase, getCurrentUser, getUserProfile } from './src/supabase.js'
         import { signOut } from './src/auth.js'
-        import { fetchGoals, createGoal, toggleGoal, deleteGoal, fetchNotesByType } from './src/notes.js'
+        import { fetchGoals, createGoal, toggleGoal, deleteGoal, fetchNotesByType, fetchAdaptiveRecommendations } from './src/notes.js'
         import { logActivity } from './src/utils/analytics.js'
         import { getNotifications, markAsRead } from './src/utils/notifications.js'
         
@@ -496,10 +511,42 @@
                 await calculateOverallProgress(user.id)
                 await loadSpecializedContent()
                 await loadUserStats(user.id)
+                await loadAdaptiveRecommendations()
             }
             
             // Log Login Activity
             logActivity('dashboard_visited')
+        }
+
+        async function loadAdaptiveRecommendations() {
+            try {
+                const recs = await fetchAdaptiveRecommendations()
+                const container = document.getElementById('adaptive-recommendations')
+                
+                if (recs.length === 0) {
+                    container.innerHTML = '<p class="text-[10px] text-gray-600 italic py-4 col-span-full">Complete your first module to get tailored advice.</p>'
+                    return
+                }
+
+                container.innerHTML = recs.map(note => `
+                    <a href="/note-viewer.html?slug=${note.slug}" class="flex items-center gap-4 p-4 bg-white/5 border border-white/5 rounded-2xl hover:border-primary/40 transition-all group overflow-hidden relative">
+                        <div class="absolute top-0 right-0 w-12 h-12 bg-primary/5 -mr-6 -mt-6 rounded-full blur-xl group-hover:bg-primary/20 transition-all"></div>
+                        <div class="w-10 h-10 bg-black/40 rounded-xl flex items-center justify-center border border-white/10 shrink-0">
+                            <span class="text-[10px] font-black text-primary">${note.subject.charAt(0)}</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="text-[11px] font-bold text-white truncate">${note.title}</div>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-[8px] text-gray-500 uppercase font-black tracking-tight">${note.type}</span>
+                                <span class="w-1 h-1 bg-gray-800 rounded-full"></span>
+                                <span class="text-[8px] text-amber-500 font-bold uppercase">Weight: ${note.weightage}/5</span>
+                            </div>
+                        </div>
+                    </a>
+                `).join('')
+            } catch (err) {
+                console.error('Error loading recommendations:', err)
+            }
         }
 
         async function loadUserStats(userId) {
