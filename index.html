@@ -71,11 +71,11 @@
     <section class="py-20 border-y border-white/5 bg-white/[0.01]">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
             <div class="text-center">
-                <div class="text-4xl font-black text-white mb-2">15k+</div>
+                <div class="text-4xl font-black text-white mb-2" id="stat-students">15k+</div>
                 <div class="text-sm text-gray-500 uppercase tracking-widest font-bold">Total Students</div>
             </div>
             <div class="text-center">
-                <div class="text-4xl font-black text-white mb-2">200+</div>
+                <div class="text-4xl font-black text-white mb-2" id="stat-notes">200+</div>
                 <div class="text-sm text-gray-500 uppercase tracking-widest font-bold">Premium Notes</div>
             </div>
             <div class="text-center">
@@ -85,6 +85,26 @@
             <div class="text-center">
                 <div class="text-4xl font-black text-white mb-2">98%</div>
                 <div class="text-sm text-gray-500 uppercase tracking-widest font-bold">Pass Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Archive -->
+    <section class="py-32 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between mb-16">
+                <div>
+                    <h2 class="text-4xl font-black tracking-tight mb-2">Recent <span class="text-primary italic">Archive</span></h2>
+                    <p class="text-gray-500 text-sm">Newly added resources from our verified academic team.</p>
+                </div>
+                <a href="/semester-1.html" class="text-xs font-black uppercase tracking-widest text-primary hover:tracking-[0.2em] transition-all">Explore All →</a>
+            </div>
+            
+            <div id="recent-grid" class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="skeleton h-60 w-full rounded-2xl opacity-10"></div>
+                <div class="skeleton h-60 w-full rounded-2xl opacity-10"></div>
+                <div class="skeleton h-60 w-full rounded-2xl opacity-10"></div>
+                <div class="skeleton h-60 w-full rounded-2xl opacity-10"></div>
             </div>
         </div>
     </section>
@@ -136,6 +156,39 @@
     <footer class="py-20 border-t border-white/5 px-4 text-center">
         <p class="text-gray-500 text-sm">© 2026 EngiPrep Hub. Built for JNTUK R23 Engineering Students.</p>
     </footer>
+
+    <script type="module">
+        import { fetchAllNotes } from './src/notes.js'
+        import { supabase } from './src/supabase.js'
+
+        // Recent Archive Logic
+        async function loadRecent() {
+            try {
+                const notes = await fetchAllNotes()
+                const grid = document.getElementById('recent-grid')
+                
+                grid.innerHTML = notes.slice(0, 4).map(note => `
+                    <a href="/note-viewer.html?slug=${note.slug}" class="glass-card p-6 flex flex-col group hover:translate-y-[-4px] transition-all">
+                        <div class="text-[10px] text-primary font-black uppercase tracking-widest mb-4 flex items-center justify-between">
+                            <span>${note.type}</span>
+                            <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-4 flex-1 group-hover:text-primary transition-colors">${note.title}</h3>
+                        <div class="text-[10px] text-gray-500 uppercase font-black tracking-tighter">${note.subject}</div>
+                    </a>
+                `).join('')
+
+                // Update Stats (Dynamic but hardcoded to look "real")
+                const { count: notesCount } = await supabase.from('notes').select('*', { count: 'exact', head: true })
+                document.getElementById('stat-notes').innerText = `${notesCount}+`
+                
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
+        loadRecent()
+    </script>
 
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/config-check.js"></script>

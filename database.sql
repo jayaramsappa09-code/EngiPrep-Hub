@@ -11,7 +11,9 @@ create table if not exists notes (
   subject text not null,
   semester int not null,
   content text,
-  type text check (type in ('notes', 'cheat-sheet', 'program', 'question')) default 'notes',
+  type text check (type in ('notes', 'cheat-sheet', 'program', 'question', 'PYQ', 'Revision')) default 'notes',
+  weightage int default 3, -- 1-5 scale of importance
+  frequency int default 1, -- how many times appeared in exams
   is_published boolean default true,
   created_at timestamp with time zone default now(),
   updated_at timestamp with time zone default now()
@@ -154,6 +156,100 @@ create table if not exists notifications (
 alter table notifications enable row level security;
 create policy "Users can manage own notifications" on notifications for all using (auth.uid() = user_id);
 
+-- 11. User Stats (Mental Memory System)
+create table if not exists user_stats (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  streak_count int default 0,
+  last_active_at timestamp with time zone default now(),
+  total_study_minutes int default 0,
+  weak_subjects text[] default '{}',
+  completed_pyqs uuid[] default '{}',
+  reputation_points int default 0,
+  contribution_count int default 0
+);
+
+-- 12. Community Contribution System
+create type contribution_status as enum ('pending', 'approved', 'rejected');
+
+create table if not exists contributions (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid references auth.users(id) on delete cascade,
+  title text not null,
+  description text,
+  subject text not null,
+  semester int not null,
+  unit int,
+  content_type text not null,
+  file_url text not null,
+  file_type text,
+  status contribution_status default 'pending',
+  admin_feedback text,
+  tags text[] default '{}',
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now()
+);
+
+-- RLS for Contributions
+alter table contributions enable row level security;
+
+create policy "Users can view own contributions" 
+  on contributions for select 
+  using (auth.uid() = user_id);
+
+create policy "Users can submit contributions" 
+  on contributions for insert 
+  with check (auth.uid() = user_id);
+
+create policy "Admins can manage all contributions"
+  on contributions for all
+  using (
+    exists (
+      select 1 from public.profiles
+      where id = auth.uid() and role = 'admin'
+    )
+  );
+
+-- Trigger to sync approved contributions to notes
+create or replace function handle_contribution_approval()
+returns trigger as $$
+begin
+  if (new.status = 'approved' and old.status = 'pending') then
+    -- Convert contribution to a public note
+    insert into public.notes (
+      title, 
+      slug, 
+      subject, 
+      semester, 
+      content, 
+      type,
+      is_published
+    ) values (
+      new.title,
+      lower(replace(new.title, ' ', '-')) || '-' || floor(random()*1000),
+      new.subject,
+      new.semester,
+      '<h2>Description</h2><p>' || new.description || '</p><br><a href="' || new.file_url || '" class="btn-primary" target="_blank">Download Resource</a>',
+      lower(new.content_type),
+      true
+    );
+
+    -- Reward the contributor
+    update public.user_stats 
+    set reputation_points = reputation_points + 50,
+        contribution_count = contribution_count + 1
+    where user_id = new.user_id;
+
+  end if;
+  return new;
+end;
+$$ language plpgsql;
+
+create trigger on_contribution_approved
+  after update on contributions
+  for each row
+  when (new.status = 'approved')
+  execute function handle_contribution_approval();
+
 -- 9. INITIAL DATA SEEDING
 -- (Note: Only running if empty or on conflict ignore)
 
@@ -170,6 +266,31 @@ VALUES
 ('Ecosystems & Biodiversity', 'env-biodiversity', 'Environmental Science', 2, 'notes', '<h1>Environmental Studies</h1><p>Classification of ecosystems, food chains, and conservation of biodiversity.</p>')
 ON CONFLICT (slug) DO NOTHING;
 
--- How to promote a user to admin:
+-- 10. Subjects Table
+create table if not exists subjects (
+  id uuid primary key default uuid_generate_v4(),
+  title text unique not null,
+  code text not null,
+  semester int not null,
+  description text,
+  color text default 'blue',
+  created_at timestamp with time zone default now()
+);
+
+alter table subjects enable row level security;
+create policy "Public read access for subjects" on subjects for select using (true);
+
+-- Seed Subjects
+INSERT INTO public.subjects (title, code, semester, description, color)
+VALUES
+('Engineering Mathematics I', 'M1', 1, 'Matrices, Sequences, and Calculus.', 'blue'),
+('Engineering Physics', 'PH', 1, 'Optics, Semiconductors, and Lasers.', 'purple'),
+('C Programming', 'C', 1, 'Problem solving and logic in C.', 'emerald'),
+('English Communication Skills', 'EN', 1, 'Professional technical English.', 'rose'),
+('Engineering Mathematics II', 'M2', 2, 'ODEs and Integral Calculus.', 'blue'),
+('Engineering Chemistry', 'CH', 2, 'Materials and Water technology.', 'amber'),
+('Data Structures Basics', 'DS', 2, 'Advanced arrays, stacks, and queues.', 'indigo'),
+('Environmental Science', 'ES', 2, 'Eco studies and social issues.', 'rose')
+ON CONFLICT (title) DO NOTHING;
 -- 1. Get the user_id from the user list in Supabase Auth
 -- 2. Run: UPDATE public.profiles SET role = 'admin' WHERE id = 'USER_ID_HERE';

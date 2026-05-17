@@ -70,3 +70,46 @@ body {
 .skeleton {
   @apply bg-white/5 animate-pulse rounded;
 }
+
+/* Premium Reading Layers */
+.prose-premium {
+  @apply text-lg leading-relaxed text-gray-300;
+}
+
+.prose-premium h1, .prose-premium h2, .prose-premium h3 {
+  @apply text-white font-black tracking-tighter italic mb-6 mt-12;
+}
+
+.prose-premium p {
+  @apply mb-8;
+}
+
+.prose-premium code {
+  @apply bg-white/5 px-2 py-1 rounded-lg text-primary font-mono text-sm border border-white/5;
+}
+
+/* Mobile Reading Optimizations */
+@media (max-width: 640px) {
+  .prose-premium {
+    @apply text-base leading-loose;
+  }
+  
+  .glass-card {
+    @apply p-5 rounded-3xl;
+  }
+  
+  h1 {
+    @apply text-3xl font-black;
+  }
+}
+
+/* Scrollbar Style */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-primary/50 transition-all;
+}

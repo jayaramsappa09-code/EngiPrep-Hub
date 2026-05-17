@@ -161,41 +161,70 @@ async function initSearch() {
     const searchResults = document.getElementById('search-results');
     
     if (searchInput && searchResults) {
-        searchInput.addEventListener('input', async (e) => {
-            const query = e.target.value.toLowerCase();
+        let searchTimeout;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout)
+            const query = e.target.value.trim()
+            
             if (query.length < 2) {
-                searchResults.classList.add('hidden');
-                return;
+                searchResults.classList.add('hidden')
+                return
             }
 
-            // Fetch from database
-            const { data: notes } = await supabase
-                .from('notes')
-                .select('title, slug, subject')
-                .ilike('title', `%${query}%`)
-                .limit(5);
-
-            const results = notes || [];
-
-            if (results.length > 0) {
-                searchResults.innerHTML = results.map(item => `
-                    <a href="/note-viewer.html?slug=${item.slug}" class="block p-4 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0 border-l-2 border-l-transparent hover:border-l-primary">
-                        <div class="text-sm font-bold text-white">${item.title}</div>
-                        <div class="text-[10px] text-gray-500 uppercase tracking-widest">${item.subject}</div>
-                    </a>
-                `).join('');
-                searchResults.classList.remove('hidden');
-            } else {
-                searchResults.innerHTML = '<div class="p-4 text-gray-500 text-xs italic">No matching notes found</div>';
-                searchResults.classList.remove('hidden');
-            }
-        });
+            searchTimeout = setTimeout(async () => {
+                try {
+                    // Manual fetch for now to avoid circular deps if needed, 
+                    // or just use common logic
+                    const { data: notes } = await supabase
+                        .from('notes')
+                        .select('title, slug, subject, type')
+                        .ilike('title', `%${query}%`)
+                        .limit(5)
+                    
+                    const { data: subjects } = await supabase
+                        .from('subjects')
+                        .select('title, code')
+                        .ilike('title', `%${query}%`)
+                        .limit(3)
+                    
+                    if ((!notes || notes.length === 0) && (!subjects || subjects.length === 0)) {
+                        searchResults.innerHTML = '<div class="p-6 text-center text-gray-500 text-sm italic">No resources found. Try another keyword.</div>'
+                    } else {
+                        searchResults.innerHTML = `
+                            ${(subjects || []).map(s => `
+                                <a href="/subject.html?sub=${encodeURIComponent(s.title)}" class="flex items-center gap-4 p-4 hover:bg-white/5 border-b border-white/5 transition-all group">
+                                    <div class="w-10 h-10 bg-primary/10 text-primary rounded-lg flex items-center justify-center font-black text-xs group-hover:scale-110 transition-transform">${s.code}</div>
+                                    <div>
+                                        <div class="text-sm font-bold text-white">${s.title}</div>
+                                        <div class="text-[10px] text-gray-500 uppercase font-black">Subject Archive</div>
+                                    </div>
+                                </a>
+                            `).join('')}
+                            ${(notes || []).map(n => `
+                                <a href="/note-viewer.html?slug=${n.slug}" class="flex items-center gap-4 p-4 hover:bg-white/5 border-b border-white/5 last:border-0 transition-all group">
+                                    <div class="w-10 h-10 bg-white/5 text-gray-500 rounded-lg flex items-center justify-center text-xs group-hover:text-primary transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-bold text-white">${n.title}</div>
+                                        <div class="text-[10px] text-gray-500 uppercase font-black tracking-tight">${n.subject} • ${n.type}</div>
+                                    </div>
+                                </a>
+                            `).join('')}
+                        `
+                    }
+                    searchResults.classList.remove('hidden')
+                } catch (e) { 
+                    console.error('Search failed:', e) 
+                }
+            }, 300)
+        })
 
         document.addEventListener('click', (e) => {
             if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-                searchResults.classList.add('hidden');
+                searchResults.classList.add('hidden')
             }
-        });
+        })
     }
 }
 

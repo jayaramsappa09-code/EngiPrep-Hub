@@ -7,79 +7,191 @@
     <link rel="stylesheet" href="/src/style.css">
     <style>
         @reference "./src/style.css";
-        .content-body h1 { @apply text-3xl font-black mb-6 mt-10; }
-        .content-body h2 { @apply text-2xl font-bold mb-4 mt-8; }
-        .content-body p { @apply text-gray-300 leading-relaxed mb-6; }
-        .content-body ul { @apply list-disc list-inside mb-6 space-y-2 text-gray-400; }
-        .content-body code { @apply bg-white/5 px-1.5 py-0.5 rounded text-primary font-mono text-sm; }
-        .content-body pre { @apply bg-black/40 border border-white/5 p-6 rounded-2xl mb-8 overflow-x-auto; }
-        .content-body strong { @apply text-white font-bold; }
+        
+        /* Premium Typography Layer */
+        .content-body {
+            @apply text-[17px] leading-[1.8] text-gray-300 antialiased;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .content-body h1 { @apply text-4xl font-black mb-8 mt-16 text-white tracking-tighter leading-tight; }
+        .content-body h2 { @apply text-2xl font-bold mb-6 mt-12 text-white border-b border-white/5 pb-2; }
+        .content-body h3 { @apply text-xl font-bold mb-4 mt-8 text-gray-200 uppercase tracking-wide; }
+        
+        .content-body p { @apply mb-8 text-gray-400; }
+        
+        /* Specialized Engineering Formatting */
+        .content-body blockquote {
+            @apply border-l-4 border-primary bg-primary/5 p-6 rounded-r-2xl italic mb-10 text-gray-200;
+        }
+
+        .content-body .formula {
+            @apply my-10 p-8 bg-white/5 border border-white/10 rounded-3xl text-center font-mono text-xl text-primary shadow-[0_0_30px_rgba(255,255,255,0.02)];
+        }
+
+        .content-body ul { @apply list-none mb-10 space-y-4; }
+        .content-body li { @apply flex items-start gap-3; }
+        .content-body li::before {
+            content: "→";
+            @apply text-primary font-bold mt-0.5;
+        }
+
+        /* Code Block Enhancements */
+        .content-body pre {
+            @apply relative bg-black/60 border border-white/10 p-8 rounded-3xl mb-12 overflow-x-auto shadow-2xl;
+        }
+        .content-body pre code {
+            @apply bg-transparent p-0 text-gray-300 text-sm leading-relaxed;
+        }
+
+        /* Focus Mode Styles */
+        body.focus-mode nav, 
+        body.focus-mode #toc-sidebar,
+        body.focus-mode #meta,
+        body.focus-mode #footer-actions {
+            @apply opacity-0 pointer-events-none transition-opacity duration-500;
+        }
+        body.focus-mode main { @apply pt-20; }
+
+        /* Animation */
+        .animate-fade-up {
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body class="bg-[#0a0a0f] selection:bg-primary/30">
-    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-6">
-                <a href="/index.html" class="font-black text-lg">E</a>
-                <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
-                <div class="hidden sm:flex flex-col">
-                    <span id="nav-subject" class="text-[10px] text-gray-500 font-black uppercase tracking-widest">...</span>
-                    <span id="nav-title" class="text-xs font-bold text-white truncate max-w-[200px]">...</span>
+<body class="bg-[#0a0a0f] selection:bg-primary/30 transition-all duration-500">
+    <!-- Progress Indicator -->
+    <div id="read-progress" class="fixed top-0 left-0 h-1 bg-primary z-[100] transition-all duration-200" style="width: 0%"></div>
+
+    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-xl border-b border-white/5 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <a href="/dashboard.html" class="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-white/10 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                </a>
+                <div class="hidden md:flex flex-col">
+                    <span id="nav-subject" class="text-[9px] text-primary font-black uppercase tracking-[0.2em] mb-0.5">...</span>
+                    <span id="nav-title" class="text-sm font-bold text-white tracking-tight truncate max-w-[300px]">...</span>
                 </div>
             </div>
-            <div class="flex items-center gap-4">
-                <button id="bookmark-btn" class="p-2 text-gray-500 hover:text-primary transition-colors">
+            
+            <div class="flex items-center gap-2">
+                <button id="toggle-focus" class="p-3 text-gray-500 hover:text-white transition-all group relative" title="Toggle Focus Mode">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+                <button id="bookmark-btn" class="p-3 text-gray-500 hover:text-primary transition-all">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
                 </button>
                 <div class="w-px h-6 bg-white/10 mx-2"></div>
-                <button onclick="window.print()" class="text-xs font-bold text-gray-400 hover:text-white transition-all flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                    Print
-                </button>
+                <button onclick="window.print()" class="px-6 py-2.5 bg-white/5 border border-white/10 rounded-xl text-[11px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">Save PDF</button>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto px-4 pt-32 pb-40 min-h-screen">
-        <article class="animate-fade">
-            <div id="meta" class="mb-12 text-center">
-                <span id="note-type" class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-4 inline-block">...</span>
-                <h1 id="main-title" class="text-5xl font-black tracking-tighter mb-4">...</h1>
-                <div class="flex items-center justify-center gap-6 text-xs text-gray-500 font-bold">
-                    <span id="pub-date">...</span>
-                    <span>•</span>
-                    <span id="read-time">5 min read</span>
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 pt-32 pb-40">
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:block lg:col-span-3 h-fit sticky top-36 overflow-hidden" id="toc-sidebar">
+            <div class="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-6 px-1">Navigation Index</div>
+            <nav id="toc-list" class="space-y-4 border-l border-white/5 pl-1">
+                <!-- Injected via JS -->
+            </nav>
+            
+            <div class="mt-12 p-6 rounded-2xl bg-primary/5 border border-primary/10">
+                <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-3">Study Goal</div>
+                <p class="text-[11px] text-gray-400 mb-4 font-medium leading-relaxed">This unit is frequently asked in Semester Finals. (Repeated 4 times)</p>
+                <button id="set-goal-btn" class="w-full py-3 bg-primary text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:scale-[1.02] transition-all">Set Exam Goal</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="lg:col-span-9 max-w-3xl mx-auto w-full">
+            <article class="animate-fade-up">
+                <header id="meta" class="mb-16">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span id="note-type" class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest rounded-md">...</span>
+                        <span class="text-[10px] text-emerald-500 font-bold uppercase tracking-widest flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Verified Content
+                        </span>
+                    </div>
+                    <h1 id="main-title" class="text-5xl md:text-6xl font-black tracking-tight mb-8 leading-[1.1] text-white">...</h1>
+                    <div class="flex items-center gap-6 text-xs text-gray-500 font-bold uppercase tracking-widest">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4v4m-8 4v4m8-8V3"/></svg>
+                            <span id="pub-date">...</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span id="read-time">5 Min Read</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div id="content" class="content-body">
+                    <!-- Dynamic content injected here -->
+                    <div class="space-y-6">
+                        <div class="skeleton h-8 w-1/2 rounded-lg"></div>
+                        <div class="skeleton h-4 w-full rounded-lg"></div>
+                        <div class="skeleton h-4 w-full rounded-lg"></div>
+                        <div class="skeleton h-4 w-2/3 rounded-lg"></div>
+                        <div class="skeleton h-64 w-full rounded-3xl mt-12"></div>
+                    </div>
                 </div>
+
+                <footer id="footer-actions" class="mt-24 pt-16 border-t border-white/5">
+                    <div class="bg-white/5 rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-8 group hover:border-emerald-500/20 transition-all border border-transparent">
+                        <div>
+                            <h3 class="text-2xl font-black italic mb-2 tracking-tight">Finish this <span class="text-emerald-500">Unit</span>?</h3>
+                            <p class="text-gray-500 text-sm">Logging your completion helps build your semester progress streak.</p>
+                        </div>
+                        <button id="complete-btn" class="px-10 py-5 bg-emerald-500 text-black text-[11px] font-black uppercase tracking-widest rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-[0_10px_40px_rgba(16,185,129,0.2)]">
+                            Mark as Mastered
+                        </button>
+                    </div>
+                </footer>
+            </article>
+        </main>
+    </div>
+
+    <!-- AI Assistant Panel -->
+    <div id="ai-panel" class="fixed bottom-8 right-8 z-[100] group">
+        <div id="ai-chat" class="absolute bottom-20 right-0 w-80 glass-card p-6 bg-[#0d0d12] shadow-2xl border-primary/20 hidden animate-fade-up">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center animate-pulse">
+                    <svg class="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                </div>
+                <h4 class="text-sm font-black uppercase tracking-widest text-primary italic">AI Professor</h4>
+            </div>
+            <div id="ai-response" class="text-xs text-gray-400 leading-relaxed mb-6 max-h-60 overflow-y-auto prose-premium">
+                Select text or ask about this unit!
+            </div>
+            
+            <!-- AI Quick Actions -->
+            <div class="grid grid-cols-2 gap-2 mb-6">
+                <button class="ai-action px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-[9px] font-bold text-gray-400 hover:text-primary hover:border-primary/30 transition-all text-left" data-prompt="Summarize this note into 5 critical points for an engineering exam.">📝 Summarize</button>
+                <button class="ai-action px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-[9px] font-bold text-gray-400 hover:text-primary hover:border-primary/30 transition-all text-left" data-prompt="Format the current concept into a standard 10-mark university exam answer with side headings.">🎓 Exam Answer</button>
+                <button class="ai-action px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-[9px] font-bold text-gray-400 hover:text-primary hover:border-primary/30 transition-all text-left" data-prompt="Generate 3 possible viva-voce questions from this topic.">🗣️ Viva Prep</button>
+                <button class="ai-action px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-[9px] font-bold text-gray-400 hover:text-primary hover:border-primary/30 transition-all text-left" data-prompt="Create a simple analogy to explain this complex engineering concept.">💡 Analogy</button>
             </div>
 
-            <div id="content" class="content-body">
-                <!-- Dynamic content injected here -->
-                <div class="flex flex-col gap-4">
-                    <div class="skeleton h-6 w-full"></div>
-                    <div class="skeleton h-6 w-3/4"></div>
-                    <div class="skeleton h-48 w-full mt-6"></div>
-                </div>
+            <div class="flex gap-2">
+                <input type="text" id="ai-input" placeholder="What is this about?" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[10px] focus:border-primary focus:outline-none">
+                <button id="ai-send" class="p-3 bg-primary text-black rounded-xl hover:scale-105 transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+                </button>
             </div>
-
-            <div class="mt-20 pt-12 border-t border-white/5 flex flex-col items-center">
-                <h3 class="text-lg font-bold mb-6 italic text-gray-400">Did you find this helpful?</h3>
-                <div class="flex items-center gap-4">
-                    <button id="complete-btn" class="btn-primary flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Mark as Completed
-                    </button>
-                    <button id="set-goal-btn" class="btn-ghost flex items-center gap-2 border-white/10">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        Set as Goal
-                    </button>
-                </div>
-            </div>
-        </article>
-    </main>
+        </div>
+        <button id="toggle-ai" class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-[0_10px_40px_rgba(59,130,246,0.3)] hover:scale-110 active:scale-95 transition-all group-hover:rotate-12">
+            <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </button>
+    </div>
 
     <script type="module">
         import { fetchNoteBySlug, updateProgress, toggleBookmark, createGoal } from './src/notes.js'
-        import { getCurrentUser } from './src/supabase.js'
+        import { getCurrentUser, supabase } from './src/supabase.js'
         import { logActivity } from './src/utils/analytics.js'
 
         const params = new URLSearchParams(window.location.search)
@@ -97,8 +209,22 @@
                 document.getElementById('nav-title').innerText = note.title
                 document.getElementById('note-type').innerText = note.type
                 document.getElementById('main-title').innerText = note.title
-                document.getElementById('pub-date').innerText = new Date(note.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-                document.getElementById('content').innerHTML = note.content
+                document.getElementById('pub-date').innerText = new Date(note.created_at).toLocaleDateString('en-US', { month: 'SHORT', day: 'numeric' }).toUpperCase()
+                
+                // Content Injection with Formula Enhancement
+                const contentHtml = note.content.replace(/\[formula\](.*?)\[\/formula\]/g, '<div class="formula">$1</div>')
+                document.getElementById('content').innerHTML = contentHtml
+
+                // Generate TOC
+                generateTOC()
+
+                // Register Progress Scroll
+                window.addEventListener('scroll', updateReadProgress)
+
+                // Focus Mode Logic
+                document.getElementById('toggle-focus').addEventListener('click', () => {
+                    document.body.classList.toggle('focus-mode')
+                })
 
                 // Log View Activity
                 logActivity('view_note', { note_id: note.id, title: note.title })
@@ -113,16 +239,22 @@
                         .single()
                     
                     await updateProgress(user.id, note.id, current ? current.status : false)
+                    
+                    if (current?.status) {
+                        const cb = document.getElementById('complete-btn')
+                        cb.innerText = 'Mastered!'
+                        cb.disabled = true
+                    }
                 }
 
                 // Handle completion
-                const completeBtn = document.getElementById('complete-btn')
-                completeBtn.addEventListener('click', async () => {
+                document.getElementById('complete-btn').addEventListener('click', async (e) => {
                     if (!user) return alert('Login to save progress!')
+                    const btn = e.currentTarget
                     try {
                         await updateProgress(user.id, note.id, true)
-                        completeBtn.innerText = 'Completed!'
-                        completeBtn.classList.add('bg-emerald-500')
+                        btn.innerText = 'Mastered!'
+                        btn.classList.add('bg-emerald-500/20', 'text-emerald-500', 'border', 'border-emerald-500/20')
                         logActivity('complete_note', { note_id: note.id, title: note.title })
                     } catch (err) { alert(err.message) }
                 })
@@ -149,23 +281,111 @@
                     if (!user) return alert('Login to set goals!')
                     try {
                         await createGoal({
-                            title: `Master ${note.title}`,
+                            title: `Master Exam: ${note.title}`,
                             subject: note.subject,
-                            target_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] // 1 week from now
+                            target_date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] // 3 days for exam prep
                         })
-                        setGoalBtn.innerText = 'Goal Set!'
+                        setGoalBtn.innerText = 'Goal Active!'
+                        setGoalBtn.classList.add('bg-emerald-500', 'text-black')
                         setGoalBtn.disabled = true
                     } catch (err) { alert(err.message) }
+                })
+
+                // AI Logic
+                const aiPanel = document.getElementById('ai-chat')
+                const aiToggle = document.getElementById('toggle-ai')
+                const aiInput = document.getElementById('ai-input')
+                const aiResponse = document.getElementById('ai-response')
+                const aiSend = document.getElementById('ai-send')
+
+                aiToggle.addEventListener('click', () => aiPanel.classList.toggle('hidden'))
+
+                async function askAI(concept) {
+                    aiPanel.classList.remove('hidden')
+                    aiResponse.innerHTML = '<div class="flex gap-1 py-4"><div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"></div><div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce delay-75"></div><div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce delay-150"></div></div>'
+                    
+                    try {
+                        const res = await fetch('/api/ai/explain', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                concept: concept,
+                                context: note.title + ' in ' + note.subject 
+                            })
+                        })
+                        const data = await res.json()
+                        aiResponse.innerHTML = data.explanation.replace(/\n/g, '<br>')
+                    } catch (err) {
+                        aiResponse.innerText = 'Scholar, I encountered an error. Please try again.'
+                    }
+                }
+
+                aiSend.addEventListener('click', () => {
+                    if (aiInput.value) {
+                        askAI(aiInput.value)
+                        aiInput.value = ''
+                    }
+                })
+
+                aiInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && aiInput.value) {
+                        askAI(aiInput.value)
+                        aiInput.value = ''
+                    }
+                })
+
+                // Quick Actions
+                document.querySelectorAll('.ai-action').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        askAI(btn.dataset.prompt)
+                    })
                 })
 
             } catch (err) {
                 console.error(err)
                 document.getElementById('content').innerHTML = `
                     <div class="text-center py-20 text-red-400">
-                        Error loading note. It might be unpublished or removed.
+                        Error loading note. Access denied or content missing.
                     </div>
                 `
             }
+        }
+
+        function generateTOC() {
+            const content = document.getElementById('content')
+            const headings = content.querySelectorAll('h2')
+            const tocList = document.getElementById('toc-list')
+            
+            if (headings.length === 0) {
+                document.getElementById('toc-sidebar').classList.add('hidden')
+                return
+            }
+
+            headings.forEach((h, index) => {
+                const id = `heading-${index}`
+                h.id = id
+                
+                const link = document.createElement('a')
+                link.href = `#${id}`
+                link.className = 'block text-[11px] font-bold text-gray-500 hover:text-white transition-all uppercase tracking-widest pl-4 border-l border-transparent hover:border-primary py-1'
+                link.innerText = h.innerText
+                
+                link.addEventListener('click', (e) => {
+                    e.preventDefault()
+                    h.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                })
+                
+                tocList.appendChild(link)
+            })
+        }
+
+        function updateReadProgress() {
+            const h = document.documentElement, 
+                  b = document.body,
+                  st = 'scrollTop',
+                  sh = 'scrollHeight'
+            const percent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100
+            document.getElementById('read-progress').style.width = percent + '%'
         }
 
         init()

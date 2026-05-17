@@ -55,25 +55,36 @@
         </div>
 
         <script type="module">
-            const subjects = [
-                { id: 'maths-1', code: 'M1', title: 'Engineering Mathematics I', desc: 'Matrices, Calculus, and Sequence mastering.', color: 'blue' },
-                { id: 'physics', code: 'PH', title: 'Engineering Physics', desc: 'Optics, Lasers, and Semiconductor physics.', color: 'purple' },
-                { id: 'pps', code: 'C', title: 'C Programming', desc: 'Foundational PPS logic and JNTUK labs.', color: 'emerald' },
-                { id: 'english', code: 'EN', title: 'Communicative English', desc: 'Professional communication and grammar.', color: 'rose' }
-            ];
+            import { fetchSubjectsBySemester } from './src/notes.js'
 
-            const grid = document.getElementById('subjects-grid');
-            grid.innerHTML = subjects.map(sub => `
-                <div class="glass-card p-8 group relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-${sub.color}-500/5 -mr-12 -mt-12 rounded-full blur-2xl group-hover:bg-${sub.color}-500/10 transition-all"></div>
-                    <div class="w-14 h-14 bg-${sub.color}-500/10 text-${sub.color}-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <span class="text-2xl font-black">${sub.code}</span>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">${sub.title}</h3>
-                    <p class="text-gray-400 text-sm mb-8">${sub.desc}</p>
-                    <a href="/subject.html?sub=${encodeURIComponent(sub.title)}" class="btn-primary py-3 text-xs text-center">Start Learning →</a>
-                </div>
-            `).join('');
+            async function init() {
+                const grid = document.getElementById('subjects-grid');
+                try {
+                    const subjects = await fetchSubjectsBySemester(1);
+                    
+                    if (!subjects || subjects.length === 0) {
+                        grid.innerHTML = '<p class="text-gray-500 col-span-full text-center">No subjects found for Semester 1.</p>';
+                        return;
+                    }
+
+                    grid.innerHTML = subjects.map(sub => `
+                        <div class="glass-card p-8 group relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-${sub.color}-500/5 -mr-12 -mt-12 rounded-full blur-2xl group-hover:bg-${sub.color}-500/10 transition-all"></div>
+                            <div class="w-14 h-14 bg-${sub.color}-500/10 text-${sub.color}-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <span class="text-2xl font-black">${sub.code}</span>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-3">${sub.title}</h3>
+                            <p class="text-gray-400 text-sm mb-8">${sub.description || 'Access deep-dive notes and resources.'}</p>
+                            <a href="/subject.html?sub=${encodeURIComponent(sub.title)}" class="btn-primary py-3 text-xs text-center">Start Learning →</a>
+                        </div>
+                    `).join('');
+                } catch (err) {
+                    console.error('Error loading subjects:', err);
+                    grid.innerHTML = '<p class="text-red-400 col-span-full text-center">Failed to load subjects from database.</p>';
+                }
+            }
+
+            init();
         </script>
 
         <!-- Strategy Section -->

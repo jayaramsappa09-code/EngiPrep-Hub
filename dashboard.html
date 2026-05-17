@@ -62,8 +62,8 @@
     <main class="flex-1 p-4 md:p-10">
         <header class="flex items-center justify-between mb-12">
             <div>
-                <h1 class="text-3xl font-black">Welcome back, <span id="user-name" class="text-primary italic">Topper</span></h1>
-                <p class="text-gray-400 mt-1">Check your current academic standing.</p>
+                <h1 class="text-4xl font-black tracking-tighter italic">Scholar, <span id="user-name" class="text-primary">Loading...</span></h1>
+                <p class="text-gray-500 text-sm mt-1 uppercase font-black tracking-widest text-[10px]">Academic Operating System v2.0 • Active</p>
             </div>
             <div class="flex-1 max-w-md mx-8 hidden lg:block">
                 <div class="relative">
@@ -104,10 +104,10 @@
         <!-- SaaS Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
             <div class="glass-card p-6 border-primary/20 bg-primary/5">
-                <div class="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4">Syllabus Completion</div>
+                <div class="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4">Memory Index</div>
                 <div class="flex items-end gap-2">
                     <div class="text-4xl font-black" id="progress-percent">0%</div>
-                    <div class="text-[10px] text-gray-500 mb-1">Total Notes</div>
+                    <div class="text-[10px] text-gray-500 mb-1">Knowledge Coverage</div>
                 </div>
                 <div class="w-full bg-white/5 h-1 rounded-full mt-6 overflow-hidden">
                     <div id="progress-bar-inner" class="bg-primary h-full transition-all duration-1000 shadow-[0_0_10px_rgba(255,255,255,0.2)]" style="width: 0%"></div>
@@ -115,34 +115,48 @@
             </div>
             
             <div class="glass-card p-6">
-                <div class="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-4">Saved Resources</div>
+                <div class="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-4">Retention Streak</div>
                 <div class="flex items-center justify-between">
-                    <div class="text-4xl font-black" id="bookmark-count">0</div>
-                    <div class="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-gray-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
-                    </div>
-                </div>
-                <a href="/bookmarks.html" class="text-primary text-[10px] font-bold uppercase tracking-widest mt-4 inline-block hover:underline">View All Bookmarks →</a>
-            </div>
-
-            <div class="glass-card p-6">
-                <div class="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-4">Study Streak</div>
-                <div class="flex items-center justify-between">
-                    <div class="text-4xl font-black" id="streak-days">12</div>
+                    <div class="text-4xl font-black" id="streak-days">--</div>
                     <div class="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-500">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.5-7 3 3 3.333 3.5 3.333 3.5S17 8 17 10c0 4-2 6-2 6s3.5-1.5 5-2l-2.343 4.657z"/></svg>
                     </div>
                 </div>
-                <div class="text-[10px] text-emerald-500 font-bold uppercase tracking-widest mt-4">Active Learn Mode</div>
+                <div class="text-[10px] text-emerald-500 font-black uppercase tracking-widest mt-4">Active Learning Mode</div>
             </div>
 
             <div class="glass-card p-6">
-                <div class="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-4">Next Exam</div>
+                <div class="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-4">PYQ Focus</div>
                 <div class="flex items-center justify-between">
-                    <div class="text-4xl font-black">24</div>
-                    <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Days Left</div>
+                    <div class="text-4xl font-black" id="pyq-solved-count">0</div>
+                    <div class="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    </div>
                 </div>
-                <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest mt-4 italic">Semester 1 Finals</div>
+                <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest mt-4 italic" id="pyq-status">Target: High Priority</div>
+            </div>
+
+            <div class="glass-card p-6">
+                <div class="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-4">Focus Score</div>
+                <div class="flex items-center justify-between">
+                    <div class="text-4xl font-black" id="focus-score">--</div>
+                    <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Points</div>
+                </div>
+                <div class="text-[10px] text-primary font-black uppercase tracking-widest mt-4">University Level</div>
+            </div>
+        </div>
+
+        <!-- Community Call to Action -->
+        <div class="glass-card p-1 items-center gap-6 mb-12 bg-gradient-to-r from-primary/10 to-transparent border-primary/20 hidden md:flex">
+            <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center shrink-0 ml-4 my-4">
+                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18 18.247 18.477 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <div class="flex-1">
+                <h3 class="text-xl font-black italic">Scholar, lead the <span class="text-primary">Community</span></h3>
+                <p class="text-[9px] text-gray-500 font-black uppercase tracking-[0.2em] mt-1">Earn reputation by contributing verified notes & exam PYQs.</p>
+            </div>
+            <div class="pr-8">
+                <a href="/contribute.html" class="btn-primary px-8 py-3 text-[10px]">Start Contributing →</a>
             </div>
         </div>
 
@@ -178,6 +192,31 @@
                         <h4 class="text-xl font-bold mb-1">Engineering Physics</h4>
                         <p class="text-[10px] text-gray-500 uppercase font-black tracking-widest">Semester 1 • JNTUK R23</p>
                     </a>
+                </div>
+
+                <!-- Study Center -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Quick Revisions -->
+                    <div class="glass-card p-8 border-amber-500/10">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-black italic tracking-tight"><span class="text-amber-500">Quick</span> Revisions</h3>
+                            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <div id="revision-list" class="space-y-3">
+                            <div class="skeleton h-12 w-full rounded-xl"></div>
+                        </div>
+                    </div>
+
+                    <!-- Important PYQs -->
+                    <div class="glass-card p-8 border-blue-500/10">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-black italic tracking-tight"><span class="text-blue-500">Exam</span> PYQs</h3>
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        </div>
+                        <div id="pyq-list" class="space-y-3">
+                            <div class="skeleton h-12 w-full rounded-xl"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -266,7 +305,7 @@
     <script type="module">
         import { supabase, getCurrentUser, getUserProfile } from './src/supabase.js'
         import { signOut } from './src/auth.js'
-        import { fetchGoals, createGoal, toggleGoal, deleteGoal } from './src/notes.js'
+        import { fetchGoals, createGoal, toggleGoal, deleteGoal, fetchNotesByType } from './src/notes.js'
         import { logActivity } from './src/utils/analytics.js'
         import { getNotifications, markAsRead } from './src/utils/notifications.js'
         
@@ -276,6 +315,8 @@
         const logoutBtn = document.getElementById('logout-btn')
         const bookmarkCount = document.getElementById('bookmark-count')
         const continueLearning = document.getElementById('continue-learning')
+        const revisionList = document.getElementById('revision-list')
+        const pyqList = document.getElementById('pyq-list')
         const goalsList = document.getElementById('goals-list')
         const addGoalBtn = document.getElementById('add-goal-btn')
         const goalForm = document.getElementById('goal-form')
@@ -453,10 +494,70 @@
                 await loadGoals()
                 await loadNotifications()
                 await calculateOverallProgress(user.id)
+                await loadSpecializedContent()
+                await loadUserStats(user.id)
             }
             
             // Log Login Activity
             logActivity('dashboard_visited')
+        }
+
+        async function loadUserStats(userId) {
+            try {
+                // Upsert stats row if not exists
+                const { data: stats, error } = await supabase
+                    .from('user_stats')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .single()
+                
+                if (error && error.code === 'PGRST116') {
+                    // Not found, create it
+                    await supabase.from('user_stats').insert([{ user_id: userId }])
+                }
+
+                if (stats) {
+                    document.getElementById('streak-days').innerText = stats.streak_count || 0
+                    document.getElementById('pyq-solved-count').innerText = (stats.completed_pyqs || []).length
+                    
+                    // Simple logic for focus score
+                    const score = Math.round((stats.total_study_minutes / 60) * 10 + (stats.streak_count * 5))
+                    document.getElementById('focus-score').innerText = score
+                }
+
+            } catch (err) {
+                console.error('Error loading stats:', err)
+            }
+        }
+
+        async function loadSpecializedContent() {
+            try {
+                const revisions = await fetchNotesByType('Revision')
+                const pyqs = await fetchNotesByType('PYQ')
+
+                revisionList.innerHTML = revisions.slice(0, 3).map(n => `
+                    <a href="/note-viewer.html?slug=${n.slug}" class="flex items-center justify-between p-4 bg-amber-500/5 rounded-xl border border-amber-500/10 hover:border-amber-500/30 transition-all group">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-white group-hover:text-amber-500 transition-colors">${n.title}</span>
+                            <span class="text-[9px] text-gray-600 uppercase font-black tracking-widest">${n.subject}</span>
+                        </div>
+                        <svg class="w-4 h-4 text-amber-500/40 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                `).join('') || '<p class="text-[10px] text-gray-600 italic text-center py-4">No quick revisions available.</p>'
+
+                pyqList.innerHTML = pyqs.slice(0, 3).map(n => `
+                    <a href="/note-viewer.html?slug=${n.slug}" class="flex items-center justify-between p-4 bg-blue-500/5 rounded-xl border border-blue-500/10 hover:border-blue-500/30 transition-all group">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-white group-hover:text-blue-500 transition-colors">${n.title}</span>
+                            <span class="text-[9px] text-gray-600 uppercase font-black tracking-widest">${n.subject}</span>
+                        </div>
+                        <span class="px-2 py-1 bg-blue-500/20 text-blue-500 text-[8px] font-black rounded uppercase">JNTUK</span>
+                    </a>
+                `).join('') || '<p class="text-[10px] text-gray-600 italic text-center py-4">No exam PYQs uploaded yet.</p>'
+
+            } catch (err) {
+                console.error('Error loading specialized content:', err)
+            }
         }
 
         async function calculateOverallProgress(userId) {
