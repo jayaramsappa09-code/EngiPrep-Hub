@@ -452,16 +452,20 @@
         
         document.getElementById('logout-btn').addEventListener('click', signOut)
         
-        checkAdmin()
-        loadStats()
-        loadSubjects()
-        loadNotes()
-        loadBlog()
-        
-        // Initial count for moderation
-        const { count } = await supabase.from('contributions').select('*', { count: 'exact', head: true }).eq('status', 'pending')
-        const modCountEl = document.getElementById('moderation-count')
-        if (modCountEl) modCountEl.innerText = `${count || 0} Pending`
+        async function init() {
+            await checkAdmin()
+            loadStats()
+            loadSubjects()
+            loadNotes()
+            loadBlog()
+            
+            // Initial count for moderation
+            const { count } = await supabase.from('contributions').select('*', { count: 'exact', head: true }).eq('status', 'pending')
+            const modCountEl = document.getElementById('moderation-count')
+            if (modCountEl) modCountEl.innerText = `${count || 0} Pending`
+        }
+
+        init()
     </script>
 </body>
 </html>
