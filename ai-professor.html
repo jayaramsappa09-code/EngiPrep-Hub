@@ -148,20 +148,21 @@
 
         let chatHistory = []
 
-        // Check health and API key status
-        async function checkStatus() {
+        // Check Professor health
+        async function checkHealth() {
             try {
                 const res = await fetch('/api/health')
                 const data = await res.json()
                 if (!data.hasKey) {
-                    addMessage("Scholar, I noticed your Professor's AI core is missing a key. <br><br> **Offline Mode Active:** I can still help you with subjects like: *Data Structures, Computer Science, Thermodynamics, Analog Communications, and Python*. <br><br> To unlock full knowledge, go to **Settings > Secrets** and add `GEMINI_API_KEY`.", 'ai')
+                    addMessage("Scholar, I noticed your Professor's AI core is missing a key. Please go to **Settings > Secrets** and add `GEMINI_API_KEY` to enable my intelligence.", 'ai')
                 }
             } catch (err) {
                 console.error('Health check failed')
             }
         }
-        checkStatus()
+        checkHealth()
 
+        // Chat Form Logic
         chatForm.addEventListener('submit', async (e) => {
             e.preventDefault()
             const message = userInput.value.trim()
@@ -184,7 +185,7 @@
                 
                 if (!response.ok) {
                     console.error('Professor Server Error:', data);
-                    updateMessage(loadingId, `<span class="text-rose-500 font-bold">Professor is busy:</span> ${data.error || 'Connection failed'}. <br><br> <span class="text-[10px] text-gray-500">Tip: Check if GEMINI_API_KEY is set in Settings > Secrets.</span>`)
+                    updateMessage(loadingId, `<span class="text-rose-500 font-bold">Professor is busy:</span> ${data.error || 'Connection failed'}.`)
                 } else if (data.text) {
                     updateMessage(loadingId, data.text)
                     chatHistory.push({ role: 'user', content: message })
