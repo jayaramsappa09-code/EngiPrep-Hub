@@ -300,21 +300,27 @@
 
                 aiToggle.addEventListener('click', () => aiPanel.classList.toggle('hidden'))
 
-                async function askAI(concept) {
+                async function askAI(concept, type = 'explain') {
                     aiPanel.classList.remove('hidden')
                     aiResponse.innerHTML = '<div class="flex gap-1 py-4"><div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"></div><div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce delay-75"></div><div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce delay-150"></div></div>'
                     
                     try {
-                        const res = await fetch('/api/ai/explain', {
+                        let endpoint = '/api/ai/explain'
+                        let body = { concept, context: note.title + ' in ' + note.subject }
+
+                        if (type === 'summary') {
+                            endpoint = '/api/ai/summary'
+                            body = { content: document.getElementById('content').innerText.substring(0, 5000) }
+                        }
+
+                        const res = await fetch(endpoint, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ 
-                                concept: concept,
-                                context: note.title + ' in ' + note.subject 
-                            })
+                            body: JSON.stringify(body)
                         })
                         const data = await res.json()
-                        aiResponse.innerHTML = data.explanation.replace(/\n/g, '<br>')
+                        const rawText = data.explanation || data.summary || data.text
+                        aiResponse.innerHTML = rawText.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
                     } catch (err) {
                         aiResponse.innerText = 'Scholar, I encountered an error. Please try again.'
                     }
@@ -337,7 +343,8 @@
                 // Quick Actions
                 document.querySelectorAll('.ai-action').forEach(btn => {
                     btn.addEventListener('click', () => {
-                        askAI(btn.dataset.prompt)
+                        const type = btn.dataset.prompt.includes('Summarize') ? 'summary' : 'explain'
+                        askAI(btn.dataset.prompt, type)
                     })
                 })
 

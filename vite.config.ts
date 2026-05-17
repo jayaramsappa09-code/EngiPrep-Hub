@@ -30,6 +30,8 @@ export default defineConfig(({mode}) => {
           tools: path.resolve(__dirname, 'tools.html'),
           videos: path.resolve(__dirname, 'videos.html'),
           bookmarks: path.resolve(__dirname, 'bookmarks.html'),
+          contribute: path.resolve(__dirname, 'contribute.html'),
+          professor: path.resolve(__dirname, 'ai-professor.html'),
         },
       },
     },

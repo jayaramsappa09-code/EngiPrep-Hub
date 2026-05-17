@@ -21,13 +21,21 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// AI Endpoint
+// Helper to ensure AI is configured
+const getAIResponse = async (params: any) => {
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error('GEMINI_API_KEY is not configured in the Secrets panel.');
+  }
+  return ai.models.generateContent(params);
+};
+
+// AI Endpoints
 app.post('/api/ai/explain', async (req, res) => {
   const { concept, context } = req.body;
   if (!concept) return res.status(400).json({ error: 'Concept is required' });
 
   try {
-    const response = await ai.models.generateContent({
+    const response = await getAIResponse({
       model: "gemini-3-flash-preview",
       contents: `Explain "${concept}" in the context of: ${context}. Keep it concise, focused on engineering exams, and use simple analogies.`,
       config: {
@@ -36,9 +44,74 @@ app.post('/api/ai/explain', async (req, res) => {
     });
 
     res.json({ explanation: response.text });
-  } catch (error) {
+  } catch (error: any) {
     console.error('AI Error:', error);
-    res.status(500).json({ error: 'AI failed to generate explanation' });
+    res.status(500).json({ error: error.message || 'AI failed to generate explanation' });
+  }
+});
+
+app.post('/api/ai/chat', async (req, res) => {
+  const { message, history } = req.body;
+  if (!message) return res.status(400).json({ error: 'Message is required' });
+
+  try {
+    if (!process.env.GEMINI_API_KEY) {
+      throw new Error('GEMINI_API_KEY is not configured.');
+    }
+    const chat = ai.chats.create({
+      model: "gemini-3-flash-preview",
+      config: {
+        systemInstruction: "You are 'EngiPrep Professor', a helpful AI tutor for JNTUK engineering students. Your goal is to explain complex concepts simply, provide exam tips, and encourage students. Be encouraging but professional. Use Markdown for formatting equations and lists."
+      }
+    });
+
+    const response = await chat.sendMessage({ message });
+    res.json({ text: response.text });
+  } catch (error: any) {
+    console.error('Chat Error:', error);
+    res.status(500).json({ error: error.message || 'Chat failed' });
+  }
+});
+
+app.post('/api/ai/quiz', async (req, res) => {
+  const { topic } = req.body;
+  if (!topic) return res.status(400).json({ error: 'Topic is required' });
+
+  try {
+    const response = await getAIResponse({
+      model: "gemini-3-flash-preview",
+      contents: `Generate a 5-question multiple choice quiz about "${topic}". For each question, provide 4 options, the correct answer, and a brief explanation.`,
+      config: {
+        responseMimeType: "application/json",
+        systemInstruction: "Format the output as a JSON array of objects. Each object should have: 'question' (string), 'options' (array of 4 strings), 'answer' (string, matching one option exactly), and 'explanation' (string).",
+      }
+    });
+
+    const quiz = JSON.parse(response.text);
+    res.json({ quiz });
+  } catch (error: any) {
+    console.error('Quiz Gen Error:', error);
+    res.status(500).json({ error: error.message || 'Failed to generate quiz' });
+  }
+});
+
+app.post('/api/ai/summary', async (req, res) => {
+  const { content } = req.body;
+  if (!content) return res.status(400).json({ error: 'Content is required' });
+
+  try {
+    const response = await getAIResponse({
+      model: "gemini-3-flash-preview",
+      contents: `Summarize the following engineering note content into high-yield bullet points for quick revision:\n\n${content}`,
+      config: {
+        systemInstruction: "You are an expert at creating 'cheat sheets' for engineering students. Focus on formulas, key definitions, and likely exam questions. Use Markdown."
+      }
+    });
+
+    res.json({ summary: response.text });
+  } catch (error: any) {
+    console.error('Summary Error:', error);
+    res.status(500).json({ error: error.message || 'Failed to generate summary' });
   }
 });
 
