@@ -167,10 +167,12 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message, history: chatHistory })
                 })
+                
                 const data = await response.json()
                 
-                if (data.error) {
-                    updateMessage(loadingId, `<span class="text-rose-500 font-bold">Error:</span> ${data.error}`)
+                if (!response.ok) {
+                    console.error('Professor Server Error:', data);
+                    updateMessage(loadingId, `<span class="text-rose-500 font-bold">Professor is busy:</span> ${data.error || 'Connection failed'}. <br><br> <span class="text-[10px] text-gray-500">Tip: Check if GEMINI_API_KEY is set in Settings > Secrets.</span>`)
                 } else if (data.text) {
                     updateMessage(loadingId, data.text)
                     chatHistory.push({ role: 'user', content: message })
@@ -179,7 +181,8 @@
                     updateMessage(loadingId, "Professor is speechless. Please try a different question.")
                 }
             } catch (err) {
-                updateMessage(loadingId, "Professor's connection failed. Please check your internet or configuration.")
+                console.error('Professor Fetch Error:', err);
+                updateMessage(loadingId, "Professor's connection failed. This might be a network issue or the server is restarting. Please try again in 5 seconds.")
             }
         })
 
