@@ -50,56 +50,31 @@
         </div>
 
         <!-- Subjects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-            <!-- Maths I -->
-            <div class="glass-card p-8 group">
-                <div class="w-14 h-14 bg-blue-500/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <span class="text-2xl font-black">M1</span>
-                </div>
-                <h3 class="text-2xl font-bold mb-3">Engineering Maths I</h3>
-                <p class="text-gray-400 text-sm mb-8">Master Matrices, Sequences, and Calculus with our step-by-step solved examples.</p>
-                <div class="flex flex-col gap-3">
-                    <a href="/subject.html?sub=Mathematics I" class="btn-primary py-2 text-xs text-center">View Database Notes</a>
-                    <a href="/maths-1.html" class="text-xs text-center text-gray-500 hover:text-white transition-all font-bold">Standard Notes (Legacy)</a>
-                </div>
-            </div>
-
-            <!-- Physics -->
-            <div class="glass-card p-8 group">
-                <div class="w-14 h-14 bg-purple-500/10 text-secondary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <span class="text-2xl font-black">PH</span>
-                </div>
-                <h3 class="text-2xl font-bold mb-3">Engineering Physics</h3>
-                <p class="text-gray-400 text-sm mb-8">Comprehensive coverage of Optics, Semiconductors, and Laser Technology.</p>
-                <div class="flex flex-col gap-3">
-                    <a href="/subject.html?sub=Physics" class="btn-primary py-2 text-xs text-center">View Database Notes</a>
-                    <a href="/physics-notes.html" class="text-xs text-center text-gray-500 hover:text-white transition-all font-bold">Standard Notes (Legacy)</a>
-                </div>
-            </div>
-
-            <!-- PPS (C) -->
-            <div class="glass-card p-8 group">
-                <div class="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <span class="text-2xl font-black">C</span>
-                </div>
-                <h3 class="text-2xl font-bold mb-3">Problem Solving (C)</h3>
-                <p class="text-gray-400 text-sm mb-8">Foundational programming logic. Includes lab manuals and premium code snippets.</p>
-                <div class="flex flex-col gap-3">
-                    <a href="/subject.html?sub=C Programming" class="btn-primary py-2 text-xs text-center">View Database Notes</a>
-                    <a href="/c-programming-notes.html" class="text-xs text-center text-gray-500 hover:text-white transition-all font-bold">Standard Notes (Legacy)</a>
-                </div>
-            </div>
-
-            <!-- English -->
-            <div class="glass-card p-8 group">
-                <div class="w-14 h-14 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <span class="text-2xl font-black">EN</span>
-                </div>
-                <h3 class="text-2xl font-bold mb-3">Communicative English</h3>
-                <p class="text-gray-400 text-sm mb-8">Boost your vocabulary and professional communication for technical careers.</p>
-                <a href="/subject.html?sub=English" class="btn-primary py-2 text-xs text-center">Access Resources</a>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20" id="subjects-grid">
+            <!-- Subjects will be populated via logic -->
         </div>
+
+        <script type="module">
+            const subjects = [
+                { id: 'maths-1', code: 'M1', title: 'Engineering Mathematics I', desc: 'Matrices, Calculus, and Sequence mastering.', color: 'blue' },
+                { id: 'physics', code: 'PH', title: 'Engineering Physics', desc: 'Optics, Lasers, and Semiconductor physics.', color: 'purple' },
+                { id: 'pps', code: 'C', title: 'C Programming', desc: 'Foundational PPS logic and JNTUK labs.', color: 'emerald' },
+                { id: 'english', code: 'EN', title: 'Communicative English', desc: 'Professional communication and grammar.', color: 'rose' }
+            ];
+
+            const grid = document.getElementById('subjects-grid');
+            grid.innerHTML = subjects.map(sub => `
+                <div class="glass-card p-8 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-${sub.color}-500/5 -mr-12 -mt-12 rounded-full blur-2xl group-hover:bg-${sub.color}-500/10 transition-all"></div>
+                    <div class="w-14 h-14 bg-${sub.color}-500/10 text-${sub.color}-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl font-black">${sub.code}</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">${sub.title}</h3>
+                    <p class="text-gray-400 text-sm mb-8">${sub.desc}</p>
+                    <a href="/subject.html?sub=${encodeURIComponent(sub.title)}" class="btn-primary py-3 text-xs text-center">Start Learning →</a>
+                </div>
+            `).join('');
+        </script>
 
         <!-- Strategy Section -->
         <section class="max-w-4xl glass-card p-12 relative overflow-hidden bg-gradient-to-br from-blue-900/10 to-transparent">

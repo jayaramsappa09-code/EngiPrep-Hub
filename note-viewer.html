@@ -103,6 +103,18 @@
                 // Log View Activity
                 logActivity('view_note', { note_id: note.id, title: note.title })
 
+                // Update Progress (Touch timestamp)
+                if (user) {
+                    const { data: current } = await supabase
+                        .from('user_progress')
+                        .select('status')
+                        .eq('user_id', user.id)
+                        .eq('note_id', note.id)
+                        .single()
+                    
+                    await updateProgress(user.id, note.id, current ? current.status : false)
+                }
+
                 // Handle completion
                 const completeBtn = document.getElementById('complete-btn')
                 completeBtn.addEventListener('click', async () => {

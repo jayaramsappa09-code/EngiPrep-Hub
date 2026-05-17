@@ -4,6 +4,10 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 // Initialize with placeholders if not configured to avoid immediate crashes
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.warn('Supabase credentials missing! Please check Vercel environment variables (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY).')
+}
+
 export const supabase = createClient(
   supabaseUrl || 'https://placeholder-url.supabase.co', 
   supabaseAnonKey || 'placeholder-key'
@@ -16,15 +20,17 @@ export const isSupabaseConfigured = () => {
 // Helper: Check if user is logged in
 export const getCurrentUser = async () => {
   try {
-    const { data: { session }, error } = await supabase.auth.getSession()
-    if (error) {
-        console.error('Session error:', error)
-        return null
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+    if (sessionError) {
+        console.error('Session error:', sessionError)
     }
     if (session) return session.user
     
     // Fallback to getUser which is slower but more accurate
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: { user }, error: userError } = await supabase.auth.getUser()
+    if (userError) {
+        console.error('User fetch error:', userError)
+    }
     return user || null
   } catch (err) {
     console.error('Auth Check Error:', err)
