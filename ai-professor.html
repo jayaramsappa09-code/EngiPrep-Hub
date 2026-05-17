@@ -138,8 +138,6 @@
     </div>
 
     <script type="module">
-        import { supabase } from './src/supabase.js'
-
         const chatForm = document.getElementById('chat-form')
         const userInput = document.getElementById('user-input')
         const chatMessages = document.getElementById('chat-messages')
@@ -149,6 +147,20 @@
         const quizContent = document.getElementById('quiz-content')
 
         let chatHistory = []
+
+        // Check health and API key status
+        async function checkStatus() {
+            try {
+                const res = await fetch('/api/health')
+                const data = await res.json()
+                if (!data.hasKey) {
+                    addMessage("Scholar, I noticed your Professor's AI core is missing a key. <br><br> **Offline Mode Active:** I can still help you with subjects like: *Data Structures, Computer Science, Thermodynamics, Analog Communications, and Python*. <br><br> To unlock full knowledge, go to **Settings > Secrets** and add `GEMINI_API_KEY`.", 'ai')
+                }
+            } catch (err) {
+                console.error('Health check failed')
+            }
+        }
+        checkStatus()
 
         chatForm.addEventListener('submit', async (e) => {
             e.preventDefault()
