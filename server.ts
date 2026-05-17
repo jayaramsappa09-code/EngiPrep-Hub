@@ -35,14 +35,16 @@ app.post('/api/ai/explain', async (req, res) => {
   if (!concept) return res.status(400).json({ error: 'Concept is required' });
 
   try {
+    console.log('AI Explain request:', { concept, context });
     const response = await getAIResponse({
-      model: "gemini-3-flash-preview",
+      model: "gemini-flash-latest",
       contents: `Explain "${concept}" in the context of: ${context}. Keep it concise, focused on engineering exams, and use simple analogies.`,
       config: {
         systemInstruction: "You are a senior engineering professor focused on helping students pass JNTUK university exams. Format with Markdown."
       }
     });
 
+    console.log('AI Explain response received');
     res.json({ explanation: response.text });
   } catch (error: any) {
     console.error('AI Error:', error);
@@ -58,14 +60,16 @@ app.post('/api/ai/chat', async (req, res) => {
     if (!process.env.GEMINI_API_KEY) {
       throw new Error('GEMINI_API_KEY is not configured.');
     }
+    console.log('AI Chat request:', message);
     const chat = ai.chats.create({
-      model: "gemini-3-flash-preview",
+      model: "gemini-flash-latest",
       config: {
         systemInstruction: "You are 'EngiPrep Professor', a helpful AI tutor for JNTUK engineering students. Your goal is to explain complex concepts simply, provide exam tips, and encourage students. Be encouraging but professional. Use Markdown for formatting equations and lists."
       }
     });
 
     const response = await chat.sendMessage({ message });
+    console.log('AI Chat response received');
     res.json({ text: response.text });
   } catch (error: any) {
     console.error('Chat Error:', error);
@@ -78,8 +82,9 @@ app.post('/api/ai/quiz', async (req, res) => {
   if (!topic) return res.status(400).json({ error: 'Topic is required' });
 
   try {
+    console.log('AI Quiz request:', topic);
     const response = await getAIResponse({
-      model: "gemini-3-flash-preview",
+      model: "gemini-flash-latest",
       contents: `Generate a 5-question multiple choice quiz about "${topic}". For each question, provide 4 options, the correct answer, and a brief explanation.`,
       config: {
         responseMimeType: "application/json",
@@ -88,6 +93,7 @@ app.post('/api/ai/quiz', async (req, res) => {
     });
 
     const quiz = JSON.parse(response.text);
+    console.log('AI Quiz response received');
     res.json({ quiz });
   } catch (error: any) {
     console.error('Quiz Gen Error:', error);
@@ -100,14 +106,16 @@ app.post('/api/ai/summary', async (req, res) => {
   if (!content) return res.status(400).json({ error: 'Content is required' });
 
   try {
+    console.log('AI Summary request length:', content.length);
     const response = await getAIResponse({
-      model: "gemini-3-flash-preview",
+      model: "gemini-flash-latest",
       contents: `Summarize the following engineering note content into high-yield bullet points for quick revision:\n\n${content}`,
       config: {
         systemInstruction: "You are an expert at creating 'cheat sheets' for engineering students. Focus on formulas, key definitions, and likely exam questions. Use Markdown."
       }
     });
 
+    console.log('AI Summary response received');
     res.json({ summary: response.text });
   } catch (error: any) {
     console.error('Summary Error:', error);

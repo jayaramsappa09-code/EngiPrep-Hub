@@ -169,11 +169,17 @@
                 })
                 const data = await response.json()
                 
-                updateMessage(loadingId, data.text)
-                chatHistory.push({ role: 'user', content: message })
-                chatHistory.push({ role: 'ai', content: data.text })
+                if (data.error) {
+                    updateMessage(loadingId, `<span class="text-rose-500 font-bold">Error:</span> ${data.error}`)
+                } else if (data.text) {
+                    updateMessage(loadingId, data.text)
+                    chatHistory.push({ role: 'user', content: message })
+                    chatHistory.push({ role: 'ai', content: data.text })
+                } else {
+                    updateMessage(loadingId, "Professor is speechless. Please try a different question.")
+                }
             } catch (err) {
-                updateMessage(loadingId, "Professor's connection timed out. Please try again.")
+                updateMessage(loadingId, "Professor's connection failed. Please check your internet or configuration.")
             }
         })
 
@@ -200,12 +206,13 @@
         function updateMessage(id, text) {
             const el = document.getElementById(id)
             if (el) {
-                el.innerHTML = formatAIResponse(text)
+                el.innerHTML = formatAIResponse(text || "")
                 chatMessages.scrollTop = chatMessages.scrollHeight
             }
         }
 
         function formatAIResponse(text) {
+            if (!text) return ""
             // Simple markdown-style conversion
             return text
                 .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
