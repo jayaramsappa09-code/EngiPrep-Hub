@@ -250,31 +250,27 @@
             
             // Listen for session recovery
             const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-                if (event === 'SIGNED_IN' && session) {
-                    location.reload() // Refresh to load data with session
+                if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session) {
+                    // If we were waiting for a user, this will trigger a reload or UI update
+                    if (!currentUser) location.reload()
                 }
             })
 
             try {
                 let user = await getCurrentUser()
                 
-                if (!user) {
-                    // Try waiting a bit longer if there's a hash or query (Google callback)
-                    const isCallback = window.location.hash.includes('access_token') || window.location.search.includes('code');
-                    if (isCallback) {
-                        console.log('OAuth callback detected on dashboard, waiting for session...')
-                        for (let i = 0; i < 20; i++) {
-                            await new Promise(r => setTimeout(r, 200))
-                            user = await getCurrentUser()
-                            if (user) break
-                        }
-                    }
+                // If there's an OAuth code/token in URL, wait a moment for Supabase to process it
+                if (!user && (window.location.hash.includes('access_token') || window.location.search.includes('code'))) {
+                    await new Promise(r => setTimeout(r, 1000))
+                    user = await getCurrentUser()
                 }
 
                 if (!user) {
                     window.location.replace('/auth.html?error=session_required')
                     return
                 }
+
+                currentUser = user
 
                 const profile = await getUserProfile(user.id)
                 if (!profile) {

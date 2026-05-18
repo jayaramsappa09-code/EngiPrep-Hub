@@ -20,42 +20,41 @@ export const isSupabaseConfigured = () => {
 // Helper: Check if user is logged in
 export const getCurrentUser = async () => {
   try {
-    // 1. Check if we have an active session in memory already
-    const { data: { session: initialSession }, error: initialError } = await supabase.auth.getSession()
-    if (initialSession) return initialSession.user
-
-    // 2. If no session but we have an auth hash or query params, wait for Supabase to process it
-    // Supabase handles the hash automatically on init, but it might take a moment
-    const hasAuthData = window.location.hash.includes('access_token=') || 
-                        window.location.hash.includes('error=') ||
-                        window.location.search.includes('code=') ||
-                        window.location.search.includes('error=');
-
-    if (hasAuthData) {
-        console.log('Detected auth data in URL, waiting for session...')
-        // Wait up to 3 seconds for the session to appear
-        for (let i = 0; i < 30; i++) {
-            await new Promise(resolve => setTimeout(resolve, 100))
-            const { data: { session } } = await supabase.auth.getSession()
-            if (session) {
-                console.log('Session successfully recovered from URL')
-                return session.user
-            }
-        }
-        console.warn('Timed out waiting for session from URL data')
-    }
+    // 1. Check if we already have a session in memory/localstorage
+    // This is the fastest and safest check
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
     
-    // 3. Last resort: direct check which is more authoritative
+    if (sessionError) {
+      // If we see the "exchange" error, it means the URL code is invalid/expired
+      if (sessionError.message.includes('exchange') || sessionError.message.includes('code')) {
+        console.warn('Auth code exchange issue detected. Cleaning URL...')
+        // Silence this error and return null, allowing the UI to handle the redirect to login
+        const url = new URL(window.location.href)
+        if (url.searchParams.has('code') || url.hash.includes('access_token')) {
+          url.searchParams.delete('code')
+          url.searchParams.delete('state')
+          url.hash = ''
+          window.history.replaceState({}, document.title, url.toString())
+        }
+        return null
+      }
+      console.warn('Session check warning:', sessionError.message)
+    }
+
+    if (session) return session.user
+    
+    // 2. Fallback to getUser (authoritative check)
+    // Only call this if we don't have a session, to prevent double network calls
     const { data: { user }, error: userError } = await supabase.auth.getUser()
     if (userError) {
-        // Only log if it's a real error, not just "no session"
-        if (userError.status !== 401 && userError.message !== 'Auth session missing!') {
-            console.error('User fetch error:', userError)
-        }
+      const msg = userError.message
+      if (userError.status !== 401 && msg !== 'Auth session missing!' && !msg.includes('JWTPurposeError')) {
+        console.warn('User fetch notice:', msg)
+      }
     }
     return user || null
   } catch (err) {
-    console.error('Auth Check Error:', err)
+    console.error('Critical Auth Error:', err)
     return null
   }
 }
