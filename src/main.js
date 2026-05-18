@@ -17,30 +17,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Sync UI on auth changes
 supabase.auth.onAuthStateChange(async (event, session) => {
-    updateAuthUI();
+    updateAuthUI(session?.user);
     
-    // Auto-redirect to dashboard if we land on home with a session (e.g. from Google login)
-    if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session) {
-        const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
-        const hasAuthData = window.location.hash.includes('access_token') || window.location.search.includes('code');
-        
-        if (isHomePage && hasAuthData) {
-            console.log('Session event detected on home page, ensuring stable session...');
-            const user = await getCurrentUser();
-            if (user) {
-                console.log('User verified, moving to dashboard...');
+    // On home page, if we just signed in, go to dashboard
+    if (event === 'SIGNED_IN' && session) {
+        const path = window.location.pathname;
+        if (path === '/' || path === '/index.html' || path === '') {
+            setTimeout(() => {
                 window.location.href = '/dashboard.html';
-            }
+            }, 100);
         }
     }
 });
 
-async function updateAuthUI() {
+async function updateAuthUI(providedUser = null) {
     const navActions = document.getElementById('nav-actions');
     if (!navActions) return;
 
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const user = providedUser || await getCurrentUser();
         
         if (user) {
             navActions.innerHTML = `
@@ -68,7 +63,7 @@ async function initStudyPlanner() {
     const plannerList = document.getElementById('planner-list');
     const bookmarkBtns = document.querySelectorAll('.bookmark-btn');
     
-    const { data: { user } } = await supabase.auth.getUser();
+    const user = await getCurrentUser();
 
     const renderPlanner = async () => {
         if (!plannerList) return;

@@ -259,8 +259,13 @@
             })
 
             try {
-                // Ensure the singleton handles the session discovery
-                const user = await getCurrentUser()
+                // If this is a callback, give the SDK a moment to process the hash/code
+                const isCallback = window.location.hash.includes('access_token') || window.location.search.includes('code');
+                if (isCallback) {
+                    await new Promise(r => setTimeout(r, 1000));
+                }
+
+                const user = await getCurrentUser();
 
                 if (!user) {
                     console.warn('Dashboard: No session found. Checking URL for errors...')

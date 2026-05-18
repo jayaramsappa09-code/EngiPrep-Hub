@@ -10,10 +10,13 @@ export const signIn = async (email, password) => {
 }
 
 export const signInWithGoogle = async () => {
+  const isProd = window.location.hostname === 'engi-prephub.vercel.app';
+  const redirectUrl = isProd ? 'https://engi-prephub.vercel.app/' : window.location.origin + '/';
+  
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: window.location.origin + '/',
+      redirectTo: redirectUrl,
     }
   })
   if (error) throw error
