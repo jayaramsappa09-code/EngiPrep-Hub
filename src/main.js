@@ -16,8 +16,23 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Sync UI on auth changes
-supabase.auth.onAuthStateChange((event, session) => {
+supabase.auth.onAuthStateChange(async (event, session) => {
     updateAuthUI();
+    
+    // Auto-redirect to dashboard if we land on home with a session (e.g. from Google login)
+    if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session) {
+        const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
+        const hasAuthData = window.location.hash.includes('access_token') || window.location.search.includes('code');
+        
+        if (isHomePage && hasAuthData) {
+            console.log('Session event detected on home page, ensuring stable session...');
+            const user = await getCurrentUser();
+            if (user) {
+                console.log('User verified, moving to dashboard...');
+                window.location.href = '/dashboard.html';
+            }
+        }
+    }
 });
 
 async function updateAuthUI() {

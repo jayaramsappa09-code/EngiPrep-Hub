@@ -17,45 +17,72 @@ export const isSupabaseConfigured = () => {
   return !!(supabaseUrl && supabaseAnonKey && !supabaseUrl.includes('placeholder'))
 }
 
+let authPromise = null
+
 // Helper: Check if user is logged in
-export const getCurrentUser = async () => {
-  try {
-    // 1. Check if we already have a session in memory/localstorage
-    // This is the fastest and safest check
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-    
-    if (sessionError) {
-      const msg = sessionError.message.toLowerCase()
-      // If we see the "exchange" error, it means the URL code is invalid or already used
-      if (msg.includes('exchange') || msg.includes('code') || msg.includes('invalid_grant')) {
-        console.warn('Auth exchange issue:', sessionError.message)
-        
-        // Only return null if we are indeed in a callback.
-        // We don't clear the URL here yet, we let dashboard handle the redirect first
-        // so it can capture the error from the URL if needed.
-        if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
+export const getCurrentUser = async (forceRefresh = false) => {
+  if (authPromise && !forceRefresh) return authPromise
+
+  authPromise = (async () => {
+    try {
+      // Small debounce to let Supabase SDK initialize if it's processing a callback
+      const hasAuthData = window.location.hash.includes('access_token=') || window.location.search.includes('code=')
+      if (hasAuthData) {
+        await new Promise(r => setTimeout(r, 800))
+      }
+
+      // 1. Check if we already have a session
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+      
+      if (sessionError) {
+        const msg = sessionError.message.toLowerCase()
+        // If we see exchange or grant errors, the code is dead - clean the URL
+        if (msg.includes('exchange') || msg.includes('code') || msg.includes('grant')) {
+          console.warn('Authentication code exchange failed:', sessionError.message)
+          
+          const url = new URL(window.location.href)
+          if (url.searchParams.has('code') || url.hash.includes('access_token')) {
+            console.log('Clearing invalid auth data from URL')
+            url.searchParams.delete('code')
+            url.searchParams.delete('state')
+            url.hash = ''
+            window.history.replaceState({}, document.title, url.toString())
+          }
           return null
         }
+        console.warn('Session retrieval status:', sessionError.message)
       }
-      console.warn('Session check warning:', sessionError.message)
-    }
 
-    if (session) return session.user
-    
-    // 2. Fallback to getUser (authoritative check)
-    // Only call this if we don't have a session, to prevent double network calls
-    const { data: { user }, error: userError } = await supabase.auth.getUser()
-    if (userError) {
-      const msg = userError.message
-      if (userError.status !== 401 && msg !== 'Auth session missing!' && !msg.includes('JWTPurposeError')) {
-        console.warn('User fetch notice:', msg)
+      const user = session?.user || null
+
+      if (user) {
+        // Session established - clean auth data from URL to keep it pretty
+        const url = new URL(window.location.href)
+        if (url.searchParams.has('code') || url.hash.includes('access_token')) {
+          url.searchParams.delete('code')
+          url.searchParams.delete('state')
+          url.hash = ''
+          window.history.replaceState({}, document.title, url.toString())
+        }
+        return user
       }
+      
+      // 2. Fallback to getUser (only if getSession didn't find anything)
+      const { data: { user: fetchedUser }, error: userError } = await supabase.auth.getUser()
+      if (userError) {
+        const msg = userError.message
+        if (userError.status !== 401 && msg !== 'Auth session missing!' && !msg.includes('JWTPurposeError')) {
+          console.warn('User fetch notice:', msg)
+        }
+      }
+      return fetchedUser || null
+    } catch (err) {
+      console.error('Critical Auth Discovery Error:', err)
+      return null
     }
-    return user || null
-  } catch (err) {
-    console.error('Critical Auth Error:', err)
-    return null
-  }
+  })()
+
+  return authPromise
 }
 
 // Helper: Get user profile (including role)

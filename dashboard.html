@@ -250,40 +250,31 @@
         async function init() {
             const overlay = document.getElementById('loading-overlay')
             
-            // Listen for session recovery
-            const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-                console.log('Auth Event:', event)
+            supabase.auth.onAuthStateChange((event, session) => {
                 if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session) {
                     if (!currentUser) {
-                        console.log('Session detected via event, refreshing...')
-                        location.reload()
+                        console.log('Session event received');
                     }
                 }
             })
 
             try {
-                // Determine if we are in an OAuth callback flow
-                const isCallback = window.location.hash.includes('access_token') || window.location.search.includes('code')
-                
-                let user = await getCurrentUser()
-                
-                // If there's an OAuth code/token in URL but no user yet, wait a bit longer
-                // Supabase might be processing the exchange
-                if (!user && isCallback) {
-                    console.log('Callback detected, waiting for session...')
-                    for (let i = 0; i < 5; i++) {
-                        await new Promise(r => setTimeout(r, 600))
-                        user = await getCurrentUser()
-                        if (user) break
-                    }
-                }
+                // Ensure the singleton handles the session discovery
+                const user = await getCurrentUser()
 
                 if (!user) {
-                    // Check if we have an error in the URL before giving up
+                    console.warn('Dashboard: No session found. Checking URL for errors...')
                     const urlParams = new URLSearchParams(window.location.search)
                     const errorMsg = urlParams.get('error_description') || urlParams.get('error')
-                    const redirectUrl = '/auth.html?error=' + encodeURIComponent(errorMsg || 'session_required')
-                    window.location.replace(redirectUrl)
+                    
+                    // If we have an actual error, redirect to auth with it
+                    if (errorMsg) {
+                        window.location.replace('/auth.html?error=' + encodeURIComponent(errorMsg))
+                        return
+                    }
+                    
+                    // Otherwise, just session required
+                    window.location.replace('/auth.html?error=session_required')
                     return
                 }
 

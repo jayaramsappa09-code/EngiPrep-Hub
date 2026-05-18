@@ -10,18 +10,10 @@ export const signIn = async (email, password) => {
 }
 
 export const signInWithGoogle = async () => {
-  // Use the production URL if we're on it, otherwise fallback to current origin for dev
-  const isProd = window.location.hostname === 'engi-prephub.vercel.app';
-  const siteUrl = isProd ? 'https://engi-prephub.vercel.app' : window.location.origin;
-  const redirectUrl = siteUrl + '/dashboard.html';
-  
-  console.log('Initiating Google Login. Root URL:', siteUrl, 'Redirect to:', redirectUrl);
-  
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: redirectUrl,
-      skipBrowserRedirect: false
+      redirectTo: window.location.origin + '/',
     }
   })
   if (error) throw error
