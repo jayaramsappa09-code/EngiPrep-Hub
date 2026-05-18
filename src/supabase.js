@@ -58,3 +58,63 @@ export const getUserProfile = async (userId) => {
     return null
   }
 }
+
+// Helper: Update user profile
+export const updateUserProfile = async (userId, updates) => {
+  if (!userId || !isSupabaseConfigured()) return { error: 'Not configured' }
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .update({
+        ...updates,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', userId)
+    
+    if (error) throw error
+    return { data, error: null }
+  } catch (err) {
+    console.error('Profile Update Error:', err)
+    return { error: err.message }
+  }
+}
+
+// Helper: Get contributions
+export const getUserContributions = async (userId) => {
+  if (!userId || !isSupabaseConfigured()) return []
+  try {
+    const { data, error } = await supabase
+      .from('contributions')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+    
+    if (error) throw error
+    return data
+  } catch (err) {
+    console.error('Contributions Fetch Error:', err)
+    return []
+  }
+}
+
+// Helper: Submit contribution
+export const submitContribution = async (userId, details) => {
+  if (!userId || !isSupabaseConfigured()) return { error: 'Not configured' }
+  try {
+    const { data, error } = await supabase
+      .from('contributions')
+      .insert([
+        {
+          user_id: userId,
+          ...details,
+          status: 'pending'
+        }
+      ])
+    
+    if (error) throw error
+    return { data, error: null }
+  } catch (err) {
+    console.error('Contribution Submit Error:', err)
+    return { error: err.message }
+  }
+}

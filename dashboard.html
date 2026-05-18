@@ -3,134 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | EngiPrep Hub</title>
+    <title>Command Center | EngiPrep Hub</title>
     <link rel="stylesheet" href="/src/style.css">
     <style>
         @reference "./src/style.css";
-        .stat-card { @apply bg-white/5 border border-white/5 rounded-2xl p-6 bg-white/[0.02] flex flex-col justify-center; }
+        .bento-card { @apply bg-white/[0.02] border border-white/5 rounded-[2rem] p-8 transition-all hover:bg-white/[0.04] hover:border-white/10; }
+        .avatar-ring { @apply rounded-full p-1 bg-gradient-to-tr from-primary to-purple-500 shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]; }
+        .xp-bar-fill { @apply h-full bg-gradient-to-r from-primary to-purple-500 rounded-full transition-all duration-1000; }
     </style>
 </head>
-<body class="bg-[#0a0a0f] text-white">
-    <!-- Dashboard Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/5 uppercase font-black tracking-tighter">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">E</div>
-                <span class="text-white">EngiPrep Hub</span>
+<body class="bg-[#050508] text-white selection:bg-primary/30">
+    <!-- Premium Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/80 backdrop-blur-xl border-b border-white/5 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-primary rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:rotate-12 transition-transform">
+                    <span class="font-black text-xl">E</span>
+                </div>
+                <span class="text-xl font-black tracking-tighter italic">EngiPrep <span class="text-primary italic">Hub</span></span>
             </a>
+            
             <div class="flex items-center gap-6">
-                <span id="user-name-display" class="text-[10px] text-gray-500 lowercase">student@jntuk.ac.in</span>
-                <button id="logout-btn" class="text-[10px] text-red-500 hover:tracking-widest transition-all">Logout →</button>
+                <div class="hidden md:flex items-center gap-4 px-4 py-2 bg-white/5 rounded-full border border-white/5">
+                    <span class="text-[10px] font-black text-primary uppercase tracking-widest">Streak: 0 Days 🔥</span>
+                </div>
+                <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.href='/profile.html'">
+                    <div class="text-right hidden sm:block">
+                        <p id="nav-username" class="text-xs font-black">Loading...</p>
+                        <p id="nav-xp" class="text-[9px] text-gray-500 uppercase tracking-widest">0 XP</p>
+                    </div>
+                    <div id="nav-avatar-ring" class="p-0.5 rounded-xl border border-white/10 bg-white/5 transition-all">
+                        <img id="nav-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=placeholder" class="w-10 h-10 rounded-[10px]" alt="Avatar">
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-32">
-        <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-                <span class="text-[10px] text-primary font-black uppercase tracking-[0.3em] mb-4 inline-block">Personal Learning Environment</span>
-                <h1 class="text-5xl font-black tracking-tighter italic">Academic <span class="text-primary leading-none">Command Center.</span></h1>
+        <!-- Identity Hero Section -->
+        <header class="mb-16 flex flex-col md:flex-row md:items-center justify-between gap-8 animate-fade">
+            <div class="flex items-center gap-6">
+                <div class="avatar-ring">
+                    <img id="hero-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=placeholder" 
+                        class="w-24 h-24 rounded-full border-4 border-[#050508] bg-[#050508]" alt="User Avatar">
+                </div>
+                <div>
+                    <h1 id="greeting-text" class="text-4xl md:text-5xl font-black tracking-tighter italic mb-2">Loading...</h1>
+                    <p id="motivation-text" class="text-gray-500 text-sm italic">Scanning your academic progress...</p>
+                </div>
             </div>
-            <div class="flex gap-4">
-                <a href="/semester-1.html" class="btn-primary py-3 px-6 text-xs">Resume Studies</a>
+            <div class="flex items-center gap-4">
+                <a href="/contribute.html" class="px-6 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">Submit Resource</a>
+                <a href="/semester-1.html" class="btn-primary px-8 py-3 text-[10px]">Resume Last Session</a>
             </div>
         </header>
 
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-            <div class="stat-card">
-                <div class="text-[10px] font-black text-gray-600 uppercase mb-2">Study Progress</div>
-                <div class="text-3xl font-black">12%</div>
-                <div class="w-full h-1 bg-white/5 mt-4 rounded-full overflow-hidden">
-                    <div class="w-[12%] h-full bg-primary"></div>
+        <!-- Bento Dashboard Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            
+            <!-- XP & Rank (Span 4) -->
+            <div class="md:col-span-4 bento-card flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest italic">Hub Reputation</span>
+                        <span id="user-level" class="text-[10px] font-black text-primary uppercase bg-primary/10 px-3 py-1 rounded-full">Level 1</span>
+                    </div>
+                    <div class="text-5xl font-black mb-2 italic" id="total-xp">0<span class="text-sm text-gray-500 uppercase font-bold not-italic">xp</span></div>
+                </div>
+                <div class="mt-8">
+                    <div class="flex justify-between text-[10px] font-bold mb-2">
+                        <span class="text-gray-500 italic">Progress to Level 2</span>
+                        <span class="text-white">0 / 500 XP</span>
+                    </div>
+                    <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden">
+                        <div id="xp-bar" class="xp-bar-fill" style="width: 5%"></div>
+                    </div>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="text-[10px] font-black text-gray-600 uppercase mb-2">Subject Mastery</div>
-                <div class="text-3xl font-black">02/06</div>
-            </div>
-            <div class="stat-card">
-                <div class="text-[10px] font-black text-gray-600 uppercase mb-2">Exam Countdown</div>
-                <div class="text-3xl font-black text-red-500">42D</div>
-            </div>
-            <div class="stat-card">
-                <div class="text-[10px] font-black text-gray-600 uppercase mb-2">Hub Credits</div>
-                <div class="text-3xl font-black text-amber-500">150</div>
-            </div>
-        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Main Feed -->
-            <div class="lg:col-span-2 space-y-8">
-                <section class="glass-card p-10 border-white/5">
-                    <h2 class="text-xl font-bold mb-8 italic">Recently Accessed Coursework</h2>
-                    <div class="space-y-4">
-                        <a href="/unit-1-c-fundamentals.html" class="flex items-center justify-between p-4 rounded-xl hover:bg-white/5 transition-all border border-transparent hover:border-white/5 group">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-emerald-500/10 text-emerald-500 rounded-lg flex items-center justify-center">C</div>
-                                <div>
-                                    <h3 class="font-bold text-sm">Programming for Problem Solving</h3>
-                                    <p class="text-[10px] text-gray-500">Unit 1: C Fundamentals • 80% Complete</p>
-                                </div>
-                            </div>
-                            <span class="text-[10px] text-primary opacity-0 group-hover:opacity-100 transition-opacity">Continue →</span>
-                        </a>
-                        <a href="/physics-unit-1.html" class="flex items-center justify-between p-4 rounded-xl hover:bg-white/5 transition-all border border-transparent hover:border-white/5 group">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-purple-500/10 text-purple-500 rounded-lg flex items-center justify-center">P</div>
-                                <div>
-                                    <h3 class="font-bold text-sm">Engineering Physics</h3>
-                                    <p class="text-[10px] text-gray-500">Unit 1: Wave Optics • 20% Complete</p>
-                                </div>
-                            </div>
-                            <span class="text-[10px] text-primary opacity-0 group-hover:opacity-100 transition-opacity">Continue →</span>
-                        </a>
+            <!-- Focus Activity (Span 5) -->
+            <div class="md:col-span-5 bento-card group">
+                <div class="flex items-center justify-between mb-8">
+                    <h3 class="text-lg font-black italic">Active Focus</h3>
+                    <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                </div>
+                <div class="flex items-center gap-5 p-5 bg-white/5 rounded-2xl border border-white/5 mb-4 hover:border-primary/20 transition-all cursor-pointer" onclick="window.location.href='/unit-1-c-fundamentals.html'">
+                    <div class="w-12 h-12 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center font-black">C</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-sm">C Programming</h4>
+                        <p class="text-[10px] text-gray-500 italic">Unit 1: Fundamentals • 84% Mastery</p>
                     </div>
-                </section>
-
-                <section class="glass-card p-10 border-primary/20 bg-primary/5">
-                    <h2 class="text-xl font-bold mb-4 italic">Preparation Strategy</h2>
-                    <p class="text-sm text-gray-400 mb-8">Based on your activity, we recommend focusing on <b>Engineering Mathematics I</b> this week to stay on track for the mid-exams.</p>
-                    <a href="/m1-eigen-values.html" class="btn-primary py-3 px-8 text-xs inline-block">View M1 Study Guide</a>
-                </section>
+                    <span class="text-xs text-gray-700">→</span>
+                </div>
+                <div class="flex items-center gap-5 p-5 bg-white/5 rounded-2xl border border-white/5 opacity-60 hover:opacity-100 transition-all cursor-pointer" onclick="window.location.href='/physics-unit-1.html'">
+                    <div class="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-xl flex items-center justify-center font-black">Ph</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-sm">Engineering Physics</h4>
+                        <p class="text-[10px] text-gray-500 italic">Interference • 12% Mastery</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- Sidebar -->
-            <div class="space-y-8">
-                <section class="glass-card p-8 border-white/5">
-                    <h2 class="text-sm font-black uppercase tracking-widest text-gray-400 mb-6 italic">Quick Links</h2>
-                    <div class="grid grid-cols-1 gap-3">
-                        <a href="/cheat-sheets.html" class="p-3 bg-white/5 rounded-xl text-xs font-bold hover:bg-primary/10 transition-all text-center">Cheat Sheets</a>
-                        <a href="/exam-survival.html" class="p-3 bg-red-500/10 text-red-500 rounded-xl text-xs font-bold hover:bg-red-500/20 transition-all text-center">Survival Mode</a>
-                        <a href="/semester-1.html" class="p-3 bg-white/5 rounded-xl text-xs font-bold hover:bg-primary/10 transition-all text-center">PYQ Library</a>
-                    </div>
-                </section>
+            <!-- Daily Streak (Span 3) -->
+            <div class="md:col-span-3 bento-card flex flex-col items-center justify-center text-center bg-gradient-to-br from-primary/5 to-transparent">
+                <div class="text-6xl mb-4">🔥</div>
+                <div id="streak-count" class="text-4xl font-black italic">0</div>
+                <div class="text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] mt-2">Study Streak</div>
+            </div>
 
-                <section class="glass-card p-8 border-white/5">
-                    <h2 class="text-sm font-black uppercase tracking-widest text-gray-400 mb-6 italic">Notifications</h2>
-                    <div class="space-y-4">
-                        <div class="text-[10px] p-4 bg-white/5 rounded-xl border-l-2 border-primary">
-                            <span class="text-primary font-bold">New Content:</span> M1 Eigen Values guide has been updated with 2025 PYQs.
+            <!-- Identities & Badges (Span 12) -->
+            <div class="md:col-span-8 bento-card relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                <h3 class="text-lg font-black italic mb-8">Achievement Showcase</h3>
+                <div id="badge-container" class="flex flex-wrap gap-4">
+                    <div class="bg-white/5 border border-white/5 rounded-2xl p-4 flex items-center gap-3 grayscale opacity-30">
+                         <span class="text-2xl">🏅</span>
+                         <span class="text-[10px] font-bold uppercase tracking-widest">Verified Hub Contributor</span>
+                    </div>
+                    <div class="bg-white/5 border border-white/5 rounded-2xl p-4 flex items-center gap-3 grayscale opacity-30">
+                         <span class="text-2xl">⚡</span>
+                         <span class="text-[10px] font-bold uppercase tracking-widest">PYQ Hunter</span>
+                    </div>
+                    <!-- Empty slots for motivation -->
+                    <div class="border border-dashed border-white/10 rounded-2xl p-4 flex items-center gap-3 opacity-20">
+                         <span class="text-2xl italic text-gray-700">?</span>
+                         <span class="text-[10px] font-bold uppercase tracking-widest">Locked Achievement</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contributor Quick Look (Span 4) -->
+            <div class="md:col-span-4 bento-card flex flex-col justify-between border-emerald-500/10 bg-emerald-500/[0.02]">
+                <div>
+                   <h3 class="text-lg font-black italic mb-2">Contribution Score</h3>
+                   <p class="text-xs text-gray-500 mb-6 italic">Help the community grow and earn premium badges.</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="text-center">
+                        <p id="contributions-count" class="text-3xl font-black">0</p>
+                        <p class="text-[9px] text-gray-600 uppercase font-black">Uploads</p>
+                    </div>
+                    <div class="h-10 w-[1px] bg-white/5"></div>
+                    <div class="text-center">
+                        <p id="trust-score" class="text-3xl font-black">50</p>
+                        <p class="text-[9px] text-gray-600 uppercase font-black">Trust Score</p>
+                    </div>
+                </div>
+                <a href="/contribute.html" class="mt-8 block py-4 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-500 rounded-2xl text-[10px] font-black uppercase text-center transition-all">Go to Creator Hub</a>
+            </div>
+
+            <!-- Trending Community (Span 12) -->
+            <div class="md:col-span-12 bento-card">
+                <div class="flex items-center justify-between mb-8">
+                    <h3 class="text-lg font-black italic">Trending in Community</h3>
+                    <a href="/semester-1.html" class="text-[10px] text-gray-600 uppercase font-black hover:text-white transition-all">View All Activity →</a>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Dynamic Loading -->
+                    <div class="p-6 bg-white/[0.01] border border-white/5 rounded-2xl hover:bg-white/5 transition-all cursor-pointer group">
+                        <span class="text-[8px] text-primary font-black uppercase mb-3 block">30+ Downloads Today</span>
+                        <h4 class="font-bold text-sm mb-1 group-hover:text-primary transition-all">M1 Eigen Values Cheat Sheet</h4>
+                        <p class="text-[9px] text-gray-600 italic mb-4">by @MathTitan_23</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] text-emerald-500">Premium Resource</span>
+                            <span class="text-[10px] text-gray-700">Study →</span>
                         </div>
-                        <div class="text-[10px] p-4 bg-white/5 rounded-xl border-l-2 border-amber-500">
-                            <span class="text-amber-500 font-bold">Reminder:</span> Semester 1 Mid Exams start in 14 days.
+                    </div>
+                    <div class="p-6 bg-white/[0.01] border border-white/5 rounded-2xl hover:bg-white/5 transition-all cursor-pointer group">
+                        <span class="text-[8px] text-amber-500 font-black uppercase mb-3 block">High Success Rate</span>
+                        <h4 class="font-bold text-sm mb-1 group-hover:text-amber-500 transition-all">Physics Interference Pack</h4>
+                        <p class="text-[9px] text-gray-600 italic mb-4">by @LightSpeed_Alex</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] text-orange-500">Verified PYQs</span>
+                            <span class="text-[10px] text-gray-700">Study →</span>
                         </div>
                     </div>
-                </section>
+                    <!-- Empty slot invitation -->
+                    <div class="p-6 border border-dashed border-white/10 rounded-2xl flex flex-col items-center justify-center text-center">
+                        <p class="text-gray-700 text-[10px] font-black uppercase italic mb-4">You could be here</p>
+                        <a href="/contribute.html" class="text-[10px] font-bold text-primary hover:underline italic">Upload a Note!</a>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <footer class="py-20 border-t border-white/5 text-center">
-        <p class="text-gray-500 text-xs">© 2026 EngiPrep Hub • Student Command Console</p>
+    <!-- Footer -->
+    <footer class="py-20 border-t border-white/5 text-center bg-black/40">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+            <p class="text-gray-600 text-[10px] font-black uppercase tracking-widest italic">EngiPrep Hub Ecosystem v2.0 • JNTUK R23 Intelligence</p>
+            <div class="flex gap-8">
+                <a href="/profile.html" class="text-gray-600 hover:text-white transition-all text-[10px] uppercase font-black">Settings</a>
+                <button id="logout-btn" class="text-red-500 hover:text-red-400 transition-all text-[10px] uppercase font-black">Logout Session</button>
+            </div>
+        </div>
     </footer>
 
     <script type="module">
-        import { supabase, getCurrentUser } from './src/supabase.js'
+        import { supabase, getCurrentUser, getUserProfile } from './src/supabase.js'
         import { signOut } from './src/auth.js'
+        import { getGreeting, getMotivation, AVATARS } from './src/identity-constants.js'
 
+        const navUsername = document.getElementById('nav-username')
+        const navXP = document.getElementById('nav-xp')
+        const navAvatar = document.getElementById('nav-avatar')
+        const heroAvatar = document.getElementById('hero-avatar')
+        const greetingText = document.getElementById('greeting-text')
+        const motivationText = document.getElementById('motivation-text')
         const logoutBtn = document.getElementById('logout-btn')
-        const userNameDisplay = document.getElementById('user-name-display')
+
+        const totalXPDisplay = document.getElementById('total-xp')
+        const xpBar = document.getElementById('xp-bar')
+        const levelBadge = document.getElementById('user-level')
+        const streakDisplay = document.getElementById('streak-count')
+        const contributionsDisplay = document.getElementById('contributions-count')
+        const trustScoreDisplay = document.getElementById('trust-score')
 
         async function init() {
             const user = await getCurrentUser()
@@ -138,11 +226,54 @@
                 window.location.href = '/auth.html'
                 return
             }
-            userNameDisplay.textContent = user.email
+
+            const profile = await getUserProfile(user.id)
+            if (!profile) {
+                // If profile creation via trigger failed or delayed, try to wait or redirect
+                // Usually first login might need onboarding
+                window.location.href = '/profile.html?onboarding=true'
+                return
+            }
+
+            // Update UI with Personalized Identity
+            const displayName = profile.username || profile.full_name || 'Engineer'
+            const avatarUrl = profile.avatar_url || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + user.id
+            
+            navUsername.textContent = displayName
+            navAvatar.src = avatarUrl
+            heroAvatar.src = avatarUrl
+            navXP.textContent = `${profile.xp || 0} XP`
+            
+            // Dynamic Ring Styling
+            const avatarMatch = AVATARS.find(a => a.url === avatarUrl)
+            if (avatarMatch) {
+                const heroRing = document.querySelector('.avatar-ring')
+                const navRing = document.getElementById('nav-avatar-ring')
+                
+                heroRing.className = `rounded-full p-1 bg-gradient-to-tr ${avatarMatch.gradient} shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]`
+                navRing.className = `p-0.5 rounded-xl bg-gradient-to-tr ${avatarMatch.gradient} shadow-lg transition-all`
+            }
+
+            greetingText.textContent = getGreeting(displayName)
+            motivationText.textContent = getMotivation(0) // Logic for progress later
+
+            // Stats
+            totalXPDisplay.innerHTML = `${profile.xp || 0}<span class="text-sm text-gray-500 uppercase font-bold not-italic">xp</span>`
+            streakDisplay.textContent = profile.streak || 0
+            contributionsDisplay.textContent = profile.contributions_count || 0
+            trustScoreDisplay.textContent = profile.trust_score || 50
+
+            // Level Logic (Simple Level = floor(xp/500) + 1)
+            const level = Math.floor((profile.xp || 0) / 500) + 1
+            const xpInLevel = (profile.xp || 0) % 500
+            const xpProgress = Math.max(5, (xpInLevel / 500) * 100)
+            
+            levelBadge.textContent = `Level ${level}`
+            xpBar.style.width = `${xpProgress}%`
         }
 
         logoutBtn.addEventListener('click', async () => {
-            if (confirm('Are you sure you want to logout?')) {
+            if (confirm('Verify: Terminate session?')) {
                 await signOut()
             }
         })

@@ -20,7 +20,7 @@ export const signInWithGoogle = async () => {
   return data
 }
 
-export const signUp = async (email, password, fullName) => {
+export const signUp = async (email, password, fullName, username) => {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -28,6 +28,7 @@ export const signUp = async (email, password, fullName) => {
       emailRedirectTo: window.location.origin + '/auth.html',
       data: {
         full_name: fullName,
+        username: username,
       },
     },
   })

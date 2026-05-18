@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Identity | EngiPrep Hub</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        @reference "./src/style.css";
+        .avatar-option { @apply relative cursor-pointer; }
+        .avatar-option.active .avatar-inner { @apply ring-4 ring-primary shadow-[0_0_30px_rgba(var(--primary-rgb),0.5)]; }
+        .avatar-inner { @apply w-full aspect-square rounded-[2rem] border-2 border-white/5 bg-white/[0.02] p-4 transition-all; }
+        .avatar-option:hover .avatar-inner { @apply bg-white/[0.04] border-white/10; }
+        .badge { @apply text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full; }
+    </style>
+</head>
+<body class="bg-[#050508] text-white">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/80 backdrop-blur-xl border-b border-white/5 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/dashboard.html" class="flex items-center gap-3">
+                <span class="text-xs font-black uppercase tracking-widest text-gray-500">← Back to Dashboard</span>
+            </a>
+            <div class="flex items-center gap-2">
+                <span id="onboarding-notice" class="hidden text-[10px] text-primary italic font-black animate-pulse">Account Setup Required ●</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 pt-32 pb-32">
+        <header class="mb-16">
+            <h1 class="text-5xl font-black italic tracking-tighter mb-4 select-none">Forge Your <span class="text-primary italic">Identity.</span></h1>
+            <p class="text-gray-500 text-sm italic">Choose how the Hub community sees you. Stay anonymous or become a legend.</p>
+        </header>
+
+        <section class="mb-20">
+            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-10 border-b border-white/5 pb-4 italic">Step 1: Select Your Avatar</h2>
+            <div id="avatar-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                <!-- Avatars injected here -->
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-8 italic">Step 2: Profile Details</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Unique Username</label>
+                        <input type="text" id="username-input" class="input-field w-full" placeholder="e.g. PhysicsNinja_23">
+                        <p class="text-[9px] text-gray-700 mt-2 italic">* This will be visible on your contributions.</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Display Name</label>
+                        <input type="text" id="fullname-input" class="input-field w-full" placeholder="Your Real Name (Keep private/public)">
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Academic Branch</label>
+                        <select id="branch-select" class="input-field w-full bg-[#0d0d12]">
+                            <option value="">Select Branch</option>
+                            <option value="CSE">Computer Science (CSE)</option>
+                            <option value="ECE">Electronics (ECE)</option>
+                            <option value="EEE">Electrical (EEE)</option>
+                            <option value="MECH">Mechanical (MECH)</option>
+                            <option value="CIVIL">Civil (CIVIL)</option>
+                            <option value="OTHER">Other Branch</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Current Semester</label>
+                        <select id="semester-select" class="input-field w-full bg-[#0d0d12]">
+                            <option value="">Select Semester</option>
+                            <option value="1">Semester 1</option>
+                            <option value="2">Semester 2</option>
+                            <option value="3">Semester 3</option>
+                            <option value="4">Semester 4</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center gap-6">
+            <button id="save-btn" class="btn-primary w-full sm:w-auto px-12 py-4">Save Identity Preferences</button>
+            <p id="save-msg" class="text-xs text-primary hidden font-bold italic animate-fade"></p>
+        </div>
+    </main>
+
+    <script type="module">
+        import { getCurrentUser, getUserProfile, updateUserProfile } from './src/supabase.js'
+        import { AVATARS } from './src/identity-constants.js'
+
+        const avatarGrid = document.getElementById('avatar-grid')
+        const usernameInput = document.getElementById('username-input')
+        const fullnameInput = document.getElementById('fullname-input')
+        const branchSelect = document.getElementById('branch-select')
+        const semesterSelect = document.getElementById('semester-select')
+        const saveBtn = document.getElementById('save-btn')
+        const saveMsg = document.getElementById('save-msg')
+        const onboardingNotice = document.getElementById('onboarding-notice')
+
+        let selectedAvatar = null
+        let currentUser = null
+
+        // Inject Avatars
+        AVATARS.forEach(avatar => {
+            const div = document.createElement('div')
+            div.className = 'avatar-option'
+            div.innerHTML = `
+                <div class="avatar-inner flex flex-col items-center justify-center gap-4 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br ${avatar.gradient} opacity-5 group-hover:opacity-10 transition-opacity"></div>
+                    <div class="relative z-10 w-20 sm:w-24 h-20 sm:h-24 rounded-full p-1 bg-gradient-to-tr ${avatar.gradient} shadow-lg">
+                        <img src="${avatar.url}" class="w-full h-full rounded-full bg-[#0d0d12]" alt="${avatar.name}">
+                    </div>
+                    <div class="relative z-10 text-center">
+                        <p class="text-xs font-black italic tracking-tighter">${avatar.name}</p>
+                        <p class="text-[8px] uppercase font-black text-gray-600 mt-1">${avatar.style}</p>
+                    </div>
+                    <div class="absolute top-2 right-2 bg-primary text-white text-[10px] p-1 rounded-lg opacity-0 check-mark transition-opacity">✓</div>
+                    <div class="absolute top-2 left-2 text-lg">${avatar.badge}</div>
+                </div>
+            `
+            div.onclick = () => {
+                document.querySelectorAll('.avatar-option').forEach(el => {
+                    el.classList.remove('active')
+                    el.querySelector('.check-mark').style.opacity = '0'
+                })
+                div.classList.add('active')
+                div.querySelector('.check-mark').style.opacity = '1'
+                selectedAvatar = avatar.url
+            }
+            avatarGrid.appendChild(div)
+        })
+
+        async function init() {
+            currentUser = await getCurrentUser()
+            if (!currentUser) {
+                window.location.href = '/auth.html'
+                return
+            }
+
+            const isOnboarding = new URLSearchParams(window.location.search).get('onboarding') === 'true'
+            if (isOnboarding) onboardingNotice.classList.remove('hidden')
+
+            const profile = await getUserProfile(currentUser.id)
+            if (profile) {
+                usernameInput.value = profile.username || ''
+                fullnameInput.value = profile.full_name || ''
+                branchSelect.value = profile.branch || ''
+                semesterSelect.value = profile.semester || ''
+                selectedAvatar = profile.avatar_url
+                
+                // Highlight current avatar
+                const options = document.querySelectorAll('.avatar-option')
+                AVATARS.forEach((av, idx) => {
+                    if (av.url === profile.avatar_url) {
+                        options[idx].classList.add('active')
+                        options[idx].querySelector('.check-mark').style.opacity = '1'
+                    }
+                })
+            }
+        }
+
+        saveBtn.addEventListener('click', async () => {
+            saveBtn.disabled = true
+            saveBtn.textContent = 'Forgeing Profile...'
+            
+            const updates = {
+                username: usernameInput.value.trim(),
+                full_name: fullnameInput.value.trim(),
+                branch: branchSelect.value,
+                semester: semesterSelect.value ? parseInt(semesterSelect.value) : null,
+                avatar_url: selectedAvatar
+            }
+
+            const { error } = await updateUserProfile(currentUser.id, updates)
+            
+            if (error) {
+                saveMsg.textContent = '❌ Error: ' + error
+                saveMsg.classList.add('text-red-500')
+            } else {
+                saveMsg.textContent = '✅ Identity Saved Successfully. Redirecting...'
+                saveMsg.classList.remove('text-red-500', 'hidden')
+                setTimeout(() => window.location.href = '/dashboard.html', 1500)
+            }
+            
+            saveBtn.disabled = false
+            saveBtn.textContent = 'Save Identity Preferences'
+        })
+
+        init()
+    </script>
+</body>
+</html>
