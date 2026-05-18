@@ -78,19 +78,27 @@
     <script type="module" src="/src/config-check.js"></script>
     <script type="module">
         import { signIn, signUp, signInWithGoogle } from './src/auth.js'
-        import { getCurrentUser } from './src/supabase.js'
+        import { getCurrentUser, supabase } from './src/supabase.js'
         
         const form = document.getElementById('auth-form'), googleBtn = document.getElementById('google-btn'), toggleBtn = document.getElementById('toggle-auth'), signupFields = document.getElementById('signup-fields'), title = document.getElementById('auth-title'), subtitle = document.getElementById('auth-subtitle'), submitBtn = document.getElementById('submit-btn'), errorDiv = document.getElementById('error-message'), toggleHint = document.getElementById('toggle-text-hint');
         
         let isSignup = new URLSearchParams(window.location.search).get('signup') === 'true';
 
+        // 1. Initial immediate check
         async function checkSession() {
             const user = await getCurrentUser()
             if (user) {
-                window.location.href = '/dashboard.html'
+                window.location.replace('/dashboard.html')
             }
         }
         checkSession()
+
+        // 2. Listen for session changes (needed for OAuth redirects)
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+                window.location.replace('/dashboard.html')
+            }
+        })
 
         function updateUI() {
             if (isSignup) {
