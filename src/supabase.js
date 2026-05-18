@@ -20,6 +20,11 @@ export const isSupabaseConfigured = () => {
 // Helper: Check if user is logged in
 export const getCurrentUser = async () => {
   try {
+    // If there's an access token in the hash, wait a bit for Supabase to process it
+    if (window.location.hash.includes('access_token=')) {
+        await new Promise(resolve => setTimeout(resolve, 500))
+    }
+
     const { data: { session }, error: sessionError } = await supabase.auth.getSession()
     if (sessionError) {
         console.error('Session error:', sessionError)
@@ -29,7 +34,10 @@ export const getCurrentUser = async () => {
     // Fallback to getUser which is slower but more accurate
     const { data: { user }, error: userError } = await supabase.auth.getUser()
     if (userError) {
-        console.error('User fetch error:', userError)
+        // Only log if it's a real error, not just "no session"
+        if (userError.status !== 401 && userError.message !== 'Auth session missing!') {
+            console.error('User fetch error:', userError)
+        }
     }
     return user || null
   } catch (err) {

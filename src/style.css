@@ -3,82 +3,80 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --color-primary: #3b82f6;
-  --color-secondary: #8b5cf6;
-  --color-bg-dark: #0a0a0f;
-  --color-card-dark: #111118;
+  --color-primary: #2563eb;
+  --color-secondary: #4f46e5;
+  --color-accent: #f59e0b;
 }
 
 :root {
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-blur: blur(12px);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(226, 232, 240, 0.8);
+  --glass-blur: blur(8px);
 }
 
 body {
-  @apply bg-[#0a0a0f] text-white font-sans antialiased;
+  @apply bg-[#f8fafc] text-slate-800 font-sans antialiased;
 }
 
 .glass-card {
-  @apply bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-2xl backdrop-blur-[var(--glass-blur)] transition-all duration-300;
+  @apply bg-white border border-slate-200 rounded-3xl transition-all duration-300 shadow-sm;
 }
 
 .glass-card:hover {
-  @apply border-primary/40 bg-white/[0.05];
+  @apply border-blue-200 shadow-lg shadow-blue-500/5;
 }
 
-.neon-border {
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+.bento-card {
+  @apply bg-white border border-slate-100 rounded-[2.5rem] p-8 transition-all duration-300;
 }
 
 .btn-primary {
-  @apply bg-primary hover:bg-blue-600 px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/20 disabled:opacity-50;
+  @apply bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-bold transition-all transform active:scale-95 shadow-lg shadow-blue-500/20 disabled:opacity-50 inline-flex items-center justify-center gap-2;
 }
 
-.btn-ghost {
-  @apply border border-white/10 hover:bg-white/5 px-6 py-3 rounded-xl font-bold transition-all;
+.btn-outline {
+  @apply border-2 border-slate-200 hover:border-blue-600 hover:text-blue-600 px-6 py-3 rounded-2xl font-bold transition-all inline-flex items-center justify-center gap-2;
+}
+
+.btn-secondary {
+  @apply bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-slate-900/10;
 }
 
 .input-field {
-  @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-all text-white;
+  @apply w-full bg-white border border-slate-200 rounded-2xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900;
 }
 
 /* Animations */
-@keyframes fadeIn {
+@keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade {
-  animation: fadeIn 0.8s ease-out forwards;
+.animate-fade-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Auth Pages */
-.auth-container {
-  @apply min-h-screen flex items-center justify-center p-4 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-black to-black;
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Dashboard */
-.sidebar-link {
-  @apply flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all text-gray-400 hover:text-white mb-1;
-}
-
-.sidebar-link.active {
-  @apply bg-primary/10 text-primary border-r-4 border-primary rounded-r-none;
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
 }
 
 /* Skeleton */
 .skeleton {
-  @apply bg-white/5 animate-pulse rounded;
+  @apply bg-slate-100 animate-pulse rounded-xl;
 }
 
-/* Premium Reading Layers */
+/* Premium Reading Layer */
 .prose-premium {
-  @apply text-lg leading-relaxed text-gray-300;
+  @apply text-lg leading-relaxed text-slate-600;
 }
 
 .prose-premium h1, .prose-premium h2, .prose-premium h3 {
-  @apply text-white font-black tracking-tighter italic mb-6 mt-12;
+  @apply text-slate-900 font-extrabold tracking-tight mb-6 mt-12;
 }
 
 .prose-premium p {
@@ -86,40 +84,41 @@ body {
 }
 
 .prose-premium code {
-  @apply bg-white/5 px-2 py-1 rounded-lg text-primary font-mono text-sm border border-white/5;
+  @apply bg-slate-100 px-2 py-1 rounded-lg text-blue-600 font-mono text-sm border border-slate-200;
 }
 
-/* Mobile Reading Optimizations */
-@media (max-width: 640px) {
-  .prose-premium {
-    @apply text-base leading-loose;
-  }
-  
-  .glass-card {
-    @apply p-5 rounded-3xl;
-  }
-  
-  h1 {
-    @apply text-3xl font-black;
-  }
+/* Navigation */
+.nav-link {
+  @apply text-slate-500 hover:text-blue-600 font-bold text-[10px] uppercase tracking-widest transition-colors;
 }
 
-/* Chat Interface */
+/* Subject Pills */
+.subject-pill {
+  @apply px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all;
+}
+
+/* Chat Interface (AI Professor) */
 .chat-bubble-user {
-  @apply bg-primary/20 text-white p-4 rounded-2xl rounded-tr-none self-end max-w-[80%] border border-primary/20;
+  @apply bg-blue-600 text-white p-5 rounded-3xl rounded-tr-none self-end max-w-[85%] shadow-xl shadow-blue-500/10;
 }
 
 .chat-bubble-ai {
-  @apply bg-white/5 text-gray-300 p-5 rounded-2xl rounded-tl-none self-start max-w-[90%] border border-white/5 prose-sm prose-invert;
+  @apply bg-white text-slate-700 p-6 rounded-3xl rounded-tl-none self-start max-w-[95%] shadow-sm border border-slate-100 prose-sm;
 }
 
 .chat-container {
-  @apply flex flex-col gap-6 overflow-y-auto p-6 scroll-smooth;
-  height: calc(100vh - 280px);
+  @apply flex flex-col gap-8 overflow-y-auto p-8 scroll-smooth;
+  height: calc(100vh - 320px);
 }
+
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
 ::-webkit-scrollbar-track {
   @apply bg-transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-  @apply bg-white/10 rounded-full hover:bg-primary/50 transition-all;
+  @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-all;
 }
