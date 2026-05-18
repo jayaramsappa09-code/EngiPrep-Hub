@@ -20,18 +20,22 @@ export const isSupabaseConfigured = () => {
 // Helper: Check if user is logged in
 export const getCurrentUser = async () => {
   try {
-    // If there's an access token in the hash, wait a bit for Supabase to process it
-    if (window.location.hash.includes('access_token=')) {
-        await new Promise(resolve => setTimeout(resolve, 500))
-    }
+    // 1. Check if we have an active session in memory already
+    const { data: { session: initialSession }, error: initialError } = await supabase.auth.getSession()
+    if (initialSession) return initialSession.user
 
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-    if (sessionError) {
-        console.error('Session error:', sessionError)
+    // 2. If no session but we have an auth hash, wait for Supabase to process it
+    // Supabase handles the hash automatically on init, but it might take a moment
+    if (window.location.hash.includes('access_token=') || window.location.hash.includes('error=')) {
+        // Wait up to 2 seconds for the session to appear
+        for (let i = 0; i < 20; i++) {
+            await new Promise(resolve => setTimeout(resolve, 100))
+            const { data: { session } } = await supabase.auth.getSession()
+            if (session) return session.user
+        }
     }
-    if (session) return session.user
     
-    // Fallback to getUser which is slower but more accurate
+    // 3. Last resort: direct check which is more authoritative
     const { data: { user }, error: userError } = await supabase.auth.getUser()
     if (userError) {
         // Only log if it's a real error, not just "no session"
@@ -67,17 +71,17 @@ export const getUserProfile = async (userId) => {
   }
 }
 
-// Helper: Update user profile
+// Helper: Update user profile (with upsert to be safe)
 export const updateUserProfile = async (userId, updates) => {
   if (!userId || !isSupabaseConfigured()) return { error: 'Not configured' }
   try {
     const { data, error } = await supabase
       .from('profiles')
-      .update({
+      .upsert({
+        id: userId,
         ...updates,
         updated_at: new Date().toISOString(),
-      })
-      .eq('id', userId)
+      }, { onConflict: 'id' })
     
     if (error) throw error
     return { data, error: null }

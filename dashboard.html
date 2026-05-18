@@ -12,6 +12,14 @@
     </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-800 selection:bg-blue-100">
+    <div id="loading-overlay" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative w-16 h-16 mb-6">
+            <div class="absolute inset-0 border-4 border-blue-50 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
+        </div>
+        <p class="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 animate-pulse">Synchronizing Session...</p>
+    </div>
+
     <!-- Premium Navbar -->
     <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
@@ -238,53 +246,84 @@
         const streakDisplay = document.getElementById('streak-count')
 
         async function init() {
-            const user = await getCurrentUser()
-            if (!user) {
-                window.location.href = '/auth.html'
-                return
-            }
-
-            const profile = await getUserProfile(user.id)
-            if (!profile) {
-                window.location.href = '/profile.html?onboarding=true'
-                return
-            }
-
-            // Update UI
-            const displayName = profile.username || profile.full_name || 'Engineer'
-            const avatarUrl = profile.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + user.id
+            const overlay = document.getElementById('loading-overlay')
             
-            navUsername.textContent = displayName
-            navAvatar.src = avatarUrl
-            heroAvatar.src = avatarUrl
-            navXP.textContent = `${profile.xp || 0} XP`
-            navStreak.textContent = profile.streak || 0
-            
-            // Dynamic Ring Styling
-            const avatarMatch = AVATARS.find(a => a.url === avatarUrl)
-            if (avatarMatch) {
-                const heroRing = document.getElementById('hero-avatar-ring')
-                const navRing = document.getElementById('nav-avatar-ring')
+            // Listen for session recovery
+            const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+                if (event === 'SIGNED_IN' && session) {
+                    location.reload() // Refresh to load data with session
+                }
+            })
+
+            try {
+                let user = await getCurrentUser()
                 
-                heroRing.className = `p-1 rounded-full bg-gradient-to-tr ${avatarMatch.gradient} shadow-lg shadow-blue-500/10`
-                navRing.className = `p-0.5 rounded-xl bg-gradient-to-tr ${avatarMatch.gradient} shadow-sm`
+                if (!user) {
+                    // Try waiting a bit longer if there's a hash (OAuth callback)
+                    if (window.location.hash.includes('access_token')) {
+                        for (let i = 0; i < 10; i++) {
+                            await new Promise(r => setTimeout(r, 500))
+                            user = await getCurrentUser()
+                            if (user) break
+                        }
+                    }
+                }
+
+                if (!user) {
+                    window.location.replace('/auth.html?error=session_required')
+                    return
+                }
+
+                const profile = await getUserProfile(user.id)
+                if (!profile) {
+                    window.location.replace('/profile.html?onboarding=true')
+                    return
+                }
+
+                // Update UI
+                const displayName = profile.username || profile.full_name || 'Engineer'
+                const avatarUrl = profile.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + user.id
+                
+                navUsername.textContent = displayName
+                navAvatar.src = avatarUrl
+                heroAvatar.src = avatarUrl
+                navXP.textContent = `${profile.xp || 0} XP`
+                navStreak.textContent = profile.streak || 0
+                
+                // Dynamic Ring Styling
+                const avatarMatch = AVATARS.find(a => a.url === avatarUrl)
+                if (avatarMatch) {
+                    const heroRing = document.getElementById('hero-avatar-ring')
+                    const navRing = document.getElementById('nav-avatar-ring')
+                    
+                    if (heroRing) heroRing.className = `p-1 rounded-full bg-gradient-to-tr ${avatarMatch.gradient} shadow-lg shadow-blue-500/10`
+                    if (navRing) navRing.className = `p-0.5 rounded-xl bg-gradient-to-tr ${avatarMatch.gradient} shadow-sm`
+                }
+
+                greetingText.textContent = getGreeting(displayName)
+                motivationText.textContent = getMotivation(profile.xp || 0)
+
+                // Stats
+                totalXPDisplay.innerHTML = `${profile.xp || 0}<span class="text-sm text-slate-400 uppercase font-bold ml-1">xp</span>`
+                streakDisplay.textContent = profile.streak || 0
+
+                // Level Logic
+                const level = Math.floor((profile.xp || 0) / 500) + 1
+                const xpInLevel = (profile.xp || 0) % 500
+                const xpProgress = Math.max(5, (xpInLevel / 500) * 100)
+                
+                levelBadge.textContent = `Level ${level}`
+                xpText.textContent = `${xpInLevel} / 500 XP`
+                xpBar.style.width = `${xpProgress}%`
+
+                // Success! Hide loading
+                overlay.style.opacity = '0'
+                setTimeout(() => overlay.remove(), 500)
+
+            } catch (err) {
+                console.error('Init Error:', err)
+                window.location.replace('/auth.html')
             }
-
-            greetingText.textContent = getGreeting(displayName)
-            motivationText.textContent = getMotivation(profile.xp || 0)
-
-            // Stats
-            totalXPDisplay.innerHTML = `${profile.xp || 0}<span class="text-sm text-slate-400 uppercase font-bold ml-1">xp</span>`
-            streakDisplay.textContent = profile.streak || 0
-
-            // Level Logic
-            const level = Math.floor((profile.xp || 0) / 500) + 1
-            const xpInLevel = (profile.xp || 0) % 500
-            const xpProgress = Math.max(5, (xpInLevel / 500) * 100)
-            
-            levelBadge.textContent = `Level ${level}`
-            xpText.textContent = `${xpInLevel} / 500 XP`
-            xpBar.style.width = `${xpProgress}%`
         }
 
         logoutBtn.addEventListener('click', async () => {

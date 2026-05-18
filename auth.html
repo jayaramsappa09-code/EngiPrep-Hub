@@ -120,6 +120,30 @@
 
         toggleBtn.addEventListener('click', () => { isSignup = !isSignup; updateUI(); });
 
+        function getFriendlyError(err) {
+            const message = err.message || '';
+            const status = err.status;
+
+            if (message.includes('Invalid login credentials')) {
+                return 'Invalid email or password. Please check your credentials and try again.';
+            }
+            if (message.includes('Email not confirmed')) {
+                return 'Your email has not been verified yet. Please check your inbox for the confirmation link.';
+            }
+            if (message.includes('User already registered')) {
+                return 'An account with this email already exists. Try logging in instead.';
+            }
+            if (message.includes('Password should be at least')) {
+                return 'Password is too weak. It must be at least 8 characters long.';
+            }
+            if (message.includes('Rate limit exceeded')) {
+                return 'Too many attempts. Please wait a few minutes before trying again.';
+            }
+            
+            // Generic fallback
+            return message || 'An unexpected error occurred. Please try again later.';
+        }
+
         googleBtn.addEventListener('click', async () => {
             errorDiv.classList.add('hidden');
             googleBtn.disabled = true;
@@ -127,7 +151,7 @@
             googleBtn.innerText = 'Connecting...';
             try { await signInWithGoogle(); } catch (err) {
                 googleBtn.innerHTML = originalText; googleBtn.disabled = false;
-                errorDiv.innerText = err.message; errorDiv.classList.remove('hidden');
+                errorDiv.innerText = getFriendlyError(err); errorDiv.classList.remove('hidden');
             }
         });
 
@@ -135,7 +159,9 @@
             e.preventDefault();
             const email = document.getElementById('email').value.trim(), password = document.getElementById('password').value, fullName = document.getElementById('full-name').value.trim(), username = document.getElementById('username').value.trim();
             
-            errorDiv.classList.add('hidden');
+            errorDiv.classList.add('hidden', 'bg-emerald-50', 'text-emerald-600', 'bg-rose-50', 'text-rose-600');
+            errorDiv.classList.add('bg-rose-50', 'text-rose-600'); // Reset to error state
+            
             submitBtn.disabled = true;
             submitBtn.innerText = 'Processing...';
 
@@ -143,7 +169,7 @@
                 if (isSignup) {
                     const data = await signUp(email, password, fullName, username);
                     if (data?.user && !data?.session) {
-                        errorDiv.innerHTML = `<div class="font-bold mb-1">✅ Account Created!</div><div>Confirm your email to login.</div>`;
+                        errorDiv.innerHTML = `<div class="font-bold mb-1">✅ Account Created!</div><div>Please check your email to verify your account before logging in.</div>`;
                         errorDiv.classList.remove('hidden', 'bg-rose-50', 'text-rose-600');
                         errorDiv.classList.add('bg-emerald-50', 'text-emerald-600');
                     } else if (data?.session) { window.location.href = '/dashboard.html'; }
@@ -152,7 +178,7 @@
                     window.location.href = '/dashboard.html';
                 }
             } catch (err) {
-                errorDiv.innerText = err.message; errorDiv.classList.remove('hidden');
+                errorDiv.innerText = getFriendlyError(err); errorDiv.classList.remove('hidden');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerText = isSignup ? 'Create Account' : 'Login to Hub';

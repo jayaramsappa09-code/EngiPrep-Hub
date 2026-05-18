@@ -134,31 +134,41 @@
         })
 
         async function init() {
-            currentUser = await getCurrentUser()
-            if (!currentUser) {
-                window.location.href = '/auth.html'
-                return
-            }
-
-            const isOnboarding = new URLSearchParams(window.location.search).get('onboarding') === 'true'
-            if (isOnboarding) onboardingNotice.classList.remove('hidden')
-
-            const profile = await getUserProfile(currentUser.id)
-            if (profile) {
-                usernameInput.value = profile.username || ''
-                fullnameInput.value = profile.full_name || ''
-                branchSelect.value = profile.branch || ''
-                semesterSelect.value = profile.semester || ''
-                selectedAvatar = profile.avatar_url
-                
-                // Highlight current avatar
-                const options = document.querySelectorAll('.avatar-option')
-                AVATARS.forEach((av, idx) => {
-                    if (av.url === profile.avatar_url) {
-                        options[idx].classList.add('active')
-                        options[idx].querySelector('.check-mark').style.opacity = '1'
+            try {
+                currentUser = await getCurrentUser()
+                if (!currentUser) {
+                    // Patient check
+                    await new Promise(r => setTimeout(r, 500))
+                    currentUser = await getCurrentUser()
+                    if (!currentUser) {
+                        window.location.replace('/auth.html')
+                        return
                     }
-                })
+                }
+
+                const isOnboarding = new URLSearchParams(window.location.search).get('onboarding') === 'true'
+                if (isOnboarding) onboardingNotice.classList.remove('hidden')
+
+                const profile = await getUserProfile(currentUser.id)
+                if (profile) {
+                    usernameInput.value = profile.username || ''
+                    fullnameInput.value = profile.full_name || ''
+                    branchSelect.value = profile.branch || ''
+                    semesterSelect.value = profile.semester || ''
+                    selectedAvatar = profile.avatar_url
+                    
+                    // Highlight current avatar
+                    const options = document.querySelectorAll('.avatar-option')
+                    AVATARS.forEach((av, idx) => {
+                        if (av.url === profile.avatar_url) {
+                            options[idx].classList.add('active')
+                            options[idx].querySelector('.check-mark').style.opacity = '1'
+                        }
+                    })
+                }
+            } catch (err) {
+                console.error('Profile Init Error:', err)
+                window.location.replace('/auth.html')
             }
         }
 
@@ -174,19 +184,26 @@
                 avatar_url: selectedAvatar
             }
 
-            const { error } = await updateUserProfile(currentUser.id, updates)
-            
-            if (error) {
-                saveMsg.textContent = '❌ Error: ' + error
+            try {
+                const { error } = await updateUserProfile(currentUser.id, updates)
+                
+                if (error) {
+                    saveMsg.textContent = '❌ Error: ' + (typeof error === 'string' ? error : (error.message || 'Unknown error'))
+                    saveMsg.classList.add('text-red-500')
+                    saveMsg.classList.remove('hidden')
+                } else {
+                    saveMsg.textContent = '✅ Identity Saved Successfully. Redirecting...'
+                    saveMsg.classList.remove('text-red-500', 'hidden')
+                    setTimeout(() => window.location.href = '/dashboard.html', 1500)
+                }
+            } catch (err) {
+                saveMsg.textContent = '❌ Critical Error: ' + err.message
                 saveMsg.classList.add('text-red-500')
-            } else {
-                saveMsg.textContent = '✅ Identity Saved Successfully. Redirecting...'
-                saveMsg.classList.remove('text-red-500', 'hidden')
-                setTimeout(() => window.location.href = '/dashboard.html', 1500)
+                saveMsg.classList.remove('hidden')
+            } finally {
+                saveBtn.disabled = false
+                saveBtn.textContent = 'Save Identity Preferences'
             }
-            
-            saveBtn.disabled = false
-            saveBtn.textContent = 'Save Identity Preferences'
         })
 
         init()
