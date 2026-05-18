@@ -25,18 +25,17 @@ export const getCurrentUser = async () => {
     const { data: { session }, error: sessionError } = await supabase.auth.getSession()
     
     if (sessionError) {
-      // If we see the "exchange" error, it means the URL code is invalid/expired
-      if (sessionError.message.includes('exchange') || sessionError.message.includes('code')) {
-        console.warn('Auth code exchange issue detected. Cleaning URL...')
-        // Silence this error and return null, allowing the UI to handle the redirect to login
-        const url = new URL(window.location.href)
-        if (url.searchParams.has('code') || url.hash.includes('access_token')) {
-          url.searchParams.delete('code')
-          url.searchParams.delete('state')
-          url.hash = ''
-          window.history.replaceState({}, document.title, url.toString())
+      const msg = sessionError.message.toLowerCase()
+      // If we see the "exchange" error, it means the URL code is invalid or already used
+      if (msg.includes('exchange') || msg.includes('code') || msg.includes('invalid_grant')) {
+        console.warn('Auth exchange issue:', sessionError.message)
+        
+        // Only return null if we are indeed in a callback.
+        // We don't clear the URL here yet, we let dashboard handle the redirect first
+        // so it can capture the error from the URL if needed.
+        if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
+          return null
         }
-        return null
       }
       console.warn('Session check warning:', sessionError.message)
     }

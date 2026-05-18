@@ -245,28 +245,45 @@
         const levelBadge = document.getElementById('user-level')
         const streakDisplay = document.getElementById('streak-count')
 
+        let currentUser = null
+
         async function init() {
             const overlay = document.getElementById('loading-overlay')
             
             // Listen for session recovery
             const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+                console.log('Auth Event:', event)
                 if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session) {
-                    // If we were waiting for a user, this will trigger a reload or UI update
-                    if (!currentUser) location.reload()
+                    if (!currentUser) {
+                        console.log('Session detected via event, refreshing...')
+                        location.reload()
+                    }
                 }
             })
 
             try {
+                // Determine if we are in an OAuth callback flow
+                const isCallback = window.location.hash.includes('access_token') || window.location.search.includes('code')
+                
                 let user = await getCurrentUser()
                 
-                // If there's an OAuth code/token in URL, wait a moment for Supabase to process it
-                if (!user && (window.location.hash.includes('access_token') || window.location.search.includes('code'))) {
-                    await new Promise(r => setTimeout(r, 1000))
-                    user = await getCurrentUser()
+                // If there's an OAuth code/token in URL but no user yet, wait a bit longer
+                // Supabase might be processing the exchange
+                if (!user && isCallback) {
+                    console.log('Callback detected, waiting for session...')
+                    for (let i = 0; i < 5; i++) {
+                        await new Promise(r => setTimeout(r, 600))
+                        user = await getCurrentUser()
+                        if (user) break
+                    }
                 }
 
                 if (!user) {
-                    window.location.replace('/auth.html?error=session_required')
+                    // Check if we have an error in the URL before giving up
+                    const urlParams = new URLSearchParams(window.location.search)
+                    const errorMsg = urlParams.get('error_description') || urlParams.get('error')
+                    const redirectUrl = '/auth.html?error=' + encodeURIComponent(errorMsg || 'session_required')
+                    window.location.replace(redirectUrl)
                     return
                 }
 
