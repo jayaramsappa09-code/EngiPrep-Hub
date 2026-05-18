@@ -215,19 +215,6 @@ export const moderateContribution = async (id, status, feedback = '') => {
     return data[0]
 }
 
-// User Reputation & Leaderboard
-export const fetchTopContributors = async () => {
-    const { data, error } = await supabase
-        .from('profiles')
-        .select('username, avatar_url, contributions_count, trust_score')
-        .gt('contributions_count', 0)
-        .order('contributions_count', { ascending: false })
-        .limit(5)
-    
-    if (error) throw error
-    return data
-}
-
 // Adaptive Study Engine
 export const fetchAdaptiveRecommendations = async () => {
   const { data: { user } } = await supabase.auth.getUser()

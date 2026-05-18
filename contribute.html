@@ -3,251 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creator Hub | EngiPrep Hub</title>
+    <title>Contribute Resources – EngiPrep Hub</title>
     <link rel="stylesheet" href="/src/style.css">
     <style>
         @reference "./src/style.css";
-        .upload-zone { @apply border-2 border-dashed border-white/10 rounded-[2rem] p-12 text-center transition-all cursor-pointer bg-white/[0.01]; }
-        .upload-zone:hover { @apply border-primary/30 bg-primary/5; }
-        .upload-zone.dragover { @apply border-primary bg-primary/10 scale-[1.02]; }
-        .leaderboard-card { @apply flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 transition-all hover:bg-white/10; }
-        .status-badge { @apply text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full; }
+        
+        .upload-zone {
+            @apply border-2 border-dashed border-white/10 rounded-3xl p-12 text-center transition-all cursor-pointer;
+            background: linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);
+        }
+        .upload-zone:hover {
+            @apply border-primary/30 bg-primary/5;
+        }
+        .upload-zone.dragover {
+            @apply border-primary bg-primary/10 scale-[1.02];
+        }
     </style>
 </head>
-<body class="bg-[#050508] text-white selection:bg-primary/30">
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-[#050508]/80 backdrop-blur-xl border-b border-white/5 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/dashboard.html" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-primary rounded-2xl flex items-center justify-center text-white">
-                    <span class="font-black text-xl">E</span>
+<body class="bg-[#050508] text-white selection:bg-primary/30 min-h-screen">
+    <nav class="border-b border-white/5 bg-black/20 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/dashboard.html" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center group-hover:rotate-12 transition-all shadow-lg shadow-primary/20">
+                    <svg class="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
                 </div>
-                <span class="text-xl font-black tracking-tighter italic">Creator <span class="text-primary italic">Hub</span></span>
+                <span class="font-black italic tracking-tighter text-xl">EngiPrep <span class="text-primary NOT-italic">Hub</span></span>
             </a>
             <div class="flex items-center gap-6">
-                <a href="/dashboard.html" class="text-xs font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">← Dashboard</a>
+                <a href="/dashboard.html" class="text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Back to Dashboard</a>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 pt-32 pb-32">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            
-            <!-- Left Column: Guidelines & Leaderboard -->
-            <div class="lg:col-span-4 space-y-12 order-2 lg:order-1">
-                <section>
-                    <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-8 italic">Contributor Hall of Fame</h2>
-                    <div id="leaderboard" class="space-y-4">
-                        <!-- Dynamic Leaderboard -->
-                        <div class="animate-pulse space-y-4">
-                            <div class="h-16 bg-white/5 rounded-2xl"></div>
-                            <div class="h-16 bg-white/5 rounded-2xl"></div>
-                            <div class="h-16 bg-white/5 rounded-2xl"></div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="bg-white/5 border border-white/5 rounded-[2rem] p-8">
-                    <h3 class="text-lg font-black italic mb-4 text-emerald-400">Contribution Rewards</h3>
-                    <ul class="space-y-4 text-xs text-gray-400 italic">
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald-500">✔</span>
-                            <span><b>+100 XP</b> for every approved PDF resource.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald-500">✔</span>
-                            <span><b>Verified Badge</b> after 5 successful contributions.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald-500">✔</span>
-                            <span><b>Notes Master</b> rank for top subject contributors.</span>
-                        </li>
-                    </ul>
-                </section>
-            </div>
-
-            <!-- Right Column: Upload Flow -->
-            <div class="lg:col-span-8 order-1 lg:order-2">
-                <header class="mb-12">
-                    <h1 class="text-5xl font-black italic tracking-tighter mb-4">Empower the <span class="text-primary italic">Community.</span></h1>
-                    <p class="text-gray-500 text-sm italic max-w-2xl leading-relaxed">
-                        Your knowledge could be the reason someone passes their mid-exams. Upload high-quality notes, PYQs, or revision packs below.
+    <main class="max-w-6xl mx-auto px-6 py-16">
+        <div class="flex flex-col md:flex-row gap-12">
+            <!-- Form Section -->
+            <div class="flex-1">
+                <div class="mb-12">
+                    <h1 class="text-4xl font-black tracking-tighter mb-4 italic">Community <span class="text-primary">Contribution</span></h1>
+                    <p class="text-gray-500 max-w-md bg-white/5 p-4 rounded-xl border border-white/5 text-xs leading-relaxed uppercase tracking-widest font-bold">
+                        Share your premium notes, cheat sheets, or PYQs with the JNTUK community. All submissions are moderated for quality.
                     </p>
-                </header>
+                </div>
 
-                <form id="upload-form" class="space-y-8">
+                <form id="contribute-form" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Resource Title</label>
-                            <input type="text" id="title" required class="input-field w-full" placeholder="e.g. Logic Families Unit 3 - Handwritten">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 pl-1">Resource Title</label>
+                            <input type="text" id="title" required placeholder="e.g. CSE R23 M1 Unit 2 Summary" class="input-field w-full">
                         </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Resource Category</label>
-                            <select id="type" required class="input-field w-full bg-[#0d0d12]">
-                                <option value="Note">Handwritten Note</option>
-                                <option value="PYQ">Previous Question Paper</option>
-                                <option value="Cheat Sheet">Cheat Sheet / Summary</option>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 pl-1">Type</label>
+                            <select id="type" required class="input-field w-full">
+                                <option value="Notes">Notes</option>
+                                <option value="Cheat Sheet">Cheat Sheet</option>
+                                <option value="PYQ">Exam PYQ</option>
+                                <option value="Program">Coding Program</option>
                                 <option value="Lab Manual">Lab Manual</option>
-                                <option value="Revision Pack">Complete Revision Pack</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Subject</label>
-                            <select id="subject" required class="input-field w-full bg-[#0d0d12]">
-                                <!-- Selectors -->
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 pl-1">Subject</label>
+                            <select id="subject" required class="input-field w-full">
+                                <!-- Dynamic subjects -->
                             </select>
                         </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Semester</label>
-                            <select id="semester" class="input-field w-full bg-[#0d0d12]">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 pl-1">Semester</label>
+                            <select id="semester" class="input-field w-full">
                                 <option value="1">Semester 1</option>
                                 <option value="2">Semester 2</option>
-                                <option value="3">Semester 3</option>
-                                <option value="4">Semester 4</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Unit #</label>
-                            <input type="number" id="unit" class="input-field w-full" placeholder="1-5">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 pl-1">Unit (Optional)</label>
+                            <input type="number" id="unit" placeholder="1-5" class="input-field w-full">
                         </div>
                     </div>
 
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Media Files</label>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 pl-1">Short Description</label>
+                        <textarea id="description" rows="3" placeholder="What makes this resource useful?" class="input-field w-full resize-none"></textarea>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 pl-1">Upload PDF/Image</label>
                         <div id="drop-zone" class="upload-zone group">
-                            <div class="w-20 h-20 bg-white/5 rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:bg-primary/10 transition-all border border-white/5">
-                                <span class="text-3xl group-hover:animate-bounce">📤</span>
+                            <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:bg-primary/10 transition-all">
+                                <svg class="w-6 h-6 text-gray-400 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
                             </div>
-                            <h4 class="text-lg font-black italic mb-2">Drop your academic cargo</h4>
-                            <p id="file-name" class="text-[10px] text-gray-600 uppercase font-black tracking-widest">Supports PDF, PNG (Max 15MB)</p>
+                            <p class="text-sm font-bold text-white mb-1">Click or drag to upload</p>
+                            <p class="text-[10px] text-gray-600 uppercase font-black tracking-widest" id="file-name">Maximum file size: 10MB (PDF, PNG, JPG)</p>
                             <input type="file" id="file-input" class="hidden" accept=".pdf,.png,.jpg,.jpeg">
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between gap-8 pt-4">
-                        <p class="text-[10px] font-bold text-gray-600 uppercase tracking-widest max-w-[50%]">
-                            Submitting means you confirm this content is accurate and does not violate university ethics.
-                        </p>
-                        <button type="submit" id="submit-btn" class="btn-primary px-12 py-5 text-xs">Propagate to Hub</button>
-                    </div>
+                    <button type="submit" id="submit-btn" class="w-full py-4 bg-primary text-black font-black uppercase tracking-[0.2em] rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3">
+                        <span id="btn-text">Broadcast to Archive</span>
+                        <div id="btn-loader" class="hidden w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                    </button>
                 </form>
+            </div>
 
-                <!-- History Tracking -->
-                <section class="mt-24">
-                     <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-10 border-b border-white/5 pb-4 italic">Submission Log</h2>
-                     <div id="contributions-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                         <!-- Items -->
-                         <div class="text-[10px] text-gray-600 italic">Decrypting your contribution history...</div>
-                     </div>
-                </section>
+            <!-- Status Tracking Sidebar -->
+            <div class="w-full md:w-80">
+                <div class="glass-card p-8 mb-8 border-primary/10">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-primary mb-6">Submission Status</h3>
+                    <div id="contributions-list" class="space-y-4">
+                        <p class="text-[10px] text-gray-600 italic">No recent contributions found.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 bg-gradient-to-br from-primary/5 to-transparent border-white/5">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-white mb-4">Reputation Rewards</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-white/5 rounded flex items-center justify-center">
+                                <span class="text-xs">⭐</span>
+                            </div>
+                            <div class="text-[10px] text-gray-400 font-bold">+50 Points per approval</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-white/5 rounded flex items-center justify-center">
+                                <span class="text-xs">🏆</span>
+                            </div>
+                            <div class="text-[10px] text-gray-400 font-bold">Top Contributor Badge</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <footer class="py-20 border-t border-white/5 text-center">
-        <p class="text-gray-600 text-[10px] font-black uppercase tracking-widest italic tracking-[0.3em]">Creator Hub Encryption Protocol Active • Community Driven Success</p>
-    </footer>
-
     <script type="module">
-        import { supabase, getCurrentUser } from './src/supabase.js'
-        import { submitContribution, fetchMyContributions, fetchTopContributors } from './src/notes.js'
+        import { supabase } from './src/supabase.js'
+        import { submitContribution, fetchMyContributions } from './src/notes.js'
 
-        const form = document.getElementById('upload-form')
+        const form = document.getElementById('contribute-form')
         const dropZone = document.getElementById('drop-zone')
         const fileInput = document.getElementById('file-input')
         const fileNameDisplay = document.getElementById('file-name')
         const submitBtn = document.getElementById('submit-btn')
-        const leaderboard = document.getElementById('leaderboard')
-        const historyList = document.getElementById('contributions-list')
+        const btnText = document.getElementById('btn-text')
+        const btnLoader = document.getElementById('btn-loader')
+        const contributionsList = document.getElementById('contributions-list')
 
         let selectedFile = null
-        let currentUser = null
 
-        async function init() {
-            currentUser = await getCurrentUser()
-            if (!currentUser) { window.location.href = '/auth.html'; return; }
-
-            // Load Subjects
-            const { data: subs } = await supabase.from('subjects').select('title').order('title')
-            const subSelect = document.getElementById('subject')
-            subSelect.innerHTML = (subs || []).map(s => `<option value="${s.title}">${s.title}</option>`).join('')
-
-            loadLeaderboard()
-            loadHistory()
+        // Load subjects
+        async function loadSubjects() {
+            const { data } = await supabase.from('subjects').select('title').order('title')
+            const select = document.getElementById('subject')
+            select.innerHTML = (data || []).map(s => `<option value="${s.title}">${s.title}</option>`).join('')
         }
 
-        async function loadLeaderboard() {
-            const top = await fetchTopContributors()
-            leaderboard.innerHTML = top.map((p, i) => `
-                <div class="leaderboard-card">
-                    <div class="text-xs font-black text-gray-600">${i+1}</div>
-                    <img src="${p.avatar_url || 'https://api.dicebear.com/7.x/bottts/svg?seed='+p.username}" class="w-10 h-10 rounded-xl" alt="Avatar">
-                    <div class="flex-1">
-                        <p class="text-xs font-black italic">@${p.username || 'scholar'}</p>
-                        <p class="text-[8px] uppercase font-bold text-gray-500">${p.contributions_count} Contributions</p>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-[10px] font-black text-emerald-500 italic">${p.trust_score}%</span>
-                        <p class="text-[7px] uppercase font-black text-gray-700">Trust</p>
-                    </div>
-                </div>
-            `).join('') || '<div class="text-[10px] text-gray-600 italic">Be the first to lead!</div>'
-        }
-
-        async function loadHistory() {
-            const list = await fetchMyContributions()
-            historyList.innerHTML = list.map(c => `
-                <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <h4 class="text-sm font-bold truncate max-w-[200px]">${c.title}</h4>
-                            <span class="status-badge ${c.status === 'approved' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'} italic">${c.status}</span>
-                        </div>
-                        <p class="text-[9px] text-gray-600 uppercase font-black">${c.subject} • Sem ${c.semester}</p>
-                    </div>
-                </div>
-            `).join('') || '<div class="text-[10px] text-gray-600 italic">Your legacy begins with your first upload.</div>'
-        }
-
-        dropZone.onclick = () => fileInput.click()
-        fileInput.onchange = (e) => {
-            selectedFile = e.target.files[0]
-            if (selectedFile) fileNameDisplay.textContent = `Selected: ${selectedFile.name}`
-        }
-
-        form.onsubmit = async (e) => {
+        // File Selection Logic
+        dropZone.addEventListener('click', () => fileInput.click())
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]))
+        
+        dropZone.addEventListener('dragover', (e) => {
             e.preventDefault()
-            if (!selectedFile) { alert('Please choose a file to propagate.'); return; }
-            
-            submitBtn.disabled = true
-            submitBtn.textContent = 'Propagating Content...'
+            dropZone.classList.add('dragover')
+        })
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'))
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault()
+            dropZone.classList.remove('dragover')
+            handleFile(e.dataTransfer.files[0])
+        })
 
+        function handleFile(file) {
+            if (!file) return
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File is too large (Max 10MB)')
+                return
+            }
+            selectedFile = file
+            fileNameDisplay.innerText = `Selected: ${file.name}`
+            fileNameDisplay.className = "text-[10px] text-primary font-black uppercase tracking-widest"
+        }
+
+        // Submit Logic
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            if (!selectedFile) {
+                alert('Please upload a file first!')
+                return
+            }
+
+            setLoading(true)
             try {
                 const details = {
                     title: document.getElementById('title').value,
+                    description: document.getElementById('description').value,
                     subject: document.getElementById('subject').value,
                     semester: parseInt(document.getElementById('semester').value),
                     unit: parseInt(document.getElementById('unit').value) || null,
                     content_type: document.getElementById('type').value,
+                    tags: []
                 }
+
                 await submitContribution(details, selectedFile)
-                alert('Intelligence successfully received. Pending moderator verification.')
+                alert('Scholar! Your contribution has been submitted for moderation.')
                 form.reset()
                 selectedFile = null
-                fileNameDisplay.textContent = 'Supports PDF, PNG (Max 15MB)'
+                fileNameDisplay.innerText = "Maximum file size: 10MB (PDF, PNG, JPG)"
                 loadHistory()
             } catch (err) {
-                alert('Transmission Failure: ' + err.message)
+                alert(err.message)
             } finally {
-                submitBtn.disabled = false
-                submitBtn.textContent = 'Propagate to Hub'
+                setLoading(false)
             }
+        })
+
+        function setLoading(isLoading) {
+            submitBtn.disabled = isLoading
+            btnText.className = isLoading ? 'hidden' : ''
+            btnLoader.classList.toggle('hidden', !isLoading)
         }
 
-        init()
+        async function loadHistory() {
+            const contributions = await fetchMyContributions()
+            contributionsList.innerHTML = contributions.map(c => {
+                const statusColor = c.status === 'approved' ? 'text-emerald-500' : c.status === 'pending' ? 'text-amber-500' : 'text-rose-500'
+                return `
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[10px] font-black uppercase text-white truncate max-w-[120px]">${c.title}</span>
+                            <span class="text-[8px] font-black uppercase ${statusColor}">${c.status}</span>
+                        </div>
+                        <div class="text-[8px] text-gray-600 font-bold uppercase">${c.subject}</div>
+                        ${c.admin_feedback ? `<div class="mt-2 text-[7px] text-rose-400 font-bold italic">Note: ${c.admin_feedback}</div>` : ''}
+                    </div>
+                `
+            }).join('') || '<p class="text-[10px] text-gray-600 italic">No recent contributions found.</p>'
+        }
+
+        loadSubjects()
+        loadHistory()
     </script>
 </body>
 </html>

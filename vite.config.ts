@@ -39,8 +39,6 @@ export default defineConfig(({mode}) => {
           cheat_sheets: path.resolve(__dirname, 'cheat-sheets.html'),
           physics_unit1: path.resolve(__dirname, 'physics-unit-1.html'),
           m1_eigen: path.resolve(__dirname, 'm1-eigen-values.html'),
-          survival: path.resolve(__dirname, 'exam-survival.html'),
-          profile: path.resolve(__dirname, 'profile.html'),
         },
       },
     },

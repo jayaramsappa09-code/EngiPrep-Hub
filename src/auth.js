@@ -10,20 +10,17 @@ export const signIn = async (email, password) => {
 }
 
 export const signInWithGoogle = async () => {
-  const isProd = window.location.hostname === 'engi-prephub.vercel.app';
-  const redirectUrl = isProd ? 'https://engi-prephub.vercel.app/' : window.location.origin + '/';
-  
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: redirectUrl,
+      redirectTo: window.location.origin + '/dashboard.html'
     }
   })
   if (error) throw error
   return data
 }
 
-export const signUp = async (email, password, fullName, username) => {
+export const signUp = async (email, password, fullName) => {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -31,7 +28,6 @@ export const signUp = async (email, password, fullName, username) => {
       emailRedirectTo: window.location.origin + '/auth.html',
       data: {
         full_name: fullName,
-        username: username,
       },
     },
   })

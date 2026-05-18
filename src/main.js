@@ -16,45 +16,35 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Sync UI on auth changes
-supabase.auth.onAuthStateChange(async (event, session) => {
-    updateAuthUI(session?.user);
-    
-    // On home page, if we just signed in, go to dashboard
-    if (event === 'SIGNED_IN' && session) {
-        const path = window.location.pathname;
-        if (path === '/' || path === '/index.html' || path === '') {
-            setTimeout(() => {
-                window.location.href = '/dashboard.html';
-            }, 100);
-        }
-    }
+supabase.auth.onAuthStateChange((event, session) => {
+    updateAuthUI();
 });
 
-async function updateAuthUI(providedUser = null) {
+async function updateAuthUI() {
     const navActions = document.getElementById('nav-actions');
     if (!navActions) return;
 
     try {
-        const user = providedUser || await getCurrentUser();
+        const { data: { user } } = await supabase.auth.getUser();
         
         if (user) {
             navActions.innerHTML = `
                 <div class="flex items-center gap-4">
-                    <a href="/bookmarks.html" class="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition-colors">Bookmarks</a>
-                    <a href="/dashboard.html" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Dashboard</a>
+                    <a href="/bookmarks.html" class="hidden sm:block text-xs font-bold hover:text-primary transition-colors">Bookmarks</a>
+                    <a href="/dashboard.html" class="btn-primary text-xs py-2 px-4 shadow-lg shadow-primary/20">Dashboard</a>
                 </div>
             `;
         } else {
             navActions.innerHTML = `
-                <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition-colors">Login</a>
-                <a href="/auth.html?signup=true" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Join Hub</a>
+                <a href="/auth.html" class="text-xs font-bold hover:text-primary transition-colors">Login</a>
+                <a href="/auth.html?signup=true" class="btn-primary text-xs py-2 px-4">Join Hub</a>
             `;
         }
     } catch (err) {
         // Fallback for non-configured Supabase
         navActions.innerHTML = `
-            <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition-colors">Login</a>
-            <a href="/auth.html?signup=true" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Join Hub</a>
+            <a href="/auth.html" class="text-xs font-bold hover:text-primary transition-colors">Login</a>
+            <a href="/auth.html?signup=true" class="btn-primary text-xs py-2 px-4">Join Hub</a>
         `;
     }
 }
@@ -63,7 +53,7 @@ async function initStudyPlanner() {
     const plannerList = document.getElementById('planner-list');
     const bookmarkBtns = document.querySelectorAll('.bookmark-btn');
     
-    const user = await getCurrentUser();
+    const { data: { user } } = await supabase.auth.getUser();
 
     const renderPlanner = async () => {
         if (!plannerList) return;
@@ -149,15 +139,10 @@ async function initStudyPlanner() {
 
 function showNotification(msg) {
     const toast = document.createElement('div');
-    toast.className = 'fixed bottom-8 right-8 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-2xl z-50 animate-fade-up text-[10px] font-bold uppercase tracking-widest ring-1 ring-white/10';
+    toast.className = 'fixed bottom-8 right-8 bg-blue-600 text-white px-6 py-3 rounded-xl shadow-2xl z-50 animate-fadeIn';
     toast.innerText = msg;
     document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(10px)';
-        toast.style.transition = 'all 0.5s ease';
-        setTimeout(() => toast.remove(), 500);
-    }, 3000);
+    setTimeout(() => toast.remove(), 3000);
 }
 
 function initMobileMenu() {
