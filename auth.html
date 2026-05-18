@@ -50,8 +50,8 @@
             </button>
 
             <div class="text-center mt-6">
-                <p class="text-gray-500 text-sm" id="auth-toggle-text">
-                    Don't have an account? 
+                <p class="text-gray-500 text-sm">
+                    <span id="toggle-text-hint">Don't have an account?</span> 
                     <button type="button" id="toggle-auth" class="text-primary font-bold hover:underline">Sign Up</button>
                 </p>
                 <div class="pt-4 border-t border-white/5">
@@ -75,6 +75,7 @@
         const subtitle = document.getElementById('auth-subtitle')
         const submitBtn = document.getElementById('submit-btn')
         const errorDiv = document.getElementById('error-message')
+        const toggleHint = document.getElementById('toggle-text-hint')
         
         let isSignup = new URLSearchParams(window.location.search).get('signup') === 'true'
 
@@ -85,14 +86,14 @@
                 subtitle.innerText = 'Create your account to start tracking progress.'
                 submitBtn.innerText = 'Create Account'
                 toggleBtn.innerText = 'Login'
-                document.getElementById('auth-toggle-text').firstChild.textContent = 'Already have an account? '
+                toggleHint.textContent = 'Already have an account? '
             } else {
                 signupFields.classList.add('hidden')
                 title.innerText = 'Welcome Back'
                 subtitle.innerText = 'Login to access your study materials.'
                 submitBtn.innerText = 'Login to Hub'
                 toggleBtn.innerText = 'Sign Up'
-                document.getElementById('auth-toggle-text').firstChild.textContent = "Don't have an account? "
+                toggleHint.textContent = "Don't have an account? "
             }
         }
 
