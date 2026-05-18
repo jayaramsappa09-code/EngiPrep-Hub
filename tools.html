@@ -3,176 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Tools - EngiPrep Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/src/index.css">
+    <title>Academic Utilities Hub | EngiPrep Hub</title>
+    <link rel="stylesheet" href="/src/style.css">
 </head>
-<body class="bg-[#0a0a0f] text-white min-h-screen">
+<body class="bg-[#f8fafc] text-slate-800 selection:bg-blue-100">
     <!-- Navbar -->
-    <nav class="border-b border-white/10 bg-black/50 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <a href="/index.html" class="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">ENGIPREP</a>
-                <div class="hidden md:flex space-x-8">
-                    <a href="/semester-1.html" class="text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Semesters</a>
-                    <a href="/videos.html" class="text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Videos</a>
-                    <a href="/tools.html" class="text-sm font-bold uppercase tracking-widest text-primary transition-colors">Tools</a>
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20"></div>
+                    <svg class="relative z-10 w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
                 </div>
-                <a href="/dashboard.html" class="px-6 py-2 bg-white text-black text-xs font-black uppercase tracking-widest rounded-full hover:bg-primary transition-all">My Hub</a>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tighter text-slate-900 leading-none">EngiPrep <span class="text-blue-600">Hub</span></span>
+                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
+                </div>
+            </a>
+            <div id="nav-actions" class="flex items-center gap-4">
+                <div class="skeleton w-32 h-10 opacity-20"></div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 py-12">
-        <div class="mb-12">
-            <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-4">Engineering <span class="text-primary italic">Tools</span></h1>
-            <p class="text-gray-400 max-w-2xl">Essential calculators and utilities to simplify your academic tasks.</p>
-        </div>
+    <main class="max-w-7xl mx-auto px-6 pt-32 pb-20">
+        <header class="mb-12 animate-fade-up">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-[10px] font-bold uppercase tracking-widest mb-6">Productivity Suite</div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Engineering <span class="text-blue-600">Smart Tools</span></h1>
+            <p class="text-slate-500 max-w-2xl text-lg font-medium leading-relaxed">Dedicated utilities for JNTUK students. Calculate SGPA, track attendance, and simplify complex concepts with AI.</p>
+        </header>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- GPA Calculator -->
-            <div class="glass-card p-10 group hover:border-primary/30 transition-all">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- SGPA Calculator -->
+            <div class="bento-card group animate-fade-up" style="animation-delay: 0.1s">
                 <div class="flex items-center gap-4 mb-8">
-                    <div class="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                     </div>
-                    <h2 class="text-2xl font-black italic">SGPA <span class="text-primary">Calculator</span></h2>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">SGPA <span class="text-blue-600">Calculator</span></h2>
                 </div>
-                
-                <div id="gpa-rows" class="space-y-4 mb-8">
-                    <div class="flex gap-4">
-                        <input type="number" placeholder="Credits" class="flex-[1] bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm credit-input font-bold">
-                        <select class="flex-[2] bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm grade-input font-bold appearance-none">
-                            <option value="10">O Grade (10)</option>
-                            <option value="9">A+ Grade (9)</option>
-                            <option value="8">A Grade (8)</option>
-                            <option value="7">B+ Grade (7)</option>
-                            <option value="6">B Grade (6)</option>
-                            <option value="0">F Grade (0)</option>
+                <div id="gpa-rows" class="space-y-3 mb-6">
+                    <div class="grid grid-cols-12 gap-3">
+                        <input type="number" placeholder="Cre" class="col-span-4 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs credit-input font-bold outline-none focus:border-blue-300">
+                        <select class="col-span-8 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs grade-input font-bold outline-none focus:border-blue-300">
+                            <option value="10">O Grade</option>
+                            <option value="9">A+ Grade</option>
+                            <option value="8">A Grade</option>
+                            <option value="7">B+ Grade</option>
+                            <option value="6">B Grade</option>
+                            <option value="0">F Grade</option>
                         </select>
                     </div>
                 </div>
-
-                <button onclick="addGPARow()" class="w-full py-4 border border-dashed border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white hover:border-white/20 transition-all mb-8">+ Add Subject</button>
-                
-                <div class="bg-primary/5 border border-primary/20 p-8 rounded-2xl flex justify-between items-center group/res">
-                    <span class="text-[10px] font-black uppercase tracking-widest text-primary/80">Calculated SGPA</span>
-                    <span id="gpa-result" class="text-4xl font-black italic text-white group-hover/res:scale-110 transition-transform">0.00</span>
+                <button onclick="addGPARow()" class="w-full py-3 border border-dashed border-slate-200 rounded-xl text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-blue-600 hover:border-blue-200 transition-all mb-6">+ Add Subject</button>
+                <div class="bg-blue-600 rounded-2xl p-6 flex justify-between items-center text-white shadow-lg shadow-blue-600/20">
+                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Final SGPA</span>
+                    <span id="gpa-result" class="text-4xl font-black tracking-tighter">0.00</span>
                 </div>
             </div>
 
-            <!-- Attendance Calculator -->
-            <div class="glass-card p-10 group hover:border-emerald-500/30 transition-all">
+            <!-- Attendance Tracker -->
+            <div class="bento-card group animate-fade-up" style="animation-delay: 0.2s">
                 <div class="flex items-center gap-4 mb-8">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h2 class="text-2xl font-black italic">Attendance <span class="text-emerald-500">Goal</span></h2>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Attendance <span class="text-emerald-600 text-sm align-super">Beta</span></h2>
                 </div>
-
-                <div class="space-y-6">
+                <div class="space-y-4">
                     <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block pl-1">Classes Conducted</label>
-                        <input type="number" id="att-total" value="100" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-4 text-sm font-bold focus:border-emerald-500/50 outline-none transition-all">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block pl-1">Classes Attended</label>
-                        <input type="number" id="att-present" value="75" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-4 text-sm font-bold focus:border-emerald-500/50 outline-none transition-all">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block pl-1">Total Classes</label>
+                        <input type="number" id="att-total" value="100" class="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-3 text-xs font-bold outline-none focus:border-emerald-300">
                     </div>
                     <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block pl-1">Target Percentage (%)</label>
-                        <input type="number" id="att-target" value="75" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-4 text-sm font-bold focus:border-emerald-500/50 outline-none transition-all">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block pl-1">Classes Present</label>
+                        <input type="number" id="att-present" value="75" class="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-3 text-xs font-bold outline-none focus:border-emerald-300">
                     </div>
                 </div>
-
-                <div id="att-result-card" class="mt-8 p-6 bg-emerald-500/5 border border-emerald-500/20 rounded-2xl">
-                    <div class="text-[10px] font-black uppercase tracking-widest text-emerald-500/70 mb-2">Analysis</div>
-                    <div id="att-status" class="text-sm font-bold text-white leading-relaxed">Calculating...</div>
-                </div>
-            </div>
-
-            <!-- Smart Note Summarizer -->
-            <div class="glass-card p-10 group hover:border-purple-500/30 transition-all">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                    </div>
-                    <h2 class="text-2xl font-black italic">Revision <span class="text-purple-400">Assistant</span></h2>
-                </div>
-
-                <div class="space-y-6">
-                    <textarea id="summary-input" placeholder="Paste your complex notes or textbook paragraphs here..." class="w-full h-40 bg-black/40 border border-white/5 rounded-2xl px-6 py-4 text-sm font-medium focus:border-purple-500/50 outline-none transition-all resize-none"></textarea>
-                    
-                    <button id="summarize-btn" class="w-full py-4 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 text-[10px] font-black uppercase tracking-widest rounded-2xl border border-purple-500/20 transition-all">Generate Cheat Sheet</button>
-
-                    <div id="summary-output-container" class="hidden">
-                        <div class="bg-purple-500/5 border border-purple-500/10 p-6 rounded-2xl">
-                            <div class="text-[10px] font-black uppercase tracking-widest text-purple-400/70 mb-4 flex justify-between items-center">
-                                <span>High-Yield Revision Points</span>
-                                <button onclick="copySummary()" class="hover:text-white transition-colors">Copy</button>
-                            </div>
-                            <div id="summary-output" class="text-sm font-medium text-gray-300 space-y-2 prose prose-invert prose-sm">
-                                <!-- AI Content -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI Quiz Generator -->
-            <div class="glass-card p-10 group hover:border-orange-500/30 transition-all">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="w-12 h-12 bg-orange-500/20 rounded-2xl flex items-center justify-center text-orange-400 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                    </div>
-                    <h2 class="text-2xl font-black italic">Quiz <span class="text-orange-400">Master</span></h2>
-                </div>
-
-                <div class="space-y-6">
-                    <input type="text" id="quiz-topic" placeholder="Enter topic (e.g. Thermodynamics, Python Arrays)" class="w-full bg-black/40 border border-white/5 rounded-xl px-6 py-4 text-sm font-bold focus:border-orange-500/50 outline-none transition-all">
-                    
-                    <button id="quiz-gen-btn" class="w-full py-4 bg-orange-600/20 hover:bg-orange-600/30 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-2xl border border-orange-500/20 transition-all">Generate Quick Quiz</button>
-
-                    <div id="quiz-output-container" class="hidden">
-                        <div id="quiz-questions" class="space-y-6 mt-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                            <!-- Questions go here -->
-                        </div>
-                    </div>
+                <div id="att-status" class="mt-6 p-5 bg-emerald-50 border border-emerald-100 rounded-2xl text-xs font-medium text-emerald-800 leading-relaxed">
+                    Calculating survival strategy...
                 </div>
             </div>
 
             <!-- Unit Converter -->
-            <div class="glass-card p-10 group hover:border-blue-400/30 transition-all">
+            <div class="bento-card group animate-fade-up" style="animation-delay: 0.3s">
                 <div class="flex items-center gap-4 mb-8">
-                    <div class="w-12 h-12 bg-blue-400/20 rounded-2xl flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                    <div class="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 shadow-sm group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                     </div>
-                    <h2 class="text-2xl font-black italic">Engineering <span class="text-blue-400">Units</span></h2>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Unit <span class="text-rose-600">Converter</span></h2>
                 </div>
-
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">Measurement Type</label>
-                        <select id="conv-category" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-4 text-sm font-bold appearance-none appearance-none cursor-pointer">
-                            <option value="length">Length (Metric/Imperial)</option>
-                            <option value="mass">Mass / Weight</option>
-                            <option value="pressure">Pressure (N/m², psi)</option>
-                            <option value="force">Force (Newton, kgf)</option>
-                        </select>
+                <div class="space-y-4">
+                    <select id="conv-category" class="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs font-bold outline-none transition-all">
+                        <option value="length">Length</option>
+                        <option value="pressure">Pressure</option>
+                    </select>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="number" id="conv-input" value="1" class="bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs font-bold outline-none">
+                        <select id="conv-from" class="bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-[10px] font-bold uppercase"></select>
                     </div>
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="number" id="conv-input" value="1" class="bg-black/40 border border-white/5 rounded-xl px-4 py-4 text-sm font-bold focus:border-blue-400/50 outline-none transition-all">
-                        <select id="conv-from" class="bg-black/40 border border-white/5 rounded-xl px-4 py-4 text-sm font-bold appearance-none cursor-pointer"></select>
+                    <div class="relative flex items-center justify-center h-4">
+                        <div class="absolute w-full h-[1px] bg-slate-100"></div>
+                        <span class="relative bg-white px-3 text-[9px] font-bold text-slate-300 uppercase">to</span>
                     </div>
-
-                    <div class="text-center">
-                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase tracking-widest text-gray-600">Convert to</span>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div id="conv-output" class="bg-blue-400/5 border border-blue-400/10 rounded-xl px-4 py-4 text-sm flex items-center font-black text-blue-400">1.00</div>
-                        <select id="conv-to" class="bg-black/40 border border-white/5 rounded-xl px-4 py-4 text-sm font-bold appearance-none cursor-pointer"></select>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div id="conv-output" class="bg-rose-50 border border-rose-100 rounded-xl px-4 py-3 text-xs font-black text-rose-600 flex items-center">1.00</div>
+                        <select id="conv-to" class="bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-[10px] font-bold uppercase"></select>
                     </div>
                 </div>
             </div>
@@ -181,19 +120,19 @@
 
     <script>
         // GPA Logic
-        function addGPARow() {
+        window.addGPARow = function() {
             const container = document.getElementById('gpa-rows');
             const row = document.createElement('div');
-            row.className = 'flex gap-4';
+            row.className = 'grid grid-cols-12 gap-3 transition-all animate-fade-up';
             row.innerHTML = `
-                <input type="number" placeholder="Credits" class="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm credit-input">
-                <select class="flex-1 bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm grade-input">
-                    <option value="10">O (10)</option>
-                    <option value="9">A+ (9)</option>
-                    <option value="8">A (8)</option>
-                    <option value="7">B+ (7)</option>
-                    <option value="6">B (6)</option>
-                    <option value="0">F (0)</option>
+                <input type="number" placeholder="Cre" class="col-span-4 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs credit-input font-bold outline-none focus:border-blue-300">
+                <select class="col-span-8 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs grade-input font-bold outline-none focus:border-blue-300">
+                    <option value="10">O Grade</option>
+                    <option value="9">A+ Grade</option>
+                    <option value="8">A Grade</option>
+                    <option value="7">B+ Grade</option>
+                    <option value="6">B Grade</option>
+                    <option value="0">F Grade</option>
                 </select>
             `;
             container.appendChild(row);
@@ -203,217 +142,56 @@
         function calculateGPA() {
             const credits = document.querySelectorAll('.credit-input');
             const grades = document.querySelectorAll('.grade-input');
-            let totalPoints = 0;
-            let totalCredits = 0;
-
+            let totalPoints = 0, totalCredits = 0;
             credits.forEach((input, index) => {
                 const c = parseFloat(input.value) || 0;
                 const g = parseFloat(grades[index].value) || 0;
                 totalPoints += (c * g);
                 totalCredits += c;
             });
-
-            const result = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : '0.00';
-            document.getElementById('gpa-result').innerText = result;
+            document.getElementById('gpa-result').innerText = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : '0.00';
         }
 
         function attachGPAListeners() {
             document.querySelectorAll('.credit-input, .grade-input').forEach(el => {
+                el.removeEventListener('input', calculateGPA);
                 el.addEventListener('input', calculateGPA);
             });
         }
         attachGPAListeners();
-        attachGPAListeners();
 
         // Attendance Logic
-        const attTotal = document.getElementById('att-total');
-        const attPresent = document.getElementById('att-present');
-        const attTarget = document.getElementById('att-target');
-        const attStatus = document.getElementById('att-status');
-
+        const attTotal = document.getElementById('att-total'), attPresent = document.getElementById('att-present'), attStatus = document.getElementById('att-status');
         function calculateAttendance() {
-            const conducted = parseFloat(attTotal.value) || 0;
-            const present = parseFloat(attPresent.value) || 0;
-            const target = parseFloat(attTarget.value) || 75;
-
+            const conducted = parseFloat(attTotal.value) || 0, present = parseFloat(attPresent.value) || 0, target = 75;
             if (conducted === 0) return;
-
             const current = (present / conducted) * 100;
-            
             if (current >= target) {
                 const canMiss = Math.floor((present - (target / 100) * conducted) / (target / 100));
-                attStatus.innerHTML = `Your attendance is <span class="text-emerald-500">${current.toFixed(1)}%</span>. You can safely miss <span class="text-emerald-500 font-extrabold underline">${canMiss >= 0 ? canMiss : 0}</span> more classes while staying above ${target}%.`;
+                attStatus.innerHTML = `You are at <span class="font-bold text-emerald-600">${current.toFixed(1)}%</span>. You can safely miss <span class="font-black underline">${Math.max(0, canMiss)}</span> more classes.`;
             } else {
                 const need = Math.ceil(((target / 100) * conducted - present) / (1 - target / 100));
-                attStatus.innerHTML = `Your attendance is <span class="text-red-500">${current.toFixed(1)}%</span>. You need to attend <span class="text-primary font-extrabold underline">${need}</span> more classes consecutively to reach ${target}%.`;
+                attStatus.innerHTML = `Warning! You are at <span class="font-bold text-rose-600">${current.toFixed(1)}%</span>. You need to attend <span class="font-black underline">${need}</span> more classes consecutively.`;
             }
         }
-
-        [attTotal, attPresent, attTarget].forEach(el => el.addEventListener('input', calculateAttendance));
+        [attTotal, attPresent].forEach(el => el.addEventListener('input', calculateAttendance));
         calculateAttendance();
 
         // Unit Converter Logic
-        const units = {
-            length: { m: 1, km: 0.001, mm: 1000, inch: 39.37, feet: 3.28 },
-            mass: { kg: 1, g: 1000, lbs: 2.204, ton: 0.001 },
-            pressure: { pa: 1, bar: 0.00001, psi: 0.000145, atm: 0.0000098 },
-            force: { n: 1, kgf: 0.1019, lbf: 0.2248, dyne: 100000 }
-        };
-
-        const catSelect = document.getElementById('conv-category');
-        const fromSelect = document.getElementById('conv-from');
-        const toSelect = document.getElementById('conv-to');
-        const input = document.getElementById('conv-input');
-        const output = document.getElementById('conv-output');
-
+        const units = { length: { m: 1, km: 0.001, mm: 1000, inch: 39.37, feet: 3.28 }, pressure: { pa: 1, bar: 0.00001, psi: 0.000145, atm: 0.0000098 } };
+        const catSelect = document.getElementById('conv-category'), fromSelect = document.getElementById('conv-from'), toSelect = document.getElementById('conv-to'), input = document.getElementById('conv-input'), output = document.getElementById('conv-output');
         function updateUnits() {
-            const cat = catSelect.value;
-            const options = Object.keys(units[cat]).map(u => `<option value="${u}">${u.toUpperCase()}</option>`).join('');
-            fromSelect.innerHTML = options;
-            toSelect.innerHTML = options;
-            convert();
+            const cat = catSelect.value, options = Object.keys(units[cat]).map(u => `<option value="${u}">${u.toUpperCase()}</option>`).join('');
+            fromSelect.innerHTML = options; toSelect.innerHTML = options; convert();
         }
-
         function convert() {
-            const cat = catSelect.value;
-            const from = fromSelect.value;
-            const to = toSelect.value;
-            const val = parseFloat(input.value) || 0;
-            
-            const baseVal = val / units[cat][from];
-            const result = baseVal * units[cat][to];
+            const cat = catSelect.value, from = fromSelect.value, to = toSelect.value, val = parseFloat(input.value) || 0;
+            const baseVal = val / units[cat][from], result = baseVal * units[cat][to];
             output.innerText = result.toLocaleString(undefined, { maximumFractionDigits: 4 });
         }
-
-        catSelect.addEventListener('change', updateUnits);
-        fromSelect.addEventListener('change', convert);
-        toSelect.addEventListener('change', convert);
-        input.addEventListener('input', convert);
+        catSelect.addEventListener('change', updateUnits); fromSelect.addEventListener('change', convert); toSelect.addEventListener('change', convert); input.addEventListener('input', convert);
         updateUnits();
-
-        // Revision Assistant Logic
-        const summarizeBtn = document.getElementById('summarize-btn');
-        const summaryInput = document.getElementById('summary-input');
-        const summaryOutput = document.getElementById('summary-output');
-        const summaryOutputContainer = document.getElementById('summary-output-container');
-
-        async function generateSummary() {
-            const content = summaryInput.value.trim();
-            if (!content) return alert('Please enter some text to summarize.');
-
-            summarizeBtn.disabled = true;
-            summarizeBtn.innerText = 'Analyzing Concept...';
-            summaryOutputContainer.classList.remove('hidden');
-            summaryOutput.innerHTML = '<div class="animate-pulse flex space-x-4"><div class="flex-1 space-y-4 py-1"><div class="h-2 bg-purple-500/20 rounded w-3/4"></div><div class="space-y-2"><div class="h-2 bg-purple-500/20 rounded"></div><div class="h-2 bg-purple-500/20 rounded w-5/6"></div></div></div></div>';
-
-            try {
-                const res = await fetch('/api/ai/summary', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content })
-                });
-                
-                const data = await res.json();
-                
-                if (data.error) throw new Error(data.error);
-                
-                const text = data.summary || "Unable to summarize. Try a shorter or more clear text.";
-                // Format markdown-like bullet points
-                summaryOutput.innerHTML = text
-                    .replace(/\n- /g, '<br>• ')
-                    .replace(/\n\d\. /g, '<br>• ')
-                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-purple-400 font-bold">$1</strong>')
-                    .replace(/\n/g, '<br>');
-
-            } catch (err) {
-                summaryOutput.innerHTML = `<span class="text-rose-500">Error: ${err.message}. Please check your connection.</span>`;
-            } finally {
-                summarizeBtn.disabled = false;
-                summarizeBtn.innerText = 'Generate Cheat Sheet';
-            }
-        }
-
-        summarizeBtn.addEventListener('click', generateSummary);
-
-        window.copySummary = function() {
-            const text = summaryOutput.innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = event.currentTarget;
-                btn.innerText = 'Copied!';
-                setTimeout(() => btn.innerText = 'Copy', 2000);
-            });
-        }
-
-        // Quiz Generator Logic
-        const quizGenBtn = document.getElementById('quiz-gen-btn');
-        const quizTopic = document.getElementById('quiz-topic');
-        const quizQuestions = document.getElementById('quiz-questions');
-        const quizOutputContainer = document.getElementById('quiz-output-container');
-
-        async function generateQuiz() {
-            const topic = quizTopic.value.trim();
-            if (!topic) return alert('Please enter a topic for the quiz.');
-
-            quizGenBtn.disabled = true;
-            quizGenBtn.innerText = 'Generating Quest...';
-            quizOutputContainer.classList.remove('hidden');
-            quizQuestions.innerHTML = '<div class="space-y-4 animate-pulse"><div class="h-4 bg-orange-500/10 rounded w-3/4"></div><div class="h-24 bg-orange-500/5 rounded"></div><div class="h-4 bg-orange-500/10 rounded w-1/2"></div></div>';
-
-            try {
-                const res = await fetch('/api/ai/quiz', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ topic })
-                });
-
-                const data = await res.json();
-                if (data.error) throw new Error(data.error);
-
-                const quiz = data.quiz;
-                quizQuestions.innerHTML = quiz.map((q, i) => `
-                    <div class="bg-black/40 border border-white/5 p-6 rounded-2xl group/q hover:border-orange-500/20 transition-all">
-                        <div class="text-[10px] font-black uppercase text-orange-400/50 mb-2">Question ${i + 1}</div>
-                        <div class="font-bold text-white mb-4 leading-relaxed">${q.question}</div>
-                        <div class="grid gap-2">
-                            ${q.options.map(opt => `
-                                <button onclick="checkAnswer(this, '${opt === q.answer}')" class="text-left px-4 py-3 bg-white/5 border border-white/5 rounded-xl text-xs font-medium hover:bg-white/10 transition-all">
-                                    ${opt}
-                                </button>
-                            `).join('')}
-                        </div>
-                        <div class="explanation-box hidden mt-4 p-4 bg-orange-500/5 border border-orange-500/10 rounded-xl">
-                            <div class="text-[9px] font-black uppercase text-orange-400 mb-1">Explanation</div>
-                            <div class="text-xs text-gray-400 leading-relaxed">${q.explanation}</div>
-                        </div>
-                    </div>
-                `).join('');
-
-            } catch (err) {
-                quizQuestions.innerHTML = `<div class="text-rose-500 text-sm font-bold">Error: ${err.message}</div>`;
-            } finally {
-                quizGenBtn.disabled = false;
-                quizGenBtn.innerText = 'Generate Quick Quiz';
-            }
-        }
-
-        window.checkAnswer = function(btn, isCorrect) {
-            const parent = btn.parentElement;
-            const card = parent.parentElement;
-            const explanation = card.querySelector('.explanation-box');
-            
-            // Disable all buttons in this question
-            parent.querySelectorAll('button').forEach(b => {
-                b.disabled = true;
-                if (b.innerText.trim() === btn.innerText.trim()) {
-                    b.classList.add(isCorrect === 'true' ? 'bg-emerald-500/20' : 'bg-rose-500/20');
-                    b.classList.add(isCorrect === 'true' ? 'border-emerald-500/30' : 'border-rose-500/30');
-                }
-            });
-
-            explanation.classList.remove('hidden');
-        }
-
-        quizGenBtn.addEventListener('click', generateQuiz);
     </script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>

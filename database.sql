@@ -42,12 +42,17 @@ create table if not exists bookmarks (
 create table if not exists profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text not null,
+  username text,
   full_name text,
-  bio text,
+  branch text,
+  semester int,
   avatar_url text,
   role text check (role in ('user', 'admin')) default 'user',
   is_pro boolean default false,
-  created_at timestamp with time zone default now()
+  xp int default 0,
+  streak int default 0,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now()
 );
 
 -- RLS (Row Level Security)
@@ -67,10 +72,10 @@ create policy "Users can manage their own progress" on user_progress for all usi
 alter table bookmarks enable row level security;
 create policy "Users can manage their own bookmarks" on bookmarks for all using (auth.uid() = user_id);
 
--- Profiles: Public read (for blog authors), User update self
+-- Profiles: Public read (for blog authors), User manage self
 alter table profiles enable row level security;
 create policy "Public can view profiles" on profiles for select using (true);
-create policy "Users can update own profile" on profiles for update using (auth.uid() = id);
+create policy "Users can manage own profile" on profiles for all using (auth.uid() = id);
 
 -- Trigger for profile creation on signup
 create or replace function public.handle_new_user()
