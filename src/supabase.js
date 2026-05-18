@@ -24,15 +24,25 @@ export const getCurrentUser = async () => {
     const { data: { session: initialSession }, error: initialError } = await supabase.auth.getSession()
     if (initialSession) return initialSession.user
 
-    // 2. If no session but we have an auth hash, wait for Supabase to process it
+    // 2. If no session but we have an auth hash or query params, wait for Supabase to process it
     // Supabase handles the hash automatically on init, but it might take a moment
-    if (window.location.hash.includes('access_token=') || window.location.hash.includes('error=')) {
-        // Wait up to 2 seconds for the session to appear
-        for (let i = 0; i < 20; i++) {
+    const hasAuthData = window.location.hash.includes('access_token=') || 
+                        window.location.hash.includes('error=') ||
+                        window.location.search.includes('code=') ||
+                        window.location.search.includes('error=');
+
+    if (hasAuthData) {
+        console.log('Detected auth data in URL, waiting for session...')
+        // Wait up to 3 seconds for the session to appear
+        for (let i = 0; i < 30; i++) {
             await new Promise(resolve => setTimeout(resolve, 100))
             const { data: { session } } = await supabase.auth.getSession()
-            if (session) return session.user
+            if (session) {
+                console.log('Session successfully recovered from URL')
+                return session.user
+            }
         }
+        console.warn('Timed out waiting for session from URL data')
     }
     
     // 3. Last resort: direct check which is more authoritative

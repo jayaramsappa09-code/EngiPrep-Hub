@@ -84,6 +84,14 @@
         
         let isSignup = new URLSearchParams(window.location.search).get('signup') === 'true';
 
+        // 0. Check for auth errors in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error_description') || urlParams.get('error');
+        if (error) {
+            errorDiv.innerText = error.replace(/\+/g, ' ');
+            errorDiv.classList.remove('hidden');
+        }
+
         // 1. Initial immediate check
         async function checkSession() {
             const user = await getCurrentUser()
@@ -147,11 +155,23 @@
         googleBtn.addEventListener('click', async () => {
             errorDiv.classList.add('hidden');
             googleBtn.disabled = true;
-            const originalText = googleBtn.innerHTML;
-            googleBtn.innerText = 'Connecting...';
-            try { await signInWithGoogle(); } catch (err) {
-                googleBtn.innerHTML = originalText; googleBtn.disabled = false;
-                errorDiv.innerText = getFriendlyError(err); errorDiv.classList.remove('hidden');
+            const originalContent = googleBtn.innerHTML;
+            googleBtn.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <span class="text-xs font-bold text-slate-700">Connecting to Google...</span>
+                </div>
+            `;
+            try { 
+                const { data } = await signInWithGoogle(); 
+                if (data?.url) {
+                    window.location.href = data.url;
+                }
+            } catch (err) {
+                googleBtn.innerHTML = originalContent; 
+                googleBtn.disabled = false;
+                errorDiv.innerText = getFriendlyError(err); 
+                errorDiv.classList.remove('hidden');
             }
         });
 
