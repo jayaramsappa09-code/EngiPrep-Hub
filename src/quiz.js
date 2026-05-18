@@ -177,7 +177,7 @@ window.startAIQuiz = async () => {
         
         showQuestion();
     } catch (err) {
-        alert('AI Professor is currently unavailable: ' + err.message);
+        alert('AI Service is currently unavailable: ' + err.message);
     } finally {
         btn.disabled = false;
         btn.innerText = 'Generate';

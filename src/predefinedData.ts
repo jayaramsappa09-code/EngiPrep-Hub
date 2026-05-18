@@ -8,10 +8,10 @@ export const PREDEFINED_EXPLANATIONS: Record<string, string> = {
 };
 
 export const PREDEFINED_ANSWERS: Record<string, string> = {
-  "who are you": "I am the EngiPrep Professor, your AI-powered companion for JNTUK engineering studies. I'm here to simplify complex concepts and help you ace your exams!",
-  "what is your name": "You can call me Professor. I'm part of the EngiPrep Hub ecosystem.",
-  "how to study": "The best way to study for JNTUK exams is to: 1. Review previous year question papers. 2. Focus on high-weightage units. 3. Practice derivations and numericals. 4. Use EngiPrep's AI Assistant for clarifications!",
-  "hello": "Hello, Scholar! I'm ready to help you with your engineering queries. What can I explain for you today?",
+  "who are you": "I am the EngiPrep Assistant, your AI-powered companion for JNTUK engineering studies. I'm here to simplify complex concepts and help you ace your exams!",
+  "what is your name": "I am the EngiPrep AI Assistant, part of the EngiPrep Hub ecosystem.",
+  "how to study": "The best way to study for JNTUK exams is to: 1. Review previous year question papers. 2. Focus on high-weightage units. 3. Practice derivations and numericals. 4. Use simplified study materials and AI help for clarifications!",
+  "hello": "Hello! I'm ready to help you with your engineering queries. What can I explain for you today?",
   "hi": "Greetings! Ready to dive into some engineering concepts?"
 };
 

@@ -46,7 +46,7 @@ app.post('/api/ai/explain', async (req, res) => {
       model: "gemini-1.5-flash",
       contents: [{ role: 'user', parts: [{ text: `Explain "${concept}" in the context of: ${context}. Keep it concise, focused on engineering exams, and use simple analogies.` }] }],
       config: {
-        systemInstruction: "You are a senior engineering professor focused on helping students pass JNTUK university exams. Format with Markdown."
+        systemInstruction: "You are an expert study assistant focused on helping students pass JNTUK university engineering exams. Format with Markdown."
       }
     });
 
@@ -93,7 +93,7 @@ app.post('/api/ai/chat', async (req, res) => {
     const chat = ai.chats.create({
       model: "gemini-1.5-flash",
       config: {
-        systemInstruction: "You are 'EngiPrep Professor', a helpful AI tutor for JNTUK engineering students. Your goal is to explain complex concepts simply, provide exam tips, and encourage students. Be encouraging but professional. Use Markdown for formatting equations and lists."
+        systemInstruction: "You are 'EngiPrep AI Assistant', a helpful study helper for JNTUK engineering students. Your goal is to explain complex concepts simply, provide exam tips, and encourage students. Be encouraging but professional. Use Markdown for formatting equations and lists."
       },
       history: formattedHistory
     });
