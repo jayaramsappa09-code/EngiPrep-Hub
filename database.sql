@@ -296,12 +296,14 @@ VALUES
 ON CONFLICT (title) DO NOTHING;
 
 -- 13. Blog Comments Table
+CREATE TYPE comment_status AS ENUM ('pending', 'approved', 'rejected');
+
 CREATE TABLE IF NOT EXISTS public.blog_comments (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   post_id uuid REFERENCES public.blog_posts(id) ON DELETE CASCADE,
   user_id uuid REFERENCES public.profiles(id) ON DELETE SET NULL,
   content TEXT NOT NULL,
-  status TEXT CHECK (status IN ('pending', 'approved', 'rejected')) DEFAULT 'pending',
+  status comment_status DEFAULT 'pending',
   admin_feedback TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

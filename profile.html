@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Identity | EngiPrep Hub</title>
+    <title>Profile Settings | EngiPrep Hub</title>
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -47,14 +47,14 @@
                 <li aria-current="page">
                     <div class="flex items-center">
                         <svg class="w-3 h-3 text-white/10 mx-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="ml-1 text-[10px] font-black uppercase tracking-widest text-primary md:ml-2">Forge Identity</span>
+                        <span class="ml-1 text-[10px] font-black uppercase tracking-widest text-primary md:ml-2">Profile Settings</span>
                     </div>
                 </li>
             </ol>
         </nav>
 
         <header class="mb-16">
-            <h1 class="text-5xl font-black italic tracking-tighter mb-4 select-none">Forge Your <span class="text-primary italic">Identity.</span></h1>
+            <h1 class="text-5xl font-black italic tracking-tighter mb-4 select-none">Profile <span class="text-primary italic">Settings.</span></h1>
             <p class="text-gray-500 text-sm italic">Choose how the Hub community sees you. Stay anonymous or become a legend.</p>
         </header>
 
@@ -101,7 +101,7 @@
             </section>
 
             <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center gap-6">
-                <button type="submit" id="save-btn" class="btn-primary w-full sm:w-auto px-12 py-4">Save Identity Preferences</button>
+                <button type="submit" id="save-btn" class="btn-primary w-full sm:w-auto px-12 py-4">Save Profile</button>
                 <p id="save-msg" class="text-xs text-primary hidden font-bold italic animate-fade"></p>
             </div>
         </form>
@@ -150,7 +150,7 @@
             saveBtn.innerHTML = `
                 <div class="flex items-center gap-3">
                     <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span>Forging Identity...</span>
+                    <span>Saving Changes...</span>
                 </div>
             `
             saveMsg.classList.add('hidden')
@@ -166,11 +166,11 @@
                 const { error } = await updateUserProfile(currentUser.id, updates)
                 
                 if (error) {
-                    saveMsg.textContent = '❌ Forge Failure: ' + (typeof error === 'string' ? error : (error.message || 'Check connection'))
+                    saveMsg.textContent = '❌ Update Failed: ' + (typeof error === 'string' ? error : (error.message || 'Check connection'))
                     saveMsg.classList.add('text-red-500')
                     saveMsg.classList.remove('hidden')
                 } else {
-                    saveMsg.textContent = '✅ Identity Forge Successful. Redirecting...'
+                    saveMsg.textContent = '✅ Profile Updated. Redirecting...'
                     saveMsg.classList.remove('text-red-500', 'hidden')
                     setTimeout(() => window.location.href = '/dashboard.html', 1200)
                 }
@@ -180,7 +180,7 @@
                 saveMsg.classList.remove('hidden')
             } finally {
                 saveBtn.disabled = false
-                saveBtn.textContent = 'Save Identity Preferences'
+                saveBtn.textContent = 'Save Profile'
             }
         })
 

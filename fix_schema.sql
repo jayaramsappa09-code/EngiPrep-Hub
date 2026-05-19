@@ -74,18 +74,27 @@ CREATE POLICY "Users can manage own profile" ON public.profiles
   FOR ALL USING (auth.uid() = id);
 
 -- 5. Blog Comments Table (New Feature Support)
+DO $$ 
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'comment_status') THEN
+        CREATE TYPE comment_status AS ENUM ('pending', 'approved', 'rejected');
+    END IF;
+END $$;
+
 CREATE TABLE IF NOT EXISTS public.blog_comments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id uuid REFERENCES public.blog_posts(id) ON DELETE CASCADE,
   user_id uuid REFERENCES public.profiles(id) ON DELETE SET NULL,
   content TEXT NOT NULL,
-  status TEXT CHECK (status IN ('pending', 'approved', 'rejected')) DEFAULT 'pending',
+  status comment_status DEFAULT 'pending',
   admin_feedback TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Ensure columns exist if table was already created
-ALTER TABLE public.blog_comments ADD COLUMN IF NOT EXISTS status TEXT CHECK (status IN ('pending', 'approved', 'rejected')) DEFAULT 'pending';
+-- Ensure column uses the enum if table was already created
+-- Note: Changing column type to enum requires a slightly more complex command if data exists, 
+-- but for fresh setups this is the clean state.
+ALTER TABLE public.blog_comments ADD COLUMN IF NOT EXISTS status comment_status DEFAULT 'pending';
 ALTER TABLE public.blog_comments ADD COLUMN IF NOT EXISTS admin_feedback TEXT;
 
 ALTER TABLE public.blog_comments ENABLE ROW LEVEL SECURITY;
