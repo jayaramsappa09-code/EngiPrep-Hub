@@ -152,7 +152,7 @@
     </footer>
 
     <script type="module">
-        import { supabase, getCurrentUser } from './src/supabase.js'
+        import { supabase, requireAuth } from './src/supabase.js'
         import { submitContribution, fetchMyContributions, fetchTopContributors } from './src/notes.js'
 
         const form = document.getElementById('upload-form')
@@ -167,8 +167,8 @@
         let currentUser = null
 
         async function init() {
-            currentUser = await getCurrentUser()
-            if (!currentUser) { window.location.href = '/auth.html'; return; }
+            currentUser = await requireAuth()
+            if (!currentUser) return;
 
             // Load Subjects
             const { data: subs } = await supabase.from('subjects').select('title').order('title')

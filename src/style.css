@@ -6,28 +6,44 @@
   --color-primary: #2563eb;
   --color-secondary: #4f46e5;
   --color-accent: #f59e0b;
+
+  --color-surface: var(--surface-color);
+  --color-background: var(--background-color);
+  --color-text-main: var(--text-main-color);
+  --color-text-muted: var(--text-muted-color);
+  --color-border: var(--border-color);
 }
 
 :root {
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(226, 232, 240, 0.8);
-  --glass-blur: blur(8px);
+  --background-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-main-color: #1e293b;
+  --text-muted-color: #64748b;
+  --border-color: #e2e8f0;
+}
+
+.dark {
+  --background-color: #0f172a;
+  --surface-color: #1e293b;
+  --text-main-color: #f8fafc;
+  --text-muted-color: #94a3b8;
+  --border-color: #334155;
 }
 
 body {
-  @apply bg-[#f8fafc] text-slate-800 font-sans antialiased;
+  @apply bg-background text-text-main font-sans antialiased transition-colors duration-300;
 }
 
 .glass-card {
-  @apply bg-white border border-slate-200 rounded-3xl transition-all duration-300 shadow-sm;
+  @apply bg-surface border border-border rounded-3xl transition-all duration-300 shadow-sm;
 }
 
 .glass-card:hover {
-  @apply border-blue-200 shadow-lg shadow-blue-500/5;
+  @apply border-blue-500 shadow-lg shadow-blue-500/5;
 }
 
 .bento-card {
-  @apply bg-white border border-slate-100 rounded-[2.5rem] p-8 transition-all duration-300;
+  @apply bg-surface border border-border rounded-[2.5rem] p-8 transition-all duration-300;
 }
 
 .btn-primary {
@@ -35,15 +51,15 @@ body {
 }
 
 .btn-outline {
-  @apply border-2 border-slate-200 hover:border-blue-600 hover:text-blue-600 px-6 py-3 rounded-2xl font-bold transition-all inline-flex items-center justify-center gap-2;
+  @apply border-2 border-border hover:border-blue-600 hover:text-blue-600 px-6 py-3 rounded-2xl font-bold transition-all inline-flex items-center justify-center gap-2;
 }
 
 .btn-secondary {
-  @apply bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-slate-900/10;
+  @apply bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-slate-900/10;
 }
 
 .input-field {
-  @apply w-full bg-white border border-slate-200 rounded-2xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900;
+  @apply w-full bg-surface border border-border rounded-2xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-text-main;
 }
 
 /* Animations */
@@ -67,16 +83,16 @@ body {
 
 /* Skeleton */
 .skeleton {
-  @apply bg-slate-100 animate-pulse rounded-xl;
+  @apply bg-surface border border-border animate-pulse rounded-xl;
 }
 
 /* Premium Reading Layer */
 .prose-premium {
-  @apply text-lg leading-relaxed text-slate-600;
+  @apply text-lg leading-relaxed text-text-muted;
 }
 
 .prose-premium h1, .prose-premium h2, .prose-premium h3 {
-  @apply text-slate-900 font-extrabold tracking-tight mb-6 mt-12;
+  @apply text-text-main font-extrabold tracking-tight mb-6 mt-12;
 }
 
 .prose-premium p {
@@ -84,12 +100,12 @@ body {
 }
 
 .prose-premium code {
-  @apply bg-slate-100 px-2 py-1 rounded-lg text-blue-600 font-mono text-sm border border-slate-200;
+  @apply bg-background px-2 py-1 rounded-lg text-blue-600 dark:text-blue-400 font-mono text-sm border border-border;
 }
 
 /* Navigation */
 .nav-link {
-  @apply text-slate-500 hover:text-blue-600 font-bold text-[10px] uppercase tracking-widest transition-colors;
+  @apply text-text-muted hover:text-blue-600 font-bold text-[10px] uppercase tracking-widest transition-colors;
 }
 
 /* Subject Pills */
@@ -103,7 +119,7 @@ body {
 }
 
 .chat-bubble-ai {
-  @apply bg-white text-slate-700 p-6 rounded-3xl rounded-tl-none self-start max-w-[95%] shadow-sm border border-slate-100 prose-sm;
+  @apply bg-surface text-text-main p-6 rounded-3xl rounded-tl-none self-start max-w-[95%] shadow-sm border border-border prose-sm;
 }
 
 .chat-container {
@@ -120,5 +136,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-all;
+  @apply bg-border rounded-full hover:bg-text-muted transition-all;
 }

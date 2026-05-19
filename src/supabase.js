@@ -25,35 +25,75 @@ export const isSupabaseConfigured = () => {
   return !!(supabaseUrl && supabaseAnonKey && !supabaseUrl.includes('placeholder'))
 }
 
+let currentUser = null;
+let sessionCheckPromise = null;
+
 // Helper: Check if user is logged in
 export const getCurrentUser = async () => {
-  try {
-    const { data: { session }, error } = await supabase.auth.getSession();
-    if (error) {
-      console.error('Session Error:', error.message);
-      return null;
-    }
-    
-    if (session?.user) {
-      // Clean URL fragments if they are still there
-      if (window.location.hash.includes('access_token=') || window.location.search.includes('code=')) {
-          const url = new URL(window.location.href);
-          url.searchParams.delete('code');
-          url.searchParams.delete('state');
-          url.hash = '';
-          window.history.replaceState({}, document.title, url.toString());
-      }
-      return session.user;
-    }
+  if (currentUser) return currentUser;
+  if (sessionCheckPromise) return sessionCheckPromise;
 
-    // Authoritative check if session is missing but we're potentially in a flow
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
-    if (userError) return null;
+  sessionCheckPromise = (async () => {
+    try {
+      // 1. Detect if we are in an OAuth callback flow
+      const url = new URL(window.location.href);
+      const isCallback = url.hash.includes('access_token=') || url.searchParams.has('code');
+      
+      if (isCallback) {
+        console.log('OAuth transformation in progress... stabilizing session.');
+        // Wait for the SDK to process the URL and establish a session
+        for (let i = 0; i < 20; i++) {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+                currentUser = session.user;
+                // Clean URL after success
+                const cleanUrl = new URL(window.location.href);
+                cleanUrl.searchParams.delete('code');
+                cleanUrl.searchParams.delete('state');
+                cleanUrl.hash = '';
+                window.history.replaceState({}, document.title, cleanUrl.toString());
+                return currentUser;
+            }
+            await new Promise(r => setTimeout(r, 200));
+        }
+      }
+
+      // 2. Standard check
+      const { data: { session }, error } = await supabase.auth.getSession();
+      
+      if (error) {
+        // If it's a code exchange error, it might already be handled or expired
+        if (error.message.toLowerCase().includes('exchange') || error.message.toLowerCase().includes('code')) {
+           console.warn('Auth session check: Token likely consumed or session already exists.');
+        } else {
+           console.error('Session Error:', error.message);
+        }
+      }
+
+      currentUser = session?.user || null;
+      return currentUser;
+    } catch (err) {
+      console.error('Session discovery error:', err);
+      return null;
+    } finally {
+      sessionCheckPromise = null;
+    }
+  })();
+
+  return sessionCheckPromise;
+}
+
+// Global Auth Guard for pages
+export const requireAuth = async (redirectTo = '/auth.html') => {
+    const user = await getCurrentUser();
+    if (!user) {
+        console.warn('Access Denied: Authentication required.');
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get('error') || 'session_required';
+        window.location.replace(`${redirectTo}?error=${error}`);
+        return null;
+    }
     return user;
-  } catch (err) {
-    console.error('getCurrentUser error:', err);
-    return null;
-  }
 }
 
 // Helper: Get user profile (including role)

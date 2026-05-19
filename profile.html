@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Identity | EngiPrep Hub</title>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <link rel="stylesheet" href="/src/style.css">
     <style>
         @reference "./src/style.css";
@@ -14,14 +21,18 @@
         .badge { @apply text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full; }
     </style>
 </head>
-<body class="bg-[#050508] text-white">
+<body class="selection:bg-blue-100 italic-text-prevention">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-[#050508]/80 backdrop-blur-xl border-b border-white/5 px-6">
+    <nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/dashboard.html" class="flex items-center gap-3">
                 <span class="text-xs font-black uppercase tracking-widest text-gray-500">← Back to Dashboard</span>
             </a>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-6">
+                <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-background border border-border text-text-muted hover:text-primary transition-all active:scale-95">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
                 <span id="onboarding-notice" class="hidden text-[10px] text-primary italic font-black animate-pulse">Account Setup Required ●</span>
             </div>
         </div>
@@ -88,7 +99,7 @@
     </main>
 
     <script type="module">
-        import { getCurrentUser, getUserProfile, updateUserProfile } from './src/supabase.js'
+        import { requireAuth, getUserProfile, updateUserProfile } from './src/supabase.js'
         import { AVATARS } from './src/identity-constants.js'
 
         const avatarGrid = document.getElementById('avatar-grid')
@@ -135,16 +146,8 @@
 
         async function init() {
             try {
-                currentUser = await getCurrentUser()
-                if (!currentUser) {
-                    // Patient check
-                    await new Promise(r => setTimeout(r, 500))
-                    currentUser = await getCurrentUser()
-                    if (!currentUser) {
-                        window.location.replace('/auth.html')
-                        return
-                    }
-                }
+                currentUser = await requireAuth()
+                if (!currentUser) return // requireAuth handles redirect
 
                 const isOnboarding = new URLSearchParams(window.location.search).get('onboarding') === 'true'
                 if (isOnboarding) onboardingNotice.classList.remove('hidden')
@@ -175,15 +178,20 @@
         saveBtn.addEventListener('click', async () => {
             const username = usernameInput.value.trim()
             if (!username) {
-                saveMsg.textContent = '❌ Please enter a unique username.'
-                saveMsg.classList.add('text-red-500')
-                saveMsg.classList.remove('hidden')
+                saveMsg.textContent = '⚠️ Identity Missing: Please enter a username.'
+                saveMsg.classList.add('text-amber-500')
+                saveMsg.classList.remove('hidden', 'text-red-500', 'text-primary')
                 usernameInput.focus()
                 return
             }
 
             saveBtn.disabled = true
-            saveBtn.textContent = 'Forging Identity...'
+            saveBtn.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    <span>Forging Identity...</span>
+                </div>
+            `
             saveMsg.classList.add('hidden')
             
             const updates = {
@@ -218,5 +226,6 @@
 
         init()
     </script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>

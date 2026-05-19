@@ -7,17 +7,37 @@
   --color-primary-hover: #1d4ed8;
   --color-secondary: #0f172a;
   --color-accent: #3b82f6;
-  --color-surface: #ffffff;
-  --color-background: #f8fafc;
+  
+  --color-surface: var(--surface-color);
+  --color-background: var(--background-color);
+  --color-text-main: var(--text-main-color);
+  --color-text-muted: var(--text-muted-color);
+  --color-border: var(--border-color);
+}
+
+:root {
+  --background-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-main-color: #1e293b;
+  --text-muted-color: #64748b;
+  --border-color: #e2e8f0;
+}
+
+.dark {
+  --background-color: #0f172a;
+  --surface-color: #1e293b;
+  --text-main-color: #f8fafc;
+  --text-muted-color: #94a3b8;
+  --border-color: #334155;
 }
 
 @layer base {
   body {
-    @apply bg-background text-slate-800 font-sans antialiased;
+    @apply bg-background text-text-main font-sans antialiased transition-colors duration-300;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight text-slate-900 mb-4;
+    @apply font-bold tracking-tight text-text-main mb-4;
   }
 }
 
@@ -27,43 +47,43 @@
   }
 
   .btn-outline {
-    @apply px-6 py-3 border border-slate-200 text-slate-700 font-semibold rounded-xl transition-all hover:bg-slate-50 active:scale-[0.98];
+    @apply px-6 py-3 border border-border text-text-main font-semibold rounded-xl transition-all hover:bg-surface active:scale-[0.98];
   }
 
   .glass-card {
-    @apply bg-white border border-slate-100 rounded-[2rem] shadow-xl shadow-slate-200/40 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-200/60;
+    @apply bg-surface border border-border rounded-[2rem] shadow-xl shadow-slate-200/40 dark:shadow-none transition-all duration-300 hover:shadow-2xl;
   }
 
   .nav-link {
-    @apply text-sm font-medium text-slate-600 hover:text-primary transition-colors;
+    @apply text-sm font-medium text-text-muted hover:text-primary transition-colors;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all;
+    @apply w-full px-4 py-3 bg-surface border border-border text-text-main rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all;
   }
   
   .bento-card {
-    @apply bg-white border border-slate-100 rounded-[2.5rem] p-8 transition-all hover:shadow-2xl hover:shadow-slate-200/50;
+    @apply bg-surface border border-border rounded-[2.5rem] p-8 transition-all hover:shadow-2xl;
   }
   
   .subject-pill {
-    @apply inline-block bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider text-blue-600 mb-3;
+    @apply inline-block bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-3;
   }
 
   .quiz-option {
-    @apply block w-full p-4 mb-3 text-left border border-slate-200 rounded-xl bg-white transition-all hover:bg-slate-50 hover:border-primary/30;
+    @apply block w-full p-4 mb-3 text-left border border-border rounded-xl bg-surface transition-all hover:bg-background hover:border-primary/30;
   }
 
   .quiz-option.correct {
-    @apply border-emerald-500 bg-emerald-50 text-emerald-700;
+    @apply border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400;
   }
 
   .quiz-option.incorrect {
-    @apply border-rose-500 bg-rose-50 text-rose-700;
+    @apply border-rose-500 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400;
   }
 
   .planner-item {
-    @apply flex items-center justify-between p-3 mb-2 bg-slate-50 border border-slate-100 rounded-lg;
+    @apply flex items-center justify-between p-3 mb-2 bg-background border border-border rounded-lg;
   }
 
   .topper-tag {
@@ -71,7 +91,7 @@
   }
 
   .answer-block {
-    @apply bg-white border border-slate-100 rounded-2xl p-6 mb-8 transition-all hover:shadow-lg;
+    @apply bg-surface border border-border rounded-2xl p-6 mb-8 transition-all hover:shadow-lg;
   }
 
   .high-yield {
@@ -79,16 +99,16 @@
   }
 
   .concept-trap {
-    @apply border-l-4 border-l-rose-500 bg-rose-50/50 pl-4;
+    @apply border-l-4 border-l-rose-500 bg-rose-50/50 dark:bg-rose-900/10 pl-4;
   }
 }
 
 /* SEO Friendly Typography */
 .prose-content {
-  @apply text-slate-600 leading-relaxed;
+  @apply text-text-muted leading-relaxed;
 }
 
-.prose-content h2 { @apply text-2xl font-bold text-slate-900 mt-8 mb-4; }
+.prose-content h2 { @apply text-2xl font-bold text-text-main mt-8 mb-4; }
 .prose-content p { @apply mb-4; }
 
 /* Custom Scrollbar */
@@ -96,10 +116,10 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-slate-50;
+  @apply bg-background;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-200 rounded-full hover:bg-slate-300;
+  @apply bg-border rounded-full hover:bg-text-muted;
 }
 
 /* Animations */

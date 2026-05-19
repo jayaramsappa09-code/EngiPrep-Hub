@@ -7,6 +7,7 @@ import { supabase, getCurrentUser } from './supabase'
 import { toggleBookmark } from './notes'
 
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     initMobileMenu();
     initSearch();
     initCopyButtons();
@@ -15,17 +16,63 @@ document.addEventListener('DOMContentLoaded', () => {
     updateAuthUI();
 });
 
+// Theme Management
+function initTheme() {
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+    // Change the icons inside the button based on previous settings
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
+        if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
+    } else {
+        document.documentElement.classList.remove('dark');
+        if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
+        if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function() {
+            // toggle icons inside button
+            if (themeToggleDarkIcon) themeToggleDarkIcon.classList.toggle('hidden');
+            if (themeToggleLightIcon) themeToggleLightIcon.classList.toggle('hidden');
+
+            // if set via local storage previously
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            // if NOT set via local storage previously
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
+    }
+}
+
 // Sync UI on auth changes
 supabase.auth.onAuthStateChange(async (event, session) => {
+    console.log('Auth State Change:', event, session?.user?.email);
     updateAuthUI(session?.user);
     
     // On home page, if we just signed in, go to dashboard
-    if (event === 'SIGNED_IN' && session) {
+    if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session) {
         const path = window.location.pathname;
         if (path === '/' || path === '/index.html' || path === '') {
-            setTimeout(() => {
-                window.location.href = '/dashboard.html';
-            }, 100);
+            console.log('User detected on landing page, promoting to dashboard.');
+            window.location.href = '/dashboard.html';
         }
     }
 });
@@ -37,24 +84,41 @@ async function updateAuthUI(providedUser = null) {
     try {
         const user = providedUser || await getCurrentUser();
         
+        const isDark = document.documentElement.classList.contains('dark') || 
+                      localStorage.getItem('color-theme') === 'dark';
+
+        const themeBtnPlaceholder = `
+            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-background border border-border text-text-muted hover:text-primary transition-all active:scale-95 mr-2">
+                <svg id="theme-toggle-dark-icon" class="${isDark ? 'hidden' : ''} w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="${isDark ? '' : 'hidden'} w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            </button>
+        `;
+
         if (user) {
             navActions.innerHTML = `
                 <div class="flex items-center gap-4">
-                    <a href="/bookmarks.html" class="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition-colors">Bookmarks</a>
+                    ${themeBtnPlaceholder}
+                    <a href="/bookmarks.html" class="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-text-muted hover:text-blue-600 transition-colors">Bookmarks</a>
                     <a href="/dashboard.html" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Dashboard</a>
                 </div>
             `;
         } else {
             navActions.innerHTML = `
-                <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition-colors">Login</a>
-                <a href="/auth.html?signup=true" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Join Hub</a>
+                <div class="flex items-center gap-4">
+                    ${themeBtnPlaceholder}
+                    <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-text-muted hover:text-blue-600 transition-colors">Login</a>
+                    <a href="/auth.html?signup=true" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Join Hub</a>
+                </div>
             `;
         }
+        initTheme(); // Re-initialize theme toggle since we just added it to the DOM
     } catch (err) {
         // Fallback for non-configured Supabase
         navActions.innerHTML = `
-            <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition-colors">Login</a>
-            <a href="/auth.html?signup=true" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Join Hub</a>
+            <div class="flex items-center gap-4">
+                <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-text-muted hover:text-blue-600 transition-colors">Login</a>
+                <a href="/auth.html?signup=true" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Join Hub</a>
+            </div>
         `;
     }
 }

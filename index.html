@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EngiPrep Hub – Your Engineering Study Companion (JNTUK R23)</title>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <meta name="google-site-verification" content="tv-qW3K6Ph6PxepzBkI3VZT1nN3rFxcspQZ0Mg6AD7Q" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9357545069587539"
      crossorigin="anonymous"></script>
@@ -14,9 +21,9 @@
     <link rel="stylesheet" href="/src/style.css">
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
-<body class="bg-[#f8fafc] text-slate-800 selection:bg-blue-100">
+<body class="selection:bg-blue-100 italic-text-prevention">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4 group">
                 <div class="relative w-12 h-12 flex items-center justify-center">
@@ -30,7 +37,7 @@
                     <div class="absolute -top-1 -right-1 w-4 h-4 bg-blue-400/20 rounded-full blur-sm group-hover:scale-150 transition-transform"></div>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-2xl font-black tracking-tighter text-slate-900 leading-none">EngiPrep <span class="text-blue-600">Hub</span></span>
+                    <span class="text-2xl font-black tracking-tighter text-text-main leading-none">EngiPrep <span class="text-blue-600">Hub</span></span>
                     <div class="flex items-center gap-1.5 mt-1.5">
                         <div class="h-[1px] w-3 bg-slate-200"></div>
                         <span class="text-[7px] font-black uppercase tracking-[0.25em] text-slate-400">Prepare • Practice • Perform</span>
@@ -67,10 +74,10 @@
                     </span>
                     JNTUK R23 Official Guide 2026
                 </div>
-                <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 tracking-tight text-slate-900 leading-[1.1]">
+                <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 tracking-tight text-text-main leading-[1.1]">
                     Your Ultimate <span class="text-blue-600">Engineering</span> Study Companion
                 </h1>
-                <p class="text-lg text-slate-600 max-w-xl mb-10 leading-relaxed">
+                <p class="text-lg text-text-muted max-w-xl mb-10 leading-relaxed">
                     Access expert-curated notes, previous year question papers, important question banks, and essential tools tailored specifically for JNTUK first-year engineering students.
                 </p>
                 <div class="flex flex-wrap gap-4">
