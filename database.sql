@@ -292,10 +292,11 @@ VALUES
 ('Engineering Mathematics I', 'M1', 1, 'Matrices, Sequences, and Calculus.', 'blue'),
 ('Engineering Physics', 'PH', 1, 'Optics, Semiconductors, and Lasers.', 'purple'),
 ('C Programming', 'C', 1, 'Problem solving and logic in C.', 'emerald'),
+('Basic Electrical Engineering', 'BEEE', 1, 'Fundamentals of circuits and machines.', 'amber'),
 ('English Communication Skills', 'EN', 1, 'Professional technical English.', 'rose'),
 ('Engineering Mathematics II', 'M2', 2, 'ODEs and Integral Calculus.', 'blue'),
 ('Engineering Chemistry', 'CH', 2, 'Materials and Water technology.', 'amber'),
-('Data Structures Basics', 'DS', 2, 'Advanced arrays, stacks, and queues.', 'indigo'),
+('Data Structures', 'DS', 2, 'Advanced arrays, stacks, and queues.', 'indigo'),
 ('Environmental Science', 'ES', 2, 'Eco studies and social issues.', 'rose')
 ON CONFLICT (title) DO NOTHING;
 

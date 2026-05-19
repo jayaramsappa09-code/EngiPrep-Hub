@@ -99,6 +99,8 @@
                             <select id="subject" required class="input-field w-full bg-[#0d0d12]">
                                 <!-- Selectors -->
                             </select>
+                            <input type="text" id="custom-subject" class="input-field w-full mt-2 hidden" placeholder="Enter Subject Name">
+                            <button type="button" id="toggle-custom-subject" class="text-[8px] font-black uppercase tracking-widest text-primary/60 mt-2 hover:text-primary transition-colors pl-1">Can't find your subject?</button>
                         </div>
                         <div>
                             <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Semester</label>
@@ -162,18 +164,62 @@
         const submitBtn = document.getElementById('submit-btn')
         const leaderboard = document.getElementById('leaderboard')
         const historyList = document.getElementById('contributions-list')
+        const customSubjectInput = document.getElementById('custom-subject')
+        const toggleCustomBtn = document.getElementById('toggle-custom-subject')
+        const subjectSelect = document.getElementById('subject')
 
         let selectedFile = null
         let currentUser = null
+        let isCustomSubject = false
 
         async function init() {
             currentUser = await requireAuth()
             if (!currentUser) return;
 
-            // Load Subjects
-            const { data: subs } = await supabase.from('subjects').select('title').order('title')
+            // Load Subjects with robust fallbacks
+            let subsList = [];
+            try {
+                const { data: subs } = await supabase.from('subjects').select('title').order('title')
+                if (subs && subs.length > 0) {
+                    subsList = subs.map(s => s.title);
+                }
+            } catch (err) {
+                console.warn('Failed to load subjects from database:', err);
+            }
+
+            if (!subsList || subsList.length === 0) {
+                subsList = [
+                    'Engineering Mathematics I',
+                    'Engineering Physics',
+                    'C Programming',
+                    'Basic Electrical Engineering',
+                    'English Communication Skills',
+                    'Engineering Mathematics II',
+                    'Engineering Chemistry',
+                    'Data Structures',
+                    'Environmental Science'
+                ];
+            }
+
             const subSelect = document.getElementById('subject')
-            subSelect.innerHTML = (subs || []).map(s => `<option value="${s.title}">${s.title}</option>`).join('')
+            subSelect.innerHTML = subsList.map(title => `<option value="${title}">${title}</option>`).join('')
+
+            toggleCustomBtn.onclick = () => {
+                isCustomSubject = !isCustomSubject
+                if (isCustomSubject) {
+                    subjectSelect.classList.add('hidden')
+                    subjectSelect.removeAttribute('required')
+                    customSubjectInput.classList.remove('hidden')
+                    customSubjectInput.setAttribute('required', 'true')
+                    toggleCustomBtn.textContent = '← Back to list'
+                } else {
+                    subjectSelect.classList.remove('hidden')
+                    subjectSelect.setAttribute('required', 'true')
+                    customSubjectInput.classList.add('hidden')
+                    customSubjectInput.removeAttribute('required')
+                    toggleCustomBtn.textContent = "Can't find your subject?"
+                }
+            }
 
             loadLeaderboard()
             loadHistory()
@@ -228,9 +274,10 @@
             submitBtn.textContent = 'Propagating Content...'
 
             try {
+                const subjectVal = isCustomSubject ? customSubjectInput.value : subjectSelect.value
                 const details = {
                     title: document.getElementById('title').value,
-                    subject: document.getElementById('subject').value,
+                    subject: subjectVal,
                     semester: parseInt(document.getElementById('semester').value),
                     unit: parseInt(document.getElementById('unit').value) || null,
                     content_type: document.getElementById('type').value,

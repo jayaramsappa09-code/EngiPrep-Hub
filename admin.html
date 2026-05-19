@@ -248,11 +248,32 @@
         }
 
         async function loadSubjects() {
-            const { data, error } = await supabase.from('subjects').select('title').order('title', { ascending: true })
-            if (error) return console.error(error)
+            let subsList = [];
+            try {
+                const { data, error } = await supabase.from('subjects').select('title').order('title', { ascending: true })
+                if (data && data.length > 0) {
+                    subsList = data.map(s => s.title);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+
+            if (!subsList || subsList.length === 0) {
+                subsList = [
+                    'Engineering Mathematics I',
+                    'Engineering Physics',
+                    'C Programming',
+                    'Basic Electrical Engineering',
+                    'English Communication Skills',
+                    'Engineering Mathematics II',
+                    'Engineering Chemistry',
+                    'Data Structures',
+                    'Environmental Science'
+                ];
+            }
             
             const select = document.getElementById('subject')
-            select.innerHTML = data.map(s => `<option value="${s.title}">${s.title}</option>`).join('')
+            select.innerHTML = subsList.map(title => `<option value="${title}">${title}</option>`).join('')
         }
 
         async function loadNotes() {

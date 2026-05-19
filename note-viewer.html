@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Note – EngiPrep Hub</title>
     <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
     <style>
         @reference "./src/style.css";
         
@@ -252,9 +256,22 @@
                 document.getElementById('main-title').innerText = note.title
                 document.getElementById('pub-date').innerText = new Date(note.created_at).toLocaleDateString('en-US', { month: 'SHORT', day: 'numeric' }).toUpperCase()
                 
-                // Content Injection with Formula Enhancement
-                const contentHtml = note.content.replace(/\[formula\](.*?)\[\/formula\]/g, '<div class="formula">$1</div>')
-                document.getElementById('content').innerHTML = contentHtml
+                // Content Injection with Marked and KaTeX
+                const contentEl = document.getElementById('content')
+                
+                // Configure marked to handle LaTeX delimiters or just use marked and then auto-render
+                contentEl.innerHTML = marked.parse(note.content)
+                
+                // Render Math
+                renderMathInElement(contentEl, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
 
                 // Generate TOC
                 generateTOC()
