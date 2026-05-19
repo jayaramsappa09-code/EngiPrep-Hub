@@ -95,7 +95,11 @@
         const urlParams = new URLSearchParams(window.location.search);
         const error = urlParams.get('error_description') || urlParams.get('error');
         if (error) {
-            errorDiv.innerText = error.replace(/\+/g, ' ');
+            let userMessage = error.replace(/\+/g, ' ');
+            if (error === 'server_error') {
+                userMessage += ' - This often happens if the Redirect URI is not whitelisted in your Supabase Dashboard or if the Google Provider is not fully configured.';
+            }
+            errorDiv.innerText = userMessage;
             errorDiv.classList.remove('hidden');
         }
 

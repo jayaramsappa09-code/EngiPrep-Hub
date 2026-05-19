@@ -35,26 +35,46 @@ export const getCurrentUser = async () => {
 
   sessionCheckPromise = (async () => {
     try {
-      // 1. Detect if we are in an OAuth callback flow
       const url = new URL(window.location.href);
       const isCallback = url.hash.includes('access_token=') || url.searchParams.has('code');
       
       if (isCallback) {
-        console.log('OAuth transformation in progress... stabilizing session.');
-        // Wait for the SDK to process the URL and establish a session
-        for (let i = 0; i < 20; i++) {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.user) {
-                currentUser = session.user;
-                // Clean URL after success
-                const cleanUrl = new URL(window.location.href);
-                cleanUrl.searchParams.delete('code');
-                cleanUrl.searchParams.delete('state');
-                cleanUrl.hash = '';
-                window.history.replaceState({}, document.title, cleanUrl.toString());
-                return currentUser;
+        console.log('OAuth transformation in progress... waiting for SDK internal exchange.');
+        
+        // Strategy: Wait for onAuthStateChange to fire a SIGNED_IN event
+        // This is safer than polling getSession() which can race with the SDK background task
+        const authData = await new Promise((resolve) => {
+          let resolved = false;
+          const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+            if (session?.user && !resolved) {
+              resolved = true;
+              subscription.unsubscribe();
+              resolve(session.user);
             }
-            await new Promise(r => setTimeout(r, 200));
+          });
+
+          // Fallback timeout: if after 4 seconds we don't have a session via listener, check manually once
+          setTimeout(async () => {
+             if (!resolved) {
+               const { data: { session } } = await supabase.auth.getSession();
+               resolved = true;
+               subscription.unsubscribe();
+               resolve(session?.user || null);
+             }
+          }, 3500);
+        });
+
+        if (authData) {
+          currentUser = authData;
+          // Clean URL
+          const cleanUrl = new URL(window.location.href);
+          cleanUrl.searchParams.delete('code');
+          cleanUrl.searchParams.delete('state');
+          cleanUrl.searchParams.delete('error');
+          cleanUrl.searchParams.delete('error_description');
+          cleanUrl.hash = '';
+          window.history.replaceState({}, document.title, cleanUrl.toString());
+          return currentUser;
         }
       }
 
@@ -62,11 +82,17 @@ export const getCurrentUser = async () => {
       const { data: { session }, error } = await supabase.auth.getSession();
       
       if (error) {
-        // If it's a code exchange error, it might already be handled or expired
-        if (error.message.toLowerCase().includes('exchange') || error.message.toLowerCase().includes('code')) {
-           console.warn('Auth session check: Token likely consumed or session already exists.');
-        } else {
-           console.error('Session Error:', error.message);
+        // Handle the "already used" or expired code gracefully
+        if (error.message.toLowerCase().includes('exchange') || 
+            error.message.toLowerCase().includes('code') || 
+            error.message.toLowerCase().includes('used')) {
+           console.warn('Auth session check: Token consumed/invalid, trying to recover session...');
+           // One last try with getUser() to see if SDK finished in background
+           const { data: { user } } = await supabase.auth.getUser();
+           if (user) {
+             currentUser = user;
+             return user;
+           }
         }
       }
 
