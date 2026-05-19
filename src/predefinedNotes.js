@@ -1076,5 +1076,480 @@ Critical study points for JNTUK semester exams:
 ### Classroom Exercises:
 1. Detail Biomagnification using real ecological Mercury toxin flow examples.
 2. Draft a critical outline detailing renewable Solar cell vs Wind power efficiency coefficients.`
+  },
+  // ==================== NEW EXTENSIONS FOR EXAMS, VIVA & LAB PROGRAMS ====================
+  // 10. C Programming Lab Programs
+  {
+    id: "c-lab-progs-outputs",
+    title: "PPS C Programming Lab Programs with Terminal Output",
+    slug: "c-lab-programs-outputs",
+    subject: "C Programming",
+    semester: 1,
+    type: "program",
+    weightage: 5,
+    frequency: 18,
+    is_published: true,
+    content: `# C Programming Lab Experiments Manual (JNTUK R23)
+
+Get complete, compiled terminal verified implementations for core first-year laboratory exercises.
+
+## 1. Bubble Sort Algorithm
+Arranges array elements dynamically in ascending order based on adjacent comparison switches.
+
+### Complete Program Code:
+\`\`\`c
+#include <stdio.h>
+
+void bubbleSort(int arr[], int n) {
+    int temp;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int data[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(data) / sizeof(data[0]);
+    
+    printf("Original array: ");
+    for(int i = 0; i < n; i++) printf("%d ", data[i]);
+    printf("\\n");
+
+    bubbleSort(data, n);
+
+    printf("Sorted array: ");
+    for(int i = 0; i < n; i++) printf("%d ", data[i]);
+    printf("\\n");
+    return 0;
+}
+\`\`\`
+
+### Verified Terminal Output:
+\`\`\`text
+Original array: 64 34 25 12 22 11 90 
+Sorted array: 11 12 22 25 34 64 90 
+\`\`\`
+
+---
+
+## 2. In-Place String Reversion
+reverses a string without using backup character variables or secondary arrays.
+
+### Complete Code Snippet:
+\`\`\`c
+#include <stdio.h>
+#include <string.h>
+
+void reverseString(char str[]) {
+    int length = strlen(str);
+    int start = 0;
+    int end = length - 1;
+    char temp;
+
+    while (start < end) {
+        temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        start++;
+        end--;
+    }
+}
+
+int main() {
+    char sample[] = "ENGIPREP_HUB";
+    printf("Original: %s\\n", sample);
+    reverseString(sample);
+    printf("Reversed: %s\\n", sample);
+    return 0;
+}
+\`\`\`
+
+### Verified Terminal Output:
+\`\`\`text
+Original: ENGIPREP_HUB
+Reversed: BUH_PERPIGNE
+\`\`\``
+  },
+  // 11. C Programming Viva
+  {
+    id: "c-viva-qa",
+    title: "PPS C Language Viva Voce Guide & FAQs",
+    slug: "c-viva-questions",
+    subject: "C Programming",
+    semester: 1,
+    type: "question",
+    weightage: 4,
+    frequency: 14,
+    is_published: true,
+    content: `# C Programming Viva-Voce Ultimate Preparation Guide
+
+Prepare for your internal and external laboratory exams with verified topper-tier questions and immediate answers.
+
+### Q1. What is the difference between \`malloc()\` and \`calloc()\`?
+* **malloc():** Allocates a single block of memory of requested size. Contained bytes are uninitialized and hold garbage data.
+  * *Syntax:* \`int* ptr = (int*)malloc(n * sizeof(int));\`
+* **calloc():** Allocates multiple continuous blocks of memory and automatically initializes each block to zero.
+  * *Syntax:* \`int* ptr = (int*)calloc(n, sizeof(int));\`
+
+### Q2. What is a "Dangling Pointer"?
+A dangling pointer occurs when a pointer continues pointing to a physical memory address after that allocation has been deallocated or freed.
+* **Avoidance:** Assign \`NULL\` to the pointer immediately after releasing it:
+  \`\`\`c
+  free(ptr);
+  ptr = NULL;
+  \`\`\`
+
+### Q3. Explain Pointers in C.
+A pointer is a variable whose contents store the memory address of another variable. They enable direct manipulation of RAM blocks.
+
+### Q4. What is the difference between a Structure and a Union?
+* **Structure:** Allocates separate memory slots for each of its members. The size matches the sum of sizes of all members.
+* **Union:** Allocates a single shared memory block. The size equals the size of its largest member. All members share the same address space.
+
+### Q5. What is the lifetime and scope of a Static Variable?
+A static variable holds its valued memory state throughout the entire execution duration of the program. It retains its last calculated value between successive function calls.`
+  },
+  // 12. C Programming Expected Qs
+  {
+    id: "c-most-expected",
+    title: "C Programming Most Expected 10-Mark Exam Solvers",
+    slug: "c-most-expected-questions",
+    subject: "C Programming",
+    semester: 1,
+    type: "question",
+    weightage: 5,
+    frequency: 16,
+    is_published: true,
+    content: `# C Programming Most Expected Long Answer Solutions
+
+Crack the highest-weightage exam topics with completely structured answers.
+
+## Topic 1: Standard Parameter Passing Methods (Call by Value vs Call by Reference)
+
+In C programming, arguments can be sent to functions using two core methodologies:
+
+### A. Call By Value
+* A copy of the actual variable is passed to the formal parameter.
+* Modifications made inside the called function have no side-effects on original variables in the calling routine.
+* Code Model:
+  \`\`\`c
+  void swap(int x, int y) {
+      int temp = x;
+      x = y;
+      y = temp;
+  }
+  \`\`\`
+
+### B. Call By Reference
+* The memory address of the actual parameter is passed to pointers.
+* Changes inside the function directly swap the content at those addresses.
+* Code Model:
+  \`\`\`c
+  void swapByRef(int *x, int *y) {
+      int temp = *x;
+      *x = *y;
+      *y = temp;
+  }
+  \`\`\`
+
+---
+
+## Topic 2: File Operation Keywords
+Explain \`fopen()\`, \`fclose()\`, \`fread()\`, and \`fwrite()\` with modes like \`"r"\`, \`"w"\`, and \`"a"\`.
+* **"r" (Read mode):** Opens an existing text file for parsing. If missing, returns \`NULL\`.
+* **"w" (Write mode):** Creates a new blank file. Overwrites existing contents if the file already exists.
+* **"a" (Append mode):** Adds data onto the end of an existing file. Perfect for logging databases.`
+  },
+  // 13. M1 Viva Qs
+  {
+    id: "m1-viva-qa",
+    title: "Engineering Mathematics I Viva Voce Guide",
+    slug: "m1-viva-questions-answers",
+    subject: "Engineering Mathematics I",
+    semester: 1,
+    type: "question",
+    weightage: 4,
+    frequency: 12,
+    is_published: true,
+    content: `# M-I Viva Voce & Concept Review Guide
+
+Quick questions to pass your Mathematics external audits with excellent remarks.
+
+### Q1. What is the physical significance of the Rank of a Matrix?
+**Answer:** Geometrically, it represents the dimension of the vector space generated by its rows/columns. It denotes the maximum number of independent linear paths in a vector field.
+
+### Q2. Describe the Cayley-Hamilton Theorem.
+**Answer:** It states that every square matrix $A$ satisfies its own characteristic determinant equation:
+$$|A - \lambda I| = 0$$
+For example, if $\lambda^2 - 5\lambda + 6 = 0$ is the characteristic equation, then:
+$$A^2 - 5A + 6I = 0$$
+
+### Q3. When is a system of linear equations consistent?
+**Answer:** For a system $AX = B$, it is consistent (possesses at least one solution) if and only if the Rank of the coefficient matrix $A$ is equal to the Rank of the Augmented matrix $[A|B]$:
+$$\rho(A) = \rho([A|B])$$
+
+### Q4. List the conditions for Rolle's Theorem.
+**Answer:** A function $f(x)$ complies with Rolle's criteria inside boundaries $[a, b]$ if:
+1. $f(x)$ is continuous in the closed interval $[a, b]$.
+2. $f(x)$ is differentiable in the open interval $(a, b)$.
+3. $f(a) = f(b)$.
+Under these states, there's always a physical spot $c \in (a, b)$ where $f'(c) = 0$.`
+  },
+  // 14. M1 Expected Qs
+  {
+    id: "m1-most-expected",
+    title: "Engineering Mathematics I Most Expected 10-Mark Solvers",
+    slug: "m1-most-expected-questions",
+    subject: "Engineering Mathematics I",
+    semester: 1,
+    type: "question",
+    weightage: 5,
+    frequency: 15,
+    is_published: true,
+    content: `# Engineering Mathematics I Most Expected Exam Solvers
+
+Rigorous step-by-step methods to solve the highest scoring JNTUK exam structures.
+
+## Question Type 1: Reduce to Row Echelon Form and Find Rank
+**Problem Matrix:**
+$$A = \begin{pmatrix} 1 & 3 & 4 & 3 \\ 3 & 9 & 12 & 3 \\ 1 & 3 & 4 & 1 \end{pmatrix}$$
+
+### Step-by-Step Solution:
+1. Apply $R_2 \to R_2 - 3R_1$ and $R_3 \to R_3 - R_1$:
+   $$A \sim \begin{pmatrix} 1 & 3 & 4 & 3 \\ 0 & 0 & 0 & -6 \\ 0 & 0 & 0 & -2 \end{pmatrix}$$
+2. Divide $R_2$ by $-6$:
+   $$A \sim \begin{pmatrix} 1 & 3 & 4 & 3 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & -2 \end{pmatrix}$$
+3. Eliminate $R_3$ using $R_3 \to R_3 + 2R_2$:
+   $$A \sim \begin{pmatrix} 1 & 3 & 4 & 3 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 \end{pmatrix}$$
+4. Count the non-zero rows. There are precisely 2 non-zero rows. 
+5. **Final Result:** Rank $(\rho) = 2$.
+
+---
+
+## Question Type 2: Extreme value estimation for $f(x, y) = x^3 + y^3 - 3axy$
+A classic 10-mark multivariable optimization derivation.
+
+### Step-by-Step Solution:
+1. Calculate partial derivatives:
+   $$\frac{\partial f}{\partial x} = 3x^2 - 3ay = 0 \implies x^2 = ay$$
+   $$\frac{\partial f}{\partial y} = 3y^2 - 3ax = 0 \implies y^2 = ax$$
+2. Solve the equations:
+   $$x^4 = a^2y^2 = a^3x \implies x(x^3 - a^3) = 0 \implies x = 0 \text{ or } x = a$$
+3. Critical Coordinate Points are $(0,0)$ and $(a,a)$.
+4. Compute second-order elements:
+   $$r = \frac{\partial^2 f}{\partial x^2} = 6x, \quad s = \frac{\partial^2 f}{\partial x \partial y} = -3a, \quad t = \frac{\partial^2 f}{\partial y^2} = 6y$$
+5. Evaluate at Point $(a,a)$:
+   $$r = 6a, \quad s = -3a, \quad t = 6a$$
+   $$rt - s^2 = (6a)(6a) - (-3a)^2 = 36a^2 - 9a^2 = 27a^2 > 0$$
+6. Since $rt-s^2 > 0$ and $r = 6a > 0$ (assuming $a > 0$), the point is a local **Minima**.
+7. Minimum value is $f(a,a) = a^3 + a^3 - 3a^3 = -a^3$.`
+  },
+  // 15. Physics Viva
+  {
+    id: "p-viva-qa",
+    title: "Engineering Physics Laboratory Viva Voce Guides",
+    slug: "physics-viva-questions-answers",
+    subject: "Engineering Physics",
+    semester: 1,
+    type: "question",
+    weightage: 4,
+    frequency: 11,
+    is_published: true,
+    content: `# Engineering Physics Viva Q&A Guide
+
+Prepare for your physical experiments and laboratory exams.
+
+### Q1. Why are Newton's Rings circular?
+**Answer:** The air film enclosed between the plano-convex lens curvature and flat glass plate possesses circular symmetry. Every locus of equal thickness forms a concentric circle, resulting in circular constructive and destructive fringes.
+
+### Q2. What is Population Inversion?
+**Answer:** Population inversion is the physical condition where there are more atoms inside metastable excited energy states ($N_2$) than the ground states ($N_1$). This enables stimulated light propagation.
+
+### Q3. What is the fundamental physical difference between single-mode and multi-mode fibers?
+* **Single-Mode Fiber (SMF):** Very narrow core diameter (~9 $\mu$m). Supports only one wave path, eliminating modal dispersion.
+* **Multi-Mode Fiber (MMF):** Wide core diameter (~50 to 125 $\mu$m). Supports multiple light paths, making signal alignments easy but introducing dispersion.
+
+### Q4. Describe the meaning of a Grating Constant.
+**Answer:** The grating constant represents the distance between consecutive slits:
+$$(e + d)$$
+where $e$ is slit width, and $d$ is opaque space width. It defines the diffraction grating formula: $(e+d)\sin\theta = n\lambda$.`
+  },
+  // 16. Physics Expected Qs
+  {
+    id: "p-most-expected",
+    title: "Engineering Physics Most Expected Derivations & Solvers",
+    slug: "physics-most-expected-questions",
+    subject: "Engineering Physics",
+    semester: 1,
+    type: "question",
+    weightage: 5,
+    frequency: 15,
+    is_published: true,
+    content: `# Physics Most Expected 10-Mark Exam Derivations
+
+Detailed exam derivations to secure passing and distinction marks in physics.
+
+## Derivation 1: Numerical Aperture of an Optical Fiber
+Derive the expression for the maximum light acceptance capability of standard fibers.
+
+### Step-by-Step Derivation:
+1. Let $n_0, n_1, n_2$ be the refractive indices of air, core, and cladding respectively.
+2. A light ray enters the core at acceptance angle $\theta_a$ and refracts at angle $\theta$:
+   $$n_0 \sin \theta_a = n_1 \sin \theta \quad \text{--- (Eq 1)}$$
+3. At the core-cladding boundary, the angle of incidence must be critical angle $\phi_c$ for total internal reflection:
+   $$\sin \phi_c = \frac{n_2}{n_1}$$
+4. From the right-angled triangle index inside core:
+   $$\theta = 90^\circ - \phi_c \implies \sin \theta = \sin(90^\circ - \phi_c) = \cos \phi_c$$
+5. Combine algebraic relationships:
+   $$\cos \phi_c = \sqrt{1 - \sin^2 \phi_c} = \sqrt{1 - \frac{n_2^2}{n_1^2}} = \frac{\sqrt{n_1^2 - n_2^2}}{n_1}$$
+6. Substitute $\sin \theta$ into Snell's law (Eq 1):
+   $$n_0 \sin \theta_a = n_1 \left(\frac{\sqrt{n_1^2 - n_2^2}}{n_1}\right) = \sqrt{n_1^2 - n_2^2}$$
+7. Since $n_0 \approx 1$ in air, the Acceptance Angle is:
+   $$\theta_a = \sin^{-1}\left(\sqrt{n_1^2 - n_2^2}\right)$$
+8. **Final Formula:** Numerical Aperture (NA) is:
+   $$\text{NA} = \sin \theta_a = \sqrt{n_1^2 - n_2^2}$$`
+  },
+  // 17. Chemistry Lab & Viva
+  {
+    id: "chem-lab-viva",
+    title: "Engineering Chemistry Lab Diagnostics & Titration Guides",
+    slug: "chem-lab-viva-estimations",
+    subject: "Engineering Chemistry",
+    semester: 2,
+    type: "program",
+    weightage: 4,
+    frequency: 13,
+    is_published: true,
+    content: `# JNTUK Engineering Chemistry Practical Lab Guide
+
+Detailed workflows, algorithms, calculations, and explanations for first-year chemistry laboratory sessions.
+
+## 1. EDTA Titration for Estimation of Water Hardness
+A standard commercial metric to analyze boiler scale risk in mechanical and civil installations.
+
+### Experimental Procedure:
+1. Pipette $20\text{ mL}$ of industrial hard water sample into a conical flask.
+2. Add $2\text{ mL}$ of Ammonium buffer solution ($\text{NH}_4\text{Cl} + \text{NH}_4\text{OH}$) to lock pH at $10.0$.
+3. Add 2 drops of Eriochrome Black-T (EBT) indicator. The color changes to **Wine-Red**.
+4. Titrate against $0.01\text{M}$ standardized EDTA solution until the Wine-Red shifts to stable **Ink-Blue**.
+
+### Chemical Calculations:
+$$\text{Total water hardness (mg/L)} = \frac{\text{Volume of EDTA Consumed (mL)} \times \text{Molarity of EDTA} \times 10^5}{\text{Volume of hardness sample titrated (mL)}}$$
+
+---
+
+## 2. Conductivity Titration (Strong Acid vs Strong Base)
+Maps point coordinates of net potential conductance changes between Hydrochloric Acid ($\text{HCl}$) and Sodium Hydroxide ($\text{NaOH}$).
+
+### Key Concept:
+* Conductance initially decreases sharply as highly mobile $\text{H}^+$ ions are neutralized by incoming base.
+* The equivalence point is the minimum point on a V-shaped curve, after which the excess hydroxyl $\text{OH}^-$ ions cause a rapid rise in conductivity.
+
+### Sample Viva Questions & Answers:
+* **Q: Why buffer at pH 10 in EDTA?**
+  * *Answer:* To ensure the metal-EDTA complex remains stable and the EBT indicator can undergo a sharp color change.
+* **Q: Explain temporary and permanent water hardness.**
+  * *Answer:* Temporary hardness is due to metal bicarbonates and can be removed by boiling. Permanent hardness is due to metal sulfates or chlorides, requiring chemical processing.`
+  },
+  // 18. Chemistry Expected Qs
+  {
+    id: "chem-most-expected",
+    title: "Engineering Chemistry Most Expected Exam Questions",
+    slug: "chem-most-expected-questions",
+    subject: "Engineering Chemistry",
+    semester: 2,
+    type: "question",
+    weightage: 5,
+    frequency: 14,
+    is_published: true,
+    content: `# Chemistry Most Expected Exam Derivations
+
+Save time by studying these highly scoring Chemistry topics for your semester final exams.
+
+## Topic 1: Derivation of the Nernst Equation
+Computes electrochemical electrode potential at non-standard ion concentrations.
+
+### Step-by-Step Derivation:
+1. Consider a reversible reduction reaction:
+   $$M^{n+} + n e^{-} \rightleftharpoons M(s)$$
+2. From thermodynamics, free energy change is related by:
+   $$\Delta G = \Delta G^0 + R T \ln Q$$
+3. Since work done is electrical energy ($-\Delta G = nFE$):
+   $$-nFE = -nFE^0 + R T \ln \left(\frac{[M(s)]}{[M^{n+}]}\right)$$
+4. Divide through by $-nF$ (taking activity of solid metal $[M] = 1$):
+   $$E = E^0 - \frac{RT}{nF} \ln \left(\frac{1}{[M^{n+}]}\right) \implies E = E^0 + \frac{RT}{nF} \ln [M^{n+}]$$
+5. Substitute constants at room temperature ($T = 298\text{ K}$, $R = 8.314\text{ J/K}\cdot\text{mol}$, $F = 96500\text{ C}$):
+   $$E = E^0 + \frac{0.0591}{n} \log_{10} [M^{n+}]$$
+
+---
+
+## Topic 2: Sacrificial Anode Protection
+* A corrosion prevention method where a more active, easily oxidizable metal is connected to the steel structure.
+* Magnesium ($\text{Mg}$) or Zinc ($\text{Zn}$) acts as the "sacrificial anode," corroding preferentially and protecting the underlying steel pipe or ship hull.`
+  },
+  // 19. BEEE Viva
+  {
+    id: "beee-viva-qa",
+    title: "BEEE Laboratory Viva Voce Guides",
+    slug: "beee-viva-lab-guide",
+    subject: "Basic Electrical Engineering",
+    semester: 1,
+    type: "question",
+    weightage: 4,
+    frequency: 11,
+    is_published: true,
+    content: `# Basic Electrical Engineering Viva Q&A Pack
+
+Prepare for your Electrical lab final exams with these conceptual insights.
+
+### Q1. Define the RMS value of Alternating Current.
+**Answer:** The Root Mean Square (RMS) value represents the equivalent DC current that produces the exact same amount of thermal heat dissipation in a given resistor over the same period.
+$$I_{\text{rms}} = \frac{I_{\text{max}}}{\sqrt{2}} \approx 0.707 \cdot I_{\text{max}}$$
+
+### Q2. What is the Core (Iron) Loss in a transformer, and how is it measured?
+**Answer:** Core losses include hysteresis and eddy current losses in the magnetic core. They are static and independent of load. They are measured using the **Open Circuit (OC) Test** at rated voltage.
+
+### Q3. Explain the meaning of the Power Factor.
+**Answer:** It is the ratio of Real Power ($P$, in Watts) to Apparent Power ($S$, in Volt-Amperes). It represents how productively electrical energy is being converted into work:
+$$\text{Power Factor} = \cos \phi = \frac{\text{Real Power}}{\text{Apparent Power}}$$
+
+### Q4. What is the function of slip-rings in a slip-ring induction motor?
+**Answer:** Slip-rings provide electrical connection between the rotating rotor windings and external circuits, allowing external resistance insertion to achieve huge starting torques.`
+  },
+  // 20. BEEE Expected Qs
+  {
+    id: "beee-most-expected",
+    title: "BEEE Most Expected Exam Derivations & Circuits",
+    slug: "beee-most-expected-derivations",
+    subject: "Basic Electrical Engineering",
+    semester: 1,
+    type: "question",
+    weightage: 5,
+    frequency: 15,
+    is_published: true,
+    content: `# BEEE Expected 10-Mark Exam Derivations
+
+Top scoring derivations and circuit solvers for JNTUK final exams.
+
+## Derivation 1: EMF Equation of a Transformer
+Derive the expression for the RMS electromotive force induced inside magnetic transformer windings.
+
+### Mathematical Derivation:
+1. Let $\Phi_m$ be the maximum value of magnetic flux in the core, $f$ be the frequency of supply, and $N$ be the number of winding turns.
+2. The core flux fluctuates sinusoidally, completing a single cycle in $T = 1/f$ seconds.
+3. The average rate of change of flux from 0 to peak ($\Phi_m$) occurs in a quarter cycle ($T/4$):
+   $$\text{Average EMF per turn} = \frac{\text{Change of Flux}}{\text{Time Taken}} = \frac{\Phi_m - 0}{1/4f} = 4 f \Phi_m \quad \text{Volts/turn}$$
+4. For sinusoidal waves, the Form Factor is defined as:
+   $$\text{Form Factor} = \frac{\text{RMS Value}}{\text{Average Value}} = 1.11$$
+5. Therefore, the RMS EMF induced per turn is:
+   $$\text{RMS EMF per turn} = 1.11 \times \text{Average Value} = 1.11 \times 4 f \Phi_m = 4.44 f \Phi_m$$
+6. **Final Result:** Total induced voltage ($E$) in a winding with $N$ turns is:
+   $$E = 4.44 f N \Phi_m \quad \text{Volts}$$`
   }
 ];
