@@ -60,11 +60,19 @@ CREATE TRIGGER on_auth_user_created
 -- 4. Enable RLS and Safety Policies
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
+-- CLEANUP: Drop all possible previous names for profile policies to prevent conflicts/recursion
+DROP POLICY IF EXISTS "Public can view profiles" ON public.profiles;
 DROP POLICY IF EXISTS "Public profiles are visible" ON public.profiles;
-CREATE POLICY "Public profiles are visible" ON public.profiles
+DROP POLICY IF EXISTS "Users can view own profile" ON public.profiles;
+DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
+DROP POLICY IF EXISTS "Users can manage own profile" ON public.profiles;
+DROP POLICY IF EXISTS "Admins can manage all profiles" ON public.profiles;
+
+-- 1. Public Read Policy (Non-recursive)
+CREATE POLICY "Profiles are publicly viewable" ON public.profiles
   FOR SELECT USING (true);
 
-DROP POLICY IF EXISTS "Users can manage own profile" ON public.profiles;
+-- 2. Owner Management Policy (Non-recursive)
 CREATE POLICY "Users can manage own profile" ON public.profiles
   FOR ALL USING (auth.uid() = id);
 

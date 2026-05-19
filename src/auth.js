@@ -52,21 +52,3 @@ export const onAuthStateChange = (callback) => {
     callback(event, session)
   })
 }
-
-export const signInWithPhone = async (phone) => {
-  const { data, error } = await supabase.auth.signInWithOtp({
-    phone: phone,
-  })
-  if (error) throw error
-  return data
-}
-
-export const verifyPhoneOTP = async (phone, token) => {
-  const { data, error } = await supabase.auth.verifyOtp({
-    phone: phone,
-    token: token,
-    type: 'sms',
-  })
-  if (error) throw error
-  return data
-}
