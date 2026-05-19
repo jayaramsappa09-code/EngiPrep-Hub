@@ -145,5 +145,54 @@ CREATE POLICY "Users can delete own comments" ON public.blog_comments
   FOR DELETE USING (auth.uid() = user_id OR public.is_admin());
 
 
+-- ==========================================
+-- EXPLICIT SYSTEM GRANTS & SECURITY PRIVILEGES
+-- ==========================================
+GRANT USAGE ON SCHEMA public TO anon, authenticated;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO postgres, service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO postgres, service_role;
+GRANT ALL ON ALL FUNCTIONS IN SCHEMA public TO postgres, service_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO authenticated;
+GRANT SELECT, INSERT ON ALL TABLES IN SCHEMA public TO anon;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO authenticated, anon;
+
+
+-- ==========================================
+-- AUTOMATIC STORAGE ARCHIVE BUCKET PROVISIONING
+-- ==========================================
+-- Ensure the 'archive' storage bucket exists in Supabase
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('archive', 'archive', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- Grant standard storage.objects permissions
+GRANT ALL ON TABLE storage.objects TO postgres, service_role;
+GRANT ALL ON TABLE storage.buckets TO postgres, service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE storage.objects TO authenticated;
+GRANT SELECT ON TABLE storage.objects TO anon;
+
+-- Setup Storage policies for the 'archive' bucket (Clean-up previous ones first)
+DO $$
+BEGIN
+    DROP POLICY IF EXISTS "Public Select Access" ON storage.objects;
+    DROP POLICY IF EXISTS "Authenticated users can upload files to archive" ON storage.objects;
+    DROP POLICY IF EXISTS "Owner can update files in archive" ON storage.objects;
+    DROP POLICY IF EXISTS "Owner can delete files in archive" ON storage.objects;
+END $$;
+
+CREATE POLICY "Public Select Access" ON storage.objects 
+  FOR SELECT USING (bucket_id = 'archive');
+
+CREATE POLICY "Authenticated users can upload files to archive" ON storage.objects 
+  FOR INSERT WITH CHECK (bucket_id = 'archive' AND auth.role() = 'authenticated');
+
+CREATE POLICY "Owner can update files in archive" ON storage.objects 
+  FOR UPDATE USING (bucket_id = 'archive' AND auth.uid() = owner);
+
+CREATE POLICY "Owner can delete files in archive" ON storage.objects 
+  FOR DELETE USING (bucket_id = 'archive' AND auth.uid() = owner);
+
+
 -- Force refresh API Gateway schema caches
 NOTIFY pgrst, 'reload schema';

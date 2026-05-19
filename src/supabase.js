@@ -180,20 +180,30 @@ export const getUserProfile = async (userId) => {
   }
 }
 
-// Helper: Update user profile (with upsert to be safe)
+// Helper: Update user profile (with direct update first, and upsert fallback)
 export const updateUserProfile = async (userId, updates) => {
   if (!userId || !isSupabaseConfigured()) return { error: 'Not configured' }
   try {
     const { data, error } = await supabase
       .from('profiles')
-      .upsert({
-        id: userId,
+      .update({
         ...updates,
         updated_at: new Date().toISOString(),
-      }, { onConflict: 'id' })
+      })
+      .eq('id', userId)
     
     if (error) {
-      throw error
+      console.warn('Profile update failed, attempting upsert fallback...', error.message);
+      const { data: upsertData, error: upsertError } = await supabase
+        .from('profiles')
+        .upsert({
+          id: userId,
+          ...updates,
+          updated_at: new Date().toISOString(),
+        }, { onConflict: 'id' });
+      
+      if (upsertError) throw upsertError;
+      return { data: upsertData, error: null };
     }
     return { data, error: null }
   } catch (err) {
