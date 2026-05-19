@@ -54,10 +54,37 @@
                 <!-- Content Injected Here -->
             </div>
 
-            <!-- AdSense Slot Below Content -->
-            <div class="w-full h-32 bg-white/5 border border-white/5 rounded-2xl mt-16 flex items-center justify-center text-gray-600 text-xs font-black uppercase tracking-widest">
-                Advertisement Slot
-            </div>
+            <!-- Comments Section -->
+            <section class="mt-32 border-t border-white/5 pt-20">
+                <div class="flex items-center justify-between mb-12">
+                    <h3 class="text-2xl font-black italic tracking-tight">Discussion <span id="comment-count" class="text-primary ml-2 text-sm not-italic opacity-50">(0)</span></h3>
+                    <div id="auth-status-comment" class="text-[10px] font-black uppercase tracking-widest text-gray-500">
+                        <!-- Auth status logic -->
+                    </div>
+                </div>
+
+                <!-- Comment Input -->
+                <div id="comment-input-container" class="mb-16">
+                    <div class="glass-card p-6 border-white/10 group focus-within:border-primary/40 transition-all">
+                        <textarea id="new-comment-text" class="w-full bg-transparent border-none focus:ring-0 text-gray-300 placeholder:text-gray-600 resize-none h-24" placeholder="Join the conversation... What are your thoughts?"></textarea>
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
+                            <p class="text-[9px] text-gray-600 uppercase font-black tracking-widest italic group-focus-within:text-primary transition-colors">Be respectfull. Community rules apply.</p>
+                            <button id="post-comment-btn" class="btn-primary py-2 px-6 text-[10px] uppercase font-black tracking-widest">Post Reply</button>
+                        </div>
+                    </div>
+                    <p id="comment-error" class="text-rose-500 text-[10px] font-bold mt-4 hidden"></p>
+                </div>
+
+                <!-- Comments List -->
+                <div id="comments-list" class="space-y-8">
+                    <!-- Loading State -->
+                    <div class="animate-pulse space-y-8">
+                        <div class="h-20 bg-white/5 rounded-2xl"></div>
+                        <div class="h-20 bg-white/5 rounded-2xl w-3/4 ml-auto"></div>
+                        <div class="h-20 bg-white/5 rounded-2xl"></div>
+                    </div>
+                </div>
+            </section>
         </article>
     </main>
 
@@ -71,6 +98,9 @@
 
     <script type="module">
         import { supabase } from './src/supabase.js'
+
+        let currentPostId = null;
+        let currentUser = null;
 
         async function loadPost() {
             const params = new URLSearchParams(window.location.search)
@@ -96,6 +126,7 @@
                 return
             }
 
+            currentPostId = data.id;
             document.title = `${data.title} – EngiPrep Blog`
             document.getElementById('post-title').innerText = data.title
             document.getElementById('post-excerpt').innerText = data.excerpt || ''
@@ -117,9 +148,117 @@
                     document.getElementById('author-avatar-placeholder').innerText = profile.full_name.charAt(0)
                 }
             }
+
+            loadComments();
         }
 
+        async function checkAuth() {
+            const { data: { user } } = await supabase.auth.getUser()
+            currentUser = user;
+            const authStatus = document.getElementById('auth-status-comment')
+            const commentInput = document.getElementById('comment-input-container')
+
+            if (user) {
+                const { data: profile } = await supabase.from('profiles').select('username').eq('id', user.id).single()
+                authStatus.innerHTML = `Posting as <span class="text-primary">@${profile?.username || 'User'}</span>`
+            } else {
+                authStatus.innerHTML = `<a href="/auth.html" class="text-primary hover:underline">Login</a> to comment`
+                commentInput.innerHTML = `
+                    <div class="glass-card p-12 text-center border-dashed border-white/10">
+                        <p class="text-gray-500 text-sm mb-6 italic">You must be logged in to participate in the discussion.</p>
+                        <a href="/auth.html" class="btn-primary py-3 px-8 text-xs font-black uppercase tracking-widest inline-block">Login to Reply</a>
+                    </div>
+                `
+            }
+        }
+
+        async function loadComments() {
+            if (!currentPostId) return
+
+            const { data, error } = await supabase
+                .from('blog_comments')
+                .select(`
+                    *,
+                    profiles (
+                        username,
+                        avatar_url
+                    )
+                `)
+                .eq('post_id', currentPostId)
+                .order('created_at', { ascending: true })
+
+            const list = document.getElementById('comments-list')
+            const countLabel = document.getElementById('comment-count')
+
+            if (error) {
+                list.innerHTML = `<p class="text-gray-600 italic text-center py-10">Error loading comments.</p>`
+                return
+            }
+
+            countLabel.innerText = `(${data.length})`
+
+            if (data.length === 0) {
+                list.innerHTML = `<p class="text-gray-600 italic text-center py-10">No comments yet. Be the first to break the silence!</p>`
+                return
+            }
+
+            list.innerHTML = data.map(comment => `
+                <div class="flex gap-4 animate-fade">
+                    <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex-shrink-0 overflow-hidden flex items-center justify-center text-xs font-bold uppercase text-primary">
+                        ${comment.profiles?.avatar_url ? `<img src="${comment.profiles.avatar_url}" class="w-full h-full object-cover">` : (comment.profiles?.username?.charAt(0) || '?')}
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-[10px] font-black uppercase tracking-widest text-white">${comment.profiles?.username || 'Anonymous'}</span>
+                            <span class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">${new Date(comment.created_at).toLocaleDateString()}</span>
+                        </div>
+                        <div class="text-sm text-gray-400 leading-relaxed bg-white/2 rounded-2xl p-4 rounded-tl-none border border-white/5">
+                            ${comment.content}
+                        </div>
+                    </div>
+                </div>
+            `).join('')
+        }
+
+        async function postComment() {
+            const btn = document.getElementById('post-comment-btn')
+            const text = document.getElementById('new-comment-text').value.trim()
+            const errorEl = document.getElementById('comment-error')
+
+            if (!text) return
+            if (!currentUser) return window.location.href = '/auth.html'
+
+            btn.disabled = true
+            btn.innerText = 'Posting...'
+            errorEl.classList.add('hidden')
+
+            const { error } = await supabase
+                .from('blog_comments')
+                .insert({
+                    post_id: currentPostId,
+                    user_id: currentUser.id,
+                    content: text
+                })
+
+            if (error) {
+                errorEl.innerText = error.message
+                errorEl.classList.remove('hidden')
+                btn.disabled = false
+                btn.innerText = 'Post Reply'
+            } else {
+                document.getElementById('new-comment-text').value = ''
+                btn.disabled = false
+                btn.innerText = 'Post Reply'
+                loadComments()
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'post-comment-btn') postComment()
+        })
+
         loadPost()
+        checkAuth()
     </script>
 </body>
 </html>

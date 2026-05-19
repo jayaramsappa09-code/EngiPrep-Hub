@@ -64,15 +64,21 @@
 
             <!-- Phone Mode Fields -->
             <div id="phone-mode-fields" class="hidden space-y-6">
-                <div>
+                <div id="phone-input-group">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Phone Number</label>
-                    <input type="tel" id="phone" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="+1234567890">
+                    <input type="tel" id="phone" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="+91 98765 43210">
                     <p class="text-[9px] text-slate-400 mt-2 px-1 italic">Include your country code (e.g., +91 for India).</p>
                 </div>
 
-                <div id="otp-field" class="hidden">
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Verification Code</label>
+                <div id="otp-field" class="hidden animate-fade-down">
+                    <div class="flex justify-between items-center mb-2 px-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Verification Code</label>
+                        <button type="button" id="change-phone" class="text-[9px] font-bold text-blue-600 hover:underline">Change Number</button>
+                    </div>
                     <input type="text" id="otp" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all tracking-[0.5em] text-center" placeholder="123456" maxlength="6">
+                    <div class="flex justify-center mt-4">
+                        <button type="button" id="resend-otp" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">Resend Code</button>
+                    </div>
                 </div>
             </div>
 
@@ -110,12 +116,45 @@
         const phoneModeBtn = document.getElementById('toggle-phone-mode');
         const emailFields = document.getElementById('email-mode-fields');
         const phoneFields = document.getElementById('phone-mode-fields');
+        const phoneInput = document.getElementById('phone');
+        const phoneInputGroup = document.getElementById('phone-input-group');
         const otpField = document.getElementById('otp-field');
+        const resendOtpBtn = document.getElementById('resend-otp');
+        const changePhoneBtn = document.getElementById('change-phone');
         const authFooter = document.getElementById('auth-toggle-footer');
 
         let isSignup = new URLSearchParams(window.location.search).get('signup') === 'true';
         let isPhoneMode = false;
         let otpSent = false;
+
+        changePhoneBtn.addEventListener('click', () => {
+            otpSent = false;
+            otpField.classList.add('hidden');
+            phoneInputGroup.classList.remove('hidden');
+            submitBtn.innerText = 'Send Code';
+            errorDiv.classList.add('hidden');
+        });
+
+        resendOtpBtn.addEventListener('click', async () => {
+            const phone = phoneInput.value.trim();
+            if (!phone) return;
+            
+            try {
+                resendOtpBtn.disabled = true;
+                resendOtpBtn.innerText = 'Resending...';
+                await signInWithPhone(phone);
+                errorDiv.innerHTML = `<div class="font-bold mb-1">Code Resent!</div><div>Check your phone for the new code.</div>`;
+                setTimeout(() => {
+                    resendOtpBtn.innerText = 'Resend Code';
+                    resendOtpBtn.disabled = false;
+                }, 30000); // 30s cooldown
+            } catch (err) {
+                resendOtpBtn.innerText = 'Resend Code';
+                resendOtpBtn.disabled = false;
+                errorDiv.innerText = getFriendlyError(err);
+                errorDiv.classList.remove('hidden');
+            }
+        });
 
         // Mode Switching
         emailModeBtn.addEventListener('click', () => {
@@ -138,6 +177,13 @@
                 title.innerText = 'Phone Login';
                 subtitle.innerText = 'Login securely with a one-time passcode.';
                 submitBtn.innerText = otpSent ? 'Verify OTP' : 'Send Code';
+                if (otpSent) {
+                    phoneInputGroup.classList.add('hidden');
+                    otpField.classList.remove('hidden');
+                } else {
+                    phoneInputGroup.classList.remove('hidden');
+                    otpField.classList.add('hidden');
+                }
             } else {
                 emailModeBtn.className = 'flex-1 py-2 text-[10px] font-black tracking-widest uppercase rounded-lg transition-all bg-white shadow-sm text-blue-600';
                 phoneModeBtn.className = 'flex-1 py-2 text-[10px] font-black tracking-widest uppercase rounded-lg transition-all text-slate-500 hover:text-slate-700';
@@ -243,10 +289,12 @@
 
             try {
                 if (isPhoneMode) {
-                    const phone = document.getElementById('phone').value.trim();
+                    const phone = phoneInput.value.trim();
                     if (!otpSent) {
+                        if (!phone) throw new Error('Please enter a phone number.');
                         await signInWithPhone(phone);
                         otpSent = true;
+                        phoneInputGroup.classList.add('hidden');
                         otpField.classList.remove('hidden');
                         submitBtn.innerText = 'Verify OTP';
                         errorDiv.innerHTML = `<div class="font-bold mb-1">Check your phone!</div><div>We've sent a code to ${phone}.</div>`;
@@ -327,36 +375,52 @@
                                 <pre class="text-[9px] font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap select-all">-- 1. Ensure Table and Columns exist
 CREATE TABLE IF NOT EXISTS public.profiles (
   id uuid REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
+  email TEXT,
+  phone TEXT,
   full_name TEXT,
   username TEXT UNIQUE,
   avatar_url TEXT,
   branch TEXT,
   semester INT,
+  role TEXT DEFAULT 'user',
   xp INT DEFAULT 0,
   streak INT DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Ensure columns exist if table was already created
+-- Ensure all possible columns exist for existing tables
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS email TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS phone TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS full_name TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS username TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS avatar_url TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS branch TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS semester INT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS role TEXT DEFAULT 'user';
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS xp INT DEFAULT 0;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS streak INT DEFAULT 0;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
 
--- 2. Setup Automatic Sync
+-- 2. Setup Automatic Sync with Conflict Handling and NULL safety
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name, username, avatar_url)
+  INSERT INTO public.profiles (id, email, phone, full_name, username, avatar_url)
   VALUES (
     new.id, 
+    new.email,
+    new.phone,
     new.raw_user_meta_data->>'full_name', 
     new.raw_user_meta_data->>'username',
     new.raw_user_meta_data->>'avatar_url'
-  );
+  )
+  ON CONFLICT (id) DO UPDATE SET
+    email = COALESCE(EXCLUDED.email, profiles.email),
+    phone = COALESCE(EXCLUDED.phone, profiles.phone),
+    full_name = COALESCE(EXCLUDED.full_name, profiles.full_name),
+    username = COALESCE(EXCLUDED.username, profiles.username);
   RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

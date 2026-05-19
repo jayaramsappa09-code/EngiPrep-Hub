@@ -297,5 +297,29 @@ VALUES
 ('Data Structures Basics', 'DS', 2, 'Advanced arrays, stacks, and queues.', 'indigo'),
 ('Environmental Science', 'ES', 2, 'Eco studies and social issues.', 'rose')
 ON CONFLICT (title) DO NOTHING;
+
+-- 13. Blog Comments Table
+CREATE TABLE IF NOT EXISTS public.blog_comments (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  post_id uuid REFERENCES public.blog_posts(id) ON DELETE CASCADE,
+  user_id uuid REFERENCES public.profiles(id) ON DELETE SET NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.blog_comments ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Anyone can view comments" ON public.blog_comments
+  FOR SELECT USING (true);
+
+CREATE POLICY "Authenticated users can post comments" ON public.blog_comments
+  FOR INSERT WITH CHECK (auth.uid() IS NOT NULL AND auth.uid() = user_id);
+
+CREATE POLICY "Users can manage own comments" ON public.blog_comments
+  FOR UPDATE USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own comments" ON public.blog_comments
+  FOR DELETE USING (auth.uid() = user_id);
+
 -- 1. Get the user_id from the user list in Supabase Auth
 -- 2. Run: UPDATE public.profiles SET role = 'admin' WHERE id = 'USER_ID_HERE';
