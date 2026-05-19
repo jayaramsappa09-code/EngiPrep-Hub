@@ -5,6 +5,10 @@
 ALTER TABLE public.notes ADD COLUMN IF NOT EXISTS weightage INT DEFAULT 3;
 ALTER TABLE public.notes ADD COLUMN IF NOT EXISTS frequency INT DEFAULT 1;
 
+-- Ensure notes type check constraint is fully updated to support 'Revision' type
+ALTER TABLE public.notes DROP CONSTRAINT IF EXISTS notes_type_check;
+ALTER TABLE public.notes ADD CONSTRAINT notes_type_check CHECK (type IN ('notes', 'cheat-sheet', 'program', 'question', 'PYQ', 'Revision'));
+
 -- 2. ENGINEERING MATHEMATICS – I
 INSERT INTO public.notes (title, slug, subject, semester, type, weightage, frequency, content)
 VALUES

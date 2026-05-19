@@ -29,8 +29,9 @@
     <main class="max-w-3xl mx-auto px-6 py-24">
         <article class="animate-fade">
             <header class="mb-16">
-                <div class="mb-6">
-                    <span id="post-date" class="text-[10px] text-gray-600 font-black uppercase tracking-[0.2em]">...</span>
+                <div class="mb-6 flex flex-wrap items-center gap-4">
+                    <span id="post-category" class="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border bg-primary/10 text-primary border-primary/20 hidden">General</span>
+                    <span id="post-date" class="text-[10px] text-gray-500 font-semibold uppercase tracking-[0.2em]">...</span>
                 </div>
                 <h1 id="post-title" class="text-5xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1]">...</h1>
                 <p id="post-excerpt" class="text-xl text-gray-500 italic mb-10 leading-relaxed">...</p>
@@ -98,6 +99,45 @@
     <script type="module">
         import { supabase } from './src/supabase.js'
 
+        const fallbackPosts = [
+            {
+                id: 'c-programming-foundation-id',
+                title: "Why C is the Foundation of your CSE Career",
+                slug: "c-programming-foundation",
+                category: "Programming",
+                excerpt: "Understanding memory management and pointers is what separates a coder from a computer scientist.",
+                content: "<h2>The power of pointer arithmetic</h2><p>Learning C programming allows you to understand how modern computer architectures allocate heap and stack memory, manage processing registers, and optimize compiler passes. Modern high-level languages like JavaScript or Python abstract these mechanisms, but a solid foundation in C ensures you remain unmatched as an engineering talent.</p>",
+                created_at: new Date().toISOString()
+            },
+            {
+                id: 'exam-stress-management-id',
+                title: "How to handle JNTUK Exam Pressure",
+                slug: "exam-stress-management",
+                category: "Exam Prep",
+                excerpt: "Stress management techniques for those dealing with back-to-back semester examinations.",
+                content: "<h2>Optimize your study intervals</h2><p>Breathe. Semester exams under the JNTUK R23 regulations can feel daunting due to strict timelines. We advise practicing active recall on repeated 5-year PYQs. Spend 45 minutes studying, then rest for 15 minutes. This cognitive spacer technique is shown to boost memory retention by up to 40%.</p>",
+                created_at: new Date().toISOString()
+            },
+            {
+                id: 'maths-1-recurring-questions-id',
+                title: "M1 recurring questions: A 5-year analysis",
+                slug: "maths-1-recurring-questions",
+                category: "Mathematics",
+                excerpt: "We analyzed dozens of papers to find exactly which derivations appear every single year.",
+                content: "<h2>The recurring syllabus nodes</h2><p>Historically, finding matrix ranks using the Echelon form, finding eigenvalues/eigenvectors, and applying the Cayley-Hamilton theorem are guaranteed 15-mark questions. Spend ample time solving linear systems and studying multivariable calculus extremas. Our math analysis PDF lists these specific derivations with direct answers.</p>",
+                created_at: new Date().toISOString()
+            },
+            {
+                id: 'physics-o-grade-secrets-id',
+                title: "7 Secrets to Score O Grade in Engineering Physics",
+                slug: "physics-o-grade-secrets",
+                category: "Exam Prep",
+                excerpt: "Most students struggle with the wave mechanics and quantum units. Here is the exact roadmap used by toppers to master JNTUK R23 Physics in just 7 days.",
+                content: "<h2>Focus on Derivations and Delivers</h2><p>Step-by-step guidance to achieve an O Grade in Physics. Focus on Newtons Rings, Fraunhofer Diffraction of single/double slit, and the Schrödinger 1D box wave formulation. Mastery of these three derivations secures you a safe position to score outstanding grades in JNTUK assessments.</p>",
+                created_at: new Date().toISOString()
+            }
+        ];
+
         let currentPostId = null;
         let currentUser = null;
 
@@ -107,39 +147,75 @@
 
             if (!slug) return window.location.href = '/blog.html'
 
-            const { data, error } = await supabase
-                .from('blog_posts')
-                .select(`
-                    *,
-                    profiles (
-                        full_name,
-                        bio
-                    )
-                `)
-                .eq('slug', slug)
-                .single()
+            let postData = null;
+            let profileData = null;
 
-            if (error || !data) {
+            try {
+                const { data, error } = await supabase
+                    .from('blog_posts')
+                    .select(`
+                        *,
+                        profiles (
+                            full_name,
+                            bio
+                        )
+                    `)
+                    .eq('slug', slug)
+                    .maybeSingle()
+
+                if (!error && data) {
+                    postData = data;
+                    profileData = data.profiles;
+                }
+            } catch (err) {
+                console.warn("Supabase load error, checking local fallback mapping:", err);
+            }
+
+            if (!postData) {
+                postData = fallbackPosts.find(p => p.slug === slug);
+            }
+
+            if (!postData) {
                 document.getElementById('post-title').innerText = 'Post Not Found'
                 return
             }
 
-            currentPostId = data.id;
-            document.title = `${data.title} – EngiPrep Blog`
-            document.getElementById('post-title').innerText = data.title
-            document.getElementById('post-excerpt').innerText = data.excerpt || ''
-            document.getElementById('post-date').innerText = new Date(data.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-            document.getElementById('post-content').innerHTML = data.content
+            currentPostId = postData.id;
+            document.title = `${postData.title} – EngiPrep Blog`
+            document.getElementById('post-title').innerText = postData.title
+            document.getElementById('post-excerpt').innerText = postData.excerpt || ''
+            document.getElementById('post-date').innerText = new Date(postData.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+            document.getElementById('post-content').innerHTML = postData.content
+
+            // Render category badge
+            const catEl = document.getElementById('post-category');
+            if (catEl) {
+                const cat = postData.category || 'General';
+                catEl.innerText = cat;
+                catEl.classList.remove('hidden');
+
+                const colors = {
+                    'Programming': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+                    'Mathematics': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+                    'Exam Prep': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+                    'General': 'bg-primary/10 text-primary border-primary/20'
+                };
+
+                catEl.className = `text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border ${colors[cat] || colors['General']}`;
+            }
 
             // Update Author info
-            const profile = data.profiles
-            if (profile) {
-                document.getElementById('author-name').innerText = profile.full_name || 'Anonymous Author'
-                document.getElementById('author-bio').innerText = profile.bio || 'Technical Editor at EngiPrep Hub'
+            if (profileData) {
+                document.getElementById('author-name').innerText = profileData.full_name || 'Anonymous Author'
+                document.getElementById('author-bio').innerText = profileData.bio || 'Technical Editor at EngiPrep'
                 
-                if (profile.full_name) {
-                    document.getElementById('author-initials-placeholder').innerText = profile.full_name.charAt(0).toUpperCase()
+                if (profileData.full_name) {
+                    document.getElementById('author-initials-placeholder').innerText = profileData.full_name.charAt(0).toUpperCase()
                 }
+            } else {
+                document.getElementById('author-name').innerText = 'Technical Editor'
+                document.getElementById('author-bio').innerText = 'Senior Developer & Educator at EngiPrep Hub'
+                document.getElementById('author-initials-placeholder').innerText = 'E'
             }
 
             loadComments();
