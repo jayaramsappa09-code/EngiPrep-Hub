@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Utilities Hub | EngiPrep Hub</title>
+    <title>Academic Smart Tools | EngiPrep Hub</title>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <link rel="stylesheet" href="/src/style.css">
+    <style>
+        @reference "./src/style.css";
+        .active-tab-btn { @apply bg-blue-600 text-white shadow-lg shadow-blue-500/20 translate-y-[-1px]; }
+        .inactive-tab-btn { @apply bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800; }
+        .tool-panel { @apply transition-opacity duration-300; }
+    </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 selection:bg-blue-100">
+<body class="bg-background text-text-main selection:bg-blue-100 transition-colors duration-300">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6">
+    <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4 group">
                 <div class="relative w-10 h-10 flex items-center justify-center">
@@ -19,7 +32,7 @@
                     </svg>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 leading-none">EngiPrep <span class="text-blue-600">Hub</span></span>
+                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">EngiPrep <span class="text-blue-600">Hub</span></span>
                     <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
                 </div>
             </a>
@@ -33,7 +46,7 @@
         <!-- Advanced Back Navigation -->
         <div class="mb-4 animate-fade-up">
             <a href="javascript:history.length > 1 ? history.back() : window.location.href='/dashboard.html'" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-all group">
-                <span class="w-8 h-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
+                <span class="w-8 h-8 rounded-xl bg-surface border border-slate-150 dark:border-slate-800 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
                     <svg class="w-4 h-4 text-slate-500 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
                     </svg>
@@ -43,166 +56,724 @@
         </div>
 
         <header class="mb-12 animate-fade-up">
-            <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-[10px] font-bold uppercase tracking-widest mb-6">Productivity Suite</div>
-            <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Engineering <span class="text-blue-600">Smart Tools</span></h1>
-            <p class="text-slate-500 max-w-2xl text-lg font-medium leading-relaxed">Dedicated utilities for JNTUK students. Calculate SGPA, track attendance, and simplify complex concepts with AI.</p>
+            <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">Productivity Suite</div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">Engineering <span class="text-blue-600">Smart Tools</span></h1>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-lg font-medium leading-relaxed">Dedicated utilities for JNTUK students. Calculate SGPA, predictor CGPA targets, track attendance, and log goals.</p>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- SGPA Calculator -->
-            <div class="bento-card group animate-fade-up" style="animation-delay: 0.1s">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        <!-- Tool Tab Buttons -->
+        <div class="flex flex-wrap gap-3 mb-8 animate-fade-up" style="animation-delay: 0.1s">
+            <button onclick="switchTab('sgpa-panel')" id="tab-sgpa-panel" class="px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all active-tab-btn">SGPA Calculator</button>
+            <button onclick="switchTab('cgpa-panel')" id="tab-cgpa-panel" class="px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all inactive-tab-btn">CGPA Predictor</button>
+            <button onclick="switchTab('attendance-panel')" id="tab-attendance-panel" class="px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all inactive-tab-btn">Attendance Smart Tracker</button>
+            <button onclick="switchTab('countdown-panel')" id="tab-countdown-panel" class="px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all inactive-tab-btn">Exam Countdown</button>
+        </div>
+
+        <!-- Panels Container -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <div class="lg:col-span-8">
+                <!-- 1. SGPA CALCULATOR -->
+                <div id="sgpa-panel" class="tool-panel bento-card space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">SGPA <span class="text-blue-600">Calculator (JNTUK R23)</span></h2>
+                            <p class="text-xs text-text-muted mt-1">Computes semester grade points with JNTUK regulation weighting rules.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="loadSGPAPreset(1)" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-[9px] font-bold uppercase hover:bg-blue-600 hover:text-white transition-all">S1 Preset</button>
+                            <button onclick="loadSGPAPreset(2)" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-[9px] font-bold uppercase hover:bg-blue-600 hover:text-white transition-all">S2 Preset</button>
+                            <button onclick="clearSGPAList()" class="px-3 py-1.5 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30 rounded-lg text-[9px] font-bold uppercase hover:bg-red-600 hover:text-white transition-all">Clear All</button>
+                        </div>
                     </div>
-                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">SGPA <span class="text-blue-600">Calculator</span></h2>
-                </div>
-                <div id="gpa-rows" class="space-y-3 mb-6">
-                    <div class="grid grid-cols-12 gap-3">
-                        <input type="number" placeholder="Cre" class="col-span-4 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs credit-input font-bold outline-none focus:border-blue-300">
-                        <select class="col-span-8 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs grade-input font-bold outline-none focus:border-blue-300">
-                            <option value="10">O Grade</option>
-                            <option value="9">A+ Grade</option>
-                            <option value="8">A Grade</option>
-                            <option value="7">B+ Grade</option>
-                            <option value="6">B Grade</option>
-                            <option value="0">F Grade</option>
-                        </select>
+
+                    <!-- Dynamic list -->
+                    <div id="sgpa-rows-container" class="space-y-4">
+                        <!-- Instantiated dynamically -->
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button onclick="addSGPALine()" class="flex-1 py-3 border border-dashed border-slate-200 dark:border-slate-700/60 rounded-xl text-[10px] font-bold uppercase tracking-widest text-[#64748b] dark:text-slate-400 hover:text-blue-600 hover:border-blue-200 dark:hover:border-blue-800 transition-all">+ Add Course</button>
+                        <button onclick="saveCurrentCalculation()" class="py-3 px-6 bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 text-white rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Save History</button>
+                    </div>
+
+                    <!-- Result Panel -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-border">
+                        <div class="p-6 bg-blue-600 dark:bg-blue-700 rounded-3xl text-white shadow-lg shadow-blue-500/10 flex flex-col justify-between">
+                            <span class="text-[9px] font-black uppercase tracking-widest opacity-80">Calculated Semester SGPA</span>
+                            <div class="flex items-baseline gap-2 mt-4">
+                                <span id="-sgpa-grade-letter" class="text-2xl font-black">--</span>
+                                <span id="sgpa-val" class="text-5xl font-black tracking-tighter">0.00</span>
+                            </div>
+                        </div>
+                        <div id="sgpa-descriptor-box" class="p-6 bg-slate-50 dark:bg-slate-900 border border-border rounded-3xl flex flex-col justify-between text-xs text-text-muted">
+                            <p id="sgpa-evaluation">Add subject credits and letter grades above. Standard R23 passing grade is C (5 points). Fail grade is F (0 points).</p>
+                        </div>
                     </div>
                 </div>
-                <button onclick="addGPARow()" class="w-full py-3 border border-dashed border-slate-200 rounded-xl text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-blue-600 hover:border-blue-200 transition-all mb-6">+ Add Subject</button>
-                <div class="bg-blue-600 rounded-2xl p-6 flex justify-between items-center text-white shadow-lg shadow-blue-600/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Final SGPA</span>
-                    <span id="gpa-result" class="text-4xl font-black tracking-tighter">0.00</span>
+
+                <!-- 2. CGPA CALCULATOR -->
+                <div id="cgpa-panel" class="tool-panel bento-card hidden space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">CGPA <span class="text-indigo-600">Predictor & Tracker</span></h2>
+                            <p class="text-xs text-text-muted mt-1">Assemble multi-semester data and gauge average score thresholds needed to hit your target.</p>
+                        </div>
+                        <button onclick="clearCGPAPanel()" class="px-3 py-1.5 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30 rounded-lg text-[9px] font-bold uppercase hover:bg-red-600 hover:text-white transition-all">Reset semesters</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-4 border-r border-border/40 pr-0 md:pr-8">
+                            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400">Completed Semester Scores</h3>
+                            <div id="cgpa-semesters-list" class="space-y-3">
+                                <!-- Generated -->
+                            </div>
+                            <button onclick="addCGPASemesterRow()" class="w-full py-2.5 border border-dashed border-indigo-200 dark:border-indigo-900/60 rounded-xl text-[10px] font-bold uppercase text-indigo-500 hover:bg-indigo-50/20 hover:border-indigo-300 transition-all">+ Add Semester Score</button>
+                        </div>
+
+                        <div class="space-y-6">
+                            <h2 class="text-xs font-black uppercase tracking-widest text-slate-400">Target Predictor Engine</h2>
+                            <div class="bg-indigo-50/50 dark:bg-indigo-950/20 p-5 rounded-3xl border border-indigo-100 dark:border-indigo-900/30 space-y-4">
+                                <div>
+                                    <label class="block text-[9px] font-black uppercase text-indigo-700 dark:text-indigo-400 mb-2">Desirable Goal CGPA</label>
+                                    <input type="number" step="0.01" min="4" max="10" id="target-cgpa" value="8.50" class="input-field shadow-sm bg-surface">
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-[9px] font-black uppercase text-indigo-700 dark:text-indigo-400 mb-2">Current CGPA</label>
+                                        <div id="calculated-cgpa-score" class="text-2xl font-black text-slate-900 dark:text-white">0.00</div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] font-black uppercase text-indigo-700 dark:text-indigo-400 mb-2">Total Credits</label>
+                                        <div id="total-cumulative-credits" class="text-2xl font-black text-slate-900 dark:text-white">0</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="cgpa-prediction-results" class="p-6 bg-slate-900 text-white rounded-3xl space-y-3 shadow-lg">
+                                <span class="text-[9px] font-bold uppercase tracking-widest text-indigo-300">Predictive Strategy Analysis</span>
+                                <p id="cgpa-strategy-text" class="text-xs leading-relaxed text-slate-300">Enter your goal and complete semesters above to evaluate target limits.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. ATTENDANCE CALCULATOR -->
+                <div id="attendance-panel" class="tool-panel bento-card hidden space-y-6">
+                    <div class="border-b border-border pb-6">
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Attendance <span class="text-emerald-600">Smart Tracker</span></h2>
+                        <p class="text-xs text-text-muted mt-1">Evaluate skip allowances and target requirements dynamically with a continuous progress ring.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-[10px] font-black uppercase tracking-widest text-[#64748b] dark:text-slate-400 mb-2 block pl-1">Total Classes Conducted</label>
+                                <input type="number" id="att2-total" value="64" class="input-field text-sm font-bold">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase tracking-widest text-[#64748b] dark:text-slate-400 mb-2 block pl-1">Total Classes Attended</label>
+                                <input type="number" id="att2-present" value="48" class="input-field text-sm font-bold">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase tracking-widest text-[#64748b] dark:text-slate-400 mb-2 block pl-1">JNTUK Target Percentage (%)</label>
+                                <div class="flex items-center gap-4">
+                                    <input type="range" id="att2-target-slider" min="65" max="95" value="75" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                                    <span id="att2-target-label" class="text-xs font-black text-emerald-600 border border-emerald-100 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-lg">75%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Display -->
+                        <div class="flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-900/30 rounded-3xl border border-border">
+                            <div class="relative w-40 h-40 flex items-center justify-center">
+                                <svg class="absolute inset-0 w-full h-full rotate-[-90deg]">
+                                    <circle cx="80" cy="80" r="70" class="stroke-slate-200 dark:stroke-slate-800" stroke-width="12" fill="none" />
+                                    <circle id="att2-ring" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440" class="stroke-emerald-500 transition-all duration-700" stroke-width="12" stroke-linecap="round" fill="none" />
+                                </svg>
+                                <div class="text-center z-10">
+                                    <span id="att2-current-percent" class="text-4xl font-extrabold text-slate-900 dark:text-white">0.0%</span>
+                                    <span class="block text-[8px] font-bold text-[#64748b] uppercase tracking-widest mt-1">Current Ratio</span>
+                                </div>
+                            </div>
+
+                            <div id="att2-strategy-feedback" class="mt-8 text-center text-xs font-medium text-slate-700 dark:text-slate-300 leading-relaxed max-w-[85%]">
+                                Type inputs on left to resolve strategic skips...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. EXAM COUNTDOWN SYSTEM -->
+                <div id="countdown-panel" class="tool-panel bento-card hidden space-y-6">
+                    <div class="border-b border-border pb-6">
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Exam <span class="text-rose-600">Countdown Desk</span></h2>
+                        <p class="text-xs text-[#64748b] dark:text-slate-400 mt-1">Automated reminders and subject-wise timers targeting JNTUK semester limits.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="countdown-cards-container">
+                        <!-- Instantiated Dynamically via JavaScript -->
+                    </div>
+
+                    <!-- Custom Exam Countdown Creator -->
+                    <div class="bg-slate-50 dark:bg-[#0c1220]/60 p-8 rounded-3xl border border-border mt-8">
+                        <h3 class="text-sm font-black uppercase text-[#64748b] dark:text-slate-400 tracking-widest mb-4">Set Custom Examination Alert</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <input type="text" id="custom-exam-title" placeholder="e.g. M1 Midterm Test" class="input-field bg-surface">
+                            <input type="datetime-local" id="custom-exam-datetime" class="input-field bg-surface text-xs font-bold text-slate-600 dark:text-slate-400">
+                            <button onclick="registerCustomCountdown()" class="btn-primary py-3 text-xs w-full">Deploy Timer</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Attendance Tracker -->
-            <div class="bento-card group animate-fade-up" style="animation-delay: 0.2s">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Attendance <span class="text-emerald-600 text-sm align-super">Beta</span></h2>
-                </div>
-                <div class="space-y-4">
-                    <div>
-                        <label class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block pl-1">Total Classes</label>
-                        <input type="number" id="att-total" value="100" class="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-3 text-xs font-bold outline-none focus:border-emerald-300">
-                    </div>
-                    <div>
-                        <label class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block pl-1">Classes Present</label>
-                        <input type="number" id="att-present" value="75" class="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-3 text-xs font-bold outline-none focus:border-emerald-300">
+            <!-- Sidebar Panel: History Log & Guidelines -->
+            <div class="lg:col-span-4 space-y-8 animate-fade-up" style="animation-delay: 0.2s">
+                <!-- Motivation Box -->
+                <div class="bg-slate-900 text-white rounded-[2.5rem] p-8 overflow-hidden relative">
+                    <div class="absolute -right-16 -top-16 w-36 h-36 bg-blue-500/15 rounded-full blur-2xl"></div>
+                    <div class="relative z-10 space-y-4">
+                        <span class="text-[8px] font-black uppercase tracking-[0.2em] text-blue-400 pl-1">Edtech Counselor API</span>
+                        <h3 class="text-xl font-black italic tracking-tighter leading-snug">"Maintain the CGPA ceiling high and the skipped margins low."</h3>
+                        <p class="text-[10px] text-slate-400 italic leading-relaxed">Regular SGPA mapping prevents surprises in your JNTUK cumulative record. Use calculators wisely.</p>
                     </div>
                 </div>
-                <div id="att-status" class="mt-6 p-5 bg-emerald-50 border border-emerald-100 rounded-2xl text-xs font-medium text-emerald-800 leading-relaxed">
-                    Calculating survival strategy...
+
+                <!-- Calculation Log History -->
+                <div class="bg-surface border border-border rounded-[2.5rem] p-8">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-[#64748b] dark:text-slate-400 mb-6 flex items-center justify-between">
+                        <span>Calculations Log</span>
+                        <span onclick="clearHistoryLog()" class="text-[9px] text-[#64748b] hover:text-red-500 dark:text-slate-500 cursor-pointer uppercase transition-colors">Clear Logs</span>
+                    </h3>
+                    <div id="logs-container" class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
+                        <div class="text-[10px] text-slate-400 italic">No persistent SGPA saves recorded yet.</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Unit Converter -->
-            <div class="bento-card group animate-fade-up" style="animation-delay: 0.3s">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 shadow-sm group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                    </div>
-                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Unit <span class="text-rose-600">Converter</span></h2>
-                </div>
-                <div class="space-y-4">
-                    <select id="conv-category" class="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs font-bold outline-none transition-all">
-                        <option value="length">Length</option>
-                        <option value="pressure">Pressure</option>
-                    </select>
-                    <div class="grid grid-cols-2 gap-2">
-                        <input type="number" id="conv-input" value="1" class="bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs font-bold outline-none">
-                        <select id="conv-from" class="bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-[10px] font-bold uppercase"></select>
-                    </div>
-                    <div class="relative flex items-center justify-center h-4">
-                        <div class="absolute w-full h-[1px] bg-slate-100"></div>
-                        <span class="relative bg-white px-3 text-[9px] font-bold text-slate-300 uppercase">to</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div id="conv-output" class="bg-rose-50 border border-rose-100 rounded-xl px-4 py-3 text-xs font-black text-rose-600 flex items-center">1.00</div>
-                        <select id="conv-to" class="bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-[10px] font-bold uppercase"></select>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 
-    <script>
-        // GPA Logic
-        window.addGPARow = function() {
-            const container = document.getElementById('gpa-rows');
+    <footer class="py-12 border-t border-border mt-32">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+             <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">© 2026 EngiPrep Hub • Academic Productivity Division</p>
+        </div>
+    </footer>
+
+    <!-- Tools Custom JS Desk -->
+    <script type="module">
+        import { isSupabaseConfigured, supabase, getCurrentUser } from './src/supabase.js'
+
+        window.currentTab = 'sgpa-panel';
+
+        // Initialize SGPA rows
+        window.sgpaRows = [];
+        
+        window.switchTab = function(panelId) {
+            document.querySelectorAll('.tool-panel').forEach(p => p.classList.add('hidden'));
+            const element = document.getElementById(panelId);
+            if(element) element.classList.remove('hidden');
+
+            document.querySelectorAll(`button[onclick*="switchTab"]`).forEach(b => {
+                b.className = 'px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all inactive-tab-btn';
+            });
+            
+            const activeBtn = document.getElementById(`tab-${panelId}`);
+            if(activeBtn) {
+                activeBtn.className = 'px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all active-tab-btn';
+            }
+            window.currentTab = panelId;
+            
+            // Handle secondary canvas calculations
+            if(panelId === 'attendance-panel') calculateAttendance();
+            if(panelId === 'cgpa-panel') calculateCGPAEngine();
+        }
+
+        // ==========================================
+        // 1. SGPA CALCULATOR LOGIC
+        // ==========================================
+        const Presets = {
+            1: [
+                { name: "Communicative English", credits: 2, grade: "10" },
+                { name: "Engineering Chemistry", credits: 3, grade: "10" },
+                { name: "Linear Algebra & Calculus", credits: 3, grade: "10" },
+                { name: "Basic Civil & Mechanical Engg", credits: 3, grade: "10" },
+                { name: "Introduction to Programming", credits: 3, grade: "10" },
+                { name: "English Lab", credits: 1, grade: "10" },
+                { name: "Chemistry Lab", credits: 1.5, grade: "10" },
+                { name: "Computer Programming Lab", credits: 1.5, grade: "10" },
+                { name: "IT Workshop", credits: 2, grade: "10" }
+            ],
+            2: [
+                { name: "Engineering Physics", credits: 3, grade: "10" },
+                { name: "Chemistry / BEE", credits: 3, grade: "10" },
+                { name: "Differential Equations & Calculus", credits: 3, grade: "10" },
+                { name: "Engineering Graphics", credits: 3, grade: "10" },
+                { name: "Basic Electrical & BEE Lab", credits: 3, grade: "10" },
+                { name: "Applied Physics Lab", credits: 1.5, grade: "10" },
+                { name: "BEEE Lab", credits: 1.5, grade: "10" },
+                { name: "Virtual Engineering Lab", credits: 1.5, grade: "10" },
+                { name: "IT Lab", credits: 1.5, grade: "10" }
+            ]
+        };
+
+        window.loadSGPAPreset = function(sem) {
+            const data = Presets[sem];
+            if(!data) return;
+            const container = document.getElementById('sgpa-rows-container');
+            container.innerHTML = '';
+            
+            data.forEach(item => {
+                const randomId = 'sgpa-' + Math.random().toString(36).substr(2, 9);
+                const row = document.createElement('div');
+                row.id = randomId;
+                row.className = 'grid grid-cols-12 gap-3 items-center bg-slate-50 dark:bg-slate-900 border border-border/60 p-4 rounded-2xl animate-fade-up';
+                row.innerHTML = `
+                    <div class="col-span-12 md:col-span-5">
+                        <input type="text" value="${item.name}" placeholder="Course Title..." class="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-xs font-bold outline-none font-sans text-slate-800 dark:text-white">
+                    </div>
+                    <div class="col-span-5 md:col-span-3">
+                        <input type="number" step="0.5" value="${item.credits}" placeholder="Credits" class="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-xs font-bold outline-none credit-calc-input text-slate-800 dark:text-white" oninput="calculateSGPAValue()">
+                    </div>
+                    <div class="col-span-5 md:col-span-3">
+                        <select class="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-xs font-bold outline-none grade-calc-input text-slate-800 dark:text-white" onchange="calculateSGPAValue()">
+                            <option value="10" ${item.grade==='10'?'selected':''}>O Grade (10)</option>
+                            <option value="9" ${item.grade==='9'?'selected':''}>A+ Grade (9)</option>
+                            <option value="8" ${item.grade==='8'?'selected':''}>A Grade (8)</option>
+                            <option value="7" ${item.grade==='7'?'selected':''}>B+ Grade (7)</option>
+                            <option value="6" ${item.grade==='6'?'selected':''}>B Grade (6)</option>
+                            <option value="5" ${item.grade==='5'?'selected':''}>C Grade (5)</option>
+                            <option value="0" ${item.grade==='0'?'selected':''}>F Grade (0)</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 flex justify-center">
+                        <button onclick="removeSGPALine('${randomId}')" class="text-rose-500 hover:text-rose-700 p-2 font-black">✕</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+            calculateSGPAValue();
+        }
+
+        window.addSGPALine = function() {
+            const container = document.getElementById('sgpa-rows-container');
+            const randomId = 'sgpa-' + Math.random().toString(36).substr(2, 9);
             const row = document.createElement('div');
-            row.className = 'grid grid-cols-12 gap-3 transition-all animate-fade-up';
+            row.id = randomId;
+            row.className = 'grid grid-cols-12 gap-3 items-center bg-slate-50 dark:bg-slate-900 border border-border/60 p-4 rounded-2xl animate-fade-up';
             row.innerHTML = `
-                <input type="number" placeholder="Cre" class="col-span-4 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs credit-input font-bold outline-none focus:border-blue-300">
-                <select class="col-span-8 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs grade-input font-bold outline-none focus:border-blue-300">
-                    <option value="10">O Grade</option>
-                    <option value="9">A+ Grade</option>
-                    <option value="8">A Grade</option>
-                    <option value="7">B+ Grade</option>
-                    <option value="6">B Grade</option>
-                    <option value="0">F Grade</option>
-                </select>
+                <div class="col-span-12 md:col-span-5">
+                    <input type="text" placeholder="Course Title..." class="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-xs font-bold outline-none font-sans text-slate-800 dark:text-white">
+                </div>
+                <div class="col-span-5 md:col-span-3">
+                    <input type="number" step="0.5" placeholder="Credits" class="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-xs font-bold outline-none credit-calc-input text-slate-800 dark:text-white" oninput="calculateSGPAValue()">
+                </div>
+                <div class="col-span-5 md:col-span-3">
+                    <select class="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-xs font-bold outline-none grade-calc-input text-slate-800 dark:text-white" onchange="calculateSGPAValue()">
+                        <option value="10">O Grade (10)</option>
+                        <option value="9">A+ Grade (9)</option>
+                        <option value="8">A Grade (8)</option>
+                        <option value="7">B+ Grade (7)</option>
+                        <option value="6">B Grade (6)</option>
+                        <option value="5">C Grade (5)</option>
+                        <option value="0">F Grade (0)</option>
+                    </select>
+                </div>
+                <div class="col-span-2 md:col-span-1 flex justify-center">
+                    <button onclick="removeSGPALine('${randomId}')" class="text-rose-500 hover:text-rose-700 p-2 font-black">✕</button>
+                </div>
             `;
             container.appendChild(row);
-            attachGPAListeners();
         }
 
-        function calculateGPA() {
-            const credits = document.querySelectorAll('.credit-input');
-            const grades = document.querySelectorAll('.grade-input');
-            let totalPoints = 0, totalCredits = 0;
+        window.removeSGPALine = function(id) {
+            const row = document.getElementById(id);
+            if(row) row.remove();
+            calculateSGPAValue();
+        }
+
+        window.clearSGPAList = function() {
+            document.getElementById('sgpa-rows-container').innerHTML = '';
+            calculateSGPAValue();
+        }
+
+        window.calculateSGPAValue = function() {
+            const credits = document.querySelectorAll('.credit-calc-input');
+            const grades = document.querySelectorAll('.grade-calc-input');
+            let totalCredits = 0, totalScaledPoints = 0;
+            
             credits.forEach((input, index) => {
-                const c = parseFloat(input.value) || 0;
-                const g = parseFloat(grades[index].value) || 0;
-                totalPoints += (c * g);
-                totalCredits += c;
+                const cred = parseFloat(input.value) || 0;
+                const grValue = parseFloat(grades[index].value) || 0;
+                totalCredits += cred;
+                totalScaledPoints += (cred * grValue);
             });
-            document.getElementById('gpa-result').innerText = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : '0.00';
+
+            const rawVal = totalCredits > 0 ? (totalScaledPoints / totalCredits) : 0;
+            const finalSGPA = rawVal.toFixed(2);
+            document.getElementById('sgpa-val').innerText = finalSGPA;
+
+            // Compute descriptive feedback
+            const feedbackEl = document.getElementById('sgpa-evaluation');
+            const letterEl = document.getElementById('-sgpa-grade-letter');
+
+            if (totalCredits === 0) {
+                feedbackEl.innerText = "Add subject credits and letter grades above. Standard R23 passing grade is C (5 points). Fail grade is F (0 points).";
+                letterEl.innerText = "--";
+                return;
+            }
+
+            let category = "average";
+            let code = "C";
+            if (rawVal >= 9.0) { code = "O"; category = "exceptional status! First Class with Distinction limits." }
+            else if (rawVal >= 8.0) { code = "A+"; category = "stellar score database! Perfect tracking." }
+            else if (rawVal >= 7.0) { code = "A"; category = "good status. Maintain consistent progress." }
+            else if (rawVal >= 6.0) { code = "B"; category = "above average status. You are safe from failures." }
+            else if (rawVal >= 5.0) { code = "C"; category = "borderline status. Raise exam preparations." }
+            else { code = "F"; category = "Needs immediate exam revision." }
+
+            letterEl.innerText = code;
+            feedbackEl.innerHTML = `Your total registered is <span class="font-bold text-slate-900 dark:text-white">${totalCredits} credits</span>. This computes to <span class="font-black text-blue-600">${finalSGPA} SGPA (${code})</span>. This displays normal engineering <span class="font-bold">${category}</span>.`;
         }
 
-        function attachGPAListeners() {
-            document.querySelectorAll('.credit-input, .grade-input').forEach(el => {
-                el.removeEventListener('input', calculateGPA);
-                el.addEventListener('input', calculateGPA);
-            });
-        }
-        attachGPAListeners();
+        window.saveCurrentCalculation = function() {
+            const rawGpaVal = document.getElementById('sgpa-val').innerText;
+            const floatVal = parseFloat(rawGpaVal) || 0;
+            if(floatVal <= 0){
+                alert("Please add subjects before saving!");
+                return;
+            }
 
-        // Attendance Logic
-        const attTotal = document.getElementById('att-total'), attPresent = document.getElementById('att-present'), attStatus = document.getElementById('att-status');
-        function calculateAttendance() {
-            const conducted = parseFloat(attTotal.value) || 0, present = parseFloat(attPresent.value) || 0, target = 75;
-            if (conducted === 0) return;
-            const current = (present / conducted) * 100;
-            if (current >= target) {
-                const canMiss = Math.floor((present - (target / 100) * conducted) / (target / 100));
-                attStatus.innerHTML = `You are at <span class="font-bold text-emerald-600">${current.toFixed(1)}%</span>. You can safely miss <span class="font-black underline">${Math.max(0, canMiss)}</span> more classes.`;
+            const item = {
+                id: 'calc-' + Date.now(),
+                type: 'SGPA',
+                score: floatVal,
+                date: new Date().toLocaleDateString()
+            };
+            
+            let logArr = JSON.parse(localStorage.getItem('prep-smart-tools-log')) || [];
+            logArr.unshift(item);
+            localStorage.setItem('prep-smart-tools-log', JSON.stringify(logArr));
+            
+            renderCalculatorLogs();
+            alert("Calculation successfully logged to local logs database!");
+        }
+
+        // ==========================================
+        // 2. CGPA PREDICTOR LOGIC
+        // ==========================================
+        window.cgpaSemesters = [
+            { sem: 1, sgpa: 8.5, credits: 20 },
+            { sem: 2, sgpa: 8.2, credits: 20 }
+        ];
+
+        window.renderCGPAPanel = function() {
+            const container = document.getElementById('cgpa-semesters-list');
+            if(!container) return;
+            container.innerHTML = '';
+
+            window.cgpaSemesters.forEach((item, index) => {
+                const row = document.createElement('div');
+                row.className = 'grid grid-cols-12 gap-2 items-center bg-slate-50 dark:bg-slate-900 border border-border p-3 rounded-2xl animate-fade-up';
+                row.innerHTML = `
+                    <div class="col-span-2 text-xs font-black text-[#64748b] pl-1">Sem ${item.sem}</div>
+                    <div class="col-span-5">
+                        <input type="number" step="0.01" value="${item.sgpa}" placeholder="SGPA" class="w-full bg-surface border border-border rounded-xl px-3 py-1.5 text-xs font-bold text-slate-800 dark:text-white" oninput="updateCGPAScore(${index}, 'sgpa', this.value)">
+                    </div>
+                    <div class="col-span-4">
+                        <input type="number" value="${item.credits}" placeholder="Credits" class="w-full bg-surface border border-border rounded-xl px-3 py-1.5 text-xs font-bold text-slate-800 dark:text-white" oninput="updateCGPAScore(${index}, 'credits', this.value)">
+                    </div>
+                    <div class="col-span-1 text-center">
+                        <button onclick="removeCGPASemesterRow(${index})" class="text-rose-500 font-bold">×</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+            calculateCGPAEngine();
+        }
+
+        window.addCGPASemesterRow = function() {
+            const nextSemNum = window.cgpaSemesters.length + 1;
+            if(nextSemNum > 8) {
+                alert("Maximum 8 semesters supported!");
+                return;
+            }
+            window.cgpaSemesters.push({ sem: nextSemNum, sgpa: 8.0, credits: 20 });
+            window.renderCGPAPanel();
+        }
+
+        window.removeCGPASemesterRow = function(index) {
+            window.cgpaSemesters.splice(index, 1);
+            // Re-index semester numbers
+            window.cgpaSemesters.forEach((item, idx) => {
+                item.sem = idx + 1;
+            });
+            window.renderCGPAPanel();
+        }
+
+        window.updateCGPAScore = function(index, field, value) {
+            const val = parseFloat(value) || 0;
+            window.cgpaSemesters[index][field] = val;
+            calculateCGPAEngine();
+        }
+
+        window.clearCGPAPanel = function() {
+            window.cgpaSemesters = [];
+            window.renderCGPAPanel();
+        }
+
+        window.calculateCGPAEngine = function() {
+            let cumulPoints = 0, cumulCredits = 0;
+            window.cgpaSemesters.forEach(c => {
+                cumulPoints += (c.sgpa * c.credits);
+                cumulCredits += c.credits;
+            });
+
+            const currentCGPA = cumulCredits > 0 ? (cumulPoints / cumulCredits) : 0;
+            
+            document.getElementById('calculated-cgpa-score').innerText = currentCGPA.toFixed(2);
+            document.getElementById('total-cumulative-credits').innerText = cumulCredits;
+
+            // Run Prediction Thresholds
+            const targetCGPA = parseFloat(document.getElementById('target-cgpa').value) || 8.5;
+            const remainingSemestersCount = 8 - window.cgpaSemesters.length;
+            const feedbackText = document.getElementById('cgpa-strategy-text');
+
+            if(remainingSemestersCount <= 0) {
+                feedbackText.innerText = "All 8 semesters recorded! CGPA predictions finalized. No remaining slots left.";
+                return;
+            }
+
+            const totalDegreeCredits = 160; 
+            const remainingCreditsNeeded = totalDegreeCredits - cumulCredits;
+            
+            if(remainingCreditsNeeded <= 0) {
+                feedbackText.innerText = "Degree complete credits threshold exceeded!";
+                return;
+            }
+
+            const pointDeficit = (targetCGPA * totalDegreeCredits) - cumulPoints;
+            const targetSGPANeededAverage = pointDeficit / remainingCreditsNeeded;
+
+            if (targetSGPANeededAverage <= 0) {
+                feedbackText.innerHTML = `Your target of <span class="font-bold border-b border-indigo-300">${targetCGPA}</span> is locked! You have already mathematically surpassed this threshold score! Enjoy your high standing.`;
+            } else if (targetSGPANeededAverage > 10.0) {
+                feedbackText.innerHTML = `Warning! Reaching <span class="font-bold text-rose-500">${targetCGPA} CGPA</span> is mathematically <span class="underline">impossible</span> with current completed credits. (Requires average of ${targetSGPANeededAverage.toFixed(2)} SGPA).`;
             } else {
-                const need = Math.ceil(((target / 100) * conducted - present) / (1 - target / 100));
-                attStatus.innerHTML = `Warning! You are at <span class="font-bold text-rose-600">${current.toFixed(1)}%</span>. You need to attend <span class="font-black underline">${need}</span> more classes consecutively.`;
+                feedbackText.innerHTML = `To secure a <span class="font-extrabold text-blue-400">${targetCGPA} CGPA</span>, you must target an average of <span class="font-black underline text-emerald-400">${targetSGPANeededAverage.toFixed(2)} SGPA</span> across remaining semesters. Keep grinding!`;
             }
         }
-        [attTotal, attPresent].forEach(el => el.addEventListener('input', calculateAttendance));
-        calculateAttendance();
 
-        // Unit Converter Logic
-        const units = { length: { m: 1, km: 0.001, mm: 1000, inch: 39.37, feet: 3.28 }, pressure: { pa: 1, bar: 0.00001, psi: 0.000145, atm: 0.0000098 } };
-        const catSelect = document.getElementById('conv-category'), fromSelect = document.getElementById('conv-from'), toSelect = document.getElementById('conv-to'), input = document.getElementById('conv-input'), output = document.getElementById('conv-output');
-        function updateUnits() {
-            const cat = catSelect.value, options = Object.keys(units[cat]).map(u => `<option value="${u}">${u.toUpperCase()}</option>`).join('');
-            fromSelect.innerHTML = options; toSelect.innerHTML = options; convert();
+        document.getElementById('target-cgpa').addEventListener('input', calculateCGPAEngine);
+
+
+        // ==========================================
+        // 3. ATTENDANCE CALCULATOR LOGIC
+        // ==========================================
+        const slider = document.getElementById('att2-target-slider');
+        const sliderLabel = document.getElementById('att2-target-label');
+        
+        if (slider) {
+            slider.addEventListener('input', (e) => {
+                sliderLabel.innerText = e.target.value + '%';
+                calculateAttendance();
+            });
         }
-        function convert() {
-            const cat = catSelect.value, from = fromSelect.value, to = toSelect.value, val = parseFloat(input.value) || 0;
-            const baseVal = val / units[cat][from], result = baseVal * units[cat][to];
-            output.innerText = result.toLocaleString(undefined, { maximumFractionDigits: 4 });
+
+        const conductedInput = document.getElementById('att2-total');
+        const attendedInput = document.getElementById('att2-present');
+        if (conductedInput) conductedInput.addEventListener('input', calculateAttendance);
+        if (attendedInput) attendedInput.addEventListener('input', calculateAttendance);
+
+        function calculateAttendance() {
+            const conducted = parseFloat(document.getElementById('att2-total').value) || 0;
+            const attended = parseFloat(document.getElementById('att2-present').value) || 0;
+            const target = parseFloat(document.getElementById('att2-target-slider').value) || 75;
+
+            const ring = document.getElementById('att2-ring');
+            const percentLabel = document.getElementById('att2-current-percent');
+            const feedback = document.getElementById('att2-strategy-feedback');
+
+            if (conducted === 0) {
+                percentLabel.innerText = "0.0%";
+                return;
+            }
+
+            const current = (attended / conducted) * 100;
+            percentLabel.innerText = current.toFixed(1) + "%";
+
+            // Update Ring SVG Dash offset
+            const circumference = 2 * Math.PI * 70; // r=70 -> 439.8
+            const dashOffset = Math.max(0, circumference - (circumference * Math.min(100, current)) / 100);
+            if (ring) {
+                ring.setAttribute('stroke-dasharray', circumference);
+                ring.setAttribute('stroke-dashoffset', dashOffset);
+                
+                // Color mapping
+                if (current >= target) {
+                    ring.style.stroke = "#10b981"; // emerald
+                } else if (current >= 65) {
+                    ring.style.stroke = "#f59e0b"; // amber
+                } else {
+                    ring.style.stroke = "#ef4444"; // rose
+                }
+            }
+
+            if (current >= target) {
+                const canMiss = Math.floor((attended - (target / 100) * conducted) / (target / 100));
+                feedback.innerHTML = `Status checks out. You are at <span class="font-extrabold text-emerald-500">${current.toFixed(1)}%</span>. You can safely miss <span class="font-black underline text-emerald-500">${Math.max(0, canMiss)}</span> more classes consecutively before encountering danger limit.`;
+            } else {
+                const need = Math.ceil(((target / 100) * conducted - attended) / (1 - target / 100));
+                feedback.innerHTML = `Alert! You are at <span class="font-extrabold text-rose-500">${current.toFixed(1)}%</span>, below target <span class="font-bold">${target}%</span>. You need to attend the next <span class="font-black underline text-rose-500">${need}</span> classes continuously to reclaim active eligibility status.`;
+            }
         }
-        catSelect.addEventListener('change', updateUnits); fromSelect.addEventListener('change', convert); toSelect.addEventListener('change', convert); input.addEventListener('input', convert);
-        updateUnits();
+
+
+        // ==========================================
+        // 4. EXAM COUNTDOWN DETECTOR
+        // ==========================================
+        let examTimers = [
+            { id: "mid1", name: "JNTUK Semester Midterm-I Exams", target: new Date("2026-06-15T09:30:00").getTime() },
+            { id: "endsem", name: "JNTUK R23 Semester End Exams", target: new Date("2026-07-25T09:30:00").getTime() }
+        ];
+
+        window.renderCountdowns = function() {
+            const container = document.getElementById('countdown-cards-container');
+            if(!container) return;
+            container.innerHTML = '';
+
+            examTimers.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'p-6 bg-surface border border-border rounded-3xl space-y-4 shadow-xs relative overflow-hidden group hover:border-blue-300 dark:hover:border-blue-800 transition-all';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                         <span class="text-[8px] font-black uppercase text-blue-600 bg-blue-50 dark:bg-blue-950/40 px-3 py-1 rounded-md">Live Countdown</span>
+                         <button onclick="removeTimer('${item.id}')" class="text-slate-300 hover:text-red-500 text-xs transition-colors p-1">Delete</button>
+                    </div>
+                    <h3 class="text-lg font-black text-slate-800 dark:text-white">${item.name}</h3>
+                    <div class="grid grid-cols-4 gap-2 text-center">
+                        <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-2.5">
+                            <span id="days-${item.id}" class="text-2xl font-black text-slate-900 dark:text-white">00</span>
+                            <span class="block text-[8px] uppercase text-[#64748b] dark:text-slate-400 font-bold">Days</span>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-2.5">
+                            <span id="hours-${item.id}" class="text-2xl font-black text-slate-900 dark:text-white">00</span>
+                            <span class="block text-[8px] uppercase text-[#64748b] dark:text-slate-400 font-bold">Hrs</span>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-2.5">
+                            <span id="mins-${item.id}" class="text-2xl font-black text-slate-900 dark:text-white">00</span>
+                            <span class="block text-[8px] uppercase text-[#64748b] dark:text-slate-400 font-bold">Mins</span>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-2.5">
+                            <span id="secs-${item.id}" class="text-2xl font-black text-slate-900 dark:text-white">00</span>
+                            <span class="block text-[8px] uppercase text-[#64748b] dark:text-slate-400 font-bold">Secs</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        window.removeTimer = function(id) {
+            examTimers = examTimers.filter(t => t.id !== id);
+            window.renderCountdowns();
+        }
+
+        window.registerCustomCountdown = function() {
+            const name = document.getElementById('custom-exam-title').value.trim();
+            const datetimeVal = document.getElementById('custom-exam-datetime').value;
+            if(!name || !datetimeVal){
+                alert("Please fill name and execution date details!");
+                return;
+            }
+
+            const ep = {
+                id: 'exam-' + Date.now(),
+                name: name,
+                target: new Date(datetimeVal).getTime()
+            };
+
+            examTimers.push(ep);
+            window.renderCountdowns();
+            document.getElementById('custom-exam-title').value = '';
+        }
+
+        function runClockTickers() {
+            setInterval(() => {
+                const now = Date.now();
+                examTimers.forEach(item => {
+                    const diff = item.target - now;
+                    const daysEl = document.getElementById(`days-${item.id}`);
+                    const hoursEl = document.getElementById(`hours-${item.id}`);
+                    const minEl = document.getElementById(`mins-${item.id}`);
+                    const secEl = document.getElementById(`secs-${item.id}`);
+
+                    if (diff <= 0) {
+                        if(daysEl) daysEl.innerText = "00";
+                        if(hoursEl) hoursEl.innerText = "00";
+                        if(minEl) minEl.innerText = "00";
+                        if(secEl) secEl.innerText = "00";
+                    } else {
+                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                        if(daysEl) daysEl.innerText = String(days).padStart(2, '0');
+                        if(hoursEl) hoursEl.innerText = String(hours).padStart(2, '0');
+                        if(minEl) minEl.innerText = String(minutes).padStart(2, '0');
+                        if(secEl) secEl.innerText = String(seconds).padStart(2, '0');
+                    }
+                });
+            }, 1000);
+        }
+
+        // ==========================================
+        // HISTORY MANAGEMENT
+        // ==========================================
+        window.renderCalculatorLogs = function() {
+            const container = document.getElementById('logs-container');
+            if(!container) return;
+            
+            const logArr = JSON.parse(localStorage.getItem('prep-smart-tools-log')) || [];
+            if(logArr.length === 0){
+                container.innerHTML = '<div class="text-[10px] text-slate-400 italic">No calculation logs stored yet. Press Save History above.</div>';
+                return;
+            }
+
+            container.innerHTML = logArr.map(item => `
+                <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-900 border border-border rounded-2xl animate-fade-up">
+                    <div>
+                        <span class="text-[8px] font-black uppercase text-indigo-500 bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded">${item.type}</span>
+                        <p class="text-[8px] text-[#64748b] uppercase font-bold mt-1">${item.date}</p>
+                    </div>
+                    <span class="text-lg font-black text-slate-800 dark:text-white">${item.score.toFixed(2)}</span>
+                </div>
+            `).join('');
+        }
+
+        window.clearHistoryLog = function() {
+            localStorage.removeItem('prep-smart-tools-log');
+            renderCalculatorLogs();
+        }
+
+        // INIT LOAD CALL
+        loadSGPAPreset(1);
+        renderCGPAPanel();
+        renderCountdowns();
+        runClockTickers();
+        renderCalculatorLogs();
+
+        // Sync with preset requested tools via query param
+        const urlParams = new URLSearchParams(window.location.search);
+        const desiredTool = urlParams.get('tool');
+        if (desiredTool) {
+            if (desiredTool === 'sgpa') switchTab('sgpa-panel');
+            if (desiredTool === 'attendance') switchTab('attendance-panel');
+            if (desiredTool === 'cgpa') switchTab('cgpa-panel');
+            if (desiredTool === 'countdown') switchTab('countdown-panel');
+        }
+
     </script>
     <script type="module" src="/src/main.js"></script>
 </body>

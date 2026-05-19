@@ -227,6 +227,49 @@
                 </div>
             </div>
 
+            <!-- Interactive Syllabus Completion & Checklist Tracker -->
+            <div class="md:col-span-12 animate-fade-up">
+                <div class="bento-card bg-surface border border-slate-150/85 dark:border-slate-800/80 rounded-3xl p-6 lg:p-8">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-950/40 rounded-2xl flex items-center justify-center text-xl shadow-inner">🗺</div>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900 dark:text-white">Interactive Syllabus Completion Tracker</h3>
+                                <p class="text-[9px] text-indigo-500 font-extrabold uppercase tracking-widest">Track your unit-wise progress</p>
+                            </div>
+                        </div>
+                        <!-- Subject pills -->
+                        <div class="flex flex-wrap gap-1.5" id="syl-pill-container">
+                            <button onclick="changeSyllabusSubject('PPS')" id="syl-pill-PPS" class="px-3.5 py-1.5 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase transition-all">PPS</button>
+                            <button onclick="changeSyllabusSubject('M1')" id="syl-pill-M1" class="px-3.5 py-1.5 bg-slate-50 dark:bg-slate-900 border border-border text-slate-500 rounded-xl text-[10px] font-black uppercase transition-all">M1</button>
+                            <button onclick="changeSyllabusSubject('Physics')" id="syl-pill-Physics" class="px-3.5 py-1.5 bg-slate-50 dark:bg-slate-900 border border-border text-slate-500 rounded-xl text-[10px] font-black uppercase transition-all">Physics</button>
+                            <button onclick="changeSyllabusSubject('Chemistry')" id="syl-pill-Chemistry" class="px-3.5 py-1.5 bg-slate-50 dark:bg-slate-900 border border-border text-slate-500 rounded-xl text-[10px] font-black uppercase transition-all">Chemistry</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                        <div class="md:col-span-8 space-y-4" id="syl-checklist-container">
+                            <!-- Checkboxes injected by JS -->
+                        </div>
+
+                        <!-- Progress Circle Gauge -->
+                        <div class="md:col-span-4 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/40 border border-border rounded-2xl">
+                            <div class="relative w-32 h-32 flex items-center justify-center">
+                                <svg class="absolute inset-0 w-full h-full rotate-[-90deg]">
+                                    <circle cx="64" cy="64" r="54" class="stroke-slate-100 dark:stroke-slate-800" stroke-width="8" fill="none"></circle>
+                                    <circle id="syl-progress-ring" cx="64" cy="64" r="54" stroke-dasharray="339.3" stroke-dashoffset="339.3" class="stroke-indigo-650 transition-all duration-500" stroke-width="8" stroke-linecap="round" fill="none"></circle>
+                                </svg>
+                                <div class="text-center">
+                                    <span id="syl-progress-percent" class="text-2xl font-black text-slate-950 dark:text-white">0%</span>
+                                    <span class="block text-[7px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Syllabus Done</span>
+                                </div>
+                            </div>
+                            <p class="text-[10px] text-slate-500 text-center mt-4">Check off units on the left dynamically as you finish revisions to save your state.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Recently Viewed & Saved Notes (Bookmarks) Row -->
             <div class="md:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-up">
                 <!-- Saved Notes (Bookmarks) glassmorphism card -->
@@ -441,6 +484,9 @@
                 // Load Adaptive Recommendations
                 loadAdaptive()
 
+                // Register and render Checklist items
+                renderSyllabusChecklist()
+
                 // Success! Hide loading
                 overlay.style.opacity = '0'
                 setTimeout(() => overlay.remove(), 500)
@@ -448,6 +494,101 @@
             } catch (err) {
                 console.error('Init Error:', err)
                 window.location.replace('/auth.html')
+            }
+        }
+
+        window.activeSyllabusSubject = 'PPS';
+        const syllabusUnitDatabase = {
+            PPS: [
+                "Unit 1: Computer Hardware & C Basics",
+                "Unit 2: Controls, Conditions & Loops",
+                "Unit 3: Arrays & String Actions",
+                "Unit 4: Functions & Pointer Arithmetic",
+                "Unit 5: Structures, Unions & Files"
+            ],
+            M1: [
+                "Unit 1: Matrices Char Values & Rank",
+                "Unit 2: Mean Value Theorems (LMVT)",
+                "Unit 3: Multivariable Maxima & Jacobians",
+                "Unit 4: Double & Triple Integrals",
+                "Unit 5: Special Functions (Beta)"
+            ],
+            Physics: [
+                "Unit 1: Newton's Rings Interference",
+                "Unit 2: Optical Laser Cohesions",
+                "Unit 3: Schrodingers Wave Functions",
+                "Unit 4: Semiconductor Hall Drift",
+                "Unit 5: Superconductors Properties"
+            ],
+            Chemistry: [
+                "Unit 1: Hardness Demineralizations",
+                "Unit 2: Corrosion Electrochemistry",
+                "Unit 3: Batteries Fuel Elements",
+                "Unit 4: Bakelite Polymer Syntheses",
+                "Unit 5: Green Method Principles"
+            ]
+        };
+
+        window.changeSyllabusSubject = function(sub) {
+            window.activeSyllabusSubject = sub;
+            document.querySelectorAll(`button[onclick*="changeSyllabusSubject"]`).forEach(btn => {
+                btn.className = "px-3.5 py-1.5 bg-slate-50 dark:bg-slate-900 border border-border text-slate-500 rounded-xl text-[10px] font-black uppercase transition-all";
+            });
+            const activeBtn = document.getElementById(`syl-pill-${sub}`);
+            if(activeBtn) {
+                activeBtn.className = "px-3.5 py-1.5 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase transition-all";
+            }
+            renderSyllabusChecklist();
+        }
+
+        window.renderSyllabusChecklist = function() {
+            const container = document.getElementById('syl-checklist-container');
+            const list = syllabusUnitDatabase[window.activeSyllabusSubject] || [];
+            const checkedCacheKey = `syl-checked-${window.activeSyllabusSubject}`;
+            const checkedSet = new Set(JSON.parse(localStorage.getItem(checkedCacheKey) || '[]'));
+
+            container.innerHTML = list.map((unitTitle, index) => {
+                const isChecked = checkedSet.has(index);
+                return `
+                    <div class="flex items-center justify-between p-3.5 bg-white/40 dark:bg-slate-950/20 border border-border/60 rounded-2xl animate-fade-up">
+                        <span class="text-xs font-black dark:text-slate-300 font-sans pl-1">${unitTitle}</span>
+                        <input type="checkbox" onchange="toggleSyllabusUnitCheck(${index}, this.checked)" ${isChecked ? 'checked' : ''} class="w-5 h-5 accent-indigo-600 cursor-pointer rounded">
+                    </div>
+                `;
+            }).join('');
+
+            updateSyllabusProgressGauge();
+        }
+
+        window.toggleSyllabusUnitCheck = function(index, checked) {
+            const checkedCacheKey = `syl-checked-${window.activeSyllabusSubject}`;
+            let checkedArr = JSON.parse(localStorage.getItem(checkedCacheKey) || '[]');
+            
+            if(checked) {
+                if(!checkedArr.includes(index)) checkedArr.push(index);
+            } else {
+                checkedArr = checkedArr.filter(i => i !== index);
+            }
+            localStorage.setItem(checkedCacheKey, JSON.stringify(checkedArr));
+            updateSyllabusProgressGauge();
+        }
+
+        function updateSyllabusProgressGauge() {
+            const totalUnits = 5;
+            const checkedCacheKey = `syl-checked-${window.activeSyllabusSubject}`;
+            const checkedArr = JSON.parse(localStorage.getItem(checkedCacheKey) || '[]');
+            const checkedCount = checkedArr.length;
+            const percent = Math.round((checkedCount / totalUnits) * 100);
+            
+            const percentEl = document.getElementById('syl-progress-percent');
+            if(percentEl) percentEl.innerText = `${percent}%`;
+
+            const ring = document.getElementById('syl-progress-ring');
+            const circumference = 2 * Math.PI * 54;
+            const dashOffset = circumference - (circumference * percent) / 100;
+            if(ring) {
+                ring.setAttribute('stroke-dasharray', circumference);
+                ring.setAttribute('stroke-dashoffset', dashOffset);
             }
         }
 

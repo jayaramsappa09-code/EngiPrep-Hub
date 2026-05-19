@@ -79,14 +79,6 @@
                             <input type="text" id="fullname-input" required placeholder="Alexander Wright" 
                                 class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold">
                         </div>
-                        <div>
-                            <label class="block text-[10px] font-black uppercase tracking-widest text-[#f43f5e] dark:text-rose-400 mb-2 ml-1">Debugging / Testing Role Role</label>
-                            <select id="role-select" required class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold appearance-none">
-                                <option value="user" class="bg-[#0b0b10] text-white">Student / Contributor (User)</option>
-                                <option value="admin" class="bg-[#0b0b10] text-[#f43f5e] font-black">Administrator (Access /admin.html & Approve Contributions)</option>
-                            </select>
-                            <p class="text-[9px] text-gray-500 italic mt-2 ml-1">Select "Administrator" to test the moderation flow and review study material contributions on `/admin.html`</p>
-                        </div>
                     </div>
 
                     <div class="space-y-6">
@@ -179,7 +171,6 @@
                     document.getElementById('fullname-input').value = profile.full_name || ''
                     document.getElementById('branch-select').value = profile.branch || 'CSE'
                     document.getElementById('semester-select').value = profile.semester || '1'
-                    document.getElementById('role-select').value = profile.role || 'user'
                     
                     // Safe check for bio in case of schema cache issues
                     const bioInput = document.getElementById('bio-input');
@@ -219,8 +210,7 @@
                     branch: document.getElementById('branch-select').value,
                     semester: parseInt(document.getElementById('semester-select').value),
                     bio: document.getElementById('bio-input').value.trim(),
-                    avatar_url: selectedAvatar,
-                    role: document.getElementById('role-select').value
+                    avatar_url: selectedAvatar
                 }
 
                 const { error } = await updateUserProfile(currentUser.id, updates)

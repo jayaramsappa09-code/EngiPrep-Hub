@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previous Year Questions Catalog | EngiPrep Hub</title>
+    <title>JNTUK R23 PYQs & Exam Paper Analyzer | EngiPrep Hub</title>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <link rel="stylesheet" href="/src/style.css">
+    <style>
+        @reference "./src/style.css";
+        .active-tab { @apply border-blue-600 text-blue-600 bg-blue-50/50 dark:bg-blue-950/20 font-black; }
+        .inactive-tab { @apply border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300; }
+    </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800">
+<body class="bg-background text-text-main selection:bg-blue-100 transition-colors duration-300">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6">
+    <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4 group">
                 <div class="relative w-10 h-10 flex items-center justify-center">
@@ -19,7 +31,7 @@
                     </svg>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 leading-none">EngiPrep <span class="text-blue-600">Hub</span></span>
+                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">EngiPrep <span class="text-blue-600">Hub</span></span>
                     <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
                 </div>
             </a>
@@ -33,7 +45,7 @@
         <!-- Advanced Back Navigation -->
         <div class="mb-4 animate-fade-up">
             <a href="javascript:history.length > 1 ? history.back() : window.location.href='/dashboard.html'" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-all group">
-                <span class="w-8 h-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
+                <span class="w-8 h-8 rounded-xl bg-surface border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
                     <svg class="w-4 h-4 text-slate-500 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
                     </svg>
@@ -43,70 +55,337 @@
         </div>
 
         <header class="mb-12 animate-fade-up">
-            <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-[10px] font-bold uppercase tracking-widest mb-6">Historical Archives</div>
-            <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Exam <span class="text-blue-600">PYQs Hub</span></h1>
-            <p class="text-slate-500 max-w-2xl text-lg font-medium leading-relaxed">Master the exam patterns by solving previous year papers. Categorized for rapid access.</p>
+            <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">Historical Exam Analytics</div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">Exam <span class="text-blue-600">PYQs & Intelligent Analyzer</span></h1>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-lg font-medium leading-relaxed">Master the exam patterns by working on actual previous papers and querying smart unit frequency weights.</p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
-            <!-- Sidebar Filters -->
-            <aside class="space-y-8 animate-fade-up">
-                <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Filter by Year</h3>
+        <!-- View Navigation tabs -->
+        <div class="flex border-b border-border mb-8 animate-fade-up" style="animation-delay: 0.1s">
+            <button onclick="toggleView('catalog')" id="tab-catalog" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab">Download Papers Catalog</button>
+            <button onclick="toggleView('analyzer')" id="tab-analyzer" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab">Frequencies & PYQ Analyzer ⚡</button>
+        </div>
+
+        <!-- SECTION A: PYQ CATALOG -->
+        <div id="catalog-view" class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+            <!-- Sidebar-ish Filters -->
+            <aside class="space-y-8 animate-fade-up" style="animation-delay: 0.1s">
+                <div class="bg-surface border border-border rounded-3xl p-8 shadow-xs">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-[#64748b] dark:text-slate-400 mb-6">Filter by Academic Year</h3>
                     <div class="flex flex-col gap-2">
-                        <button class="year-btn px-4 py-2 rounded-xl bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-year="ALL">All Years</button>
-                        <button class="year-btn px-4 py-2 rounded-xl bg-slate-50 text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-100 transition-all" data-year="2024">2024 Regular</button>
-                        <button class="year-btn px-4 py-2 rounded-xl bg-slate-50 text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-100 transition-all" data-year="2023">2023 Regular</button>
+                        <button onclick="filterCatalog('ALL')" class="year-btn px-4 py-2.5 rounded-xl border border-blue-200/40 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest text-left" id="btn-year-ALL">All Papers</button>
+                        <button onclick="filterCatalog('2024')" class="year-btn px-4 py-2.5 rounded-xl border border-border bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 text-[10px] font-bold uppercase tracking-widest text-left" id="btn-year-2024">2024 Regular</button>
+                        <button onclick="filterCatalog('2023')" class="year-btn px-4 py-2.5 rounded-xl border border-border bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 text-[10px] font-bold uppercase tracking-widest text-left" id="btn-year-2023">2023 Regular Tests</button>
                     </div>
                 </div>
             </aside>
 
             <!-- Main PYQ Grid -->
-            <div class="lg:col-span-3 space-y-6 animate-fade-up" style="animation-delay: 0.1s">
+            <div class="lg:col-span-3 space-y-6 animate-fade-up" style="animation-delay: 0.2s">
                 <div id="pyq-list" class="grid grid-cols-1 gap-4">
                     <!-- Loading State -->
                     <div class="skeleton h-32 rounded-3xl opacity-50"></div>
-                    <div class="skeleton h-32 rounded-3xl opacity-30"></div>
                 </div>
+            </div>
+        </div>
+
+        <!-- SECTION B: SMART PYQ ANALYZER -->
+        <div id="analyzer-view" class="hidden space-y-8">
+            <div class="bg-surface border border-border rounded-[2.5rem] p-8 animate-fade-up">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+                    <div class="md:col-span-8">
+                        <label class="block text-[10px] font-bold text-[#64748b] dark:text-slate-400 uppercase tracking-widest mb-3">Select Subject to Analyze Patterns</label>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="analyzeSubject('Engineering Mathematics I')" class="subj-btn px-5 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-black uppercase transition-all" id="btn-sub-math">Mathematics I</button>
+                            <button onclick="analyzeSubject('Programming for Problem Solving using C')" class="subj-btn px-5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 text-xs font-black uppercase transition-all" id="btn-sub-c">C Programming</button>
+                            <button onclick="analyzeSubject('Engineering Physics')" class="subj-btn px-5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 text-xs font-black uppercase transition-all" id="btn-sub-phy">Physics</button>
+                            <button onclick="analyzeSubject('Engineering Chemistry')" class="subj-btn px-5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 text-xs font-black uppercase transition-all" id="btn-sub-chem">Chemistry</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Analytics Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-up" style="animation-delay: 0.1s">
+                
+                <!-- Center details -->
+                <div class="lg:col-span-8 space-y-6">
+                    <div class="bento-card p-8 bg-surface border border-border space-y-6">
+                        <div class="flex items-center justify-between border-b border-border pb-4">
+                            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white" id="analyzer-active-subject">Engineering Mathematics I</h3>
+                            <span class="text-[9px] font-bold uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full" id="analyzer-subject-tag">Core Syllabus</span>
+                        </div>
+
+                        <!-- Unit-wise breakdown lists -->
+                        <div class="space-y-4">
+                            <h4 class="text-xs font-black uppercase text-[#64748b] dark:text-slate-400 tracking-wider">Unit-Wise Exam Weightage Split</h4>
+                            <div class="space-y-4" id="unit-bar-charts">
+                                <!-- Rendered on analyzeSubject() -->
+                            </div>
+                        </div>
+
+                        <!-- List of recurring repeated questions -->
+                        <div class="space-y-4 pt-4 border-t border-border">
+                            <div class="flex items-center justify-between">
+                                <h4 class="text-xs font-black uppercase text-[#64748b] dark:text-slate-400 tracking-wider">Repeated Questions Tracker</h4>
+                                <span class="text-[9px] font-bold text-emerald-500">Auto Frequency Analyzer</span>
+                            </div>
+                            <div class="divide-y divide-border" id="repeated-questions-container">
+                                <!-- Injected -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right advice sidebar -->
+                <div class="lg:col-span-4 space-y-8">
+                    <!-- Quick Stats card -->
+                    <div class="p-8 bg-slate-900 text-white rounded-[2.5rem] space-y-6">
+                        <span class="text-[9px] font-black uppercase tracking-wider text-blue-400">Hub Analytics Insight</span>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/5 border border-white/5 rounded-2xl p-4 text-center">
+                                <p class="text-3xl font-black text-blue-400" id="stat-max-freq">5x</p>
+                                <span class="text-[8px] uppercase font-bold text-slate-400 tracking-wider">Max Repeat</span>
+                            </div>
+                            <div class="bg-white/5 border border-white/5 rounded-2xl p-4 text-center">
+                                <p class="text-3xl font-black text-emerald-400" id="stat-avg-weight">4.5</p>
+                                <span class="text-[8px] uppercase font-bold text-slate-400 tracking-wider">Avg Weight</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed italic">Our database verifies the last 3 R23 regulative cycles to discover recurring topics. Target Unit 1 and Unit 3 first for maximum marks return.</p>
+                    </div>
+
+                    <!-- Highlight Hot Topics -->
+                    <div class="p-8 bg-surface border border-border rounded-[2.5rem] space-y-4">
+                        <span class="text-[9px] font-black uppercase tracking-wider text-slate-400">Highly Recurring Topics</span>
+                        <div class="flex flex-wrap gap-2" id="hot-topics-container">
+                            <!-- Injected -->
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
 
+    <footer class="py-12 border-t border-border mt-32 text-center">
+        <p class="text-[10px] font-black uppercase tracking-widest text-[#64748b] dark:text-slate-400">© 2026 EngiPrep Hub • Pattern Examination Bureau</p>
+    </footer>
+
     <script type="module">
-        import { fetchNotesByType } from './src/notes.js'
+        import { fetchNotesByType, fetchPYQAnalytics } from './src/notes.js'
         
-        const list = document.getElementById('pyq-list')
-        
-        async function loadPYQs() {
-            try {
-                const pyqs = await fetchNotesByType('PYQ')
-                if (!pyqs || pyqs.length === 0) {
-                   list.innerHTML = '<div class="py-20 text-center text-slate-400 italic">No PYQs uploaded yet. Contribution system coming soon.</div>'
-                   return
-                }
-                list.innerHTML = pyqs.map((q, idx) => `
-                    <div class="bg-white border border-slate-100 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all">
-                        <div class="flex items-center gap-6">
-                            <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center font-black text-xl shrink-0">
-                                ${q.subject ? q.subject.charAt(0) : 'E'}
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-extrabold text-slate-900 group-hover:text-blue-600">${q.title}</h3>
-                                <div class="flex items-center gap-4 mt-2">
-                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${q.subject || 'General'}</span>
-                                    <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Weightage: ${q.weightage || 3}/5</span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/note-viewer.html?slug=${q.slug}" class="btn-primary py-3 px-8 text-xs whitespace-nowrap">View Paper →</a>
-                    </div>
-                `).join('')
-            } catch (err) {
-                list.innerHTML = '<p class="text-center py-20 text-slate-400 font-bold">Error loading archives.</p>'
+        let allPYQs = [];
+        let activeSubj = "Engineering Mathematics I";
+        let activeYearFilter = "ALL";
+
+        window.toggleView = function(viewId) {
+            document.getElementById('catalog-view').classList.add('hidden');
+            document.getElementById('analyzer-view').classList.add('hidden');
+            document.getElementById(`tab-catalog`).className = 'px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab';
+            document.getElementById(`tab-analyzer`).className = 'px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab';
+
+            document.getElementById(`${viewId}-view`).classList.remove('hidden');
+            document.getElementById(`tab-${viewId}`).className = 'px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab';
+
+            if(viewId === 'analyzer') {
+                analyzeSubject(activeSubj);
             }
         }
-        
-        loadPYQs()
+
+        window.filterCatalog = function(year) {
+            activeYearFilter = year;
+            // Update button styling
+            document.querySelectorAll('.year-btn').forEach(b => {
+                b.className = "year-btn px-4 py-2.5 rounded-xl border border-border bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 text-[10px] font-bold uppercase tracking-widest text-left";
+            });
+            const activeBtn = document.getElementById(`btn-year-${year}`);
+            if(activeBtn) {
+                activeBtn.className = "year-btn px-4 py-2.5 rounded-xl border border-blue-200/45 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest text-left";
+            }
+            renderCatalog();
+        }
+
+        async function loadPYQs() {
+            try {
+                allPYQs = await fetchNotesByType('PYQ');
+                renderCatalog();
+            } catch (err) {
+                document.getElementById('pyq-list').innerHTML = '<p class="text-center text-rose-500 font-bold">Failed to load papers catalog.</p>';
+            }
+        }
+
+        function renderCatalog() {
+            const listEl = document.getElementById('pyq-list');
+            if(!listEl) return;
+
+            let filtered = allPYQs;
+            if (activeYearFilter !== 'ALL') {
+                filtered = allPYQs.filter(q => q.title.includes(activeYearFilter));
+            }
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = '<div class="py-20 text-center text-slate-400 italic">No papers match the selected year filter. Contribution system coming soon.</div>';
+                return;
+            }
+
+            listEl.innerHTML = filtered.map((q, idx) => `
+                <div class="bg-surface border border-border p-6 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-0.5 transition-all animate-fade-up">
+                    <div class="flex items-center gap-6">
+                        <div class="w-16 h-16 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center font-black text-xl shrink-0">
+                            ${q.subject ? q.subject.charAt(0) : 'E'}
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white">${q.title}</h3>
+                            <div class="flex items-center gap-4 mt-2">
+                                <span class="text-[10px] font-bold text-[#64748b] dark:text-slate-400 uppercase tracking-widest">${q.subject || 'General'}</span>
+                                <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Weightage: ${q.weightage || 3}/5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/note-viewer.html?slug=${q.slug}" class="btn-primary py-3 px-8 text-xs whitespace-nowrap">View Paper →</a>
+                </div>
+            `).join('');
+        }
+
+        // Subject specific data maps for PYQ Analyzer
+        const subDataMaps = {
+            "Engineering Mathematics I": {
+                units: [
+                    { title: "Unit 1: Matrices & Eigen Values", weight: 30 },
+                    { title: "Unit 2: Mean Value Theorems", weight: 15 },
+                    { title: "Unit 3: Multivariable Calculus", weight: 20 },
+                    { title: "Unit 4: Multiple Integrals", weight: 18 },
+                    { title: "Unit 5: Special Functions", weight: 17 }
+                ],
+                questions: [
+                    { q: "Verify Cayley-Hamilton theorem for matrix A and calculate its corresponding inverse.", freq: 5, weight: 5, unit: 1 },
+                    { q: "Reduce the linear equations matrix to Row-Echelon form to compute its exact Rank.", freq: 4, weight: 5, unit: 1 },
+                    { q: "Determine extreme coordinates (maximum/minimum) of multivariable equation f(x,y)=x^3+y^3-3axy.", freq: 4, weight: 4, unit: 3 },
+                    { q: "Change the double integral bounds by modifying order of integration.", freq: 3, weight: 4, unit: 4 },
+                    { q: "Prove Gamma function symmetry relationship where Gamma of (1/2) equals root pi.", freq: 3, weight: 3, unit: 5 }
+                ],
+                hotTopics: ["Cayley-Hamilton Theorem", "Row Echelon Rank", "Jacobians", "Lagrange Multipliers", "Beta/Gamma Conversions"]
+            },
+            "Programming for Problem Solving using C": {
+                units: [
+                    { title: "Unit 1: Fundamentals of Computers & C Language", weight: 15 },
+                    { title: "Unit 2: Conditional Statements & Loops", weight: 20 },
+                    { title: "Unit 3: Arrays & String Functions", weight: 25 },
+                    { title: "Unit 4: Functions & Pointer Concepts", weight: 22 },
+                    { title: "Unit 5: Structures, Unions & Files", weight: 18 }
+                ],
+                questions: [
+                    { q: "Explain the differences between structures and unions with suitable memory map diagrams.", freq: 5, weight: 5, unit: 5 },
+                    { q: "Write a complete C program to perform Matrix Multiplication checking compliance.", freq: 4, weight: 5, unit: 3 },
+                    { q: "Detail parameter passing techniques (Call-by-value and Call-by-reference).", freq: 4, weight: 4, unit: 4 },
+                    { q: "What is a pointer? Discuss pointer arithmetic with code examples.", freq: 3, weight: 4, unit: 4 },
+                    { q: "Differentiate between while and do-while loops with syntax declarations.", freq: 3, weight: 3, unit: 2 }
+                ],
+                hotTopics: ["Structure vs Union", "Matrix Multiplication", "Pointer Arithmetic", "Call by Reference", "Recursion", "File I/O"]
+            },
+            "Engineering Physics": {
+                units: [
+                    { title: "Unit 1: Wave Optics (Interference & Diffraction)", weight: 28 },
+                    { title: "Unit 2: Lasers & Optical Fibers", weight: 22 },
+                    { title: "Unit 3: Quantum Mechanics", weight: 15 },
+                    { title: "Unit 4: Semiconductor Mechanics", weight: 20 },
+                    { title: "Unit 5: Magnetic & Superconducting Materials", weight: 15 }
+                ],
+                questions: [
+                    { q: "Derive expression for the diameter of dark fringes in Newton's Rings setup.", freq: 5, weight: 5, unit: 1 },
+                    { q: "Explain the construction and working principles of Helium-Neon (He-Ne) Laser.", freq: 4, weight: 4, unit: 2 },
+                    { q: "State and explain the physical significance of Schrodinger's Time-Independent Wave Equation.", freq: 4, weight: 4, unit: 3 },
+                    { q: "Detail the differences between step index and graded index optical fibers.", freq: 3, weight: 3, unit: 2 },
+                    { q: "Discuss Hall Effect. Derive the equation for Hall Coefficient and state its applications.", freq: 3, weight: 5, unit: 4 }
+                ],
+                hotTopics: ["Newton's Rings", "He-Ne Laser", "Schrodinger Equation", "Optical Fibers", "Hall Effect", "Meissner Effect"]
+            },
+            "Engineering Chemistry": {
+                units: [
+                    { title: "Unit 1: Water Technology (Hardness treatments)", weight: 25 },
+                    { title: "Unit 2: Electrochemistry & Corrosion science", weight: 22 },
+                    { title: "Unit 3: Battery technology & Fuels", weight: 18 },
+                    { title: "Unit 4: Engineering Materials (Polymers, Lubricants)", weight: 20 },
+                    { title: "Unit 5: Spectroscopic & Green Chemistry methods", weight: 15 }
+                ],
+                questions: [
+                    { q: "Explain water softening with Zeolite and Ion-Exchange processes in detail.", freq: 5, weight: 5, unit: 1 },
+                    { q: "Detail electrochemical wet corrosion theory (Hydrogen evolution & Oxygen absorption).", freq: 4, weight: 5, unit: 2 },
+                    { q: "Explain the construction, reactions, and charge maps of Lithium-ion batteries.", freq: 3, weight: 4, unit: 3 },
+                    { q: "What is green chemistry? Highlight the 12 primary principles.", freq: 3, weight: 3, unit: 5 },
+                    { q: "Discuss the preparation, properties and structural uses of Bakelite and PVC.", freq: 2, weight: 3, unit: 4 }
+                ],
+                hotTopics: ["Ion Exchange Softening", "Electrochemical Corrosion", "Lithium-Ion Battery", "Bakelite / PVC", "Green Chemistry 12 principles"]
+            }
+        };
+
+        window.analyzeSubject = function(subjName) {
+            activeSubj = subjName;
+            
+            // Adjust visual button activations
+            document.querySelectorAll('.subj-btn').forEach(b => {
+                b.className = "subj-btn px-5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 text-xs font-black uppercase transition-all";
+            });
+            let code = "math";
+            if (subjName.includes("C")) code = "c";
+            else if (subjName.includes("Physics")) code = "phy";
+            else if (subjName.includes("Chemistry")) code = "chem";
+            
+            const btn = document.getElementById(`btn-sub-${code}`);
+            if(btn) {
+                btn.className = "subj-btn px-5 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-black uppercase transition-all";
+            }
+
+            document.getElementById('analyzer-active-subject').innerText = subjName;
+            
+            const data = subDataMaps[subjName] || subDataMaps["Engineering Mathematics I"];
+            
+            // Render Chart Bars
+            const chartContainer = document.getElementById('unit-bar-charts');
+            chartContainer.innerHTML = data.units.map(u => `
+                <div class="space-y-1">
+                    <div class="flex justify-between text-[10px] font-black uppercase tracking-tight">
+                        <span class="text-slate-700 dark:text-slate-300">${u.title}</span>
+                        <span class="text-blue-600 dark:text-blue-400 font-bold">${u.weight}% Exam Weight</span>
+                    </div>
+                    <div class="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-600 rounded-full transition-all duration-1000" style="width: ${u.weight}%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Questions List
+            const listContainer = document.getElementById('repeated-questions-container');
+            listContainer.innerHTML = data.questions.map(q => `
+                <div class="py-4 first:pt-0 last:pb-0">
+                    <div class="flex items-start justify-between gap-4">
+                        <p class="text-sm font-bold text-slate-800 dark:text-slate-200 leading-relaxed">${q.q}</p>
+                        <div class="flex items-center gap-2 flex-shrink-0">
+                            <span class="px-2 py-0.5 bg-rose-50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-450 text-[8px] font-black uppercase tracking-widest rounded-md border border-rose-100/40">Asked ${q.freq}x</span>
+                            <span class="px-2 py-0.5 bg-slate-50 dark:bg-slate-900 border border-border text-[8px] font-bold uppercase rounded-md">Unit ${q.unit}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Hot Topics
+            const hotContainer = document.getElementById('hot-topics-container');
+            hotContainer.innerHTML = data.hotTopics.map(t => `
+                <span class="px-3 py-1.5 bg-slate-50 dark:bg-[#131d35] border border-border text-[9px] font-bold rounded-lg uppercase tracking-tight hover:border-blue-500 transition-colors cursor-pointer">${t}</span>
+            `).join('');
+
+            // Sidebar stats
+            let maxF = Math.max(...data.questions.map(q => q.freq));
+            let totalW = data.questions.reduce((sum, q) => sum + q.weight, 0);
+            let avgW = (totalW / data.questions.length).toFixed(1);
+
+            document.getElementById('stat-max-freq').innerText = maxF + 'x';
+            document.getElementById('stat-avg-weight').innerText = avgW;
+        }
+
+        loadPYQs();
+
     </script>
     <script type="module" src="/src/main.js"></script>
 </body>

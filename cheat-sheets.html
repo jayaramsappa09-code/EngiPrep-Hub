@@ -3,97 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Cheat Sheets | EngiPrep Hub</title>
-    <meta name="description" content="One-page summary sheets for rapid revision. Important formulas, diagrams, and logic for JNTUK R23 exams.">
+    <title>Smart Formula Sheets & Revision Mode | EngiPrep Hub</title>
+    <meta name="description" content="Copy, save, and print engineering formulas. Leverage our AMOLED distraction-free revision mode during the final hours of exam preparation.">
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <link rel="stylesheet" href="/src/style.css">
+    <style>
+        @reference "./src/style.css";
+        .active-tab { @apply border-blue-600 bg-blue-50/50 dark:bg-blue-950/20 text-blue-600 font-extrabold; }
+        .inactive-tab { @apply border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300; }
+        .formula-card { @apply bg-surface border border-border rounded-3xl p-6 relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-blue-400; }
+        .rev-active { @apply bg-black text-slate-300 font-sans select-none antialiased; }
+    </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 selection:bg-blue-100">
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6">
+<body class="bg-background text-text-main selection:bg-blue-100 transition-colors duration-300" id="revision-body-target">
+    <!-- Navbar (Hidden in distraction-free revision mode) -->
+    <nav class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-md border-b border-border px-6" id="main-global-navbar">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4 group">
                 <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20"></div>
+                    <div class="absolute inset-0 bg-blue-600 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20"></div>
                     <svg class="relative z-10 w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                     </svg>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 leading-none">EngiPrep <span class="text-blue-600">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
+                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">Formula <span class="text-blue-600">Vault</span></span>
+                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">EngiPrep Reference Bureau</span>
                 </div>
             </a>
-            <div id="nav-actions" class="flex items-center gap-4">
-                <div class="skeleton w-32 h-10 opacity-20"></div>
+            <div class="flex items-center gap-6">
+                <button onclick="toggleRevisionMode()" class="px-5 py-2.5 bg-slate-900 dark:bg-blue-900/40 text-white dark:text-blue-250 text-[10px] font-black uppercase tracking-wider rounded-xl hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                    <span>⚡ Go Distraction-Free</span>
+                </button>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 pt-32 pb-20">
-         <!-- Advanced Back Navigation -->
-        <div class="mb-4 animate-fade-up">
-            <a href="javascript:history.length > 1 ? history.back() : window.location.href='/dashboard.html'" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-all group">
-                <span class="w-8 h-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
-                    <svg class="w-4 h-4 text-slate-500 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
-                    </svg>
-                </span>
-                Back to Dashboard
-            </a>
-        </div>
+    <!-- Normal Mode Main Area -->
+    <div id="normal-mode-content">
+        <main class="max-w-7xl mx-auto px-6 pt-32 pb-20">
+            <!-- Advanced Back Navigation -->
+            <div class="mb-4 animate-fade-up">
+                <a href="javascript:history.length > 1 ? history.back() : window.location.href='/dashboard.html'" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#64748b] hover:text-blue-600 transition-all group">
+                    <span class="w-8 h-8 rounded-xl bg-surface border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
+                        <svg class="w-4 h-4 text-slate-500 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+                        </svg>
+                    </span>
+                    Back to Dashboard
+                </a>
+            </div>
 
-        <header class="mb-12 animate-fade-up">
-            <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-[10px] font-bold uppercase tracking-widest mb-6">Final Hour Lifelines</div>
-            <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Engineering <span class="text-blue-600">Cheat Sheets</span></h1>
-            <p class="text-slate-500 max-w-2xl text-lg font-medium leading-relaxed">Compressed maps of complex curricula. Master whole units in 10 minutes or less with our visual summaries.</p>
-        </header>
+            <header class="mb-12 animate-fade-up">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">Final hour summaries</div>
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">Smart <span class="text-blue-600">Formula Sheets</span> vault</h1>
+                <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-lg font-medium leading-relaxed">Derivations, integrals, circuit equations, and algorithmic metrics condensed into interactive copy-safe modules.</p>
+            </header>
 
-        <div id="sheets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Loading -->
-            <div class="skeleton h-64 rounded-3xl opacity-50"></div>
-            <div class="skeleton h-64 rounded-3xl opacity-30"></div>
-            <div class="skeleton h-64 rounded-3xl opacity-10"></div>
-        </div>
-    </main>
+            <!-- Mode Tabs -->
+            <div class="flex border-b border-border mb-8 animate-fade-up" style="animation-delay: 0.1s">
+                <button onclick="switchFormulaTab('sheets')" id="tab-sheets" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab">Interactive Formula Cards</button>
+                <button onclick="switchFormulaTab('saved')" id="tab-saved" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab">Saved Formula collection</button>
+            </div>
 
-    <script type="module">
-        import { fetchNotesByType } from './src/notes.js'
-        
-        const grid = document.getElementById('sheets-grid')
-        
-        async function loadSheets() {
-            try {
-                const sheets = await fetchNotesByType('cheat-sheet')
-                if (!sheets || sheets.length === 0) {
-                   grid.innerHTML = '<div class="col-span-full py-32 text-center bg-white border border-slate-100 rounded-[2.5rem]"><span class="text-4xl mb-4 block">📏</span><h3 class="text-xl font-bold mb-2">No cheat sheets found</h3><p class="text-slate-400 text-sm">We are illustrating these visual summaries as we speak.</p></div>'
-                   return
-                }
-                grid.innerHTML = sheets.map((s, idx) => `
-                    <div class="bg-white border border-slate-100 rounded-[2.5rem] p-4 group hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all">
-                        <div class="aspect-[16/10] w-full bg-slate-50 rounded-[1.75rem] mb-6 relative overflow-hidden border border-slate-100">
-                             <div class="absolute inset-0 flex items-center justify-center opacity-10 text-slate-300">
-                                <span class="text-6xl font-black italic">GUIDE</span>
+            <!-- Subject selections -->
+            <div class="bg-surface border border-border rounded-[2.5rem] p-6 mb-8 animate-fade-up" id="subject-selector-toolbar">
+                <label class="block text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-3 pl-1">Choose Curriculum Focus</label>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="loadFormulasBySubject('PPS')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-blue-600 text-white" id="btn-fs-PPS">PPS (C Programming)</button>
+                    <button onclick="loadFormulasBySubject('M1')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100" id="btn-fs-M1">Mathematics I</button>
+                    <button onclick="loadFormulasBySubject('Physics')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100" id="btn-fs-Physics">Applied Physics</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Main Grid -->
+                <div class="lg:col-span-8">
+                    <!-- Formulas list -->
+                    <div id="sheets-panel" class="formula-tab-panel grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Injected by JavaScript -->
+                    </div>
+
+                    <!-- Saved Formulas deck -->
+                    <div id="saved-panel" class="formula-tab-panel hidden space-y-4">
+                        <div class="bento-card p-8">
+                             <h3 class="text-lg font-black text-slate-900 dark:text-white mb-4">Your Custom Saved Equations</h3>
+                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="saved-formulas-container">
+                                 <!-- Injected -->
                              </div>
-                             <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-[8px] font-black uppercase text-blue-600 shadow-sm">Formula Map</div>
-                        </div>
-                        <div class="px-4 pb-4">
-                            <h3 class="text-xl font-extrabold text-slate-900 mb-2 truncate group-hover:text-blue-600 transition-colors">${s.title}</h3>
-                            <p class="text-slate-500 text-xs font-medium mb-8 uppercase tracking-widest">${s.subject || 'All Engineering'}</p>
-                            <div class="flex items-center justify-between pt-6 border-t border-slate-50">
-                                <a href="/note-viewer.html?slug=${s.slug}" class="text-[10px] font-black uppercase tracking-widest text-blue-600">Download Sheet →</a>
-                                <span class="text-[9px] text-slate-300 font-bold uppercase">1 Page PDF</span>
-                            </div>
                         </div>
                     </div>
-                `).join('')
-            } catch (err) {
-                grid.innerHTML = '<p class="text-center py-20 text-slate-400 font-bold">Error loading archives.</p>'
+                </div>
+
+                <!-- Guidance sidebar -->
+                <div class="lg:col-span-4 space-y-8 animate-fade-up" style="animation-delay: 0.2s">
+                    <div class="bg-slate-900 text-white rounded-[2.5rem] p-8 overflow-hidden relative">
+                        <div class="absolute -right-16 -top-16 w-32 h-32 bg-blue-600/15 rounded-full blur-2xl"></div>
+                        <div class="relative z-10 space-y-4">
+                            <span class="text-[8px] font-black uppercase text-blue-400">Survival Study Desk</span>
+                            <h3 class="text-xl font-bold leading-snug">"Interactive derivation matrices avoid spelling errors in crucial exam diagrams."</h3>
+                            <p class="text-[10px] text-slate-400 leading-relaxed">Save standard formulas dynamically by clicking the bookmark star to pile them up inside your custom collection deck.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- DISTRACTION-FREE REVISION SCREEN (Initially Hidden) -->
+    <div id="distraction-free-panel" class="hidden min-h-screen bg-black text-slate-300/90 font-sans antialiased pl-0 md:pl-64 pr-6 pt-10 pb-20 select-text">
+        <!-- Floating Back button -->
+        <div class="fixed top-6 right-6 z-50">
+            <button onclick="toggleRevisionMode()" class="px-5 py-2.5 bg-zinc-900 text-slate-300 font-mono text-[10px] uppercase font-black tracking-widest border border-zinc-800 rounded-lg hover:bg-zinc-800 transition-all shadow-xs">✕ Exit Distraction-Free</button>
+        </div>
+
+        <!-- Sidebar Navigation Rail -->
+        <aside class="fixed top-0 left-0 w-64 h-full bg-zinc-950 border-r border-zinc-900/60 p-8 hidden md:block select-none overflow-y-auto">
+            <div class="space-y-8">
+                <div>
+                     <span class="text-[9px] font-mono tracking-widest text-emerald-500 uppercase font-bold">REVISION MODE v1.0</span>
+                     <h4 class="text-sm font-black text-white mt-1">Distraction-Free</h4>
+                </div>
+
+                <nav class="space-y-4">
+                     <span class="text-[8px] font-mono tracking-widest text-[#64748b] uppercase block">Unit Map Index</span>
+                     <div class="space-y-2 text-xs font-mono">
+                         <a href="#rev-sec-1" class="block py-1 hover:text-white border-b border-zinc-900/40 text-emerald-400">● 1. C-Programming Strings</a>
+                         <a href="#rev-sec-2" class="block py-1 hover:text-white border-b border-zinc-900/40">● 2. Linear Algebra Matrices</a>
+                         <a href="#rev-sec-3" class="block py-1 hover:text-white border-b border-zinc-900/40">● 3. Partial Derivatives</a>
+                         <a href="#rev-sec-4" class="block py-1 hover:text-white border-b border-zinc-900/40">● 4. Optics & Diffraction</a>
+                     </div>
+                </nav>
+
+                <div class="pt-10 border-t border-zinc-900/40 space-y-2">
+                     <p class="text-[9px] text-[#64748b] font-mono">Press Esc to exit standalone mode.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Dynamic distraction free revision cards -->
+        <div class="max-w-3xl mx-auto space-y-16">
+            <header class="border-b border-zinc-900 pb-8">
+                <span class="text-[10px] font-mono tracking-widest text-emerald-400 uppercase font-black">ACTIVE EXAM REVIEWS REVISION SHEETS</span>
+                <h2 class="text-3xl font-extrabold text-white tracking-tight mt-2 font-mono">Emergency Rapid Revision Deck</h2>
+                <p class="text-xs text-slate-500 mt-2 font-mono leading-relaxed">No grids, no metrics clutter, no widgets. Just pure consolidated academic facts and formula blocks.</p>
+            </header>
+
+            <!-- Sections List -->
+            <!-- 1. Strings -->
+            <section id="rev-sec-1" class="space-y-4 scroll-mt-24 font-mono text-xs">
+                <div class="flex items-center gap-3">
+                    <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 1</span>
+                    <h3 class="text-base font-black text-white">C-Programming: Strings & Pointer Indexes</h3>
+                </div>
+                <p class="leading-relaxed text-slate-400">Strings in C are simply contiguous arrays of characters backed by a Null-terminator character (\0). Memory locations computed by index displacements:</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono space-y-2">
+                     <p class="font-bold">// Pointer arithmetic string loops</p>
+                     <p>char *ptr = str;</p>
+                     <p>while(*ptr != '\0') { ptr++; }</p>
+                </div>
+                <ul class="list-disc pl-5 space-y-2 text-slate-400">
+                    <li><b>*ptr</b>: Fetches active value.</li>
+                    <li><b>ptr</b>: Holds specific hexagonal memory location coordinate.</li>
+                </ul>
+            </section>
+
+            <!-- 2. Matrices -->
+            <section id="rev-sec-2" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
+                <div class="flex items-center gap-3">
+                    <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 2</span>
+                    <h3 class="text-base font-black text-white">Linear Algebra: Matrices & Row Echelon Ranks</h3>
+                </div>
+                <p class="leading-relaxed text-slate-400">To calculate Matrix rank, transition array cells into Row Echelon reductions using simple subtraction operations:</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono space-y-1">
+                     <p>1. Ensure maximum non-zero numbers shift upwards.</p>
+                     <p>2. Count non-zero row maps after zeroes reach bottom limits.</p>
+                     <p>3. Rank(A) = non-zero rows integer.</p>
+                </div>
+            </section>
+
+            <!-- 3. Math derivatives -->
+            <section id="rev-sec-3" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
+                <div class="flex items-center gap-3">
+                    <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 3</span>
+                    <h3 class="text-base font-black text-white">Multivariable Calculus: Lagrange Multipliers</h3>
+                </div>
+                <p class="leading-relaxed text-slate-400">Locates constrained optimization targets easily by scaling gradients matches:</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
+                     ∇F(x,y,z) = λ * ∇G(x,y,z)
+                </div>
+                <p class="text-slate-400">Where λ (lambda) represents the scalar optimization coefficient matching constraint limits G.</p>
+            </section>
+
+            <!-- 4. Wave optics -->
+            <section id="rev-sec-4" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
+                <div class="flex items-center gap-3">
+                    <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 4</span>
+                    <h3 class="text-base font-black text-white">Applied Physics: Optics & Grating Diffraction</h3>
+                </div>
+                <p class="leading-relaxed text-slate-400">Calculates diffraction grating slit displacement limits mathematically:</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
+                     (e + d) sin θ = n * λ
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-slate-400">
+                    <li><b>(e + d)</b>: Slit width constant.</li>
+                    <li><b>θ</b>: Direct angle of diffraction.</li>
+                    <li><b>λ</b>: Incident light wavelength.</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <footer class="py-12 border-t border-border mt-32 text-center" id="global-page-footer">
+        <p class="text-[10px] font-black uppercase tracking-widest text-[#64748b]">© 2026 EngiPrep Hub • Formula Reference Desk</p>
+    </footer>
+
+    <script type="module">
+        window.activeFormulaTab = 'sheets';
+        window.activeSubject = 'PPS';
+
+        const formulasDatabase = {
+            PPS: [
+                { id: "pps-f1", title: "Pointer dereferencing syntax", desc: "Computes direct data values where memory tags coordinate.", formula: "int x = 10; int *p = &x; val = *p;" },
+                { id: "pps-f2", title: "Struct allocation offsets", desc: "Declares modular user defined containers standard byte rules.", formula: "struct User { int id; char code[10]; } u;" },
+                { id: "pps-f3", title: "Formatted file write prints", desc: "Forwards characters to standard file streams.", formula: "fprintf(fptr, \"%d %s\", u.id, u.code);" }
+            ],
+            M1: [
+                { id: "m1-f1", title: "Cayley-Hamilton Identity", desc: "Substituting original matrix inside its characteristic equation rules.", formula: "a_n * A^n + a_n-1 * A^n-1 + ... + a_0 * I = 0" },
+                { id: "m1-f2", title: "Multivariable Jacobian conversion", desc: "Row/Col differentiation determinants for cartesian swaps.", formula: "J = (∂u/∂x * ∂v/∂y) - (∂u/∂y * ∂v/∂x)" },
+                { id: "m1-f3", title: "Beta-Gamma Symm relationship", desc: "Integral values mapping symmetrical relationships.", formula: "B(m, n) = [Γ(m) * Γ(n)] / Γ(m + n)" }
+            ],
+            Physics: [
+                { id: "phy-f1", title: "Newton's dark ring diameter", desc: "Calculates ring boundary ratios under plano lens planes.", formula: "D^2 = 4 * n * R * λ" },
+                { id: "phy-f2", title: "Optical fibers acceptance angle", desc: "Max light acceptance angle under refractive indexes.", formula: "sin θ = √(n1^2 - n2^2) / n0" },
+                { id: "phy-f3", title: "Schrodinger wave equations", desc: "Determines coordinates probability wave models.", formula: "[-h^2 / 2m] * ∇^2Ψ + VΨ = EΨ" }
+            ]
+        };
+
+        window.switchFormulaTab = function(tabId) {
+            document.querySelectorAll('.formula-tab-panel').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`${tabId}-panel`).classList.remove('hidden');
+
+            document.querySelectorAll(`button[onclick*="switchFormulaTab"]`).forEach(b => {
+                b.className = 'px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab';
+            });
+            const btn = document.getElementById(`tab-${tabId}`);
+            if(btn) btn.className = 'px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab';
+
+            window.activeFormulaTab = tabId;
+
+            if(tabId === 'saved') renderSavedFormulaDeck();
+        }
+
+        window.loadFormulasBySubject = function(subName) {
+            window.activeSubject = subName;
+            document.querySelectorAll('.form-subj-btn').forEach(b => {
+                b.className = "form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100";
+            });
+            const btn = document.getElementById(`btn-fs-${subName}`);
+            if(btn) btn.className = "form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-blue-600 text-white";
+
+            renderFormulasList();
+        }
+
+        function renderFormulasList() {
+            const container = document.getElementById('sheets-panel');
+            const data = formulasDatabase[window.activeSubject] || [];
+
+            container.innerHTML = data.map(item => {
+                const savedArr = JSON.parse(localStorage.getItem('prep-saved-formulas')) || [];
+                const isSaved = savedArr.some(f => f.id === item.id);
+                const starIcon = isSaved ? '★' : '☆';
+
+                return `
+                    <div class="formula-card animate-fade-up">
+                        <div class="flex items-center justify-between mb-4">
+                             <span class="text-[9px] font-bold text-blue-600 bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded uppercase tracking-wide">${window.activeSubject} Reference</span>
+                             <button onclick="bookmarkFormula('${item.id}')" class="text-lg text-amber-500 hover:scale-110 transition-transform">${starIcon}</button>
+                        </div>
+                        <h4 class="text-md font-black text-slate-800 dark:text-white">${item.title}</h4>
+                        <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">${item.desc}</p>
+                        <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-border mt-4 flex items-center justify-between gap-4 font-mono text-xs text-blue-600 dark:text-blue-400 font-bold overflow-hidden">
+                             <code class="whitespace-nowrap overflow-x-auto select-all" id="f-code-${item.id}">${item.formula}</code>
+                             <button onclick="copyFormulaSnippet('f-code-${item.id}')" class="text-[8px] bg-slate-200 dark:bg-slate-800 hover:bg-blue-600 hover:text-white text-slate-700 px-2 py-1 rounded transition-colors uppercase shrink-0">Copy</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.bookmarkFormula = function(id) {
+            const data = formulasDatabase[window.activeSubject] || [];
+            const found = data.find(f => f.id === id);
+            if(!found) return;
+
+            let savedArr = JSON.parse(localStorage.getItem('prep-saved-formulas')) || [];
+            if(savedArr.some(f => f.id === id)) {
+                // Remove
+                savedArr = savedArr.filter(f => f.id !== id);
+                alert("Formula successfully removed from your saved deck.");
+            } else {
+                savedArr.push(found);
+                alert("Formula added to Saved deck!");
+            }
+            localStorage.setItem('prep-saved-formulas', JSON.stringify(savedArr));
+            renderFormulasList();
+            renderSavedFormulaDeck();
+        }
+
+        function renderSavedFormulaDeck() {
+            const container = document.getElementById('saved-formulas-container');
+            if(!container) return;
+
+            const savedArr = JSON.parse(localStorage.getItem('prep-saved-formulas')) || [];
+            if(savedArr.length === 0) {
+                container.innerHTML = '<div class="col-span-full py-12 text-center text-slate-400 italic">No bookmarked equations yet. Press standard star icons to pin items.</div>';
+                return;
+            }
+
+            container.innerHTML = savedArr.map(item => `
+                <div class="formula-card animate-fade-up">
+                    <div class="flex items-center justify-between mb-4">
+                         <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded uppercase font-black">Saved formulas</span>
+                         <button onclick="bookmarkFormula('${item.id}')" class="text-lg text-amber-500">★</button>
+                    </div>
+                    <h4 class="text-md font-black text-slate-800 dark:text-white">${item.title}</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">${item.desc}</p>
+                    <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-border mt-4 flex items-center justify-between gap-4 font-mono text-xs text-[#10b981] font-bold overflow-hidden">
+                         <code class="whitespace-nowrap overflow-x-auto select-all" id="f-save-code-${item.id}">${item.formula}</code>
+                         <button onclick="copyFormulaSnippet('f-save-code-${item.id}')" class="text-[8px] bg-slate-200 dark:bg-slate-800 hover:bg-emerald-600 hover:text-white text-slate-700 px-2 py-1 rounded transition-colors uppercase shrink-0">Copy</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.copyFormulaSnippet = function(nodeId) {
+            const txt = document.getElementById(nodeId).innerText;
+            navigator.clipboard.writeText(txt).then(() => {
+                alert("Equation criteria successfully copied!");
+            });
+        }
+
+        // 2. REVISION MODE ACTIVATE LOGIC
+        window.toggleRevisionMode = function() {
+            const normal = document.getElementById('normal-mode-content');
+            const dist = document.getElementById('distraction-free-panel');
+            const nav = document.getElementById('main-global-navbar');
+            const foot = document.getElementById('global-page-footer');
+            const body = document.getElementById('revision-body-target');
+
+            if(normal.classList.contains('hidden')) {
+                // Exit distraction free
+                normal.classList.remove('hidden');
+                dist.classList.add('hidden');
+                nav.classList.remove('hidden');
+                foot.classList.remove('hidden');
+                body.className = "bg-background text-text-main selection:bg-blue-100 transition-colors duration-300";
+                alert("Revision Mode deactivated. Standard interface restored.");
+            } else {
+                // Enter distraction free
+                normal.classList.add('hidden');
+                dist.classList.remove('hidden');
+                nav.classList.add('hidden');
+                foot.classList.add('hidden');
+                body.className = "bg-black text-slate-400 select-text";
+                alert("Rapid Revision Mode Activated! Distraction elements successfully filtered out.");
             }
         }
-        
-        loadSheets()
+
+        // Listen escape key to quit revision mode safely
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape') {
+                const normal = document.getElementById('normal-mode-content');
+                if(normal && normal.classList.contains('hidden')) {
+                    toggleRevisionMode();
+                }
+            }
+        });
+
+        // Initialize lists
+        renderFormulasList();
+
     </script>
-    <script type="module" src="/src/main.js"></script>
 </body>
 </html>

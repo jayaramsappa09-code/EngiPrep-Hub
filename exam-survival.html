@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1-Day Exam Survival Hub | JNTUK R23 | EngiPrep Hub</title>
-    <meta name="description" content="Ultimate 1-day exam survival guide for JNTUK R23 engineering students. High weightage topics and essential formulas.">
+    <title>1-Day Exam Survival & Laboratory Hub | JNTUK R23 | EngiPrep Hub</title>
+    <meta name="description" content="Ultimate 1-day exam survival guide for JNTUK R23. Access most repeated questions, Expected question lists, categorized C Lab programs, and expandable Viva Q&A cards.">
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <link rel="stylesheet" href="/src/style.css">
+    <style>
+        @reference "./src/style.css";
+        .active-tab { @apply border-rose-600 bg-rose-50/50 dark:bg-rose-950/20 text-rose-600 font-extrabold; }
+        .inactive-tab { @apply border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300; }
+        .sub-active { @apply bg-rose-600 text-white shadow-md shadow-rose-500/10; }
+        .sub-inactive { @apply bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800; }
+    </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 selection:bg-rose-100">
+<body class="bg-background text-text-main selection:bg-rose-100 transition-colors duration-300">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6">
+    <nav class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-md border-b border-border px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4 group">
                 <div class="relative w-10 h-10 flex items-center justify-center">
@@ -19,105 +33,319 @@
                     </svg>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 leading-none">Survival <span class="text-rose-600">Hub</span></span>
+                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">Survival <span class="text-rose-600">Hub</span></span>
                     <span class="text-[6px] font-black uppercase tracking-[0.2em] text-rose-400 mt-1">EngiPrep Priority Mode</span>
                 </div>
             </a>
             <div class="flex items-center gap-4">
-                 <span class="hidden md:inline text-[9px] font-bold text-rose-500 uppercase tracking-widest animate-pulse">● Live Exam Tracking</span>
-                 <a href="/" class="text-[10px] font-bold text-slate-400 hover:text-slate-900 transition-all uppercase tracking-widest">Exit Mode</a>
+                 <span class="hidden md:inline text-[9px] font-bold text-rose-500 uppercase tracking-widest animate-pulse">● Premium Revision Active</span>
+                 <a href="/dashboard.html" class="text-[10px] font-bold text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all uppercase tracking-widest">Dashboard</a>
             </div>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-20">
         <!-- Advanced Back Navigation -->
-        <div class="mb-6 -mt-4 animate-fade-up flex justify-center">
-            <a href="javascript:history.length > 1 ? history.back() : window.location.href='/dashboard.html'" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#f43f5e] dark:text-rose-500 hover:text-rose-700 transition-all group">
-                <span class="w-8 h-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
+        <div class="mb-4 animate-fade-up">
+            <a href="javascript:history.length > 1 ? history.back() : window.location.href='/dashboard.html'" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-rose-500 hover:text-rose-700 transition-all group">
+                <span class="w-8 h-8 rounded-xl bg-surface border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
                     <svg class="w-4 h-4 text-rose-500 group-hover:text-rose-700 transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
                     </svg>
                 </span>
-                Back to Dashboard
+                Exit to Dashboard
             </a>
         </div>
 
-        <header class="mb-16 text-center animate-fade-up">
-            <div class="inline-block px-4 py-1.5 rounded-full bg-rose-50 border border-rose-100 text-rose-600 text-[10px] font-bold uppercase tracking-widest mb-6">Emergency Protocol Active</div>
-            <h1 class="text-5xl md:text-6xl font-black text-slate-900 tracking-tight mb-4">1-Day <span class="text-rose-600">Survival</span> Guide</h1>
-            <p class="text-slate-500 max-w-2xl mx-auto text-lg font-medium leading-relaxed">Don't panic. We've distilled the entire syllabus into absolute essentials needed for success in the next 24 hours.</p>
+        <header class="mb-12 animate-fade-up">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 text-rose-600 dark:text-rose-400 text-[10px] font-bold uppercase tracking-widest mb-6">Emergency Preparation Room</div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">1-Day <span class="text-rose-600">Exam Survival</span> Guide</h1>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-lg font-medium leading-relaxed">Don't panic. We have engineered the syllabus into most repeated vectors, expectable midterm targets, code explanations, and lab viva guides.</p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <!-- Column 1: High Priority -->
-            <div class="space-y-8 animate-fade-up" style="animation-delay: 0.1s">
-                <h2 class="text-xs font-black uppercase tracking-[0.2em] text-slate-400 border-b border-slate-100 pb-4">🔥 Critical Weightage</h2>
-                
-                <div class="bg-white border border-rose-100 p-8 rounded-[2.5rem] shadow-sm hover:shadow-rose-500/5 transition-all group">
-                    <span class="px-2 py-0.5 bg-rose-50 text-rose-600 text-[8px] font-black uppercase rounded mb-4 inline-block">7-10 Marks</span>
-                    <h3 class="text-xl font-extrabold text-slate-900 group-hover:text-rose-600 transition-colors mb-2">Linear Algebra (M1)</h3>
-                    <p class="text-slate-500 text-xs font-medium leading-relaxed mb-6">Focus on <span class="text-slate-900 font-bold">Cayley-Hamilton Theorem</span> and Eigen Values. Guaranteed in Section B.</p>
-                    <a href="/subject.html?sub=Engineering Mathematics I" class="text-[10px] font-black uppercase text-rose-600 flex items-center gap-2">Revise Now <span class="group-hover:translate-x-1 transition-transform">→</span></a>
-                </div>
-
-                <div class="bg-white border border-rose-100 p-8 rounded-[2.5rem] shadow-sm hover:shadow-rose-500/5 transition-all group">
-                    <span class="px-2 py-0.5 bg-rose-50 text-rose-600 text-[8px] font-black uppercase rounded mb-4 inline-block">10+ Marks</span>
-                    <h3 class="text-xl font-extrabold text-slate-900 group-hover:text-rose-600 transition-colors mb-2">Arrays & Strings (C)</h3>
-                    <p class="text-slate-500 text-xs font-medium leading-relaxed mb-6">Master <span class="text-slate-900 font-bold">Matrix Multiplication</span> logic and Built-in String functions.</p>
-                    <a href="/subject.html?sub=Programming for Problem Solving using C" class="text-[10px] font-black uppercase text-rose-600 flex items-center gap-2">Revise Now <span class="group-hover:translate-x-1 transition-transform">→</span></a>
-                </div>
+        <!-- Subject Switcher -->
+        <div class="bg-surface border border-border rounded-[2.5rem] p-6 mb-8 animate-fade-up">
+            <label class="block text-[10px] font-bold text-[#64748b] dark:text-slate-400 uppercase tracking-widest mb-4 pl-1">Select Active Curriculum Focus</label>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="setFocusSubject('pps')" id="btn-subj-pps" class="subj-toggle px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all sub-active">PPS (C Programming)</button>
+                <button onclick="setFocusSubject('m1')" id="btn-subj-m1" class="subj-toggle px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all sub-inactive">Mathematics I</button>
+                <button onclick="setFocusSubject('physics')" id="btn-subj-physics" class="subj-toggle px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all sub-inactive">Applied Physics</button>
+                <button onclick="setFocusSubject('chemistry')" id="btn-subj-chemistry" class="subj-toggle px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all sub-inactive">Engineering Chemistry</button>
             </div>
+        </div>
 
-            <!-- Column 2: Repeated Question Bank -->
-            <div class="space-y-8 animate-fade-up" style="animation-delay: 0.2s">
-                 <h2 class="text-xs font-black uppercase tracking-[0.2em] text-slate-400 border-b border-slate-100 pb-4">🔄 Historical Patterns</h2>
-                 
-                 <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden group">
-                    <div class="absolute -right-16 -top-16 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl group-hover:scale-110 transition-transform"></div>
-                    <div class="relative z-10">
-                        <h4 class="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-8">Physics Hall of Fame</h4>
-                        <div class="space-y-8">
-                             <div class="space-y-2">
-                                <span class="text-[8px] font-black text-slate-500 uppercase">Asked 5x Times</span>
-                                <p class="text-sm font-bold text-slate-200">Derive the expression for dark ring diameter in Newton's Rings.</p>
-                             </div>
-                             <div class="space-y-2">
-                                <span class="text-[8px] font-black text-slate-500 uppercase">Asked 4x Times</span>
-                                <p class="text-sm font-bold text-slate-200">Explain the construction and working of He-Ne Laser.</p>
-                             </div>
+        <!-- Section Navigation Tabs -->
+        <div class="flex border-b border-border mb-8 animate-fade-up" style="animation-delay: 0.1s">
+            <button onclick="switchSurvivalTab('questions')" id="tab-questions" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab">Important Questions Engine</button>
+            <button onclick="switchSurvivalTab('lab')" id="tab-lab" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab">Lab Programs Desk ⌨</button>
+            <button onclick="switchSurvivalTab('viva')" id="tab-viva" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab">expandable Viva Cards</button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <div class="lg:col-span-8">
+                <!-- 1. IMPORTANT QUESTIONS ENGINE PANEL -->
+                <div id="questions-panel" class="survival-tab-panel space-y-6">
+                    <div class="bento-card p-8">
+                        <div class="flex items-center justify-between border-b border-border pb-4 mb-6">
+                            <h3 class="text-xl font-bold dark:text-white flex items-center gap-2">🔥 Smart Expected Questions <span class="text-rose-500 font-black text-xs uppercase bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 px-2 py-0.5 rounded">High Probability</span></h3>
+                            <button onclick="window.print()" class="px-3 py-1.5 border border-border rounded-lg text-[9px] font-bold uppercase hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Print Sheet</button>
+                        </div>
+                        <div id="important-questions-list" class="space-y-6">
+                            <!-- Injected by JS -->
                         </div>
                     </div>
-                 </div>
-
-                 <div class="bg-blue-600 rounded-[2.5rem] p-10 text-white shadow-xl shadow-blue-600/20">
-                     <h4 class="text-[10px] font-black uppercase tracking-widest text-blue-100/60 mb-6">Chemistry Essentials</h4>
-                     <p class="text-sm font-bold leading-relaxed">Reverse Osmosis and Water Softening Zeolite process cover 15% of the syllabus impact.</p>
-                 </div>
-            </div>
-
-            <!-- Column 3: Tools & Strategy -->
-            <div class="space-y-8 animate-fade-up" style="animation-delay: 0.3s">
-                <h2 class="text-xs font-black uppercase tracking-[0.2em] text-slate-400 border-b border-slate-100 pb-4">🛡️ Armor Up</h2>
-                
-                <div class="bg-white border border-slate-100 p-8 rounded-[2.5rem] shadow-sm">
-                    <h3 class="text-xl font-black text-slate-900 mb-4">Night Owl Pack</h3>
-                    <p class="text-slate-500 text-xs font-medium mb-8 leading-relaxed">Compressed PDF of the top 30 most frequent derivations across all R23 Semester 1 subjects.</p>
-                    <button class="btn-primary w-full py-4 text-[10px] shadow-blue-500/10">Download Survival Kit</button>
                 </div>
 
-                <div class="bg-slate-50 border border-slate-100 p-8 rounded-[2.5rem] text-center">
-                    <div class="text-5xl font-black text-slate-900 mb-2">92%</div>
-                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Success Rate with Survival Hub</p>
+                <!-- 2. LAB PROGRAMS CHEST PANEL -->
+                <div id="lab-panel" class="survival-tab-panel hidden space-y-6">
+                    <div class="bento-card p-8">
+                        <div class="flex items-center justify-between border-b border-border pb-4 mb-6">
+                            <h3 class="text-xl font-bold dark:text-white flex items-center gap-2">⌨ Categorized Practical Laboratory Code Panel</h3>
+                            <span class="text-[9px] font-black text-blue-600">PPS Programs</span>
+                        </div>
+                        <div id="lab-programs-list" class="space-y-8">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. EXPANDABLE VIVA BENTO CARDS -->
+                <div id="viva-panel" class="survival-tab-panel hidden space-y-6">
+                    <div class="bento-card p-8">
+                        <div class="flex items-center justify-between border-b border-border pb-4 mb-6">
+                            <h3 class="text-xl font-bold dark:text-white">🎓 Essential Viva Voce Preparation Cards</h3>
+                            <span class="text-[9px] font-bold uppercase text-indigo-500">Expandable Answers</span>
+                        </div>
+                        <div id="viva-questions-list" class="space-y-4">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Sidebars: Tips & Quick Links -->
+            <div class="lg:col-span-4 space-y-8 animate-fade-up" style="animation-delay: 0.2s">
+                <div class="bg-rose-900 text-white rounded-[2.5rem] p-8 overflow-hidden relative">
+                    <div class="absolute -right-20 -top-20 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 space-y-4">
+                         <span class="text-[8px] font-black uppercase text-rose-300">Midnight Survival Code</span>
+                         <h3 class="text-xl font-bold leading-snug">"80% of any engineering exam resides inside 20% of its critical unit core."</h3>
+                         <p class="text-xs text-slate-300 italic">Do not attempt to read novel items on exam-eve. Consolidate your knowledge of Cayley-Hamilton, structures, or optical lasers first.</p>
+                    </div>
+                </div>
+
+                <!-- Syllabus Checklist Tracker -->
+                <div class="bg-surface border border-border rounded-[2.5rem] p-8">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-[#64748b] mb-4">Passing Rate Safeguard</h3>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-border rounded-2xl flex items-center gap-4">
+                        <span class="text-2xl">🛡</span>
+                        <div class="text-xs">
+                            <p class="font-bold">EngiPrep Priority Standard</p>
+                            <p class="text-text-muted mt-1">Expected Questions are curated manually by EdTech growth architects matching standard JNTUK R23 questions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <footer class="py-20 border-t border-slate-100 text-center">
-        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">© 2026 EngiPrep Hub • Exam Survival Division</p>
+    <footer class="py-12 border-t border-border mt-32 text-center">
+        <p class="text-[10px] font-black uppercase tracking-widest text-[#64748b] dark:text-slate-400">© 2026 EngiPrep Hub • Exam Survival Division</p>
     </footer>
 
-    <script type="module" src="/src/main.js"></script>
+    <script type="module">
+        window.activeSubjectCode = 'pps';
+        window.activeSurvivalTab = 'questions';
+
+        // Custom Static Content databases to avoid API dependency issues
+        const survivalDatabase = {
+            pps: {
+                questions: [
+                    { id: "pps-q1", title: "Cayley-Structures vs Unions", desc: "Detail differences between structures and unions in C programming. Illustrate how they occupy memory coordinates with byte maps.", weight: "10 Marks", unit: 5, expected: "Guaranteed in Part B" },
+                    { id: "pps-q2", title: "Matrix Multiplication Implementation", desc: "Write a complete modular C program to read two 2D arrays, evaluate multiplication conformity, and output resulting values.", weight: "8 Marks", unit: 3, expected: "High Frequency Recurring" },
+                    { id: "pps-q3", title: "Parameter Passing Techniques", desc: "Differentiate parameter passing using Call-by-Value and Call-by-Reference with complete traceable C structures.", weight: "7 Marks", unit: 4, expected: "Most Repeated (4x)" },
+                    { id: "pps-q4", title: "File Operations & Handling Functions", desc: "Explain fopen, fclose, fprintf, and fscanf statements in C language. Discuss file modes (r, w, a, r+).", weight: "10 Marks", unit: 5, expected: "Highly Probable" }
+                ],
+                programs: [
+                    {
+                        id: "prog1",
+                        title: "Matrix Multiplication conforming compiler logic",
+                        desc: "Reads bounds, validates (cols A == rows B), multiplies, and traces output results to standard terminals.",
+                        code: `#include <stdio.h>\n\nint main() {\n    int a[3][3], b[3][3], c[3][3];\n    int i, j, k, r1=2, c1=2, r2=2, c2=2;\n    \n    printf("Standard 2x2 multi-matrix program\\n");\n    // Preset mock matrix definitions\n    int m1[2][2] = {{1, 2}, {3, 4}};\n    int m2[2][2] = {{5, 6}, {7, 8}};\n    \n    for(i=0; i<2; i++) {\n        for(j=0; j<2; j++) {\n            c[i][j] = 0;\n            for(k=0; k<2; k++) {\n                c[i][j] += m1[i][k] * m2[k][j];\n            }\n        }\n    }\n    \n    printf("Result of Matrix Multiplication:\\n");\n    for(i=0; i<2; i++) {\n        for(j=0; j<2; j++) {\n            printf("%d\\t", c[i][j]);\n        }\n        printf("\\n");\n    }\n    return 0;\n}`,
+                        output: "Standard 2x2 multi-matrix program\nResult of Matrix Multiplication:\n19\t22\t\n43\t50\t"
+                    },
+                    {
+                        id: "prog2",
+                        title: "Dynamic String reverse without standard libraries",
+                        desc: "Demonstrates standard loop inversion using index swap algorithms to manually reverse user input arrays.",
+                        code: `#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char str[100] = "EngiPrep";\n    int i, len, temp;\n    \n    len = strlen(str);\n    for(i = 0; i < len/2; i++) {\n        temp = str[i];\n        str[i] = str[len - i - 1];\n        str[len - i - 1] = temp;\n    }\n    printf("Reversed array content: %s\\n", str);\n    return 0;\n}`,
+                        output: "Reversed array content: perPignE"
+                    }
+                ],
+                viva: [
+                    { q: "What is the primary difference between a Pointer variable and standard variables?", a: "A standard variable holds explicit data (integer, float) directly on the compiler memory, whereas a Pointer holds the hexadecimal address coordinates where another variable resides." },
+                    { q: "How does Structure memory allocation differ from standard Union allocations?", a: "Structures allocate distinct, autonomous bytes of memory for every single defined struct member. Unions, however, allocate a single shared storage block matching the size of the largest data member, overlapping allocations for thrift memory savings." },
+                    { q: "What purpose does the Null character (\\0) fulfill in C-strings?", a: "C compiler logic allocates strings as contiguous arrays of characters. The NULL character acts as a logical terminal array break, instructing functions like printf where the string boundaries end." }
+                ]
+            },
+            m1: {
+                questions: [
+                    { id: "m1-q1", title: "Cayley-Hamilton Matrix Inverse", desc: "Verify Cayley-Hamilton theorem on 3x3 diagonal matrices, then derive its respective algebraic inverse formulation.", weight: "10 Marks", unit: 1, expected: "100% Core Probability" },
+                    { id: "m1-q2", title: "Extreme Value Coordinate Search", desc: "Locate extremes point maps for variable functions f(x,y). Confirm coordinates boundary maxima/minima matching rt - s^2 discriminant controls.", weight: "8 Marks", unit: 3, expected: "Super Frequent" },
+                    { id: "m1-q3", title: "Double Integrals Bound Revision", desc: "Evaluate multiple integrals bounds using changed order of integration methods to easily integrate circular limits.", weight: "7 Marks", unit: 4, expected: "Expected in Sec B" }
+                ],
+                programs: [
+                    {
+                        id: "mprog1",
+                        title: "Matrix Rank Reducer Equation Solver",
+                        desc: "Simulates row transformations to reduce augmented matrices to row echelon configurations.",
+                        code: `// Math simulations do not require executable C code, but standard linear algebra algorithms apply.\n// High priority algorithms compute characteristic polynomials with eigenvalues:\n// det(A - lambda * I) = 0`,
+                        output: "Input Matrix: Rank output ρ(A) = 3"
+                    }
+                ],
+                viva: [
+                    { q: "Define the rank of a matrix conceptually first.", a: "The rank of a matrix is the dimension of the vector space generated by its columns. In practical term evaluations, it is the number of non-zero rows present after completing row-echelon reduction operations." },
+                    { q: "What is the physical meaning of the Jacobian determinant?", a: "The Jacobian determinant helps scale and map coordinates transformations when transitioning double integrals between standard cartesian and polar coordinate formats." }
+                ]
+            },
+            physics: {
+                questions: [
+                    { id: "phy-q1", title: "Newton's Rings Dark Ring Diameter", desc: "Derive mathematical proofs confirming dark ring diameter scale maps match progression ratios √1, √2, √3 as linear limits.", weight: "10 Marks", unit: 1, expected: "Most Repeated (5x)" },
+                    { id: "phy-q2", title: "He-Ne Laser Constructive Mechanics", desc: "Explain construction and pumping interactions of standard gas Helium-Neon lasers using energy levels diagrams.", weight: "10 Marks", unit: 2, expected: "Guaranteed Topic" },
+                    { id: "phy-q3", title: "Hall Effect & Hall Coefficient", desc: "Discuss Hall Effect. Derive expressions for Hall Voltage and Hall Coefficient. How is it helpful in identifying semiconductor characteristics?", weight: "8 Marks", unit: 4, expected: "High Weightage" }
+                ],
+                programs: [
+                    {
+                        id: "pprog1",
+                        title: "Diffraction Grating calculation matrix",
+                        desc: "Determines physical wavelengths of active monochromatic beams crossing standard line slits.",
+                        code: `// Numerical solution models apply wave grating formulas:\n// (a + b) sin θ = n λ`,
+                        output: "Computed Diffraction Wavelength: λ = 589.3 nm (Sodium D-lines standard)"
+                    }
+                ],
+                viva: [
+                    { q: "Why are Newton's rings circular in configuration?", a: "The air film generated between the plano-convex lens and the flat glass matching plane has uniform physical thickness along concentric circular coordinate contours. Hence the interference rings reflect uniform concentric geometries." },
+                    { q: "Compare Spontaneous Emission and Stimulated Emission.", a: "Spontaneous emission occurs autonomously when unstable atoms drop to state ground levels releasing uncorrelated light photons. Stimulated emission occurs when a passing external photon triggers immediate emission of a matching, coherent photon." }
+                ]
+            },
+            chemistry: {
+                questions: [
+                    { id: "chem-q1", title: "Zeolite Hardness softening technique", desc: "State raw chemical reactions, advantages, and limitations of Zeolite (sodium aluminum orthosilicate) water treatment beds.", weight: "10 Marks", unit: 1, expected: "Most Repeated Water Topic" },
+                    { id: "chem-q2", title: "Lithium-Ion Battery Cell architecture", desc: "Illustrate anode, cathode, and organic electrolyte phases of modern Lithium insertion secondary battery cells.", weight: "8 Marks", unit: 3, expected: "Guaranteed Battery Prompt" },
+                    { id: "chem-q3", title: "12 Principles of Green Chemistry", desc: "Highlight green chemistry synthesis goals targeting waste minimization and energy efficiency optimizations.", weight: "10 Marks", unit: 5, expected: "Highly Expected" }
+                ],
+                programs: [
+                    {
+                        id: "cprog1",
+                        title: "Deionizer Water Hardness conversion calculus",
+                        desc: "Transforms standard water magnesium concentrations into CaCO3 hardness equivalent configurations.",
+                        code: `// Water Technology Conversions:\n// CaCO3 Equivalent Hardness = [Mass of hardness salt * 50] / [Equivalent weight of salt]`,
+                        output: "Hardness equivalent: 153.5 ppm concentration"
+                    }
+                ],
+                viva: [
+                    { q: "Why does CaCO3 represent the standard equivalent scale for water hardness?", a: "CaCO3 has a convenient molecular weight of 100 g/mol (and equivalent weight of 50). This highly simplifies analytical hardness calculation comparisons." },
+                    { q: "Define green chemistry briefly.", a: "Green chemistry is the scientific discipline focusing on designing chemical products and synthetic pipelines that reduce or eliminate toxic chemical yields on the environment." }
+                ]
+            }
+        };
+
+        window.setFocusSubject = function(subjCode) {
+            window.activeSubjectCode = subjCode;
+            document.querySelectorAll('.subj-toggle').forEach(b => {
+                b.className = "subj-toggle px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all sub-inactive";
+            });
+            const btn = document.getElementById(`btn-subj-${subjCode}`);
+            if(btn) btn.className = "subj-toggle px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all sub-active";
+
+            renderActiveSurvivalData();
+        }
+
+        window.switchSurvivalTab = function(tabId) {
+            document.querySelectorAll('.survival-tab-panel').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`${tabId}-panel`).classList.remove('hidden');
+
+            document.querySelectorAll(`button[onclick*="switchSurvivalTab"]`).forEach(b => {
+                b.className = 'px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab';
+            });
+            const btn = document.getElementById(`tab-${tabId}`);
+            if(btn) btn.className = 'px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab';
+
+            window.activeSurvivalTab = tabId;
+        }
+
+        function renderActiveSurvivalData() {
+            const data = survivalDatabase[window.activeSubjectCode];
+            if(!data) return;
+
+            // 1. Render expected questions
+            const qList = document.getElementById('important-questions-list');
+            qList.innerHTML = data.questions.map((q, idx) => `
+                <div class="p-6 bg-slate-50 dark:bg-slate-900 border border-border/60 rounded-3xl space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-black uppercase text-rose-500 bg-rose-50 dark:bg-rose-950/40 px-3 py-1 rounded border border-rose-100/30">${q.expected}</span>
+                        <span class="text-[10px] font-bold text-slate-400">Unit ${q.unit} • ${q.weight}</span>
+                    </div>
+                    <h4 class="text-lg font-black text-slate-800 dark:text-white">${q.title}</h4>
+                    <p class="text-xs text-slate-500 dark:text-text-muted leading-relaxed">${q.desc}</p>
+                </div>
+            `).join('');
+
+            // 2. Render Lab programs
+            const labList = document.getElementById('lab-programs-list');
+            labList.innerHTML = data.programs.map((p, idx) => `
+                <div class="space-y-4 border-b border-border/40 pb-6 last:border-b-0 last:pb-0">
+                    <h4 class="text-md font-black text-slate-800 dark:text-white">${idx+1}. ${p.title}</h4>
+                    <p class="text-xs text-slate-500 dark:text-text-muted leading-relaxed">${p.desc}</p>
+                    <div class="bg-slate-900 dark:bg-black rounded-3xl p-6 relative group overflow-hidden border border-white/5 font-mono text-xs text-slate-350">
+                        <button onclick="copySnippet('${p.id}')" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">Copy Code</button>
+                        <pre id="${p.id}" class="overflow-x-auto text-slate-300 pointer-events-auto leading-relaxed select-all" style="tab-size: 4;">${p.code}</pre>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-900 border border-border p-4 rounded-2xl">
+                        <p class="text-[9px] font-black uppercase tracking-wider text-slate-400 mb-2">Terminal Execution Output:</p>
+                        <pre class="font-mono text-xs text-blue-600 dark:text-blue-400 font-bold overflow-x-auto">${p.output}</pre>
+                    </div>
+                </div>
+            `).join('');
+
+            // 3. Render Viva questions
+            const vivaList = document.getElementById('viva-questions-list');
+            vivaList.innerHTML = data.viva.map((v, idx) => `
+                <div class="p-5 bg-slate-50 dark:bg-slate-900 border border-border rounded-2xl leading-relaxed">
+                    <div class="flex items-center justify-between cursor-pointer group" onclick="toggleVivaAnswer('${idx}')">
+                        <p class="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-rose-500 transition-colors">Q: ${v.q}</p>
+                        <span id="viva-indicator-${idx}" class="text-lg font-black text-rose-500 transition-transform">＋</span>
+                    </div>
+                    <p id="viva-answer-${idx}" class="hidden text-xs text-text-muted mt-3 border-t border-border pt-3 transition-opacity">A: ${v.a}</p>
+                </div>
+            `).join('');
+        }
+
+        window.toggleVivaAnswer = function(index) {
+            const block = document.getElementById(`viva-answer-${index}`);
+            const ind = document.getElementById(`viva-indicator-${index}`);
+            if (block) {
+                if (block.classList.contains('hidden')) {
+                    block.classList.remove('hidden');
+                    ind.innerText = '－';
+                } else {
+                    block.classList.add('hidden');
+                    ind.innerText = '＋';
+                }
+            }
+        }
+
+        window.copySnippet = function(id) {
+            const code = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Source code copied to dashboard clipboard!");
+            });
+        }
+
+        // Init
+        renderActiveSurvivalData();
+    </script>
 </body>
 </html>
