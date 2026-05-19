@@ -380,6 +380,17 @@
                 
                 navUsername.textContent = displayName
                 
+                if (profile.role === 'admin') {
+                    const headerActions = document.querySelector('header .flex.items-center.gap-4');
+                    if (headerActions) {
+                        const adminLink = document.createElement('a');
+                        adminLink.href = '/admin.html';
+                        adminLink.className = 'btn-outline border-rose-500/30 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 px-6 py-2.5 text-xs font-black uppercase tracking-wider flex items-center gap-2';
+                        adminLink.innerHTML = `<span class="inline-block animate-pulse text-xs">🛡️</span> Admin Panel`;
+                        headerActions.insertBefore(adminLink, headerActions.firstChild);
+                    }
+                }
+                
                 // If the user has a selected avatar, use it. Otherwise show initials ring.
                 const ringEl = document.getElementById('nav-avatar-ring');
                 if (profile.avatar_url) {
