@@ -39,63 +39,83 @@
     </nav>
 
     <main class="max-w-4xl mx-auto px-6 pt-32 pb-32">
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-8 animate-fade-up" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                <li class="inline-flex items-center">
+                    <a href="/dashboard.html" class="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary transition-colors">
+                        <svg class="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                        Hub
+                    </a>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <svg class="w-3 h-3 text-white/10 mx-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span class="ml-1 text-[10px] font-black uppercase tracking-widest text-primary md:ml-2">Forge Identity</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
         <header class="mb-16">
             <h1 class="text-5xl font-black italic tracking-tighter mb-4 select-none">Forge Your <span class="text-primary italic">Identity.</span></h1>
             <p class="text-gray-500 text-sm italic">Choose how the Hub community sees you. Stay anonymous or become a legend.</p>
         </header>
 
-        <section class="mb-20">
-            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-10 border-b border-white/5 pb-4 italic">Step 1: Select Your Avatar</h2>
-            <div id="avatar-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                <!-- Avatars injected here -->
-            </div>
-        </section>
+        <form id="profile-form">
+            <section class="mb-20">
+                <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-10 border-b border-white/5 pb-4 italic">Step 1: Select Your Avatar</h2>
+                <div id="avatar-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                    <!-- Avatars injected here -->
+                </div>
+            </section>
 
-        <section class="mb-20">
-            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-8 italic">Step 2: Profile Details</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="space-y-6">
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Unique Username</label>
-                        <input type="text" id="username-input" class="input-field w-full" placeholder="e.g. PhysicsNinja_23">
-                        <p class="text-[9px] text-gray-700 mt-2 italic">* This will be visible on your contributions.</p>
+            <section class="mb-20">
+                <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-8 italic">Step 2: Profile Details</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Unique Username</label>
+                            <input type="text" id="username-input" required minlength="3" maxlength="20" pattern="^[a-zA-Z0-9_]+$" class="input-field w-full" placeholder="e.g. PhysicsNinja_23">
+                            <p class="text-[9px] text-gray-700 mt-2 italic">* Visible on contributions. Use letters, numbers, and underscores.</p>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Display Name</label>
+                            <input type="text" id="fullname-input" class="input-field w-full" placeholder="Your Real Name (Keep private/public)">
+                        </div>
                     </div>
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Display Name</label>
-                        <input type="text" id="fullname-input" class="input-field w-full" placeholder="Your Real Name (Keep private/public)">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Academic Branch</label>
+                            <select id="branch-select" class="input-field w-full bg-surface">
+                                <option value="">Select Branch</option>
+                                <option value="CSE">Computer Science (CSE)</option>
+                                <option value="ECE">Electronics (ECE)</option>
+                                <option value="EEE">Electrical (EEE)</option>
+                                <option value="MECH">Mechanical (MECH)</option>
+                                <option value="CIVIL">Civil (CIVIL)</option>
+                                <option value="OTHER">Other Branch</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Current Semester</label>
+                            <select id="semester-select" class="input-field w-full bg-surface">
+                                <option value="">Select Semester</option>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                                <option value="4">Semester 4</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="space-y-6">
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Academic Branch</label>
-                        <select id="branch-select" class="input-field w-full bg-[#0d0d12]">
-                            <option value="">Select Branch</option>
-                            <option value="CSE">Computer Science (CSE)</option>
-                            <option value="ECE">Electronics (ECE)</option>
-                            <option value="EEE">Electrical (EEE)</option>
-                            <option value="MECH">Mechanical (MECH)</option>
-                            <option value="CIVIL">Civil (CIVIL)</option>
-                            <option value="OTHER">Other Branch</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Current Semester</label>
-                        <select id="semester-select" class="input-field w-full bg-[#0d0d12]">
-                            <option value="">Select Semester</option>
-                            <option value="1">Semester 1</option>
-                            <option value="2">Semester 2</option>
-                            <option value="3">Semester 3</option>
-                            <option value="4">Semester 4</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center gap-6">
-            <button id="save-btn" class="btn-primary w-full sm:w-auto px-12 py-4">Save Identity Preferences</button>
-            <p id="save-msg" class="text-xs text-primary hidden font-bold italic animate-fade"></p>
-        </div>
+            <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center gap-6">
+                <button type="submit" id="save-btn" class="btn-primary w-full sm:w-auto px-12 py-4">Save Identity Preferences</button>
+                <p id="save-msg" class="text-xs text-primary hidden font-bold italic animate-fade"></p>
+            </div>
+        </form>
     </main>
 
     <script type="module">
@@ -103,6 +123,7 @@
         import { AVATARS } from './src/identity-constants.js'
 
         const avatarGrid = document.getElementById('avatar-grid')
+        const profileForm = document.getElementById('profile-form')
         const usernameInput = document.getElementById('username-input')
         const fullnameInput = document.getElementById('fullname-input')
         const branchSelect = document.getElementById('branch-select')
@@ -175,13 +196,15 @@
             }
         }
 
-        saveBtn.addEventListener('click', async () => {
+        profileForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
             const username = usernameInput.value.trim()
-            if (!username) {
-                saveMsg.textContent = '⚠️ Identity Missing: Please enter a username.'
+            
+            if (!selectedAvatar) {
+                saveMsg.textContent = '⚠️ Appearance Missing: Please pick an avatar above.'
                 saveMsg.classList.add('text-amber-500')
                 saveMsg.classList.remove('hidden', 'text-red-500', 'text-primary')
-                usernameInput.focus()
+                avatarGrid.scrollIntoView({ behavior: 'smooth' })
                 return
             }
 

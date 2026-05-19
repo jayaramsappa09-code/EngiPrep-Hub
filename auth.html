@@ -322,19 +322,39 @@
                             
                             <div class="bg-indigo-900 p-4 rounded-2xl border border-white/10 text-white relative group">
                                 <span class="text-[8px] font-black uppercase tracking-[0.2em] text-indigo-400 block mb-3">Copy to Supabase SQL Editor:</span>
-                                <pre class="text-[9px] font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap select-all">-- 1. Ensure Table exists
+                                <pre class="text-[9px] font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap select-all">-- 1. Ensure Table and Columns exist
 CREATE TABLE IF NOT EXISTS public.profiles (
   id uuid REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
   full_name TEXT,
-  username TEXT UNIQUE
+  username TEXT UNIQUE,
+  avatar_url TEXT,
+  branch TEXT,
+  semester INT,
+  xp INT DEFAULT 0,
+  streak INT DEFAULT 0,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Ensure columns exist if table was already created
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS avatar_url TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS branch TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS semester INT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS xp INT DEFAULT 0;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS streak INT DEFAULT 0;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
 
 -- 2. Setup Automatic Sync
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name, username)
-  VALUES (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'username');
+  INSERT INTO public.profiles (id, full_name, username, avatar_url)
+  VALUES (
+    new.id, 
+    new.raw_user_meta_data->>'full_name', 
+    new.raw_user_meta_data->>'username',
+    new.raw_user_meta_data->>'avatar_url'
+  );
   RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -350,7 +370,7 @@ ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Users can view own profile" ON public.profiles;
 CREATE POLICY "Users can view own profile" ON public.profiles
-  FOR SELECT USING (auth.uid() = id);
+  FOR SELECT USING (true); -- Shared visibility for community features
 
 DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
 CREATE POLICY "Users can update own profile" ON public.profiles

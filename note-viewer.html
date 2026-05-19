@@ -113,6 +113,29 @@
 
         <!-- Main Content -->
         <main class="lg:col-span-9 max-w-3xl mx-auto w-full">
+            <!-- Breadcrumbs -->
+            <nav class="flex mb-12 animate-fade-up" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                    <li class="inline-flex items-center">
+                        <a href="/dashboard.html" class="inline-flex items-center text-[9px] font-black uppercase tracking-widest text-gray-500 hover:text-primary transition-colors">
+                            Hub
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-3 h-3 text-white/10 mx-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                            <a href="/semester-1.html" class="ml-1 text-[9px] font-black uppercase tracking-widest text-gray-500 hover:text-primary transition-colors md:ml-2">Semester 1</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-3 h-3 text-white/10 mx-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                            <a id="breadcrumb-subject-link" href="/subject.html" class="ml-1 text-[9px] font-black uppercase tracking-widest text-gray-500 hover:text-primary transition-colors md:ml-2">...</a>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
             <article class="animate-fade-up">
                 <header id="meta" class="mb-16">
                     <div class="flex items-center gap-4 mb-6">
@@ -222,6 +245,8 @@
 
                 document.title = `${note.title} – EngiPrep Hub`
                 document.getElementById('nav-subject').innerText = note.subject
+                document.getElementById('breadcrumb-subject-link').innerText = note.subject
+                document.getElementById('breadcrumb-subject-link').href = `/subject.html?sub=${encodeURIComponent(note.subject)}`
                 document.getElementById('nav-title').innerText = note.title
                 document.getElementById('note-type').innerText = note.type
                 document.getElementById('main-title').innerText = note.title
