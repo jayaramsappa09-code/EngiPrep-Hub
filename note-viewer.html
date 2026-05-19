@@ -247,6 +247,23 @@
                 const note = await fetchNoteBySlug(slug)
                 const user = await getCurrentUser()
 
+                // Save to Recently Viewed in localStorage
+                try {
+                    let viewed = JSON.parse(localStorage.getItem('recently_viewed') || '[]');
+                    viewed = viewed.filter(item => item.slug !== note.slug);
+                    viewed.unshift({
+                        id: note.id,
+                        title: note.title,
+                        slug: note.slug,
+                        subject: note.subject,
+                        type: note.type || 'note',
+                        timestamp: Date.now()
+                    });
+                    localStorage.setItem('recently_viewed', JSON.stringify(viewed.slice(0, 10)));
+                } catch (historyErr) {
+                    console.warn('Error saving to recently viewed history:', historyErr);
+                }
+
                 document.title = `${note.title} – EngiPrep Hub`
                 document.getElementById('nav-subject').innerText = note.subject
                 document.getElementById('breadcrumb-subject-link').innerText = note.subject

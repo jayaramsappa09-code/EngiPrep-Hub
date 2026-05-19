@@ -88,41 +88,12 @@
             <!-- Learning Progress -->
             <div class="md:col-span-8 bento-card">
                 <div class="flex items-center justify-between mb-8">
-                    <h3 class="text-lg font-bold text-slate-900">Continue Learning</h3>
-                    <a href="/notes.html" class="text-xs font-bold text-blue-600 hover:underline">View All Notes</a>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Continue Learning</h3>
+                    <a href="/notes.html" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">View All Notes</a>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div class="stat-card group cursor-pointer" onclick="window.location.href='/subject.html?sub=Engineering%20Mathematics'">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center font-bold">M1</div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 line-clamp-1">Engineering Mathematics</h4>
-                                <p class="text-[10px] text-slate-400 uppercase font-black">Calculus & Matrices</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-between text-[10px] font-bold mb-2">
-                            <span class="text-slate-400">Mastery Progress</span>
-                            <span class="text-slate-900" id="m1-progress">65%</span>
-                        </div>
-                        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-600 rounded-full" style="width: 65%"></div>
-                        </div>
-                    </div>
-                    <div class="stat-card group cursor-pointer" onclick="window.location.href='/subject.html?sub=Programming%20for%20Problem%20Solving%20Using%20C'">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center font-bold">C</div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 line-clamp-1">Programming in C</h4>
-                                <p class="text-[10px] text-slate-400 uppercase font-black">Control Structures</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-between text-[10px] font-bold mb-2">
-                            <span class="text-slate-400">Mastery Progress</span>
-                            <span class="text-slate-900" id="c-progress">12%</span>
-                        </div>
-                        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-rose-500 rounded-full" style="width: 12%"></div>
-                        </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6" id="continue-learning-grid">
+                    <div class="col-span-2 text-center py-6">
+                        <p class="text-xs text-slate-400 dark:text-slate-500 italic">Calculating personalized JNTUK progress...</p>
                     </div>
                 </div>
             </div>
@@ -182,6 +153,45 @@
                     </div>
                     <h4 class="font-bold text-slate-900 mb-2">Study Streak</h4>
                     <p class="text-[10px] text-slate-500 font-medium">Keep it up! Your exams are approaching.</p>
+                </div>
+            </div>
+
+            <!-- Recently Viewed & Saved Notes (Bookmarks) Row -->
+            <div class="md:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-up">
+                <!-- Saved Notes (Bookmarks) glassmorphism card -->
+                <div class="bento-card backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border border-slate-150/50 dark:border-slate-800/80 shadow-sm rounded-3xl p-6 lg:p-8">
+                    <div class="flex items-center justify-between mb-6">
+                         <div class="flex items-center gap-3">
+                             <div class="w-10 h-10 bg-blue-100/75 dark:bg-blue-950/40 rounded-2xl flex items-center justify-center text-xl shadow-inner">🔖</div>
+                             <div>
+                                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Saved Notes</h3>
+                                 <p class="text-[9px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest">Bookmarked guides</p>
+                             </div>
+                         </div>
+                         <a href="/bookmarks.html" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">Manage</a>
+                    </div>
+                    <!-- Bookmarks inner list -->
+                    <div id="saved-notes-list" class="space-y-3 max-h-[280px] overflow-y-auto pr-1">
+                        <p class="text-xs text-slate-400 dark:text-slate-500 italic py-4">No notes bookmarked yet. Start exploring!</p>
+                    </div>
+                </div>
+
+                <!-- Recently Viewed glassmorphism card -->
+                <div class="bento-card backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border border-slate-150/50 dark:border-slate-800/80 shadow-sm rounded-3xl p-6 lg:p-8">
+                    <div class="flex items-center justify-between mb-6">
+                         <div class="flex items-center gap-3">
+                             <div class="w-10 h-10 bg-indigo-100/75 dark:bg-indigo-950/40 rounded-2xl flex items-center justify-center text-xl shadow-inner">⏳</div>
+                             <div>
+                                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Recently Viewed</h3>
+                                 <p class="text-[9px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest">Pick up where you left</p>
+                             </div>
+                         </div>
+                         <button id="clear-recent-btn" class="text-[10px] font-black uppercase tracking-wider text-rose-500 hover:text-rose-600 hover:scale-105 active:scale-95 transition-all cursor-pointer">Clear History</button>
+                    </div>
+                    <!-- Recently Viewed inner list -->
+                    <div id="recently-viewed-list" class="space-y-3 max-h-[280px] overflow-y-auto pr-1">
+                        <p class="text-xs text-slate-400 dark:text-slate-500 italic py-4">No history yet. Start reading notes!</p>
+                    </div>
                 </div>
             </div>
 
@@ -263,7 +273,7 @@
         import { supabase, requireProfile } from './src/supabase.js'
         import { signOut } from './src/auth.js'
         import { getGreeting, getMotivation } from './src/platform-constants.js'
-        import { fetchAdaptiveRecommendations } from './src/notes.js'
+        import { fetchAdaptiveRecommendations, fetchAllNotes, getBookmarks, removeBookmark } from './src/notes.js'
 
         const navUsername = document.getElementById('nav-username')
         const navXP = document.getElementById('nav-xp')
@@ -337,6 +347,15 @@
                 xpText.textContent = `${xpInLevel} / 500 XP`
                 xpBar.style.width = `${xpProgress}%`
 
+                // Load dynamic Continue Learning Progress from Supabase
+                await loadContinueLearning()
+
+                // Load Saved Notes (Bookmarks)
+                await loadDashboardBookmarks()
+
+                // Load Recently Viewed history from localStorage
+                loadRecentlyViewed()
+
                 // Load Adaptive Recommendations
                 loadAdaptive()
 
@@ -348,6 +367,189 @@
                 console.error('Init Error:', err)
                 window.location.replace('/auth.html')
             }
+        }
+
+        async function loadContinueLearning() {
+            try {
+                const container = document.getElementById('continue-learning-grid')
+                if (!container) return;
+
+                const allNotes = await fetchAllNotes()
+                const { data: progressData } = await supabase
+                    .from('user_progress')
+                    .select('note_id')
+                    .eq('user_id', currentUser.id)
+                    .eq('status', true)
+
+                const completedIds = new Set((progressData || []).map(p => p.note_id))
+
+                const totalCounts = {}
+                const completedCounts = {}
+
+                allNotes.forEach(note => {
+                    const sub = note.subject
+                    totalCounts[sub] = (totalCounts[sub] || 0) + 1
+                    if (completedIds.has(note.id)) {
+                        completedCounts[sub] = (completedCounts[sub] || 0) + 1
+                    }
+                })
+
+                const subjects = Object.keys(totalCounts)
+                if (subjects.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-2 text-center py-6 text-slate-400 dark:text-slate-500 text-xs italic">
+                            No study subjects available yet. Check back soon!
+                        </div>
+                    `
+                    return
+                }
+
+                // Sort: Subjects in progress (> 0% but < 100%) get prioritized, then standard descent
+                subjects.sort((a, b) => {
+                    const aPercent = (completedCounts[a] || 0) / totalCounts[a]
+                    const bPercent = (completedCounts[b] || 0) / totalCounts[b]
+                    if (aPercent > 0 && aPercent < 1 && bPercent === 0) return -1
+                    if (bPercent > 0 && bPercent < 1 && aPercent === 0) return 1
+                    return bPercent - aPercent
+                })
+
+                const subjectTheme = (sub) => {
+                    const name = sub.toLowerCase()
+                    if (name.includes('math')) return { label: 'M1', bg: 'bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-300' }
+                    if (name.includes('programming') || name.includes('coding') || name.includes('program') || name.includes('pps')) return { label: 'C', bg: 'bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-300' }
+                    if (name.includes('physic')) return { label: 'EP', bg: 'bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-300' }
+                    if (name.includes('chem')) return { label: 'EC', bg: 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-300' }
+                    if (name.includes('elect') || name.includes('beee')) return { label: 'EE', bg: 'bg-orange-100 dark:bg-orange-950/40 text-orange-600 dark:text-orange-300' }
+                    if (name.includes('structure')) return { label: 'DS', bg: 'bg-indigo-100 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-300' }
+                    return { label: 'EN', bg: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400' }
+                }
+
+                container.innerHTML = subjects.slice(0, 4).map(sub => {
+                    const theme = subjectTheme(sub)
+                    const total = totalCounts[sub] || 0
+                    const completed = completedCounts[sub] || 0
+                    const percentage = Math.round((completed / total) * 100)
+
+                    return `
+                        <div class="stat-card group cursor-pointer bg-white/50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800/60 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5" onclick="window.location.href='/subject.html?sub=${encodeURIComponent(sub)}'">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-12 h-12 ${theme.bg} rounded-2xl flex items-center justify-center font-extrabold text-sm shadow-inner">
+                                    ${theme.label}
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="font-bold text-slate-900 dark:text-white line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">${sub}</h4>
+                                    <p class="text-[9px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-wider">${completed}/${total} Completed</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-bold mb-2">
+                                <span class="text-slate-400 dark:text-slate-500">Subject Progress</span>
+                                <span class="text-slate-900 dark:text-white">${percentage}%</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-100 dark:bg-slate-800/80 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full transition-all duration-500" style="width: ${Math.max(5, percentage)}%"></div>
+                            </div>
+                        </div>
+                    `
+                }).join('')
+
+            } catch (err) {
+                console.error('Error rendering dynamic learning progress:', err)
+            }
+        }
+
+        async function loadDashboardBookmarks() {
+            try {
+                const listEl = document.getElementById('saved-notes-list')
+                if (!listEl) return;
+
+                const bookmarks = await getBookmarks()
+                if (!bookmarks || bookmarks.length === 0) {
+                    listEl.innerHTML = `
+                        <div class="py-10 text-center text-slate-400 dark:text-slate-500 text-xs italic">
+                            No saved content. Click the bookmark icon in any study notes page to save for active revision!
+                        </div>
+                    `
+                    return
+                }
+
+                listEl.innerHTML = bookmarks.map(bm => {
+                    const note = bm.notes
+                    if (!note) return ''
+                    return `
+                        <div class="flex items-center justify-between p-3.5 bg-white/40 dark:bg-slate-950/20 border border-slate-110/30 dark:border-slate-800/80 rounded-2xl group hover:border-blue-200 dark:hover:border-blue-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                            <div class="flex-1 min-w-0 pr-3">
+                                <span class="px-2 py-0.5 bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-[8px] font-black uppercase rounded tracking-widest border border-blue-100/20">
+                                    ${note.subject}
+                                </span>
+                                <h4 class="text-xs font-bold text-slate-950 dark:text-slate-100 truncate mt-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">${note.title}</h4>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <a href="/note-viewer.html?slug=${note.slug}" class="py-1.5 px-3 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/50 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl border border-slate-150 dark:border-slate-700 transition-all text-[10px] font-black shadow-sm flex items-center justify-center whitespace-nowrap">
+                                    Open
+                                </a>
+                                <button onclick="window.dashboardRemoveBookmark('${note.id}', event)" class="p-2 bg-white dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/30 text-slate-400 hover:text-rose-500 rounded-xl border border-slate-150 dark:border-slate-700 transition-all flex items-center justify-center cursor-pointer shadow-sm">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `
+                }).join('')
+            } catch (err) { console.error('Error loading dashboard bookmarks:', err) }
+        }
+
+        window.dashboardRemoveBookmark = async (noteId, event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            if (confirm('Verify: Remove this bookmarked notes guide?')) {
+                const success = await removeBookmark(noteId)
+                if (success) {
+                    await loadDashboardBookmarks()
+                }
+            }
+        }
+
+        function loadRecentlyViewed() {
+            try {
+                const listEl = document.getElementById('recently-viewed-list')
+                if (!listEl) return;
+
+                const viewed = JSON.parse(localStorage.getItem('recently_viewed') || '[]')
+                if (!viewed || viewed.length === 0) {
+                    listEl.innerHTML = `
+                        <div class="py-10 text-center text-slate-400 dark:text-slate-500 text-xs italic">
+                            No history yet. Study guides you open will automatically appear here!
+                        </div>
+                    `
+                    return
+                }
+
+                listEl.innerHTML = viewed.slice(0, 5).map(item => {
+                    return `
+                        <a href="/note-viewer.html?slug=${item.slug}" class="flex items-center justify-between p-3.5 bg-white/40 dark:bg-slate-950/20 border border-slate-110/30 dark:border-slate-800/80 rounded-2xl group hover:border-indigo-200 dark:hover:border-indigo-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                            <div class="flex-1 min-w-0 pr-3">
+                                <span class="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-300 text-[8px] font-black uppercase rounded tracking-wider border border-indigo-100/10">
+                                    ${item.type || 'note'}
+                                </span>
+                                <h4 class="text-xs font-bold text-slate-950 dark:text-slate-100 truncate mt-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${item.title}</h4>
+                                <p class="text-[8px] text-slate-400 mt-1 uppercase font-black tracking-widest leading-none">${item.subject}</p>
+                            </div>
+                            <div class="text-[9px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pr-2">
+                                Resume →
+                            </div>
+                        </a>
+                    `
+                }).join('')
+            } catch (err) { console.error('Error loading recently viewed history:', err) }
+        }
+
+        const clearRecentBtn = document.getElementById('clear-recent-btn')
+        if (clearRecentBtn) {
+            clearRecentBtn.addEventListener('click', () => {
+                if (confirm('Verify: Clear all recently viewed study history?')) {
+                    localStorage.removeItem('recently_viewed')
+                    loadRecentlyViewed()
+                }
+            })
         }
 
         async function loadAdaptive() {
