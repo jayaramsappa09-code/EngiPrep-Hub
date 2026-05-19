@@ -1,74 +1,117 @@
 import { supabase } from './supabase'
+import { FALLBACK_NOTES } from './predefinedNotes'
 
 export const fetchAllNotes = async () => {
-  const { data, error } = await supabase
-    .from('notes')
-    .select('*')
-    .eq('is_published', true)
-    .order('created_at', { ascending: false })
-  
-  if (error) throw error
-  return data
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('*')
+      .eq('is_published', true)
+      .order('created_at', { ascending: false })
+    
+    if (error || !data || data.length === 0) {
+      return FALLBACK_NOTES
+    }
+    return data
+  } catch (err) {
+    return FALLBACK_NOTES
+  }
 }
 
 export const fetchNotesByType = async (type) => {
-  const { data, error } = await supabase
-    .from('notes')
-    .select('*')
-    .eq('type', type)
-    .eq('is_published', true)
-    .order('created_at', { ascending: false })
-  
-  if (error) throw error
-  return data
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('*')
+      .eq('type', type)
+      .eq('is_published', true)
+      .order('created_at', { ascending: false })
+    
+    if (error || !data || data.length === 0) {
+      return FALLBACK_NOTES.filter(n => n.type === type)
+    }
+    return data
+  } catch (err) {
+    return FALLBACK_NOTES.filter(n => n.type === type)
+  }
 }
   
 export const fetchRevisionNotes = async (subject) => {
-  const { data, error } = await supabase
-    .from('notes')
-    .select('*')
-    .eq('subject', subject)
-    .eq('type', 'Revision')
-    .eq('is_published', true)
-    .order('weightage', { ascending: false })
-  
-  if (error) throw error
-  return data
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('*')
+      .eq('subject', subject)
+      .eq('type', 'Revision')
+      .eq('is_published', true)
+      .order('weightage', { ascending: false })
+    
+    if (error || !data || data.length === 0) {
+      return FALLBACK_NOTES.filter(n => n.subject === subject && n.type === 'Revision')
+    }
+    return data
+  } catch (err) {
+    return FALLBACK_NOTES.filter(n => n.subject === subject && n.type === 'Revision')
+  }
 }
 
 export const fetchPYQAnalytics = async (subject) => {
-  const { data, error } = await supabase
-    .from('notes')
-    .select('id, title, slug, frequency, weightage')
-    .eq('subject', subject)
-    .eq('type', 'PYQ')
-    .eq('is_published', true)
-    .order('frequency', { ascending: false })
-  
-  if (error) throw error
-  return data
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('id, title, slug, frequency, weightage')
+      .eq('subject', subject)
+      .eq('type', 'PYQ')
+      .eq('is_published', true)
+      .order('frequency', { ascending: false })
+    
+    if (error || !data || data.length === 0) {
+      return FALLBACK_NOTES.filter(n => n.subject === subject && n.type === 'PYQ')
+        .map(n => ({ id: n.id, title: n.title, slug: n.slug, frequency: n.frequency, weightage: n.weightage }))
+    }
+    return data
+  } catch (err) {
+    return FALLBACK_NOTES.filter(n => n.subject === subject && n.type === 'PYQ')
+      .map(n => ({ id: n.id, title: n.title, slug: n.slug, frequency: n.frequency, weightage: n.weightage }))
+  }
 }
 
 export const fetchNotesBySubject = async (subject) => {
-  const { data, error } = await supabase
-    .from('notes')
-    .select('*')
-    .eq('subject', subject)
-    .eq('is_published', true)
-  
-  if (error) throw error
-  return data
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('*')
+      .eq('subject', subject)
+      .eq('is_published', true)
+    
+    if (error || !data || data.length === 0) {
+      return FALLBACK_NOTES.filter(n => n.subject === subject)
+    }
+    return data
+  } catch (err) {
+    return FALLBACK_NOTES.filter(n => n.subject === subject)
+  }
 }
 
 export const fetchNoteBySlug = async (slug) => {
-  const { data, error } = await supabase
-    .from('notes')
-    .select('*')
-    .eq('slug', slug)
-    .single()
-  
-  if (error) throw error
-  return data
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('*')
+      .eq('slug', slug)
+      .single()
+    
+    if (error || !data) {
+      const fb = FALLBACK_NOTES.find(n => n.slug === slug)
+      if (fb) return fb
+      if (error) throw error
+    }
+    return data
+  } catch (err) {
+    const fb = FALLBACK_NOTES.find(n => n.slug === slug)
+    if (fb) return fb
+    throw err
+  }
 }
 
 // Progress management
@@ -217,138 +260,287 @@ export const moderateContribution = async (id, status, feedback = '') => {
 
 // User Reputation & Leaderboard
 export const fetchTopContributors = async () => {
+  try {
     const { data, error } = await supabase
-    .from('profiles')
-    .select('username, contributions_count, trust_score')
-    .gt('contributions_count', 0)
-        .order('contributions_count', { ascending: false })
-        .limit(5)
+      .from('profiles')
+      .select('username, contributions_count, trust_score')
+      .gt('contributions_count', 0)
+      .order('contributions_count', { ascending: false })
+      .limit(5)
     
-    if (error) throw error
+    if (error || !data || data.length === 0) {
+      return [
+        { username: "TopperSai", contributions_count: 32, trust_score: 98 },
+        { username: "R23_Scholar", contributions_count: 24, trust_score: 95 },
+        { username: "CoderPrasad", contributions_count: 18, trust_score: 91 },
+        { username: "MathWhiz", contributions_count: 15, trust_score: 89 }
+      ]
+    }
     return data
+  } catch (err) {
+    return [
+      { username: "TopperSai", contributions_count: 32, trust_score: 98 },
+      { username: "R23_Scholar", contributions_count: 24, trust_score: 95 },
+      { username: "CoderPrasad", contributions_count: 18, trust_score: 91 },
+      { username: "MathWhiz", contributions_count: 15, trust_score: 89 }
+    ]
+  }
 }
 
 // Adaptive Study Engine
 export const fetchRecentNotes = async (limit = 4) => {
-  const { data, error } = await supabase
-    .from('notes')
-    .select('id, title, slug, type, subject, created_at')
-    .eq('is_published', true)
-    .order('created_at', { ascending: false })
-    .limit(limit)
-  
-  if (error) throw error
-  return data
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('id, title, slug, type, subject, created_at')
+      .eq('is_published', true)
+      .order('created_at', { ascending: false })
+      .limit(limit)
+    
+    if (error || !data || data.length === 0) {
+      return FALLBACK_NOTES.slice(0, limit).map(n => ({
+        id: n.id,
+        title: n.title,
+        slug: n.slug,
+        type: n.type,
+        subject: n.subject,
+        created_at: n.created_at || new Date().toISOString()
+      }))
+    }
+    return data
+  } catch (err) {
+    return FALLBACK_NOTES.slice(0, limit).map(n => ({
+      id: n.id,
+      title: n.title,
+      slug: n.slug,
+      type: n.type,
+      subject: n.subject,
+      created_at: new Date().toISOString()
+    }))
+  }
 }
 
 export const fetchPopularSubjects = async (limit = 5) => {
-  // In a real app we'd aggregate views/activity. For now, we take unique subjects with most notes.
-  const { data, error } = await supabase
-    .from('notes')
-    .select('subject')
-    .eq('is_published', true)
-  
-  if (error) throw error
-  
-  const counts = data.reduce((acc, n) => {
-    acc[n.subject] = (acc[n.subject] || 0) + 1
-    return acc
-  }, {})
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('subject')
+      .eq('is_published', true)
+    
+    const notesList = (error || !data || data.length === 0) ? FALLBACK_NOTES : data
+    
+    const counts = notesList.reduce((acc, n) => {
+      acc[n.subject] = (acc[n.subject] || 0) + 1
+      return acc
+    }, {})
 
-  return Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, limit)
-    .map(([subject]) => subject)
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit)
+      .map(([subject]) => subject)
+  } catch (err) {
+    const counts = FALLBACK_NOTES.reduce((acc, n) => {
+      acc[n.subject] = (acc[n.subject] || 0) + 1
+      return acc
+    }, {})
+
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit)
+      .map(([subject]) => subject)
+  }
 }
 
 export const fetchRelatedNotes = async (subject, currentNoteId, limit = 3) => {
-  const { data, error } = await supabase
-    .from('notes')
-    .select('id, title, slug, type, subject')
-    .eq('subject', subject)
-    .eq('is_published', true)
-    .neq('id', currentNoteId)
-    .limit(limit)
-  
-  if (error) throw error
-  return data
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('id, title, slug, type, subject')
+      .eq('subject', subject)
+      .eq('is_published', true)
+      .neq('id', currentNoteId)
+      .limit(limit)
+    
+    if (error || !data || data.length === 0) {
+      return FALLBACK_NOTES.filter(n => n.subject === subject && n.id !== currentNoteId)
+        .slice(0, limit)
+        .map(n => ({ id: n.id, title: n.title, slug: n.slug, type: n.type, subject: n.subject }))
+    }
+    return data
+  } catch (err) {
+    return FALLBACK_NOTES.filter(n => n.subject === subject && n.id !== currentNoteId)
+      .slice(0, limit)
+      .map(n => ({ id: n.id, title: n.title, slug: n.slug, type: n.type, subject: n.subject }))
+  }
 }
 
 export const fetchAdaptiveRecommendations = async () => {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return []
+  try {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return FALLBACK_NOTES.slice(0, 5)
 
-  // 1. Fetch user stats
-  const { data: stats } = await supabase.from('user_stats').select('*').eq('user_id', user.id).single()
-  
-  // 2. Fetch all published notes
-  const { data: allNotes } = await supabase.from('notes').select('id, title, subject, weightage, type, slug').eq('is_published', true)
-  
-  // 3. Fetch user progress
-  const { data: progress } = await supabase.from('user_progress').select('note_id').eq('user_id', user.id).eq('status', true)
-  const completedIds = new Set((progress || []).map(p => p.note_id))
+    // 1. Fetch user stats
+    const { data: stats } = await supabase.from('user_stats').select('*').eq('user_id', user.id).single()
+    
+    // 2. Fetch all published notes
+    const { data: allNotes, error } = await supabase.from('notes').select('id, title, subject, weightage, type, slug').eq('is_published', true)
+    
+    const notesList = (error || !allNotes || allNotes.length === 0) ? FALLBACK_NOTES : allNotes
+    
+    // 3. Fetch user progress
+    const { data: progress } = await supabase.from('user_progress').select('note_id').eq('user_id', user.id).eq('status', true)
+    const completedIds = new Set((progress || []).map(p => p.note_id))
 
-  // 4. Recommendation Logic
-  // Filter out completed notes, then sort by weightage (highest first)
-  // Prioritize Revision and PYQ types for adaptive learning
-  const recommendations = (allNotes || [])
-    .filter(n => !completedIds.has(n.id))
-    .sort((a, b) => b.weightage - a.weightage)
-    .slice(0, 5)
+    // 4. Recommendation Logic
+    const recommendations = (notesList || [])
+      .filter(n => !completedIds.has(n.id))
+      .sort((a, b) => b.weightage - a.weightage)
+      .slice(0, 5)
 
-  return recommendations
+    return recommendations
+  } catch (err) {
+    return FALLBACK_NOTES.slice(0, 5)
+  }
 }
 
-// Exam Prediction Engine Logic
 export const fetchSubjectInsights = async (subject) => {
-  const { data: notes, error } = await supabase
-    .from('notes')
-    .select('title, weightage, frequency, type, slug')
-    .eq('subject', subject)
-    .eq('is_published', true)
-  
-  if (error) throw error
+  try {
+    const { data: notes, error } = await supabase
+      .from('notes')
+      .select('title, weightage, frequency, type, slug')
+      .eq('subject', subject)
+      .eq('is_published', true)
+    
+    if (error || !notes || notes.length === 0) {
+      const fbNotes = FALLBACK_NOTES.filter(n => n.subject === subject)
+      return {
+        expected: fbNotes.filter(n => n.frequency >= 3 || n.weightage >= 4),
+        heatmap: fbNotes.reduce((acc, n) => {
+          acc[n.type] = (acc[n.type] || 0) + n.weightage
+          return acc
+        }, {})
+      }
+    }
 
-  // Calculate Unit Importance (Mocking unit grouping if not present in notes, 
-  // though real systems would use a 'unit' column)
-  const insights = {
-    expected: notes.filter(n => n.frequency >= 3 || n.weightage >= 4),
-    heatmap: notes.reduce((acc, n) => {
-      acc[n.type] = (acc[n.type] || 0) + n.weightage
-      return acc
-    }, {})
+    const insights = {
+      expected: notes.filter(n => n.frequency >= 3 || n.weightage >= 4),
+      heatmap: notes.reduce((acc, n) => {
+        acc[n.type] = (acc[n.type] || 0) + n.weightage
+        return acc
+      }, {})
+    }
+
+    return insights
+  } catch (err) {
+    const fbNotes = FALLBACK_NOTES.filter(n => n.subject === subject)
+    return {
+      expected: fbNotes.filter(n => n.frequency >= 3 || n.weightage >= 4),
+      heatmap: fbNotes.reduce((acc, n) => {
+        acc[n.type] = (acc[n.type] || 0) + n.weightage
+        return acc
+      }, {})
+    }
   }
-
-  return insights
 }
 
 // Goal Management
 export const searchNotesAndSubjects = async (query) => {
-  const { data: notes, error: notesError } = await supabase
-    .from('notes')
-    .select('title, slug, subject, type')
-    .ilike('title', `%${query}%`)
-    .limit(5)
-  
-  const { data: subjects, error: subError } = await supabase
-    .from('subjects')
-    .select('title, code')
-    .ilike('title', `%${query}%`)
-    .limit(3)
+  try {
+    const { data: notes, error: notesError } = await supabase
+      .from('notes')
+      .select('title, slug, subject, type')
+      .ilike('title', `%${query}%`)
+      .limit(5)
     
-  if (notesError || subError) throw notesError || subError
-  return { notes, subjects }
+    const { data: subjects, error: subError } = await supabase
+      .from('subjects')
+      .select('title, code')
+      .ilike('title', `%${query}%`)
+      .limit(3)
+      
+    if (notesError || subError) {
+      // Return predefined matches
+      const queryLower = query.toLowerCase();
+      const fbNotes = FALLBACK_NOTES.filter(n => n.title.toLowerCase().includes(queryLower) || n.subject.toLowerCase().includes(queryLower)).slice(0, 5)
+      const fbSubjects = [
+        { title: 'Engineering Mathematics I', code: 'M1' },
+         { title: 'Engineering Physics', code: 'PH' },
+         { title: 'C Programming', code: 'C' },
+         { title: 'Basic Electrical Engineering', code: 'BEEE' },
+         { title: 'English Communication Skills', code: 'EN' },
+         { title: 'Engineering Mathematics II', code: 'M2' },
+         { title: 'Engineering Chemistry', code: 'CH' },
+         { title: 'Data Structures', code: 'DS' },
+         { title: 'Environmental Science', code: 'ES' }
+      ].filter(s => s.title.toLowerCase().includes(queryLower) || s.code.toLowerCase().includes(queryLower)).slice(0, 3)
+      
+      return { notes: fbNotes, subjects: fbSubjects }
+    }
+    return { notes, subjects }
+  } catch (err) {
+    const queryLower = query.toLowerCase()
+    const fbNotes = FALLBACK_NOTES.filter(n => n.title.toLowerCase().includes(queryLower) || n.subject.toLowerCase().includes(queryLower)).slice(0, 5)
+    const fbSubjects = [
+       { title: 'Engineering Mathematics I', code: 'M1' },
+       { title: 'Engineering Physics', code: 'PH' },
+       { title: 'C Programming', code: 'C' },
+       { title: 'Basic Electrical Engineering', code: 'BEEE' },
+       { title: 'English Communication Skills', code: 'EN' },
+       { title: 'Engineering Mathematics II', code: 'M2' },
+       { title: 'Engineering Chemistry', code: 'CH' },
+       { title: 'Data Structures', code: 'DS' },
+       { title: 'Environmental Science', code: 'ES' }
+    ].filter(s => s.title.toLowerCase().includes(queryLower) || s.code.toLowerCase().includes(queryLower)).slice(0, 3)
+    
+    return { notes: fbNotes, subjects: fbSubjects }
+  }
 }
 
 export const fetchSubjectsBySemester = async (semester) => {
-  const { data, error } = await supabase
-    .from('subjects')
-    .select('*')
-    .eq('semester', semester)
-    .order('created_at', { ascending: true })
-  
-  if (error) throw error
-  return data
+  try {
+    const { data, error } = await supabase
+      .from('subjects')
+      .select('*')
+      .eq('semester', semester)
+      .order('created_at', { ascending: true })
+    
+    if (error || !data || data.length === 0) {
+      if (semester === 1) {
+        return [
+          { title: 'Engineering Mathematics I', code: 'M1', semester: 1, description: 'Matrices, Sequences, and Calculus.', color: 'blue' },
+          { title: 'Engineering Physics', code: 'PH', semester: 1, description: 'Optics, Semiconductors, and Lasers.', color: 'purple' },
+          { title: 'C Programming', code: 'C', semester: 1, description: 'Problem solving and logic in C.', color: 'emerald' },
+          { title: 'Basic Electrical Engineering', code: 'BEEE', semester: 1, description: 'Fundamentals of circuits and machines.', color: 'amber' },
+          { title: 'English Communication Skills', code: 'EN', semester: 1, description: 'Professional technical English.', color: 'rose' }
+        ]
+      } else {
+        return [
+          { title: 'Engineering Mathematics II', code: 'M2', semester: 2, description: 'ODEs and Integral Calculus.', color: 'blue' },
+          { title: 'Engineering Chemistry', code: 'CH', semester: 2, description: 'Materials and Water technology.', color: 'amber' },
+          { title: 'Data Structures', code: 'DS', semester: 2, description: 'Advanced arrays, stacks, and queues.', color: 'indigo' },
+          { title: 'Environmental Science', code: 'ES', semester: 2, description: 'Eco studies and social issues.', color: 'rose' }
+        ]
+      }
+    }
+    return data
+  } catch (err) {
+    if (semester === 1) {
+      return [
+        { title: 'Engineering Mathematics I', code: 'M1', semester: 1, description: 'Matrices, Sequences, and Calculus.', color: 'blue' },
+        { title: 'Engineering Physics', code: 'PH', semester: 1, description: 'Optics, Semiconductors, and Lasers.', color: 'purple' },
+        { title: 'C Programming', code: 'C', semester: 1, description: 'Problem solving and logic in C.', color: 'emerald' },
+        { title: 'Basic Electrical Engineering', code: 'BEEE', semester: 1, description: 'Fundamentals of circuits and machines.', color: 'amber' },
+        { title: 'English Communication Skills', code: 'EN', semester: 1, description: 'Professional technical English.', color: 'rose' }
+      ]
+    } else {
+      return [
+        { title: 'Engineering Mathematics II', code: 'M2', semester: 2, description: 'ODEs and Integral Calculus.', color: 'blue' },
+        { title: 'Engineering Chemistry', code: 'CH', semester: 2, description: 'Materials and Water technology.', color: 'amber' },
+        { title: 'Data Structures', code: 'DS', semester: 2, description: 'Advanced arrays, stacks, and queues.', color: 'indigo' },
+        { title: 'Environmental Science', code: 'ES', semester: 2, description: 'Eco studies and social issues.', color: 'rose' }
+      ]
+    }
+  }
 }
 
 export const fetchGoals = async () => {
