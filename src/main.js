@@ -67,6 +67,17 @@ supabase.auth.onAuthStateChange(async (event, session) => {
     console.log('Auth State Change:', event, session?.user?.email);
     updateAuthUI(session?.user);
     
+    // Diagnostic check for errors in URL
+    const url = new URL(window.location.href);
+    const error = url.searchParams.get('error') || url.hash.includes('error=') ? 'error' : null;
+    if (error) {
+        const errorDesc = url.searchParams.get('error_description') || 'Unknown Auth Error';
+        console.warn('Auth Error Detected:', errorDesc);
+        if (errorDesc.includes('server_error')) {
+            console.info('Tip: Verify your Supabase Site URL and Redirect URI Whitelist.');
+        }
+    }
+
     // On home page, if we just signed in, go to dashboard
     if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session) {
         const path = window.location.pathname;

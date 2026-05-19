@@ -229,6 +229,51 @@ export const fetchTopContributors = async () => {
 }
 
 // Adaptive Study Engine
+export const fetchRecentNotes = async (limit = 4) => {
+  const { data, error } = await supabase
+    .from('notes')
+    .select('id, title, slug, type, subject, created_at')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false })
+    .limit(limit)
+  
+  if (error) throw error
+  return data
+}
+
+export const fetchPopularSubjects = async (limit = 5) => {
+  // In a real app we'd aggregate views/activity. For now, we take unique subjects with most notes.
+  const { data, error } = await supabase
+    .from('notes')
+    .select('subject')
+    .eq('is_published', true)
+  
+  if (error) throw error
+  
+  const counts = data.reduce((acc, n) => {
+    acc[n.subject] = (acc[n.subject] || 0) + 1
+    return acc
+  }, {})
+
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit)
+    .map(([subject]) => subject)
+}
+
+export const fetchRelatedNotes = async (subject, currentNoteId, limit = 3) => {
+  const { data, error } = await supabase
+    .from('notes')
+    .select('id, title, slug, type, subject')
+    .eq('subject', subject)
+    .eq('is_published', true)
+    .neq('id', currentNoteId)
+    .limit(limit)
+  
+  if (error) throw error
+  return data
+}
+
 export const fetchAdaptiveRecommendations = async () => {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return []

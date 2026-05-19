@@ -103,12 +103,20 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Explore Others -->
+                <div id="popular-subjects-container" class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm hidden">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 font-bold">Related Branches</h3>
+                    <div id="popular-subjects-list" class="space-y-4">
+                        <!-- Injected -->
+                    </div>
+                </div>
             </aside>
         </div>
     </main>
 
     <script type="module">
-        import { fetchNotesBySubject, fetchPYQAnalytics, fetchSubjectInsights } from './src/notes.js'
+        import { fetchNotesBySubject, fetchPYQAnalytics, fetchSubjectInsights, fetchPopularSubjects } from './src/notes.js'
         import { supabase } from './src/supabase.js'
         
         const params = new URLSearchParams(window.location.search)
@@ -132,6 +140,24 @@
                 renderGrid()
                 renderAnalytics(pyqs)
                 renderInsights(insights)
+                loadRelatedSubjects()
+            } catch (err) { console.error(err) }
+        }
+
+        async function loadRelatedSubjects() {
+            try {
+                const popular = await fetchPopularSubjects(4)
+                const filtered = popular.filter(s => s !== subject)
+                
+                if (filtered.length > 0) {
+                    document.getElementById('popular-subjects-container').classList.remove('hidden')
+                    document.getElementById('popular-subjects-list').innerHTML = filtered.map(sub => `
+                        <a href="/subject.html?sub=${encodeURIComponent(sub)}" class="flex items-center gap-3 group">
+                            <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-xs group-hover:bg-blue-50 transition-colors">📚</div>
+                            <span class="text-[11px] font-bold text-slate-600 group-hover:text-blue-600 transition-colors truncate">${sub}</span>
+                        </a>
+                    `).join('')
+                }
             } catch (err) { console.error(err) }
         }
 

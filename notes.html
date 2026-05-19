@@ -106,6 +106,41 @@
                 <p class="text-xs font-bold uppercase tracking-widest">Compiling Catalog...</p>
             </div>
         </div>
+
+        <!-- Discovery Sections -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 animate-fade-up" style="animation-delay: 0.3s">
+            <!-- Trending Subjects -->
+            <div class="lg:col-span-4 flex flex-col gap-8">
+                <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white overflow-hidden relative group">
+                    <div class="absolute -right-20 -top-20 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl group-hover:scale-150 transition-all duration-1000"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400 mb-8">Popular Subjects</h3>
+                        <div id="popular-list" class="space-y-6">
+                            <div class="skeleton h-12 w-full bg-white/5 opacity-50 rounded-2xl"></div>
+                            <div class="skeleton h-12 w-full bg-white/5 opacity-30 rounded-2xl"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Contributors -->
+                <div class="bg-white border border-slate-100 rounded-[2.5rem] p-10 shadow-sm flex-1">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8">Top Contributors</h3>
+                    <div id="contributors-list" class="space-y-6">
+                        <!-- Injected -->
+                        <div class="skeleton h-10 w-full rounded-xl opacity-20"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recently Added -->
+            <div class="lg:col-span-8 bg-white border border-slate-100 rounded-[2.5rem] p-10 shadow-sm">
+                <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8">Recently Added Resources</h3>
+                <div id="recent-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="skeleton h-24 w-full rounded-2xl opacity-50"></div>
+                    <div class="skeleton h-24 w-full rounded-2xl opacity-30"></div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer Placeholder (to be updated later) -->
@@ -116,7 +151,7 @@
     </footer>
 
     <script type="module">
-        import { fetchSubjectsBySemester } from './src/notes.js'
+        import { fetchSubjectsBySemester, fetchRecentNotes, fetchPopularSubjects, fetchTopContributors } from './src/notes.js'
         import { supabase } from './src/supabase.js'
 
         let currentSem = 1
@@ -138,9 +173,57 @@
             try {
                 allSubjects = await fetchSubjectsBySemester(currentSem)
                 renderGrid()
+                loadDiscovery()
             } catch (err) {
                 grid.innerHTML = `<p class="col-span-full text-center py-20 text-rose-500 font-bold">Failed to load subjects. Please refresh.</p>`
             }
+        }
+
+        async function loadDiscovery() {
+            try {
+                const [recent, popular, contributors] = await Promise.all([
+                    fetchRecentNotes(4),
+                    fetchPopularSubjects(5),
+                    fetchTopContributors(4)
+                ])
+
+                const recentList = document.getElementById('recent-list')
+                const popularList = document.getElementById('popular-list')
+                const contributorsList = document.getElementById('contributors-list')
+
+                if (recent && recent.length > 0) {
+                    recentList.innerHTML = recent.map(n => `
+                        <a href="/note-viewer.html?slug=${n.slug}" class="flex items-center gap-4 p-4 bg-slate-50 border border-slate-100 rounded-2xl hover:bg-blue-50 hover:border-blue-200 transition-all group">
+                            <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-xl shadow-sm group-hover:scale-110 transition-transform">${n.type === 'notes' ? '📝' : '⚡'}</div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors truncate">${n.title}</h4>
+                                <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-1">${n.subject}</p>
+                            </div>
+                        </a>
+                    `).join('')
+                }
+
+                if (popular && popular.length > 0) {
+                    popularList.innerHTML = popular.map(sub => `
+                        <a href="/subject.html?sub=${encodeURIComponent(sub)}" class="flex items-center justify-between group py-1">
+                            <span class="text-xs font-black text-slate-300 group-hover:text-blue-400 transition-colors">${sub}</span>
+                            <svg class="w-4 h-4 text-blue-500 opacity-0 group-hover:opacity-100 transition-all translate-x-[-10px] group-hover:translate-x-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </a>
+                    `).join('')
+                }
+
+                if (contributors && contributors.length > 0) {
+                    contributorsList.innerHTML = contributors.map(p => `
+                        <div class="flex items-center gap-4">
+                            <img src="${p.avatar_url || 'https://api.dicebear.com/7.x/bottts/svg?seed='+p.username}" class="w-10 h-10 rounded-xl bg-slate-100" alt="Avatar">
+                            <div>
+                                <h4 class="text-[10px] font-black text-slate-900 truncate tracking-tight uppercase">${p.username}</h4>
+                                <p class="text-[8px] font-bold text-emerald-500 uppercase">${p.contributions_count} Contributions</p>
+                            </div>
+                        </div>
+                    `).join('')
+                }
+            } catch (err) { console.error('Discovery error:', err) }
         }
 
         function renderGrid() {
