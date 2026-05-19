@@ -126,6 +126,8 @@ export const requireAuth = async (redirectTo = '/auth.html') => {
 export const getUserProfile = async (userId) => {
   if (!userId || !isSupabaseConfigured()) return null
   try {
+    // We try to select all, but if we get a schema cache error (missing column), 
+    // we fallback to basic columns to keep the app functional.
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -133,6 +135,16 @@ export const getUserProfile = async (userId) => {
       .maybeSingle()
     
     if (error) {
+      if (error.message.includes('column') || error.message.includes('schema cache')) {
+        console.warn('Supabase Schema Mismatch: Fallback select initiated.', error.message);
+        // Fallback to core columns that are likely to exist
+        const { data: fallbackData } = await supabase
+          .from('profiles')
+          .select('id, email, full_name, role')
+          .eq('id', userId)
+          .maybeSingle()
+        return fallbackData;
+      }
       console.error('Error fetching profile:', error)
       return null
     }
@@ -155,7 +167,12 @@ export const updateUserProfile = async (userId, updates) => {
         updated_at: new Date().toISOString(),
       }, { onConflict: 'id' })
     
-    if (error) throw error
+    if (error) {
+      if (error.message.includes('avatar_url') && error.message.includes('column')) {
+        return { error: 'DATABASE_MIGRATION_REQUIRED: The "avatar_url" column is missing in your Supabase "profiles" table. Please run the SQL in fix_schema.sql in your Supabase Dashboard.' }
+      }
+      throw error
+    }
     return { data, error: null }
   } catch (err) {
     console.error('Profile Update Error:', err)
