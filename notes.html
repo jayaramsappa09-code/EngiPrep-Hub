@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Notes Hub | JNTUK R23 Subjects</title>
+    <title>JNTUK R23 Engineering Notes PDF, PYQs & Viva Q&As | EngiPrep Hub</title>
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -11,7 +11,8 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
-    <meta name="description" content="Explore well-structured engineering notes for JNTUK R23. Subjects categorized by semester and branch. Expert resources for exam success.">
+    <meta name="description" content="Master JNTUK R23 syllabus with high-quality Unit-wise Engineering Notes PDF, C Programming viva questions with terminal outputs, Engineering Mathematics formula sheets, Physics important questions, and Chemistry PYQs. Mobile-optimized for first-year scholars.">
+    <meta name="keywords" content="JNTUK R23 notes, JNTUK notes PDF, Engineering Mathematics notes, C programming viva questions, BEEE formula sheet, Engineering Chemistry PYQs, JNTU Kakinada syllabus, exam revision notes">
     <link rel="stylesheet" href="/src/style.css">
 </head>
 <body class="selection:bg-blue-100 italic-text-prevention">
@@ -153,6 +154,34 @@
                 </div>
             </div>
         </div>
+
+        <!-- JNTUK R23 SEO Indexing Map -->
+        <section class="mt-16 pt-12 border-t border-slate-100 animate-fade-up">
+            <h2 class="text-xl font-extrabold text-slate-900 tracking-tight mb-4">JNTUK R23 Syllabus - Dynamic Subject Resource Vaults</h2>
+            <p class="text-xs text-slate-500 mb-8 leading-relaxed">
+                Unlock peer-reviewed lecture notes, university final question papers, and lab viva solvers. Select your subject from the academic map below:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div>
+                    <h3 class="text-xs font-black uppercase text-slate-400 tracking-widest mb-3">Semester 1 Subjects</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/subject.html?sub=Engineering%20Mathematics%20I" class="text-xs text-blue-600 hover:underline font-semibold flex items-center gap-1.5"><span>📘</span> Engineering Mathematics I</a></li>
+                        <li><a href="/subject.html?sub=Engineering%20Physics" class="text-xs text-blue-600 hover:underline font-semibold flex items-center gap-1.5"><span>💡</span> Engineering Physics</a></li>
+                        <li><a href="/subject.html?sub=C%20Programming" class="text-xs text-blue-600 hover:underline font-semibold flex items-center gap-1.5"><span>💻</span> C Programming</a></li>
+                        <li><a href="/subject.html?sub=Basic%20Electrical%20Engineering" class="text-xs text-blue-600 hover:underline font-semibold flex items-center gap-1.5"><span>⚡</span> Basic Electrical Engineering</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xs font-black uppercase text-slate-400 tracking-widest mb-3">Semester 2 Subjects</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/subject.html?sub=Engineering%20Mathematics%20II" class="text-xs text-blue-600 hover:underline font-semibold flex items-center gap-1.5"><span>📙</span> Engineering Mathematics II</a></li>
+                        <li><a href="/subject.html?sub=Engineering%20Chemistry" class="text-xs text-blue-600 hover:underline font-semibold flex items-center gap-1.5"><span>🧪</span> Engineering Chemistry</a></li>
+                        <li><a href="/subject.html?sub=Data%20Structures" class="text-xs text-blue-600 hover:underline font-semibold flex items-center gap-1.5"><span>🌳</span> Data Structures</a></li>
+                        <li><a href="/subject.html?sub=Environmental%20Science" class="text-xs text-blue-600 hover:underline font-semibold flex items-center gap-1.5"><span>🌱</span> Environmental Science</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer Placeholder (to be updated later) -->
@@ -164,7 +193,7 @@
 
     <script type="module">
         import { fetchSubjectsBySemester, fetchRecentNotes, fetchPopularSubjects, fetchTopContributors } from './src/notes.js'
-        import { requireProfile } from './src/supabase.js'
+        import { getCurrentUser, getUserProfile } from './src/supabase.js'
 
         let currentSem = 1
         let currentBranch = 'all'
@@ -178,22 +207,27 @@
         const semBtns = document.querySelectorAll('.sem-btn')
 
         async function init() {
-            const result = await requireProfile();
-            if (!result) return;
-
-            currentUser = result.user;
-            userProfile = result.profile;
-            
-            // Set default sem/branch from profile if available
-            if (userProfile.semester) {
-                currentSem = userProfile.semester;
-                // Update button state
-                const activeBtn = [...semBtns].find(b => parseInt(b.dataset.sem) === currentSem);
-                if (activeBtn) activeBtn.click();
-            }
-            if (userProfile.branch) {
-                currentBranch = userProfile.branch;
-                branchSelect.value = currentBranch;
+            try {
+                currentUser = await getCurrentUser();
+                if (currentUser) {
+                    userProfile = await getUserProfile(currentUser.id);
+                    
+                    // Set default sem/branch from profile if available
+                    if (userProfile) {
+                        if (userProfile.semester) {
+                            currentSem = userProfile.semester;
+                            // Update button state
+                            const activeBtn = [...semBtns].find(b => parseInt(b.dataset.sem) === currentSem);
+                            if (activeBtn) activeBtn.click();
+                        }
+                        if (userProfile.branch) {
+                            currentBranch = userProfile.branch;
+                            branchSelect.value = currentBranch;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.warn('Anonymous session or connection error checking auth: ', err);
             }
 
             loadSubjects();
