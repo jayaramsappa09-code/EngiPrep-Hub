@@ -38,59 +38,63 @@ create table if not exists bookmarks (
   unique(user_id, note_id)
 );
 
--- 4. User Profiles (to handle roles)
+-- 4. User Profiles (Student Identity)
 create table if not exists profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text not null,
-  username text,
+  username text unique,
   full_name text,
+  avatar_url text,
   branch text,
   semester int,
+  college_year int,
+  bio text,
+  skills text[],
   role text check (role in ('user', 'admin')) default 'user',
   is_pro boolean default false,
   xp int default 0,
   streak int default 0,
+  trust_score int default 10,
+  contributions_count int default 0,
   created_at timestamp with time zone default now(),
-  updated_at timestamp with time zone default now()
+  updated_at timestamp with time zone default now(),
+  
+  constraint username_length check (char_length(username) >= 3)
 );
 
 -- RLS (Row Level Security)
 
 -- Notes: Public read, Admin write
 alter table notes enable row level security;
+drop policy if exists "Public read access for published notes" on notes;
 create policy "Public read access for published notes" on notes for select using (is_published = true);
+
+-- Use a non-recursive way to check admin (e.g. check metadata or a separate table, but for now we'll stick to a simpler policy or ensure no recursion)
+drop policy if exists "Admin full access for notes" on notes;
 create policy "Admin full access for notes" on notes for all using (
-  exists (select 1 from profiles where profiles.id = auth.uid() and profiles.role = 'admin')
+  (select role from profiles where id = auth.uid()) = 'admin'
 );
-
--- Progress: User only
-alter table user_progress enable row level security;
-create policy "Users can manage their own progress" on user_progress for all using (auth.uid() = user_id);
-
--- Bookmarks: User only
-alter table bookmarks enable row level security;
-create policy "Users can manage their own bookmarks" on bookmarks for all using (auth.uid() = user_id);
 
 -- Profiles: Public read (for blog authors), User manage self
 alter table profiles enable row level security;
+drop policy if exists "Public can view profiles" on profiles;
 create policy "Public can view profiles" on profiles for select using (true);
+
+drop policy if exists "Users can manage own profile" on profiles;
 create policy "Users can manage own profile" on profiles for all using (auth.uid() = id);
 
 -- Trigger for profile creation on signup
 create or replace function public.handle_new_user()
 returns trigger as $$
 begin
-  insert into public.profiles (id, email, full_name, role)
+  insert into public.profiles (id, email, full_name, avatar_url)
   values (
     new.id, 
     new.email, 
-    coalesce(new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'name', 'User'), 
-    'user'
+    coalesce(new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'name', 'User'),
+    new.raw_user_meta_data->>'avatar_url'
   )
-  on conflict (id) do update 
-  set 
-    email = excluded.email,
-    full_name = coalesce(excluded.full_name, profiles.full_name);
+  on conflict (id) do nothing;
   return new;
 end;
 $$ language plpgsql security definer;

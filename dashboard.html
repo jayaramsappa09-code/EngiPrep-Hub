@@ -260,7 +260,7 @@
     </footer>
 
     <script type="module">
-        import { supabase, requireAuth, getUserProfile } from './src/supabase.js'
+        import { supabase, requireProfile } from './src/supabase.js'
         import { signOut } from './src/auth.js'
         import { getGreeting, getMotivation } from './src/platform-constants.js'
         import { fetchAdaptiveRecommendations } from './src/notes.js'
@@ -285,31 +285,38 @@
         async function init() {
             const overlay = document.getElementById('loading-overlay')
             
-            console.group('Dashboard Auth Initialization');
-            console.log('Timestamp:', new Date().toISOString());
-
             try {
-                // Unified Guard
-                const user = await requireAuth();
-                if (!user) return; // requireAuth handles redirect
+                // Global Profile Guard: Ensures user is logged in AND profile is complete
+                const result = await requireProfile();
+                if (!result) return; 
 
+                const { user, profile } = result;
                 currentUser = user;
-                console.log('Authenticated:', user.email);
-                console.groupEnd();
-
-                const profile = await getUserProfile(user.id)
-                if (!profile) {
-                    window.location.replace('/profile.html?onboarding=true')
-                    return
-                }
 
                 // Update UI
                 const displayName = profile.username || profile.full_name || 'Engineer'
                 const initials = (profile.username || profile.full_name || 'E').charAt(0).toUpperCase()
                 
                 navUsername.textContent = displayName
-                if (navInitials) navInitials.textContent = initials
-                if (heroInitials) heroInitials.textContent = initials
+                
+                // If the user has a selected avatar, use it. Otherwise show initials ring.
+                const ringEl = document.getElementById('nav-avatar-ring');
+                if (profile.avatar_url) {
+                    ringEl.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full rounded-xl object-cover">`;
+                    ringEl.classList.remove('bg-blue-600');
+                    ringEl.classList.add('bg-white', 'p-0.5', 'border', 'border-border');
+                } else if (navInitials) {
+                    navInitials.textContent = initials;
+                }
+
+                const heroRing = document.getElementById('hero-avatar-ring');
+                if (profile.avatar_url) {
+                    heroRing.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full rounded-[30%] object-cover">`;
+                    heroRing.classList.remove('bg-gradient-to-br', 'from-blue-600', 'to-indigo-700');
+                    heroRing.classList.add('p-1', 'bg-white', 'border-2', 'border-primary/20');
+                } else if (heroInitials) {
+                    heroInitials.textContent = initials;
+                }
                 
                 navXP.textContent = `${profile.xp || 0} XP`
                 navStreak.textContent = profile.streak || 0

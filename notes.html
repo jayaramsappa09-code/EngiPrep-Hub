@@ -152,16 +152,40 @@
 
     <script type="module">
         import { fetchSubjectsBySemester, fetchRecentNotes, fetchPopularSubjects, fetchTopContributors } from './src/notes.js'
-        import { supabase } from './src/supabase.js'
+        import { requireProfile } from './src/supabase.js'
 
         let currentSem = 1
         let currentBranch = 'all'
         let allSubjects = []
+        let currentUser = null
+        let userProfile = null
 
         const grid = document.getElementById('subjects-grid')
         const branchSelect = document.getElementById('branch-select')
         const searchInput = document.getElementById('subject-search')
         const semBtns = document.querySelectorAll('.sem-btn')
+
+        async function init() {
+            const result = await requireProfile();
+            if (!result) return;
+
+            currentUser = result.user;
+            userProfile = result.profile;
+            
+            // Set default sem/branch from profile if available
+            if (userProfile.semester) {
+                currentSem = userProfile.semester;
+                // Update button state
+                const activeBtn = [...semBtns].find(b => parseInt(b.dataset.sem) === currentSem);
+                if (activeBtn) activeBtn.click();
+            }
+            if (userProfile.branch) {
+                currentBranch = userProfile.branch;
+                branchSelect.value = currentBranch;
+            }
+
+            loadSubjects();
+        }
 
         async function loadSubjects() {
             grid.innerHTML = `
@@ -283,7 +307,7 @@
         })
 
         // Initial Load
-        loadSubjects()
+        init()
     </script>
     <script type="module" src="/src/main.js"></script>
 </body>

@@ -106,11 +106,27 @@ async function updateAuthUI(providedUser = null) {
         `;
 
         if (user) {
+            // Fetch basic profile for the navbar
+            let profile = null;
+            try {
+                const { data } = await supabase.from('profiles').select('username, avatar_url').eq('id', user.id).maybeSingle();
+                profile = data;
+            } catch (e) {
+                console.warn('Navbar profile fetch skipped:', e);
+            }
+
+            const displayName = profile?.username || user.email.split('@')[0];
+            const avatar = profile?.avatar_url 
+                ? `<img src="${profile.avatar_url}" class="w-8 h-8 rounded-lg object-cover">`
+                : `<div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white text-[10px] font-black">${displayName.charAt(0).toUpperCase()}</div>`;
+
             navActions.innerHTML = `
                 <div class="flex items-center gap-4">
                     ${themeBtnPlaceholder}
-                    <a href="/bookmarks.html" class="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-text-muted hover:text-blue-600 transition-colors">Bookmarks</a>
-                    <a href="/dashboard.html" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Dashboard</a>
+                    <a href="/dashboard.html" class="flex items-center gap-3 p-1 pr-4 bg-slate-50 dark:bg-slate-900 border border-border rounded-xl hover:bg-slate-100 transition-all">
+                        ${avatar}
+                        <span class="text-[10px] font-black tracking-widest text-[#0d0d12] dark:text-white uppercase truncate max-w-[80px]">${displayName}</span>
+                    </a>
                 </div>
             `;
         } else {

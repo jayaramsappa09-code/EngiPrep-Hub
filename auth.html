@@ -230,52 +230,61 @@
                             
                             <div class="bg-indigo-900 p-4 rounded-2xl border border-white/10 text-white relative group">
                                 <span class="text-[8px] font-black uppercase tracking-[0.2em] text-indigo-400 block mb-3">Copy to Supabase SQL Editor:</span>
-                                <pre class="text-[9px] font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap select-all">-- 1. Ensure Table and Columns exist
+                                <pre class="text-[9px] font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap select-all">-- 1. Ensure Table and all required Columns exist
 CREATE TABLE IF NOT EXISTS public.profiles (
   id uuid REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
   email TEXT,
-  phone TEXT,
-  full_name TEXT,
   username TEXT UNIQUE,
+  full_name TEXT,
+  avatar_url TEXT,
   branch TEXT,
   semester INT,
+  college_year INT,
+  bio TEXT,
+  skills TEXT[],
   role TEXT DEFAULT 'user',
   xp INT DEFAULT 0,
   streak INT DEFAULT 0,
+  trust_score INT DEFAULT 10,
+  contributions_count INT DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  CONSTRAINT username_length CHECK (char_length(username) >= 3)
 );
 
--- Ensure all possible columns exist for existing tables
+-- Ensure columns exist if table was already created
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS email TEXT;
-ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS phone TEXT;
-ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS full_name TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS username TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS full_name TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS avatar_url TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS branch TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS semester INT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS college_year INT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS bio TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS skills TEXT[];
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS role TEXT DEFAULT 'user';
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS xp INT DEFAULT 0;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS streak INT DEFAULT 0;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS trust_score INT DEFAULT 10;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS contributions_count INT DEFAULT 0;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
 
--- 2. Setup Automatic Sync with Conflict Handling and NULL safety
+-- 2. Setup Automatic Sync with handle_new_user (Robust version)
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
 BEGIN
-  INSERT INTO public.profiles (id, email, phone, full_name, username)
+  INSERT INTO public.profiles (id, email, full_name, avatar_url)
   VALUES (
     new.id, 
     new.email,
-    new.phone,
     new.raw_user_meta_data->>'full_name', 
-    new.raw_user_meta_data->>'username'
+    new.raw_user_meta_data->>'avatar_url'
   )
   ON CONFLICT (id) DO UPDATE SET
     email = COALESCE(EXCLUDED.email, profiles.email),
-    phone = COALESCE(EXCLUDED.phone, profiles.phone),
     full_name = COALESCE(EXCLUDED.full_name, profiles.full_name),
-    username = COALESCE(EXCLUDED.username, profiles.username);
+    avatar_url = COALESCE(EXCLUDED.avatar_url, profiles.avatar_url);
   RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -289,19 +298,11 @@ CREATE TRIGGER on_auth_user_created
 -- 4. Enable RLS and Safety Policies
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
--- CLEANUP: Drop all previous names to prevent conflicts/recursion
-DROP POLICY IF EXISTS "Public can view profiles" ON public.profiles;
-DROP POLICY IF EXISTS "Public profiles are visible" ON public.profiles;
-DROP POLICY IF EXISTS "Users can view own profile" ON public.profiles;
-DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
-DROP POLICY IF EXISTS "Users can manage own profile" ON public.profiles;
-DROP POLICY IF EXISTS "Admins can manage all profiles" ON public.profiles;
-
--- 1. Public Read Policy (Non-recursive)
+DROP POLICY IF EXISTS "Profiles are publicly viewable" ON public.profiles;
 CREATE POLICY "Profiles are publicly viewable" ON public.profiles
   FOR SELECT USING (true);
 
--- 2. Owner Management Policy (Non-recursive)
+DROP POLICY IF EXISTS "Users can manage own profile" ON public.profiles;
 CREATE POLICY "Users can manage own profile" ON public.profiles
   FOR ALL USING (auth.uid() = id);</pre>
                                 <button type="button" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); this.innerText='SQL COPIED'; setTimeout(()=>this.innerText='COPY SQL', 2000)" class="absolute right-4 top-4 text-[8px] font-black bg-indigo-500 px-3 py-1 rounded-full hover:bg-white hover:text-indigo-900 transition-all uppercase tracking-widest">COPY SQL</button>

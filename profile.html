@@ -7,6 +7,7 @@
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
+            document.documentElement.style.backgroundColor = '#0d0d12';
         } else {
             document.documentElement.classList.remove('dark');
         }
@@ -14,178 +15,218 @@
     <link rel="stylesheet" href="/src/style.css">
     <style>
         @reference "./src/style.css";
-        .badge { @apply text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full; }
+        .avatar-option { @apply relative cursor-pointer opacity-60 grayscale transition-all; }
+        .avatar-option.active { @apply opacity-100 grayscale-0; }
+        .avatar-option.active .avatar-inner { @apply ring-2 ring-primary bg-primary/10; }
+        .avatar-inner { @apply w-full aspect-square rounded-2xl border border-white/5 bg-white/[0.02] p-2 transition-all; }
+        .avatar-option:hover { @apply opacity-100; }
     </style>
 </head>
-<body class="selection:bg-blue-100 italic-text-prevention">
-    <!-- Navbar -->
+<body class="bg-[#0d0d12] text-white font-sans selection:bg-primary/30 selection:text-primary">
+
     <nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/dashboard.html" class="flex items-center gap-3">
-                <span class="text-xs font-black uppercase tracking-widest text-gray-500">← Back to Dashboard</span>
+            <a href="/dashboard.html" class="flex items-center gap-3 group">
+                <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-primary group-hover:text-[#0d0d12] transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-white transition-colors">Return to Dashboard</span>
             </a>
-            <div class="flex items-center gap-6">
-                <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-background border border-border text-text-muted hover:text-primary transition-all active:scale-95">
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                </button>
-                <span id="onboarding-notice" class="hidden text-[10px] text-primary italic font-black animate-pulse">Account Setup Required ●</span>
-            </div>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto px-6 pt-32 pb-32">
-        <!-- Breadcrumbs -->
-        <nav class="flex mb-8 animate-fade-up" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-2">
-                <li class="inline-flex items-center">
-                    <a href="/dashboard.html" class="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary transition-colors">
-                        <svg class="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                        Hub
-                    </a>
-                </li>
-                <li aria-current="page">
-                    <div class="flex items-center">
-                        <svg class="w-3 h-3 text-white/10 mx-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="ml-1 text-[10px] font-black uppercase tracking-widest text-primary md:ml-2">Profile Settings</span>
-                    </div>
-                </li>
-            </ol>
-        </nav>
-
-        <header class="mb-16">
-            <h1 class="text-5xl font-black italic tracking-tighter mb-4 select-none">Profile <span class="text-primary italic">Settings.</span></h1>
-            <p class="text-gray-500 text-sm italic">Choose how the Hub community sees you. Stay anonymous or become a legend.</p>
+        <header class="mb-12">
+            <div class="flex items-center gap-4 mb-6">
+                <div id="current-avatar-preview" class="w-20 h-20 rounded-[2rem] bg-white/5 p-1 border-2 border-primary/20 shadow-xl shadow-primary/10 overflow-hidden">
+                    <div class="w-full h-full rounded-[1.8rem] bg-gray-900 flex items-center justify-center text-2xl font-black text-gray-600">?</div>
+                </div>
+                <div>
+                    <h1 class="text-4xl font-black italic tracking-tighter">Profile <span class="text-primary">Settings.</span></h1>
+                    <p class="text-gray-500 text-xs italic mt-1">Refining your identity on the Hub.</p>
+                </div>
+            </div>
         </header>
 
-        <form id="profile-form">
-            <section class="mb-20">
-                <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-8 italic">Profile Details</h2>
+        <form id="profile-form" class="space-y-16">
+            <!-- AVATAR MODIFICATION -->
+            <section class="animate-fade-up">
+                <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+                    <h2 class="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic">Shift Your Identity</h2>
+                    <span class="text-[8px] font-bold text-gray-600 uppercase">Avatar System</span>
+                </div>
+                <div id="avatar-grid" class="grid grid-cols-3 md:grid-cols-6 gap-4">
+                    <!-- Avatars Injected -->
+                </div>
+            </section>
+
+            <!-- PROFILE DATA -->
+            <section class="animate-fade-up">
+                <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+                    <h2 class="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic">Core Information</h2>
+                    <span class="text-[8px] font-bold text-gray-600 uppercase">Verified Data</span>
+                </div>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-6">
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Unique Username</label>
-                            <input type="text" id="username-input" required minlength="3" maxlength="20" pattern="^[a-zA-Z0-9_]+$" class="input-field w-full" placeholder="e.g. PhysicsNinja_23">
-                            <p class="text-[9px] text-gray-700 mt-2 italic">* Visible on contributions. Use letters, numbers, and underscores.</p>
+                            <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Unique Username</label>
+                            <input type="text" id="username-input" required minlength="3" placeholder="alex_codes" 
+                                class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold">
                         </div>
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Display Name</label>
-                            <input type="text" id="fullname-input" class="input-field w-full" placeholder="Your Real Name (Keep private/public)">
+                            <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Full Name</label>
+                            <input type="text" id="fullname-input" required placeholder="Alexander Wright" 
+                                class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold">
                         </div>
                     </div>
+
                     <div class="space-y-6">
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Academic Branch</label>
-                            <select id="branch-select" class="input-field w-full bg-surface">
-                                <option value="">Select Branch</option>
-                                <option value="CSE">Computer Science (CSE)</option>
-                                <option value="ECE">Electronics (ECE)</option>
-                                <option value="EEE">Electrical (EEE)</option>
-                                <option value="MECH">Mechanical (MECH)</option>
-                                <option value="CIVIL">Civil (CIVIL)</option>
-                                <option value="OTHER">Other Branch</option>
-                            </select>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Branch</label>
+                                <select id="branch-select" required class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold appearance-none">
+                                    <option value="CSE">CSE</option>
+                                    <option value="ECE">ECE</option>
+                                    <option value="EEE">EEE</option>
+                                    <option value="MECH">MECH</option>
+                                    <option value="CIVIL">CIVIL</option>
+                                    <option value="IT">IT</option>
+                                    <option value="AI-ML">AI / ML</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Semester</label>
+                                <select id="semester-select" required class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold appearance-none">
+                                    <option value="1">Sem 1</option>
+                                    <option value="2">Sem 2</option>
+                                    <option value="3">Sem 3</option>
+                                    <option value="4">Sem 4</option>
+                                    <option value="5">Sem 5</option>
+                                    <option value="6">Sem 6</option>
+                                    <option value="7">Sem 7</option>
+                                    <option value="8">Sem 8</option>
+                                </select>
+                            </div>
                         </div>
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Current Semester</label>
-                            <select id="semester-select" class="input-field w-full bg-surface">
-                                <option value="">Select Semester</option>
-                                <option value="1">Semester 1</option>
-                                <option value="2">Semester 2</option>
-                                <option value="3">Semester 3</option>
-                                <option value="4">Semester 4</option>
-                            </select>
+                            <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Short Bio</label>
+                            <textarea id="bio-input" rows="2" placeholder="Tell the community about yourself..." 
+                                class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold resize-none"></textarea>
                         </div>
                     </div>
                 </div>
             </section>
 
             <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center gap-6">
-                <button type="submit" id="save-btn" class="btn-primary w-full sm:w-auto px-12 py-4">Save Profile</button>
-                <p id="save-msg" class="text-xs text-primary hidden font-bold italic animate-fade"></p>
+                <button type="submit" id="save-btn" class="w-full sm:w-auto px-12 py-4 bg-primary text-[#0d0d12] rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95 disabled:opacity-50 shadow-xl shadow-primary/10">
+                    Propagate Changes
+                </button>
+                <p id="save-msg" class="text-[10px] font-black uppercase tracking-widest animate-fade hidden"></p>
             </div>
         </form>
     </main>
 
     <script type="module">
-        import { requireAuth, getUserProfile, updateUserProfile } from './src/supabase.js'
+        import { requireAuth, getUserProfile, updateUserProfile, isUsernameTaken } from './src/supabase.js'
+        import { AVATARS } from './src/avatars.js'
 
-        const profileForm = document.getElementById('profile-form')
-        const usernameInput = document.getElementById('username-input')
-        const fullnameInput = document.getElementById('fullname-input')
-        const branchSelect = document.getElementById('branch-select')
-        const semesterSelect = document.getElementById('semester-select')
+        const avatarGrid = document.getElementById('avatar-grid')
+        const previewEl = document.getElementById('current-avatar-preview')
+        const form = document.getElementById('profile-form')
         const saveBtn = document.getElementById('save-btn')
         const saveMsg = document.getElementById('save-msg')
-        const onboardingNotice = document.getElementById('onboarding-notice')
 
+        let selectedAvatar = null
         let currentUser = null
+        let initialUsername = ''
+
+        // Inject Avatars
+        AVATARS.forEach(avatar => {
+            const div = document.createElement('div')
+            div.className = 'avatar-option'
+            div.innerHTML = `
+                <div class="avatar-inner">
+                    <img src="${avatar.url}" class="w-full h-full object-cover">
+                </div>
+            `
+            div.onclick = () => {
+                document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('active'))
+                div.classList.add('active')
+                selectedAvatar = avatar.url
+                previewEl.innerHTML = `<img src="${avatar.url}" class="w-full h-full rounded-[1.8rem] object-cover">`
+            }
+            avatarGrid.appendChild(div)
+        })
 
         async function init() {
-            try {
-                currentUser = await requireAuth()
-                if (!currentUser) return // requireAuth handles redirect
+            currentUser = await requireAuth()
+            if (!currentUser) return
 
-                const isOnboarding = new URLSearchParams(window.location.search).get('onboarding') === 'true'
-                if (isOnboarding) onboardingNotice.classList.remove('hidden')
-
-                const profile = await getUserProfile(currentUser.id)
-                if (profile) {
-                    usernameInput.value = profile.username || ''
-                    fullnameInput.value = profile.full_name || ''
-                    branchSelect.value = profile.branch || ''
-                    semesterSelect.value = profile.semester || ''
+            const profile = await getUserProfile(currentUser.id)
+            if (profile) {
+                initialUsername = profile.username || ''
+                document.getElementById('username-input').value = profile.username || ''
+                document.getElementById('fullname-input').value = profile.full_name || ''
+                document.getElementById('branch-select').value = profile.branch || 'CSE'
+                document.getElementById('semester-select').value = profile.semester || '1'
+                document.getElementById('bio-input').value = profile.bio || ''
+                
+                if (profile.avatar_url) {
+                    selectedAvatar = profile.avatar_url
+                    previewEl.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full rounded-[1.8rem] object-cover animate-fade">`
+                    
+                    // Mark selected in grid
+                    const match = [...avatarGrid.children].find(el => el.querySelector('img').src === profile.avatar_url)
+                    if (match) match.classList.add('active')
                 }
-            } catch (err) {
-                console.error('Profile Init Error:', err)
-                window.location.replace('/auth.html')
             }
         }
 
-        profileForm.addEventListener('submit', async (e) => {
+        form.onsubmit = async (e) => {
             e.preventDefault()
-            const username = usernameInput.value.trim()
-            
             saveBtn.disabled = true
-            saveBtn.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span>Saving Changes...</span>
-                </div>
-            `
             saveMsg.classList.add('hidden')
-            
-            const updates = {
-                username: username,
-                full_name: fullnameInput.value.trim(),
-                branch: branchSelect.value,
-                semester: semesterSelect.value ? parseInt(semesterSelect.value) : null
-            }
+            saveMsg.className = 'text-[10px] font-black uppercase tracking-widest text-emerald-500 animate-fade'
+            saveMsg.textContent = 'Updating Hub Registry...'
+            saveMsg.classList.remove('hidden')
 
+            const newUsername = document.getElementById('username-input').value.trim()
+            
             try {
-                const { error } = await updateUserProfile(currentUser.id, updates)
-                
-                if (error) {
-                    saveMsg.textContent = '❌ Update Failed: ' + (typeof error === 'string' ? error : (error.message || 'Check connection'))
-                    saveMsg.classList.add('text-red-500')
-                    saveMsg.classList.remove('hidden')
-                } else {
-                    saveMsg.textContent = '✅ Profile Updated. Redirecting...'
-                    saveMsg.classList.remove('text-red-500', 'hidden')
-                    setTimeout(() => window.location.href = '/dashboard.html', 1200)
+                // Check username if changed
+                if (newUsername !== initialUsername) {
+                    const taken = await isUsernameTaken(newUsername)
+                    if (taken) throw new Error('Divergence: Username already claimed in Hub.')
                 }
+
+                const updates = {
+                    username: newUsername,
+                    full_name: document.getElementById('fullname-input').value.trim(),
+                    branch: document.getElementById('branch-select').value,
+                    semester: parseInt(document.getElementById('semester-select').value),
+                    bio: document.getElementById('bio-input').value.trim(),
+                    avatar_url: selectedAvatar
+                }
+
+                const { error } = await updateUserProfile(currentUser.id, updates)
+                if (error) throw new Error(error)
+
+                saveMsg.textContent = 'Registry Updated Successfully'
+                setTimeout(() => {
+                    saveMsg.classList.add('hidden')
+                    saveBtn.disabled = false
+                }, 2000)
+
             } catch (err) {
-                saveMsg.textContent = '❌ System Error: ' + err.message
+                saveMsg.textContent = 'Error: ' + err.message
                 saveMsg.classList.add('text-red-500')
-                saveMsg.classList.remove('hidden')
-            } finally {
                 saveBtn.disabled = false
-                saveBtn.textContent = 'Save Profile'
             }
-        })
+        }
 
         init()
     </script>
-    <script type="module" src="/src/main.js"></script>
 </body>
 </html>

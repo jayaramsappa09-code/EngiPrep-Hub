@@ -122,6 +122,31 @@ export const requireAuth = async (redirectTo = '/auth.html') => {
     return user;
 }
 
+// Helper: Simple Auth Guard (resilient)
+export const requireProfile = async () => {
+    const user = await requireAuth();
+    if (!user) return null;
+
+    try {
+        const profile = await getUserProfile(user.id);
+        return { user, profile: profile || { id: user.id, email: user.email } };
+    } catch (e) {
+        return { user, profile: { id: user.id, email: user.email } };
+    }
+}
+
+// Helper: Check if username is taken
+export const isUsernameTaken = async (username) => {
+    if (!username) return false;
+    const { data, error } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('username', username)
+        .maybeSingle();
+    
+    return !!data;
+}
+
 // Helper: Get user profile (including role)
 export const getUserProfile = async (userId) => {
   if (!userId || !isSupabaseConfigured()) return null

@@ -2,48 +2,57 @@
 CREATE TABLE IF NOT EXISTS public.profiles (
   id uuid REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
   email TEXT,
-  phone TEXT,
-  full_name TEXT,
   username TEXT UNIQUE,
+  full_name TEXT,
+  avatar_url TEXT,
   branch TEXT,
   semester INT,
+  college_year INT,
+  bio TEXT,
+  skills TEXT[],
   role TEXT DEFAULT 'user',
   xp INT DEFAULT 0,
   streak INT DEFAULT 0,
+  trust_score INT DEFAULT 10,
+  contributions_count INT DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  CONSTRAINT username_length CHECK (char_length(username) >= 3)
 );
 
 -- Ensure columns exist if table was already created
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS email TEXT;
-ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS phone TEXT;
-ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS full_name TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS username TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS full_name TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS avatar_url TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS branch TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS semester INT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS college_year INT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS bio TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS skills TEXT[];
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS role TEXT DEFAULT 'user';
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS xp INT DEFAULT 0;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS streak INT DEFAULT 0;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS trust_score INT DEFAULT 10;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS contributions_count INT DEFAULT 0;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
 
--- 2. Setup Automatic Sync with handle_new_user (Resilient version)
+-- 2. Setup Automatic Sync with handle_new_user (Robust version)
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
 BEGIN
-  INSERT INTO public.profiles (id, email, phone, full_name, username)
+  INSERT INTO public.profiles (id, email, full_name, avatar_url)
   VALUES (
     new.id, 
     new.email,
-    new.phone,
     new.raw_user_meta_data->>'full_name', 
-    new.raw_user_meta_data->>'username'
+    new.raw_user_meta_data->>'avatar_url'
   )
   ON CONFLICT (id) DO UPDATE SET
     email = COALESCE(EXCLUDED.email, profiles.email),
-    phone = COALESCE(EXCLUDED.phone, profiles.phone),
     full_name = COALESCE(EXCLUDED.full_name, profiles.full_name),
-    username = COALESCE(EXCLUDED.username, profiles.username);
+    avatar_url = COALESCE(EXCLUDED.avatar_url, profiles.avatar_url);
   RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
