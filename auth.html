@@ -221,6 +221,9 @@
 
         function getFriendlyError(err) {
             const message = err.message || '';
+            if (message.includes('SMS is not configured')) return 'SMS_CONFIG_REQUIRED';
+            if (message.includes('captcha protection')) return 'CAPTCHA_CONFIG';
+            if (message.includes('Database error saving new user')) return 'DATABASE_TRIGGER_ERROR';
             if (message.includes('Invalid login credentials')) return 'Invalid email or password.';
             if (message.includes('Email not confirmed')) return 'Please verify your email first.';
             if (message.includes('User already registered')) return 'Account already exists.';
@@ -273,7 +276,95 @@
             } catch (err) {
                 errorDiv.classList.remove('bg-emerald-50', 'text-emerald-600', 'bg-blue-50', 'text-blue-600');
                 errorDiv.classList.add('bg-rose-50', 'text-rose-600');
-                errorDiv.innerText = getFriendlyError(err);
+                
+                const friendly = getFriendlyError(err);
+                if (friendly === 'CAPTCHA_CONFIG') {
+                    errorDiv.innerHTML = `
+                         <div class="space-y-4 text-left">
+                            <p class="font-black text-[13px] uppercase tracking-tight text-rose-600">🛡️ Captcha Required</p>
+                            <p class="font-medium text-[11px] leading-relaxed text-slate-600">Your Supabase project has Captcha protection enabled. You must disable it to log in from this environment.</p>
+                            <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                                 <p class="text-[10px] font-bold text-blue-700 mb-1 uppercase text-left">How to fix:</p>
+                                 <p class="text-[10px] text-blue-600 leading-normal text-left">
+                                    1. Open <strong>Supabase Dashboard</strong><br>
+                                    2. Go to <strong>Auth</strong> > <strong>Configuration</strong> > <strong>Security and Protection</strong><br>
+                                    3. Toggle OFF <strong>"Enable Captcha"</strong>
+                                 </p>
+                            </div>
+                         </div>
+                    `;
+                } else if (friendly === 'SMS_CONFIG_REQUIRED') {
+                    errorDiv.innerHTML = `
+                         <div class="space-y-4 text-left">
+                            <p class="font-black text-[13px] uppercase tracking-tight text-rose-600">📱 SMS Provider Missing</p>
+                            <p class="font-medium text-[11px] leading-relaxed text-slate-600">Supabase cannot send texts because no SMS provider is connected to your project.</p>
+                            
+                            <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                                 <p class="text-[10px] font-bold text-blue-700 mb-2 uppercase text-left">To enable Phone Login:</p>
+                                 <p class="text-[10px] text-blue-600 leading-normal text-left underline decoration-blue-200">
+                                    1. Sign up for <strong>Twilio</strong> or <strong>MessageBird</strong><br>
+                                    2. Go to <strong>Supabase Auth</strong> > <strong>Providers</strong> > <strong>Phone</strong><br>
+                                    3. Toggle <strong>Enable Phone Provider</strong> and enter your API keys.
+                                 </p>
+                            </div>
+
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                <p class="text-[9px] font-black uppercase text-slate-400 mb-1">Testing Tip:</p>
+                                <p class="text-[9px] text-slate-500">You can use "Auth > Configuration > Phone Auth > Test OTP" to add dummy phone numbers for testing without actual SMS billing.</p>
+                            </div>
+                         </div>
+                    `;
+                } else if (friendly === 'DATABASE_TRIGGER_ERROR') {
+                    errorDiv.innerHTML = `
+                         <div class="space-y-4 text-left">
+                            <p class="font-black text-[13px] uppercase tracking-tight text-rose-600">🗄️ Database Sync Error</p>
+                            <p class="font-medium text-[11px] leading-relaxed text-slate-600">Your Auth signup worked, but saving the Profile failed. This usually means the "handle_new_user" trigger in your database is missing or misconfigured.</p>
+                            
+                            <div class="bg-indigo-900 p-4 rounded-2xl border border-white/10 text-white relative group">
+                                <span class="text-[8px] font-black uppercase tracking-[0.2em] text-indigo-400 block mb-3">Copy to Supabase SQL Editor:</span>
+                                <pre class="text-[9px] font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap select-all">-- 1. Ensure Table exists
+CREATE TABLE IF NOT EXISTS public.profiles (
+  id uuid REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
+  full_name TEXT,
+  username TEXT UNIQUE
+);
+
+-- 2. Setup Automatic Sync
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS trigger AS $$
+BEGIN
+  INSERT INTO public.profiles (id, full_name, username)
+  VALUES (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'username');
+  RETURN new;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- 3. Bind Trigger
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
+
+-- 4. Enable RLS and Safety Policies
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view own profile" ON public.profiles;
+CREATE POLICY "Users can view own profile" ON public.profiles
+  FOR SELECT USING (auth.uid() = id);
+
+DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
+CREATE POLICY "Users can update own profile" ON public.profiles
+  FOR UPDATE USING (auth.uid() = id);</pre>
+                                <button type="button" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); this.innerText='SQL COPIED'; setTimeout(()=>this.innerText='COPY SQL', 2000)" class="absolute right-4 top-4 text-[8px] font-black bg-indigo-500 px-3 py-1 rounded-full hover:bg-white hover:text-indigo-900 transition-all uppercase tracking-widest">COPY SQL</button>
+                            </div>
+
+                            <p class="text-[10px] text-slate-500 leading-normal"><strong>Note:</strong> Since your table already exists, this script uses <code>IF NOT EXISTS</code> and <code>CREATE OR REPLACE</code> to fix the configuration without losing data.</p>
+                         </div>
+                    `;
+                } else {
+                    errorDiv.innerText = friendly;
+                }
+                
                 errorDiv.classList.remove('hidden');
                 submitBtn.innerText = originalBtnText;
             } finally {
