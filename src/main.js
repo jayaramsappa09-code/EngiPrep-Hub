@@ -9,6 +9,7 @@ import { toggleBookmark } from './notes'
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initMobileMenu();
+    initActiveNavLinks();
     initSearch();
     initCopyButtons();
     initSmoothScroll();
@@ -359,5 +360,28 @@ function initSmoothScroll() {
                 console.warn('Invalid selector:', href);
             }
         });
+    });
+}
+
+function initActiveNavLinks() {
+    const links = document.querySelectorAll('nav a, #mobile-menu a');
+    const currentPath = window.location.pathname;
+    
+    links.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (!linkPath) return;
+
+        // Ignore empty/hash links, ignore trailing slash differences
+        const cleanPath = currentPath.split('?')[0].split('#')[0].replace(/^\/|\/$/g, '');
+        const cleanLinkPath = linkPath.split('?')[0].split('#')[0].replace(/^\/|\/$/g, '');
+
+        if (cleanPath === cleanLinkPath && cleanPath !== '') {
+            link.classList.add('text-blue-600', 'dark:text-blue-400', 'font-black', 'relative');
+            
+            // Append a tiny microdot beneath the text to signify selected category
+            const dot = document.createElement('span');
+            dot.className = 'absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full animate-pulse-slow';
+            link.appendChild(dot);
+        }
     });
 }
