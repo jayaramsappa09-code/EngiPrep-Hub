@@ -24,6 +24,21 @@ export const signInWithGoogle = async () => {
   return data
 }
 
+export const signInWithLinkedIn = async () => {
+  const redirectUrl = `${window.location.origin}/dashboard.html`;
+  
+  console.log('Supabase OAuth LinkedIn: Initiating with redirect ->', redirectUrl);
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'linkedin_oidc',
+    options: {
+      redirectTo: redirectUrl,
+    }
+  })
+  if (error) throw error
+  return data
+}
+
 export const signUp = async (email, password, fullName, username) => {
   const { data, error } = await supabase.auth.signUp({
     email,
