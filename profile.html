@@ -165,15 +165,18 @@
             if (!currentUser) return
 
             const profile = await getUserProfile(currentUser.id)
-            if (profile) {
-                initialUsername = profile.username || ''
-                document.getElementById('username-input').value = profile.username || ''
-                document.getElementById('fullname-input').value = profile.full_name || ''
-                document.getElementById('branch-select').value = profile.branch || 'CSE'
-                document.getElementById('semester-select').value = profile.semester || '1'
-                document.getElementById('bio-input').value = profile.bio || ''
-                
-                if (profile.avatar_url) {
+                if (profile) {
+                    initialUsername = profile.username || ''
+                    document.getElementById('username-input').value = profile.username || ''
+                    document.getElementById('fullname-input').value = profile.full_name || ''
+                    document.getElementById('branch-select').value = profile.branch || 'CSE'
+                    document.getElementById('semester-select').value = profile.semester || '1'
+                    
+                    // Safe check for bio in case of schema cache issues
+                    const bioInput = document.getElementById('bio-input');
+                    if (bioInput) bioInput.value = (profile && 'bio' in profile) ? (profile.bio || '') : '';
+                    
+                    if (profile.avatar_url) {
                     selectedAvatar = profile.avatar_url
                     previewEl.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full rounded-[1.8rem] object-cover animate-fade">`
                     
