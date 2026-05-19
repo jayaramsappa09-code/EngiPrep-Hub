@@ -3,7 +3,7 @@
  * Core functionality
  */
 
-import { supabase, getCurrentUser } from './supabase'
+import { supabase, getCurrentUser, getUserProfile } from './supabase'
 import { toggleBookmark } from './notes'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -73,18 +73,6 @@ supabase.auth.onAuthStateChange(async (event, session) => {
     if (error) {
         const errorDesc = url.searchParams.get('error_description') || 'Unknown Auth Error';
         console.warn('Auth Error Detected:', errorDesc);
-        if (errorDesc.includes('server_error')) {
-            console.info('Tip: Verify your Supabase Site URL and Redirect URI Whitelist.');
-        }
-    }
-
-    // On home page, if we just signed in, go to dashboard
-    if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session) {
-        const path = window.location.pathname;
-        if (path === '/' || path === '/index.html' || path === '') {
-            console.log('User detected on landing page, promoting to dashboard.');
-            window.location.href = '/dashboard.html';
-        }
     }
 });
 
@@ -106,14 +94,8 @@ async function updateAuthUI(providedUser = null) {
         `;
 
         if (user) {
-            // Fetch basic profile for the navbar
-            let profile = null;
-            try {
-                const { data } = await supabase.from('profiles').select('username, avatar_url').eq('id', user.id).maybeSingle();
-                profile = data;
-            } catch (e) {
-                console.warn('Navbar profile fetch skipped:', e);
-            }
+            // Fetch basic profile for the navbar using helper for schema resilience
+            let profile = await getUserProfile(user.id);
 
             const displayName = profile?.username || user.email.split('@')[0];
             const avatar = profile?.avatar_url 
