@@ -180,6 +180,7 @@
                 submitBtn.innerText = 'Create Account';
                 toggleBtn.innerText = 'Login';
                 toggleHint.textContent = 'Already have an account? ';
+                forgotPasswordBtn.classList.add('invisible');
             } else {
                 signupFields.classList.add('hidden');
                 title.innerText = 'Welcome Back';
@@ -187,18 +188,19 @@
                 submitBtn.innerText = 'Login to Hub';
                 toggleBtn.innerText = 'Sign Up';
                 toggleHint.textContent = "Don't have an account? ";
+                forgotPasswordBtn.classList.remove('invisible');
             }
         }
 
         toggleBtn.addEventListener('click', () => { isSignup = !isSignup; updateUI(); });
 
         forgotPasswordBtn.addEventListener('click', async () => {
-            const email = document.getElementById('email').value.trim();
+            let email = document.getElementById('email').value.trim();
+            
             if (!email) {
-                errorDiv.innerText = 'Please enter your email address first.';
-                errorDiv.className = 'mt-8 p-4 bg-rose-50 border border-rose-100 text-rose-600 text-xs font-bold rounded-2xl text-center';
-                errorDiv.classList.remove('hidden');
-                return;
+                email = window.prompt('Please enter your email address to receive a reset link:');
+                if (!email) return;
+                document.getElementById('email').value = email;
             }
 
             try {
@@ -378,7 +380,7 @@ CREATE POLICY "Users can update own profile" ON public.profiles
                                 <button type="button" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); this.innerText='SQL COPIED'; setTimeout(()=>this.innerText='COPY SQL', 2000)" class="absolute right-4 top-4 text-[8px] font-black bg-indigo-500 px-3 py-1 rounded-full hover:bg-white hover:text-indigo-900 transition-all uppercase tracking-widest">COPY SQL</button>
                             </div>
 
-                            <p class="text-[10px] text-slate-500 leading-normal"><strong>Note:</strong> Since your table already exists, this script uses <code>IF NOT EXISTS</code> and <code>CREATE OR REPLACE</code> to fix the configuration without losing data.</p>
+                            <p class="text-[10px] text-slate-500 leading-normal">Note: Since your table already exists, this script uses <code>IF NOT EXISTS</code> and <code>CREATE OR REPLACE</code> to fix the configuration without losing data.</p>
                          </div>
                     `;
                 } else {
