@@ -203,7 +203,7 @@
             }
 
             list.innerHTML = data.map(comment => `
-                <div class="flex gap-4 animate-fade">
+                <div class="flex gap-4 animate-fade ${comment.status !== 'approved' ? 'opacity-70' : ''}">
                     <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex-shrink-0 overflow-hidden flex items-center justify-center text-xs font-bold uppercase text-primary">
                         ${comment.profiles?.avatar_url ? `<img src="${comment.profiles.avatar_url}" class="w-full h-full object-cover">` : (comment.profiles?.username?.charAt(0) || '?')}
                     </div>
@@ -211,9 +211,16 @@
                         <div class="flex items-center gap-3 mb-2">
                             <span class="text-[10px] font-black uppercase tracking-widest text-white">${comment.profiles?.username || 'Anonymous'}</span>
                             <span class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">${new Date(comment.created_at).toLocaleDateString()}</span>
+                            ${comment.status === 'pending' ? '<span class="text-[8px] bg-amber-500/20 text-amber-500 px-2 py-0.5 rounded uppercase font-black">Pending Review</span>' : ''}
+                            ${comment.status === 'rejected' ? '<span class="text-[8px] bg-rose-500/20 text-rose-500 px-2 py-0.5 rounded uppercase font-black">Rejected</span>' : ''}
                         </div>
-                        <div class="text-sm text-gray-400 leading-relaxed bg-white/2 rounded-2xl p-4 rounded-tl-none border border-white/5">
+                        <div class="text-sm text-gray-400 leading-relaxed bg-white/2 rounded-2xl p-4 rounded-tl-none border border-white/5 relative group">
                             ${comment.content}
+                            ${comment.admin_feedback ? `
+                                <div class="mt-3 pt-3 border-t border-white/5 text-[10px] text-rose-400 italic">
+                                    Admin feedback: ${comment.admin_feedback}
+                                </div>
+                            ` : ''}
                         </div>
                     </div>
                 </div>
@@ -246,6 +253,13 @@
                 btn.disabled = false
                 btn.innerText = 'Post Reply'
             } else {
+                // Log activity
+                await supabase.from('user_activity').insert({
+                    user_id: currentUser.id,
+                    action: 'post_comment',
+                    metadata: { post_id: currentPostId }
+                })
+
                 document.getElementById('new-comment-text').value = ''
                 btn.disabled = false
                 btn.innerText = 'Post Reply'

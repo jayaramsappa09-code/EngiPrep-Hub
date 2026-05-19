@@ -71,21 +71,39 @@ CREATE POLICY "Users can manage own profile" ON public.profiles
 -- 5. Blog Comments Table (New Feature Support)
 CREATE TABLE IF NOT EXISTS public.blog_comments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  post_id uuid, -- Link to blog post ID
+  post_id uuid REFERENCES public.blog_posts(id) ON DELETE CASCADE,
   user_id uuid REFERENCES public.profiles(id) ON DELETE SET NULL,
   content TEXT NOT NULL,
+  status TEXT CHECK (status IN ('pending', 'approved', 'rejected')) DEFAULT 'pending',
+  admin_feedback TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Ensure columns exist if table was already created
+ALTER TABLE public.blog_comments ADD COLUMN IF NOT EXISTS status TEXT CHECK (status IN ('pending', 'approved', 'rejected')) DEFAULT 'pending';
+ALTER TABLE public.blog_comments ADD COLUMN IF NOT EXISTS admin_feedback TEXT;
 
 ALTER TABLE public.blog_comments ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Anyone can view comments" ON public.blog_comments;
-CREATE POLICY "Anyone can view comments" ON public.blog_comments
-  FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Anyone can view approved comments" ON public.blog_comments;
+CREATE POLICY "Anyone can view approved comments" ON public.blog_comments
+  FOR SELECT USING (status = 'approved' OR (auth.uid() IS NOT NULL AND (
+    auth.uid() = user_id OR 
+    EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin')
+  )));
 
 DROP POLICY IF EXISTS "Authenticated users can post comments" ON public.blog_comments;
 CREATE POLICY "Authenticated users can post comments" ON public.blog_comments
   FOR INSERT WITH CHECK (auth.uid() IS NOT NULL AND auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can manage own comments" ON public.blog_comments;
+CREATE POLICY "Users can manage own comments" ON public.blog_comments
+  FOR UPDATE USING (auth.uid() = user_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
+
+DROP POLICY IF EXISTS "Users can delete own comments" ON public.blog_comments;
+CREATE POLICY "Users can delete own comments" ON public.blog_comments
+  FOR DELETE USING (auth.uid() = user_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
 
 -- Force refresh schema cache
 NOTIFY pgrst, 'reload schema';

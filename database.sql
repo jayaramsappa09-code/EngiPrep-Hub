@@ -304,22 +304,31 @@ CREATE TABLE IF NOT EXISTS public.blog_comments (
   post_id uuid REFERENCES public.blog_posts(id) ON DELETE CASCADE,
   user_id uuid REFERENCES public.profiles(id) ON DELETE SET NULL,
   content TEXT NOT NULL,
+  status TEXT CHECK (status IN ('pending', 'approved', 'rejected')) DEFAULT 'pending',
+  admin_feedback TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 ALTER TABLE public.blog_comments ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Anyone can view comments" ON public.blog_comments
-  FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Anyone can view comments" ON public.blog_comments;
+CREATE POLICY "Anyone can view approved comments" ON public.blog_comments
+  FOR SELECT USING (status = 'approved' OR (auth.uid() IS NOT NULL AND (
+    auth.uid() = user_id OR 
+    EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin')
+  )));
 
+DROP POLICY IF EXISTS "Authenticated users can post comments" ON public.blog_comments;
 CREATE POLICY "Authenticated users can post comments" ON public.blog_comments
   FOR INSERT WITH CHECK (auth.uid() IS NOT NULL AND auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can manage own comments" ON public.blog_comments;
 CREATE POLICY "Users can manage own comments" ON public.blog_comments
-  FOR UPDATE USING (auth.uid() = user_id);
+  FOR UPDATE USING (auth.uid() = user_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
 
+DROP POLICY IF EXISTS "Users can delete own comments" ON public.blog_comments;
 CREATE POLICY "Users can delete own comments" ON public.blog_comments
-  FOR DELETE USING (auth.uid() = user_id);
+  FOR DELETE USING (auth.uid() = user_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
 
 -- 1. Get the user_id from the user list in Supabase Auth
 -- 2. Run: UPDATE public.profiles SET role = 'admin' WHERE id = 'USER_ID_HERE';

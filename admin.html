@@ -109,12 +109,31 @@
 
         <!-- Moderation Queue -->
         <div id="moderation-view" class="glass-card overflow-hidden hidden">
-            <div class="p-8 border-b border-white/5 flex items-center justify-between">
-                <h3 class="text-lg font-black uppercase tracking-widest">Pending Contributions</h3>
-                <span class="px-3 py-1 bg-amber-500/20 text-amber-500 text-[9px] font-black rounded-full" id="moderation-count">0 Pending</span>
+            <div class="flex border-b border-white/5">
+                <button onclick="switchModerationTab('contributions')" id="mod-tab-contributions" class="flex-1 p-4 text-[10px] font-black uppercase tracking-widest text-primary border-b-2 border-primary">Study Material</button>
+                <button onclick="switchModerationTab('comments')" id="mod-tab-comments" class="flex-1 p-4 text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white">Blog Comments</button>
             </div>
-            <div id="moderation-list" class="divide-y divide-white/5">
-                <div class="p-20 text-center text-gray-500 italic">No contributions waiting for review.</div>
+
+            <!-- Contributions Sub-View -->
+            <div id="mod-contributions-list">
+                <div class="p-8 border-b border-white/5 flex items-center justify-between">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-gray-400">Pending Contributions</h3>
+                    <span class="px-3 py-1 bg-amber-500/20 text-amber-500 text-[9px] font-black rounded-full" id="moderation-count">0 Pending</span>
+                </div>
+                <div id="moderation-list" class="divide-y divide-white/5">
+                    <div class="p-20 text-center text-gray-500 italic">No contributions waiting for review.</div>
+                </div>
+            </div>
+
+            <!-- Comments Sub-View -->
+            <div id="mod-comments-list" class="hidden">
+                 <div class="p-8 border-b border-white/5 flex items-center justify-between">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-gray-400">Pending Comments</h3>
+                    <span class="px-3 py-1 bg-blue-500/20 text-blue-500 text-[9px] font-black rounded-full" id="comment-mod-count">0 Pending</span>
+                </div>
+                <div id="comment-moderation-list" class="divide-y divide-white/5">
+                    <div class="p-20 text-center text-gray-500 italic">Moderation queue empty.</div>
+                </div>
             </div>
         </div>
     </main>
@@ -409,7 +428,95 @@
             document.getElementById(tabs[tab]).classList.add('text-primary', 'border-b-2', 'border-primary')
             document.getElementById(tabs[tab]).classList.remove('text-gray-500')
             
-            if (tab === 'moderation') loadModerationQueue()
+            if (tab === 'moderation') {
+                loadModerationQueue()
+                loadCommentModeration()
+            }
+        }
+
+        window.switchModerationTab = (tab) => {
+            const contList = document.getElementById('mod-contributions-list')
+            const commList = document.getElementById('mod-comments-list')
+            const contTab = document.getElementById('mod-tab-contributions')
+            const commTab = document.getElementById('mod-tab-comments')
+
+            if (tab === 'contributions') {
+                contList.classList.remove('hidden')
+                commList.classList.add('hidden')
+                contTab.classList.add('text-primary', 'border-b-2', 'border-primary')
+                contTab.classList.remove('text-gray-500')
+                commTab.classList.remove('text-primary', 'border-b-2', 'border-primary')
+                commTab.classList.add('text-gray-500')
+                loadModerationQueue()
+            } else {
+                contList.classList.add('hidden')
+                commList.classList.remove('hidden')
+                commTab.classList.add('text-primary', 'border-b-2', 'border-primary')
+                commTab.classList.remove('text-gray-500')
+                contTab.classList.remove('text-primary', 'border-b-2', 'border-primary')
+                contTab.classList.add('text-gray-500')
+                loadCommentModeration()
+            }
+        }
+
+        async function loadCommentModeration() {
+            try {
+                const { data, error } = await supabase
+                    .from('blog_comments')
+                    .select('*, profiles(username, avatar_url), blog_posts(title)')
+                    .eq('status', 'pending')
+                    .order('created_at', { ascending: true })
+
+                if (error) throw error
+
+                const list = document.getElementById('comment-moderation-list')
+                const count = document.getElementById('comment-mod-count')
+                
+                count.innerText = `${data.length} Pending`
+                
+                if (data.length === 0) {
+                    list.innerHTML = '<div class="p-20 text-center text-gray-500 italic">No comments waiting for review.</div>'
+                    return
+                }
+
+                list.innerHTML = data.map(c => `
+                    <div class="p-8 hover:bg-white/[0.01] transition-all flex flex-col md:flex-row gap-8 items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black uppercase text-primary overflow-hidden">
+                                    ${c.profiles?.avatar_url ? `<img src="${c.profiles.avatar_url}" class="w-full h-full object-cover">` : (c.profiles?.username?.charAt(0) || '?')}
+                                </div>
+                                <span class="text-[10px] font-black uppercase tracking-widest text-white">@${c.profiles?.username || 'Unknown'}</span>
+                                <span class="text-[8px] text-gray-600 font-bold uppercase tracking-widest">on ${c.blog_posts?.title || 'Unknown Post'}</span>
+                            </div>
+                            <div class="text-sm text-gray-400 bg-white/2 p-4 rounded-2xl border border-white/5 italic">
+                                "${c.content}"
+                            </div>
+                        </div>
+                        <div class="flex gap-2 w-full md:w-48">
+                            <button onclick="decideComment('${c.id}', 'approved')" class="flex-1 py-3 bg-emerald-500 text-black text-[9px] font-black uppercase rounded-lg hover:bg-emerald-400 transition-all">Approve</button>
+                            <button onclick="decideComment('${c.id}', 'rejected')" class="flex-1 py-3 bg-rose-500 text-white text-[9px] font-black uppercase rounded-lg hover:bg-rose-400 transition-all">Reject</button>
+                        </div>
+                    </div>
+                `).join('')
+            } catch (err) {
+                console.error('Comment moderation load error:', err)
+            }
+        }
+
+        window.decideComment = async (id, status) => {
+            try {
+                const { error } = await supabase
+                    .from('blog_comments')
+                    .update({ status })
+                    .eq('id', id)
+                
+                if (error) throw error
+                
+                loadCommentModeration()
+            } catch (err) {
+                alert(err.message)
+            }
         }
 
         // Note Form Submit
@@ -459,10 +566,15 @@
             loadNotes()
             loadBlog()
             
-            // Initial count for moderation
-            const { count } = await supabase.from('contributions').select('*', { count: 'exact', head: true }).eq('status', 'pending')
+            // Initial counts for moderation
+            const { count: contributionCount } = await supabase.from('contributions').select('*', { count: 'exact', head: true }).eq('status', 'pending')
+            const { count: commentCount } = await supabase.from('blog_comments').select('*', { count: 'exact', head: true }).eq('status', 'pending')
+            
             const modCountEl = document.getElementById('moderation-count')
-            if (modCountEl) modCountEl.innerText = `${count || 0} Pending`
+            if (modCountEl) modCountEl.innerText = `${contributionCount || 0} Pending`
+
+            const commModCountEl = document.getElementById('comment-mod-count')
+            if (commModCountEl) commModCountEl.innerText = `${commentCount || 0} Pending`
         }
 
         init()
