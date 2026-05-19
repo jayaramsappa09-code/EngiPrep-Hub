@@ -31,8 +31,42 @@ export const signOut = async () => {
   window.location.href = '/index.html'
 }
 
+export const resetPassword = async (email) => {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${window.location.origin}/reset-password.html`,
+  })
+  if (error) throw error
+  return data
+}
+
+export const updatePassword = async (newPassword) => {
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword
+  })
+  if (error) throw error
+  return data
+}
+
 export const onAuthStateChange = (callback) => {
   return supabase.auth.onAuthStateChange((event, session) => {
     callback(event, session)
   })
+}
+
+export const signInWithPhone = async (phone) => {
+  const { data, error } = await supabase.auth.signInWithOtp({
+    phone: phone,
+  })
+  if (error) throw error
+  return data
+}
+
+export const verifyPhoneOTP = async (phone, token) => {
+  const { data, error } = await supabase.auth.verifyOtp({
+    phone: phone,
+    token: token,
+    type: 'sms',
+  })
+  if (error) throw error
+  return data
 }

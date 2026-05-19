@@ -29,31 +29,56 @@
             <p class="text-text-muted text-sm font-medium mt-2" id="auth-subtitle">Login to access your personalized dashboard.</p>
         </div>
 
+        <div class="flex items-center gap-2 mb-8 p-1 bg-slate-100 rounded-xl">
+            <button type="button" id="toggle-email-mode" class="flex-1 py-2 text-[10px] font-black tracking-widest uppercase rounded-lg transition-all bg-white shadow-sm text-blue-600">Email Login</button>
+            <button type="button" id="toggle-phone-mode" class="flex-1 py-2 text-[10px] font-black tracking-widest uppercase rounded-lg transition-all text-slate-500 hover:text-slate-700">Phone Login</button>
+        </div>
+
         <form id="auth-form" class="space-y-6">
-            <div id="signup-fields" class="hidden space-y-6">
-                <div>
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Full Name</label>
-                    <input type="text" id="full-name" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="John Doe" minlength="3" maxlength="50" pattern="^[a-zA-Z\s]+$">
+            <!-- Email Mode Fields -->
+            <div id="email-mode-fields" class="space-y-6">
+                <div id="signup-fields" class="hidden space-y-6">
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Full Name</label>
+                        <input type="text" id="full-name" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="John Doe" minlength="3" maxlength="50" pattern="^[a-zA-Z\s]+$">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Unique Username</label>
+                        <input type="text" id="username" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="PhysicsNinja_23" minlength="3" maxlength="20">
+                    </div>
                 </div>
+
                 <div>
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Unique Username</label>
-                    <input type="text" id="username" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="PhysicsNinja_23" minlength="3" maxlength="20">
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Email Address</label>
+                    <input type="email" id="email" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="student@jntuk.ac.in">
+                </div>
+
+                <div id="password-field">
+                    <div class="flex justify-between items-center mb-2 px-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Password</label>
+                        <button type="button" id="forgot-password" class="text-[9px] font-bold text-blue-600 hover:underline">Forgot Password?</button>
+                    </div>
+                    <input type="password" id="password" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="••••••••" minlength="8">
                 </div>
             </div>
 
-            <div>
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Email Address</label>
-                <input type="email" id="email" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="student@jntuk.ac.in">
-            </div>
+            <!-- Phone Mode Fields -->
+            <div id="phone-mode-fields" class="hidden space-y-6">
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Phone Number</label>
+                    <input type="tel" id="phone" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="+1234567890">
+                    <p class="text-[9px] text-slate-400 mt-2 px-1 italic">Include your country code (e.g., +91 for India).</p>
+                </div>
 
-            <div>
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Password</label>
-                <input type="password" id="password" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="••••••••" minlength="8">
+                <div id="otp-field" class="hidden">
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Verification Code</label>
+                    <input type="text" id="otp" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all tracking-[0.5em] text-center" placeholder="123456" maxlength="6">
+                </div>
             </div>
 
             <button type="submit" id="submit-btn" class="btn-primary w-full py-4 mt-4 shadow-blue-600/10">Login to Hub</button>
 
-            <div class="text-center mt-8 pt-8 border-t border-slate-50">
+            <div id="auth-toggle-footer" class="text-center mt-8 pt-8 border-t border-slate-50">
                 <p class="text-slate-500 text-sm font-medium">
                     <span id="toggle-text-hint">Don't have an account?</span> 
                     <button type="button" id="toggle-auth" class="text-blue-600 font-bold hover:underline ml-1">Sign Up</button>
@@ -67,14 +92,61 @@
         <div id="error-message" class="mt-8 p-4 bg-rose-50 border border-rose-100 text-rose-600 text-xs font-bold rounded-2xl hidden text-center"></div>
     </div>
 
-    <script type="module" src="/src/config-check.js"></script>
     <script type="module">
-        import { signIn, signUp } from './src/auth.js'
+        import { signIn, signUp, signInWithPhone, verifyPhoneOTP, resetPassword } from './src/auth.js'
         import { getCurrentUser, supabase } from './src/supabase.js'
         
-        const form = document.getElementById('auth-form'), toggleBtn = document.getElementById('toggle-auth'), signupFields = document.getElementById('signup-fields'), title = document.getElementById('auth-title'), subtitle = document.getElementById('auth-subtitle'), submitBtn = document.getElementById('submit-btn'), errorDiv = document.getElementById('error-message'), toggleHint = document.getElementById('toggle-text-hint');
+        const form = document.getElementById('auth-form');
+        const toggleBtn = document.getElementById('toggle-auth');
+        const signupFields = document.getElementById('signup-fields');
+        const title = document.getElementById('auth-title');
+        const subtitle = document.getElementById('auth-subtitle');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorDiv = document.getElementById('error-message');
+        const toggleHint = document.getElementById('toggle-text-hint');
+        const forgotPasswordBtn = document.getElementById('forgot-password');
         
+        const emailModeBtn = document.getElementById('toggle-email-mode');
+        const phoneModeBtn = document.getElementById('toggle-phone-mode');
+        const emailFields = document.getElementById('email-mode-fields');
+        const phoneFields = document.getElementById('phone-mode-fields');
+        const otpField = document.getElementById('otp-field');
+        const authFooter = document.getElementById('auth-toggle-footer');
+
         let isSignup = new URLSearchParams(window.location.search).get('signup') === 'true';
+        let isPhoneMode = false;
+        let otpSent = false;
+
+        // Mode Switching
+        emailModeBtn.addEventListener('click', () => {
+            isPhoneMode = false;
+            updateModeUI();
+        });
+
+        phoneModeBtn.addEventListener('click', () => {
+            isPhoneMode = true;
+            updateModeUI();
+        });
+
+        function updateModeUI() {
+            if (isPhoneMode) {
+                emailModeBtn.className = 'flex-1 py-2 text-[10px] font-black tracking-widest uppercase rounded-lg transition-all text-slate-500 hover:text-slate-700';
+                phoneModeBtn.className = 'flex-1 py-2 text-[10px] font-black tracking-widest uppercase rounded-lg transition-all bg-white shadow-sm text-blue-600';
+                emailFields.classList.add('hidden');
+                phoneFields.classList.remove('hidden');
+                authFooter.classList.add('hidden');
+                title.innerText = 'Phone Login';
+                subtitle.innerText = 'Login securely with a one-time passcode.';
+                submitBtn.innerText = otpSent ? 'Verify OTP' : 'Send Code';
+            } else {
+                emailModeBtn.className = 'flex-1 py-2 text-[10px] font-black tracking-widest uppercase rounded-lg transition-all bg-white shadow-sm text-blue-600';
+                phoneModeBtn.className = 'flex-1 py-2 text-[10px] font-black tracking-widest uppercase rounded-lg transition-all text-slate-500 hover:text-slate-700';
+                emailFields.classList.remove('hidden');
+                phoneFields.classList.add('hidden');
+                authFooter.classList.remove('hidden');
+                updateUI(); // Resets Email mode UI
+            }
+        }
 
         // 0. Check for auth errors in URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -93,7 +165,7 @@
         }
         checkSession()
 
-        // 2. Listen for session changes (needed for OAuth redirects)
+        // 2. Listen for session changes
         supabase.auth.onAuthStateChange((event, session) => {
             if (event === 'SIGNED_IN' && session) {
                 window.location.replace('/dashboard.html')
@@ -120,57 +192,92 @@
 
         toggleBtn.addEventListener('click', () => { isSignup = !isSignup; updateUI(); });
 
+        forgotPasswordBtn.addEventListener('click', async () => {
+            const email = document.getElementById('email').value.trim();
+            if (!email) {
+                errorDiv.innerText = 'Please enter your email address first.';
+                errorDiv.className = 'mt-8 p-4 bg-rose-50 border border-rose-100 text-rose-600 text-xs font-bold rounded-2xl text-center';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                forgotPasswordBtn.disabled = true;
+                const originalText = forgotPasswordBtn.innerText;
+                forgotPasswordBtn.innerText = 'Sending...';
+                await resetPassword(email);
+                errorDiv.innerHTML = `<div class="font-bold mb-1">Recovery Sent!</div><div>Check your email for the reset link.</div>`;
+                errorDiv.className = 'mt-8 p-4 bg-emerald-50 border border-emerald-100 text-emerald-600 text-xs font-bold rounded-2xl text-center';
+                errorDiv.classList.remove('hidden');
+            } catch (err) {
+                errorDiv.innerText = getFriendlyError(err);
+                errorDiv.className = 'mt-8 p-4 bg-rose-50 border border-rose-100 text-rose-600 text-xs font-bold rounded-2xl text-center';
+                errorDiv.classList.remove('hidden');
+            } finally {
+                forgotPasswordBtn.disabled = false;
+                forgotPasswordBtn.innerText = 'Forgot Password?';
+            }
+        });
+
         function getFriendlyError(err) {
             const message = err.message || '';
-            const status = err.status;
-
-            if (message.includes('Invalid login credentials')) {
-                return 'Invalid email or password. Please check your credentials and try again.';
-            }
-            if (message.includes('Email not confirmed')) {
-                return 'Your email has not been verified yet. Please check your inbox for the confirmation link.';
-            }
-            if (message.includes('User already registered')) {
-                return 'An account with this email already exists. Try logging in instead.';
-            }
-            if (message.includes('Password should be at least')) {
-                return 'Password is too weak. It must be at least 8 characters long.';
-            }
-            if (message.includes('Rate limit exceeded')) {
-                return 'Too many attempts. Please wait a few minutes before trying again.';
-            }
-            
-            // Generic fallback
-            return message || 'An unexpected error occurred. Please try again later.';
+            if (message.includes('Invalid login credentials')) return 'Invalid email or password.';
+            if (message.includes('Email not confirmed')) return 'Please verify your email first.';
+            if (message.includes('User already registered')) return 'Account already exists.';
+            if (message.includes('Rate limit exceeded')) return 'Too many attempts. Please wait.';
+            if (message.includes('SMS is not configured')) return 'Phone OTP is currently unavailable (SMS provider not configured).';
+            return message || 'An unexpected error occurred.';
         }
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value.trim(), password = document.getElementById('password').value, fullName = document.getElementById('full-name').value.trim(), username = document.getElementById('username').value.trim();
-            
-            errorDiv.classList.add('hidden', 'bg-emerald-50', 'text-emerald-600', 'bg-rose-50', 'text-rose-600');
-            errorDiv.classList.add('bg-rose-50', 'text-rose-600'); // Reset to error state
-            
+            errorDiv.classList.add('hidden');
             submitBtn.disabled = true;
+            const originalBtnText = submitBtn.innerText;
             submitBtn.innerText = 'Processing...';
 
             try {
-                if (isSignup) {
-                    const data = await signUp(email, password, fullName, username);
-                    if (data?.user && !data?.session) {
-                        errorDiv.innerHTML = `<div class="font-bold mb-1">✅ Account Created!</div><div>Please check your email to verify your account before logging in.</div>`;
+                if (isPhoneMode) {
+                    const phone = document.getElementById('phone').value.trim();
+                    if (!otpSent) {
+                        await signInWithPhone(phone);
+                        otpSent = true;
+                        otpField.classList.remove('hidden');
+                        submitBtn.innerText = 'Verify OTP';
+                        errorDiv.innerHTML = `<div class="font-bold mb-1">Check your phone!</div><div>We've sent a code to ${phone}.</div>`;
                         errorDiv.classList.remove('hidden', 'bg-rose-50', 'text-rose-600');
-                        errorDiv.classList.add('bg-emerald-50', 'text-emerald-600');
-                    } else if (data?.session) { window.location.href = '/dashboard.html'; }
+                        errorDiv.classList.add('bg-blue-50', 'text-blue-600');
+                    } else {
+                        const otp = document.getElementById('otp').value.trim();
+                        await verifyPhoneOTP(phone, otp);
+                        window.location.href = '/dashboard.html';
+                    }
                 } else {
-                    await signIn(email, password);
-                    window.location.href = '/dashboard.html';
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value;
+                    const fullName = document.getElementById('full-name').value.trim();
+                    const username = document.getElementById('username').value.trim();
+
+                    if (isSignup) {
+                        const data = await signUp(email, password, fullName, username);
+                        if (data?.user && !data?.session) {
+                            errorDiv.innerHTML = `<div class="font-bold mb-1">✅ Account Created!</div><div>Please verify your email.</div>`;
+                            errorDiv.classList.remove('hidden', 'bg-rose-50', 'text-rose-600');
+                            errorDiv.classList.add('bg-emerald-50', 'text-emerald-600');
+                        } else if (data?.session) { window.location.href = '/dashboard.html'; }
+                    } else {
+                        await signIn(email, password);
+                        window.location.href = '/dashboard.html';
+                    }
                 }
             } catch (err) {
-                errorDiv.innerText = getFriendlyError(err); errorDiv.classList.remove('hidden');
+                errorDiv.classList.remove('bg-emerald-50', 'text-emerald-600', 'bg-blue-50', 'text-blue-600');
+                errorDiv.classList.add('bg-rose-50', 'text-rose-600');
+                errorDiv.innerText = getFriendlyError(err);
+                errorDiv.classList.remove('hidden');
+                submitBtn.innerText = originalBtnText;
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerText = isSignup ? 'Create Account' : 'Login to Hub';
             }
         });
         updateUI();
