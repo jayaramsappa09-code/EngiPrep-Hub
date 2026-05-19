@@ -250,40 +250,44 @@
         async function init() {
             const overlay = document.getElementById('loading-overlay')
             
-            supabase.auth.onAuthStateChange((event, session) => {
-                if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session) {
-                    if (!currentUser) {
-                        console.log('Session event received');
-                    }
-                }
-            })
+            console.group('Dashboard Auth Initialization');
+            console.log('Timestamp:', new Date().toISOString());
+            console.log('Location:', window.location.href);
 
             try {
-                // If this is a callback, give the SDK a moment to process the hash/code
-                const isCallback = window.location.hash.includes('access_token') || window.location.search.includes('code');
-                if (isCallback) {
-                    await new Promise(r => setTimeout(r, 1000));
+                // If this is an OAuth callback, the SDK needs time to process the URL fragments
+                const hasAuthData = window.location.hash.includes('access_token=') || window.location.search.includes('code=');
+                if (hasAuthData) {
+                    console.log('OAuth Callback fragments detected, waiting for SDK stabilization...');
+                    // Polling for session up to 4 seconds (OAuth exchange is async)
+                    for (let i = 0; i < 20; i++) {
+                       const { data: { session } } = await supabase.auth.getSession();
+                       if (session?.user) {
+                           console.log('Session established via polling:', session.user.email);
+                           break;
+                       }
+                       await new Promise(r => setTimeout(r, 200));
+                    }
                 }
 
                 const user = await getCurrentUser();
+                console.log('Final User check:', user ? user.email : 'No user');
 
                 if (!user) {
-                    console.warn('Dashboard: No session found. Checking URL for errors...')
-                    const urlParams = new URLSearchParams(window.location.search)
-                    const errorMsg = urlParams.get('error_description') || urlParams.get('error')
-                    
-                    // If we have an actual error, redirect to auth with it
+                    console.warn('Dashboard: No session found after checks. Redirecting...');
+                    console.groupEnd();
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const errorMsg = urlParams.get('error_description') || urlParams.get('error');
                     if (errorMsg) {
-                        window.location.replace('/auth.html?error=' + encodeURIComponent(errorMsg))
-                        return
+                        window.location.replace('/auth.html?error=' + encodeURIComponent(errorMsg));
+                        return;
                     }
-                    
-                    // Otherwise, just session required
-                    window.location.replace('/auth.html?error=session_required')
-                    return
+                    window.location.replace('/auth.html?error=session_required');
+                    return;
                 }
 
-                currentUser = user
+                currentUser = user;
+                console.groupEnd();
 
                 const profile = await getUserProfile(user.id)
                 if (!profile) {

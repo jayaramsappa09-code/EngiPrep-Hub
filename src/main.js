@@ -3,7 +3,7 @@
  * Core functionality
  */
 
-import { supabase } from './supabase'
+import { supabase, getCurrentUser } from './supabase'
 import { toggleBookmark } from './notes'
 
 document.addEventListener('DOMContentLoaded', () => {

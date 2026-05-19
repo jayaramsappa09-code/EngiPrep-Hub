@@ -173,11 +173,21 @@
         }
 
         saveBtn.addEventListener('click', async () => {
+            const username = usernameInput.value.trim()
+            if (!username) {
+                saveMsg.textContent = '❌ Please enter a unique username.'
+                saveMsg.classList.add('text-red-500')
+                saveMsg.classList.remove('hidden')
+                usernameInput.focus()
+                return
+            }
+
             saveBtn.disabled = true
-            saveBtn.textContent = 'Forgeing Profile...'
+            saveBtn.textContent = 'Forging Identity...'
+            saveMsg.classList.add('hidden')
             
             const updates = {
-                username: usernameInput.value.trim(),
+                username: username,
                 full_name: fullnameInput.value.trim(),
                 branch: branchSelect.value,
                 semester: semesterSelect.value ? parseInt(semesterSelect.value) : null,
@@ -188,16 +198,16 @@
                 const { error } = await updateUserProfile(currentUser.id, updates)
                 
                 if (error) {
-                    saveMsg.textContent = '❌ Error: ' + (typeof error === 'string' ? error : (error.message || 'Unknown error'))
+                    saveMsg.textContent = '❌ Forge Failure: ' + (typeof error === 'string' ? error : (error.message || 'Check connection'))
                     saveMsg.classList.add('text-red-500')
                     saveMsg.classList.remove('hidden')
                 } else {
-                    saveMsg.textContent = '✅ Identity Saved Successfully. Redirecting...'
+                    saveMsg.textContent = '✅ Identity Forge Successful. Redirecting...'
                     saveMsg.classList.remove('text-red-500', 'hidden')
-                    setTimeout(() => window.location.href = '/dashboard.html', 1500)
+                    setTimeout(() => window.location.href = '/dashboard.html', 1200)
                 }
             } catch (err) {
-                saveMsg.textContent = '❌ Critical Error: ' + err.message
+                saveMsg.textContent = '❌ System Error: ' + err.message
                 saveMsg.classList.add('text-red-500')
                 saveMsg.classList.remove('hidden')
             } finally {
