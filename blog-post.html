@@ -36,8 +36,7 @@
                 <p id="post-excerpt" class="text-xl text-gray-500 italic mb-10 leading-relaxed">...</p>
                 
                 <div id="author-section" class="flex items-center gap-4 py-8 border-y border-white/5">
-                    <div id="author-avatar-placeholder" class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary font-bold text-xl uppercase">?</div>
-                    <img id="author-avatar" src="" class="w-12 h-12 rounded-full hidden object-cover border border-white/10 shadow-lg">
+                    <div id="author-initials-placeholder" class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary font-bold text-xl uppercase">?</div>
                     <div>
                         <div id="author-name" class="text-sm font-black uppercase tracking-widest text-white">...</div>
                         <div id="author-bio" class="text-[10px] text-gray-500 max-w-md mt-1 italic">...</div>
@@ -114,8 +113,7 @@
                     *,
                     profiles (
                         full_name,
-                        bio,
-                        avatar_url
+                        bio
                     )
                 `)
                 .eq('slug', slug)
@@ -139,13 +137,8 @@
                 document.getElementById('author-name').innerText = profile.full_name || 'Anonymous Author'
                 document.getElementById('author-bio').innerText = profile.bio || 'Technical Editor at EngiPrep Hub'
                 
-                if (profile.avatar_url) {
-                    const img = document.getElementById('author-avatar')
-                    img.src = profile.avatar_url
-                    img.classList.remove('hidden')
-                    document.getElementById('author-avatar-placeholder').classList.add('hidden')
-                } else if (profile.full_name) {
-                    document.getElementById('author-avatar-placeholder').innerText = profile.full_name.charAt(0)
+                if (profile.full_name) {
+                    document.getElementById('author-initials-placeholder').innerText = profile.full_name.charAt(0).toUpperCase()
                 }
             }
 
@@ -180,8 +173,7 @@
                 .select(`
                     *,
                     profiles (
-                        username,
-                        avatar_url
+                        username
                     )
                 `)
                 .eq('post_id', currentPostId)
@@ -204,8 +196,8 @@
 
             list.innerHTML = data.map(comment => `
                 <div class="flex gap-4 animate-fade ${comment.status !== 'approved' ? 'opacity-70' : ''}">
-                    <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex-shrink-0 overflow-hidden flex items-center justify-center text-xs font-bold uppercase text-primary">
-                        ${comment.profiles?.avatar_url ? `<img src="${comment.profiles.avatar_url}" class="w-full h-full object-cover">` : (comment.profiles?.username?.charAt(0) || '?')}
+                    <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex-shrink-0 flex items-center justify-center text-xs font-bold uppercase text-primary">
+                        ${(comment.profiles?.username?.charAt(0) || '?').toUpperCase()}
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-2">

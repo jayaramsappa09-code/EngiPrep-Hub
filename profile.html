@@ -14,10 +14,6 @@
     <link rel="stylesheet" href="/src/style.css">
     <style>
         @reference "./src/style.css";
-        .avatar-option { @apply relative cursor-pointer; }
-        .avatar-option.active .avatar-inner { @apply ring-4 ring-primary shadow-[0_0_30px_rgba(var(--primary-rgb),0.5)]; }
-        .avatar-inner { @apply w-full aspect-square rounded-[2rem] border-2 border-white/5 bg-white/[0.02] p-4 transition-all; }
-        .avatar-option:hover .avatar-inner { @apply bg-white/[0.04] border-white/10; }
         .badge { @apply text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full; }
     </style>
 </head>
@@ -64,14 +60,7 @@
 
         <form id="profile-form">
             <section class="mb-20">
-                <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-10 border-b border-white/5 pb-4 italic">Step 1: Select Your Avatar</h2>
-                <div id="avatar-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                    <!-- Avatars injected here -->
-                </div>
-            </section>
-
-            <section class="mb-20">
-                <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-8 italic">Step 2: Profile Details</h2>
+                <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-8 italic">Profile Details</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-6">
                         <div>
@@ -120,9 +109,7 @@
 
     <script type="module">
         import { requireAuth, getUserProfile, updateUserProfile } from './src/supabase.js'
-        import { AVATARS } from './src/identity-constants.js'
 
-        const avatarGrid = document.getElementById('avatar-grid')
         const profileForm = document.getElementById('profile-form')
         const usernameInput = document.getElementById('username-input')
         const fullnameInput = document.getElementById('fullname-input')
@@ -132,38 +119,7 @@
         const saveMsg = document.getElementById('save-msg')
         const onboardingNotice = document.getElementById('onboarding-notice')
 
-        let selectedAvatar = null
         let currentUser = null
-
-        // Inject Avatars
-        AVATARS.forEach(avatar => {
-            const div = document.createElement('div')
-            div.className = 'avatar-option'
-            div.innerHTML = `
-                <div class="avatar-inner flex flex-col items-center justify-center gap-4 relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-gradient-to-br ${avatar.gradient} opacity-5 group-hover:opacity-10 transition-opacity"></div>
-                    <div class="relative z-10 w-20 sm:w-24 h-20 sm:h-24 rounded-full p-1 bg-gradient-to-tr ${avatar.gradient} shadow-lg">
-                        <img src="${avatar.url}" class="w-full h-full rounded-full bg-[#0d0d12]" alt="${avatar.name}">
-                    </div>
-                    <div class="relative z-10 text-center">
-                        <p class="text-xs font-black italic tracking-tighter">${avatar.name}</p>
-                        <p class="text-[8px] uppercase font-black text-gray-600 mt-1">${avatar.style}</p>
-                    </div>
-                    <div class="absolute top-2 right-2 bg-primary text-white text-[10px] p-1 rounded-lg opacity-0 check-mark transition-opacity">✓</div>
-                    <div class="absolute top-2 left-2 text-lg">${avatar.badge}</div>
-                </div>
-            `
-            div.onclick = () => {
-                document.querySelectorAll('.avatar-option').forEach(el => {
-                    el.classList.remove('active')
-                    el.querySelector('.check-mark').style.opacity = '0'
-                })
-                div.classList.add('active')
-                div.querySelector('.check-mark').style.opacity = '1'
-                selectedAvatar = avatar.url
-            }
-            avatarGrid.appendChild(div)
-        })
 
         async function init() {
             try {
@@ -179,16 +135,6 @@
                     fullnameInput.value = profile.full_name || ''
                     branchSelect.value = profile.branch || ''
                     semesterSelect.value = profile.semester || ''
-                    selectedAvatar = profile.avatar_url
-                    
-                    // Highlight current avatar
-                    const options = document.querySelectorAll('.avatar-option')
-                    AVATARS.forEach((av, idx) => {
-                        if (av.url === profile.avatar_url) {
-                            options[idx].classList.add('active')
-                            options[idx].querySelector('.check-mark').style.opacity = '1'
-                        }
-                    })
                 }
             } catch (err) {
                 console.error('Profile Init Error:', err)
@@ -200,14 +146,6 @@
             e.preventDefault()
             const username = usernameInput.value.trim()
             
-            if (!selectedAvatar) {
-                saveMsg.textContent = '⚠️ Appearance Missing: Please pick an avatar above.'
-                saveMsg.classList.add('text-amber-500')
-                saveMsg.classList.remove('hidden', 'text-red-500', 'text-primary')
-                avatarGrid.scrollIntoView({ behavior: 'smooth' })
-                return
-            }
-
             saveBtn.disabled = true
             saveBtn.innerHTML = `
                 <div class="flex items-center gap-3">
@@ -221,8 +159,7 @@
                 username: username,
                 full_name: fullnameInput.value.trim(),
                 branch: branchSelect.value,
-                semester: semesterSelect.value ? parseInt(semesterSelect.value) : null,
-                avatar_url: selectedAvatar
+                semester: semesterSelect.value ? parseInt(semesterSelect.value) : null
             }
 
             try {

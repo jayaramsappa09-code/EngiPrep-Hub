@@ -218,9 +218,9 @@ export const moderateContribution = async (id, status, feedback = '') => {
 // User Reputation & Leaderboard
 export const fetchTopContributors = async () => {
     const { data, error } = await supabase
-        .from('profiles')
-        .select('username, avatar_url, contributions_count, trust_score')
-        .gt('contributions_count', 0)
+    .from('profiles')
+    .select('username, contributions_count, trust_score')
+    .gt('contributions_count', 0)
         .order('contributions_count', { ascending: false })
         .limit(5)
     

@@ -215,7 +215,9 @@
                 if (contributors && contributors.length > 0) {
                     contributorsList.innerHTML = contributors.map(p => `
                         <div class="flex items-center gap-4">
-                            <img src="${p.avatar_url || 'https://api.dicebear.com/7.x/bottts/svg?seed='+p.username}" class="w-10 h-10 rounded-xl bg-slate-100" alt="Avatar">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 font-black text-xs uppercase">
+                                ${(p.username || 'S').charAt(0)}
+                            </div>
                             <div>
                                 <h4 class="text-[10px] font-black text-slate-900 truncate tracking-tight uppercase">${p.username}</h4>
                                 <p class="text-[8px] font-bold text-emerald-500 uppercase">${p.contributions_count} Contributions</p>

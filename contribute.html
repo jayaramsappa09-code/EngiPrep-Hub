@@ -184,7 +184,9 @@
             leaderboard.innerHTML = top.map((p, i) => `
                 <div class="leaderboard-card">
                     <div class="text-xs font-black text-gray-600">${i+1}</div>
-                    <img src="${p.avatar_url || 'https://api.dicebear.com/7.x/bottts/svg?seed='+p.username}" class="w-10 h-10 rounded-xl" alt="Avatar">
+                    <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary font-black text-xs">
+                        ${(p.username || 'S').charAt(0).toUpperCase()}
+                    </div>
                     <div class="flex-1">
                         <p class="text-xs font-black italic">@${p.username || 'scholar'}</p>
                         <p class="text-[8px] uppercase font-bold text-gray-500">${p.contributions_count} Contributions</p>

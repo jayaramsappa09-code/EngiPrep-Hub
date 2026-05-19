@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   phone TEXT,
   full_name TEXT,
   username TEXT UNIQUE,
-  avatar_url TEXT,
   branch TEXT,
   semester INT,
   role TEXT DEFAULT 'user',
@@ -20,7 +19,6 @@ ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS email TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS phone TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS full_name TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS username TEXT;
-ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS avatar_url TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS branch TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS semester INT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS role TEXT DEFAULT 'user';
@@ -33,14 +31,13 @@ ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH T
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
 BEGIN
-  INSERT INTO public.profiles (id, email, phone, full_name, username, avatar_url)
+  INSERT INTO public.profiles (id, email, phone, full_name, username)
   VALUES (
     new.id, 
     new.email,
     new.phone,
     new.raw_user_meta_data->>'full_name', 
-    new.raw_user_meta_data->>'username',
-    new.raw_user_meta_data->>'avatar_url'
+    new.raw_user_meta_data->>'username'
   )
   ON CONFLICT (id) DO UPDATE SET
     email = COALESCE(EXCLUDED.email, profiles.email),

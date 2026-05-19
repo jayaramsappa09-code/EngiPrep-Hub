@@ -46,7 +46,6 @@ create table if not exists profiles (
   full_name text,
   branch text,
   semester int,
-  avatar_url text,
   role text check (role in ('user', 'admin')) default 'user',
   is_pro boolean default false,
   xp int default 0,
@@ -81,19 +80,17 @@ create policy "Users can manage own profile" on profiles for all using (auth.uid
 create or replace function public.handle_new_user()
 returns trigger as $$
 begin
-  insert into public.profiles (id, email, full_name, role, avatar_url)
+  insert into public.profiles (id, email, full_name, role)
   values (
     new.id, 
     new.email, 
     coalesce(new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'name', 'User'), 
-    'user',
-    new.raw_user_meta_data->>'avatar_url'
+    'user'
   )
   on conflict (id) do update 
   set 
     email = excluded.email,
-    full_name = coalesce(excluded.full_name, profiles.full_name),
-    avatar_url = coalesce(excluded.avatar_url, profiles.avatar_url);
+    full_name = coalesce(excluded.full_name, profiles.full_name);
   return new;
 end;
 $$ language plpgsql security definer;

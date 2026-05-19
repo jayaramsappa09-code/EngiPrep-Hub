@@ -168,9 +168,6 @@ export const updateUserProfile = async (userId, updates) => {
       }, { onConflict: 'id' })
     
     if (error) {
-      if (error.message.includes('avatar_url') && error.message.includes('column')) {
-        return { error: 'DATABASE_MIGRATION_REQUIRED: The "avatar_url" column is missing in your Supabase "profiles" table. Please run the SQL in fix_schema.sql in your Supabase Dashboard.' }
-      }
       throw error
     }
     return { data, error: null }
