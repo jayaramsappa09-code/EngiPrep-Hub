@@ -235,12 +235,107 @@ function showNotification(msg) {
 }
 
 function initMobileMenu() {
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
+    // Dynamically inject the mobile menu hamburger button and mobile menu drawer if they aren't already hardcoded in the DOM.
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+
+    // Check if we already have the button
+    let menuBtn = document.getElementById('mobile-menu-btn');
+    let mobileMenu = document.getElementById('mobile-menu');
+
+    if (!menuBtn) {
+        // Find navbar action block to inject the mobile menu button beautifully
+        const navActions = document.getElementById('nav-actions') || nav.querySelector('.max-w-7xl > div:last-child');
+        if (navActions) {
+            menuBtn = document.createElement('button');
+            menuBtn.id = 'mobile-menu-btn';
+            menuBtn.className = 'lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-border text-text-muted hover:text-blue-600 transition-all active:scale-95 focus:outline-hidden focus:ring-2 focus:ring-blue-500';
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.setAttribute('aria-controls', 'mobile-menu');
+            menuBtn.setAttribute('aria-label', 'Toggle navigation menu');
+            menuBtn.innerHTML = `
+                <svg class="w-5 h-5 transition-transform duration-300" id="hamburger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path class="line-1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16"></path>
+                    <path class="line-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 12h16"></path>
+                    <path class="line-3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 18h16"></path>
+                </svg>
+            `;
+            // Insert inside actions container
+            navActions.parentNode.insertBefore(menuBtn, navActions.nextSibling || navActions);
+        }
+    }
+
+    if (!mobileMenu) {
+        mobileMenu = document.createElement('div');
+        mobileMenu.id = 'mobile-menu';
+        mobileMenu.className = 'hidden absolute top-20 left-0 w-full bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-border shadow-xl z-40 flex flex-col p-6 space-y-3 lg:hidden divide-y divide-border/40';
+        mobileMenu.innerHTML = `
+            <div class="flex flex-col space-y-2 pb-3">
+                <a href="/notes.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                    📚 Notes
+                </a>
+                <a href="/pyqs.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                    📝 PYQs
+                </a>
+                <a href="/cheat-sheets.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                    ⚡ Cheat Sheets
+                </a>
+                <a href="/exam-survival.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                    🔥 Exam Prep
+                </a>
+                <a href="/tools.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                    🛠 Tools
+                </a>
+                <a href="/blog.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                    ✍️ Blog
+                </a>
+            </div>
+            <div class="pt-3 flex flex-col space-y-3">
+                <a href="/dashboard.html" class="px-4 py-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-widest text-center">
+                    Dashboard
+                </a>
+            </div>
+        `;
+        nav.appendChild(mobileMenu);
+    }
+
     if (menuBtn && mobileMenu) {
         menuBtn.addEventListener('click', () => {
+            const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+            menuBtn.setAttribute('aria-expanded', !isExpanded);
             mobileMenu.classList.toggle('hidden');
+            
+            // Toggle hamburger icon animation
+            const icon = menuBtn.querySelector('#hamburger-icon');
+            if (icon) {
+                if (!isExpanded) {
+                    icon.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                    `;
+                } else {
+                    icon.innerHTML = `
+                        <path class="line-1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16"></path>
+                        <path class="line-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 12h16"></path>
+                        <path class="line-3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 18h16"></path>
+                    `;
+                }
+            }
+        });
+
+        // Close when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                menuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenu.classList.add('hidden');
+                const icon = menuBtn.querySelector('#hamburger-icon');
+                if (icon) {
+                    icon.innerHTML = `
+                        <path class="line-1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16"></path>
+                        <path class="line-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 12h16"></path>
+                        <path class="line-3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 18h16"></path>
+                    `;
+                }
+            }
         });
     }
 }
