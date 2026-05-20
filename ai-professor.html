@@ -226,7 +226,7 @@
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                         <div class="flex items-center gap-2 w-full sm:w-auto">
                             <span class="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500">Target Concept:</span>
-                            <select id="cockpit-topic" class="bg-background border border-border text-[11px] rounded-xl px-3 py-1.5 font-extrabold focus:outline-none focus:ring-1 focus:ring-indigo-500 text-slate-900 dark:text-white flex-1 sm:flex-initial">
+                            <select id="cockpit-topic" onchange="updatePageTechnicalTerms()" class="bg-background border border-border text-[11px] rounded-xl px-3 py-1.5 font-extrabold focus:outline-none focus:ring-1 focus:ring-indigo-500 text-slate-900 dark:text-white flex-1 sm:flex-initial">
                                 <optgroup label="Mathematics I">
                                     <option value="cayley_hamilton" selected>Cayley-Hamilton Theorem & Inverse</option>
                                     <option value="mean_value_theorems">Lagrange & Cauchy Mean Value Theorems</option>
@@ -281,6 +281,25 @@
                                 <span class="text-xs mb-0.5">💡 Analogy</span>
                                 <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-indigo-600">Memory Hook</span>
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Technical Term Scanner & Decoder -->
+                <div class="px-6 py-3.5 bg-slate-50/50 dark:bg-slate-950/25 border-b border-border select-none space-y-2">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1.5 text-[10px] font-black uppercase text-slate-450 dark:text-slate-500">
+                            <span class="inline-block w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse"></span>
+                            <span>Visible Text Technical Terms Decoder</span>
+                        </div>
+                        <span class="text-[8.5px] font-extrabold text-[#4f46e5] dark:text-indigo-400 uppercase tracking-widest bg-indigo-100/50 dark:bg-indigo-950/50 px-2 py-0.5 rounded border border-indigo-200/20">
+                            Instant Click Decode
+                        </span>
+                    </div>
+                    <!-- Horizontal scrollable term filter tags -->
+                    <div class="relative w-full">
+                        <div id="technical-terms-chips" class="flex gap-2 overflow-x-auto pb-1 no-scrollbar select-none scroll-smooth">
+                            <!-- Injected dynamically via JS depending on current active concept -->
                         </div>
                     </div>
                 </div>
@@ -619,6 +638,166 @@
         import { getGreeting, getMotivation } from './src/platform-constants.js'
         import { PREDEFINED_TOPICS_DB } from './src/predefinedProfessorResponses.js'
 
+        const TECHNICAL_TERMS_DB = {
+            "cayley-hamilton": {
+                term: "Cayley-Hamilton Theorem",
+                definition: "Every square matrix $A$ satisfies its own characteristic equation $P(\\lambda) = \\text{det}(A - \\lambda I) = 0$. Substituting matrix $A$ for eigenvalue $\\lambda$ yields the zero matrix $O$.",
+                exam_focus: "Ensure you replace scalar constants $c$ with $cI$. Used heavily in JNTUK 10-mark questions to verify identity and calculate matrix inverses $A^{-1}$ without manual division.",
+                formula: "A^n - S_1 A^{n-1} + ... + (-1)^n |A| I = O",
+                analogy: "Like a fingerprint matching a hand. A matrix is the hand, and its characteristic equation is its perfect custom fingerprint. They cancel out to zero perfectly.",
+                viva_q: "Can we verify Cayley-Hamilton for rectangular matrices?",
+                viva_a: "No, determinants and characteristic polynomials are only mathematically defined for square configurations."
+            },
+            "eigenvalues": {
+                term: "Eigenvalues & Eigenvectors",
+                definition: "The scalar values $\\lambda$ for which there exists a non-zero vector $X$ such that $AX = \\lambda X$. Computed by finding roots of characteristic equation $|A - \\lambda I| = 0$.",
+                exam_focus: "Highly repeated in JNTUK Part-B. Always verify that Sum of Eigenvalues = Trace of Matrix, and Product of Eigenvalues = Determinant of Matrix.",
+                formula: "AX = \\lambda X \\quad \\implies \\quad |A - \\lambda I| = 0",
+                analogy: "Like a shadow. The direction of the shadow (eigenvector) stays collinear, only its scale factor length (eigenvalue) changes.",
+                viva_q: "What is the product of eigenvalues for a singular matrix?",
+                viva_a: "It is exactly zero, since the determinant of a singular matrix is zero."
+            },
+            "trace of matrix": {
+                term: "Trace of Matrix",
+                definition: "The mathematical sum of all elements along the principal diagonal of a square matrix.",
+                exam_focus: "Use as an instant verification check for eigenvalues in 10-mark equations. Trace = $\\lambda_1 + \\lambda_2 + ... + \\lambda_n$.",
+                formula: "\\text{Trace}(A) = \\sum_{i=1}^n a_{ii}",
+                analogy: "The spine of the matrix. Summing these diagnostic bones indicates its core structure.",
+                viva_q: "Is Trace defined for non-square systems?",
+                viva_a: "No, because non-square matrices lack diagonal symmetry."
+            },
+            "mean value theorems": {
+                term: "Mean Value Theorems",
+                definition: "Calculus theorems (Rolle's, Lagrange's, Cauchy's) correlating derivatives and rates of change over continuous, differentiable intervals.",
+                exam_focus: "Check prerequisites carefully first: Continuous in closed $[a,b]$, Differentiable in open $(a,b)$. Solving for $c$ must lie strictly within boundaries.",
+                formula: "f'(c) = \\frac{f(b) - f(a)}{b - a}",
+                analogy: "If you travel 120km in 2 hours, your average speed is 60km/h. At some exact instant, your speedometer must show exactly 60km/h.",
+                viva_q: "Why does $|x|$ fail LMVT on [-1, 1]?",
+                viva_a: "Differentiability fails at the sharp corner point x = 0."
+            },
+            "rolle's theorem": {
+                term: "Rolle's Theorem",
+                definition: "A special case of LMVT where endpoints are equal: $f(a) = f(b)$. Under continuity and differentiability, there is some point $c$ where derivative $f'(c) = 0$.",
+                exam_focus: "Find the root $c$ where $f'(c) = 0$. Do not write square brackets for $c$ range, it is an open interval $(a,b)$.",
+                formula: "f'(c) = 0",
+                analogy: "An archer shooting over a hill. The arrow must reach a flat peak horizontal trajectory tangent before descending.",
+                viva_q: "What happens if boundary values differ?",
+                viva_a: "Rolle's theorem cannot be applied; use LMVT secant line slope."
+            },
+            "newton's rings": {
+                term: "Newton's Rings",
+                definition: "Concentric circular interference pattern formed when a thin plano-convex lens is placed upon a flat optical glass plate, capturing a thin air wedge.",
+                exam_focus: "Stokes phase reversal of $\\lambda/2$ upon reflection from denser glass causes the Central Spot of Newton's rings in reflected light to be dark.",
+                formula: "D_n^2 = 4n\\lambda R \\quad (\\text{Dark rings diameter})",
+                analogy: "Like repeating water ripples starting from a pebble dropped down a pond, caused by light beams overlapping.",
+                viva_q: "What changes if we fill the lens gap with water?",
+                viva_a: "The rings contract because the wavelength decreases by medium index index ($\\lambda\' = \\lambda / \\mu$)."
+            },
+            "stokes phase shift": {
+                term: "Stokes' Phase Shift Law",
+                definition: "Light reflected from a medium of higher refractive index (denser) undergoes an instantaneous phase change of $\\pi$ (equivalent to a path shift of $\\lambda/2$).",
+                exam_focus: "Essential when calculating path differences. Path difference $\\Delta = 2t \\pm \\lambda/2$. Forgetting this is a critical 4-mark error in derivations.",
+                formula: "\\Delta = 2\\mu t \\cos(r) + \\frac{\\lambda}{2}",
+                analogy: "Like a bouncy rubber ball hitting a steel wall – it bounces back with its spin completely reversed instantly.",
+                viva_q: "Is there any shift in transmitted light reflection?",
+                viva_a: "No, because reflection occurs off a lower index boundary (denser to rarer)."
+            },
+            "einstein coefficients": {
+                term: "Einstein A & B Coefficients",
+                definition: "Probability coefficients modeling spontaneous emission (A) and stimulated emission/absorption (B) under thermal radiation density.",
+                exam_focus: "Prove Einstein ratio: $A_{21}/B_{21} = 8\\pi h \\nu^3/c^3$. Must assume Boltzmann atomic distributions and Planck radiation constants.",
+                formula: "\\frac{A_{21}}{B_{21}} = \\frac{8\\pi h \\nu^3}{c^3}",
+                analogy: "Singing alone in the shower randomly (spontaneous) vs a choir chanting in perfect synchronization under a conductor's cue (stimulated).",
+                viva_q: "What is Population Inversion?",
+                viva_a: "Forcing more atoms into the higher state N2 than the lower state N1."
+            },
+            "population inversion": {
+                term: "Population Inversion",
+                definition: "An artificial thermodynamic state where higher energy level population exceeds lower energy level population ($N_2 > N_1$).",
+                exam_focus: "Crucial criterion for Laser amplification. Requires meta-stable states and continuous external pumping sources.",
+                formula: "N_2 > N_1 \\quad (\\text{State of Non-Equilibrium})",
+                analogy: "A theater having more spectators seated on the premium balcony than on the main ground floor.",
+                viva_q: "Why is a meta-stable state needed?",
+                viva_a: "To store atoms longer so stimulated triggers accumulate instead of decaying spontaneously."
+            },
+            "atom economy": {
+                term: "Atom Economy Metric",
+                definition: "The percentage measure of chemical reactants that are incorporated into the desired target products rather than waste.",
+                exam_focus: "Highly useful Green Chemistry principle. Write exact formula and compute numerically to earn full examiner credits.",
+                formula: "\\% \\text{ Atom Economy} = \\frac{\\text{Mol. Wt. of Desired Product}}{\\text{Total Mol. Wt. of Reactants}} \\times 100",
+                analogy: "Cooking a meal with zero waste. Shaving potatoes completely into fries without shedding any skin to the rubbish bin.",
+                viva_q: "What is the difference between atom economy and yield?",
+                viva_a: "Yield measures weight of product formed; Atom economy tracks how cleanly chemical atoms are conserved."
+            },
+            "ion exchange": {
+                term: "Ion Exchange Demineralization",
+                definition: "Water softening system passing hard water through cation resins ($R-H^+$) and anion resins ($R-OH^-$) to remove all hardness salts.",
+                exam_focus: "Write equations: cation exchange and anion exchange. Show regeneration equations with HCl and NaOH respectively.",
+                formula: "R-H^+ + Na^+ \\rightarrow R-Na + H^+ \\quad \\& \\quad R-OH^- + Cl^- \\rightarrow R-Cl + OH^-",
+                analogy: "A secure currency converter. Swapping unwanted copper hardness coins for fluid, clean protons and hydroxides.",
+                viva_q: "Why is this better than zeolite?",
+                viva_a: "Zeolites only remove cations. An ion-exchanger removes both cations and active anions, providing completely demineralized water."
+            },
+            "lead-acid battery": {
+                term: "Lead-Acid Battery Cells",
+                definition: "A robust secondary rechargeable electrochemical battery utilizing Lead anode, Lead dioxide cathode, and aqueous sulfuric acid electrolyte.",
+                exam_focus: "Draw clear chemical labels. Write exact discharging and charging chemical equations. Density changes from 1.30 to 1.15 g/cm³.",
+                formula: "\\text{Pb} + \\text{PbO}_2 + 2\\text{H}_2\\text{SO}_4 \\rightleftharpoons 2\\text{PbSO}_4 + 2\\text{H}_2\\text{O}",
+                analogy: "A chemical battery swing. Discharging slides everything down to sulfate sand, while plugging in chargers pumps them back up to oxide cliffs.",
+                viva_q: "What is the electrolyte concentration in a fully charged state?",
+                viva_a: "Approximately 38% sulfuric acid weight ratio, corresponding to a specific gravity of 1.25 to 1.30."
+            },
+            "superposition theorem": {
+                term: "Superposition Theorem",
+                definition: "In any bilateral linear network containing multiple generators, current/voltage at any element equals algebraic summation of values caused by each separately.",
+                exam_focus: "Deactivate other sources: Replace independent voltage sources with a Short Circuit (zero resistance), and active current sources with an Open Circuit.",
+                formula: "I_{\\text{total}} = I_1 + I_2 + ... + I_n",
+                analogy: "Two children talking on a tin-can telephone: the sound waves overlay on top of each other and can be analyzed independently.",
+                viva_q: "Is it valid for power measurements?",
+                viva_a: "No, power is non-linear ($P=I^2R$), so superimposing power values is invalid."
+            },
+            "power factor": {
+                term: "Power Factor (cos φ)",
+                definition: "The cosine of the phase angle φ between AC voltage and current waveforms. Measures AC energy conversion efficiency.",
+                exam_focus: "Ratio of Real Active Power (kW) to apparent power (kVA). Lagging occurs in inductive circuits; Leading occurs in capacitive loads.",
+                formula: "\\text{PF} = \\cos(\\phi) = \\frac{\\text{Active Power (kW)}}{\\text{Apparent Power (kVA)}} = \\frac{R}{Z}",
+                analogy: "A frothy mug of cold root beer. The tasty fluid represents active useful power; the thick useless foam represents apparent reactive power.",
+                viva_q: "Why are low power factors penalized by electrical boards?",
+                viva_a: "It demands higher transmission currents, which multiplies power losses ($I^2R$) across grid cables."
+            },
+            "pointers": {
+                term: "Pointers & Memory Access",
+                definition: "A custom C compiler variable storing the unique physical hexadecimal memory address of another standard variable.",
+                exam_focus: "Study pointer operators: reference address-of operator `&`, and dereference value-at-address operator `*`. Explain pointer offsets.",
+                formula: "\\text{int } *ptr = \\&var;",
+                analogy: "A map directions tag. It does not carry the actual gold chest, it simply documents the written GPS coordinates where chest is buried.",
+                viva_q: "What is a null pointer?",
+                viva_a: "A pointer initialized to point to no valid memory address, holding address zero."
+            },
+            "structures": {
+                term: "Structures vs Unions",
+                definition: "User-defined C types. Struct secures unique individual memory blocks for each member, while Union shares a single contiguous block.",
+                exam_focus: "Highlight struct sizing vs union sizing. Sizing of Union matches the largest member. Draw memory cells block grids as proof.",
+                formula: "\\text{sizeof(union)} = \\text{max(sizeof(members))}",
+                analogy: "Struct is a luxury apartment building where each member gets their own customized suite, while Union is a single shared sofa.",
+                viva_q: "Why use unions?",
+                viva_a: "To conserve critical memory storage blocks in embedded microcontroller configurations."
+            }
+        };
+
+        const TOPICS_TO_TERMS_MAP = {
+            cayley_hamilton: ["cayley-hamilton", "eigenvalues", "trace of matrix"],
+            mean_value_theorems: ["mean value theorems", "rolle's theorem", "eigenvalues"],
+            newtons_rings: ["newton's rings", "stokes phase shift"],
+            einstein_laser: ["einstein coefficients", "population inversion"],
+            structures_unions: ["structures", "pointers"],
+            pointers_reference: ["pointers", "structures"],
+            water_demineralization: ["ion exchange", "atom economy"],
+            battery_cells: ["lead-acid battery", "atom economy"],
+            superposition_theorem: ["superposition theorem", "power factor"],
+            power_factor: ["power factor", "superposition theorem"]
+        };
+
         const navUsername = document.getElementById('nav-username')
         const navXP = document.getElementById('nav-xp')
         const navStreak = document.getElementById('nav-streak')
@@ -677,6 +856,7 @@
                 renderSubjectPredictions();
                 loadActiveDeck();
                 switchVivaExamSubject();
+                updatePageTechnicalTerms();
 
                 // Hide loading overlay
                 overlay.style.opacity = '0';
@@ -688,6 +868,38 @@
                 setTimeout(() => overlay.remove(), 500);
             }
         }
+
+        window.updatePageTechnicalTerms = function() {
+            const topicSelector = document.getElementById('cockpit-topic');
+            const container = document.getElementById('technical-terms-chips');
+            if(!topicSelector || !container) return;
+            
+            const topicId = topicSelector.value;
+            const termKeys = TOPICS_TO_TERMS_MAP[topicId] || ["cayley-hamilton", "eigenvalues", "trace of matrix"];
+            
+            container.innerHTML = termKeys.map(key => {
+                const termData = TECHNICAL_TERMS_DB[key];
+                if(!termData) return '';
+                return `
+                    <button onclick="window.decodeTechnicalTerm('${key}')" class="px-3 py-1.5 bg-white dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/45 text-[10.5px] text-slate-800 dark:text-slate-200 font-extrabold rounded-xl border border-border shadow-sm active:scale-95 transition-all shrink-0 cursor-pointer hover:border-indigo-600 flex items-center gap-1.5 leading-none select-none">
+                        📖 ${termData.term}
+                    </button>
+                `;
+            }).join('');
+        };
+
+        window.decodeTechnicalTerm = function(key) {
+            const termInfo = TECHNICAL_TERMS_DB[key];
+            if(!termInfo) return;
+            
+            const input = document.getElementById('prof-chat-input');
+            if(input) {
+                input.value = termInfo.term;
+            }
+            
+            // Trigger customized local decoder flow
+            window.sendProfessorMessage(key);
+        };
 
         // Global switcher
         window.switchAIPanel = function(panelId) {
@@ -923,12 +1135,25 @@
             `
         }
 
-        window.sendProfessorMessage = async function() {
+        window.sendProfessorMessage = async function(forcedKey) {
             const input = document.getElementById('prof-chat-input')
-            const text = input.value.trim()
-            if(!text) return;
-            
-            input.value = ''
+            let text = "";
+            let matchedTermKey = null;
+
+            if (forcedKey && TECHNICAL_TERMS_DB[forcedKey]) {
+                text = TECHNICAL_TERMS_DB[forcedKey].term;
+                matchedTermKey = forcedKey;
+            } else {
+                text = input.value.trim();
+                if(!text) return;
+                input.value = '';
+                
+                // Seek partial case-insensitive matches against keys in TECHNICAL_TERMS_DB
+                const lowerText = text.toLowerCase();
+                matchedTermKey = Object.keys(TECHNICAL_TERMS_DB).find(k => 
+                    lowerText.includes(k) || k.includes(lowerText)
+                );
+            }
             
             const dialogContainer = document.getElementById('professor-chat-messages')
             
@@ -942,7 +1167,7 @@
                 </div>
             `
             dialogContainer.scrollTop = dialogContainer.scrollHeight
-
+ 
             // Loading state bubble
             const loadingBubbleId = "chat-loading-bubble"
             dialogContainer.innerHTML += `
@@ -955,8 +1180,69 @@
                 </div>
             `
             dialogContainer.scrollTop = dialogContainer.scrollHeight
+ 
+            // If it matched a key in TECHNICAL_TERMS_DB, use elite localized high-yield exam decoder block
+            if (matchedTermKey) {
+                setTimeout(() => {
+                    const loader = document.getElementById(loadingBubbleId);
+                    if (loader) loader.remove();
+                    
+                    const t = TECHNICAL_TERMS_DB[matchedTermKey];
+                    dialogContainer.innerHTML += `
+                        <div class="chat-message flex items-start gap-3 animate-fade-up">
+                            <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow border border-border select-none">🧠</div>
+                            <div class="bg-indigo-50/50 dark:bg-slate-950/30 border border-border rounded-r-2xl rounded-bl-2xl p-5 max-w-[85%] space-y-4 shadow-xl shadow-indigo-650/5">
+                                <div class="flex items-center justify-between border-b border-border pb-2.5">
+                                    <div>
+                                        <h4 class="text-xs font-black text-slate-950 dark:text-white">${t.term}</h4>
+                                        <span class="text-[8.5px] text-indigo-600 dark:text-indigo-400 font-extrabold uppercase tracking-widest leading-none">Diagnostic Decoder Suite</span>
+                                    </div>
+                                    <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-450 text-[8px] font-black rounded-md tracking-wider border border-emerald-250 dark:border-emerald-800 animate-pulse uppercase">
+                                        🔍 Visible Term Decoded
+                                    </span>
+                                </div>
 
-            // Try real server API endpoint
+                                <div class="space-y-1">
+                                    <span class="text-[8.5px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider block">CONCISE DEFINITION AND LAO</span>
+                                    <p class="text-xs text-slate-800 dark:text-slate-200 font-semibold leading-relaxed">${t.definition}</p>
+                                </div>
+
+                                <div class="p-3 bg-[#0d0d12] text-slate-200 border border-slate-850 rounded-xl font-mono text-center">
+                                    <span class="text-[8.5px] font-black uppercase text-indigo-400 tracking-wide block mb-1">Core Formula Block</span>
+                                    <p class="text-xs text-[#38bdf8] font-bold tracking-tight my-1">${t.formula}</p>
+                                </div>
+
+                                <div class="p-3.5 bg-indigo-50/40 dark:bg-indigo-950/15 border border-indigo-200/20 rounded-xl space-y-1">
+                                    <span class="text-[8.5px] font-black uppercase text-indigo-600 dark:text-indigo-400 tracking-wider block">💡 Memory Analogy Hook</span>
+                                    <p class="text-[11px] text-slate-800 dark:text-slate-200 leading-relaxed font-semibold">${t.analogy}</p>
+                                </div>
+
+                                <div class="p-3.5 bg-rose-50/50 dark:bg-rose-950/10 border border-rose-250/20 rounded-xl space-y-1">
+                                    <span class="text-[8.5px] font-black uppercase text-rose-500 tracking-wider block">⚠️ JNTUK Evaluation Trap</span>
+                                    <p class="text-[11px] text-rose-750 dark:text-rose-450 leading-relaxed font-black">${t.exam_focus}</p>
+                                </div>
+
+                                <div class="viva-expandable-card p-3 bg-slate-100/60 dark:bg-slate-900/40 border border-border rounded-xl cursor-pointer hover:border-indigo-500/50 transition-all select-none group" onclick="this.querySelector('.viva-ans-block').classList.toggle('hidden')">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <span class="text-[8.5px] font-black uppercase text-slate-500 dark:text-slate-400 tracking-wider">Expand Viva Question Prompt</span>
+                                        <span class="text-[8px] font-black bg-indigo-600/10 text-indigo-450 py-0.5 px-1 rounded uppercase tracking-wider group-hover:bg-indigo-650 group-hover:text-white transition-colors shrink-0">Click Reveal</span>
+                                    </div>
+                                    <div class="viva-ans-block hidden mt-2.5 pt-2.5 border-t border-border/80 text-xs text-slate-650 dark:text-slate-300 leading-relaxed select-text font-medium">
+                                        <p class="font-black text-indigo-600 dark:text-indigo-400 text-[8.5px] uppercase tracking-wider mb-1">External Examiner Question:</p>
+                                        <p class="italic mb-2 font-bold text-slate-900 dark:text-white">${t.viva_q}</p>
+                                        <p class="font-black text-emerald-600 dark:text-emerald-400 text-[8.5px] uppercase tracking-wider mb-1">Expected Viva Answer:</p>
+                                        <p class="font-bold text-slate-850 dark:text-slate-350">${t.viva_a}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    dialogContainer.scrollTop = dialogContainer.scrollHeight;
+                }, 380);
+                return;
+            }
+
+            // Fallback to real server API endpoint
             try {
                 const response = await fetch("/api/ai/chat", {
                     method: "POST",
@@ -997,7 +1283,7 @@
                 } else {
                     customVerdict = mockVivaExplanations[keyWord] || "Viva Exam Question: Differentiate structures and unions. Answer: Structure sets distinct memory; Union shares same container blocks."
                 }
-
+ 
                 const av = { strict: "👹", senior: "🎓", coach: "🏃‍♂️", viva: "🧐" }[window.professorTypeSelected]
                 dialogContainer.innerHTML += `
                     <div class="chat-message flex items-start gap-3 select-text">
