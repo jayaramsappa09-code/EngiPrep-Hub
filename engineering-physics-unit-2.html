@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 2: Lasers & Fiber Optics | EngiPrep Hub</title>
-    <meta name="description" content="Elite JNTUK R23 Engineering Physics Unit 2: Lasers & Fiber Optics. Simple exam tomorrow explanations.">
+    <title>JNTUK R23 Unit 2: Lasers & Fiber Optics Hub | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Engineering Physics Unit 2: Lasers & Fiber Optics. Simple exam preparation with structured concepts, definitions, and derivations.">
     <link rel="stylesheet" href="/src/style.css">
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -22,79 +22,167 @@
             border-radius: 1.5rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .light .glass-card {
-            background-color: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
-        }
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15);
-        }
-        .viva-card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .viva-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-flipped { transform: rotateY(180deg); }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
     </style>
-
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 bg-gradient-to-tr from-[#080816] via-[#050508] to-[#0d0714] min-h-screen font-sans antialiased">
-
-    <!-- Premium Header Navbar -->
+<body class="bg-[#050508] text-slate-350 min-h-screen font-sans antialiased selection:bg-blue-600">
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/10"></div>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-blue-500">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
-                </div>
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black tracking-tighter text-slate-50">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            <div id="nav-actions" class="flex items-center gap-4">
-                <a href="/physics-notes.html" class="px-4 py-2 border border-slate-750 rounded-xl bg-slate-900/40 text-xs font-bold uppercase hover:bg-slate-800/40 text-slate-300 transition-all flex items-center gap-1.5 active:scale-95">
-                    Subject Hub
-                </a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-blue-500/10 text-white">Dashboard</a>
+            <div class="flex items-center gap-4">
+                <a href="/physics-notes.html" class="px-4 py-2 bg-slate-900/40 rounded-xl text-xs font-bold uppercase text-slate-300">Subject Hub</a>
+                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
             </div>
         </div>
     </nav>
-
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-white dark:bg-slate-900 shadow-sm">
-            <div class="space-y-4 relative z-10 max-w-3xl">
-                <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50 leading-tight tracking-tight">
-                    Lasers & Fiber Optics <br>
-                    <span class="bg-gradient-to-r from-blue-450 via-indigo-400 to-violet-400 bg-clip-text text-transparent">Complete Exam Survival Kit</span>
-                </h1>
-            </div>
+        <header class="mb-14 p-8 glass-card bg-slate-900 shadow-sm space-y-4">
+            <h1 class="text-4xl lg:text-5xl font-black text-slate-50 leading-tight">Lasers & Fiber Optics <br><span class="text-blue-400">Complete Exam Survival Kit</span></h1>
+            <p class="text-slate-400 text-sm font-medium">Curated specifically for JNTUK R23 Engineering Physics. Simplified mathematical flow, precise terminology, scoring diagrams, and practical solutions.</p>
         </header>
 
-        <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm">
-             <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight mb-4">Introduction to Lasers & Fiber Optics</h2>
-             <p class="text-xs text-slate-350 sm:text-sm">Lasers cover stimulated emission, population inversion, pumping, and specific laser types. Fiber Optics covers principles of TIR, Acceptance Angle, and Numerical Aperture.</p>
+        <section id="principles" class="glass-card p-8 bg-slate-900 shadow-sm space-y-6 scroll-mt-24">
+            <h2 class="text-xl font-black text-slate-50 uppercase tracking-tight">Laser Action Principles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-400">
+                <div class="p-6 bg-slate-950 border border-slate-900 rounded-2xl">
+                    <h3 class="font-bold text-blue-400 mb-2">Spontaneous vs Stimulated</h3>
+                    <p class="leading-relaxed">Spontaneous emission is random; stimulated emission is forced by an incident photon, resulting in a coherent, monochromatic, and phase-matched secondary photon.</p>
+                </div>
+                <div class="p-6 bg-slate-950 border border-slate-900 rounded-2xl">
+                    <h3 class="font-bold text-indigo-400 mb-2">Population Inversion</h3>
+                    <p class="leading-relaxed">The state where atoms in excited state ($N_2$) outnumber those in ground state ($N_1$). Crucial for net amplification.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="he-ne" class="glass-card p-8 mt-8 bg-slate-900 shadow-sm space-y-6 scroll-mt-24">
+            <h2 class="text-xl font-black text-slate-50 uppercase">Laser Construction: He-Ne & Ruby</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-400">
+                <div>
+                    <h3 class="font-bold text-slate-50 mb-2">1. He-Ne Laser</h3>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><b>Medium:</b> He (~10) : Ne (~1) mixture.</li>
+                        <li><b>Pumping:</b> Electrical discharge.</li>
+                        <li><b>Mechanism:</b> He atoms transfer energy to Ne.</li>
+                        <li><b>Output:</b> 632.8 nm (Red).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-50 mb-2">2. Ruby Laser (Three-level)</h3>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><b>Medium:</b> Al2O3 doped with Cr³⁺ ions.</li>
+                        <li><b>Pumping:</b> Optical (Xenon flash tube).</li>
+                        <li><b>Nature:</b> Pulsed output.</li>
+                        <li><b>Challenges:</b> High power threshold for PN.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="derivations" class="glass-card p-8 mt-8 bg-slate-900 shadow-sm space-y-6 scroll-mt-24 border-l-4 border-l-blue-600">
+            <h2 class="text-xl font-black text-slate-50 uppercase">Optical Fiber & NA</h2>
+            <div class="space-y-4">
+                <p class="text-xs text-slate-350">Fundamentals: Light propagates via Total Internal Reflection (TIR).</p>
+                <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl font-mono text-center text-teal-400 text-lg">
+                    NA = sin(θ_a) = √(μ₁² - μ₂²)
+                </div>
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl">
+                        <h4 class="font-bold text-slate-50">Step-Index Fiber</h4>
+                        <p class="text-slate-400 mt-1">Constant refractive index in core.</p>
+                    </div>
+                    <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl">
+                        <h4 class="font-bold text-slate-50">Graded-Index Fiber</h4>
+                        <p class="text-slate-400 mt-1">Refractive index varies (parabolic) to reduce signal dispersion.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="formulas" class="glass-card p-8 mt-8 bg-slate-900 shadow-sm scroll-mt-24">
+            <h2 class="text-xl font-black text-slate-50 uppercase mb-6">Key Formulas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center font-mono text-blue-400">NA = √(μ₁² - μ₂²)</div>
+                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-center font-mono text-blue-400">V = (2πa/λ) * NA</div>
+            </div>
+        </section>
+        
+        <section id="pyqs" class="glass-card p-8 mt-8 bg-slate-900 shadow-sm space-y-6 scroll-mt-24 border-l-4 border-l-purple-650">
+            <h2 class="text-xl font-black text-slate-50 uppercase">Solved Board PYQs</h2>
+            <div class="space-y-4">
+                <div class="p-5 bg-[#0d0d16]/30 border border-slate-900 rounded-xl">
+                    <h4 class="text-sm font-black text-slate-50 mb-2">Q: Distinguish between spontaneous and stimulated emission.</h4>
+                    <p class="text-xs text-slate-400">Spontaneous is random, low intensity; Stimulated is forced, coherent, high intensity.</p>
+                </div>
+                <div class="p-5 bg-[#0d0d16]/30 border border-slate-900 rounded-xl">
+                    <h4 class="text-sm font-black text-slate-50 mb-2">Q: Why is population inversion necessary?</h4>
+                    <p class="text-xs text-slate-400">To achieve gain: $N_2 > N_1$ ensures more stimulated emission than absorption occurs during photon interaction.</p>
+                </div>
+                <div class="p-5 bg-[#0d0d16]/30 border border-slate-900 rounded-xl">
+                    <h4 class="text-sm font-black text-slate-50 mb-2">Q: Define Numerical Aperture.</h4>
+                    <p class="text-xs text-slate-400">NA represents the light-collecting ability of a fiber; it is the sine of the acceptance angle.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="viva" class="glass-card p-8 mt-8 bg-slate-900 shadow-sm scroll-mt-24">
+             <h2 class="text-xl font-black text-slate-50 uppercase mb-8 text-center">Interactive Viva Cards 🧪</h2>
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Viva Card 1 -->
+                <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                    <div class="viva-card-inner absolute inset-0 w-full h-full duration-550 border border-slate-800 rounded-2xl bg-slate-950/80">
+                        <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-center text-center">
+                            <h4 class="text-xs font-black text-slate-50">Population Inversion?</h4>
+                        </div>
+                        <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl flex flex-col justify-center text-center">
+                            <p class="text-xs text-slate-300">State where excited atoms (N2) &gt; ground atoms (N1).</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Viva Card 2 -->
+                <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                    <div class="viva-card-inner absolute inset-0 w-full h-full duration-550 border border-slate-800 rounded-2xl bg-slate-950/80">
+                        <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-center text-center">
+                            <h4 class="text-xs font-black text-slate-50">Acceptance Angle?</h4>
+                        </div>
+                        <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl flex flex-col justify-center text-center">
+                            <p class="text-xs text-slate-300">Max angle for TIR acceptance.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Viva Card 3 -->
+                <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                    <div class="viva-card-inner absolute inset-0 w-full h-full duration-550 border border-slate-800 rounded-2xl bg-slate-950/80">
+                        <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-center text-center">
+                            <h4 class="text-xs font-black text-slate-50">V-Number?</h4>
+                        </div>
+                        <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl flex flex-col justify-center text-center">
+                            <p class="text-xs text-slate-300">Normalized frequency for fiber modes.</p>
+                        </div>
+                    </div>
+                </div>
+             </div>
         </section>
     </main>
 
     <script>
-        function flipVivaCard(card) {
-            let inner = card.querySelector(".viva-card-inner");
-            inner.classList.toggle("viva-card-flipped");
+        function runNACalc() {
+            const mu1 = parseFloat(document.getElementById("na-mu1").value) || 0;
+            const mu2 = parseFloat(document.getElementById("na-mu2").value) || 0;
+            const na = Math.sqrt(Math.pow(mu1, 2) - Math.pow(mu2, 2));
+            document.getElementById("na-result").innerText = `NA = ${na.toFixed(3)}`;
         }
+        function flipVivaCard(card) {
+            card.querySelector(".viva-card-inner").classList.toggle("viva-card-flipped");
+        }
+        window.onload = runNACalc;
     </script>
 </body>
 </html>

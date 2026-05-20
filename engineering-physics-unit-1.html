@@ -17,19 +17,9 @@
         .glass-card {
             background-color: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 1.5rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .light .glass-card {
-            background-color: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
-        }
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15);
         }
         .viva-card-inner {
             transition: transform 0.6s;
@@ -46,54 +36,62 @@
             transform: rotateY(180deg);
         }
     </style>
-
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 bg-gradient-to-tr from-[#080816] via-[#050508] to-[#0d0714] min-h-screen font-sans antialiased">
-
-    <!-- Premium Header Navbar -->
+<body class="bg-[#050508] text-slate-350 min-h-screen font-sans antialiased selection:bg-blue-600">
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/10"></div>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-blue-500">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
-                </div>
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black tracking-tighter text-slate-50">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            <div id="nav-actions" class="flex items-center gap-4">
-                <a href="/physics-notes.html" class="px-4 py-2 border border-slate-750 rounded-xl bg-slate-900/40 text-xs font-bold uppercase hover:bg-slate-800/40 text-slate-300 transition-all flex items-center gap-1.5 active:scale-95">
-                    Subject Hub
-                </a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-blue-500/10 text-white">Dashboard</a>
+            <div class="flex items-center gap-4">
+                <a href="/physics-notes.html" class="px-4 py-2 bg-slate-900/40 rounded-xl text-xs font-bold uppercase text-slate-300">Subject Hub</a>
+                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
             </div>
         </div>
     </nav>
-
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-white dark:bg-slate-900 shadow-sm">
-            <div class="space-y-4 relative z-10 max-w-3xl">
-                <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50 leading-tight tracking-tight">
-                    Wave Optics <br>
-                    <span class="bg-gradient-to-r from-blue-450 via-indigo-400 to-violet-400 bg-clip-text text-transparent">Complete Exam Survival Kit</span>
-                </h1>
-            </div>
+        <header class="mb-14 p-8 glass-card bg-slate-900 shadow-sm space-y-4">
+            <h1 class="text-4xl lg:text-5xl font-black text-slate-50 leading-tight">Wave Optics <br><span class="text-blue-400">Complete Exam Survival Kit</span></h1>
+            <p class="text-slate-400 text-sm font-medium">Curated specifically for JNTUK R23 Engineering Physics. Simplified mathematical flow, precise terminology, scoring diagrams, and practical solutions.</p>
         </header>
 
-        <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm">
-             <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight mb-4">Introduction to Wave Optics</h2>
-             <p class="text-xs text-slate-350 sm:text-sm">Wave Optics covers interference, diffraction, and polarization phenomena.</p>
+        <section id="intro" class="glass-card p-8 bg-slate-900 shadow-sm space-y-6">
+            <h2 class="text-xl font-black text-slate-50 uppercase tracking-tight mb-4">Introduction to Wave Optics</h2>
+            <p class="text-xs text-slate-350 sm:text-sm">
+                Physical optics or <b class="text-blue-400">Wave Optics</b> is a branch of physics studying light properties where ray approximation of geometrical optics is invalid ($\lambda \approx 10^{-7}\text{ m}$).
+            </p>
+            <p class="text-slate-350 text-xs">
+                The unit revolves around three phenomena: <b class="text-slate-50">Interference</b>, <b class="text-slate-50">Diffraction</b>, and <b class="text-slate-50">Polarization</b>.
+            </p>
+        </section>
+
+        <section id="key-concepts" class="glass-card p-8 bg-slate-900 shadow-sm mt-8">
+            <h2 class="text-xl font-black text-slate-50 uppercase">Key Concepts of Interference & Superposition</h2>
+            <div class="space-y-4 mt-6">
+                <p class="text-xs text-slate-350">When two light waves overlap, the instantaneous algebraic sum defines the physical state.</p>
+                <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl text-center font-mono text-lg text-teal-400">
+                    φ = (π / λ) * Δ
+                </div>
+                <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl text-center font-mono text-sm text-rose-450">
+                    I = I₁ + I₂ + 2 √(I₁ I₂) cos(φ)
+                </div>
+            </div>
+        </section>
+
+        <section id="definitions" class="glass-card p-8 bg-slate-900 shadow-sm mt-8">
+            <h2 class="text-xl font-black text-slate-50 uppercase mb-4">Important Definitions</h2>
+            <div class="space-y-4 text-xs text-slate-400">
+                <p><b>01. Coherent Sources:</b> Sources with identical wavelength and frequency that maintain a constant phase difference.</p>
+                <p><b>02. Division of Amplitude:</b> Dividing the amplitude of a single ray into two parts via reflection/refraction.</p>
+                <p><b>03. Stokes' Treatment:</b> Reflection from denser medium causes an abrupt phase change of π.</p>
+            </div>
         </section>
     </main>
-
     <script>
         function flipVivaCard(card) {
-            let inner = card.querySelector(".viva-card-inner");
-            inner.classList.toggle("viva-card-flipped");
+            card.querySelector(".viva-card-inner").classList.toggle("viva-card-flipped");
         }
     </script>
 </body>
