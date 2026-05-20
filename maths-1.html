@@ -251,6 +251,96 @@
             </div>
         </section>
 
+        <!-- AI Question Generator Section -->
+        <section id="ai-question-generator" class="mb-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 bg-primary/20 text-primary rounded-2xl flex items-center justify-center font-black text-xl">🤖</div>
+                <div>
+                    <h2 class="text-3xl font-black text-white tracking-tight">AI Exam <span class="text-primary italic">Question Generator</span></h2>
+                    <p class="text-[10px] text-primary/80 mt-1 uppercase font-semibold tracking-wider font-mono">Instant Exam Questions & Step-by-Step Marking Rubrics</p>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 border-white/5 bg-white/[0.01]">
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                    Input any specific concept from the JNTUK R23 Maths I syllabus below to instantly generate realistic exam-style questions paired with complete stepwise solutions and diagnostic formulas.
+                </p>
+
+                <!-- Quick selection buttons -->
+                <div class="mb-8">
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-gray-500 block mb-3 font-mono">Suggested High-Yield Topics:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-400 hover:text-white hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer" data-concept="Eigenvalues">Eigenvalues</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-400 hover:text-white hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer" data-concept="Cayley-Hamilton">Cayley-Hamilton</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-400 hover:text-white hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer" data-concept="Rolle's Theorem">Rolle's Theorem</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-400 hover:text-white hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer" data-concept="Jacobians">Jacobians</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-400 hover:text-white hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer" data-concept="Integration order changing">Change of Order</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-400 hover:text-white hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer" data-concept="Beta & Gamma functions">Beta & Gamma</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-400 hover:text-white hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer" data-concept="Maxima & Minima optimization">Maxima & Minima</button>
+                    </div>
+                </div>
+
+                <!-- Input group -->
+                <form id="math-generator-form" class="flex flex-col sm:flex-row gap-3">
+                    <input id="math-concept-input" type="text" placeholder="Enter Math concept (e.g. Taylor's Series, Lagrange's multipliers...)" class="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 transition-colors" required>
+                    <button id="math-submit-btn" type="submit" class="btn-primary flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold font-mono">
+                        <span>Generate</span>
+                        <span class="animate-pulse">✨</span>
+                    </button>
+                </form>
+
+                <!-- Feedback States -->
+                <div id="gen-loading-state" class="hidden mt-8 text-center py-12">
+                    <div class="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p class="text-sm text-gray-400 font-medium" id="gen-loading-message">Formulating custom question...</p>
+                    <p class="text-[10px] text-gray-600 mt-2 font-mono">Aligning to JNTUK R23 evaluation bounds</p>
+                </div>
+
+                <div id="gen-error-state" class="hidden mt-8 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm">
+                    Failed to reach generation helper. Serving local high-yield fallback database.
+                </div>
+
+                <!-- Generated Question Card -->
+                <div id="gen-result-card" class="hidden mt-8 border-t border-white/5 pt-8">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono" id="result-concept">Concept</span>
+                            <span class="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded font-mono" id="result-difficulty">Difficulty</span>
+                        </div>
+                        <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono self-start sm:self-auto" id="result-marks">10 Marks</span>
+                    </div>
+
+                    <!-- Question Container -->
+                    <div class="p-6 bg-black/40 rounded-2xl border border-white/5 mb-6">
+                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider font-mono block mb-2">Generated Question:</span>
+                        <div class="text-white font-medium text-base leading-relaxed" id="result-question">
+                            Find the eigenvalues of...
+                        </div>
+                    </div>
+
+                    <!-- Formula Reference -->
+                    <div class="p-4 bg-primary/5 rounded-xl border border-primary/10 mb-6">
+                        <span class="text-[10px] font-bold text-primary uppercase tracking-wider font-mono block mb-1">Key Formula:</span>
+                        <code class="text-xs text-primary font-mono block whitespace-pre-wrap" id="result-formula">Formula</code>
+                    </div>
+
+                    <!-- Step-by-Step Solution -->
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider font-mono block mb-2">Step-by-Step Solution & Rubric Scheme:</span>
+                        <div class="prose prose-invert text-sm text-gray-400 leading-relaxed space-y-4" id="result-solution">
+                            Step 1...
+                        </div>
+                    </div>
+
+                    <!-- Button trigger -->
+                    <div class="mt-8 flex justify-end">
+                        <button id="try-another-btn" class="btn-ghost py-2 px-6 border-white/10 text-xs">Clear Form</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <div class="glass-card p-12 text-center bg-gradient-to-t from-primary/10 to-transparent">
             <h2 class="text-4xl font-black mb-6">Want the <span class="text-primary italic">Ultimate</span> Guide?</h2>
             <p class="text-gray-400 mb-10 max-w-lg mx-auto">Access our database-powered study material with actual previous year solved questions.</p>
@@ -264,6 +354,149 @@
     <footer class="py-12 border-t border-white/5 text-center">
         <p class="text-gray-500 text-sm">© 2026 EngiPrep Hub • Expert JNTUK Support</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('math-generator-form');
+            const input = document.getElementById('math-concept-input');
+            const submitBtn = document.getElementById('math-submit-btn');
+            const quickTopicBtns = document.querySelectorAll('.quick-topic-btn');
+            
+            const loadingState = document.getElementById('gen-loading-state');
+            const loadingMsg = document.getElementById('gen-loading-message');
+            const errorState = document.getElementById('gen-error-state');
+            const resultCard = document.getElementById('gen-result-card');
+            
+            const resConcept = document.getElementById('result-concept');
+            const resDifficulty = document.getElementById('result-difficulty');
+            const resMarks = document.getElementById('result-marks');
+            const resQuestion = document.getElementById('result-question');
+            const resFormula = document.getElementById('result-formula');
+            const resSolution = document.getElementById('result-solution');
+            const tryAnotherBtn = document.getElementById('try-another-btn');
+
+            const loadingPrompts = [
+                "Analyzing JNTUK syllabus divisions...",
+                "Retrieving matching structural rubrics...",
+                "Formulating stepwise solutions...",
+                "Cross-verifying algebraic calculations..."
+            ];
+
+            let loadingInterval;
+
+            // Simple Markdown Formatter for beautiful math text rendering
+            function formatMarkdown(text) {
+                if (!text) return '';
+                let html = text;
+                
+                // Replace double dollar LaTeX formulas with highlighted custom boxes
+                html = html.replace(/\$\$(.*?)\$\$/gs, '<div class="bg-black/30 p-4 rounded-xl border border-white/5 my-4 text-center font-mono text-primary text-base overflow-x-auto">$1</div>');
+                
+                // Replace single dollar inline formulas
+                html = html.replace(/\$(.*?)\$/g, '<code class="bg-white/5 px-1.5 py-0.5 rounded text-gray-300 font-mono text-xs">$1</code>');
+                
+                // Replace bold headings or strong texts
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>');
+                
+                // Replace bullets
+                html = html.replace(/^\*\s(.*)$/gm, '<li class="ml-4 list-disc text-gray-400">$1</li>');
+                html = html.replace(/^-\s(.*)$/gm, '<li class="ml-4 list-disc text-gray-400">$1</li>');
+                
+                // Keep paragraph structures cleanly
+                html = html.replace(/\n\n/g, '</div><div class="mt-4">');
+                html = html.replace(/\n/g, '<br>');
+                
+                return `<div class="space-y-4">${html}</div>`;
+            }
+
+            async function generateQuestion(concept) {
+                // Show loading state, hide results and error paths
+                loadingState.classList.remove('hidden');
+                errorState.classList.add('hidden');
+                resultCard.classList.add('hidden');
+                submitBtn.disabled = true;
+
+                let promptIndex = 0;
+                loadingMsg.innerText = loadingPrompts[0];
+                loadingInterval = setInterval(() => {
+                    promptIndex = (promptIndex + 1) % loadingPrompts.length;
+                    loadingMsg.innerText = loadingPrompts[promptIndex];
+                }, 1500);
+
+                try {
+                    const response = await fetch('/api/ai/math-generator', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ concept })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('API request failed');
+                    }
+
+                    const data = await response.json();
+                    
+                    // Render outputs
+                    resConcept.innerText = data.concept || concept;
+                    resDifficulty.innerText = data.difficulty || 'Medium';
+                    
+                    // Style difficulty border/color badge
+                    const diff = (data.difficulty || '').toLowerCase();
+                    resDifficulty.className = "px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded font-mono";
+                    if (diff.includes('hard')) {
+                        resDifficulty.classList.add('bg-rose-500/10', 'text-rose-400', 'border', 'border-rose-500/20');
+                    } else if (diff.includes('easy')) {
+                        resDifficulty.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/20');
+                    } else {
+                        resDifficulty.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/20');
+                    }
+
+                    resMarks.innerText = data.marks || '10 Marks';
+                    resQuestion.innerHTML = formatMarkdown(data.question || '');
+                    resFormula.innerHTML = data.formula_used || 'N/A';
+                    resSolution.innerHTML = formatMarkdown(data.solution || '');
+
+                    // Reveal result panel
+                    resultCard.classList.remove('hidden');
+                    // Scroll smoothly to results
+                    resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                } catch (e) {
+                    console.error(e);
+                    errorState.classList.remove('hidden');
+                } finally {
+                    clearInterval(loadingInterval);
+                    loadingState.classList.add('hidden');
+                    submitBtn.disabled = false;
+                }
+            }
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const concept = input.value.trim();
+                if (concept) {
+                    generateQuestion(concept);
+                }
+            });
+
+            quickTopicBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const concept = btn.getAttribute('data-concept');
+                    input.value = concept;
+                    generateQuestion(concept);
+                });
+            });
+
+            tryAnotherBtn.addEventListener('click', () => {
+                input.value = '';
+                resultCard.classList.add('hidden');
+                errorState.classList.add('hidden');
+                input.focus();
+            });
+        });
+    </script>
 
     <script type="module" src="/src/config-check.js"></script>
 </body>
