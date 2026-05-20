@@ -4,8 +4,8 @@ import { createServer as createViteServer } from 'vite';
 import dotenv from 'dotenv';
 import multer from 'multer';
 import mammoth from 'mammoth';
-import pdfParse from 'pdf-parse';
 import fs from 'fs';
+const pdfParse = require('pdf-parse');
 
 dotenv.config();
 const upload = multer({ dest: 'uploads/' });

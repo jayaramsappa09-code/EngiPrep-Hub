@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Wave Particle Duality &amp; Schrödinger Mechanics | EngiPrep Hub</title>
-    <meta name="description" content="Elite JNTUK R23 Wave Particle Duality &amp; Schrödinger Mechanics. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
+    <title>JNTUK R23 Unit 2: Lasers Study Hub | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Engineering Physics Unit 2: Lasers. Simple exam tomorrow explanations, Laser principles, Ruby, He-Ne, Semiconductor lasers, interactions, and applications.">
     <link rel="stylesheet" href="/src/style.css">
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -14,136 +14,95 @@
         }
     </script>
     <style>
-        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
-        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
-        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
         .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
-        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-flipped { transform: rotateY(180deg); }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; }
         .viva-card-back { transform: rotateY(180deg); }
     </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
+<body class="bg-[#050508] text-slate-350 min-h-screen font-sans antialiased selection:bg-blue-600">
+
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4">
-                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
+                <span class="text-xl font-black tracking-tighter text-slate-50">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
-        </div>
-    </nav>
-    <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
-            <ol class="flex items-center gap-2">
-                <li><a href="/" class="hover:text-blue-500">Home</a></li>
-                <li>/</li>
-                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
-                <li>/</li>
-                <li><a href="/subject.html?slug=engineering-physics" class="hover:text-blue-500">engineering physics</a></li>
-                <li>/</li>
-                <li class="text-blue-500" aria-current="page">Wave Particle Duality &amp; Schrödinger Mechanics</li>
-            </ol>
-        </nav>
-        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
-            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Wave Particle Duality &amp; Schrödinger Mechanics <span class="text-blue-500">Survival Kit</span></h1>
-            <p class="text-slate-400 mt-4">Dual nature of matter, Heisenberg uncertainty, Schrödinger wave equations, and 1D potential wells.</p>
-        </header>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div class="lg:col-span-9 space-y-16">
-                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-4">Introduction to Quantum States</h2>
-                    <p>Classical mechanics fails at the atomic scale. Quantum mechanics introduces wave-particle duality, where matter exhibits both particle-like and wave-like behavior, governed by probability amplitudes.</p>
-                </section>
-
-                
-
-                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">de Broglie Wavelength</h4>
-                            <p class="font-mono text-sm mt-2">λ = h / √(2mE)</p>
-                        </div>
-                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">Particle in 1D Box</h4>
-                            <p class="font-mono text-sm mt-2">E_n = n²h² / (8mL²)</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
-                    <div class="space-y-6">
-                        <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">Schrödinger Time-Independent Eq <span class="text-blue-500">(10 Marks)</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">Derive the time independent Schrödinger wave equation.</p>
-                        </div>
-                        <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">Fermi Dirac Distribution <span class="text-blue-500">(5 Marks)</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">Explain the effect of temperature on Fermi-Dirac distribution function.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
-                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-bold text-slate-100">Revision Points</h4>
-                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
-                                
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
-                            <p class="text-sm mt-2 text-slate-400 italic">"N/A"</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
-                            <p class="text-sm mt-2 text-slate-400">N/A</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Card 1 -->
-                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
-                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs font-black text-slate-100">Matter Waves?</h4>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">de Broglie proposed that moving particles have an associated wavelength λ = h/p.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card 2 -->
-                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
-                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs font-black text-slate-100">Uncertainty?</h4>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">Heisenberg formulated that position and momentum cannot be simultaneously measured with arbitrary precision: Δx · Δp ≥ h/4π.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <div class="flex items-center gap-4">
+                <a href="/physics-notes.html" class="px-4 py-2 bg-slate-900/40 rounded-xl text-xs font-bold uppercase text-slate-300">Subject Hub</a>
+                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
             </div>
         </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
+        <header class="mb-14 p-8 glass-card bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-50 leading-tight">Lasers <br><span class="text-blue-400">Complete Exam Survival Kit</span></h1>
+            <p class="text-slate-400 text-sm mt-3 font-medium">Covers principles of Lasers, stimulated emission, population inversion, and main laser types (Ruby, He-Ne, Semiconductor).</p>
+        </header>
+
+        <section id="principles" class="glass-card p-8 bg-slate-900 shadow-sm space-y-6">
+            <h2 class="text-xl font-black text-slate-50 uppercase">Core Laser Principles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 bg-slate-950 border border-slate-900 rounded-2xl">
+                    <h3 class="font-bold text-blue-400">Absorption</h3>
+                    <p class="text-xs text-slate-400 mt-2">Atom absorbs a photon ($h\nu$) and jumps from ground state $E_1$ to excited state $E_2$.</p>
+                </div>
+                <div class="p-6 bg-slate-950 border border-slate-900 rounded-2xl">
+                    <h3 class="font-bold text-indigo-400">Spontaneous Emission</h3>
+                    <p class="text-xs text-slate-400 mt-2">Excited atom jumps back to ground state randomly, emitting a photon of energy $h\nu = E_2 - E_1$.</p>
+                </div>
+                <div class="p-6 bg-slate-950 border border-slate-900 rounded-2xl">
+                    <h3 class="font-bold text-emerald-400">Stimulated Emission</h3>
+                    <p class="text-xs text-slate-400 mt-2">A photon incident on an excited atom forces emission of a second photon coherent with the first one.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Population Inversion -->
+        <section id="population" class="glass-card p-8 mt-8 bg-slate-900 shadow-sm space-y-4">
+            <h2 class="text-xl font-black text-slate-50 uppercase">Population Inversion</h2>
+            <p class="text-xs text-slate-400">The state where the number of atoms in an excited energy state is greater than the number of atoms in a lower energy state. Required for laser action.</p>
+            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl text-center font-mono text-xl text-teal-400">
+                N₂ > N₁
+            </div>
+        </section>
+
+        <!-- Add Viva Cards Section -->
+        <section id="viva" class="glass-card p-8 mt-8 bg-slate-900 shadow-sm">
+             <h2 class="text-xl font-black text-slate-50 uppercase mb-6">Interactive Viva Cards</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                    <div class="viva-card-inner absolute inset-0 w-full h-full duration-550 border border-slate-800 rounded-2xl bg-slate-950/80">
+                        <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                            <span class="text-[8px] font-black uppercase text-blue-500 tracking-wider">Viva 01</span>
+                            <h4 class="text-xs font-black text-slate-50 leading-normal">What is Population Inversion?</h4>
+                        </div>
+                        <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl">
+                            <p class="text-xs text-slate-300">When the number of atoms in higher excited state (N2) is more than the number of atoms in lower ground state (N1).</p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+        
     </main>
+
     <script>
+        function togglePYQA(id) {
+            let div = document.getElementById(id);
+            div.classList.toggle("hidden");
+        }
         function flipVivaCard(card) {
-            const inner = card.querySelector('.viva-card-inner');
-            if (inner.style.transform === 'rotateY(180deg)') {
-                inner.style.transform = 'rotateY(0deg)';
-            } else {
-                inner.style.transform = 'rotateY(180deg)';
-            }
+            card.querySelector(".viva-card-inner").classList.toggle("viva-card-flipped");
         }
     </script>
 </body>
