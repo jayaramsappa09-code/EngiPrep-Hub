@@ -44,6 +44,8 @@ export default defineConfig(({mode}) => {
           notes: path.resolve(__dirname, 'notes.html'),
           pyqs: path.resolve(__dirname, 'pyqs.html'),
           resetpassword: path.resolve(__dirname, 'reset-password.html'),
+          aiprofessor: path.resolve(__dirname, 'ai-professor.html'),
+          beeeexamprep: path.resolve(__dirname, 'beee-exam-prep.html'),
         },
       },
     },

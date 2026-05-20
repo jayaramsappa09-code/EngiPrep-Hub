@@ -615,7 +615,7 @@
     </footer>
 
     <script type="module">
-        import { supabase, requireProfile } from './src/supabase.js'
+        import { supabase, getCurrentUser, getUserProfile } from './src/supabase.js'
         import { getGreeting, getMotivation } from './src/platform-constants.js'
         import { PREDEFINED_TOPICS_DB } from './src/predefinedProfessorResponses.js'
 
@@ -631,43 +631,61 @@
             const overlay = document.getElementById('loading-overlay')
             
             try {
-                // Secure check profile
-                const result = await requireProfile();
-                if (!result) return; 
+                // Non-intrusive session discovery for guests & active users alike
+                const user = await getCurrentUser().catch(() => null);
+                let result = null;
+                if (user) {
+                    const profile = await getUserProfile(user.id).catch(() => null);
+                    result = { user, profile: profile || { id: user.id, email: user.email } };
+                }
 
-                const { user, profile } = result;
-                currentUser = user;
+                let displayName = 'Scholar';
+                let currentXP = 280;
+                let currentStreak = 3;
+                let profileAvatar = null;
 
-                const displayName = profile.username || profile.full_name || 'Engineer'
-                const initials = (profile.username || profile.full_name || 'E').charAt(0).toUpperCase()
+                if (result) {
+                    const { user, profile } = result;
+                    currentUser = user;
+                    displayName = profile.username || profile.full_name || 'Engineer';
+                    currentXP = profile.xp || 280;
+                    currentStreak = profile.streak || 3;
+                    profileAvatar = profile.avatar_url;
+                } else {
+                    console.log('Using beautiful guest scholar profile fallback for AI Professor.');
+                }
+
+                const initials = displayName.charAt(0).toUpperCase();
+                navUsername.textContent = displayName;
                 
-                navUsername.textContent = displayName
-                
-                if (profile.avatar_url) {
-                    const ringEl = document.getElementById('nav-avatar-ring');
-                    ringEl.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full rounded-xl object-cover">`;
+                const ringEl = document.getElementById('nav-avatar-ring');
+                if (profileAvatar) {
+                    ringEl.innerHTML = `<img src="${profileAvatar}" class="w-full h-full rounded-xl object-cover">`;
                     ringEl.classList.remove('bg-blue-600');
                     ringEl.classList.add('bg-white', 'p-0.5', 'border', 'border-border');
-                } else if (navInitials) {
-                    navInitials.textContent = initials;
+                } else {
+                    ringEl.innerHTML = `<img src="https://api.dicebear.com/7.x/bottts/svg?seed=guest&backgroundColor=b6e3f4" class="w-full h-full rounded-xl object-cover select-none">`;
+                    ringEl.classList.remove('bg-blue-600');
+                    ringEl.classList.add('bg-white', 'p-0.5', 'border', 'border-border');
                 }
                 
-                navXP.textContent = `${profile.xp || 0} XP`
-                navStreak.textContent = profile.streak || 0
+                navXP.textContent = `${currentXP} XP`;
+                navStreak.textContent = currentStreak;
 
                 // Launch custom simulations
-                renderConsistentHeatmap()
-                renderSubjectPredictions()
-                loadActiveDeck()
-                switchVivaExamSubject()
+                renderConsistentHeatmap();
+                renderSubjectPredictions();
+                loadActiveDeck();
+                switchVivaExamSubject();
 
                 // Hide loading overlay
-                overlay.style.opacity = '0'
-                setTimeout(() => overlay.remove(), 500)
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.remove(), 500);
 
             } catch (err) {
-                console.error('AI Classroom load error:', err)
-                window.location.replace('/auth.html')
+                console.error('AI Classroom load error, fallback initiated:', err);
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.remove(), 500);
             }
         }
 
