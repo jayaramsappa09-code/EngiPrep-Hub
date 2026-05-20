@@ -206,7 +206,7 @@
             </div>
 
             <!-- Chat Window -->
-            <div class="lg:col-span-8 flex flex-col h-[650px] bg-white dark:bg-slate-900 border border-border rounded-[2.5rem] overflow-hidden shadow-xl shadow-slate-100 dark:shadow-none">
+            <div class="lg:col-span-8 flex flex-col h-[780px] bg-white dark:bg-slate-900 border border-border rounded-[2.5rem] overflow-hidden shadow-xl shadow-slate-100 dark:shadow-none">
                 <!-- Chat header -->
                 <div class="px-6 py-4 border-b border-border flex items-center justify-between bg-slate-50/60 dark:bg-slate-950/20">
                     <div class="flex items-center gap-3">
@@ -221,14 +221,78 @@
                     </div>
                 </div>
 
+                <!-- Integrated AI Professor Intelligent Cockpit -->
+                <div class="px-6 py-4 bg-slate-50/55 dark:bg-slate-950/25 border-b border-border space-y-3 select-none">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <span class="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500">Target Concept:</span>
+                            <select id="cockpit-topic" class="bg-background border border-border text-[11px] rounded-xl px-3 py-1.5 font-extrabold focus:outline-none focus:ring-1 focus:ring-indigo-500 text-slate-900 dark:text-white flex-1 sm:flex-initial">
+                                <optgroup label="Mathematics I">
+                                    <option value="cayley_hamilton" selected>Cayley-Hamilton Theorem & Inverse</option>
+                                    <option value="mean_value_theorems">Lagrange & Cauchy Mean Value Theorems</option>
+                                </optgroup>
+                                <optgroup label="Engineering Physics">
+                                    <option value="newtons_rings">Newton's Rings & Curvature Measure</option>
+                                    <option value="einstein_laser">Einstein Coefficients & Laser Action</option>
+                                </optgroup>
+                                <optgroup label="PPS (C Programming)">
+                                    <option value="structures_unions">Structures vs Unions Memory Allocation</option>
+                                    <option value="pointers_reference">Value vs Pointer Call-by-Reference</option>
+                                </optgroup>
+                                <optgroup label="Engineering Chemistry">
+                                    <option value="water_demineralization">Ion Exchange Demineralization</option>
+                                    <option value="battery_cells">Lead-Acid Battery Electrochemistry</option>
+                                </optgroup>
+                                <optgroup label="BEEE Circuits">
+                                    <option value="superposition_theorem">Superposition Theorem for Bilateral Circuits</option>
+                                    <option value="power_factor">AC Power Factor & Reactive Power Limits</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <span class="text-[9px] text-indigo-650 dark:text-indigo-400 font-extrabold uppercase tracking-wider bg-indigo-500/10 px-2.5 py-1 rounded-md border border-indigo-500/20 self-end sm:self-auto">
+                            JNTUK Academic Engine
+                        </span>
+                    </div>
+
+                    <div class="space-y-1.5 align-middle">
+                        <span class="text-[9px] font-black uppercase text-slate-450 dark:text-slate-500 block">Click Action below to consult AI Professor:</span>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+                            <button onclick="triggerProfessorAction('explain')" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl border border-border bg-background hover:bg-slate-50 dark:hover:bg-slate-800/40 active:scale-95 transition-all group text-center cursor-pointer">
+                                <span class="text-xs mb-0.5">Explain</span>
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-indigo-600">Concept</span>
+                            </button>
+                            <button onclick="triggerProfessorAction('summarize')" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl border border-border bg-background hover:bg-slate-50 dark:hover:bg-slate-800/40 active:scale-95 transition-all group text-center cursor-pointer">
+                                <span class="text-xs mb-0.5 animate-pulse text-indigo-650 dark:text-indigo-450">📋 Summarize</span>
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-indigo-600">Unit</span>
+                            </button>
+                            <button onclick="triggerProfessorAction('answer')" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl border border-border bg-background hover:bg-slate-50 dark:hover:bg-slate-800/40 active:scale-95 transition-all group text-center cursor-pointer">
+                                <span class="text-xs mb-0.5">✍ Answer</span>
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-indigo-600">Blueprint</span>
+                            </button>
+                            <button onclick="triggerProfessorAction('viva_qs')" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl border border-border bg-background hover:bg-slate-50 dark:hover:bg-slate-800/40 active:scale-95 transition-all group text-center cursor-pointer">
+                                <span class="text-xs mb-0.5">🧐 Viva</span>
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-indigo-600">Questions</span>
+                            </button>
+                            <button onclick="triggerProfessorAction('revision')" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl border border-border bg-background hover:bg-slate-50 dark:hover:bg-slate-800/40 active:scale-95 transition-all group text-center cursor-pointer">
+                                <span class="text-xs mb-0.5">⚡ Quick</span>
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-indigo-600">Revision</span>
+                            </button>
+                            <button onclick="triggerProfessorAction('analogy')" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl border border-border bg-background hover:bg-slate-50 dark:hover:bg-slate-800/40 active:scale-95 transition-all group text-center cursor-pointer">
+                                <span class="text-xs mb-0.5">💡 Analogy</span>
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-indigo-600">Memory Hook</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Messages container -->
                 <div id="professor-chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4">
                     <!-- Default message -->
                     <div class="chat-message flex items-start gap-3">
-                        <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow">👹</div>
+                        <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow-md border border-border select-none">👹</div>
                         <div class="bg-indigo-50/50 dark:bg-slate-950/30 border border-border rounded-r-2xl rounded-bl-2xl p-4 max-w-[85%] text-xs font-medium leading-relaxed">
-                            <p class="font-extrabold text-[#f43f5e] uppercase tracking-wider text-[9px] mb-1">Rao's Verdict</p>
-                            Listen carefully. Engineering is not a spelling test; it is structural. If you fail to write exact derivations or proper matrices formulas, I will grade your submission down. Ask me anything, or give me a subject concept to test your resolve!
+                            <p class="font-extrabold text-[#f43f5e] uppercase tracking-wider text-[9px] mb-1 select-none">Rao's Verdict</p>
+                            Welcome to the JNTUK Academic Command Suite, student. Select your target concept and action on the dashboard toolbar above to acquire elite revised sheets, or type a concept question below. Fail to master the derivations and I will grade you severely!
                         </div>
                     </div>
                 </div>
@@ -553,6 +617,7 @@
     <script type="module">
         import { supabase, requireProfile } from './src/supabase.js'
         import { getGreeting, getMotivation } from './src/platform-constants.js'
+        import { PREDEFINED_TOPICS_DB } from './src/predefinedProfessorResponses.js'
 
         const navUsername = document.getElementById('nav-username')
         const navXP = document.getElementById('nav-xp')
@@ -1081,6 +1146,273 @@
         if(localStorage.getItem('panic-mode') === 'active') {
             localStorage.setItem('panic-mode', 'inactive') // Reset once so togglePanicModeGlobal turns it on correctly on page init
             togglePanicModeGlobal()
+        }
+
+        // Integrated AI Professor Command Cockpit Action Trigger
+        window.triggerProfessorAction = function(action) {
+            const topicSelector = document.getElementById('cockpit-topic')
+            if(!topicSelector) return;
+            const topicId = topicSelector.value
+            const data = PREDEFINED_TOPICS_DB[topicId] || PREDEFINED_TOPICS_DB['cayley_hamilton']
+            const profId = window.professorTypeSelected || 'strict'
+
+            const dialogContainer = document.getElementById('professor-chat-messages')
+            if(!dialogContainer) return;
+            const av = { strict: "👹", senior: "🎓", coach: "🏃‍♂️", viva: "🧐" }[profId]
+            const profTitle = { strict: "Prof. Rao", senior: "Venkat", coach: "Coach", viva: "Examiner" }[profId]
+
+            const actionLabels = {
+                explain: "Explain Concept",
+                summarize: "Summarize Unit",
+                answer: "Exam Answer Blueprint",
+                viva_qs: "Viva Questions Test",
+                revision: "Quick Revision Tags",
+                analogy: "Conceptual Metaphor Analogy"
+            }
+            const actionLabel = actionLabels[action] || "Request Info"
+
+            dialogContainer.innerHTML += `
+                <div class="chat-message flex items-start justify-end gap-3 select-none">
+                    <div class="bg-indigo-650 text-white border border-indigo-700 rounded-l-2xl rounded-br-2xl p-4 max-w-[85%] text-xs font-medium leading-relaxed shadow-sm">
+                        <p class="font-extrabold text-[#9cd4ff] dark:text-indigo-200 uppercase tracking-wider text-[9px] mb-1">User Command</p>
+                        Action: <span class="font-extrabold text-white underline">${actionLabel}</span> on <span class="font-extrabold text-[#f1f5f9]">${data.title}</span> (${data.subject})
+                    </div>
+                </div>
+            `
+            dialogContainer.scrollTop = dialogContainer.scrollHeight
+
+            // Loading state bubble
+            const loadingBubbleId = "action-loading-" + Date.now()
+            dialogContainer.innerHTML += `
+                <div id="${loadingBubbleId}" class="chat-message flex items-start gap-3 select-none animate-pulse">
+                    <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow-md border border-border">${av}</div>
+                    <div class="bg-slate-50 dark:bg-slate-950/20 border border-border rounded-r-2xl rounded-bl-2xl p-4 text-xs italic text-slate-400 flex items-center gap-2">
+                        <div class="w-3.5 h-3.5 border-2 border-slate-200 border-t-indigo-500 rounded-full animate-spin"></div>
+                        Generating premium diagnostic brief for ${data.title}...
+                    </div>
+                </div>
+            `
+            dialogContainer.scrollTop = dialogContainer.scrollHeight
+
+            // Simulated rapid network processing delay
+            setTimeout(() => {
+                const loader = document.getElementById(loadingBubbleId)
+                if(loader) loader.remove()
+
+                // Generate Custom Feedback Brief Wrapper
+                const feedback = getProfessorFeedbackBrief(profId, action, data.title)
+
+                // Render dynamic inner HTML based on Action requested
+                let innerHtml = ''
+                if (action === 'explain') {
+                    innerHtml = `
+                        <div class="space-y-4">
+                            <div class="p-4 bg-indigo-50/40 dark:bg-indigo-950/15 border border-indigo-200/20 rounded-2xl">
+                                <h5 class="text-[11px] font-black uppercase text-indigo-600 tracking-wider mb-2 select-none">Core Theoretical Axiom</h5>
+                                <div class="text-xs text-slate-800 dark:text-slate-200 font-medium leading-relaxed select-text">${data.explain.core}</div>
+                            </div>
+                            <div class="p-4 bg-amber-50/40 dark:bg-amber-950/10 border border-amber-200/20 rounded-2xl">
+                                <h5 class="text-[11px] font-black uppercase text-amber-600 tracking-wider mb-2 select-none">💡 Intuitive Analogy & Visualization</h5>
+                                <div class="text-xs text-slate-800 dark:text-slate-200 leading-relaxed select-text">${data.explain.visual}</div>
+                            </div>
+                            <div class="p-4 bg-rose-50/50 dark:bg-rose-950/10 border border-rose-250/20 rounded-2xl">
+                                <h5 class="text-[11px] font-black uppercase text-rose-500 tracking-wider mb-2 select-none">⚠️ Severe JNTUK Grading Trap</h5>
+                                <div class="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-bold select-text">${data.explain.trap}</div>
+                            </div>
+                        </div>
+                    `
+                } else if (action === 'summarize') {
+                    innerHtml = `
+                        <div class="space-y-4">
+                            <div class="p-4 bg-slate-50 dark:bg-slate-950/40 border border-border rounded-2xl">
+                                <h5 class="text-[11px] font-black uppercase text-slate-400 tracking-wide mb-3 select-none">5 Critical Academic Pillars</h5>
+                                <ul class="space-y-2 select-text">
+                                    ${data.summarize.points.map((p, idx) => `
+                                        <li class="flex items-start gap-2.5 text-xs font-medium">
+                                            <span class="w-4.5 h-4.5 bg-indigo-100 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400 rounded-lg flex items-center justify-center text-[10px] font-black select-none shrink-0">${idx+1}</span>
+                                            <span class="text-slate-700 dark:text-slate-300">${p}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-[#0d0d12] text-slate-200 border border-slate-850 rounded-2xl font-mono">
+                                <h5 class="text-[10px] font-black uppercase text-indigo-400 tracking-wide mb-3 select-none">Formula Terminal (Memorize EXACTLY)</h5>
+                                <div class="space-y-2 select-text py-1">
+                                    ${data.summarize.formulas.map(f => `
+                                        <div class="p-2.5 bg-slate-900/60 border border-slate-800 rounded-xl text-[10.5px] text-[#38bdf8] font-semibold tracking-tight break-words text-center">
+                                            ${f}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="p-4 bg-rose-50/50 dark:bg-rose-950/15 border border-rose-150/20 rounded-2xl">
+                                <h5 class="text-[11px] font-black uppercase text-[#f43f5e] tracking-wide mb-3 select-none">Recurrent JNTUK Exam Repetitions (PYQs)</h5>
+                                <div class="space-y-3 select-text w-full">
+                                    ${data.summarize.pyqs.map(pyq => `
+                                        <div class="p-3 bg-white dark:bg-slate-900 border border-border rounded-xl">
+                                            <div class="flex items-center gap-1.5 mb-1.5 select-none">
+                                                <span class="px-1.5 py-0.5 bg-rose-50 dark:bg-rose-950 text-[#f43f5e] text-[8px] font-black rounded border border-rose-100 dark:border-rose-900/40">EXAM REPETITION</span>
+                                            </div>
+                                            <div class="text-[11px] font-extrabold text-slate-800 dark:text-slate-200">${pyq}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="p-4 bg-indigo-50/45 dark:bg-indigo-950/10 border border-indigo-250/20 rounded-2xl">
+                                 <h5 class="text-[11px] font-black uppercase text-indigo-500 tracking-wider mb-2 select-none">Strategic Professor Review</h5>
+                                 <div class="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-semibold select-text">${data.summarize.summary}</div>
+                            </div>
+                        </div>
+                    `
+                } else if (action === 'answer') {
+                    innerHtml = `
+                        <div class="space-y-4">
+                            <div class="p-4 bg-indigo-50/40 dark:bg-indigo-950/10 border border-border rounded-2xl">
+                                <h5 class="text-[11px] font-black uppercase text-indigo-600 tracking-wider mb-3 select-none">10/10 Marks Exam Recipe Sequence</h5>
+                                <ol class="space-y-2.5 select-text font-medium">
+                                    ${data.answer.steps.map((step, idx) => `
+                                        <li class="p-3 bg-white dark:bg-slate-900 border border-border rounded-xl flex gap-3 text-xs leading-relaxed">
+                                            <span class="w-5 h-5 bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center text-[10px] font-black shrink-0 select-none">S${idx+1}</span>
+                                            <span class="text-slate-700 dark:text-slate-300">${step}</span>
+                                        </li>
+                                    `).join('')}
+                                </ol>
+                            </div>
+                            <div class="p-4 bg-yellow-50/40 dark:bg-yellow-950/10 border border-yellow-250/20 rounded-2xl">
+                                <h5 class="text-[11px] font-black uppercase text-yellow-650 dark:text-yellow-450 tracking-wider mb-2 select-none">⚠️ Serious Pitfalls & Deductions Warning</h5>
+                                <div class="text-xs text-slate-800 dark:text-slate-350 leading-relaxed font-bold select-text">${data.answer.warnings}</div>
+                            </div>
+                            <div class="p-4 bg-slate-50 dark:bg-slate-950/30 border border-border rounded-2xl">
+                                <h5 class="text-[11px] font-black uppercase text-slate-500 tracking-wider mb-2 select-none">📐 Grid Scheme & Labeling Directions</h5>
+                                <div class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed select-text">${data.answer.diagram}</div>
+                            </div>
+                        </div>
+                    `
+                } else if (action === 'viva_qs') {
+                    innerHtml = `
+                        <div class="space-y-4">
+                            <h5 class="text-[11px] font-black uppercase text-amber-500 tracking-wide select-none">Interactive Lab-Viva Simulation</h5>
+                            <div class="space-y-3">
+                                ${data.viva_qs.map((vq, idx) => `
+                                    <div onclick="this.querySelector('.viva-ans-block').classList.toggle('hidden')" class="p-3.5 bg-slate-50 dark:bg-slate-950/40 border border-border rounded-2xl cursor-pointer hover:border-indigo-500/50 hover:bg-slate-100/30 transition-all select-none group">
+                                        <div class="flex items-center justify-between gap-4">
+                                            <p class="text-[11px] font-extrabold text-slate-800 dark:text-slate-200 flex items-start gap-2 select-text">
+                                                <span class="text-indigo-600 dark:text-indigo-400 font-black">Q${idx+1}:</span>
+                                                <span>${vq.q}</span>
+                                            </p>
+                                            <span class="text-[8px] font-black bg-indigo-600/10 text-indigo-650 dark:text-indigo-450 py-0.5 px-1.5 rounded-md uppercase tracking-wider group-hover:bg-indigo-650 group-hover:text-white transition-colors shrink-0">Click Reveal</span>
+                                        </div>
+                                        <div class="viva-ans-block hidden mt-3 pt-3 border-t border-border text-xs text-slate-600 dark:text-slate-350 leading-relaxed select-text font-medium">
+                                            <p class="font-extrabold text-emerald-500 dark:text-emerald-400 text-[9px] uppercase tracking-wider mb-1">Passable Answer Verdict:</p>
+                                            ${vq.a}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `
+                } else if (action === 'revision') {
+                    innerHtml = `
+                        <div class="space-y-4">
+                            <div class="p-4 bg-sky-50/45 dark:bg-slate-950/45 border border-border rounded-2xl">
+                                <h5 class="text-[11px] font-black uppercase text-sky-500 tracking-wide mb-3 select-none">⚡ Key Study Bullet Tags</h5>
+                                <div class="flex flex-wrap gap-2 mb-3.5 select-none">
+                                    ${data.revision.bullets.map(b => `<span class="px-2.5 py-1 bg-white dark:bg-slate-900 border border-border text-[10px] text-slate-700 dark:text-slate-300 font-bold rounded-lg shadow-sm">${b}</span>`).join('')}
+                                </div>
+                                <div class="p-3.5 bg-sky-500/10 border border-sky-500/20 rounded-xl">
+                                     <h5 class="text-[10px] font-black uppercase text-sky-650 dark:text-sky-400 mb-1.5 select-none">Core Equation Checklist</h5>
+                                     <div class="text-xs font-mono text-sky-700 dark:text-sky-300 font-semibold select-text text-center bg-slate-950 p-2.5 rounded-lg border border-slate-800 break-words">
+                                         ${data.summarize.formulas[0] || "No defined formula keys."}
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                } else if (action === 'analogy') {
+                    innerHtml = `
+                        <div class="p-5 bg-gradient-to-br from-indigo-50/40 to-cyan-50/20 dark:from-indigo-950/10 dark:to-slate-900/10 border border-border rounded-3xl space-y-4">
+                            <div class="flex items-center gap-2.5 select-none">
+                                <span class="text-2xl">💡</span>
+                                <h5 class="text-sm font-black text-slate-950 dark:text-white">The Conceptual Analogy</h5>
+                            </div>
+                            <p class="text-xs text-slate-800 dark:text-slate-200 leading-relaxed italic font-semibold select-text">"${data.analogy.core}"</p>
+                            <div class="text-[11px] text-slate-600 dark:text-slate-400 select-text leading-relaxed pt-2.5 border-t border-border">
+                                 <span class="font-black uppercase text-[9px] text-indigo-500 block mb-1">Why this fits standard mechanics:</span>
+                                 Under direct observation, complex math equations represent beautiful structural templates. Re-mapping them as real-world analogies helps prevent exam freeze-ups!
+                            </div>
+                        </div>
+                    `
+                }
+
+                // Add response message to display
+                dialogContainer.innerHTML += `
+                    <div class="chat-message flex items-start gap-4 select-text animate-fade-up">
+                        <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow-md border border-border select-none">${av}</div>
+                        <div class="bg-indigo-50/50 dark:bg-slate-950/30 border border-border rounded-r-2xl rounded-bl-2xl p-4 max-w-[85%] text-xs font-medium leading-relaxed dark:text-slate-350 space-y-3.5">
+                            <div class="border-b border-border pb-2.5">
+                                <p class="font-extrabold text-[#f43f5e] uppercase tracking-wider text-[9px] mb-1 select-none">Verdict from ${profTitle}</p>
+                                <p class="text-slate-700 dark:text-slate-300 italic font-bold leading-relaxed">${feedback.intro}</p>
+                            </div>
+                            
+                            ${innerHtml}
+
+                            <div class="border-t border-border pt-2.5 select-none">
+                                <p class="text-[9.5px] font-bold text-slate-400 dark:text-slate-500 leading-normal uppercase">${feedback.outro}</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+                dialogContainer.scrollTop = dialogContainer.scrollHeight
+            }, 550)
+        }
+
+        // Supportive helper to generate custom professor narratives
+        function getProfessorFeedbackBrief(profId, action, topicName) {
+            const intros = {
+                strict: {
+                    explain: `Put your phones absolute silent, student. If you fail to write down these exact theoretical vectors for **${topicName}**, I will issue a zero marks without hesitation. Read carefully:`,
+                    summarize: `Summarize mode active. Mark boundaries represent strict adherence to JNTUK formulas. If you omit any of these 5 pillars for **${topicName}**, grade limits apply:`,
+                    answer: `Blueprint sequence unlocked. Under strict external assessment, omit any step of **${topicName}** and I will deduct 3 marks instantly. Keep your layouts pristine:`,
+                    viva_qs: `EXTERNAL DEFENSE ENGINE INITIALIZED. If you stutter in front of the board on these **${topicName}** diagnostics, internal marks dissolve directly:`,
+                    revision: `Revision timeline is short. Do not waste my time with long textbook essays. Master these distilled bullet cards of **${topicName}**:`,
+                    analogy: `If raw equations exceed your cognitive framework, study this physical analogy for **${topicName}**. But do not substitute textbook terms with metaphors on my exam paper!`
+                },
+                senior: {
+                    explain: `What's up bro! Honestly, **${topicName}** looks extremely scary in textbook pages, but it's super chill. Let me break it down simple and fast:`,
+                    summarize: `Sup bro! I compiled this summary sheet for **${topicName}** based on my own revision from last semester. Draw the formula block and you're secure:`,
+                    answer: `Okay bro, JNTUK correction of **${topicName}** is super mechanical. They don't print full code read-throughs; they check steps. Write exactly this:`,
+                    viva_qs: `Hahaha bro, labs examiners always try to scare you. They ask the exact same 3 questions on **${topicName}** over and over. Memorize these answer lines:`,
+                    revision: `No time to study bro? Chill. Here are the lightning speed cheat tags for **${topicName}** I used 1-hour before the exam:`,
+                    analogy: `Bro, imagine it like this. It's literally the exact same thing as what we do every day. Check out this memory hack for **${topicName}**:`
+                },
+                coach: {
+                    explain: `⏱ LIGHTNING HIGH-SPEED BRIEF ACTIVATED! No fluff, no textbooks. Study the core physics of **${topicName}** immediately:`,
+                    summarize: `⏱ COUNTDOWN TICKING. Here is your high-yield study sheet of **${topicName}** mapping formulas and highest repeated JNTUK PYQs:`,
+                    answer: `⏱ EXAM FOCUS ENGAGED. Here is the exact modular 10-mark step flow to score full marks on **${topicName}** without spilling ink:`,
+                    viva_qs: `⏱ RAPID-FIRE VIVA ROUND! Answer these 3 crucial lab queries for **${topicName}** immediately. Check yourself:`,
+                    revision: `⏱ SPEED TAGS STUDY TRACK. Review these core components of **${topicName}** and move straight to the next topic:`,
+                    analogy: `⏱ MEMORY RETENTION SPEED-RUN! Bind **${topicName}** to this real-life analogy to secure instant recall during exams:`
+                },
+                viva: {
+                    explain: `🧐 EXAMINER ORAL REVIEW: Explain the operational baseline of **${topicName}**. This forms the core of your internal lab assessments:`,
+                    summarize: `🧐 SYLLABUS AUDIT REPORT: Summarize the industrial implications of **${topicName}** and formulate the math blocks precisely:`,
+                    answer: `🧐 EVALUATION CARD: Provide the full technical blueprint of **${topicName}** as required on JNTUK handwritten exam paper formatting:`,
+                    viva_qs: `🧐 ORAL TEST SEQUENCE: Formally defend your experimental calculations on **${topicName}**. Click each card to reveal full solutions:`,
+                    revision: `🧐 SYLLABUS TAG REVIEW: Audit these standard terminology definitions for **${topicName}** to satisfy external board checks:`,
+                    analogy: `🧐 COGNITIVE TRANSFER TEST: Demonstrate physical understanding of **${topicName}** using an engineering analogy:`
+                }
+            };
+            const outros = {
+                strict: "Engineering is about precision. Review this sheet thrice. Fail to master this on my test and you will earn a permanent fail record.",
+                senior: "Honestly bro, trace your trace verification and you're easily getting an S grade. Don't stress, go play some cricket!",
+                coach: "Study completed. Mark this card as learned, and move immediately to the next concept. Keep the momentum high!",
+                viva: "Sufficient assessment. If you deliver these answers with complete confidence, our grading registers will mark you with top internal tiers."
+            };
+
+            return {
+                intro: intros[profId]?.[action] || `Here is the academic preview of **${topicName}**:`,
+                outro: outros[profId] || "Study carefully to ensure high marks."
+            };
         }
 
         init()
