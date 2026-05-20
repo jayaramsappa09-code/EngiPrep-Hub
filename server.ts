@@ -22,6 +22,25 @@ const PORT = 3000;
 
 app.use(express.json());
 
+// Helper for SEO clean URLs mapping
+const getFilePath = (filename: string) => {
+  const folder = process.env.NODE_ENV === 'production' ? 'dist' : '';
+  return path.join(process.cwd(), folder, filename);
+};
+
+// SEO Clean URLs mapping for elite searchindexing
+app.get('/engineering-physics-pyqs', (req, res) => {
+  res.sendFile(getFilePath('pyqs.html'));
+});
+
+app.get('/semester-1/beee-important-questions', (req, res) => {
+  res.sendFile(getFilePath('beee-exam-prep.html'));
+});
+
+app.get('/c-programming-cheat-sheet', (req, res) => {
+  res.sendFile(getFilePath('cheat-sheets.html'));
+});
+
 app.get('/api/health', (req, res) => {
   const hasKey = !!process.env.GEMINI_API_KEY;
   console.log('Health check:', { hasKey });

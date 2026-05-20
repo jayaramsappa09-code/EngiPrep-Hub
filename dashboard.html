@@ -16,6 +16,14 @@
         @reference "./src/style.css";
         .xp-bar-fill { @apply h-full bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full transition-all duration-1000; }
         .stat-card { @apply bg-white border border-slate-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow; }
+        @keyframes pulse-fast {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+        }
+        .animate-pulse-fast { animation: pulse-fast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .panic-card-flipped { transform: rotateY(180deg); }
+        .backface-hidden { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+        .preserve-3d { transform-style: preserve-3d; }
     </style>
 </head>
 <body class="selection:bg-blue-100 italic-text-prevention">
@@ -83,8 +91,26 @@
             </div>
         </header>
 
-        <!-- Metrics Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12">
+        <!-- EMERGENCY PANIC BANNER AND TOGGLE -->
+        <div class="mb-8 p-6 bg-gradient-to-r from-red-500/15 to-amber-550/10 rounded-3xl border border-red-200/50 dark:border-red-950/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-up">
+            <div class="flex items-center gap-4">
+                <span class="text-3xl animate-bounce">🚨</span>
+                <div>
+                    <h4 class="text-sm font-black text-red-700 dark:text-red-400 uppercase tracking-wider">Exam Tomorrow Morning?</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Activate **Panic Mode** to clear clutter, displays only high-weightage topics, expected questions, and passing equations.</p>
+                </div>
+            </div>
+            <div>
+                <button onclick="togglePanicModeDashboard()" id="panic-toggle-btn" class="w-full sm:w-auto px-5 py-2.5 bg-red-600 hover:bg-red-750 text-white font-extrabold text-[11px] uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-red-500/20 active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+                    <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse-fast"></span>
+                    Activate Panic Mode
+                </button>
+            </div>
+        </div>
+
+        <div id="dashboard-default-panels" class="space-y-6">
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12">
             <!-- Learning Progress -->
             <div class="md:col-span-8 bento-card">
                 <div class="flex items-center justify-between mb-8">
@@ -366,6 +392,143 @@
                             <span class="text-2xl mb-2">📅</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-slate-600">Attendance</span>
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- EMERGENCY PANIC DASHBOARD -->
+        <div id="dashboard-panic-panels" class="hidden space-y-8 animate-fade-up">
+            <!-- Urgency Bar -->
+            <div class="relative overflow-hidden bg-gradient-to-br from-red-650 to-rose-950 text-white rounded-[2.5rem] p-6 lg:p-8 border border-red-500/30 shadow-2xl shadow-red-500/10">
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-red-600/20 rounded-full blur-3xl"></div>
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center gap-4">
+                        <span class="text-4xl animate-bounce">🚨</span>
+                        <div>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 text-red-200 text-[9px] font-black uppercase tracking-wider rounded-full border border-white/10 mb-2">
+                                <span class="w-1.5 h-1.5 bg-red-400 rounded-full animate-pulse-fast"></span>
+                                Survival Mode Engaged
+                            </span>
+                            <h2 class="text-2xl lg:text-3xl font-black tracking-tight leading-none text-white">Exam Tomorrow? No Panic.</h2>
+                            <p class="text-xs text-red-200/80 font-medium mt-1">We filtered out 80% distraction vectors. Master the core 20% below to pass safely.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col items-center md:items-end bg-black/25 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/5 min-w-[220px]">
+                        <span class="text-[8px] font-black uppercase tracking-[0.2em] text-red-300">Ticking Countdown Timer</span>
+                        <span id="panic-countdown" class="text-2xl font-black font-mono tracking-wider text-white mt-1">08h 15m 30s</span>
+                        <span class="text-[8px] font-extrabold text-red-400 uppercase mt-1">Left Until Morning Session ⏳</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urgent Subject Selector Pills -->
+            <div class="bg-surface border border-red-100 dark:border-red-950/40 rounded-[2rem] p-5">
+                <label class="block text-[10px] font-black text-rose-500 dark:text-rose-400 uppercase tracking-widest mb-3 pl-1">Target Curriculum Selection</label>
+                <div class="flex flex-wrap gap-2" id="panic-subject-selector">
+                    <button onclick="changePanicSubject('PPS')" id="panic-pill-PPS" class="px-5 py-2.5 bg-red-600 text-white rounded-xl text-xs font-black uppercase transition-all shadow-md shadow-red-500/15">PPS (C Programming)</button>
+                    <button onclick="changePanicSubject('M1')" id="panic-pill-M1" class="px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 rounded-xl text-xs font-black uppercase transition-all">Mathematics I</button>
+                    <button onclick="changePanicSubject('Physics')" id="panic-pill-Physics" class="px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 rounded-xl text-xs font-black uppercase transition-all">Applied Physics</button>
+                    <button onclick="changePanicSubject('Chemistry')" id="panic-pill-Chemistry" class="px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 rounded-xl text-xs font-black uppercase transition-all">Engineering Chemistry</button>
+                    <button onclick="changePanicSubject('BEEE')" id="panic-pill-BEEE" class="px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 rounded-xl text-xs font-black uppercase transition-all">BEEE (Electrical)</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Column 1: Core Revision and PYQs (Main) -->
+                <div class="lg:col-span-8 space-y-6">
+                    <!-- Fail-proof Strategy Recipe card -->
+                    <div class="bento-card border-red-100 dark:border-red-950/40 bg-gradient-to-br from-red-50/30 to-amber-50/15 dark:from-red-950/5 dark:to-transparent rounded-3xl p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-2xl">🛡️</span>
+                            <div>
+                                <h3 class="text-base font-black text-[#991b1b] dark:text-red-400">Emergency Passing Strategy Recipe</h3>
+                                <p class="text-[9px] text-[#f43f5e] font-black uppercase tracking-widest">Fail-safe JNTUK guidance</p>
+                            </div>
+                        </div>
+                        <div id="panic-recipe-box" class="text-slate-700 dark:text-slate-300 text-xs leading-relaxed space-y-2">
+                            <!-- Injected dynamically based on subject -->
+                        </div>
+                    </div>
+
+                    <!-- Expected Questions and repeated PYQs -->
+                    <div class="bento-card rounded-3xl p-6 lg:p-8 space-y-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xl">🎯</span>
+                                <h3 class="text-base font-black text-slate-950 dark:text-white">Hot Expected Exam Questions</h3>
+                            </div>
+                            <span class="px-2.5 py-1 bg-red-50 dark:bg-red-950/60 text-red-500 text-[8.5px] font-black uppercase tracking-widest rounded-lg border border-red-100/10 animate-pulse animate-pulse-fast">High Probability</span>
+                        </div>
+                        <div id="panic-questions-list" class="space-y-4">
+                            <!-- Injected dynamically based on active panic subject -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Formulas, Chill & Viral Sharing -->
+                <div class="lg:col-span-4 space-y-6">
+                    <!-- Formulas / Quick Derivation pointers -->
+                    <div class="bento-card rounded-3xl p-6 bg-slate-950 border border-slate-800 text-white relative overflow-hidden">
+                        <div class="absolute -right-16 -bottom-16 w-32 h-32 bg-red-700/10 rounded-full blur-2xl"></div>
+                        <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                            <span>⚡</span> Last-Minute Formulas Key
+                        </h3>
+                        <div id="panic-formula-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Flippable Stress-Free affirmation cards -->
+                    <div class="bento-card bg-gradient-to-br from-[#1e1b4b] to-[#0f172a] text-white rounded-3xl p-6 border border-indigo-900/40 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent)]"></div>
+                        <span class="text-[8px] font-black uppercase tracking-wider text-indigo-300 block mb-1">Dopamine booster</span>
+                        <h4 class="text-sm font-black mb-4 flex items-center gap-1.5 text-indigo-250">🧘 Stress-Free Exam Hack</h4>
+                        
+                        <!-- Interactive Flippable Container -->
+                        <div id="panic-affirmation-container" onclick="flipPanicAffirmation()" class="relative w-full h-[140px] cursor-pointer [perspective:1000px]">
+                            <div id="affirmation-card-inner" class="relative w-full h-full text-center transition-transform duration-500 preserve-3d">
+                                <!-- Front side -->
+                                <div class="absolute inset-0 w-full h-full bg-slate-900/65 backdrop-blur-md rounded-2xl p-4 flex flex-col justify-between backface-hidden border border-white/5">
+                                    <p id="affirmation-front-label" class="text-[8.5px] font-black text-indigo-300 uppercase tracking-widest text-left">Exam Hack #1</p>
+                                    <p id="affirmation-front-text" class="text-xs font-bold leading-relaxed text-slate-100 flex-1 flex items-center justify-center">80% of any exam is about pure psychological confidence. Calm down.</p>
+                                    <p class="text-[8px] font-black text-indigo-400 uppercase tracking-widest text-center animate-pulse animate-pulse-fast">Tap to Reveal Hack 🔄</p>
+                                </div>
+                                <!-- Back side -->
+                                <div class="absolute inset-0 w-full h-full bg-indigo-900 text-white rounded-2xl p-4 flex flex-col justify-between backface-hidden [transform:rotateY(180deg)] border border-indigo-700/30">
+                                    <p class="text-[8.5px] font-black text-indigo-200 uppercase tracking-widest text-left">Actionable Hack</p>
+                                    <p id="affirmation-back-text" class="text-xs font-extrabold leading-relaxed text-indigo-100 flex-1 flex items-center justify-center">Sleep at least 6 hours tonight. Cramming while sleep-deprived drops recall rate by up to 40%.</p>
+                                    <p class="text-[8px] font-black text-indigo-200 uppercase tracking-widest text-center">Tap to Spin Back</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mini controls -->
+                        <div class="flex items-center justify-between mt-4 border-t border-indigo-950 pt-3">
+                            <button onclick="prevPanicAffirmation(event)" class="text-[9.5px] font-extrabold text-indigo-300 hover:text-white transition-all uppercase tracking-wider">← Previous</button>
+                            <span id="affirmation-dots" class="text-[10px] text-indigo-400 font-black">1 / 4</span>
+                            <button onclick="nextPanicAffirmation(event)" class="text-[9.5px] font-extrabold text-indigo-300 hover:text-white transition-all uppercase tracking-wider">Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Viral share component -->
+                    <div class="bento-card bg-gradient-to-r from-red-650/5 to-rose-650/5 dark:from-red-950/15 dark:to-rose-950/15 border border-red-200/20 rounded-3xl p-6">
+                        <h4 class="text-xs font-black uppercase tracking-wider text-rose-500 mb-2 flex items-center gap-1.5 select-none font-bold">
+                            <span>🤝</span> Share expected Qs & Pass
+                        </h4>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Save your batch mates! Share this emergency JNTUK R23 escape roadmap on your WhatsApp group.</p>
+                        
+                        <div class="flex gap-2">
+                            <button onclick="copySurvivalClipboard()" class="flex-1 py-1.5 bg-slate-900 hover:bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376A8.965 8.965 0 0 0 12 12.75c-.497 0-.982.04-1.455.12l-.01.002m0 0a8.967 8.967 0 0 1-2.183-5.594V3.375c0-.621.504-1.125 1.125-1.125h9.75c.621 0 1.125.504 1.125 1.125V11.25a9 9 0 0 0-1.5 5.25v.003h-.001z" /></svg>
+                                Copy Invite
+                            </button>
+                            <a href="https://t.me/share/url?url=https%3D%2F%2Fengiprep-hub.ai%2Fdashboard&text=Bro%2C%20our%20exam%20is%20tomorrow!%20%F0%9F%9A%A8%20I've%20found%20the%20ultimate%20JNTUK%20R23%20survival%20roadmap%20with%2520expected%2520questions%252520and%252520passing%25252520formulas.%25252520Check%2525252520it%252525252520out:" target="_blank" class="py-1.5 px-4 bg-[#0088cc] hover:bg-[#0077b3] text-white text-[10px] font-black uppercase tracking-widest rounded-xl transition-all flex items-center justify-center shadow-sm">
+                                Telegram
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -802,6 +965,372 @@
                 await signOut()
             }
         })
+
+        // ==========================================
+        // EXAM TOMORROW? (PANIC MODE) ENGINE
+        // ==========================================
+
+        const panicDatabase = {
+            PPS: {
+                recipe: `
+                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate C Programming Recovery Roadmap:</p>
+                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
+                        <li><strong>Study structures vs unions (Unit 5) immediately.</strong> It's a guaranteed 10-mark question in Part B.</li>
+                        <li><strong>Memorize parameter passing (Unit 4).</strong> Difference between call-by-value and call-by-reference is guaranteed for 7-8 marks.</li>
+                        <li><strong>Pick the 2D Array multiplication routine.</strong> Write it out 2 times on paper.</li>
+                        <li>Skip file advanced pointers if pressed for time. Lock in the basic input/output loop structures first!</li>
+                    </ul>
+                `,
+                questions: [
+                    { q: "1. Define structures and explain difference between unions and structures in detail with byte representation diagrams.", weight: "10 Marks", expected: "95% Probability" },
+                    { q: "2. Detail call-by-value and call-by-reference parameter passing with tracing code blocks.", weight: "10 Marks", expected: "91% Probability" },
+                    { q: "3. Write a program to read two 2-dimensional matrices, multiply them, and print results.", weight: "8 Marks", expected: "89% Probability" },
+                    { q: "4. Differentiate between text and binary file operations with fopen mode attributes.", weight: "5 Marks", expected: "84% Probability" }
+                ],
+                formulas: [
+                    { title: "Dynamic Memory Block", formula: "(int*)malloc(n * sizeof(int))" },
+                    { title: "String Terminator Character", formula: "'\\0' (indicates final byte index)" },
+                    { title: "Structure Keyword", formula: "struct Person { char name[50]; int age; };" },
+                    { title: "Recursive Factorial", formula: "int fact(int n) { if(n<=1) return 1; return n * fact(n-1); }" }
+                ]
+            },
+            M1: {
+                recipe: `
+                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate Mathematics I Recovery Roadmap:</p>
+                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
+                        <li><strong>Practice the Cayley-Hamilton inverse routine (Unit 1).</strong> This is a highly mechanical 10-mark topic.</li>
+                        <li><strong>Learn Lagrange Mean Value Theorem (Unit 2).</strong> Know the definition $f'(c) = \\frac{f(b)-f(a)}{b-a}$ and verify it on interval $[a,b]$.</li>
+                        <li><strong>Review Extreme value Jacobians (Unit 3).</strong> Check condition $rt - s^2 > 0$ to get local extrema.</li>
+                        <li>Skip lengthy integration proofs. Master Beta-Gamma conversions to score 5-mark units instantly.</li>
+                    </ul>
+                `,
+                questions: [
+                    { q: "1. State Cayley-Hamilton Theorem. Compute characteristic equation and inverse of matrix A = [[1,2,0],[2,-1,0],[0,0,1]].", weight: "10 Marks", expected: "96% Probability" },
+                    { q: "2. Verify Lagrange Mean Value Theorem for f(x) = (x-1)(x-2)(x-3) on [0, 4] bounds.", weight: "10 Marks", expected: "92% Probability" },
+                    { q: "3. Locate maximum and minimum coordinates of the bivariate function f(x,y) = x^3 + y^3 - 3axy.", weight: "8 Marks", expected: "87% Probability" },
+                    { q: "4. Evaluate double integral of r^3 sin(theta) over polar region boundaries.", weight: "5 Marks", expected: "82% Probability" }
+                ],
+                formulas: [
+                    { title: "Characteristic Determinant", formula: "det(A - λI) = 0" },
+                    { title: "3x3 Polynomial Equation Shortcut", formula: "λ³ - S₁λ² + S₂λ - |A| = 0" },
+                    { title: "Lagrange Mean Value theorem", formula: "f'(c) = (f(b) - f(a)) / (b - a)" },
+                    { title: "Extrema Maxima Condition", formula: "rt - s² > 0 and r < 0 (maximum)" }
+                ]
+            },
+            Physics: {
+                recipe: `
+                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate Applied Physics Recovery Roadmap:</p>
+                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
+                        <li><strong>Draw Newton's Rings apparatus diagram 3 times.</strong> It represents guaranteed 10 marks in Unit 1.</li>
+                        <li><strong>Master construction of He-Ne Gas Lasers (Unit 2).</strong> Label energy levels (pumping, collision states, Ground).</li>
+                        <li><strong>Check Schrödinger's 1D time independent model (Unit 3).</strong> Write the equation and state boundary limits.</li>
+                        <li>Lock in Hall Effect definitions; it yields quick marks in semiconductor units.</li>
+                    </ul>
+                `,
+                questions: [
+                    { q: "1. Explain interference in thin wedge film and derive formula representing diameter of dark Newton rings.", weight: "10 Marks", expected: "94% Probability" },
+                    { q: "2. Draw and describe construction and working interface of Helium-Neon (He-Ne) gas lasers with energy chart maps.", weight: "10 Marks", expected: "90% Probability" },
+                    { q: "3. Derive Schrödinger's 1D time-independent wave equation. Apply it to determine energy quantization in a 1D box.", weight: "8 Marks", expected: "85% Probability" },
+                    { q: "4. State Hall Effect. Derive the equation for Hall Coefficient and describe physical applications.", weight: "8 Marks", expected: "81% Probability" }
+                ],
+                formulas: [
+                    { title: "Dark Newton Ring Diameter", formula: "Dn² = 4nλR (R = curvature radius)" },
+                    { title: "Einstein Emission ratio", formula: "N2 / N1 = e^(-hν/kT)" },
+                    { title: "Schrödinger Time-Independent wave", formula: "d²ψ/dx² + 8π²m/h² * (E - V)ψ = 0" },
+                    { title: "Hall Coefficient calculation", formula: "R_H = 1 / (n * e)" }
+                ]
+            },
+            Chemistry: {
+                recipe: `
+                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate Engineering Chemistry Recovery Roadmap:</p>
+                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
+                        <li><strong>Demineralization ion resin exchange (Unit 1) is guaranteed.</strong> Draw the cation and anion columns.</li>
+                        <li><strong>Learn Lithium-ion battery working (Unit 3).</strong> Memorize anode (graphite-Li) and cathode (LiCoO2) reactions.</li>
+                        <li><strong>Write down 5 principles of Green Chemistry (Unit 5).</strong> Specialize on Atom Economy percentage index.</li>
+                        <li>Review Cathodic protection sacrificial anode scheme to lock in electrochemical corrosion points.</li>
+                    </ul>
+                `,
+                questions: [
+                    { q: "1. Detail demineralization/ion-exchange water softening scheme with complete reaction equations.", weight: "10 Marks", expected: "95% Probability" },
+                    { q: "2. Outline the battery chemistry, charge, and discharge equations of modern Lithium-Ion systems.", weight: "10 Marks", expected: "91% Probability" },
+                    { q: "3. State the 12 Principles of Green Chemistry. Formulate Atom Economy calculation benchmarks.", weight: "8 Marks", expected: "88% Probability" },
+                    { q: "4. Explain electrochemical corrosion mechanism and describe Sacrificial Anode cathodic safeguarding.", weight: "8 Marks", expected: "83% Probability" }
+                ],
+                formulas: [
+                    { title: "EDTA Titration CaCO3 Softening", formula: "1 ml of EDTA = 1 mg of CaCO3 equivalent" },
+                    { title: "Atom Economy Percentage Index", formula: "(MW of target / sum of all MW reactants) * 100" },
+                    { title: "Nernst Potential Equation", formula: "E = E° - (R*T / n*F) * ln(Q)" },
+                    { title: "Sacrificial Anode Material", formula: "Zinc (Zn) or Magnesium (Mg) over iron structures" }
+                ]
+            },
+            BEEE: {
+                recipe: `
+                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate BEEE Recovery Roadmap:</p>
+                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
+                        <li><strong>Lock in Superposition Theorem (Unit 1).</strong> Know how to solve branch current by shorting voltage sources.</li>
+                        <li><strong>Differentiate single phase vs three phase transformers (Unit 3).</strong> Write EMF induced formulas.</li>
+                        <li><strong>Verify Op-Amp Inverting vs Non-Inverting gains.</strong> These are clean, high-scoring derivations.</li>
+                        <li>Focus on solving simple node loops first instead of multi-mesh complex layouts.</li>
+                    </ul>
+                `,
+                questions: [
+                    { q: "1. State Superposition Theorem. Determine active branch currents in a bilateral bridge network with two supplies.", weight: "10 Marks", expected: "93% Probability" },
+                    { q: "2. Explain operational principles and derive exact EMF equation of a single-phase transformer.", weight: "10 Marks", expected: "89% Probability" },
+                    { q: "3. Formulate circuit diagram and closed loop gain equations of an Inverting Operational Amplifier (Op-Amp).", weight: "8 Marks", expected: "86% Probability" },
+                    { q: "4. State differences between DC motors and alternators winding layout controls.", weight: "5 Marks", expected: "81% Probability" }
+                ],
+                formulas: [
+                    { title: "EMF Induced Equation", formula: "E = 4.44 * f * N * Φm" },
+                    { title: "Inverting Op-Amp Closed gain", formula: "Av = -R_feedback / R_input" },
+                    { title: "Active Network Power index", formula: "P = V * I * cos(φ) (Watts)" },
+                    { title: "Thevenin Equivalent Resistance", formula: "Rth = open-circuit-voltage / short-circuit-current" }
+                ]
+            }
+        };
+
+        const panicAffirmations = [
+            {
+                label: "Stress-Free Guide #1",
+                front: "80% of any engineering exam is about pure psychological confidence. Calm down.",
+                back: "Sleep at least 6 hours tonight. Cramming while sleep-deprived drops recall rate by up to 40%."
+            },
+            {
+                label: "Stress-Free Guide #2",
+                front: "Examiners review hundreds of papers. Presentation is everything.",
+                back: "Draw clean block charts. Put clean boxes around your final math equations. Clear headings get signed off fast!"
+            },
+            {
+                label: "Stress-Free Guide #3",
+                front: "Got a calculation wrong? Do NOT stress out or scribble heavily.",
+                back: "Put a neat single line through it. Elegant presentation still scores massive step marks in JNTUK R23."
+            },
+            {
+                label: "Stress-Free Guide #4",
+                front: "Don't stare at a blank sheet if you forget a specific derivation.",
+                back: "First write down the starting formula and write: 'Considering standard cartesian coordinate bounds...'. Step-by-step logic scores partial credit."
+            }
+        ];
+
+        function getExpectedQuestionsAnswers(subCode, idx) {
+            const answers = {
+                PPS: [
+                    "Define standard structure layout with memory maps. Draw parallel byte cells comparing how structures isolate bytes per member, whereas unions share the same first byte address memory coordinate (size of largest element). Mention byte alignment.",
+                    "State the definition of standard input parameters. Detail how call-by-value makes local compiler duplicates inside the sub-function, keeping callers intact. Call-by-reference passes address pointers causing direct caller modifications.",
+                    "Include the standard double loop algorithm: a[i][k] * b[k][j]. Explain conformity check: columns of first matrix must equal rows of the second. Give a brief pseudo-code outline of the row-by-column accumulator loop.",
+                    "Text mode translates carriage returns and newlines, reading lines as string sequences. Binary mode performs complete raw memory blocks stream write/read (fread/fwrite) with zero automatic character expansions."
+                ],
+                M1: [
+                    "State: Any square matrix satisfies its own characteristic equation. Generate det(A - λI) to form polynomial equations λ³ - S₁λ² + S₂λ - |D| = 0. Prove verification steps and substitute matrix coordinates back to find standard inverse elements.",
+                    "If f(x) is continuous on [a,b] and differentiable on (a,b), there exists c inside (a,b) such that f'(c) = (f(b)-f(a))/(b-a). Compute values f(0) and f(4), calculate the derivative f'(c), and verify that numerical limits conform.",
+                    "Set partial derivatives fx = 0, fy = 0 to extract pivots critical points. Calculate second order differentials (r, s, t) corresponding to fxx, fxy, fyy and check r*t - s² discriminant controls. Positive is extreme coordinate.",
+                    "Describe standard bounds transform: Substitute x = r * cos(theta), y = r * sin(theta), dxdy = r * dr * d(theta). Map integration boundaries cleanly to compute final integrals safely."
+                ],
+                Physics: [
+                    "Sketch the plano-convex lens placed on the flat glass plate. Light rays reflect from the curved lower boundary and flat top of the base. Derive equation 2tcos(r) = nλ. Circle diameters map to circular paths of uniform thickness wedge.",
+                    "Helium-Neon gas ratio matches 10:1 configuration bounds. Physical pumping operates through electric discharge of Helium atoms, colliding into Neon atoms to create Population Inversion N₂ > N₁ at stable states.",
+                    "Define time independent formulations d²ψ/dx² + 8π²m/h² * (E - V)ψ = 0. For inside the box (V=0), solutions are sinusoidal sine waves with boundary matching λ = 2L/n, yielding quantized energy level peaks.",
+                    "Show semiconductor slab crossing magnetic field perpendicular to current paths. Hall voltage creates a balanced electrostatic force. Used to measure majority carrier types, density, and drift velocities."
+                ],
+                Chemistry: [
+                    "Describe columns populated with synthetic cation exchangers (H+) and anion exchangers (OH-). Feed water crosses both layers to capture positive (Ca²⁺) and negative (Cl⁻) ions cleanly, outputting pure demineralized H₂O.",
+                    "Review Lithium insertion layers. Discharging reaction: At anode, Li-Graphite releases Electrons (LiC₆ → C₆ + Li⁺ + e⁻). At cathode, Cobalt LiCoO₂ captures Ions. Charging reaction is the reverse process.",
+                    "Detail the core principles. Highlight 'Atom Economy' index calculating target molar weights over entry ones to track how cleanly reaction atoms are utilized instead of forming side waste streams.",
+                    "Depict physical sacrifices where a metal with higher negative potential (Active Zinc anodic blocks) is connected with Steel structures. Zinc oxidizes preferentially, securing structural iron."
+                ],
+                BEEE: [
+                    "In linear bilateral circuits, current or voltage response in any branch with multiple independent supplies equals the sum of individual supply responses evaluated one at a time, keeping others deactivated.",
+                    "EMF equation: E_rms = 4.44 * f * N * Φ_max. Formulate how mutual electromagnetic induction transfers electrical currents cleanly without any physical coordinate contact or changes in alternating frequency.",
+                    "Gain formula representation: Vout / Vin = -Rf / Rin. Describe physical virtual ground boundaries holding inverting terminal potential at zero voltage, directing input current straight to feedback components.",
+                    "DC Motor involves rotating field armature setups receiving mechanical energies, whereas alternator sets use static armature coordinates surrounding concentric rotating magnet poles."
+                ]
+            };
+            return (answers[subCode] && answers[subCode][idx]) || "Review standard textbook diagrams and definitions before entering your morning session.";
+        }
+
+        let countdownTimerInterval = null;
+        function startPanicCountdown() {
+            if(countdownTimerInterval) clearInterval(countdownTimerInterval);
+            
+            let hours = 8, minutes = 15, seconds = 30
+            const countdownEl = document.getElementById('panic-countdown')
+            if (!countdownEl) return;
+            
+            countdownTimerInterval = setInterval(() => {
+                seconds--
+                if(seconds < 0) { seconds = 59; minutes-- }
+                if(minutes < 0) { minutes = 59; hours-- }
+                if(hours < 0) { hours = 8; minutes = 15; seconds = 30 } // Loop
+                
+                const hStr = hours.toString().padStart(2, '0')
+                const mStr = minutes.toString().padStart(2, '0')
+                const sStr = seconds.toString().padStart(2, '0')
+                if(countdownEl) countdownEl.innerHTML = `${hStr}h ${mStr}m ${sStr}s`
+            }, 1000)
+        }
+
+        window.togglePanicModeDashboard = function() {
+            const isPanic = localStorage.getItem('panic-mode') === 'active'
+            const defaultPanels = document.getElementById('dashboard-default-panels')
+            const panicPanels = document.getElementById('dashboard-panic-panels')
+            const body = document.body
+            const toggleBtn = document.getElementById('panic-toggle-btn')
+
+            if(isPanic) {
+                localStorage.setItem('panic-mode', 'inactive')
+                body.classList.remove('panic-mode-active')
+                
+                if (defaultPanels) defaultPanels.classList.remove('hidden')
+                if (panicPanels) panicPanels.classList.add('hidden')
+                
+                if (toggleBtn) {
+                    toggleBtn.innerHTML = `
+                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse-fast"></span>
+                        Activate Panic Mode
+                    `
+                    toggleBtn.className = "w-full sm:w-auto px-5 py-2.5 bg-red-600 hover:bg-red-750 text-white font-extrabold text-[11px] uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-red-500/20 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                }
+                if (countdownTimerInterval) {
+                    clearInterval(countdownTimerInterval);
+                    countdownTimerInterval = null;
+                }
+            } else {
+                localStorage.setItem('panic-mode', 'active')
+                body.classList.add('panic-mode-active')
+                
+                if (defaultPanels) defaultPanels.classList.add('hidden')
+                if (panicPanels) panicPanels.classList.remove('hidden')
+                
+                if (toggleBtn) {
+                    toggleBtn.innerHTML = `
+                        <span class="w-2 h-2 rounded-full bg-red-650 animate-ping"></span>
+                        Deactivate Panic Mode
+                    `
+                    toggleBtn.className = "w-full sm:w-auto px-5 py-2.5 bg-white border border-red-500 hover:bg-rose-50 text-red-600 font-extrabold text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                }
+
+                const activeSub = localStorage.getItem('panic-active-subject') || 'PPS'
+                changePanicSubject(activeSub)
+                
+                startPanicCountdown()
+            }
+        }
+
+        window.changePanicSubject = function(subCode) {
+            localStorage.setItem('panic-active-subject', subCode)
+            
+            const subjects = ['PPS', 'M1', 'Physics', 'Chemistry', 'BEEE']
+            subjects.forEach(s => {
+                const btn = document.getElementById(`panic-pill-${s}`)
+                if(btn) {
+                    if(s === subCode) {
+                        btn.className = "px-5 py-2.5 bg-red-600 text-white rounded-xl text-xs font-black uppercase transition-all shadow-md shadow-red-500/15 cursor-pointer"
+                    } else {
+                        btn.className = "px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 rounded-xl text-xs font-black uppercase transition-all cursor-pointer hover:bg-slate-100"
+                    }
+                }
+            })
+            
+            const data = panicDatabase[subCode]
+            if(!data) return;
+            
+            const recipeBox = document.getElementById('panic-recipe-box')
+            if(recipeBox) recipeBox.innerHTML = data.recipe
+            
+            const questionsList = document.getElementById('panic-questions-list')
+            if(questionsList) {
+                questionsList.innerHTML = data.questions.map((q, idx) => `
+                    <div class="p-4 bg-slate-50 dark:bg-slate-950/25 border border-slate-100 dark:border-slate-850 rounded-2xl hover:border-red-500 transition-all">
+                        <div class="flex items-center justify-between gap-4 flex-wrap mb-1">
+                            <span class="inline-flex items-center gap-1.5 text-[9px] font-black text-rose-500 uppercase tracking-widest bg-rose-50 dark:bg-rose-950/50 px-2 py-0.5 rounded border border-rose-100/10">${q.expected}</span>
+                            <span class="text-[9px] text-slate-400 font-extrabold uppercase">${q.weight}</span>
+                        </div>
+                        <h4 class="text-xs font-black text-slate-950 dark:text-white leading-normal">${q.q}</h4>
+                        <div class="mt-3">
+                            <button onclick="togglePanicAnswerReveal(this)" class="px-3 py-1.5 bg-white dark:bg-slate-900 hover:bg-slate-100 text-[9px] font-black uppercase tracking-wider text-red-600 rounded-lg transition-colors border border-slate-250/50 dark:border-slate-800 cursor-pointer">Reveal Answer keys & hints</button>
+                            <div class="hidden p-3 bg-white dark:bg-slate-950/40 rounded-xl border border-dashed border-red-200/30 text-[11px] leading-relaxed mt-2 text-slate-600 dark:text-slate-400 space-y-1 animate-fade-in">
+                                <p class="font-bold text-red-700 dark:text-red-400 uppercase tracking-wider text-[9px]">Survival Guideline:</p>
+                                <p class="font-semibold text-slate-700 dark:text-slate-350">${getExpectedQuestionsAnswers(subCode, idx)}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')
+            }
+            
+            const formulaList = document.getElementById('panic-formula-list')
+            if(formulaList) {
+                formulaList.innerHTML = data.formulas.map(f => `
+                    <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-red-500/50 transition-colors">
+                        <span class="text-[9px] text-[#f43f5e] font-black uppercase tracking-wider block leading-none mb-1">${f.title}</span>
+                        <code class="text-[10px] text-slate-100 font-mono font-bold leading-normal block select-all bg-black/40 px-2 py-1 rounded inline-block w-full">${f.formula}</code>
+                    </div>
+                `).join('')
+            }
+        }
+
+        window.togglePanicAnswerReveal = function(btn) {
+            const el = btn.nextElementSibling
+            if(el) {
+                el.classList.toggle('hidden')
+                btn.innerText = el.classList.contains('hidden') ? "Reveal Answer keys & hints" : "Hide Keys"
+            }
+        }
+
+        let activeAffirmationIndex = 0;
+        window.flipPanicAffirmation = function() {
+            const inner = document.getElementById('affirmation-card-inner')
+            if (inner) inner.classList.toggle('panic-card-flipped')
+        }
+        
+        window.prevPanicAffirmation = function(event) {
+            if(event) { event.stopPropagation(); event.preventDefault(); }
+            const inner = document.getElementById('affirmation-card-inner')
+            if(inner) inner.classList.remove('panic-card-flipped')
+            
+            activeAffirmationIndex--
+            if(activeAffirmationIndex < 0) activeAffirmationIndex = panicAffirmations.length - 1
+            setTimeout(() => {
+                renderAffirmationIndex()
+            }, 150)
+        }
+        
+        window.nextPanicAffirmation = function(event) {
+            if(event) { event.stopPropagation(); event.preventDefault(); }
+            const inner = document.getElementById('affirmation-card-inner')
+            if(inner) inner.classList.remove('panic-card-flipped')
+            
+            activeAffirmationIndex = (activeAffirmationIndex + 1) % panicAffirmations.length
+            setTimeout(() => {
+                renderAffirmationIndex()
+            }, 150)
+        }
+        
+        function renderAffirmationIndex() {
+            const card = panicAffirmations[activeAffirmationIndex]
+            const fLabel = document.getElementById('affirmation-front-label')
+            const fText = document.getElementById('affirmation-front-text')
+            const bText = document.getElementById('affirmation-back-text')
+            const dots = document.getElementById('affirmation-dots')
+            
+            if(fLabel) fLabel.innerText = card.label
+            if(fText) fText.innerText = card.front
+            if(bText) bText.innerText = card.back
+            if(dots) dots.innerText = `${activeAffirmationIndex + 1} / ${panicAffirmations.length}`
+        }
+
+        window.copySurvivalClipboard = function() {
+            const textToCopy = `Bro, our exam is tomorrow! 🚨 I found the ultimate JNTUK R23 escape roadmap on EngiPrep Hub: expected questions, repeated formulas, and passing shortcuts are live. Let's pass together: ${window.location.origin}/dashboard.html`
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Invite script copied successfully to clipboard! Send it to your WhatsApp group now. 🔥")
+            }).catch(err => {
+                prompt("Copy survival invite link below:", textToCopy)
+            })
+        }
+
+        // Active State Restorer
+        if(localStorage.getItem('panic-mode') === 'active') {
+            localStorage.setItem('panic-mode', 'inactive')
+            togglePanicModeDashboard()
+        }
 
         init()
     </script>
