@@ -32,7 +32,7 @@ const protectedFiles = [
     'profile.html'
 ];
 
-const injectionString = `\n    <!-- Gatekeeper for Authentication -->\n    <script type="module" src="/src/gatekeeper.js"></script>\n`;
+const injectionString = `\n    <!-- Gatekeeper for Authentication -->\n    <script>document.documentElement.style.display = 'none';</script>\n    <script type="module" src="/src/gatekeeper.js"></script>\n`;
 
 protectedFiles.forEach(file => {
     const filePath = path.join(__dirname, file);

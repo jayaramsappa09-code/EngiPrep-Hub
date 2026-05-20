@@ -1,0 +1,113 @@
+module.exports = {
+  "Engineering Physics": {
+    topicDesc: "Complete academic mapping of JNTUK Engineering Physics R23 curriculum. From quantum tunneling to advanced semiconductor transport.",
+    units: [
+      {
+        id: "unit-2",
+        title: "Wave Particle Duality & Schrödinger Mechanics",
+        subtitle: "Unit II: Quantum Mechanics & Free Electron Theory",
+        weightage: "~15-20 Marks",
+        desc: "Dual nature of matter, Heisenberg uncertainty, Schrödinger wave equations, and 1D potential wells.",
+        introTitle: "Introduction to Quantum States",
+        introBody: "Classical mechanics fails at the atomic scale. Quantum mechanics introduces wave-particle duality, where matter exhibits both particle-like and wave-like behavior, governed by probability amplitudes.",
+        coreHighlight: "The Core Crux of R23: The entire unit revolves around the exact boundary state derivations for the 1D infinite potential well and the implications of the Heisenberg Uncertainty Principle.",
+        concept1: { title: "Matter Waves", detail: "de Broglie proposed that moving particles have an associated wavelength λ = h/p." },
+        concept2: { title: "Uncertainty", detail: "Heisenberg formulated that position and momentum cannot be simultaneously measured with arbitrary precision: Δx · Δp ≥ h/4π." },
+        formula1: { title: "de Broglie Wavelength", eq: "λ = h / √(2mE)" },
+        formula2: { title: "Particle in 1D Box", eq: "E_n = n²h² / (8mL²)" },
+        pyq1: { title: "Schrödinger Time-Independent Eq", marks: "10 Marks", body: "Derive the time independent Schrödinger wave equation." },
+        pyq2: { title: "Fermi Dirac Distribution", marks: "5 Marks", body: "Explain the effect of temperature on Fermi-Dirac distribution function." },
+      },
+      {
+        id: "unit-3",
+        title: "Intrinsic & Extrinsic Carrier Transport",
+        subtitle: "Unit III: Semiconductors",
+        weightage: "~15-20 Marks",
+        desc: "Intrinsic/extrinsic transport, drift/diffusion, Fermi levels, and the Hall Effect.",
+        introTitle: "Semiconductor Band Theory",
+        introBody: "Materials are classified by energy band gaps. Semiconductors have a small band gap (~1 eV) allowing thermal excitation.",
+        coreHighlight: "The Core Crux of R23: Hall effect derivation, Einstein relation, and intrinsic carrier concentration derivations dominate the board exams.",
+        concept1: { title: "Charge Carriers", detail: "Electrons in conduction band and holes in valence band contribute to current." },
+        concept2: { title: "Hall Effect", detail: "A transverse voltage is produced when a magnetic field is applied perpendicular to current flow." },
+        formula1: { title: "Intrinsic Density", eq: "n_i² = N_c N_v exp(-E_g/kT)" },
+        formula2: { title: "Hall Coefficient", eq: "R_H = 1 / (n·e)" },
+        pyq1: { title: "Hall Effect Derivation", marks: "10 Marks", body: "Explain Hall Effect. Derive the expression for Hall coefficient." },
+        pyq2: { title: "Einstein Relation", marks: "5 Marks", body: "Deduce the Einstein’s relation between diffusion coefficient and mobility." },
+      },
+      {
+        id: "unit-4",
+        title: "Einstein Coefficients & Fiber Optics",
+        subtitle: "Unit IV: Lasers & Fiber Optics",
+        weightage: "~10-15 Marks",
+        desc: "Laser Characteristics, He-Ne laser, Nd:YAG. Numerical Aperture, Acceptance Angle derivations.",
+        introTitle: "Principles of Light Emission",
+        introBody: "Lasers operate on stimulated emission. Fiber optics rely on total internal reflection for guided light transmission.",
+        coreHighlight: "The Core Crux of R23: He-Ne laser working mechanism and Numerical Aperture derivations are repeated every year.",
+        concept1: { title: "Stimulated Emission", detail: "An incoming photon stimulates an excited atom to emit a coherent photon." },
+        concept2: { title: "Total Internal Reflection", detail: "Light traveling from denser to rarer medium reflects completely if angle > critical angle." },
+        formula1: { title: "Numerical Aperture", eq: "NA = √(n₁² - n₂²)" },
+        formula2: { title: "Acceptance Angle", eq: "θ_a = arcsin(NA)" },
+        pyq1: { title: "He-Ne Laser", marks: "10 Marks", body: "With a neat energy level diagram describe the working of He-Ne laser." },
+        pyq2: { title: "Numerical Aperture", marks: "5 Marks", body: "Derive an expression for acceptance angle and numerical aperture." },
+      },
+      {
+        id: "unit-5",
+        title: "Polarization & Superconductors",
+        subtitle: "Unit V: Dielectric & Magnetic Materials",
+        weightage: "~10-15 Marks",
+        desc: "Dielectrics polarizations; internal fields. Origin of magnetic moment, ferromagnetism, Superconducting transition.",
+        introTitle: "Material Responses to Fields",
+        introBody: "Dielectrics polarize in electric fields. Magnetic materials align dipoles in magnetic fields. Superconductors expel magnetic fields perfectly.",
+        coreHighlight: "The Core Crux of R23: Clausius-Mossotti relation, B-H curve, and Meissner effect are the guaranteed questions.",
+        concept1: { title: "Polarization", detail: "Electronic, ionic, and orientational displacement of charges." },
+        concept2: { title: "Meissner Effect", detail: "Expulsion of magnetic field lines from a superconductor below critical temperature (perfect diamagnetism)." },
+        formula1: { title: "Clausius-Mossotti", eq: "(ε_r - 1)/(ε_r + 2) = (N_α)/(3ε_o)" },
+        formula2: { title: "Critical Field", eq: "H_c(T) = H_c(0)[1 - (T/T_c)²]" },
+        pyq1: { title: "Clausius-Mossotti Relation", marks: "10 Marks", body: "Derive Clausius-Mossotti relation for solid dielectrics." },
+        pyq2: { title: "Meissner Effect", marks: "5 Marks", body: "Write a short note on Meissner effect and Type I & II superconductors." },
+      }
+    ]
+  },
+  "Engineering Mathematics": {
+    topicDesc: "Complete mapping of JNTUK Engineering Mathematics M1 & M2. From Matrix Eigenvalues to Multivariable Calculus.",
+    units: [
+      {
+        id: "unit-1",
+        title: "Matrix Operations & Linear Systems",
+        subtitle: "Unit I: Matrices",
+        weightage: "~15-20 Marks",
+        desc: "Rank of matrix, Echelon form, Normal form. Solution of linear systems. Gauss elimination.",
+        introTitle: "Linear Algebra Fundamentals",
+        introBody: "Matrices provide a compact way to represent and solve systems of linear equations.",
+        coreHighlight: "The Core Crux of R23: Finding the Rank using Echelon form and testing consistency of linear equations.",
+        concept1: { title: "Rank of a Matrix", detail: "Number of non-zero rows in its row echelon form." },
+        concept2: { title: "Gauss Elimination", detail: "Reducing a system to upper triangular form to solve via back substitution." },
+        formula1: { title: "Consistency", eq: "Rank(A) = Rank(A|B) ≤ n" },
+        formula2: { title: "Infinite Solutions", eq: "Rank(A) = Rank(A|B) < n" },
+        pyq1: { title: "Rank by Normal Form", marks: "10 Marks", body: "Reduce the matrix to Normal form and find its rank." },
+        pyq2: { title: "System Consistency", marks: "10 Marks", body: "Test for consistency and solve: 2x - y + 3z = 8, -x + 2y + z = 4, 3x + y - 4z = 0." },
+      }
+    ]
+  },
+  "Data Structures": {
+    topicDesc: "Complete mapping of JNTUK Data Structures R23. From basic Arrays to advanced Graph traversal topologies.",
+    units: [
+      {
+        id: "unit-1",
+        title: "Arrays, Searching & Sorting",
+        subtitle: "Unit I: Fundamentals",
+        weightage: "~15 Marks",
+        desc: "Array operations, Linear/Binary search. Selection, Bubble, Insertion, Quick, Merge sort.",
+        introTitle: "Data Organization",
+        introBody: "Organizing data efficiently is the foundation of computer science. Searching and sorting are the baseline mechanics.",
+        coreHighlight: "The Core Crux of R23: Time complexity derivations for Merge Sort and Quick Sort.",
+        concept1: { title: "Binary Search", detail: "O(log n) search on a sorted array by repeated halving." },
+        concept2: { title: "Merge Sort", detail: "Divide and conquer recursive algorithm. Guaranteed O(n log n) time." },
+        formula1: { title: "Binary Search Time", eq: "T(n) = T(n/2) + O(1)" },
+        formula2: { title: "Merge Sort Time", eq: "T(n) = 2T(n/2) + O(n)" },
+        pyq1: { title: "Quick Sort", marks: "10 Marks", body: "Trace Quick Sort on the array: [40, 20, 10, 80, 60, 50, 7, 30, 100]." },
+        pyq2: { title: "Binary Search", marks: "5 Marks", body: "Write a C function for iterative Binary Search and state its complexity." },
+      }
+    ]
+  }
+}
