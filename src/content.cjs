@@ -492,5 +492,90 @@ module.exports = {
         pyq2: { title: "Power Transmission", marks: "5 Marks", body: "Compare belt drives, chain drives, and gear drives in mechanical power transmission." }
       }
     ]
+  },
+  "C Programming": {
+    topicDesc: "Complete mapping of JNTUK C Programming R23. From control structures and loops to files and pointers.",
+    units: [
+      {
+        id: "unit-1",
+        title: "C Fundamentals",
+        subtitle: "Unit I: Basics",
+        weightage: "~15 Marks",
+        desc: "Structure of C, data types, operators, input/output.",
+        introTitle: "Foundations of C",
+        introBody: "Understanding C programming basics, structure, and standard libraries.",
+        coreHighlight: "The Core Crux of R23: Writing standard C programs and understanding variables/operators.",
+        concept1: { title: "Data Types", detail: "Int, float, char, double fundamental types." },
+        concept2: { title: "Operators", detail: "Arithmetic, logical, relational, bitwise operators." },
+        formula1: { title: "C Program Structure", eq: "#include -> main() -> { ... }" },
+        formula2: { title: "Basic I/O", eq: "printf() for output, scanf() for input" },
+        pyq1: { title: "Structure of C", marks: "10 Marks", body: "Describe the structure of a C program with an example." },
+        pyq2: { title: "Operators", marks: "5 Marks", body: "Classify and explain different operators in C." }
+      },
+      {
+        id: "unit-2",
+        title: "Control Structures & Loops",
+        subtitle: "Unit II: Logic Flow",
+        weightage: "~15-20 Marks",
+        desc: "Decision making (if, if-else, switch), loops (for, while, do-while), break, continue.",
+        introTitle: "Control Flow in C",
+        introBody: "Mastering conditional branching and repetitive execution logic for complex algorithm design.",
+        coreHighlight: "The Core Crux of R23: Efficient use of nested loops and switch-case branching mechanics.",
+        concept1: { title: "Decision Making", detail: "Controlling flow using if, if-else, and switch constructs." },
+        concept2: { title: "Iteration", detail: "Using for, while, do-while for controlled repetitive tasks." },
+        formula1: { title: "Loop Structure", eq: "init; condition; increment/decrement" },
+        formula2: { title: "Switch Case", eq: "switch(var) { case val: ... default: ... }" },
+        pyq1: { title: "Nested Loops", marks: "10 Marks", body: "Write a program to print a pyramid pattern using nested loops." },
+        pyq2: { title: "Switch-Case", marks: "5 Marks", body: "Explain the switch statement with a program." }
+      },
+      {
+        id: "unit-3",
+        title: "Functions, Arrays & Strings",
+        subtitle: "Unit III: Modularity & Collections",
+        weightage: "~15 Marks",
+        desc: "Function types, parameter passing (by val/ref), 1D/2D arrays, string manipulation functions.",
+        introTitle: "Modular Programming",
+        introBody: "Breaking programs into reusable functions and managing collections via arrays and strings.",
+        coreHighlight: "The Core Crux of R23: Handling 2D arrays (matrices) and string library functions effectively.",
+        concept1: { title: "Functions", detail: "Modularizing code using prototypes, definition, and calls." },
+        concept2: { title: "Arrays & Strings", detail: "Contiguous storage for homogeneous data and null-terminated character sequences." },
+        formula1: { title: "Function call", eq: "retType funcName(params);" },
+        formula2: { title: "2D Array Indexing", eq: "arr[row][col]" },
+        pyq1: { title: "Matrix Multiplication", marks: "10 Marks", body: "Write a C program to perform matrix multiplication using 2D arrays." },
+        pyq2: { title: "String Manipulation", marks: "10 Marks", body: "Explain different string manipulation functions in <string.h>." }
+      },
+      {
+        id: "unit-4",
+        title: "Pointers & Structures",
+        subtitle: "Unit IV: Memory & Definitions",
+        weightage: "~20 Marks",
+        desc: "Pointer arithmetic, dereferencing, void pointers, structs, nested structures, union.",
+        introTitle: "Memory & Data Definitions",
+        introBody: "Direct memory management via pointers and defining custom data aggregate types via structs.",
+        coreHighlight: "The Core Crux of R23: Pointer-array interaction and nested structure implementation.",
+        concept1: { title: "Pointers", detail: "Storing memory addresses of variables for indirect access." },
+        concept2: { title: "Structures", detail: "Aggregating heterogeneous data types into a single unit." },
+        formula1: { title: "Pointer Arithmetic", eq: "ptr + offset" },
+        formula2: { title: "Struct Access", eq: "structVar.member | ptr->member" },
+        pyq1: { title: "Pointers & Arrays", marks: "10 Marks", body: "Explain the relationship between pointers and arrays with an example." },
+        pyq2: { title: "Nested Structures", marks: "10 Marks", body: "Write a program to demonstrate nested structures." }
+      },
+      {
+        id: "unit-5",
+        title: "Files & Preprocessor",
+        subtitle: "Unit V: Secondary Storage & Macros",
+        weightage: "~15 Marks",
+        desc: "File modes (read/write/append), fopen/fclose, fprintf/fscanf, preprocessor directives (#define, #include).",
+        introTitle: "I/O & Directives",
+        introBody: "Interacting with secondary storage for data persistence and mastering preprocessor directives for conditional compilation.",
+        coreHighlight: "The Core Crux of R23: Safe handling of files and defining parametric macros.",
+        concept1: { title: "File Operations", detail: "Managing storage via fopen, fclose, fprintf, fscanf." },
+        concept2: { title: "Preprocessor", detail: "Directives like #define, #include, #if for source code manipulation." },
+        formula1: { title: "File Open", eq: "FILE *fptr = fopen(filename, mode);" },
+        formula2: { title: "Parametric Macro", eq: "#define SQUARE(x) ((x)*(x))" },
+        pyq1: { title: "File Copying", marks: "10 Marks", body: "Write a program to copy the contents of one file to another." },
+        pyq2: { title: "Preprocessors", marks: "10 Marks", body: "Explain various preprocessor directives in C with examples." }
+      }
+    ]
   }
-}
+};

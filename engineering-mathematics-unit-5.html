@@ -14,162 +14,59 @@
         }
     </script>
     <style>
-        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
         .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
         .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
     </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 bg-gradient-to-tr from-[#080816] via-[#050508] to-[#0d0714] min-h-screen font-sans antialiased selection:bg-blue-600 selection:text-slate-900 dark:text-slate-50">
-
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl rotate-12 transition-all duration-500 shadow-xl shadow-blue-500/10"></div>
-                    <svg class="relative z-10 w-5 h-5 text-slate-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                    </svg>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-50 leading-none">EngiPrep <span class="text-blue-500">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
-                </div>
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            <div id="nav-actions" class="flex items-center gap-4">
-                <div class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-blue-950/40 border border-blue-900/30 rounded-full text-[10px] font-black text-blue-400 uppercase tracking-wide">
-                    JNTUK R23 Curriculum
-                </div>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-white">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-white dark:bg-slate-900 shadow-sm">
-            <div class="space-y-4 relative z-10 max-w-3xl">
-                <div class="flex items-center gap-2.5 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-blue-500/15 border border-blue-500/25 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit V: Multiple Integration Strategy Kit</span>
-                    <span class="px-2.5 py-0.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] font-black uppercase tracking-widest rounded-full">Score Weighting: ~15 Marks</span>
-                </div>
-                <div>
-                    <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50 leading-tight tracking-tight">
-                        Multiple Integrals <br>
-                        <span class="bg-gradient-to-r from-blue-450 via-indigo-400 to-violet-400 bg-clip-text text-transparent">Complete Exam Survival Kit</span>
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">Double and triple integrals, change of order of integration, change of variables, finding areas and volumes.</p>
-                </div>
-            </div>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Multiple Integrals <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Double and triple integrals, change of order of integration, change of variables, finding areas and volumes.</p>
         </header>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
-                <!-- Introduction -->
-                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl">01</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Multiple Integration</h2>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-xs text-slate-350 sm:text-sm">Extending definite integrals to two and three dimensions for calculating areas, volumes, and center of mass.</p>
-                        <p class="text-xs text-slate-350 sm:text-sm bg-slate-950/60 p-4 border-l-4 border-l-blue-500 rounded-r-xl border border-y-0 border-r-0">
-                            <b class="text-slate-100 font-bold">Exam Crux:</b> The Core Crux of R23: Change of order of integration and evaluating double integrals over specific regions.
-                        </p>
-                    </div>
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">Multiple Integration</h2>
+                    <p>Extending definite integrals to two and three dimensions for calculating areas, volumes, and center of mass.</p>
                 </section>
-
-                <!-- Key Concepts -->
-                <section id="concepts" class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl text-yellow-500">02</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Fundamental Core Principles</h2>
-                    </div>
-                    <!-- Form 1 -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="p-6 bg-slate-950 border border-slate-900 rounded-2xl">
-                            <span class="text-[8px] font-black uppercase tracking-widest text-[#f59e0b] block mb-1">Concept 1</span>
-                            <h4 class="text-xs font-black text-slate-900 dark:text-slate-50 mb-2">Change of Order</h4>
-                            <p class="text-[10px] text-slate-500 mt-2 font-medium">Swapping the limits of integration to simplify evaluation.</p>
-                            <div class="p-4 mt-3 bg-[#181825] font-mono text-center text-teal-400 text-sm rounded-xl font-black tracking-wider">
-                                Area via Double Integral: A = ∬ dx dy
-                            </div>
-                        </div>
-                        <div class="p-6 bg-slate-950 border border-slate-900 rounded-2xl">
-                            <span class="text-[8px] font-black uppercase tracking-widest text-blue-400 block mb-1">Concept 2</span>
-                            <h4 class="text-xs font-black text-slate-900 dark:text-slate-50 mb-2">Polar Coordinates</h4>
-                            <p class="text-[10px] text-slate-500 mt-2 font-medium">Transforming Cartesian (x,y) to Polar (r,θ) where dx dy = r dr dθ.</p>
-                            <div class="p-4 mt-3 bg-[#181825] font-mono text-center text-rose-450 text-sm rounded-xl font-bold">
-                                Volume via Triple Integral: V = ∭ dx dy dz
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PYQs -->
-                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl text-teal-400">03</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Repeated University Board Patterns (PYQs)</h2>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="p-6 bg-slate-950/60 border border-slate-900 rounded-xl">
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2 py-1 bg-red-500/10 text-red-400 font-bold text-[10px] rounded">10 Marks</span>
-                                <h3 class="font-bold text-slate-100 text-sm">Change of Order</h3>
-                            </div>
-                            <p class="text-xs text-slate-400">Change the order of integration and evaluate ∬ xy dx dy.</p>
-                        </div>
-                        <div class="p-6 bg-slate-950/60 border border-slate-900 rounded-xl">
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2 py-1 bg-amber-500/10 text-amber-400 font-bold text-[10px] rounded">5 Marks</span>
-                                <h3 class="font-bold text-slate-100 text-sm">Area Calculation</h3>
-                            </div>
-                            <p class="text-xs text-slate-400">Find the area enclosed by the curves y = x^2 and y = x.</p>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- SECTION 10: Laboratory & theoretical concept Viva Questions -->
-                <section id="viva" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm mt-8">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl">🧪</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Interactive Laboratory & Concept Viva Cards</h2>
-                    </div>
-                    <p class="text-xs text-slate-400 mb-6 font-medium">Prepare for your external examiner! Click on any card below to flip and reveal the ideal model answer directly:</p>
+                <!-- Add other sections here as needed - this is the baseline template -->
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Viva Card 1 -->
+                        <!-- Card 1 -->
                         <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80" style="transition: transform 0.6s; transform-style: preserve-3d;">
-                                <!-- Front -->
-                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between" style="backface-visibility: hidden;">
-                                    <span class="text-[8px] font-black uppercase text-blue-500 tracking-wider">Question 01</span>
-                                    <h4 class="text-xs font-black text-slate-100 leading-normal pr-4">What is the core principle behind Change of Order?</h4>
-                                    <span class="text-[9px] font-bold text-slate-500 self-end">TAP TO FLIP 🔄</span>
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Change of Order?</h4>
                                 </div>
-                                <!-- Back -->
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl flex flex-col justify-between" style="backface-visibility: hidden; transform: rotateY(180deg);">
-                                    <span class="text-[8px] font-black uppercase text-emerald-400 tracking-wider">Verified Answer</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-relaxed">Swapping the limits of integration to simplify evaluation.</p>
-                                    <span class="text-[8.5px] text-slate-500 self-end">CLICK TO ROTATE</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Swapping the limits of integration to simplify evaluation.</p>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Viva Card 2 -->
+                        <!-- Card 2 -->
                         <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80" style="transition: transform 0.6s; transform-style: preserve-3d;">
-                                <!-- Front -->
-                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between" style="backface-visibility: hidden;">
-                                    <span class="text-[8px] font-black uppercase text-blue-500 tracking-wider">Question 02</span>
-                                    <h4 class="text-xs font-black text-slate-100 leading-normal pr-4">Explain the concept of Polar Coordinates briefly.</h4>
-                                    <span class="text-[9px] font-bold text-slate-500 self-end">TAP TO FLIP 🔄</span>
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Polar Coordinates?</h4>
                                 </div>
-                                <!-- Back -->
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl flex flex-col justify-between" style="backface-visibility: hidden; transform: rotateY(180deg);">
-                                    <span class="text-[8px] font-black uppercase text-emerald-400 tracking-wider">Verified Answer</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-relaxed">Transforming Cartesian (x,y) to Polar (r,θ) where dx dy = r dr dθ.</p>
-                                    <span class="text-[8.5px] text-slate-500 self-end">CLICK TO ROTATE</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Transforming Cartesian (x,y) to Polar (r,θ) where dx dy = r dr dθ.</p>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +75,6 @@
             </div>
         </div>
     </main>
-
     <script>
         function flipVivaCard(card) {
             const inner = card.querySelector('.viva-card-inner');
