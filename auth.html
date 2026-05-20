@@ -105,7 +105,9 @@
         async function checkSession() {
             const user = await getCurrentUser()
             if (user) {
-                window.location.replace('/dashboard.html')
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirect = urlParams.get('redirect') || '/dashboard.html';
+                window.location.replace(redirect);
             }
         }
         checkSession()
@@ -113,7 +115,9 @@
         // 2. Listen for session changes
         supabase.auth.onAuthStateChange((event, session) => {
             if (event === 'SIGNED_IN' && session) {
-                window.location.replace('/dashboard.html')
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirect = urlParams.get('redirect') || '/dashboard.html';
+                window.location.replace(redirect);
             }
         })
 
@@ -196,10 +200,16 @@
                         errorDiv.innerHTML = `<div class="font-bold mb-1">✅ Account Created!</div><div>Please verify your email.</div>`;
                         errorDiv.classList.remove('hidden', 'bg-rose-50', 'text-rose-600');
                         errorDiv.classList.add('bg-emerald-50', 'text-emerald-600');
-                    } else if (data?.session) { window.location.href = '/dashboard.html'; }
+                    } else if (data?.session) { 
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const redirect = urlParams.get('redirect') || '/dashboard.html';
+                        window.location.href = redirect; 
+                    }
                 } else {
                     await signIn(email, password);
-                    window.location.href = '/dashboard.html';
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirect = urlParams.get('redirect') || '/dashboard.html';
+                    window.location.href = redirect;
                 }
             } catch (err) {
                 errorDiv.classList.remove('bg-emerald-50', 'text-emerald-600', 'bg-blue-50', 'text-blue-600');

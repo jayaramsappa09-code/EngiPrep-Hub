@@ -34,6 +34,9 @@
             display: none;
         }
     </style>
+
+    <!-- Gatekeeper for Authentication -->
+    <script type="module" src="/src/gatekeeper.js"></script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 antialiased selection:bg-blue-500/30 font-sans min-h-screen flex flex-col">
 
@@ -198,12 +201,110 @@
                 </div>
             </section>
 
-            <!-- Skipping Units 3,4,5 purely for layout brevity, normally generate them similarly -->
-            <section id="unit-3" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group"><div class="flex items-center justify-between mb-8"><div><span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono mb-2 block w-max">Unit 3</span><h2 class="text-2xl md:text-3xl font-black">Linked Lists</h2></div><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-3"><div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div></label></div><div class="prose prose-slate dark:prose-invert max-w-none"><p>Dynamic memory allocation eliminating resize overhead, relying on structural node coupling.</p></div></section>
+            <!-- Unit 3 -->
+            <section id="unit-3" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono mb-2 block w-max">Unit 3</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black">Linked Lists (SLL, DLL, CLL)</h2>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-3">
+                        <div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-bold text-slate-500 dark:text-slate-400">Mark Complete</span>
+                    </label>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <p>Dynamic memory allocation eliminates resizing overhead by maintaining non-contiguous structural nodes coupled via pointers. Master the variations of Singly, Doubly, and Circular Linked Lists.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                        <div class="bg-indigo-500/10 border-indigo-500/20 border p-5 rounded-2xl">
+                            <h4 class="text-sm font-black text-indigo-700 dark:text-indigo-400 tracking-widest uppercase mb-2">Singly Linked List</h4>
+                            <p class="text-sm text-indigo-900 dark:text-indigo-200 leading-relaxed mb-0">Contains a data field and a next pointer. Best for simple stacks/queues implementation where reverse traversal is unnecessary.</p>
+                        </div>
+                        <div class="bg-blue-500/10 border-blue-500/20 border p-5 rounded-2xl">
+                            <h4 class="text-sm font-black text-blue-700 dark:text-blue-400 tracking-widest uppercase mb-2">Doubly Linked List</h4>
+                            <p class="text-sm text-blue-900 dark:text-blue-200 leading-relaxed mb-0">Contains prev, data, and next pointers. Ideal for complex applications like browser history or caching mechanisms (LRU).</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-bold">Node Insertion Logic (SLL)</h3>
+                    <div class="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 font-mono text-sm overflow-x-auto text-slate-900 dark:text-slate-50 mt-4">
+                        <span class="text-slate-500">// Inserting at the beginning of a Singly Linked List</span><br>
+                        <span class="text-purple-600 dark:text-purple-400">void</span> insertAtHead(Node** head_ref, <span class="text-purple-600 dark:text-purple-400">int</span> new_data) {<br>
+                        &nbsp;&nbsp;Node* new_node = (Node*) malloc(<span class="text-blue-600 dark:text-blue-400">sizeof</span>(Node));<br>
+                        &nbsp;&nbsp;new_node->data = new_data;<br>
+                        &nbsp;&nbsp;new_node->next = (*head_ref);<br>
+                        &nbsp;&nbsp;(*head_ref) = new_node;<br>
+                        }
+                    </div>
+                </div>
+            </section>
             
-            <section id="unit-4" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group"><div class="flex items-center justify-between mb-8"><div><span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono mb-2 block w-max">Unit 4</span><h2 class="text-2xl md:text-3xl font-black">Trees & Hashing</h2></div><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-4"><div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div></label></div><div class="prose prose-slate dark:prose-invert max-w-none"><p>BST structural bounds guaranteeing $O(\log n)$ search space geometry.</p></div></section>
+            <!-- Unit 4 -->
+            <section id="unit-4" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono mb-2 block w-max">Unit 4</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black">Trees & Hashing</h2>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-4">
+                        <div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-bold text-slate-500 dark:text-slate-400">Mark Complete</span>
+                    </label>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <p>Binary Search Trees (BST) provide structural bounds guaranteeing $O(\log n)$ search space geometry under balanced configurations. Understand AVL rotations and Hashing collision resolution (Linear vs Quadratic Probing).</p>
+                    
+                    <div class="bg-rose-500/10 border-l-4 border-rose-500 p-4 rounded-r-xl my-6">
+                        <h4 class="text-sm font-black text-rose-700 dark:text-rose-400 uppercase tracking-widest font-mono m-0 mb-2">Crucial Exam Theory</h4>
+                        <p class="text-rose-900 dark:text-rose-200 text-sm m-0">Tree traversals (Inorder, Preorder, Postorder) are repeatedly asked for 5 marks. Remember: Inorder traversal of a BST always yields a sorted sequence.</p>
+                    </div>
+                    
+                    <h3 class="text-lg font-bold">Standard Inorder Traversal</h3>
+                    <div class="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 font-mono text-sm overflow-x-auto text-slate-900 dark:text-slate-50 mt-4">
+                        <span class="text-slate-500">// Left -> Root -> Right</span><br>
+                        <span class="text-purple-600 dark:text-purple-400">void</span> inorder(Node* root) {<br>
+                        &nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">if</span> (root != <span class="text-emerald-600 dark:text-emerald-400">NULL</span>) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;inorder(root->left);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="text-emerald-600 dark:text-emerald-400">"%d "</span>, root->data);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;inorder(root->right);<br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
+                </div>
+            </section>
 
-            <section id="unit-5" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group"><div class="flex items-center justify-between mb-8"><div><span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono mb-2 block w-max">Unit 5</span><h2 class="text-2xl md:text-3xl font-black">Graph Algorithms</h2></div><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-5"><div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div></label></div><div class="prose prose-slate dark:prose-invert max-w-none"><p>Dijkstra's shortest path resolution and spanning tree computations.</p></div></section>
+            <!-- Unit 5 -->
+            <section id="unit-5" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono mb-2 block w-max">Unit 5</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black">Graph Algorithms</h2>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-5">
+                        <div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-bold text-slate-500 dark:text-slate-400">Mark Complete</span>
+                    </label>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <p>Graphs map interconnected systems using vertices and edges. Focus entirely on Dijkstra's shortest path resolution, Minimum Spanning Tree (Prim's & Kruskal's), and BFS/DFS graph traversals.</p>
+                    
+                    <h3 class="text-lg font-bold">Graph Representation Methods</h3>
+                    <ul class="list-disc ml-4 space-y-2 text-slate-600 dark:text-slate-400">
+                        <li><strong>Adjacency Matrix:</strong> A 2D array $V \times V$ where $A_{ij} = 1$ if edge exists. High space complexity $O(V^2)$, but $O(1)$ edge query.</li>
+                        <li><strong>Adjacency List:</strong> Array of linked lists storing neighbors. Lower space complexity $O(V + E)$, but slower $O(V)$ edge querying. Preferred for sparse networks.</li>
+                    </ul>
+                </div>
+            </section>
 
 
             <!-- PYQ Matrix -->
