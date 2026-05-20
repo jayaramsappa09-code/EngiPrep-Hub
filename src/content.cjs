@@ -80,10 +80,24 @@ module.exports = {
         introTitle: "Linear Algebra Fundamentals",
         introBody: "Matrices provide a compact way to represent and solve systems of linear equations.",
         coreHighlight: "The Core Crux of R23: Finding the Rank using Echelon form and testing consistency of linear equations.",
+        definitions: [
+            { term: "Rank", desc: "Number of non-zero rows in echelon form." },
+            { term: "Consistency", desc: "Condition for a solution to exist." }
+        ],
+        formulas: [
+            { title: "Consistency", eq: "Rank(A) = Rank(A|B) ≤ n" },
+            { title: "Infinite Solutions", eq: "Rank(A) = Rank(A|B) < n" }
+        ],
+        numericalSolved: [
+            { title: "System Solution", solution: "Use Gauss Elimination to find variables." }
+        ],
+        revisionPoints: ["Echelon form rules", "Consistency conditions", "Gauss Jordan vs Elimination"],
+        memoryTricks: "A|B Rank must match",
+        examStrategy: "Always check rank of augmented matrix first.",
         concept1: { title: "Rank of a Matrix", detail: "Number of non-zero rows in its row echelon form." },
         concept2: { title: "Gauss Elimination", detail: "Reducing a system to upper triangular form to solve via back substitution." },
         formula1: { title: "Consistency", eq: "Rank(A) = Rank(A|B) ≤ n" },
-        formula2: { title: "Infinite Solutions", eq: "Rank(A) = Rank(A|B) &lt; n" },
+        formula2: { title: "Infinite Solutions", eq: "Rank(A) = Rank(A|B) < n" },
         pyq1: { title: "Rank by Normal Form", marks: "10 Marks", body: "Reduce the matrix to Normal form and find its rank." },
         pyq2: { title: "System Consistency", marks: "10 Marks", body: "Test for consistency and solve: 2x - y + 3z = 8, -x + 2y + z = 4, 3x + y - 4z = 0." },
       },
@@ -96,6 +110,20 @@ module.exports = {
         introTitle: "Eigen-Systems & Transformations",
         introBody: "Eigenvalues provide characteristic scale factors for matrix transformations. Cayley-Hamilton connects a matrix to its characteristic polynomial.",
         coreHighlight: "The Core Crux of R23: Finding Eigenvalues/vectors and reducing Quadratic form to Canonical form by Orthogonal Transformation.",
+        definitions: [
+            { term: "Eigenvalue", desc: "Scale factor for eigenvector transformation." },
+            { term: "Cayley-Hamilton", desc: "Matrix satisfies its characteristic equation." }
+        ],
+        formulas: [
+            { title: "Characteristic Eq", eq: "|A - λI| = 0" },
+            { title: "Quadratic Form", eq: "Q = X^T A X" }
+        ],
+        numericalSolved: [
+            { title: "Eigenvalue Calc", solution: "Solve |A - λI| = 0." }
+        ],
+        revisionPoints: ["Eigenvalue properties", "Diagonalization conditions", "Canonical form steps"],
+        memoryTricks: "A - λI stays equal to zero",
+        examStrategy: "Practice finding eigenvalues for 3x3 matrices.",
         concept1: { title: "Cayley-Hamilton Theorem", detail: "Every square matrix satisfies its own characteristic equation." },
         concept2: { title: "Quadratic Form", detail: "A homogenous polynomial of degree 2 in a number of variables." },
         formula1: { title: "Characteristic Eq", eq: "|A - λI| = 0" },
@@ -112,6 +140,20 @@ module.exports = {
         introTitle: "Differential Calculus & Series",
         introBody: "Mean value theorems connect the local derivative of a function to its global change. Series expansions approximate complex functions with polynomials.",
         coreHighlight: "The Core Crux of R23: Verifying Rolle's/Lagrange's theorems and expanding functions using Maclaurin's series.",
+        definitions: [
+            { term: "Rolle's Theorem", desc: "f(a)=f(b) implies f'(c)=0." },
+            { term: "Maclaurin's Series", desc: "Expansion of f(x) about x=0." }
+        ],
+        formulas: [
+            { title: "Lagrange's MVT", eq: "f'(c) = (f(b) - f(a)) / (b - a)" },
+            { title: "Cauchy's MVT", eq: "f'(c)/g'(c) = (f(b)-f(a))/(g(b)-g(a))" }
+        ],
+        numericalSolved: [
+            { title: "MVT Verification", solution: "Show f'(c) = slope of secant." }
+        ],
+        revisionPoints: ["Rolle's conditions", "Maclaurin's series formula", "MVT applications"],
+        memoryTricks: "f'(c) is the slope",
+        examStrategy: "Always list theorem conditions first.",
         concept1: { title: "Rolle's Theorem", detail: "If f(a)=f(b) and continuous, there exists c where f'(c)=0." },
         concept2: { title: "Maclaurin Series", detail: "Expansion of a function about x=0." },
         formula1: { title: "Lagrange's MVT", eq: "f'(c) = (f(b) - f(a)) / (b - a)" },
@@ -128,6 +170,20 @@ module.exports = {
         introTitle: "Multivariable Calculus",
         introBody: "Extending calculus to functions of multiple variables. Critical for optimizing systems with multiple inputs.",
         coreHighlight: "The Core Crux of R23: Finding Maxima/Minima of two variables and applying Lagrange's method of undetermined multipliers.",
+        definitions: [
+            { term: "Jacobian", desc: "Determines functional dependence." },
+            { term: "Lagrange Multipliers", desc: "Optimizing with constraints." }
+        ],
+        formulas: [
+            { title: "Total Derivative", eq: "dz = (∂z/∂x)dx + (∂z/∂y)dy" },
+            { title: "Lagrange Function", eq: "L = f(x,y) + λφ(x,y)" }
+        ],
+        numericalSolved: [
+            { title: "Extrema Calc", solution: "Solve fx=0, fy=0." }
+        ],
+        revisionPoints: ["Extreme points check", "Constraint handling", "Jacobian application"],
+        memoryTricks: "f'x=0, f'y=0 for Maxima/Minima",
+        examStrategy: "Don't forget the second derivative test.",
         concept1: { title: "Jacobian", detail: "Determinant of the Jacobian matrix, used in change of variables." },
         concept2: { title: "Lagrange Multipliers", detail: "Optimizing a function subject to equality constraints." },
         formula1: { title: "Total Derivative", eq: "dz = (∂z/∂x)dx + (∂z/∂y)dy" },
@@ -144,6 +200,20 @@ module.exports = {
         introTitle: "Multiple Integration",
         introBody: "Extending definite integrals to two and three dimensions for calculating areas, volumes, and center of mass.",
         coreHighlight: "The Core Crux of R23: Change of order of integration and evaluating double integrals over specific regions.",
+        definitions: [
+            { term: "Change of Order", desc: "Swap integration limits." },
+            { term: "Double Integral", desc: "Area under surface." }
+        ],
+        formulas: [
+            { title: "Area via Double Integral", eq: "A = ∬ dx dy" },
+            { title: "Volume via Triple Integral", eq: "V = ∭ dx dy dz" }
+        ],
+        numericalSolved: [
+            { title: "Double Integral Area", solution: "Iteratively evaluate limits." }
+        ],
+        revisionPoints: ["Polar transformation", "Order of integration change", "Area/Volume"],
+        memoryTricks: "dx dy -> r dr dθ",
+        examStrategy: "Draw the region diagram first.",
         concept1: { title: "Change of Order", detail: "Swapping the limits of integration to simplify evaluation." },
         concept2: { title: "Polar Coordinates", detail: "Transforming Cartesian (x,y) to Polar (r,θ) where dx dy = r dr dθ." },
         formula1: { title: "Area via Double Integral", eq: "A = ∬ dx dy" },
