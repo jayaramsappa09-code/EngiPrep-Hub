@@ -8,7 +8,7 @@
 </head>
 <body class="bg-[#0a0a0f]">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/5">
+    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 border">
         <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
             <a href="/index.html" class="flex items-center gap-2">
                 <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
@@ -35,7 +35,7 @@
                 </li>
                 <li aria-current="page">
                     <div class="flex items-center">
-                        <svg class="w-3 h-3 text-white/10 mx-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <svg class="w-3 h-3 text-slate-900 dark:text-slate-50/10 mx-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
                         <span class="ml-1 text-[10px] font-black uppercase tracking-widest text-primary md:ml-2">My Library</span>
                     </div>
                 </li>
@@ -44,20 +44,20 @@
 
         <header class="mb-12">
             <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tighter">Your <span class="text-primary">Library</span></h1>
-            <p class="text-gray-400">Quick access to the topics you've saved for revision.</p>
+            <p class="text-slate-500 dark:text-slate-400">Quick access to the topics you've saved for revision.</p>
         </header>
 
         <div id="bookmarks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Loading State -->
-            <div class="animate-pulse bg-white/5 h-48 rounded-3xl"></div>
-            <div class="animate-pulse bg-white/5 h-48 rounded-3xl"></div>
-            <div class="animate-pulse bg-white/5 h-48 rounded-3xl"></div>
+            <div class="animate-pulse bg-slate-200 dark:bg-slate-700 h-48 rounded-3xl"></div>
+            <div class="animate-pulse bg-slate-200 dark:bg-slate-700 h-48 rounded-3xl"></div>
+            <div class="animate-pulse bg-slate-200 dark:bg-slate-700 h-48 rounded-3xl"></div>
         </div>
 
-        <div id="empty-state" class="hidden text-center py-20 bg-white/5 rounded-3xl border border-dashed border-white/10">
+        <div id="empty-state" class="hidden text-center py-20 bg-slate-200 dark:bg-slate-700 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
             <div class="text-4xl mb-4">📚</div>
             <h3 class="text-xl font-bold mb-2">No bookmarks yet</h3>
-            <p class="text-gray-500 mb-8">Save important topics to find them quickly later.</p>
+            <p class="text-slate-500 dark:text-slate-400 mb-8">Save important topics to find them quickly later.</p>
             <a href="/semester-1.html" class="btn-primary">Explore Subjects</a>
         </div>
     </main>
@@ -93,18 +93,18 @@
                     const note = bm.notes
                     if (!note) return ''; // Handle case where note might be missing
                     return `
-                        <div class="glass-card p-6 flex flex-col justify-between group h-full" id="bm-${bm.id}">
+                        <div class="glass-card p-6 flex flex-col justify-between group h-full bg-white dark:bg-slate-900 shadow-sm" id="bm-${bm.id}">
                             <div>
                                 <div class="flex justify-between items-start mb-4">
                                     <span class="text-[10px] font-black uppercase tracking-widest text-primary px-2 py-0.5 bg-primary/10 rounded border border-primary/20">
                                         ${note.subject}
                                     </span>
-                                    <button onclick="window.unbookmark('${bm.id}', '${note.id}')" class="text-gray-500 hover:text-red-500 transition-colors">
+                                    <button onclick="window.unbookmark('${bm.id}', '${note.id}')" class="text-slate-500 dark:text-slate-400 hover:text-red-500 transition-colors">
                                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
                                     </button>
                                 </div>
                                 <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">${note.title}</h3>
-                                <p class="text-gray-500 text-sm mb-6 line-clamp-2">${(note.content || '').replace(/<[^>]*>/g, '')}</p>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 line-clamp-2">${(note.content || '').replace(/<[^>]*>/g, '')}</p>
                             </div>
                             <a href="/note-viewer.html?slug=${note.slug}" class="btn-ghost text-xs py-2 w-full text-center">Open Note</a>
                         </div>

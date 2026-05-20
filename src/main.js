@@ -85,7 +85,7 @@ async function updateAuthUI(providedUser = null) {
                   localStorage.getItem('color-theme') === 'dark';
 
     const themeBtnPlaceholder = `
-        <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-background border border-border text-text-muted hover:text-primary transition-all active:scale-95 mr-2">
+        <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-primary transition-all active:scale-95 mr-2">
             <svg id="theme-toggle-dark-icon" class="${isDark ? 'hidden' : ''} w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
             <svg id="theme-toggle-light-icon" class="${isDark ? '' : 'hidden'} w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
         </button>
@@ -106,7 +106,7 @@ async function updateAuthUI(providedUser = null) {
             navActions.innerHTML = `
                 <div class="flex items-center gap-4">
                     ${themeBtnPlaceholder}
-                    <a href="/dashboard.html" class="flex items-center gap-3 p-1 pr-4 bg-slate-50 dark:bg-slate-900 border border-border rounded-xl hover:bg-slate-100 transition-all">
+                    <a href="/dashboard.html" class="flex items-center gap-3 p-1 pr-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-100 transition-all">
                         ${avatar}
                         <span class="text-[10px] font-black tracking-widest text-[#0d0d12] dark:text-white uppercase truncate max-w-[80px]">${displayName}</span>
                     </a>
@@ -116,7 +116,7 @@ async function updateAuthUI(providedUser = null) {
             navActions.innerHTML = `
                 <div class="flex items-center gap-4">
                     ${themeBtnPlaceholder}
-                    <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-text-muted hover:text-blue-600 transition-colors">Login</a>
+                    <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors dark:hover:text-blue-400">Login</a>
                     <a href="/auth.html?signup=true" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Join Hub</a>
                 </div>
             `;
@@ -127,7 +127,7 @@ async function updateAuthUI(providedUser = null) {
         navActions.innerHTML = `
             <div class="flex items-center gap-4">
                 ${themeBtnPlaceholder}
-                <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-text-muted hover:text-blue-600 transition-colors">Login</a>
+                <a href="/auth.html" class="text-[10px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors dark:hover:text-blue-400">Login</a>
                 <a href="/auth.html?signup=true" class="btn-primary text-[10px] py-2 px-6 shadow-md shadow-blue-500/20">Join Hub</a>
             </div>
         `;
@@ -251,7 +251,7 @@ function initMobileMenu() {
         if (navActions) {
             menuBtn = document.createElement('button');
             menuBtn.id = 'mobile-menu-btn';
-            menuBtn.className = 'lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-border text-text-muted hover:text-blue-600 transition-all active:scale-95 focus:outline-hidden focus:ring-2 focus:ring-blue-500';
+            menuBtn.className = 'lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all active:scale-95 focus:outline-hidden focus:ring-2 focus:ring-blue-500';
             menuBtn.setAttribute('aria-expanded', 'false');
             menuBtn.setAttribute('aria-controls', 'mobile-menu');
             menuBtn.setAttribute('aria-label', 'Toggle navigation menu');
@@ -270,25 +270,25 @@ function initMobileMenu() {
     if (!mobileMenu) {
         mobileMenu = document.createElement('div');
         mobileMenu.id = 'mobile-menu';
-        mobileMenu.className = 'hidden absolute top-20 left-0 w-full bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-border shadow-xl z-40 flex flex-col p-6 space-y-3 lg:hidden divide-y divide-border/40';
+        mobileMenu.className = 'hidden absolute top-20 left-0 w-full bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-xl z-40 flex flex-col p-6 space-y-3 lg:hidden divide-y divide-border/40';
         mobileMenu.innerHTML = `
             <div class="flex flex-col space-y-2 pb-3">
-                <a href="/notes.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                <a href="/notes.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
                     📚 Notes
                 </a>
-                <a href="/pyqs.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                <a href="/pyqs.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
                     📝 PYQs
                 </a>
-                <a href="/cheat-sheets.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                <a href="/cheat-sheets.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
                     ⚡ Cheat Sheets
                 </a>
-                <a href="/exam-survival.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                <a href="/exam-survival.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
                     🔥 Exam Prep
                 </a>
-                <a href="/tools.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                <a href="/tools.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
                     🛠 Tools
                 </a>
-                <a href="/blog.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-text-main flex items-center gap-3 transition-colors">
+                <a href="/blog.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
                     ✍️ Blog
                 </a>
             </div>

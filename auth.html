@@ -14,19 +14,19 @@
     <link rel="stylesheet" href="/src/style.css">
 </head>
 <body class="selection:bg-blue-100 flex items-center justify-center min-h-screen p-6">
-    <div class="w-full max-w-md bg-surface border border-border rounded-[2.5rem] p-10 shadow-xl shadow-blue-500/5 animate-fade-up">
+    <div class="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-10 shadow-xl shadow-blue-500/5 animate-fade-up">
         <div class="text-center mb-10">
             <a href="/" class="inline-flex items-center gap-4 mb-8 group">
                 <div class="relative w-14 h-14 flex items-center justify-center mx-auto">
                     <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20"></div>
-                    <svg class="relative z-10 w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="relative z-10 w-8 h-8 text-slate-900 dark:text-slate-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
                         <path d="M6 12v5c3 3 9 3 12 0v-5"/>
                     </svg>
                 </div>
             </a>
-            <h1 class="text-3xl font-black text-text-main tracking-tight" id="auth-title">Welcome Back</h1>
-            <p class="text-text-muted text-sm font-medium mt-2" id="auth-subtitle">Login to access your personalized dashboard.</p>
+            <h1 class="text-3xl font-black text-slate-900 dark:text-slate-50 tracking-tight" id="auth-title">Welcome Back</h1>
+            <p class="text-slate-600 dark:text-slate-400 text-sm font-medium mt-2" id="auth-subtitle">Login to access your personalized dashboard.</p>
         </div>
 
 
@@ -37,25 +37,25 @@
                 <div id="signup-fields" class="hidden space-y-6">
                     <div>
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Full Name</label>
-                        <input type="text" id="full-name" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="John Doe" minlength="3" maxlength="50" pattern="^[a-zA-Z\s]+$">
+                        <input type="text" id="full-name" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white dark:bg-slate-900 transition-all" placeholder="John Doe" minlength="3" maxlength="50" pattern="^[a-zA-Z\s]+$">
                     </div>
                     <div>
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Unique Username</label>
-                        <input type="text" id="username" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="PhysicsNinja_23" minlength="3" maxlength="20">
+                        <input type="text" id="username" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white dark:bg-slate-900 transition-all" placeholder="PhysicsNinja_23" minlength="3" maxlength="20">
                     </div>
                 </div>
 
                 <div>
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Email Address</label>
-                    <input type="email" id="email" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="student@jntuk.ac.in">
+                    <input type="email" id="email" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white dark:bg-slate-900 transition-all" placeholder="student@jntuk.ac.in">
                 </div>
 
                 <div id="password-field">
                     <div class="flex justify-between items-center mb-2 px-1">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Password</label>
-                        <button type="button" id="forgot-password" class="text-[9px] font-bold text-blue-600 hover:underline">Forgot Password?</button>
+                        <button type="button" id="forgot-password" class="text-[9px] font-bold text-blue-600 hover:underline dark:text-blue-400">Forgot Password?</button>
                     </div>
-                    <input type="password" id="password" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white transition-all" placeholder="••••••••" minlength="8">
+                    <input type="password" id="password" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-blue-300 focus:bg-white dark:bg-slate-900 transition-all" placeholder="••••••••" minlength="8">
                 </div>
             </div>
 
@@ -64,12 +64,12 @@
             <button type="submit" id="submit-btn" class="btn-primary w-full py-4 mt-4 shadow-blue-600/10">Login to Hub</button>
 
             <div id="auth-toggle-footer" class="text-center mt-8 pt-8 border-t border-slate-50">
-                <p class="text-slate-500 text-sm font-medium">
+                <p class="text-slate-500 text-sm font-medium dark:text-slate-400">
                     <span id="toggle-text-hint">Don't have an account?</span> 
-                    <button type="button" id="toggle-auth" class="text-blue-600 font-bold hover:underline ml-1">Sign Up</button>
+                    <button type="button" id="toggle-auth" class="text-blue-600 font-bold hover:underline ml-1 dark:text-blue-400">Sign Up</button>
                 </p>
                 <div class="mt-4">
-                    <a href="/semester-1.html" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">Continue as Guest</a>
+                    <a href="/semester-1.html" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors dark:hover:text-blue-400">Continue as Guest</a>
                 </div>
             </div>
         </form>
@@ -210,10 +210,10 @@
                     errorDiv.innerHTML = `
                          <div class="space-y-4 text-left">
                             <p class="font-black text-[13px] uppercase tracking-tight text-rose-600">🛡️ Captcha Required</p>
-                            <p class="font-medium text-[11px] leading-relaxed text-slate-600">Your Supabase project has Captcha protection enabled. You must disable it to log in from this environment.</p>
+                            <p class="font-medium text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">Your Supabase project has Captcha protection enabled. You must disable it to log in from this environment.</p>
                             <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
                                  <p class="text-[10px] font-bold text-blue-700 mb-1 uppercase text-left">How to fix:</p>
-                                 <p class="text-[10px] text-blue-600 leading-normal text-left">
+                                 <p class="text-[10px] text-blue-600 leading-normal text-left dark:text-blue-400">
                                     1. Open <strong>Supabase Dashboard</strong><br>
                                     2. Go to <strong>Auth</strong> > <strong>Configuration</strong> > <strong>Security and Protection</strong><br>
                                     3. Toggle OFF <strong>"Enable Captcha"</strong>
@@ -226,9 +226,9 @@
                     errorDiv.innerHTML = `
                          <div class="space-y-4 text-left">
                             <p class="font-black text-[13px] uppercase tracking-tight text-rose-600">🗄️ Database Sync Error</p>
-                            <p class="font-medium text-[11px] leading-relaxed text-slate-600">Your Auth signup worked, but saving the Profile failed. This usually means the "handle_new_user" trigger in your database is missing or misconfigured.</p>
+                            <p class="font-medium text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">Your Auth signup worked, but saving the Profile failed. This usually means the "handle_new_user" trigger in your database is missing or misconfigured.</p>
                             
-                            <div class="bg-indigo-900 p-4 rounded-2xl border border-white/10 text-white relative group">
+                            <div class="bg-indigo-900 p-4 rounded-2xl border relative group text-white border-slate-200 dark:border-slate-800">
                                 <span class="text-[8px] font-black uppercase tracking-[0.2em] text-indigo-400 block mb-3">Copy to Supabase SQL Editor:</span>
                                 <pre class="text-[9px] font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap select-all">-- 1. Ensure Table and all required Columns exist
 CREATE TABLE IF NOT EXISTS public.profiles (
@@ -305,10 +305,10 @@ CREATE POLICY "Profiles are publicly viewable" ON public.profiles
 DROP POLICY IF EXISTS "Users can manage own profile" ON public.profiles;
 CREATE POLICY "Users can manage own profile" ON public.profiles
   FOR ALL USING (auth.uid() = id);</pre>
-                                <button type="button" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); this.innerText='SQL COPIED'; setTimeout(()=>this.innerText='COPY SQL', 2000)" class="absolute right-4 top-4 text-[8px] font-black bg-indigo-500 px-3 py-1 rounded-full hover:bg-white hover:text-indigo-900 transition-all uppercase tracking-widest">COPY SQL</button>
+                                <button type="button" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); this.innerText='SQL COPIED'; setTimeout(()=>this.innerText='COPY SQL', 2000)" class="absolute right-4 top-4 text-[8px] font-black bg-indigo-500 px-3 py-1 rounded-full dark:bg-slate-900 hover:text-indigo-900 transition-all uppercase tracking-widest">COPY SQL</button>
                             </div>
 
-                            <p class="text-[10px] text-slate-500 leading-normal">Note: Since your table already exists, this script uses <code>IF NOT EXISTS</code> and <code>CREATE OR REPLACE</code> to fix the configuration without losing data.</p>
+                            <p class="text-[10px] text-slate-500 leading-normal dark:text-slate-400">Note: Since your table already exists, this script uses <code>IF NOT EXISTS</code> and <code>CREATE OR REPLACE</code> to fix the configuration without losing data.</p>
                          </div>
                     `;
                 } else {

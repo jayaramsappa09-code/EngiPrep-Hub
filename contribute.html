@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="/src/style.css">
     <style>
         @reference "./src/style.css";
-        .upload-zone { @apply border-2 border-dashed border-white/10 rounded-[2rem] p-12 text-center transition-all cursor-pointer bg-white/[0.01]; }
+        .upload-zone { @apply border-2 border-dashed border-white/10 rounded-[2rem] p-12 text-center transition-all cursor-pointer bg-white dark:bg-slate-900/[0.01]; }
         .upload-zone:hover { @apply border-primary/30 bg-primary/5; }
         .upload-zone.dragover { @apply border-primary bg-primary/10 scale-[1.02]; }
-        .leaderboard-card { @apply flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 transition-all hover:bg-white/10; }
+        .leaderboard-card { @apply flex items-center gap-4 p-4 rounded-2xl bg-slate-200 dark:bg-slate-700 border border-white/5 transition-all hover:bg-slate-200 dark:bg-slate-700/50; }
         .status-badge { @apply text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full; }
     </style>
 </head>
-<body class="bg-[#050508] text-white selection:bg-primary/30">
+<body class="bg-[#050508] text-slate-900 dark:text-slate-50 selection:bg-primary/30">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-[#050508]/80 backdrop-blur-xl border-b border-white/5 px-6">
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/80 backdrop-blur-xl border-b px-6 border-slate-200 dark:border-slate-800 border">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/dashboard.html" class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-primary rounded-2xl flex items-center justify-center text-white">
@@ -25,7 +25,7 @@
                 <span class="text-xl font-black tracking-tighter italic">Creator <span class="text-primary italic">Hub</span></span>
             </a>
             <div class="flex items-center gap-6">
-                <a href="/dashboard.html" class="text-xs font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">← Dashboard</a>
+                <a href="/dashboard.html" class="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 transition-all">← Dashboard</a>
             </div>
         </div>
     </nav>
@@ -40,16 +40,16 @@
                     <div id="leaderboard" class="space-y-4">
                         <!-- Dynamic Leaderboard -->
                         <div class="animate-pulse space-y-4">
-                            <div class="h-16 bg-white/5 rounded-2xl"></div>
-                            <div class="h-16 bg-white/5 rounded-2xl"></div>
-                            <div class="h-16 bg-white/5 rounded-2xl"></div>
+                            <div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-2xl"></div>
+                            <div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-2xl"></div>
+                            <div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-2xl"></div>
                         </div>
                     </div>
                 </section>
 
-                <section class="bg-white/5 border border-white/5 rounded-[2rem] p-8">
+                <section class="bg-slate-200 dark:bg-slate-700 border rounded-[2rem] p-8 border-slate-200 dark:border-slate-800">
                     <h3 class="text-lg font-black italic mb-4 text-emerald-400">Contribution Rewards</h3>
-                    <ul class="space-y-4 text-xs text-gray-400 italic">
+                    <ul class="space-y-4 text-xs text-slate-500 dark:text-slate-400 italic">
                         <li class="flex items-start gap-3">
                             <span class="text-emerald-500">✔</span>
                             <span><b>+100 XP</b> for every approved PDF resource.</span>
@@ -70,7 +70,7 @@
             <div class="lg:col-span-8 order-1 lg:order-2">
                 <header class="mb-12">
                     <h1 class="text-5xl font-black italic tracking-tighter mb-4">Empower the <span class="text-primary italic">Community.</span></h1>
-                    <p class="text-gray-500 text-sm italic max-w-2xl leading-relaxed">
+                    <p class="text-slate-500 dark:text-slate-400 text-sm italic max-w-2xl leading-relaxed">
                         Your knowledge could be the reason someone passes their mid-exams. Upload high-quality notes, PYQs, or revision packs below.
                     </p>
                 </header>
@@ -78,11 +78,11 @@
                 <form id="upload-form" class="space-y-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Resource Title</label>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 block italic pl-1">Resource Title</label>
                             <input type="text" id="title" required class="input-field w-full" placeholder="e.g. Logic Families Unit 3 - Handwritten">
                         </div>
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Resource Category</label>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 block italic pl-1">Resource Category</label>
                             <select id="type" required class="input-field w-full bg-[#0d0d12]">
                                 <option value="Note">Handwritten Note</option>
                                 <option value="PYQ">Previous Question Paper</option>
@@ -95,7 +95,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Subject</label>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 block italic pl-1">Subject</label>
                             <select id="subject" required class="input-field w-full bg-[#0d0d12]">
                                 <!-- Selectors -->
                             </select>
@@ -103,7 +103,7 @@
                             <button type="button" id="toggle-custom-subject" class="text-[8px] font-black uppercase tracking-widest text-primary/60 mt-2 hover:text-primary transition-colors pl-1">Can't find your subject?</button>
                         </div>
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Semester</label>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 block italic pl-1">Semester</label>
                             <select id="semester" class="input-field w-full bg-[#0d0d12]">
                                 <option value="1">Semester 1</option>
                                 <option value="2">Semester 2</option>
@@ -112,25 +112,25 @@
                             </select>
                         </div>
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Unit #</label>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 block italic pl-1">Unit #</label>
                             <input type="number" id="unit" class="input-field w-full" placeholder="1-5">
                         </div>
                     </div>
 
                     <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 block italic pl-1">Media Files</label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 block italic pl-1">Media Files</label>
                         <div id="drop-zone" class="upload-zone group">
-                            <div class="w-20 h-20 bg-white/5 rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:bg-primary/10 transition-all border border-white/5">
+                            <div class="w-20 h-20 bg-slate-200 dark:bg-slate-700 rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:bg-primary/10 transition-all border border-slate-200 dark:border-slate-800">
                                 <span class="text-3xl group-hover:animate-bounce">📤</span>
                             </div>
                             <h4 class="text-lg font-black italic mb-2">Drop your academic cargo</h4>
-                            <p id="file-name" class="text-[10px] text-gray-600 uppercase font-black tracking-widest">Supports PDF, PNG (Max 15MB)</p>
+                            <p id="file-name" class="text-[10px] text-slate-600 dark:text-slate-400 uppercase font-black tracking-widest">Supports PDF, PNG (Max 15MB)</p>
                             <input type="file" id="file-input" class="hidden" accept=".pdf,.png,.jpg,.jpeg">
                         </div>
                     </div>
 
                     <div class="flex items-center justify-between gap-8 pt-4">
-                        <p class="text-[10px] font-bold text-gray-600 uppercase tracking-widest max-w-[50%]">
+                        <p class="text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest max-w-[50%]">
                             Submitting means you confirm this content is accurate and does not violate university ethics.
                         </p>
                         <button type="submit" id="submit-btn" class="btn-primary px-12 py-5 text-xs">Propagate to Hub</button>
@@ -139,18 +139,18 @@
 
                 <!-- History Tracking -->
                 <section class="mt-24">
-                     <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-10 border-b border-white/5 pb-4 italic">Submission Log</h2>
+                     <h2 class="text-xs font-black uppercase tracking-[0.4em] text-primary/60 mb-10 border-b pb-4 italic border-slate-200 dark:border-slate-800 border">Submission Log</h2>
                      <div id="contributions-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                          <!-- Items -->
-                         <div class="text-[10px] text-gray-600 italic">Decrypting your contribution history...</div>
+                         <div class="text-[10px] text-slate-600 dark:text-slate-400 italic">Decrypting your contribution history...</div>
                      </div>
                 </section>
             </div>
         </div>
     </main>
 
-    <footer class="py-20 border-t border-white/5 text-center">
-        <p class="text-gray-600 text-[10px] font-black uppercase tracking-widest italic tracking-[0.3em]">Creator Hub Encryption Protocol Active • Community Driven Success</p>
+    <footer class="py-20 border-t text-center border-slate-200 dark:border-slate-800 border">
+        <p class="text-slate-600 dark:text-slate-400 text-[10px] font-black uppercase tracking-widest italic tracking-[0.3em]">Creator Hub Encryption Protocol Active • Community Driven Success</p>
     </footer>
 
     <script type="module">
@@ -229,35 +229,35 @@
             const top = await fetchTopContributors()
             leaderboard.innerHTML = top.map((p, i) => `
                 <div class="leaderboard-card">
-                    <div class="text-xs font-black text-gray-600">${i+1}</div>
+                    <div class="text-xs font-black text-slate-600 dark:text-slate-400">${i+1}</div>
                     <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary font-black text-xs">
                         ${(p.username || 'S').charAt(0).toUpperCase()}
                     </div>
                     <div class="flex-1">
                         <p class="text-xs font-black italic">@${p.username || 'scholar'}</p>
-                        <p class="text-[8px] uppercase font-bold text-gray-500">${p.contributions_count} Contributions</p>
+                        <p class="text-[8px] uppercase font-bold text-slate-500 dark:text-slate-400">${p.contributions_count} Contributions</p>
                     </div>
                     <div class="text-right">
                         <span class="text-[10px] font-black text-emerald-500 italic">${p.trust_score}%</span>
-                        <p class="text-[7px] uppercase font-black text-gray-700">Trust</p>
+                        <p class="text-[7px] uppercase font-black text-slate-700 dark:text-slate-300">Trust</p>
                     </div>
                 </div>
-            `).join('') || '<div class="text-[10px] text-gray-600 italic">Be the first to lead!</div>'
+            `).join('') || '<div class="text-[10px] text-slate-600 dark:text-slate-400 italic">Be the first to lead!</div>'
         }
 
         async function loadHistory() {
             const list = await fetchMyContributions()
             historyList.innerHTML = list.map(c => `
-                <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col justify-between">
+                <div class="p-6 rounded-2xl border flex flex-col justify-between bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <h4 class="text-sm font-bold truncate max-w-[200px]">${c.title}</h4>
                             <span class="status-badge ${c.status === 'approved' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'} italic">${c.status}</span>
                         </div>
-                        <p class="text-[9px] text-gray-600 uppercase font-black">${c.subject} • Sem ${c.semester}</p>
+                        <p class="text-[9px] text-slate-600 dark:text-slate-400 uppercase font-black">${c.subject} • Sem ${c.semester}</p>
                     </div>
                 </div>
-            `).join('') || '<div class="text-[10px] text-gray-600 italic">Your legacy begins with your first upload.</div>'
+            `).join('') || '<div class="text-[10px] text-slate-600 dark:text-slate-400 italic">Your legacy begins with your first upload.</div>'
         }
 
         dropZone.onclick = () => fileInput.click()

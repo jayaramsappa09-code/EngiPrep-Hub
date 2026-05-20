@@ -9,7 +9,7 @@
 </head>
 <body class="bg-[#0a0a0f]">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/5">
+    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 border">
         <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
             <a href="/index.html" class="flex items-center gap-2">
                 <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
@@ -19,8 +19,8 @@
             </a>
             
             <div id="nav-actions" class="flex items-center gap-4 text-xs font-bold uppercase tracking-widest">
-                <a href="/semester-1.html" class="text-gray-400 hover:text-white transition-colors">Semester 1</a>
-                <a href="/dashboard.html" class="text-gray-400 hover:text-white transition-colors">Dashboard</a>
+                <a href="/semester-1.html" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 transition-colors">Semester 1</a>
+                <a href="/dashboard.html" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 transition-colors">Dashboard</a>
             </div>
         </div>
     </nav>
@@ -29,23 +29,23 @@
         <header class="mb-12">
             <div class="inline-block px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest mb-6">Subject • PPS with C</div>
             <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter">Programming <br><span class="text-emerald-500 italic">Complete Guide</span></h1>
-            <p class="text-xl text-gray-400 leading-relaxed">Master the foundation of software engineering. From syntax basics to advanced memory management for JNTUK R23.</p>
+            <p class="text-xl text-slate-500 dark:text-slate-400 leading-relaxed">Master the foundation of software engineering. From syntax basics to advanced memory management for JNTUK R23.</p>
         </header>
 
         <!-- Topic Tabs (Glassmorphism) -->
-        <div class="bg-white/[0.02] border border-white/5 rounded-3xl p-2 mb-16 flex flex-wrap gap-2 overflow-x-auto no-scrollbar">
-            <a href="#basics" class="px-6 py-2.5 rounded-2xl bg-white/5 text-xs font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-black transition-all">Basics</a>
-            <a href="#loops" class="px-6 py-2.5 rounded-2xl bg-white/5 text-xs font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-black transition-all">Loops</a>
-            <a href="#pointers" class="px-6 py-2.5 rounded-2xl bg-white/5 text-xs font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-black transition-all">Pointers</a>
-            <a href="#exam-prep" class="px-6 py-2.5 rounded-2xl bg-emerald-500/20 text-emerald-500 text-xs font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-black transition-all">Exam Prep</a>
+        <div class="border rounded-3xl p-2 mb-16 flex flex-wrap gap-2 overflow-x-auto no-scrollbar bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            <a href="#basics" class="px-6 py-2.5 rounded-2xl bg-slate-200 dark:bg-slate-700 text-xs font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-slate-900 dark:text-slate-50 transition-all">Basics</a>
+            <a href="#loops" class="px-6 py-2.5 rounded-2xl bg-slate-200 dark:bg-slate-700 text-xs font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-slate-900 dark:text-slate-50 transition-all">Loops</a>
+            <a href="#pointers" class="px-6 py-2.5 rounded-2xl bg-slate-200 dark:bg-slate-700 text-xs font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-slate-900 dark:text-slate-50 transition-all">Pointers</a>
+            <a href="#exam-prep" class="px-6 py-2.5 rounded-2xl bg-emerald-500/20 text-emerald-500 text-xs font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-slate-900 transition-all text-white">Exam Prep</a>
         </div>
 
         <section id="basics" class="mb-20">
             <h2 class="text-3xl font-black mb-6 flex items-center gap-3">
                 <span class="text-emerald-500">01.</span> Structure of C
             </h2>
-            <p class="text-gray-400 mb-8 leading-relaxed">C is a procedural language. Every program starts with the <code>main()</code> function. Preprocessor directives handle libraries.</p>
-            <div class="glass-card p-8 border-emerald-500/10 bg-emerald-500/[0.02]">
+            <p class="text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">C is a procedural language. Every program starts with the <code>main()</code> function. Preprocessor directives handle libraries.</p>
+            <div class="glass-card p-8 border-emerald-500/10 bg-emerald-500/[0.02] bg-white dark:bg-slate-900 shadow-sm">
                 <pre class="text-emerald-400 font-mono text-sm overflow-x-auto no-scrollbar">
 #include &lt;stdio.h&gt;
 
@@ -64,29 +64,29 @@ int main() {
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <div class="glass-card p-6 border-white/5">
-                    <p class="font-bold text-white mb-3">What are Storage Classes?</p>
-                    <p class="text-sm text-gray-500 leading-relaxed">They define the scope, visibility, and lifetime of variables. Main ones: <span class="text-emerald-500">auto, static, register, extern</span>.</p>
+                <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border">
+                    <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">What are Storage Classes?</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">They define the scope, visibility, and lifetime of variables. Main ones: <span class="text-emerald-500">auto, static, register, extern</span>.</p>
                 </div>
-                <div class="glass-card p-6 border-white/5">
-                    <p class="font-bold text-white mb-3">Ternary Operator Syntax?</p>
-                    <p class="text-sm text-gray-500 leading-relaxed">It's a shorthand for if-else. <code class="text-emerald-500">(condition) ? True : False;</code></p>
+                <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border">
+                    <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">Ternary Operator Syntax?</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">It's a shorthand for if-else. <code class="text-emerald-500">(condition) ? True : False;</code></p>
                 </div>
             </div>
         </section>
 
-        <div class="glass-card p-12 text-center bg-gradient-to-t from-emerald-500/10 to-transparent">
+        <div class="glass-card p-12 text-center bg-gradient-to-t from-emerald-500/10 to-transparent bg-white dark:bg-slate-900 shadow-sm">
             <h2 class="text-4xl font-black mb-6">Need the <span class="text-emerald-500 italic">Complete</span> Program List?</h2>
-            <p class="text-gray-400 mb-10 max-w-lg mx-auto">Access 50+ solved C programs including Fibonacci, Matrix multiplication, and File handling.</p>
+            <p class="text-slate-500 dark:text-slate-400 mb-10 max-w-lg mx-auto">Access 50+ solved C programs including Fibonacci, Matrix multiplication, and File handling.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/subject.html?sub=C Programming" class="btn-primary border-emerald-500 bg-emerald-500 hover:bg-emerald-600 py-3 px-8 text-black">Access DB Notes</a>
-                <a href="/data-structures-basics.html" class="btn-ghost py-3 px-8 border-white/10">Next: Data Structures</a>
+                <a href="/subject.html?sub=C Programming" class="btn-primary border-emerald-500 bg-emerald-500 hover:bg-emerald-600 py-3 px-8 text-white">Access DB Notes</a>
+                <a href="/data-structures-basics.html" class="btn-ghost py-3 px-8 border-slate-200 dark:border-slate-800 border">Next: Data Structures</a>
             </div>
         </div>
     </main>
 
-    <footer class="py-12 border-t border-white/5 text-center">
-        <p class="text-gray-500 text-sm">© 2026 EngiPrep Hub • Premium JNTUK Support</p>
+    <footer class="py-12 border-t text-center border-slate-200 dark:border-slate-800 border">
+        <p class="text-slate-500 dark:text-slate-400 text-sm">© 2026 EngiPrep Hub • Premium JNTUK Support</p>
     </footer>
 
     <script type="module" src="/src/config-check.js"></script>

@@ -8,15 +8,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/src/style.css">
 </head>
-<body class="bg-[#0a0a0f] text-white">
+<body class="bg-[#0a0a0f] text-slate-900 dark:text-slate-50">
     <!-- Navbar -->
-    <nav class="border-b border-white/5 bg-black/50 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+    <nav class="border-b bg-black/50 backdrop-blur-md sticky top-0 z-50 px-6 py-4 border-slate-200 dark:border-slate-800 border">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="/index.html" class="font-black text-xl tracking-tight uppercase">EngiPrep <span class="text-primary italic">Hub</span></a>
-            <div class="hidden md:flex items-center gap-8 text-[10px] uppercase font-black tracking-widest text-gray-500">
-                <a href="/semester-1.html" class="hover:text-white">Semesters</a>
-                <a href="/videos.html" class="hover:text-white">Videos</a>
-                <a href="/tools.html" class="hover:text-white">Tools</a>
+            <div class="hidden md:flex items-center gap-8 text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400">
+                <a href="/semester-1.html" class="hover:text-slate-900 dark:text-slate-50">Semesters</a>
+                <a href="/videos.html" class="hover:text-slate-900 dark:text-slate-50">Videos</a>
+                <a href="/tools.html" class="hover:text-slate-900 dark:text-slate-50">Tools</a>
                 <a href="/blog.html" class="text-primary">Blog</a>
             </div>
             <a href="/dashboard.html" class="btn-primary py-2 px-6 text-xs uppercase tracking-widest font-black">My Dashboard</a>
@@ -27,20 +27,20 @@
         <header class="text-center mb-20 animate-fade">
             <span class="text-[10px] text-primary font-black uppercase tracking-[0.3em] mb-4 inline-block">Academic Intelligence</span>
             <h1 class="text-6xl font-black tracking-tighter mb-6 italic">The <span class="text-primary leading-none">Perspective.</span></h1>
-            <p class="text-gray-400 max-w-2xl mx-auto">Expert guides on JNTUK R23 academic success, career roadmaps, and exam survival strategies for engineering students.</p>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">Expert guides on JNTUK R23 academic success, career roadmaps, and exam survival strategies for engineering students.</p>
         </header>
 
         <!-- Featured Article -->
         <section class="mb-20">
-            <div class="glass-card grid grid-cols-1 lg:grid-cols-2 overflow-hidden border-primary/20 group">
+            <div class="glass-card grid grid-cols-1 lg:grid-cols-2 overflow-hidden border-primary/20 group bg-white dark:bg-slate-900 shadow-sm">
                 <div class="aspect-video lg:aspect-auto overflow-hidden relative">
                     <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80" alt="Exams" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent lg:bg-gradient-to-r"></div>
                 </div>
                 <div class="p-12 flex flex-col justify-center">
                     <div class="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-6">Featured Guide</div>
-                    <h2 class="text-4xl font-black text-white italic mb-6 leading-tight">7 Secrets to Score <span class="text-primary italic">O Grade</span> in Engineering Physics.</h2>
-                    <p class="text-gray-500 mb-8 leading-relaxed">Most students struggle with the wave mechanics and quantum units. Here is the exact roadmap used by toppers to master JNTUK R23 Physics in just 7 days.</p>
+                    <h2 class="text-4xl font-black text-slate-900 dark:text-slate-50 italic mb-6 leading-tight">7 Secrets to Score <span class="text-primary italic">O Grade</span> in Engineering Physics.</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Most students struggle with the wave mechanics and quantum units. Here is the exact roadmap used by toppers to master JNTUK R23 Physics in just 7 days.</p>
                     <a href="/blog-post.html?slug=physics-o-grade-secrets" class="btn-primary py-4 px-8 self-start">Read Full Article</a>
                 </div>
             </div>
@@ -48,18 +48,18 @@
 
         <!-- Categories Filter Pill Bar -->
         <section class="mb-12">
-            <div class="flex flex-wrap items-center justify-center gap-3 bg-white/[0.02] border border-white/5 p-4 rounded-3xl max-w-3xl mx-auto">
-                <button onclick="filterCategory('All')" id="cat-All" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-primary bg-primary text-black transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer">All Articles</button>
-                <button onclick="filterCategory('Programming')" id="cat-Programming" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/5 bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/10 transition-all duration-300 cursor-pointer">Programming</button>
-                <button onclick="filterCategory('Mathematics')" id="cat-Mathematics" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/5 bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/10 transition-all duration-300 cursor-pointer">Mathematics</button>
-                <button onclick="filterCategory('Exam Prep')" id="cat-Exam-Prep" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/5 bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/10 transition-all duration-300 cursor-pointer">Exam Prep</button>
-                <button onclick="filterCategory('General')" id="cat-General" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/5 bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/10 transition-all duration-300 cursor-pointer">General</button>
+            <div class="flex flex-wrap items-center justify-center gap-3 border p-4 rounded-3xl max-w-3xl mx-auto bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                <button onclick="filterCategory('All')" id="cat-All" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-primary bg-primary transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer text-white">All Articles</button>
+                <button onclick="filterCategory('Programming')" id="cat-Programming" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">Programming</button>
+                <button onclick="filterCategory('Mathematics')" id="cat-Mathematics" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">Mathematics</button>
+                <button onclick="filterCategory('Exam Prep')" id="cat-Exam-Prep" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">Exam Prep</button>
+                <button onclick="filterCategory('General')" id="cat-General" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">General</button>
             </div>
         </section>
 
         <!-- Blog Grid -->
         <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="col-span-full py-20 text-center text-gray-500 font-bold italic">Loading articles...</div>
+            <div class="col-span-full py-20 text-center text-slate-500 dark:text-slate-400 font-bold italic">Loading articles...</div>
         </div>
     </main>
 
@@ -130,7 +130,7 @@
         function renderPosts(posts) {
             const grid = document.getElementById('blog-grid');
             if (!posts || posts.length === 0) {
-                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 font-bold italic">No articles found in this category. Check back soon!</div>';
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-slate-500 dark:text-slate-400 font-bold italic">No articles found in this category. Check back soon!</div>';
                 return;
             }
 
@@ -153,10 +153,10 @@
                 const catInfo = colors[cat] || colors['General'];
                 const imgUrl = post.image || images[cat] || images['General'];
                 return `
-                    <article class="glass-card group cursor-pointer overflow-hidden p-5 hover:border-primary/40 transition-all duration-300 flex flex-col justify-between h-full">
+                    <article class="glass-card group cursor-pointer overflow-hidden p-5 hover:border-primary/40 transition-all duration-300 flex flex-col justify-between h-full bg-white dark:bg-slate-900 shadow-sm">
                         <a href="/blog-post.html?slug=${post.slug}" class="flex flex-col h-full justify-between">
                             <div>
-                                <div class="aspect-video bg-white/5 rounded-xl mb-6 overflow-hidden relative">
+                                <div class="aspect-video bg-slate-200 dark:bg-slate-700 rounded-xl mb-6 overflow-hidden relative">
                                      <img src="${imgUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60">
                                      <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent"></div>
                                 </div>
@@ -164,10 +164,10 @@
                                     <span class="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border ${catInfo.bg} ${catInfo.text} ${catInfo.border}">${cat}</span>
                                 </div>
                                 <h2 class="text-xl font-bold leading-tight group-hover:text-primary transition-colors mb-4 line-clamp-2">${post.title}</h2>
-                                <p class="text-gray-400 text-sm line-clamp-3 mb-6">${post.excerpt || 'Read the full article on EngiPrep Hub.'}</p>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm line-clamp-3 mb-6">${post.excerpt || 'Read the full article on EngiPrep Hub.'}</p>
                             </div>
-                            <div class="pt-4 border-t border-white/5 flex items-center justify-between mt-auto">
-                                <span class="text-[10px] text-gray-500 font-semibold uppercase tracking-widest">${new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                            <div class="pt-4 border-t flex items-center justify-between mt-auto border-slate-200 dark:border-slate-800 border">
+                                <span class="text-[10px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-widest">${new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                                 <span class="text-primary group-hover:translate-x-1.5 transition-transform duration-300">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                                 </span>
@@ -186,9 +186,9 @@
                 const btn = document.getElementById(`cat-${idStr}`);
                 if (btn) {
                     if (cat === category) {
-                        btn.className = "px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-primary bg-primary text-black transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer";
+                        btn.className = "px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-primary bg-primary text-slate-900 dark:text-slate-50 transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer";
                     } else {
-                        btn.className = "px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/5 bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/10 transition-all duration-300 cursor-pointer";
+                        btn.className = "px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/5 bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer";
                     }
                 }
             });

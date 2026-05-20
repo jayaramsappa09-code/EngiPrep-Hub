@@ -17,29 +17,29 @@
         @reference "./src/style.css";
         .active-tab { @apply border-rose-600 bg-rose-50/50 dark:bg-rose-950/20 text-rose-600 font-extrabold; }
         .inactive-tab { @apply border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300; }
-        .sub-active { @apply bg-rose-600 text-white shadow-md shadow-rose-500/10; }
+        .sub-active { @apply bg-rose-600 text-slate-900 dark:text-slate-50 shadow-md shadow-rose-500/10; }
         .sub-inactive { @apply bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800; }
     </style>
 </head>
-<body class="bg-background text-text-main selection:bg-rose-100 transition-colors duration-300">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 selection:bg-rose-100 transition-colors duration-300">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-md border-b border-border px-6">
+    <nav class="fixed top-0 w-full z-50 bg-white dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4 group">
                 <div class="relative w-10 h-10 flex items-center justify-center">
                     <div class="absolute inset-0 bg-rose-600 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-rose-500/20"></div>
-                    <svg class="relative z-10 w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="relative z-10 w-5 h-5 text-slate-900 dark:text-slate-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                     </svg>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">Survival <span class="text-rose-600">Hub</span></span>
+                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">Survival <span class="text-rose-600">Hub</span></span>
                     <span class="text-[6px] font-black uppercase tracking-[0.2em] text-rose-400 mt-1">EngiPrep Priority Mode</span>
                 </div>
             </a>
             <div class="flex items-center gap-4">
                  <span class="hidden md:inline text-[9px] font-bold text-rose-500 uppercase tracking-widest animate-pulse">● Premium Revision Active</span>
-                 <a href="/dashboard.html" class="text-[10px] font-bold text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all uppercase tracking-widest">Dashboard</a>
+                 <a href="/dashboard.html" class="text-[10px] font-bold text-slate-400 hover:text-slate-900 dark:hover:text-slate-900 dark:text-slate-50 transition-all uppercase tracking-widest">Dashboard</a>
             </div>
         </div>
     </nav>
@@ -48,7 +48,7 @@
         <!-- Advanced Back Navigation -->
         <div class="mb-4 animate-fade-up">
             <a href="javascript:history.length > 1 ? history.back() : window.location.href='/dashboard.html'" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-rose-500 hover:text-rose-700 transition-all group">
-                <span class="w-8 h-8 rounded-xl bg-surface border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
+                <span class="w-8 h-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
                     <svg class="w-4 h-4 text-rose-500 group-hover:text-rose-700 transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
                     </svg>
@@ -59,12 +59,12 @@
 
         <header class="mb-12 animate-fade-up">
             <div class="inline-block px-4 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 text-rose-600 dark:text-rose-400 text-[10px] font-bold uppercase tracking-widest mb-6">Emergency Preparation Room</div>
-            <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">1-Day <span class="text-rose-600">Exam Survival</span> Guide</h1>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 tracking-tight mb-4">1-Day <span class="text-rose-600">Exam Survival</span> Guide</h1>
             <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-lg font-medium leading-relaxed">Don't panic. We have engineered the syllabus into most repeated vectors, expectable midterm targets, code explanations, and lab viva guides.</p>
         </header>
 
         <!-- Subject Switcher -->
-        <div class="bg-surface border border-border rounded-[2.5rem] p-6 mb-8 animate-fade-up">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-6 mb-8 animate-fade-up">
             <label class="block text-[10px] font-bold text-[#64748b] dark:text-slate-400 uppercase tracking-widest mb-4 pl-1">Select Active Curriculum Focus</label>
             <div class="flex flex-wrap gap-2">
                 <button onclick="setFocusSubject('pps')" id="btn-subj-pps" class="subj-toggle px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all sub-active">PPS (C Programming)</button>
@@ -75,7 +75,7 @@
         </div>
 
         <!-- Section Navigation Tabs -->
-        <div class="flex border-b border-border mb-8 animate-fade-up" style="animation-delay: 0.1s">
+        <div class="flex border-b border-slate-200 dark:border-slate-800 mb-8 animate-fade-up" style="animation-delay: 0.1s">
             <button onclick="switchSurvivalTab('questions')" id="tab-questions" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab">Important Questions Engine</button>
             <button onclick="switchSurvivalTab('lab')" id="tab-lab" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab">Lab Programs Desk ⌨</button>
             <button onclick="switchSurvivalTab('viva')" id="tab-viva" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab">expandable Viva Cards</button>
@@ -87,9 +87,9 @@
                 <!-- 1. IMPORTANT QUESTIONS ENGINE PANEL -->
                 <div id="questions-panel" class="survival-tab-panel space-y-6">
                     <div class="bento-card p-8">
-                        <div class="flex items-center justify-between border-b border-border pb-4 mb-6">
-                            <h3 class="text-xl font-bold dark:text-white flex items-center gap-2">🔥 Smart Expected Questions <span class="text-rose-500 font-black text-xs uppercase bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 px-2 py-0.5 rounded">High Probability</span></h3>
-                            <button onclick="window.print()" class="px-3 py-1.5 border border-border rounded-lg text-[9px] font-bold uppercase hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Print Sheet</button>
+                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+                            <h3 class="text-xl font-bold dark:text-slate-50 flex items-center gap-2">🔥 Smart Expected Questions <span class="text-rose-500 font-black text-xs uppercase bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 px-2 py-0.5 rounded">High Probability</span></h3>
+                            <button onclick="window.print()" class="px-3 py-1.5 border border-slate-200 dark:border-slate-800 rounded-lg text-[9px] font-bold uppercase hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Print Sheet</button>
                         </div>
                         <div id="important-questions-list" class="space-y-6">
                             <!-- Injected by JS -->
@@ -100,9 +100,9 @@
                 <!-- 2. LAB PROGRAMS CHEST PANEL -->
                 <div id="lab-panel" class="survival-tab-panel hidden space-y-6">
                     <div class="bento-card p-8">
-                        <div class="flex items-center justify-between border-b border-border pb-4 mb-6">
-                            <h3 class="text-xl font-bold dark:text-white flex items-center gap-2">⌨ Categorized Practical Laboratory Code Panel</h3>
-                            <span class="text-[9px] font-black text-blue-600">PPS Programs</span>
+                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+                            <h3 class="text-xl font-bold dark:text-slate-50 flex items-center gap-2">⌨ Categorized Practical Laboratory Code Panel</h3>
+                            <span class="text-[9px] font-black text-blue-600 dark:text-blue-400">PPS Programs</span>
                         </div>
                         <div id="lab-programs-list" class="space-y-8">
                             <!-- Injected by JS -->
@@ -113,8 +113,8 @@
                 <!-- 3. EXPANDABLE VIVA BENTO CARDS -->
                 <div id="viva-panel" class="survival-tab-panel hidden space-y-6">
                     <div class="bento-card p-8">
-                        <div class="flex items-center justify-between border-b border-border pb-4 mb-6">
-                            <h3 class="text-xl font-bold dark:text-white">🎓 Essential Viva Voce Preparation Cards</h3>
+                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+                            <h3 class="text-xl font-bold dark:text-slate-50">🎓 Essential Viva Voce Preparation Cards</h3>
                             <span class="text-[9px] font-bold uppercase text-indigo-500">Expandable Answers</span>
                         </div>
                         <div id="viva-questions-list" class="space-y-4">
@@ -126,8 +126,8 @@
 
             <!-- Sidebars: Tips & Quick Links -->
             <div class="lg:col-span-4 space-y-8 animate-fade-up" style="animation-delay: 0.2s">
-                <div class="bg-rose-900 text-white rounded-[2.5rem] p-8 overflow-hidden relative">
-                    <div class="absolute -right-20 -top-20 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                <div class="bg-rose-900 rounded-[2.5rem] p-8 overflow-hidden relative text-white">
+                    <div class="absolute -right-20 -top-20 w-40 h-40 bg-slate-200 dark:bg-slate-700/50 rounded-full blur-3xl"></div>
                     <div class="relative z-10 space-y-4">
                          <span class="text-[8px] font-black uppercase text-rose-300">Midnight Survival Code</span>
                          <h3 class="text-xl font-bold leading-snug">"80% of any engineering exam resides inside 20% of its critical unit core."</h3>
@@ -136,14 +136,14 @@
                 </div>
 
                 <!-- Syllabus Checklist Tracker -->
-                <div class="bg-surface border border-border rounded-[2.5rem] p-8 space-y-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-8 space-y-6">
                     <div>
                         <h3 class="text-xs font-black uppercase tracking-widest text-[#64748b] mb-4">Passing Rate Safeguard</h3>
-                        <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-border rounded-2xl flex items-center gap-4">
+                        <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl flex items-center gap-4">
                             <span class="text-2xl">🛡</span>
                             <div class="text-xs">
                                 <p class="font-bold">EngiPrep Priority Standard</p>
-                                <p class="text-text-muted mt-1">Expected Questions are curated manually by EdTech growth architects matching standard JNTUK R23 questions.</p>
+                                <p class="text-slate-600 dark:text-slate-400 mt-1">Expected Questions are curated manually by EdTech growth architects matching standard JNTUK R23 questions.</p>
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                             <span class="text-2xl group-hover:scale-110 transition-transform">⚡</span>
                             <div class="text-xs">
                                 <p class="font-bold text-rose-600 dark:text-rose-400">BEEE 1-Day Before Prep</p>
-                                <p class="text-[9.5px] text-slate-500 mt-0.5 leading-relaxed">Master circuit theorems, basic machines, and transistors in 1 day.</p>
+                                <p class="text-[9.5px] text-slate-500 mt-0.5 leading-relaxed dark:text-slate-400">Master circuit theorems, basic machines, and transistors in 1 day.</p>
                             </div>
                         </a>
                     </div>
@@ -164,7 +164,7 @@
         </div>
     </main>
 
-    <footer class="py-12 border-t border-border mt-32 text-center">
+    <footer class="py-12 border-t border-slate-200 dark:border-slate-800 mt-32 text-center">
         <p class="text-[10px] font-black uppercase tracking-widest text-[#64748b] dark:text-slate-400">© 2026 EngiPrep Hub • Exam Survival Division</p>
     </footer>
 
@@ -296,27 +296,27 @@
             // 1. Render expected questions
             const qList = document.getElementById('important-questions-list');
             qList.innerHTML = data.questions.map((q, idx) => `
-                <div class="p-6 bg-slate-50 dark:bg-slate-900 border border-border/60 rounded-3xl space-y-4">
+                <div class="p-6 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800/60 rounded-3xl space-y-4">
                     <div class="flex items-center justify-between">
                         <span class="text-[9px] font-black uppercase text-rose-500 bg-rose-50 dark:bg-rose-950/40 px-3 py-1 rounded border border-rose-100/30">${q.expected}</span>
                         <span class="text-[10px] font-bold text-slate-400">Unit ${q.unit} • ${q.weight}</span>
                     </div>
-                    <h4 class="text-lg font-black text-slate-800 dark:text-white">${q.title}</h4>
-                    <p class="text-xs text-slate-500 dark:text-text-muted leading-relaxed">${q.desc}</p>
+                    <h4 class="text-lg font-black text-slate-800 dark:text-slate-50">${q.title}</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-600 dark:text-slate-400 leading-relaxed">${q.desc}</p>
                 </div>
             `).join('');
 
             // 2. Render Lab programs
             const labList = document.getElementById('lab-programs-list');
             labList.innerHTML = data.programs.map((p, idx) => `
-                <div class="space-y-4 border-b border-border/40 pb-6 last:border-b-0 last:pb-0">
-                    <h4 class="text-md font-black text-slate-800 dark:text-white">${idx+1}. ${p.title}</h4>
-                    <p class="text-xs text-slate-500 dark:text-text-muted leading-relaxed">${p.desc}</p>
-                    <div class="bg-slate-900 dark:bg-black rounded-3xl p-6 relative group overflow-hidden border border-white/5 font-mono text-xs text-slate-350">
-                        <button onclick="copySnippet('${p.id}')" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">Copy Code</button>
+                <div class="space-y-4 border-b border-slate-200 dark:border-slate-800/40 pb-6 last:border-b-0 last:pb-0">
+                    <h4 class="text-md font-black text-slate-800 dark:text-slate-50">${idx+1}. ${p.title}</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-600 dark:text-slate-400 leading-relaxed">${p.desc}</p>
+                    <div class="bg-slate-900 dark:bg-slate-900 dark:bg-slate-50 rounded-3xl p-6 relative group overflow-hidden border font-mono text-xs text-slate-350 border-slate-200 dark:border-slate-800">
+                        <button onclick="copySnippet('${p.id}')" class="absolute top-4 right-4 bg-slate-200 dark:bg-slate-700/50 hover:bg-white/20 text-slate-900 dark:text-slate-50 text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">Copy Code</button>
                         <pre id="${p.id}" class="overflow-x-auto text-slate-300 pointer-events-auto leading-relaxed select-all" style="tab-size: 4;">${p.code}</pre>
                     </div>
-                    <div class="bg-slate-50 dark:bg-slate-900 border border-border p-4 rounded-2xl">
+                    <div class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl">
                         <p class="text-[9px] font-black uppercase tracking-wider text-slate-400 mb-2">Terminal Execution Output:</p>
                         <pre class="font-mono text-xs text-blue-600 dark:text-blue-400 font-bold overflow-x-auto">${p.output}</pre>
                     </div>
@@ -326,12 +326,12 @@
             // 3. Render Viva questions
             const vivaList = document.getElementById('viva-questions-list');
             vivaList.innerHTML = data.viva.map((v, idx) => `
-                <div class="p-5 bg-slate-50 dark:bg-slate-900 border border-border rounded-2xl leading-relaxed">
+                <div class="p-5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl leading-relaxed">
                     <div class="flex items-center justify-between cursor-pointer group" onclick="toggleVivaAnswer('${idx}')">
                         <p class="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-rose-500 transition-colors">Q: ${v.q}</p>
                         <span id="viva-indicator-${idx}" class="text-lg font-black text-rose-500 transition-transform">＋</span>
                     </div>
-                    <p id="viva-answer-${idx}" class="hidden text-xs text-text-muted mt-3 border-t border-border pt-3 transition-opacity">A: ${v.a}</p>
+                    <p id="viva-answer-${idx}" class="hidden text-xs text-slate-600 dark:text-slate-400 mt-3 border-t border-slate-200 dark:border-slate-800 pt-3 transition-opacity">A: ${v.a}</p>
                 </div>
             `).join('');
         }

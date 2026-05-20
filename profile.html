@@ -18,19 +18,19 @@
         .avatar-option { @apply relative cursor-pointer opacity-60 grayscale transition-all; }
         .avatar-option.active { @apply opacity-100 grayscale-0; }
         .avatar-option.active .avatar-inner { @apply ring-2 ring-primary bg-primary/10; }
-        .avatar-inner { @apply w-full aspect-square rounded-2xl border border-white/5 bg-white/[0.02] p-2 transition-all; }
+        .avatar-inner { @apply w-full aspect-square rounded-2xl border border-white/5 bg-white dark:bg-slate-900/[0.02] p-2 transition-all; }
         .avatar-option:hover { @apply opacity-100; }
     </style>
 </head>
-<body class="bg-[#0d0d12] text-white font-sans selection:bg-primary/30 selection:text-primary">
+<body class="bg-[#0d0d12] text-slate-900 dark:text-slate-50 font-sans selection:bg-primary/30 selection:text-primary">
 
-    <nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border px-6">
+    <nav class="fixed top-0 w-full z-50 bg-slate-50 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/dashboard.html" class="flex items-center gap-3 group">
-                <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-primary group-hover:text-[#0d0d12] transition-all">
+                <div class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-700 flex items-center justify-center group-hover:bg-primary group-hover:text-[#0d0d12] transition-all">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
                 </div>
-                <span class="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-white transition-colors">Return to Dashboard</span>
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:text-slate-50 transition-colors">Return to Dashboard</span>
             </a>
         </div>
     </nav>
@@ -38,12 +38,12 @@
     <main class="max-w-4xl mx-auto px-6 pt-32 pb-32">
         <header class="mb-12">
             <div class="flex items-center gap-4 mb-6">
-                <div id="current-avatar-preview" class="w-20 h-20 rounded-[2rem] bg-white/5 p-1 border-2 border-primary/20 shadow-xl shadow-primary/10 overflow-hidden">
-                    <div class="w-full h-full rounded-[1.8rem] bg-gray-900 flex items-center justify-center text-2xl font-black text-gray-600">?</div>
+                <div id="current-avatar-preview" class="w-20 h-20 rounded-[2rem] bg-slate-200 dark:bg-slate-700 p-1 border-2 border-primary/20 shadow-xl shadow-primary/10 overflow-hidden">
+                    <div class="w-full h-full rounded-[1.8rem] bg-gray-900 flex items-center justify-center text-2xl font-black text-slate-600 dark:text-slate-400">?</div>
                 </div>
                 <div>
                     <h1 class="text-4xl font-black italic tracking-tighter">Profile <span class="text-primary">Settings.</span></h1>
-                    <p class="text-gray-500 text-xs italic mt-1">Refining your identity on the Hub.</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs italic mt-1">Refining your identity on the Hub.</p>
                 </div>
             </div>
         </header>
@@ -51,9 +51,9 @@
         <form id="profile-form" class="space-y-16">
             <!-- AVATAR MODIFICATION -->
             <section class="animate-fade-up">
-                <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+                <div class="flex items-center justify-between mb-8 border-b pb-4 border-slate-200 dark:border-slate-800 border">
                     <h2 class="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic">Shift Your Identity</h2>
-                    <span class="text-[8px] font-bold text-gray-600 uppercase">Avatar System</span>
+                    <span class="text-[8px] font-bold text-slate-600 dark:text-slate-400 uppercase">Avatar System</span>
                 </div>
                 <div id="avatar-grid" class="grid grid-cols-3 md:grid-cols-6 gap-4">
                     <!-- Avatars Injected -->
@@ -62,30 +62,30 @@
 
             <!-- PROFILE DATA -->
             <section class="animate-fade-up">
-                <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+                <div class="flex items-center justify-between mb-8 border-b pb-4 border-slate-200 dark:border-slate-800 border">
                     <h2 class="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic">Core Information</h2>
-                    <span class="text-[8px] font-bold text-gray-600 uppercase">Verified Data</span>
+                    <span class="text-[8px] font-bold text-slate-600 dark:text-slate-400 uppercase">Verified Data</span>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-6">
                         <div>
-                            <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Unique Username</label>
+                            <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 ml-1">Unique Username</label>
                             <input type="text" id="username-input" required minlength="3" placeholder="alex_codes" 
-                                class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold">
+                                class="w-full border-2 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Full Name</label>
+                            <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 ml-1">Full Name</label>
                             <input type="text" id="fullname-input" required placeholder="Alexander Wright" 
-                                class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold">
+                                class="w-full border-2 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                         </div>
                     </div>
 
                     <div class="space-y-6">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Branch</label>
-                                <select id="branch-select" required class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold appearance-none">
+                                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 ml-1">Branch</label>
+                                <select id="branch-select" required class="w-full border-2 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold appearance-none bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                                     <option value="CSE">CSE</option>
                                     <option value="ECE">ECE</option>
                                     <option value="EEE">EEE</option>
@@ -97,8 +97,8 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Semester</label>
-                                <select id="semester-select" required class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold appearance-none">
+                                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 ml-1">Semester</label>
+                                <select id="semester-select" required class="w-full border-2 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold appearance-none bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                                     <option value="1">Sem 1</option>
                                     <option value="2">Sem 2</option>
                                     <option value="3">Sem 3</option>
@@ -111,15 +111,15 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 ml-1">Short Bio</label>
+                            <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 ml-1">Short Bio</label>
                             <textarea id="bio-input" rows="2" placeholder="Tell the community about yourself..." 
-                                class="w-full bg-white/[0.03] border-2 border-white/5 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold resize-none"></textarea>
+                                class="w-full border-2 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all font-bold resize-none bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"></textarea>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center gap-6">
+            <div class="pt-8 border-t flex flex-col sm:flex-row items-center gap-6 border-slate-200 dark:border-slate-800 border">
                 <button type="submit" id="save-btn" class="w-full sm:w-auto px-12 py-4 bg-primary text-[#0d0d12] rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95 disabled:opacity-50 shadow-xl shadow-primary/10">
                     Propagate Changes
                 </button>
