@@ -48,7 +48,55 @@ function generateHTML(subjectSlug, unit) {
                     <h2 class="text-xl font-black mb-4">${unit.introTitle}</h2>
                     <p>${unit.introBody}</p>
                 </section>
-                <!-- Add other sections here as needed - this is the baseline template -->
+
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">${unit.formula1.title}</h4>
+                            <p class="font-mono text-sm mt-2">${unit.formula1.eq}</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">${unit.formula2.title}</h4>
+                            <p class="font-mono text-sm mt-2">${unit.formula2.eq}</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">${unit.pyq1.title} <span class="text-blue-500">(${unit.pyq1.marks})</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">${unit.pyq1.body}</p>
+                        </div>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">${unit.pyq2.title} <span class="text-blue-500">(${unit.pyq2.marks})</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">${unit.pyq2.body}</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                ${unit.revisionPoints ? unit.revisionPoints.map(point => `<li>${point}</li>`).join('') : ''}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"${unit.memoryTricks || 'N/A'}"</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">${unit.examStrategy || 'N/A'}</p>
+                        </div>
+                    </div>
+                </section>
+
                 <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
                     <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

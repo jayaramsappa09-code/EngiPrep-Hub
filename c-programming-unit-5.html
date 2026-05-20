@@ -36,15 +36,63 @@
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
         <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
             <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Files & Preprocessor <span class="text-blue-500">Survival Kit</span></h1>
-            <p class="text-slate-400 mt-4">File modes (read/write/append), fopen/fclose, fprintf/fscanf, preprocessor directives (#define, #include).</p>
+            <p class="text-slate-400 mt-4">Files, preprocessor directives.</p>
         </header>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
                 <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
                     <h2 class="text-xl font-black mb-4">I/O & Directives</h2>
-                    <p>Interacting with secondary storage for data persistence and mastering preprocessor directives for conditional compilation.</p>
+                    <p>File handling for persistence and preprocessor directives for conditional compilation.</p>
                 </section>
-                <!-- Add other sections here as needed - this is the baseline template -->
+
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">File Open</h4>
+                            <p class="font-mono text-sm mt-2">FILE *fp = fopen("name", "mode");</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Parametric Macro</h4>
+                            <p class="font-mono text-sm mt-2">#define AREA(r) (3.14*r*r)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">File Copying <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Write a program to copy the contents of one file to another.</p>
+                        </div>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Preprocessors <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Explain various preprocessor directives with examples.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                <li>Always fclose()</li><li>Modes: r (read only), w (write-overwrite), a (append)</li><li>Macros are text substitution</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"# for preprocessor directives"</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">Focus on understanding the difference between file modes.</p>
+                        </div>
+                    </div>
+                </section>
+
                 <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
                     <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -52,10 +100,10 @@
                         <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
                             <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs font-black text-slate-100">File Operations?</h4>
+                                    <h4 class="text-xs font-black text-slate-100">Files?</h4>
                                 </div>
                                 <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">Managing storage via fopen, fclose, fprintf, fscanf.</p>
+                                    <p class="text-[10.5px] text-slate-300">fopen, fclose, fprintf, fscanf, fseek, ftell.</p>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +114,7 @@
                                     <h4 class="text-xs font-black text-slate-100">Preprocessor?</h4>
                                 </div>
                                 <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">Directives like #define, #include, #if for source code manipulation.</p>
+                                    <p class="text-[10.5px] text-slate-300">#include, #define, #if-#else-#endif, #ifdef.</p>
                                 </div>
                             </div>
                         </div>
