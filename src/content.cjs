@@ -667,30 +667,28 @@ module.exports = {
         
         // --- NEW FIELDS ---
         definitions: [
-            { term: "Decision Making", desc: "Constructs to alter flow: if, if-else, switch." },
-            { term: "Loops", desc: "For (definite), while (pre-test), do-while (post-test)." }
-        ],
-        derivations: [
-            { title: "Flowchart to Code Analysis", desc: "Converting structured flowcharts into nested C loop constructs." }
+            { term: "Decision Making", desc: "Constructs to alter flow: if, if-else, switch, nested if." },
+            { term: "Loops", desc: "For (definite), while (pre-test), do-while (post-test)." },
+            { term: "Break/Continue", desc: "Control keywords to terminate or skip loop iterations." }
         ],
         formulas: [
-            { title: "For Loop", eq: "for(init; cond; inc) { ... }" },
-            { title: "Switch Case", eq: "switch(exp) { case 1: break; default:; }" }
+            { title: "For Loop", eq: "for(init; cond; inc) { statement; }" },
+            { title: "Switch Case", eq: "switch(exp) { case val1: break; default:; }" },
+            { title: "While Loop", eq: "while(cond) { statement; }" }
         ],
         numericalSolved: [
-            { title: "Nested Loop Complexity", solution: "Analyzing time complexity of nested loops for pattern generation." }
+            { title: "Nested Loop Complexity", solution: "Analyzing time complexity of nested loops O(n^2) for pattern generation." },
+            { title: "Switch-Case Logic", solution: "Ensure break; is used to prevent fall-through scenarios." }
         ],
-        // --- END ---
-        
+        revisionPoints: ["do-while executes at least once", "break exits loop completely", "continue skips to next iteration", "switch constant expressions only (int/char)"],
+        memoryTricks: "S-D-A: Switch, Decision, Assignment (Flow control basics). Break breaks the loop, Continue continues the loop.",
+        examStrategy: "Ensure the loop termination condition is correct to avoid infinite loops. Always use {} for block statements to avoid dangling else problems.",
         concept1: { title: "Decision Making", detail: "If, if-else-if ladder, nested if, switch statement." },
         concept2: { title: "Iteration", detail: "For loop (definite), while loop (indefinite), do-while loop (post-test)." },
         formula1: { title: "Loop Structure", eq: "for(init; cond; inc) { ... }" },
         formula2: { title: "Switch Case", eq: "switch(expression) { case val: ... break; default: ... }" },
         pyq1: { title: "Nested Loops", marks: "10 Marks", body: "Write a program to print a pyramid pattern using nested loops." },
-        pyq2: { title: "Switch-Case", marks: "5 Marks", body: "Explain the switch statement with a program." },
-        revisionPoints: ["do-while executes at least once", "break exits loop, continue skips iteration", "switch constant expressions only"],
-        memoryTricks: "S-D-A: Switch, Decision, Assignment (Flow control basics)",
-        examStrategy: "Ensure the loop termination condition is correct to avoid infinite loops."
+        pyq2: { title: "Switch-Case", marks: "5 Marks", body: "Explain the switch statement with a program." }
       },
       {
         id: "unit-3",
