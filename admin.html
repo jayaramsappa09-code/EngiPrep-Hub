@@ -187,6 +187,10 @@
 
                 <div>
                     <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest pl-1 mb-2 block">Content (HTML/Rich Text)</label>
+                    <div class="mb-4">
+                        <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest pl-1 mb-1 block">Upload File (PDF/DOCX/TXT)</label>
+                        <input type="file" id="note-file" class="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
+                    </div>
                     <div id="editor" style="height: 300px; color: white;"></div>
                     <div id="editor-error" class="hidden mt-2 p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-400 text-xs font-semibold tracking-wide transition-all duration-300">
                         ⚠️ Please add some detailed content in the editor before publishing. Empty notes cannot be saved or made available to students.
@@ -569,6 +573,7 @@
         document.getElementById('note-form').addEventListener('submit', async (e) => {
             e.preventDefault()
             const contentText = noteQuill.getText().trim()
+            const fileInput = document.getElementById('note-file');
             const errorEl = document.getElementById('editor-error')
             const editorEl = document.getElementById('editor')
 
@@ -588,6 +593,21 @@
                 }
             }
 
+            let fileUrl = null;
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Math.random()}.${fileExt}`;
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('notes')
+                    .upload(`public/${fileName}`, file);
+                
+                if (!uploadError) {
+                    const { data } = supabase.storage.from('notes').getPublicUrl(`public/${fileName}`);
+                    fileUrl = data.publicUrl;
+                }
+            }
+
             const payload = {
                 title: document.getElementById('title').value,
                 slug: document.getElementById('slug').value,
@@ -595,18 +615,47 @@
                 semester: parseInt(document.getElementById('semester').value),
                 type: document.getElementById('type').value,
                 content: noteQuill.root.innerHTML,
+                file_url: fileUrl,
                 is_published: true
             }
             const { error } = await supabase.from('notes').insert(payload)
             if (error) alert(error.message)
             else { 
-                alert('Note published!')
+                alert('Note published! ' + (fileUrl ? 'File linked.' : ''));
                 document.getElementById('note-form').reset()
                 noteQuill.setText('')
                 closeModal('note-modal')
                 loadNotes()
             }
         })
+        
+        // File Upload Handler
+        document.getElementById('note-file').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            const btn = document.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerText = 'Parsing...';
+
+            try {
+                const response = await fetch('/api/notes/parse', { method: 'POST', body: formData });
+                const result = await response.json();
+                if (result.content) {
+                    noteQuill.setText(result.content);
+                } else {
+                    alert(result.error);
+                }
+            } catch (err) {
+                alert('File upload failed');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Save & Publish';
+            }
+        });
 
         // Blog Form Submit
         document.getElementById('blog-form').addEventListener('submit', async (e) => {
