@@ -161,8 +161,17 @@
         
         const params = new URLSearchParams(window.location.search)
         const subject = params.get('sub') || 'Mathematics I'
-        if (subject.toLowerCase().includes('physics') || subject.toLowerCase().includes('ap102')) {
+        const subjLower = subject.toLowerCase();
+        if (subjLower.includes('physics') || subjLower.includes('ap102')) {
             window.location.replace('/physics-notes.html');
+        } else if (subjLower.includes('data structure')) {
+            window.location.replace('/data-structures-basics.html');
+        } else if (subjLower.includes('chemistry')) {
+            window.location.replace('/chemistry-topper-notes.html');
+        } else if (subjLower.includes('mathematics i') || subjLower === 'm1') {
+            window.location.replace('/maths-1.html');
+        } else if (subjLower.includes('basic civil') || subjLower.includes('mechanical')) {
+            // we don't have a specific custom overview page for basic civil, but we have units.
         }
         let currentNotes = []
         let currentFilter = 'all'

@@ -542,12 +542,12 @@ Key theorems for Solving Complex DC Loops in exams:
 3. Compute equivalent resistance of a complex delta-star network configuration.`
   },
 
-  // 5. English Communication Skills
+  // 5. Communicative English
   {
     id: "en01",
     title: "Technical Writing, Business Letters & Resumes",
     slug: "english-technical-writing",
-    subject: "English Communication Skills",
+    subject: "Communicative English",
     semester: 1,
     type: "notes",
     weightage: 4,
@@ -571,7 +571,7 @@ Master writing skills for workplace scenarios and technical presentations.
     id: "en02",
     title: "Grammar, Punctuation & Active Voice Quick Sheet",
     slug: "english-grammar-cheatsheet",
-    subject: "English Communication Skills",
+    subject: "Communicative English",
     semester: 1,
     type: "cheat-sheet",
     weightage: 3,
@@ -591,7 +591,7 @@ Key communication concepts simplified:
     id: "en03",
     title: "JNTUK English Semester Solved Examination Papers",
     slug: "english-solved-pyqs",
-    subject: "English Communication Skills",
+    subject: "Communicative English",
     semester: 1,
     type: "PYQ",
     weightage: 4,
@@ -611,7 +611,7 @@ Write an executive report outline analyzing structural lab safety incidents. Per
     id: "en04",
     title: "English Oral Communication & Reading Skills Revision",
     slug: "english-oral-revision",
-    subject: "English Communication Skills",
+    subject: "Communicative English",
     semester: 1,
     type: "Revision",
     weightage: 5,
@@ -628,7 +628,7 @@ Ensure you cover these concepts before verbal labs:
     id: "en05",
     title: "Prepositions, Agreement Concord & Verb Conjugation Sets",
     slug: "english-preposition-questions",
-    subject: "English Communication Skills",
+    subject: "Communicative English",
     semester: 1,
     type: "question",
     weightage: 3,
@@ -1550,6 +1550,36 @@ Derive the expression for the RMS electromotive force induced inside magnetic tr
 5. Therefore, the RMS EMF induced per turn is:
    $$\text{RMS EMF per turn} = 1.11 \times \text{Average Value} = 1.11 \times 4 f \Phi_m = 4.44 f \Phi_m$$
 6. **Final Result:** Total induced voltage ($E$) in a winding with $N$ turns is:
-   $$E = 4.44 f N \Phi_m \quad \text{Volts}$$`
+   $$E = 4.44 f N \\Phi_m \\quad \\text{Volts}$$`
+  },
+  {
+    id: "bcme01",
+    title: "Basic Civil & Mechanical Engineering Notes",
+    slug: "bcme-notes",
+    subject: "Basic Civil and Mechanical Engineering",
+    semester: 2,
+    type: "Revision",
+    weightage: 5,
+    frequency: 10,
+    is_published: true,
+    content: `# Basic Civil and Mechanical Engineering 
+
+## UNIT 1: CIVIL ENGINEERING MATERIALS
+* **Cement:** Binding material. Portland Cement contains limestone and clay.
+* **Bricks:** Made from molded clay and fired in kilns. Standard dimensions apply.
+
+## UNIT 2: SURVEYING
+* **Principles of Surveying:** Working from whole to part.
+* **Leveling:** Determining elevations relative to a datum.
+
+## UNIT 3: THERMODYNAMICS & POWER PLANTS
+* **Thermal Plants:** Use coal/steam turbines to generate power.
+* **First Law of Thermodynamics:** Energy cannot be created nor destroyed ($\Delta U = q + w$).
+
+## UNIT 4: INTERNAL COMBUSTION ENGINES
+* **4-Stroke vs 2-Stroke:** 4-Stroke completes a cycle in two crankshaft revolutions; 2-Stroke in one.
+
+## UNIT 5: REFRIGERATION
+* **Vapor Compression Cycle:** Evaporator $\\rightarrow$ Compressor $\\rightarrow$ Condenser $\\rightarrow$ Expansion Valve.`
   }
 ];

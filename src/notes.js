@@ -467,10 +467,11 @@ export const searchNotesAndSubjects = async (query) => {
          { title: 'Engineering Physics', code: 'PH' },
          { title: 'C Programming', code: 'C' },
          { title: 'Basic Electrical Engineering', code: 'BEEE' },
-         { title: 'English Communication Skills', code: 'EN' },
+         { title: 'Communicative English', code: 'EN' },
          { title: 'Engineering Mathematics II', code: 'M2' },
          { title: 'Engineering Chemistry', code: 'CH' },
          { title: 'Data Structures', code: 'DS' },
+         { title: 'Basic Civil and Mechanical Engineering', code: 'BCME' },
          { title: 'Environmental Science', code: 'ES' }
       ].filter(s => s.title.toLowerCase().includes(queryLower) || s.code.toLowerCase().includes(queryLower)).slice(0, 3)
       
@@ -485,10 +486,11 @@ export const searchNotesAndSubjects = async (query) => {
        { title: 'Engineering Physics', code: 'PH' },
        { title: 'C Programming', code: 'C' },
        { title: 'Basic Electrical Engineering', code: 'BEEE' },
-       { title: 'English Communication Skills', code: 'EN' },
+       { title: 'Communicative English', code: 'EN' },
        { title: 'Engineering Mathematics II', code: 'M2' },
        { title: 'Engineering Chemistry', code: 'CH' },
        { title: 'Data Structures', code: 'DS' },
+       { title: 'Basic Civil and Mechanical Engineering', code: 'BCME' },
        { title: 'Environmental Science', code: 'ES' }
     ].filter(s => s.title.toLowerCase().includes(queryLower) || s.code.toLowerCase().includes(queryLower)).slice(0, 3)
     
@@ -511,13 +513,14 @@ export const fetchSubjectsBySemester = async (semester) => {
           { title: 'Engineering Physics', code: 'PH', semester: 1, description: 'Optics, Semiconductors, and Lasers.', color: 'purple' },
           { title: 'C Programming', code: 'C', semester: 1, description: 'Problem solving and logic in C.', color: 'emerald' },
           { title: 'Basic Electrical Engineering', code: 'BEEE', semester: 1, description: 'Fundamentals of circuits and machines.', color: 'amber' },
-          { title: 'English Communication Skills', code: 'EN', semester: 1, description: 'Professional technical English.', color: 'rose' }
+          { title: 'Communicative English', code: 'EN', semester: 1, description: 'Foundations of reading, writing, and professional speaking.', color: 'rose' }
         ]
       } else {
         return [
           { title: 'Engineering Mathematics II', code: 'M2', semester: 2, description: 'ODEs and Integral Calculus.', color: 'blue' },
           { title: 'Engineering Chemistry', code: 'CH', semester: 2, description: 'Materials and Water technology.', color: 'amber' },
           { title: 'Data Structures', code: 'DS', semester: 2, description: 'Advanced arrays, stacks, and queues.', color: 'indigo' },
+          { title: 'Basic Civil and Mechanical Engineering', code: 'BCME', semester: 2, description: 'Fundamentals of civil materials and mechanical systems.', color: 'emerald' },
           { title: 'Environmental Science', code: 'ES', semester: 2, description: 'Eco studies and social issues.', color: 'rose' }
         ]
       }
@@ -530,13 +533,14 @@ export const fetchSubjectsBySemester = async (semester) => {
         { title: 'Engineering Physics', code: 'PH', semester: 1, description: 'Optics, Semiconductors, and Lasers.', color: 'purple' },
         { title: 'C Programming', code: 'C', semester: 1, description: 'Problem solving and logic in C.', color: 'emerald' },
         { title: 'Basic Electrical Engineering', code: 'BEEE', semester: 1, description: 'Fundamentals of circuits and machines.', color: 'amber' },
-        { title: 'English Communication Skills', code: 'EN', semester: 1, description: 'Professional technical English.', color: 'rose' }
+        { title: 'Communicative English', code: 'EN', semester: 1, description: 'Foundations of reading, writing, and professional speaking.', color: 'rose' }
       ]
     } else {
       return [
         { title: 'Engineering Mathematics II', code: 'M2', semester: 2, description: 'ODEs and Integral Calculus.', color: 'blue' },
         { title: 'Engineering Chemistry', code: 'CH', semester: 2, description: 'Materials and Water technology.', color: 'amber' },
         { title: 'Data Structures', code: 'DS', semester: 2, description: 'Advanced arrays, stacks, and queues.', color: 'indigo' },
+        { title: 'Basic Civil and Mechanical Engineering', code: 'BCME', semester: 2, description: 'Fundamentals of civil materials and mechanical systems.', color: 'emerald' },
         { title: 'Environmental Science', code: 'ES', semester: 2, description: 'Eco studies and social issues.', color: 'rose' }
       ]
     }

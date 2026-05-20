@@ -100,7 +100,7 @@
                             <h4 class="text-xs font-black text-slate-900 dark:text-slate-50 mb-2">Gauss Elimination</h4>
                             <p class="text-[10px] text-slate-500 mt-2 font-medium">Reducing a system to upper triangular form to solve via back substitution.</p>
                             <div class="p-4 mt-3 bg-[#181825] font-mono text-center text-rose-450 text-sm rounded-xl font-bold">
-                                Infinite Solutions: Rank(A) = Rank(A|B) < n
+                                Infinite Solutions: Rank(A) = Rank(A|B) &lt; n
                             </div>
                         </div>
                     </div>
@@ -129,8 +129,65 @@
                         </div>
                     </div>
                 </section>
+                
+                <!-- SECTION 10: Laboratory & theoretical concept Viva Questions -->
+                <section id="viva" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm mt-8">
+                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
+                        <span class="text-xl">🧪</span>
+                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Interactive Laboratory & Concept Viva Cards</h2>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-6 font-medium">Prepare for your external examiner! Click on any card below to flip and reveal the ideal model answer directly:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Viva Card 1 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80" style="transition: transform 0.6s; transform-style: preserve-3d;">
+                                <!-- Front -->
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between" style="backface-visibility: hidden;">
+                                    <span class="text-[8px] font-black uppercase text-blue-500 tracking-wider">Question 01</span>
+                                    <h4 class="text-xs font-black text-slate-100 leading-normal pr-4">What is the core principle behind Rank of a Matrix?</h4>
+                                    <span class="text-[9px] font-bold text-slate-500 self-end">TAP TO FLIP 🔄</span>
+                                </div>
+                                <!-- Back -->
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl flex flex-col justify-between" style="backface-visibility: hidden; transform: rotateY(180deg);">
+                                    <span class="text-[8px] font-black uppercase text-emerald-400 tracking-wider">Verified Answer</span>
+                                    <p class="text-[10.5px] text-slate-300 leading-relaxed">Number of non-zero rows in its row echelon form.</p>
+                                    <span class="text-[8.5px] text-slate-500 self-end">CLICK TO ROTATE</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Viva Card 2 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80" style="transition: transform 0.6s; transform-style: preserve-3d;">
+                                <!-- Front -->
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between" style="backface-visibility: hidden;">
+                                    <span class="text-[8px] font-black uppercase text-blue-500 tracking-wider">Question 02</span>
+                                    <h4 class="text-xs font-black text-slate-100 leading-normal pr-4">Explain the concept of Gauss Elimination briefly.</h4>
+                                    <span class="text-[9px] font-bold text-slate-500 self-end">TAP TO FLIP 🔄</span>
+                                </div>
+                                <!-- Back -->
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl flex flex-col justify-between" style="backface-visibility: hidden; transform: rotateY(180deg);">
+                                    <span class="text-[8px] font-black uppercase text-emerald-400 tracking-wider">Verified Answer</span>
+                                    <p class="text-[10.5px] text-slate-300 leading-relaxed">Reducing a system to upper triangular form to solve via back substitution.</p>
+                                    <span class="text-[8.5px] text-slate-500 self-end">CLICK TO ROTATE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
+
+    <script>
+        function flipVivaCard(card) {
+            const inner = card.querySelector('.viva-card-inner');
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
+            } else {
+                inner.style.transform = 'rotateY(180deg)';
+            }
+        }
+    </script>
 </body>
 </html>

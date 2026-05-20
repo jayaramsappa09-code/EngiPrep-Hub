@@ -166,10 +166,10 @@
                     <div class="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 font-mono text-sm overflow-x-auto text-slate-900 dark:text-slate-50">
                         <span class="text-slate-500">// Binary Search Iterative Template</span><br>
                         <span class="text-purple-600 dark:text-purple-400">int</span> binarySearch(<span class="text-purple-600 dark:text-purple-400">int</span> arr[], <span class="text-purple-600 dark:text-purple-400">int</span> l, <span class="text-purple-600 dark:text-purple-400">int</span> r, <span class="text-purple-600 dark:text-purple-400">int</span> x) {<br>
-                        &nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">while</span> (l <= r) {<br>
+                        &nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">while</span> (l &lt;= r) {<br>
                         &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-600 dark:text-purple-400">int</span> m = l + (r - l) / 2; <span class="text-slate-500">// Prevents overflow</span><br>
                         &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">if</span> (arr[m] == x) <span class="text-emerald-600 dark:text-emerald-400">return</span> m;<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">if</span> (arr[m] < x) l = m + 1;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">if</span> (arr[m] &lt; x) l = m + 1;<br>
                         &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">else</span> r = m - 1;<br>
                         &nbsp;&nbsp;}<br>
                         &nbsp;&nbsp;<span class="text-emerald-600 dark:text-emerald-400">return</span> -1;<br>
@@ -336,7 +336,7 @@
                                 <div class="bg-blue-600/5 p-4 rounded-xl mb-4 border border-blue-600/10">
                                     <h5 class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest font-mono mb-2">Examiner Deduction Points (2 Marks lost if missing:)</h5>
                                     <ul class="text-sm text-slate-600 dark:text-slate-400 list-disc ml-4">
-                                        <li>Failing to mention the core property: Left Subtree < Root < Right Subtree.</li>
+                                        <li>Failing to mention the core property: Left Subtree &lt; Root &lt; Right Subtree.</li>
                                         <li>Not drawing a valid visual tree trace along with the code logic.</li>
                                     </ul>
                                 </div>
