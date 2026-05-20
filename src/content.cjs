@@ -250,6 +250,20 @@ module.exports = {
         introTitle: "Quantum Chemistry Fundamentals",
         introBody: "Quantum mechanics provides the foundation for understanding atomic and molecular behavior through wave functions.",
         coreHighlight: "The Core Crux of R23: Molecular Orbital Theory (MOT) diagrams for homonuclear and heteronuclear diatomic molecules are frequently tested.",
+        definitions: [
+            { term: "Schrödinger Equation", desc: "Equation describing quantum system state changes." },
+            { term: "Molecular Orbital Theory", desc: "Electronic structure via atomic orbital combinations." }
+        ],
+        formulas: [
+            { title: "Bond Order", eq: "BO = (N_b - N_a) / 2" },
+            { title: "Schrödinger Eq", eq: "HΨ = EΨ" }
+        ],
+        numericalSolved: [
+            { title: "O2 Bond Order", solution: "Calculate bonding/antibonding electrons." }
+        ],
+        revisionPoints: ["MOT rules", "bonding orbitals lower energy", "antibonding orbitals higher energy"],
+        memoryTricks: "Bonding is lower energy than Antibonding",
+        examStrategy: "Practice MOT diagrams daily.",
         concept1: { title: "Schrödinger Equation", detail: "A fundamental equation describing how the quantum state of a quantum system changes with time." },
         concept2: { title: "Molecular Orbital Theory", detail: "Describes the electronic structure of molecules using atomic orbitals to form molecular orbitals." },
         formula1: { title: "Bond Order", eq: "BO = (N_b - N_a) / 2" },
@@ -264,14 +278,28 @@ module.exports = {
         weightage: "~15-20 Marks",
         desc: "Semiconductors, Super Conductors, Super capacitors, and Nanomaterials (Fullerenes, Carbon Nanotubes, Graphenes).",
         introTitle: "Advanced Engineering Materials",
-        introBody: "Modern engineering heavily relies on advanced materials like nanomaterials and superconductors for cutting-edge technology.",
+        introBody: "Modern engineering heavily relies on advanced materials like nanomaterials and superconductors.",
         coreHighlight: "The Core Crux of R23: Preparation, properties, and applications of Carbon Nanotubes (CNTs) and Supercapacitors.",
+        definitions: [
+            { term: "Superconductors", desc: "Zero resistivity below critical temperature." },
+            { term: "Carbon Nanotubes", desc: "Cylindrical carbon molecules." }
+        ],
+        formulas: [
+            { title: "Capacitance", eq: "C = Q / V" },
+            { title: "Stored Energy", eq: "E = 1/2 CV²" }
+        ],
+        numericalSolved: [
+            { title: "Capacitor Energy", solution: "Use E = 1/2 CV²." }
+        ],
+        revisionPoints: ["CNT types", "Meissner effect", "Supercapacitor types"],
+        memoryTricks: "CNTs = Rolled sheets",
+        examStrategy: "Draw CNT structures clearly.",
         concept1: { title: "Superconductors", detail: "Materials that exhibit zero electrical resistance and expel magnetic fields perfectly below a critical temperature." },
-        concept2: { title: "Carbon Nanotubes", detail: "Cylindrical carbon molecules with unique properties that make them potentially useful in nanotechnology." },
+        concept2: { title: "Carbon Nanotubes", detail: "Cylindrical carbon molecules with unique properties." },
         formula1: { title: "Capacitance", eq: "C = Q / V" },
         formula2: { title: "Energy Stored", eq: "E = 1/2 CV²" },
-        pyq1: { title: "Carbon Nanotubes", marks: "10 Marks", body: "Explain the arc-discharge and chemical vapour deposition methods for the synthesis of Carbon Nanotubes." },
-        pyq2: { title: "Supercapacitors", marks: "5 Marks", body: "What are supercapacitors? Discuss their classification and applications." }
+        pyq1: { title: "Carbon Nanotubes", marks: "10 Marks", body: "Explain synthesis of Carbon Nanotubes." },
+        pyq2: { title: "Supercapacitors", marks: "5 Marks", body: "What are supercapacitors? Discuss their applications." }
       },
       {
         id: "unit-3",
@@ -280,14 +308,28 @@ module.exports = {
         weightage: "~15-20 Marks",
         desc: "Electrochemical cell, Nernst equation, potentiometry, primary and secondary cells, fuel cells (PEMFC).",
         introTitle: "Electrochemistry & Batteries",
-        introBody: "Electrochemistry studies the relationship between electricity and identifiable chemical changes.",
-        coreHighlight: "The Core Crux of R23: Working principles of Lithium-ion batteries, Nernst equation calculations, and Fuel cells.",
-        concept1: { title: "Nernst Equation", detail: "Relates the reduction potential of an electrochemical reaction to the standard electrode potential, temperature, and activities." },
-        concept2: { title: "Fuel Cells", detail: "Electrochemical cells that convert the chemical energy of a fuel and an oxidizing agent into electricity." },
+        introBody: "Electrochemistry studies electricity and chemical changes.",
+        coreHighlight: "The Core Crux of R23: Li-ion batteries, Nernst equation, Fuel cells.",
+        definitions: [
+            { term: "Nernst Equation", desc: "Relates reduction potential to Q." },
+            { term: "Fuel Cells", desc: "Converts chemical energy to electrical." }
+        ],
+        formulas: [
+            { title: "Nernst Equation", eq: "E = E° - (RT/nF)ln(Q)" },
+            { title: "Cell Potential", eq: "E_cell = E_cathode - E_anode" }
+        ],
+        numericalSolved: [
+            { title: "Nernst Calculation", solution: "Plug values into E = E° - (RT/nF)ln(Q)." }
+        ],
+        revisionPoints: ["Cell anode/cathode signs", "Nernst variables", "Batteries vs Fuel cells"],
+        memoryTricks: "AO-CR (Anode Oxidation, Cathode Reduction)",
+        examStrategy: "Memorize Nernst components.",
+        concept1: { title: "Nernst Equation", detail: "Relates cell potential to concentration." },
+        concept2: { title: "Fuel Cells", detail: "Converts chemical to electrical energy." },
         formula1: { title: "Nernst Equation", eq: "E = E° - (RT/nF)ln(Q)" },
         formula2: { title: "Cell Potential", eq: "E_cell = E_cathode - E_anode" },
-        pyq1: { title: "Lithium-ion Battery", marks: "10 Marks", body: "Explain the construction, working, cell reactions, and advantages of a Lithium-ion battery." },
-        pyq2: { title: "Nernst Equation", marks: "10 Marks", body: "Derive the Nernst equation for a single electrode potential and solve a related numerical problem." }
+        pyq1: { title: "Lithium-ion Battery", marks: "10 Marks", body: "Explain Li-ion battery structure." },
+        pyq2: { title: "Nernst Equation", marks: "10 Marks", body: "Derive Nernst equation and solve numerical." }
       },
       {
         id: "unit-4",
@@ -296,31 +338,59 @@ module.exports = {
         weightage: "~15 Marks",
         desc: "Polymerization mechanisms, Plastics (PVC, Teflon, Bakelite), Elastomers (Buna-S), Conducting and Biodegradable polymers.",
         introTitle: "Polymer Science",
-        introBody: "Polymers are large molecules composed of repeating structural units, crucial for everyday materials.",
-        coreHighlight: "The Core Crux of R23: Preparation, properties, and applications of Bakelite, Teflon, and Conducting polymers like Polyacetylene.",
-        concept1: { title: "Addition Polymerization", detail: "Monomers add to each other directly without the loss of any small molecules." },
-        concept2: { title: "Conducting Polymers", detail: "Organic polymers that conduct electricity, often requiring doping." },
-        formula1: { title: "Degree of Polymerization", eq: "DP = M_polymer / M_monomer" },
-        formula2: { title: "Number Average Mol. Wt.", eq: "M_n = Σ(N_i M_i) / Σ(N_i)" },
-        pyq1: { title: "Bakelite & Teflon", marks: "10 Marks", body: "Write the preparation, properties, and applications of Bakelite and Teflon." },
-        pyq2: { title: "Conducting Polymers", marks: "10 Marks", body: "What are conducting polymers? Explain the mechanism of conduction in Polyacetylene." }
+        introBody: "Large molecules from repeating units.",
+        coreHighlight: "The Core Crux of R23: Bakelite, Teflon, Conducting polymers.",
+        definitions: [
+            { term: "Polymerization", desc: "Monomers forming large molecules." },
+            { term: "Conducting Polymers", desc: "Organic polymers that conduct electricity." }
+        ],
+        formulas: [
+            { title: "Degree of Polymerization", eq: "DP = M_p / M_m" },
+            { title: "Average Mol Wt", eq: "M_n = Σ(N_i M_i) / Σ(N_i)" }
+        ],
+        numericalSolved: [
+            { title: "DP Calculation", solution: "DP = M_p / M_m" }
+        ],
+        revisionPoints: ["Bakelite synthesis", "Conduction mechanism", "Addition vs Condensation"],
+        memoryTricks: "Addition = Double bond breakage",
+        examStrategy: "Focus on reaction conditions.",
+        concept1: { title: "Addition Polymerization", detail: "Monomers add directly." },
+        concept2: { title: "Conducting Polymers", detail: "Polymers that conduct implicitly." },
+        formula1: { title: "Deg. Polymerization", eq: "DP = M_p / M_m" },
+        formula2: { title: "Num Avg Mol Wt", eq: "M_n = Σ(N_i M_i) / Σ(N_i)" },
+        pyq1: { title: "Bakelite & Teflon", marks: "10 Marks", body: "Preparation of Bakelite and Teflon." },
+        pyq2: { title: "Conducting Polymers", marks: "10 Marks", body: "Explain conduction in Polyacetylene." }
       },
       {
         id: "unit-5",
         title: "Instrumental Methods & Green Chemistry",
         subtitle: "Unit V: Spectroscopy & Energy",
         weightage: "~15-20 Marks",
-        desc: "Beer-Lambert’s law, UV-Visible Spectroscopy, IR spectroscopy, Solar cells, Geothermal energy, Green chemistry.",
+        desc: "Beer-Lambert’s law, UV-Visible, IR spectroscopy, Solar, Geothermal, Green chemistry.",
         introTitle: "Spectroscopy & Renewable Energy",
-        introBody: "Analytical instrumentation is key for material characterization, while green chemistry promotes sustainable processes.",
-        coreHighlight: "The Core Crux of R23: Beer-Lambert’s law derivations, Principles of UV/IR spectroscopy, and working of Solar cells.",
-        concept1: { title: "Beer-Lambert's Law", detail: "The absorbance of light is directly proportional to the concentration of the absorbing species and path length." },
-        concept2: { title: "Solar Cells", detail: "Devices that convert light energy directly into electrical energy via the photovoltaic effect." },
-        formula1: { title: "Beer-Lambert's Law", eq: "A = ε c l" },
+        introBody: "Material characterization via analytical instrumentation.",
+        coreHighlight: "The Core Crux of R23: Beer-Lambert, UV/IR, Solar cells.",
+        definitions: [
+            { term: "Beer-Lambert's Law", desc: "Absorbance propto concentration/path length." },
+            { term: "Solar Cells", desc: "Converts light to electricity." }
+        ],
+        formulas: [
+            { title: "Beer-Lambert Law", eq: "A = ε c l" },
+            { title: "Photon Energy", eq: "E = hν" }
+        ],
+        numericalSolved: [
+            { title: "Absorbance Calc", solution: "Use A = ε c l." }
+        ],
+        revisionPoints: ["Beer-Lambert limitations", "Spectrophotometer parts", "PV effect"],
+        memoryTricks: "A = abc (A = absorbance, b = path, c = conc)",
+        examStrategy: "Focus on instrumental parts.",
+        concept1: { title: "Beer-Lambert's Law", detail: "Absorbance depends on concentration." },
+        concept2: { title: "Solar Cells", detail: "Convert light to electricity." },
+        formula1: { title: "Beer-Lambert Law", eq: "A = ε c l" },
         formula2: { title: "Energy of Photon", eq: "E = hν = hc/λ" },
-        pyq1: { title: "Beer-Lambert's Law", marks: "10 Marks", body: "State and explain Beer-Lambert's law. What are its limitations?" },
-        pyq2: { title: "Solar Cells", marks: "10 Marks", body: "Explain the construction, working, and applications of a Photovoltaic (Solar) cell." }
-      }
+        pyq1: { title: "Beer-Lambert's Law", marks: "10 Marks", body: "Explain Beer-Lambert's law." },
+        pyq2: { title: "Solar Cells", marks: "10 Marks", body: "Explain Photovoltaic (Solar) cell." }
+      },
     ]
   },
   "Communicative English": {
