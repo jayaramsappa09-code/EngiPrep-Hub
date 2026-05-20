@@ -62,6 +62,19 @@ function generateHTML(subjectSlug, unit) {
                     <p>${escapeHTML(unit.introBody)}</p>
                 </section>
 
+                ${unit.definitions ? `
+                <section id="definitions" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Key Definitions</h2>
+                    <div class="space-y-4">
+                        ${unit.definitions.map(def => `
+                            <div>
+                                <h4 class="font-bold text-slate-100">${escapeHTML(def.term)}</h4>
+                                <p class="text-sm text-slate-400">${escapeHTML(def.desc)}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>` : ''}
+
                 <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
                     <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -520,10 +520,28 @@ module.exports = {
         title: "Control Structures & Loops",
         subtitle: "Unit II: Logic Flow",
         weightage: "~15-20 Marks",
-        desc: "Decision making, loops, branching statements.",
+        desc: "Decision making (if, if-else, switch), loops (for, while, do-while).",
         introTitle: "Control Flow in C",
         introBody: "Mastering conditional branching (if, if-else, switch) and repetitive execution logic (for, while, do-while).",
         coreHighlight: "The Core Crux of R23: Nested loops and switch-case branching mechanisms are almost always tested.",
+        
+        // --- NEW FIELDS ---
+        definitions: [
+            { term: "Decision Making", desc: "Constructs to alter flow: if, if-else, switch." },
+            { term: "Loops", desc: "For (definite), while (pre-test), do-while (post-test)." }
+        ],
+        derivations: [
+            { title: "Flowchart to Code Analysis", desc: "Converting structured flowcharts into nested C loop constructs." }
+        ],
+        formulas: [
+            { title: "For Loop", eq: "for(init; cond; inc) { ... }" },
+            { title: "Switch Case", eq: "switch(exp) { case 1: break; default:; }" }
+        ],
+        numericalSolved: [
+            { title: "Nested Loop Complexity", solution: "Analyzing time complexity of nested loops for pattern generation." }
+        ],
+        // --- END ---
+        
         concept1: { title: "Decision Making", detail: "If, if-else-if ladder, nested if, switch statement." },
         concept2: { title: "Iteration", detail: "For loop (definite), while loop (indefinite), do-while loop (post-test)." },
         formula1: { title: "Loop Structure", eq: "for(init; cond; inc) { ... }" },
@@ -543,6 +561,14 @@ module.exports = {
         introTitle: "Modular Programming",
         introBody: "Breaking programs into reusable functions and managing collections via arrays and strings.",
         coreHighlight: "The Core Crux of R23: Handling 2D arrays (matrices) and string library functions (strcpy, strlen).",
+        definitions: [
+            { term: "Function", desc: "Block of code performing a specific task, reusable." },
+            { term: "Array", desc: "Contiguous memory for same-type elements." }
+        ],
+        formulas: [
+            { title: "Function call", eq: "int sum(int a, int b);" },
+            { title: "2D Array", eq: "int arr[3][3];" }
+        ],
         concept1: { title: "Functions", detail: "Prototypes, definitions, calls. Passing parameters (by value, by reference)." },
         concept2: { title: "Arrays & Strings", detail: "1D/2D arrays, string functions: strlen, strcpy, strcmp, strcat." },
         formula1: { title: "Function call", eq: "int sum(int a, int b);" },
@@ -562,6 +588,14 @@ module.exports = {
         introTitle: "Memory & Data Definitions",
         introBody: "Direct memory management via pointers and defining custom data types via structs.",
         coreHighlight: "The Core Crux of Pointers: Pointer arithmetic, arrays of pointers, and pointer-to-structure.",
+        definitions: [
+            { term: "Pointer", desc: "Variable storing a memory address." },
+            { term: "Structure", desc: "Grouping of heterogeneous data." }
+        ],
+        formulas: [
+            { title: "Pointer Arithmetic", eq: "ptr++;" },
+            { title: "Struct Access", eq: "struct_var.member;" }
+        ],
         concept1: { title: "Pointers", detail: "Variables storing memory addresses. Pointers to functions, pointers to arrays." },
         concept2: { title: "Structures", detail: "User-defined data type grouping heterogeneous data together." },
         formula1: { title: "Pointer Arithmetic", eq: "ptr++; // moves to next element" },
@@ -581,6 +615,14 @@ module.exports = {
         introTitle: "I/O & Directives",
         introBody: "File handling for persistence and preprocessor directives for conditional compilation.",
         coreHighlight: "The Core Crux: File modes (r, w, a, r+, w+) and parametric macros.",
+        definitions: [
+            { term: "File Handling", desc: "Functions to read/write persistent data." },
+            { term: "Preprocessor", desc: "Directives run before compilation." }
+        ],
+        formulas: [
+            { title: "File Open", eq: "FILE *fp = fopen(\"name\", \"mode\");" },
+            { title: "Macro", eq: "#define AREA(r) (3.14*r*r)" }
+        ],
         concept1: { title: "Files", detail: "fopen, fclose, fprintf, fscanf, fseek, ftell." },
         concept2: { title: "Preprocessor", detail: "#include, #define, #if-#else-#endif, #ifdef." },
         formula1: { title: "File Open", eq: "FILE *fp = fopen(\"name\", \"mode\");" },
