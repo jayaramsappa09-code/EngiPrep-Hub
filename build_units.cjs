@@ -1,14 +1,27 @@
 const fs = require('fs');
 const contentData = require('./src/content.cjs');
 
+function escapeHTML(str) {
+    if (typeof str !== 'string') return str;
+    return str.replace(/[&<>"']/g, function (m) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        }[m];
+    });
+}
+
 function generateHTML(subjectSlug, unit) {
     const html = `<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 ${unit.title} | EngiPrep Hub</title>
-    <meta name="description" content="Elite JNTUK R23 ${unit.title}. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
+    <title>JNTUK R23 ${escapeHTML(unit.title)} | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 ${escapeHTML(unit.title)}. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
     <link rel="stylesheet" href="/src/style.css">
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -39,26 +52,26 @@ function generateHTML(subjectSlug, unit) {
     </nav>
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
         <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
-            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">${unit.title} <span class="text-blue-500">Survival Kit</span></h1>
-            <p class="text-slate-400 mt-4">${unit.desc}</p>
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">${escapeHTML(unit.title)} <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">${escapeHTML(unit.desc)}</p>
         </header>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
                 <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-4">${unit.introTitle}</h2>
-                    <p>${unit.introBody}</p>
+                    <h2 class="text-xl font-black mb-4">${escapeHTML(unit.introTitle)}</h2>
+                    <p>${escapeHTML(unit.introBody)}</p>
                 </section>
 
                 <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
                     <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">${unit.formula1.title}</h4>
-                            <p class="font-mono text-sm mt-2">${unit.formula1.eq}</p>
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">${escapeHTML(unit.formula1.title)}</h4>
+                            <p class="font-mono text-sm mt-2">${escapeHTML(unit.formula1.eq)}</p>
                         </div>
                         <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">${unit.formula2.title}</h4>
-                            <p class="font-mono text-sm mt-2">${unit.formula2.eq}</p>
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">${escapeHTML(unit.formula2.title)}</h4>
+                            <p class="font-mono text-sm mt-2">${escapeHTML(unit.formula2.eq)}</p>
                         </div>
                     </div>
                 </section>
@@ -67,12 +80,12 @@ function generateHTML(subjectSlug, unit) {
                     <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
                     <div class="space-y-6">
                         <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">${unit.pyq1.title} <span class="text-blue-500">(${unit.pyq1.marks})</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">${unit.pyq1.body}</p>
+                            <h4 class="font-bold text-slate-100">${escapeHTML(unit.pyq1.title)} <span class="text-blue-500">(${escapeHTML(unit.pyq1.marks)})</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">${escapeHTML(unit.pyq1.body)}</p>
                         </div>
                         <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">${unit.pyq2.title} <span class="text-blue-500">(${unit.pyq2.marks})</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">${unit.pyq2.body}</p>
+                            <h4 class="font-bold text-slate-100">${escapeHTML(unit.pyq2.title)} <span class="text-blue-500">(${escapeHTML(unit.pyq2.marks)})</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">${escapeHTML(unit.pyq2.body)}</p>
                         </div>
                     </div>
                 </section>
@@ -83,16 +96,16 @@ function generateHTML(subjectSlug, unit) {
                         <div>
                             <h4 class="font-bold text-slate-100">Revision Points</h4>
                             <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
-                                ${unit.revisionPoints ? unit.revisionPoints.map(point => `<li>${point}</li>`).join('') : ''}
+                                ${unit.revisionPoints ? unit.revisionPoints.map(point => `<li>${escapeHTML(point)}</li>`).join('') : ''}
                             </ul>
                         </div>
                         <div>
                             <h4 class="font-bold text-slate-100">Memory Trick</h4>
-                            <p class="text-sm mt-2 text-slate-400 italic">"${unit.memoryTricks || 'N/A'}"</p>
+                            <p class="text-sm mt-2 text-slate-400 italic">"${escapeHTML(unit.memoryTricks || 'N/A')}"</p>
                         </div>
                         <div>
                             <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
-                            <p class="text-sm mt-2 text-slate-400">${unit.examStrategy || 'N/A'}</p>
+                            <p class="text-sm mt-2 text-slate-400">${escapeHTML(unit.examStrategy || 'N/A')}</p>
                         </div>
                     </div>
                 </section>
@@ -104,10 +117,10 @@ function generateHTML(subjectSlug, unit) {
                         <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
                             <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs font-black text-slate-100">${unit.concept1.title}?</h4>
+                                    <h4 class="text-xs font-black text-slate-100">${escapeHTML(unit.concept1.title)}?</h4>
                                 </div>
                                 <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">${unit.concept1.detail}</p>
+                                    <p class="text-[10.5px] text-slate-300">${escapeHTML(unit.concept1.detail)}</p>
                                 </div>
                             </div>
                         </div>
@@ -115,10 +128,10 @@ function generateHTML(subjectSlug, unit) {
                         <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
                             <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs font-black text-slate-100">${unit.concept2.title}?</h4>
+                                    <h4 class="text-xs font-black text-slate-100">${escapeHTML(unit.concept2.title)}?</h4>
                                 </div>
                                 <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">${unit.concept2.detail}</p>
+                                    <p class="text-[10.5px] text-slate-300">${escapeHTML(unit.concept2.detail)}</p>
                                 </div>
                             </div>
                         </div>
