@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/src/style.css">
     <!-- Rich Text Editor - Quill -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body class="bg-[#0a0a0f] min-h-screen">
     <nav class="border-b bg-[#0d0d12] p-6 flex items-center justify-between border-slate-200 dark:border-slate-800 border">
@@ -645,7 +646,7 @@
                 const response = await fetch('/api/notes/parse', { method: 'POST', body: formData });
                 const result = await response.json();
                 if (result.content) {
-                    noteQuill.setText(result.content);
+                    noteQuill.root.innerHTML = marked.parse(result.content);
                 } else {
                     alert(result.error);
                 }
