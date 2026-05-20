@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Professor & Advanced Revision | EngiPrep Hub</title>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        @reference "./src/style.css";
+        .panic-mode-active {
+            --background-color: #0c0205 !important;
+            --surface-color: #1a080e !important;
+            --border-color: #3b0d1a !important;
+            --text-main-color: #ffeef1 !important;
+            --text-muted-color: #ddaebd !important;
+        }
+        .heatmap-cell {
+            transition: all 0.2s ease-in-out;
+        }
+        .heatmap-cell:hover {
+            transform: scale(1.25);
+            z-index: 10;
+        }
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card-flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="selection:bg-blue-100 italic-text-prevention transition-all duration-300">
+    <div id="loading-overlay" class="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative w-16 h-16 mb-6">
+            <div class="absolute inset-0 border-4 border-blue-50 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
+        </div>
+        <p class="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 animate-pulse">Initializing AI Classroom Systems...</p>
+    </div>
+
+    <!-- Premium Header and Banner for Panic Mode Alert -->
+    <div id="panic-banner" class="hidden bg-gradient-to-r from-red-700 via-rose-900 to-red-800 text-white text-xs font-black uppercase tracking-wider py-3.5 px-6 border-b border-rose-950 flex flex-col md:flex-row items-center justify-between gap-4 sticky top-0 z-[60] shadow-2xl animate-fade-up">
+        <div class="flex items-center gap-3">
+            <span class="inline-flex w-2.5 h-2.5 bg-red-400 rounded-full animate-ping"></span>
+            <span class="text-sm">🚨 PANIC MODE ACTIVE: HIGH-WEIGHTAGE CONCEPTS LOADED FOR IMMEDIATE RETENTION</span>
+        </div>
+        <div class="flex items-center gap-4 bg-black/30 px-4 py-1.5 rounded-full border border-red-500/30">
+            <span>COUNTDOWN:</span>
+            <span id="panic-timer" class="font-mono text-xs text-red-300 font-extrabold">09h 42m 15s</span>
+        </div>
+    </div>
+
+    <!-- Premium Navbar -->
+    <nav id="app-nav" class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border px-6 transition-all duration-300">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/dashboard.html" class="flex items-center gap-4 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div id="nav-badge" class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20"></div>
+                    <svg class="relative z-10 w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tighter text-slate-900 leading-none dark:text-white">EngiPrep <span id="brand-highlight" class="text-blue-600">Hub</span></span>
+                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1 dark:text-slate-500">Prepare • Practice • Perform</span>
+                </div>
+            </a>
+            
+            <div class="flex items-center gap-6">
+                <!-- Panic Mode Quick Toggle Switch -->
+                <button onclick="togglePanicModeGlobal()" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/10 hover:bg-red-500/20 dark:bg-red-950/20 border border-red-500/30 hover:scale-105 active:scale-95 transition-all text-red-600 dark:text-red-400 font-black uppercase text-[9px] tracking-wider">
+                    <span class="inline-block w-2 h-2 bg-red-600 rounded-full animate-pulse shadow"></span>
+                    Panic Mode
+                </button>
+
+                <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-background border border-border text-text-muted hover:text-primary transition-all active:scale-95">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <div class="hidden md:flex items-center gap-4 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-full border border-blue-100 dark:border-blue-800/30">
+                    <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Streak: <span id="nav-streak">0</span> Days 🔥</span>
+                </div>
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='/profile.html'">
+                    <div class="text-right hidden sm:block">
+                        <p id="nav-username" class="text-xs font-bold text-slate-900 dark:text-white">Loading...</p>
+                        <p id="nav-xp" class="text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-bold">0 XP</p>
+                    </div>
+                    <div id="nav-avatar-ring" class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white text-xs font-black shadow-lg shadow-blue-500/20">
+                        <span id="nav-initials">?</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 pt-28 pb-32">
+        
+        <!-- Header Section with Back link -->
+        <header class="mb-10 animate-fade-up">
+            <div class="mb-4">
+                <a href="/dashboard.html" class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 hover:underline">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
+                    Back to Core Dashboard
+                </a>
+            </div>
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                <div>
+                    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2">AI Classroom & Predictor Suite</h1>
+                    <p class="text-slate-500 dark:text-slate-400 font-medium">Empower your preparation with highly accurate target estimates and adaptive survival simulations.</p>
+                </div>
+                <!-- Mini Tab Navigation bar -->
+                <div class="flex flex-wrap gap-2 p-1.5 bg-slate-100/80 dark:bg-slate-900/60 border border-border rounded-2xl w-fit">
+                    <button onclick="switchAIPanel('professor')" id="tab-professor" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm transition-all">👨‍🏫 AI Professor</button>
+                    <button onclick="switchAIPanel('predictor')" id="tab-predictor" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-950 transition-all">🔥 AI Exam Predictor</button>
+                    <button onclick="switchAIPanel('flashcards')" id="tab-flashcards" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-950 transition-all">🎴 Flash Trainer</button>
+                    <button onclick="switchAIPanel('transformer')" id="tab-transformer" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-950 transition-all">⚙ Auto Notes</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- PANEL 1: AI Chat & Professor Personalities -->
+        <div id="panel-professor" class="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-up">
+            <!-- Selector Area -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="bento-card p-6 border border-border">
+                    <h3 class="text-sm font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-6 flex items-center justify-between">
+                        <span>Select AI Professor Mode</span>
+                        <span class="text-xs text-blue-600 dark:text-blue-400">100% Custom Feedback</span>
+                    </h3>
+                    <div class="flex flex-col gap-3" id="professor-modes-container">
+                        <!-- Strict -->
+                        <button onclick="selectProfessorType('strict')" id="prof-btn-strict" class="flex items-center gap-4 p-4 rounded-2xl border-2 border-indigo-600 dark:border-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/20 transition-all text-left group">
+                            <span class="text-3xl filter saturate-100 group-hover:scale-110 transition-transform">👹</span>
+                            <div>
+                                <h4 class="text-sm font-black text-slate-900 dark:text-white">Strict Professor Prof. Rao</h4>
+                                <p class="text-[10px] text-slate-400 leading-tight mt-0.5">Highly critical feedback, tough standards, grades severely but builds perfect layouts.</p>
+                            </div>
+                        </button>
+                        <!-- Senior -->
+                        <button onclick="selectProfessorType('senior')" id="prof-btn-senior" class="flex items-center gap-4 p-4 rounded-2xl border border-border transition-all text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 group">
+                            <span class="text-3xl filter transition-transform group-hover:scale-110">🎓</span>
+                            <div>
+                                <h4 class="text-sm font-black text-slate-900 dark:text-white">Friendly Senior Venkat</h4>
+                                <p class="text-[10px] text-slate-400 leading-tight mt-0.5">Offers direct advice, syllabus cheats, lingo tips, and reassuring relief.</p>
+                            </div>
+                        </button>
+                        <!-- Coach -->
+                        <button onclick="selectProfessorType('coach')" id="prof-btn-coach" class="flex items-center gap-4 p-4 rounded-2xl border border-border transition-all text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 group">
+                            <span class="text-3xl filter transition-transform group-hover:scale-110">🏃‍♂️</span>
+                            <div>
+                                <h4 class="text-sm font-black text-slate-900 dark:text-white">Fast Revision Coach</h4>
+                                <p class="text-[10px] text-slate-400 leading-tight mt-0.5">Bulleted point revisions, lightning formulas, and zero unnecessary fluff.</p>
+                            </div>
+                        </button>
+                        <!-- Viva -->
+                        <button onclick="selectProfessorType('viva')" id="prof-btn-viva" class="flex items-center gap-4 p-4 rounded-2xl border border-border transition-all text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 group">
+                            <span class="text-3xl filter transition-transform group-hover:scale-110">🧐</span>
+                            <div>
+                                <h4 class="text-sm font-black text-slate-900 dark:text-white">Lab Viva Examiner</h4>
+                                <p class="text-[10px] text-slate-400 leading-tight mt-0.5">Rapid fire lab questions. Simulates external reviewer grading counters.</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lofi Ambient station -->
+                <div class="bento-card p-6 border border-border overflow-hidden relative group">
+                    <div class="absolute inset-0 bg-indigo-500/5 dark:bg-indigo-400/5 group-hover:scale-110 duration-700 transition-all"></div>
+                    <div class="relative z-10 flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl animate-spin-slow">🌙</span>
+                            <div>
+                                <h4 class="text-xs font-black uppercase text-slate-400 dark:text-slate-500">Night Study Station</h4>
+                                <p class="text-[11px] font-bold text-indigo-600 dark:text-indigo-400">Eye-Easy Acoustic Waves</p>
+                            </div>
+                        </div>
+                        <button onclick="toggleLofiBeats()" id="audio-wave-btn" class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-black shadow-lg shadow-indigo-650/40 cursor-pointer active:scale-95 transition-transform">
+                            ▶
+                        </button>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-black/30 w-full p-3 rounded-xl border border-border flex items-center justify-between text-[10px]">
+                        <span class="font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Lo-Fi Study Beats</span>
+                        <div class="flex gap-0.5 h-3 items-end" id="wave-bars">
+                            <span class="w-1 bg-indigo-600/30 dark:bg-indigo-400/30 h-1 rounded rounded-b-none"></span>
+                            <span class="w-1 bg-indigo-600/30 dark:bg-indigo-400/30 h-1.5 rounded rounded-b-none"></span>
+                            <span class="w-1 bg-indigo-600/30 dark:bg-indigo-400/30 h-2 rounded rounded-b-none"></span>
+                        </div>
+                    </div>
+                    <audio id="lofi-player" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" class="hidden"></audio>
+                </div>
+            </div>
+
+            <!-- Chat Window -->
+            <div class="lg:col-span-8 flex flex-col h-[650px] bg-white dark:bg-slate-900 border border-border rounded-[2.5rem] overflow-hidden shadow-xl shadow-slate-100 dark:shadow-none">
+                <!-- Chat header -->
+                <div class="px-6 py-4 border-b border-border flex items-center justify-between bg-slate-50/60 dark:bg-slate-950/20">
+                    <div class="flex items-center gap-3">
+                        <div id="prof-avatar" class="w-10 h-10 bg-indigo-600/10 dark:bg-indigo-600/20 text-indigo-600 rounded-xl flex items-center justify-center text-xl">👹</div>
+                        <div>
+                            <h4 id="prof-chat-title" class="text-sm font-black text-slate-900 dark:text-white">Strict Professor Prof. Rao</h4>
+                            <p id="prof-chat-subtitle" class="text-[9px] font-bold text-red-500 dark:text-red-400 uppercase tracking-widest leading-none mt-1 select-none">Tough grading parameters applied</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-black uppercase text-slate-400 select-none">AI Active Mode</span>
+                    </div>
+                </div>
+
+                <!-- Messages container -->
+                <div id="professor-chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Default message -->
+                    <div class="chat-message flex items-start gap-3">
+                        <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow">👹</div>
+                        <div class="bg-indigo-50/50 dark:bg-slate-950/30 border border-border rounded-r-2xl rounded-bl-2xl p-4 max-w-[85%] text-xs font-medium leading-relaxed">
+                            <p class="font-extrabold text-[#f43f5e] uppercase tracking-wider text-[9px] mb-1">Rao's Verdict</p>
+                            Listen carefully. Engineering is not a spelling test; it is structural. If you fail to write exact derivations or proper matrices formulas, I will grade your submission down. Ask me anything, or give me a subject concept to test your resolve!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat entry panel -->
+                <div class="p-4 border-t border-border bg-slate-50/60 dark:bg-slate-950/20 select-none">
+                    <div class="flex gap-4">
+                        <input id="prof-chat-input" onkeydown="if(event.key === 'Enter') sendProfessorMessage()" type="text" placeholder="Ask your Professor about PPS, BEEE, Maths matrices, or Green Chemistry..." class="input-field py-3 text-xs flex-1">
+                        <button onclick="sendProfessorMessage()" class="px-6 bg-indigo-600 hover:bg-indigo-750 text-white rounded-2xl font-black text-xs uppercase tracking-widest active:scale-95 transition-all text-center flex items-center justify-center cursor-pointer shadow-lg shadow-indigo-650/10">
+                            Send AI
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 2: AI Exam Predictor & confidence graphs -->
+        <div id="panel-predictor" class="hidden space-y-8 animate-fade-up">
+            <!-- Urgent banner -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <!-- Predictor dashboard -->
+                <div class="md:col-span-8 bento-card p-6 lg:p-8 space-y-6">
+                    <div class="flex items-center justify-between flex-wrap gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl flex items-center justify-center text-xl">🔥</div>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900 dark:text-white">AI Target Question Estimator</h3>
+                                <p class="text-[9px] text-red-500 font-extrabold uppercase tracking-widest">Weightage Analytics</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-slate-400">Target Subject:</span>
+                            <select id="predictor-sub-selector" onchange="renderSubjectPredictions()" class="bg-background border border-border text-xs rounded-xl px-3 py-1 font-extrabold focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                <option value="PPS">PPS (C Language)</option>
+                                <option value="M1">Mathematics I</option>
+                                <option value="Physics">Engineering Physics</option>
+                                <option value="Chemistry">Engineering Chemistry</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Target table injected by JavaScript -->
+                    <div id="predictor-list" class="space-y-4">
+                        <!-- Custom JS predictions rendering -->
+                    </div>
+                </div>
+
+                <!-- Sidebar analytics -->
+                <div class="md:col-span-4 space-y-6">
+                    <!-- Overall statistics prediction card -->
+                    <div class="bento-card p-6 border-red-100 dark:border-rose-950/60 bg-gradient-to-b from-white to-red-50/50 dark:from-slate-900 dark:to-red-950/10">
+                        <div class="flex flex-col items-center text-center p-4">
+                            <span class="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-2 select-none animate-pulse">Average Target Accuracy</span>
+                            <div class="relative w-40 h-40 flex items-center justify-center">
+                                <svg class="absolute inset-0 w-full h-full rotate-[-90deg]">
+                                    <circle cx="80" cy="80" r="68" class="stroke-slate-100 dark:stroke-slate-800" stroke-width="10" fill="none"></circle>
+                                    <circle cx="80" cy="80" r="68" stroke-dasharray="427" stroke-dashoffset="34" class="stroke-rose-600 transition-all duration-1000" stroke-width="10" stroke-linecap="round" fill="none"></circle>
+                                </svg>
+                                <div>
+                                    <span class="text-3xl font-black text-slate-950 dark:text-white">92%</span>
+                                    <span class="block text-[8px] font-extrabold text-slate-400 uppercase mt-0.5 tracking-wider">Confidence Score</span>
+                                </div>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-4 leading-relaxed">Calculated by studying previous JNTUK weightage matrices, frequency curves and exam logs.</p>
+                        </div>
+                    </div>
+
+                    <!-- Roadmap selections -->
+                    <div class="bento-card p-6 space-y-4">
+                        <h4 class="text-xs font-black uppercase text-slate-400 dark:text-slate-500 select-none">Smart Study Roadmap Selection</h4>
+                        <div class="space-y-3">
+                            <button onclick="applyRoadmapPlan('emergency')" id="btn-road-emergency" class="w-full p-4 rounded-xl text-left border border-border bg-slate-50 dark:bg-slate-800/40 hover:border-red-500/40 transition-all">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs font-black text-slate-900 dark:text-white">1-Day Emergency Survival plan</span>
+                                    <span class="px-2 py-0.5 bg-red-100 text-red-650 rounded text-[8px] font-black tracking-wider">CRITICAL</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400 leading-tight">Focus on top 4 high-yield 10-mark questions and core derivations only.</p>
+                            </button>
+                            <button onclick="applyRoadmapPlan('sprint')" id="btn-road-sprint" class="w-full p-4 rounded-xl text-left border border-border hover:border-indigo-500/40 transition-all">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs font-black text-slate-900 dark:text-white">3-Day Intense Revision sprint</span>
+                                    <span class="px-2 py-0.5 bg-amber-100 text-amber-650 rounded text-[8px] font-black tracking-wider">RECOMMENDED</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400 leading-tight flex-1">Solve expected templates and memorize all unit formula maps.</p>
+                            </button>
+                            <button onclick="applyRoadmapPlan('mastery')" id="btn-road-mastery" class="w-full p-4 rounded-xl text-left border border-border hover:border-indigo-500/40 transition-all">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs font-black text-slate-900 dark:text-white">Full Semester Mastery timeline</span>
+                                    <span class="px-2 py-0.5 bg-blue-100 text-blue-650 rounded text-[8px] font-black tracking-wider shadow-sm">COMFORTABLE</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400 leading-tight">Systematic review of notes, quizzes, and continuous revision updates.</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heatmap tracking -->
+            <div class="bento-card p-6 lg:p-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center text-xl">🟩</div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white">Revision Strength Heatmap</h3>
+                            <p class="text-[9px] text-emerald-500 font-extrabold uppercase tracking-widest">Calculated Consistency Grid</p>
+                        </div>
+                    </div>
+                    <!-- Streak info -->
+                    <div class="flex items-center gap-4 bg-slate-50 dark:bg-black/30 px-4 py-2 rounded-xl text-xs">
+                        <span class="text-slate-400">Current Streak:</span>
+                        <span id="streak-info-bubble" class="font-black text-emerald-600 dark:text-emerald-400">12 Days 🔥</span>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto pr-1">
+                    <!-- Simulated consistent matrix Grid -->
+                    <div class="flex gap-1.5 w-max select-none" id="consistency-heatmap-matrix">
+                        <!-- Heatmap tiles auto-rendered by JS -->
+                    </div>
+                </div>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 mt-4 leading-none">
+                    <span>Less Active Memory</span>
+                    <div class="flex gap-1 items-center">
+                        <span class="w-3.5 h-3.5 bg-slate-100 dark:bg-slate-800 rounded"></span>
+                        <span class="w-3.5 h-3.5 bg-emerald-200 dark:bg-emerald-950 rounded"></span>
+                        <span class="w-3.5 h-3.5 bg-emerald-400 dark:bg-emerald-800 rounded"></span>
+                        <span class="w-3.5 h-3.5 bg-emerald-600 dark:bg-emerald-500 rounded"></span>
+                    </div>
+                    <span>Highest Commited Depth</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 3: Formula Memory Trainer -->
+        <div id="panel-flashcards" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-up">
+            <!-- Sidebar with lists -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="bento-card p-6 border border-border">
+                    <h3 class="text-sm font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-6 flex items-center justify-between select-none">
+                        <span>Select Formula Category</span>
+                    </h3>
+                    <div class="flex flex-col gap-3">
+                        <button onclick="selectFlashcardDeck('M1')" id="deck-btn-M1" class="flex items-center justify-between p-4 rounded-xl border-2 border-indigo-600 dark:border-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/20 text-left transition-all">
+                            <span class="text-xs font-black text-slate-900 dark:text-white">Mathematics I matrices</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">12 Cards</span>
+                        </button>
+                        <button onclick="selectFlashcardDeck('Physics')" id="deck-btn-Physics" class="flex items-center justify-between p-4 rounded-xl border border-border text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-all">
+                            <span class="text-xs font-black text-slate-900 dark:text-white">Engineering Physics Laser</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">8 Cards</span>
+                        </button>
+                        <button onclick="selectFlashcardDeck('BEEE')" id="deck-btn-BEEE" class="flex items-center justify-between p-4 rounded-xl border border-border text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-all">
+                            <span class="text-xs font-black text-slate-900 dark:text-white">BEEE Circuits</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">10 Cards</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom statistics badge -->
+                <div class="bento-card p-6">
+                    <h4 class="text-xs font-black uppercase text-slate-400 dark:text-slate-500 mb-4 select-none">Trainer Stats</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50 dark:bg-black/20 p-4 border border-border rounded-xl text-center">
+                            <span class="block text-2xl font-black text-slate-900 dark:text-white" id="stat-cards-learned">0</span>
+                            <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Mastered</span>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-black/20 p-4 border border-border rounded-xl text-center">
+                            <span class="block text-2xl font-black text-slate-900 dark:text-white" id="stat-streak-learned">1</span>
+                            <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Daily Streak</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interative flippable flashcard layout -->
+            <div class="lg:col-span-8 flex flex-col items-center justify-center p-6 space-y-6">
+                <div id="flash-card-container" onclick="flipActiveFlashcard()" class="w-full max-w-lg h-[280px] group cursor-pointer [perspective:1000px]">
+                    <div id="flash-card-inner" class="relative w-full h-full text-center shadow-xl border border-border rounded-3xl flip-card-inner">
+                        <!-- Front of card -->
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-indigo-500 to-indigo-700 text-white rounded-3xl p-8 flex flex-col justify-between flip-card-front">
+                            <p class="text-[10px] font-black uppercase text-indigo-200 tracking-widest text-left select-none">Mathematics I Formula Prompt</p>
+                            <div class="flex items-center justify-center h-full">
+                                <h3 id="flash-front-title" class="text-lg font-black leading-snug">Find Characteristic Equation of A?</h3>
+                            </div>
+                            <p class="text-[9px] font-extrabold text-indigo-300 uppercase tracking-widest mb-1 select-none flex items-center justify-center gap-2">
+                                <svg class="w-3.5 h-3.5 animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                                Toggle to Flip Card
+                            </p>
+                        </div>
+                        <!-- Back of card -->
+                        <div class="absolute inset-0 w-full h-full bg-slate-900 border border-slate-800 text-white rounded-3xl p-8 flex flex-col justify-between flip-card-back">
+                            <p class="text-[10px] font-black uppercase text-slate-500 tracking-widest text-left select-none">Strict Verdict Explanation</p>
+                            <div class="flex flex-col items-center justify-center h-full">
+                                <p id="flash-back-answer" class="text-sm font-black mb-2 flex items-center gap-2 text-indigo-400">det(A - λI) = 0</p>
+                                <p id="flash-back-desc" class="text-xs text-slate-400 leading-relaxed max-w-sm">For standard 3x3 matrices: λ³ - S₁λ² + S₂λ - |A| = 0. Ensure exact derivation parameters are laid out for examiners.</p>
+                            </div>
+                            <p class="text-[9px] text-slate-500 uppercase font-black select-none">Click to Flip Back</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom feedback selectors -->
+                <div class="flex items-center gap-4">
+                    <button onclick="recordFlashcardResult(false, event)" class="px-6 py-3 bg-red-500/15 hover:bg-red-500/20 text-red-650 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-red-500/30 active:scale-95 transition-all">Review Again</button>
+                    <button onclick="recordFlashcardResult(true, event)" class="px-6 py-3 bg-emerald-500/15 hover:bg-emerald-500/20 text-emerald-650 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-emerald-500/30 active:scale-95 transition-all">Mark as Mastered</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 4: Auto Notes Transformation Engine & transcription mock -->
+        <div id="panel-transformer" class="hidden space-y-8 animate-fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Text Paste Field -->
+                <div class="lg:col-span-6 bento-card p-6 lg:p-8 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 rounded-xl flex items-center justify-center text-xl">⚙</div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white">Auto Notes Transformation Engine</h3>
+                            <p class="text-[9px] text-indigo-650 dark:text-indigo-400 font-extrabold uppercase tracking-widest">Transform raw text to cheat sheets</p>
+                        </div>
+                    </div>
+                    <form onsubmit="transformTextToNotes(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-black uppercase text-slate-400 mb-2">Select Study Target Subject</label>
+                            <select id="transformer-subject" class="bg-background border border-border rounded-xl px-4 py-2.5 text-xs font-extrabold focus:outline-none focus:ring-1 focus:ring-indigo-500 w-full">
+                                <option value="PPS C Programming">PPS C Programming (Arrays & Strings)</option>
+                                <option value="Mathematics 1">Mathematics I (Eigenvalues / Theorems)</option>
+                                <option value="Engineering Physics">Engineering Physics Laser Concepts</option>
+                                <option value="Green Chemistry">Green Method Chemistry</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-black uppercase text-slate-400 mb-2">Paste raw paragraphs or notes</label>
+                            <textarea id="transformer-input" rows="8" placeholder="Paste unorganized curriculum details, slide lines, or raw textbook notes. The AI Engine converts them instantly to clean flippable revision sheets..." class="input-field text-xs resize-none"></textarea>
+                        </div>
+                        <div class="flex items-center justify-between flex-wrap gap-4 select-none">
+                            <label class="flex items-center gap-2 text-xs font-black uppercase text-slate-400 cursor-pointer">
+                                <input type="checkbox" id="ocr-simulation" class="w-4 h-4 accent-indigo-600 rounded">
+                                Image Transcribe Simulation Active
+                            </label>
+                            <button type="submit" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-750 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-650/10 active:scale-95 transition-all text-center flex items-center justify-center cursor-pointer">
+                                Transform Notes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Simulation Result panel -->
+                <div class="lg:col-span-6 bento-card p-6 lg:p-8 space-y-6">
+                    <h3 class="text-sm font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 select-none pb-4 border-b border-border">Output Panel Preview</h3>
+                    
+                    <div id="transformer-output-loading" class="hidden flex flex-col items-center justify-center py-20 text-center space-y-4 select-none">
+                        <div class="w-10 h-10 border-4 border-indigo-100 dark:border-indigo-950 border-t-indigo-600 rounded-full animate-spin"></div>
+                        <div>
+                            <p class="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100" id="transformer-phase">Phase 1: Transcribing Text</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Refactoring paragraphs with elite JNTUK formula standards.</p>
+                        </div>
+                    </div>
+
+                    <div id="transformer-output-placeholder" class="text-center py-24 select-none">
+                        <span class="text-4xl block mb-2 opacity-50">⚡</span>
+                        <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest">Awaiting Note Transcription Action</p>
+                    </div>
+
+                    <div id="transformer-output-result" class="hidden space-y-4 max-h-[480px] overflow-y-auto pr-1">
+                        <div class="bg-indigo-50/40 dark:bg-slate-950/20 p-5 rounded-2xl border border-indigo-100/50">
+                            <div class="flex items-center justify-between mb-3.5">
+                                <span class="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-[8.5px] font-black uppercase rounded tracking-wider border border-indigo-200" id="transformed-subject-tag">Mathematics I</span>
+                                <span class="text-[8.5px] text-emerald-500 font-extrabold uppercase">High-Yield Cheat Sheet Generated</span>
+                            </div>
+                            <h4 class="text-sm font-black text-slate-950 dark:text-white" id="transformed-title">Resulting Revision Guide</h4>
+                        </div>
+                        <div class="space-y-3.5" id="transformer-output-body">
+                            <!-- Injected transcribed elements -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Lab Viva Sheets Selection Component -->
+    <section class="border-t border-border bg-slate-50/50 dark:bg-slate-950/20 py-20 select-none">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="bento-card border border-border p-6 lg:p-8 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-650 dark:text-indigo-400 rounded-xl flex items-center justify-center text-xl">🎓</div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white">Lab Viva sheets & reviewer</h3>
+                            <p class="text-[9px] text-indigo-600 dark:text-indigo-400 font-black uppercase tracking-widest">Prepare for external laboratory assessments</p>
+                        </div>
+                    </div>
+                    <div>
+                        <select id="viva-subject-selector" onchange="switchVivaExamSubject()" class="bg-white dark:bg-slate-900 border border-border text-xs rounded-xl px-4 py-2 font-extrabold focus:outline-none focus:ring-1 focus:ring-indigo-600">
+                            <option value="PPS_C">PPS C Programming Lab (Structure, Arrays)</option>
+                            <option value="Physics_Lab">Engineering Physics Lab (interference, rings)</option>
+                            <option value="Chemistry_Lab">Engineering Chemistry Lab (hardness, demin)</option>
+                            <option value="Beee_Lab">BEEE Lab (superposition, circuit maps)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="viva-cards-grid">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-100 bg-white dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8 select-none">
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">EngiPrep Hub Dashboard • JNTUK R23 Intelligence</p>
+            <div class="flex gap-8">
+                <a href="/profile.html" class="text-slate-500 hover:text-slate-950 transition-all text-[10px] uppercase font-black">Account Settings</a>
+                <a href="/dashboard.html" class="text-indigo-500 hover:text-indigo-650 transition-all text-[10px] uppercase font-black">Dashboard</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { supabase, requireProfile } from './src/supabase.js'
+        import { getGreeting, getMotivation } from './src/platform-constants.js'
+
+        const navUsername = document.getElementById('nav-username')
+        const navXP = document.getElementById('nav-xp')
+        const navStreak = document.getElementById('nav-streak')
+        const navInitials = document.getElementById('nav-initials')
+
+        let currentUser = null
+        let completedFlashcardsCount = 0
+
+        async function init() {
+            const overlay = document.getElementById('loading-overlay')
+            
+            try {
+                // Secure check profile
+                const result = await requireProfile();
+                if (!result) return; 
+
+                const { user, profile } = result;
+                currentUser = user;
+
+                const displayName = profile.username || profile.full_name || 'Engineer'
+                const initials = (profile.username || profile.full_name || 'E').charAt(0).toUpperCase()
+                
+                navUsername.textContent = displayName
+                
+                if (profile.avatar_url) {
+                    const ringEl = document.getElementById('nav-avatar-ring');
+                    ringEl.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full rounded-xl object-cover">`;
+                    ringEl.classList.remove('bg-blue-600');
+                    ringEl.classList.add('bg-white', 'p-0.5', 'border', 'border-border');
+                } else if (navInitials) {
+                    navInitials.textContent = initials;
+                }
+                
+                navXP.textContent = `${profile.xp || 0} XP`
+                navStreak.textContent = profile.streak || 0
+
+                // Launch custom simulations
+                renderConsistentHeatmap()
+                renderSubjectPredictions()
+                loadActiveDeck()
+                switchVivaExamSubject()
+
+                // Hide loading overlay
+                overlay.style.opacity = '0'
+                setTimeout(() => overlay.remove(), 500)
+
+            } catch (err) {
+                console.error('AI Classroom load error:', err)
+                window.location.replace('/auth.html')
+            }
+        }
+
+        // Global switcher
+        window.switchAIPanel = function(panelId) {
+            const panels = ['professor', 'predictor', 'flashcards', 'transformer']
+            panels.forEach(p => {
+                document.getElementById(`panel-${p}`).classList.add('hidden')
+                document.getElementById(`tab-${p}`).className = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-950 transition-all"
+            })
+            document.getElementById(`panel-${panelId}`).classList.remove('hidden')
+            document.getElementById(`tab-${panelId}`).className = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm transition-all"
+        }
+
+        // Heatmap Grid generator
+        function renderConsistentHeatmap() {
+            const heatmapContainer = document.getElementById('consistency-heatmap-matrix')
+            if (!heatmapContainer) return;
+            
+            let htmlMsg = ''
+            const daysCount = 84 // 12 weeks
+            for (let i = 0; i < daysCount; i++) {
+                // Generate a simulated value (0 is grey, 1-3 are green steps)
+                let activityLevel = 0
+                if (i % 3 === 0) activityLevel = 1
+                if (i % 7 === 0) activityLevel = 2
+                if (i % 11 === 0 || i === 83) activityLevel = 3
+                
+                let tileColor = 'bg-slate-100 dark:bg-slate-800'
+                if (activityLevel === 1) tileColor = 'bg-emerald-250 dark:bg-emerald-900/60'
+                if (activityLevel === 2) tileColor = 'bg-emerald-450 dark:bg-emerald-700/80'
+                if (activityLevel === 3) tileColor = 'bg-emerald-650 dark:bg-emerald-500'
+                
+                const hoverTexts = [
+                    "0 revisions logged.",
+                    "Streaks preserved. Finished 1 quick formula card.",
+                    "Syllabus tracking complete. Commited matrices calculations.",
+                    "Prestige Level milestone: Finished PPS structures and laboratory simulation!"
+                ]
+                
+                htmlMsg += `<div class="w-3.5 h-3.5 rounded-sm ${tileColor} cursor-pointer heatmap-cell" title="${hoverTexts[activityLevel]}" onclick="alert('${hoverTexts[activityLevel]}')"></div>`
+            }
+            heatmapContainer.innerHTML = htmlMsg
+        }
+
+        // Active AI Predictor parameters
+        const predictionsDB = {
+            PPS: [
+                { q: "1. Define structures and explain difference between unions and structures in detail with examples.", score: "94% Chance", type: "10-Mark Question" },
+                { q: "2. Write a program to execute string copy and string concatenate operations without standard library functions.", score: "91% Chance", type: "10-Mark Question" },
+                { q: "3. Explain control loops: nested loops and switch condition layouts with functional flowcharts.", score: "89% Chance", type: "5-Mark Question" },
+                { q: "4. Differentiate pass-by-value and pass-by-reference pointer parameters.", score: "84% Chance", type: "5-Mark Question" }
+            ],
+            M1: [
+                { q: "1. State Cayley-Hamilton theorem. Find characteristic equation and compute inverse of matrix A.", score: "95% Chance", type: "10-Mark Question" },
+                { q: "2. Formulate and state Lagrange Mean Value Theorem (LMVT) with structural coordinate proofs.", score: "92% Chance", type: "10-Mark Question" },
+                { q: "3. Solve double integrals mapping polar coordinate parameters over bounds.", score: "87% Chance", type: "5-Mark Question" },
+                { q: "4. State Beta-Gamma function relationships.", score: "81% Chance", type: "5-Mark Question" }
+            ],
+            Physics: [
+                { q: "1. Setup interference condition in thin films and derive formula for diameter of Newton's rings.", score: "93% Chance", type: "10-Mark Question" },
+                { q: "2. Differentiate spontaneous and stimulated laser emission boundaries. Formulate Einstein coefficients.", score: "90% Chance", type: "10-Mark Question" },
+                { q: "3. Formulate Schrödinger's 1-dimensional time-independent wave equation. Determine quantization bounds.", score: "86% Chance", type: "10-Mark Question" },
+                { q: "4. State Hall Effect and formulate drift coefficient constraints.", score: "82% Chance", type: "5-Mark Question" }
+            ],
+            Chemistry: [
+                { q: "1. Elaborate on Demineralization treatment scheme using Cation and Anion ion exchangers.", score: "94% Chance", type: "10-Mark Question" },
+                { q: "2. Describe electrochemistry theories representing Cathodic protection and sacrificial anode schemes.", score: "91% Chance", type: "10-Mark Question" },
+                { q: "3. Detail lead-acid battery discharge formulas and green method methodologies.", score: "85% Chance", type: "10-Mark Question" }
+            ]
+        }
+
+        window.renderSubjectPredictions = function() {
+            const sub = document.getElementById('predictor-sub-selector').value
+            const list = predictionsDB[sub] || []
+            const container = document.getElementById('predictor-list')
+            
+            container.innerHTML = list.map(item => `
+                <div class="p-4 bg-slate-50 dark:bg-slate-900/40 border border-border rounded-2xl flex items-center justify-between group hover:border-[#f43f5e] transition-all">
+                    <div class="pr-3 flex-1">
+                        <span class="text-[8px] font-black uppercase text-slate-400 tracking-wider">${item.type}</span>
+                        <h4 class="text-xs font-extrabold text-slate-900 dark:text-white mt-1 group-hover:text-[#f43f5e] transition-colors leading-relaxed">${item.q}</h4>
+                    </div>
+                    <div class="text-right whitespace-nowrap min-w-[70px]">
+                        <span class="px-2 py-1 bg-rose-50 dark:bg-rose-950/30 text-[#f43f5e] text-[9px] font-black uppercase tracking-wider rounded-lg border border-rose-100 dark:border-rose-900/40">${item.score}</span>
+                    </div>
+                </div>
+            `).join('')
+        }
+
+        // Apply Roadmap
+        window.applyRoadmapPlan = function(planType) {
+            alert(`Smart Study Roadmap updated: Activated the ${planType.toUpperCase()} schema. Countdown timers and specific unit priority files are targeted dynamically!`);
+        }
+
+        // Flashcards state
+        const flashDecks = {
+            M1: [
+                { q: "Matrices: Write down the characteristic determinant equation.", a: "det(A - λI) = 0", d: "λ represents eigenvalues. Expand det over bounds to find the characteristic polynomial." },
+                { q: "Matrices: Trace property of eigenvalues theorem.", a: "Sum of eigenvalues = Trace of Matrix", d: "Highly useful for fast exam verification without completing factorization steps." },
+                { q: "Jacobians: Formulation formula mapping Cartesian coordinates to Polar.", a: "J = r", d: "Used extensively in double and triple calculus integrals; maps x=r cos(θ), y=r sin(θ)." }
+            ],
+            Physics: [
+                { q: "Laser: Define population inversion relationship.", a: "N₂ > N₁", d: "Prerequisite for laser amplification. Forces stimulated emission over spontaneous decay." },
+                { q: "Optical: Formula representing diameter Dn of the nth dark Newton loop.", a: "Dn² = 4nλR", d: "R represents curvature of the plano-convex crystal lens; n indicates ring integer number." }
+            ],
+            BEEE: [
+                { q: "Circuits: Write down Superposition Theorem constraints.", a: "Valid for linear bilateral circuits only.", d: "Solve contribution from one independent supply state at a time, deactivated sources short/open." },
+                { q: "Power: Formulate active AC power parameters representation.", a: "P = V * I * cos(φ)", d: "cos(φ) represents power factor multiplier. Expressed as Watts." }
+            ]
+        }
+
+        let activeDeckName = 'M1'
+        let activeCardIndex = 0
+
+        window.selectFlashcardDeck = function(deckName) {
+            activeDeckName = deckName
+            activeCardIndex = 0
+            
+            document.querySelectorAll(`button[onclick*="selectFlashcardDeck"]`).forEach(b => {
+                b.className = "flex items-center justify-between p-4 rounded-xl border border-border text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-all"
+            })
+            const actBtn = document.getElementById(`deck-btn-${deckName}`)
+            if (actBtn) {
+                actBtn.className = "flex items-center justify-between p-4 rounded-xl border-2 border-indigo-600 dark:border-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/20 text-left transition-all"
+            }
+            loadActiveDeck()
+        }
+
+        function loadActiveDeck() {
+            const list = flashDecks[activeDeckName] || []
+            const card = list[activeCardIndex]
+            if(!card) return;
+
+            document.getElementById('flash-card-inner').classList.remove('flip-card-flipped')
+            document.getElementById('flash-front-title').innerText = card.q
+            document.getElementById('flash-back-answer').innerText = card.a
+            document.getElementById('flash-back-desc').innerText = card.d
+        }
+
+        window.flipActiveFlashcard = function() {
+            document.getElementById('flash-card-inner').classList.toggle('flip-card-flipped')
+        }
+
+        window.recordFlashcardResult = function(success, event) {
+            event.preventDefault()
+            event.stopPropagation()
+            
+            if(success) {
+                completedFlashcardsCount++
+                document.getElementById('stat-cards-learned').innerText = completedFlashcardsCount
+            }
+            
+            const list = flashDecks[activeDeckName] || []
+            activeCardIndex = (activeCardIndex + 1) % list.length
+            loadActiveDeck()
+        }
+
+        // AI Chat Personalities core mock answers fallback
+        const mockRaoExplanations = {
+            "matrix": "**VERDICT: GRADE 6/10**\n\nYour understanding is shallow. To score full 10 marks on **Cayley-Hamilton Theorems**, you MUST define the characteristic equation first:\n$$\\text{det}(A - \\lambda I) = 0$$\n\nMultiply out the coefficients. Do not make standard algebraic calculation errors when subtracting $\\lambda$ from the primary diagonal. S₁ represents Trace, S₂ is sum of minors, S₃ is determinant. If you drop the minors, you will receive zero credit. Copy down this structure during exam reviews!",
+            "laser": "**RATING: INCOMPLETE**\n\nEinstein relationships are precise. Do not write 'lasers are neat'. Instead, state populations ratio under thermal equilibrium:\n$$\\frac{N_2}{N_1} = e^{-\\frac{h\\nu}{kT}}$$\nTo trigger laser action, you must execute **population inversion** ($N_2 > N_1$) using optical pumping techniques over metasensors. Re-read the derivation notes immediately!",
+            "green chemistry": "**GRADE: B+-**\n\nExplain the 12 Principles simply. Key focus: Atom Economy index score formula:\n$$\\%\\text{ Atom Economy} = \\frac{\\text{Formula weight of target}}{\\text{Formula weight of all reactants}} \\times 100$$\nIf you omit the final numerical division, examiners will take off 3 marks instantly.",
+            "green method": "**GRADE: B+-**\n\nExplain the 12 Principles simply. Key focus: Atom Economy index score formula:\n$$\\%\\text{ Atom Economy} = \\frac{\\text{Formula weight of target}}{\\text{Formula weight of all reactants}} \\times 100$$\nIf you omit the final numerical division, examiners will take off 3 marks instantly."
+        }
+
+        const mockSeniorExplanations = {
+            "matrix": "Bro! Honestly, Maths I is super easy if you spot the examiners' patterns. They ALWAYS repeat the same 10-mark Cayley-Hamilton matrices. For a 3x3 diagonal system, check determinant immediately. If det is 0, λ=0 is a solution. Also, just remember λ³ - S₁λ² + S₂λ - |D| = 0. No need to calculate long matrices manually!",
+            "laser": "Listen here, lasers are basically about trapping photons. Just remember Spontaneous vs Stimulated. Stimulated is the laser (since a photon triggers another). In the exam, draw the two energy lines, show the dot coming down, and draw TWO output waves. Boom! Easy 10 marks.",
+            "green chemistry": "Okay, from my own paper review: Green Chemistry is basically 'don't pollute'. There are 12 rules, but you only need to memorize 5 (Atom economy, non-toxic products, green solvents, energy design, waste prevention). List them in a clean numbered bento box and the Corrector will sign off with full marks."
+        }
+
+        const mockCoachExplanations = {
+            "matrix": "⏱ SUMMARY SPEEDWAY:\n- Write down: $det(A - \\lambda I) = 0$\n- Subtract $\\lambda$ from diagonal cells.\n- Expand determinant.\n- Verify: Trace of A equals sum of eigenvalues λ₁ + λ₂ + λ₃.\n- Substitute matrix A back into polynomial key to prove Cayley-Hamilton. Done.",
+            "laser": "⏱ QUICK REVISION POINTERS:\n- Populations: N₁ and N₂ levels.\n- Spontaneous: Random timing, incoherent.\n- Stimulated: Photon-induced, coherent, monochromatic.\n- Active medium, Population Inversion ($N_2 > N_1$), Optical Resonance cavities are the key structural requirements."
+        }
+
+        const mockVivaExplanations = {
+            "matrix": "VIVA PROMPT: What is the rank of an identity matrix of size nxn?\n\n*ANSWER*: It is n, since all pivots are non-zero. If you hesitate in front of the external examiner, your reputation rating declines by 3 points!",
+            "laser": "VIVA PROMPT: Why are Newton's Rings circular?\n\n*ANSWER*: Because the air wedge is formed between a spherical plano-convex glass and a flat glass plate, making the locus of constant thicknesses concentric circles.",
+            "green chemistry": "VIVA PROMPT: What does Atom Economy indicate?\n\n*ANSWER*: It tracks how many atoms of the entry reactants actually remain inside the final refined products instead of waste."
+        }
+
+        window.professorTypeSelected = 'strict'
+
+        window.selectProfessorType = function(profId) {
+            window.professorTypeSelected = profId
+            const elements = ['strict', 'senior', 'coach', 'viva']
+            elements.forEach(e => {
+                document.getElementById(`prof-btn-${e}`).className = "flex items-center gap-4 p-4 rounded-2xl border border-border transition-all text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 group text-slate-850"
+            })
+            
+            const titles = {
+                strict: "Strict Professor Prof. Rao",
+                senior: "Friendly Senior Venkat",
+                coach: "Fast Revision Coach",
+                viva: "Lab Viva Examiner"
+            }
+            const avatars = {
+                strict: "👹",
+                senior: "🎓",
+                coach: "🏃‍♂️",
+                viva: "🧐"
+            }
+            
+            document.getElementById(`prof-btn-${profId}`).className = "flex items-center gap-4 p-4 rounded-2xl border-2 border-indigo-600 dark:border-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/20 transition-all text-left group"
+            document.getElementById('prof-avatar').innerText = avatars[profId]
+            document.getElementById('prof-chat-title').innerText = titles[profId]
+            
+            const chatSub = document.getElementById('prof-chat-subtitle')
+            if(profId === 'strict') {
+                chatSub.innerText = "Tough grading parameters applied"
+                chatSub.className = "text-[9px] font-bold text-red-500 dark:text-red-400 uppercase tracking-widest leading-none mt-1"
+            } else if(profId === 'senior') {
+                chatSub.innerText = "Relaxed relaxed casual standards active"
+                chatSub.className = "text-[9px] font-bold text-emerald-500 dark:text-emerald-400 uppercase tracking-widest leading-none mt-1"
+            } else if(profId === 'coach') {
+                chatSub.innerText = "Lightning fast summarized bullets mode"
+                chatSub.className = "text-[9px] font-bold text-blue-500 dark:text-blue-400 uppercase tracking-widest leading-none mt-1"
+            } else {
+                chatSub.innerText = "Viva quiz simulation logging active"
+                chatSub.className = "text-[9px] font-bold text-amber-500 dark:text-amber-400 uppercase tracking-widest leading-none mt-1"
+            }
+            
+            // Clear message list or reset message
+            const dialogContainer = document.getElementById('professor-chat-messages')
+            dialogContainer.innerHTML = `
+                <div class="chat-message flex items-start gap-3">
+                    <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow">${avatars[profId]}</div>
+                    <div class="bg-indigo-50/50 dark:bg-slate-950/30 border border-border rounded-r-2xl rounded-bl-2xl p-4 max-w-[85%] text-xs font-medium leading-relaxed">
+                        <p class="font-extrabold text-[#f43f5e] uppercase tracking-wider text-[9px] mb-1">${titles[profId]}</p>
+                        Mode: ${titles[profId]} unlocked. Input search topics or questions below!
+                    </div>
+                </div>
+            `
+        }
+
+        window.sendProfessorMessage = async function() {
+            const input = document.getElementById('prof-chat-input')
+            const text = input.value.trim()
+            if(!text) return;
+            
+            input.value = ''
+            
+            const dialogContainer = document.getElementById('professor-chat-messages')
+            
+            // Add user message to display
+            dialogContainer.innerHTML += `
+                <div class="chat-message flex items-start justify-end gap-3">
+                    <div class="bg-indigo-600 text-white border border-indigo-750 rounded-l-2xl rounded-br-2xl p-4 max-w-[85%] text-xs font-medium leading-relaxed">
+                        <p class="font-extrabold text-indigo-200 uppercase tracking-wider text-[9px] mb-1">User Query</p>
+                        ${text}
+                    </div>
+                </div>
+            `
+            dialogContainer.scrollTop = dialogContainer.scrollHeight
+
+            // Loading state bubble
+            const loadingBubbleId = "chat-loading-bubble"
+            dialogContainer.innerHTML += `
+                <div id="${loadingBubbleId}" class="chat-message flex items-start gap-3 select-none">
+                    <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow">🧠</div>
+                    <div class="bg-slate-50 dark:bg-slate-950/20 border border-border rounded-r-2xl rounded-bl-2xl p-4 text-xs italic text-slate-400 flex items-center gap-2">
+                        <div class="w-3.5 h-3.5 border-2 border-slate-250 border-t-indigo-650 rounded-full animate-spin"></div>
+                        Generating structural verdict...
+                    </div>
+                </div>
+            `
+            dialogContainer.scrollTop = dialogContainer.scrollHeight
+
+            // Try real server API endpoint
+            try {
+                const response = await fetch("/api/ai/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        message: `Provide feedback in the character of ${window.professorTypeSelected.toUpperCase()} on: ${text}`,
+                        history: []
+                    })
+                });
+                
+                const data = await response.json();
+                document.getElementById(loadingBubbleId).remove();
+                
+                let answerText = data.text || "Database connection trace missing."
+                
+                const av = { strict: "👹", senior: "🎓", coach: "🏃‍♂️", viva: "🧐" }[window.professorTypeSelected]
+                dialogContainer.innerHTML += `
+                    <div class="chat-message flex items-start gap-3 select-text">
+                        <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow">${av}</div>
+                        <div class="bg-indigo-50/50 dark:bg-slate-950/30 border border-border rounded-r-2xl rounded-bl-2xl p-4 max-w-[85%] text-xs font-medium leading-relaxed dark:text-slate-350">
+                            ${answerText.replace(/\n/g, '<br>')}
+                        </div>
+                    </div>
+                `
+            } catch (err) {
+                // Fallback to local high-yield predefined rules
+                console.error("Using predefined fallback rules.", err);
+                document.getElementById(loadingBubbleId).remove();
+                
+                const keyWord = Object.keys(mockRaoExplanations).find(k => text.toLowerCase().includes(k)) || "matrix"
+                let customVerdict = ''
+                if(window.professorTypeSelected === 'strict') {
+                    customVerdict = mockRaoExplanations[keyWord]
+                } else if(window.professorTypeSelected === 'senior') {
+                    customVerdict = mockSeniorExplanations[keyWord] || "Honestly bro, just write some equations, they rarely read the code logic deeply!"
+                } else if(window.professorTypeSelected === 'coach') {
+                    customVerdict = mockCoachExplanations[keyWord] || "Summary pointers: Clear concepts, study derivations, skip unnecessary definitions, draw neat diagrams."
+                } else {
+                    customVerdict = mockVivaExplanations[keyWord] || "Viva Exam Question: Differentiate structures and unions. Answer: Structure sets distinct memory; Union shares same container blocks."
+                }
+
+                const av = { strict: "👹", senior: "🎓", coach: "🏃‍♂️", viva: "🧐" }[window.professorTypeSelected]
+                dialogContainer.innerHTML += `
+                    <div class="chat-message flex items-start gap-3 select-text">
+                        <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow">${av}</div>
+                        <div class="bg-indigo-50/50 dark:bg-slate-950/30 border border-border rounded-r-2xl rounded-bl-2xl p-4 max-w-[85%] text-xs font-medium leading-relaxed dark:text-slate-300">
+                            ${customVerdict.replace(/\n/g, '<br>')}
+                        </div>
+                    </div>
+                `
+            }
+            dialogContainer.scrollTop = dialogContainer.scrollHeight
+        }
+
+        // Auto Notes transform engine
+        window.transformTextToNotes = function(event) {
+            event.preventDefault()
+            const inputVal = document.getElementById('transformer-input').value.trim()
+            if(!inputVal) {
+                alert("Please paste some paragraphs or raw equations to transform first!")
+                return;
+            }
+
+            const loader = document.getElementById('transformer-output-loading')
+            const placeholder = document.getElementById('transformer-output-placeholder')
+            const resultPanel = document.getElementById('transformer-output-result')
+            const phaseTxt = document.getElementById('transformer-phase')
+
+            placeholder.classList.add('hidden')
+            resultPanel.classList.add('hidden')
+            loader.classList.remove('hidden')
+            
+            // Phase animation
+            setTimeout(() => {
+                phaseTxt.innerText = "Phase 2: Distilling Syllabus Formulas"
+                setTimeout(() => {
+                    phaseTxt.innerText = "Phase 3: Formatting Answers Sheet Map"
+                    setTimeout(() => {
+                        loader.classList.add('hidden')
+                        resultPanel.classList.remove('hidden')
+                        
+                        const sub = document.getElementById('transformer-subject').value
+                        document.getElementById('transformed-subject-tag').innerText = sub
+                        document.getElementById('transformed-title').innerText = "Distilled Guide: Fast Survival Deck"
+                        
+                        document.getElementById('transformer-output-body').innerHTML = `
+                            <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-border rounded-xl">
+                                <h5 class="text-xs font-black uppercase text-indigo-600 mb-1 leading-none">Distilled Formula Key</h5>
+                                <p class="text-xs text-slate-900 dark:text-white leading-relaxed">y = f(x) constraints defined over boundaries. Standard verification: Prove Lagrange constants inside $(a, b)$ bounds.</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-border rounded-xl">
+                                <h5 class="text-xs font-black uppercase text-indigo-600 mb-1 leading-none">Critical Answer headings suggested by Examiners</h5>
+                                <p class="text-xs text-slate-900 dark:text-white leading-relaxed">- **Mathematical Setup**: Define equations bounds.\n- **Derivation parameters**: Multiply pivots properly.\n- **Conclusion proof**: Relate variables cleanly.</p>
+                            </div>
+                        `
+                    }, 1200)
+                }, 1000)
+            }, 800)
+        }
+
+        // Lab Viva Database selectors
+        const vivaDB = {
+            PPS_C: [
+                { q: "Define structure variables size in C.", r: "Sum of size of all its members (with potential compiler boundaries/alignment bits)." },
+                { q: "What is string termination indicator in arrays?", r: "The null character: '\\0'. It tells compilers when arrays terminate." },
+                { q: "Differentiate active malloc() vs calloc().", r: "malloc allocates uninitialized slot blocks; calloc sets all cells to zero values." }
+            ],
+            Physics_Lab: [
+                { q: "State optical conditions for interference rings.", r: "Coherent light sources, very thin air thickness wedge, light reflecting on Plano-conventions." },
+                { q: "Why call them Newton's Rings?", r: "Because Sir Isaac Newton investigated and described circular interference shapes mathematically first." }
+            ],
+            Chemistry_Lab: [
+                { q: "What water hardness is quantified in titrated EDTA tests?", r: "Total hardness (Calcium Ca²⁺ and Magnesium Mg²⁺ concentration ions)." },
+                { q: "Explain the Indicator molecule in water hardness.", r: "Erio Chrome Black-T (EBT). It produces wine red complexes with magnesium." }
+            ],
+            Beee_Lab: [
+                { q: "State target rules in Superposition checks.", r: "Turn off current sources by opening them, replace voltage sources by complete short wire blocks." },
+                { q: "Explain the function of DC tachometer models.", r: "Translates motor rotational velocity bounds directly to equivalent proportional DC voltage peaks." }
+            ]
+        }
+
+        window.switchVivaAnswer = function(index) {
+            const el = document.getElementById(`viva-ans-${index}`)
+            if(el) {
+                el.classList.toggle('hidden')
+            }
+        }
+
+        window.switchVivaExamSubject = function() {
+            const selectorVal = document.getElementById('viva-subject-selector').value
+            const list = vivaDB[selectorVal] || []
+            const grid = document.getElementById('viva-cards-grid')
+            
+            grid.innerHTML = list.map((item, index) => `
+                <div class="p-5 bg-white dark:bg-slate-900 border border-border rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-2 mb-3.5 select-none">
+                        <span class="w-2.5 h-2.5 bg-indigo-600 rounded-full"></span>
+                        <span class="text-[9px] text-[#4f46e5] font-black uppercase tracking-widest">Question ${index + 1}</span>
+                    </div>
+                    <h4 class="text-xs font-black text-slate-950 dark:text-white leading-normal mb-4">${item.q}</h4>
+                    <button onclick="switchVivaAnswer(${index})" class="w-full py-2 bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 text-[#4f46e5] dark:text-indigo-400 font-extrabold text-[9px] uppercase tracking-widest rounded-lg border border-indigo-200/40 transition-colors">Toggle Answer Verdict</button>
+                    <div id="viva-ans-${index}" class="hidden p-4 bg-slate-50 dark:bg-slate-950/30 rounded-xl border border-border text-xs text-slate-700 dark:text-slate-350 leading-relaxed mt-4 animate-fade-up">
+                        ${item.r}
+                    </div>
+                </div>
+            `).join('')
+        }
+
+        // Lofi player play action
+        window.toggleLofiBeats = function() {
+            const player = document.getElementById('lofi-player')
+            const btn = document.getElementById('audio-wave-btn')
+            const bars = document.getElementById('wave-bars').querySelectorAll('span')
+            
+            if (player.paused) {
+                player.play()
+                btn.innerText = "⏸"
+                bars.forEach(b => b.classList.add('animate-pulse'))
+            } else {
+                player.pause()
+                btn.innerText = "▶"
+                bars.forEach(b => b.classList.remove('animate-pulse'))
+            }
+        }
+
+        // Global Panic mode implementation
+        window.togglePanicModeGlobal = function() {
+            const isPanic = localStorage.getItem('panic-mode') === 'active'
+            const body = document.body
+            const banner = document.getElementById('panic-banner')
+            const appNav = document.getElementById('app-nav')
+
+            if(isPanic) {
+                localStorage.setItem('panic-mode', 'inactive')
+                body.classList.remove('panic-mode-active')
+                banner.classList.add('hidden')
+                appNav.classList.remove('panic-mode-active')
+                document.getElementById('brand-highlight').className = 'text-blue-600'
+                document.getElementById('nav-badge').className = 'absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20'
+            } else {
+                localStorage.setItem('panic-mode', 'active')
+                body.classList.add('panic-mode-active')
+                banner.classList.remove('hidden')
+                appNav.classList.add('panic-mode-active')
+                document.getElementById('brand-highlight').className = 'text-[#f43f5e]'
+                document.getElementById('nav-badge').className = 'absolute inset-0 bg-gradient-to-br from-red-650 to-rose-750 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-red-500/20'
+                
+                // Set Panic countdown timer
+                let hours = 9, minutes = 42, seconds = 15
+                setInterval(() => {
+                    seconds--
+                    if(seconds < 0) { seconds = 59; minutes-- }
+                    if(minutes < 0) { minutes = 59; hours-- }
+                    if(hours < 0) { hours = 9; minutes = 42; seconds = 15 } // loop
+                    
+                    const hStr = hours.toString().padStart(2, '0')
+                    const mStr = minutes.toString().padStart(2, '0')
+                    const sStr = seconds.toString().padStart(2, '0')
+                    document.getElementById('panic-timer').innerHTML = `${hStr}h ${mStr}m ${sStr}s`
+                }, 1000)
+            }
+        }
+
+        // Preset theme check for panic mode
+        if(localStorage.getItem('panic-mode') === 'active') {
+            localStorage.setItem('panic-mode', 'inactive') // Reset once so togglePanicModeGlobal turns it on correctly on page init
+            togglePanicModeGlobal()
+        }
+
+        init()
+    </script>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
