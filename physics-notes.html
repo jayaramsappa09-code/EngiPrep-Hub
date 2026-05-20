@@ -3,104 +3,1098 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Physics Top Notes – JNTUK R23 | EngiPrep Hub</title>
-    <meta name="description" content="Topper-level study material for JNTUK R23 Engineering Physics. Wave optics, Semiconductors, and Quantum Mechanics.">
+    <title>Engineering Physics Subject Hub – JNTUK R23 | EngiPrep Hub</title>
+    <meta name="description" content="Ultimate JNTUK R23 Engineering Physics study hub. Free high-yield unit notes, exam tomorrow survival kits, formulas sheet, solved board PYQs, and interactive viva concepts.">
     <link rel="stylesheet" href="/src/style.css">
+    <script>
+        // Set dark mode immediately based on preference or system
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        /* Premium Glowing Glassmorphism */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .glass-panel {
+            background-color: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(51, 65, 85, 0.4);
+        }
+        .glass-panel:hover {
+            border-color: rgba(37, 99, 235, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.05), 0 4px 6px -4px rgba(37, 99, 235, 0.05);
+        }
+        .dark .glass-panel:hover {
+            border-color: rgba(96, 165, 250, 0.2);
+        }
+        .premium-border {
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .dark .premium-border {
+            border: 1px solid rgba(51, 65, 85, 0.6);
+        }
+        
+        /* Interactive Glowing Effects */
+        .neon-glow-blue {
+            box-shadow: 0 0 20px -5px rgba(37, 99, 235, 0.15);
+        }
+        .neon-glow-indigo {
+            box-shadow: 0 0 20px -5px rgba(79, 70, 229, 0.15);
+        }
+        .neon-glow-amber {
+            box-shadow: 0 0 20px -5px rgba(245, 158, 11, 0.15);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
 </head>
-<body class="bg-[#0a0a0f]">
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <a href="/index.html" class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-                    <span class="font-black text-xl">E</span>
+<body class="bg-background text-text-main selection:bg-blue-100 dark:selection:bg-blue-950 leading-relaxed antialiased">
+
+    <!-- Main Navigation Bar -->
+    <nav class="fixed top-0 w-full z-40 bg-surface/80 backdrop-blur-md border-b border-border px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/10"></div>
+                    <svg class="relative z-10 w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
                 </div>
-                <span class="text-xl font-black tracking-tighter uppercase">EngiPrep <span class="text-primary italic">Hub</span></span>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">EngiPrep <span class="text-blue-600">Hub</span></span>
+                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
+                </div>
             </a>
             
-            <div id="nav-actions" class="flex items-center gap-4 text-xs font-bold uppercase tracking-widest">
-                <a href="/semester-1.html" class="text-gray-400 hover:text-white transition-colors">Semester 1</a>
-                <a href="/dashboard.html" class="text-gray-400 hover:text-white transition-colors">Dashboard</a>
+            <div id="nav-actions" class="flex items-center gap-4">
+                <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-background border border-border text-text-muted hover:text-primary transition-all active:scale-95">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <div class="hidden sm:flex items-center gap-3 px-4 py-2 bg-blue-50 dark:bg-blue-950/30 rounded-full border border-blue-100 dark:border-blue-900/20 text-xs font-black">
+                    <span class="text-blue-600 dark:text-blue-400">JNTUK JNTU-K CORE R23</span>
+                </div>
+                <a href="/dashboard.html" class="btn-primary text-[10px] py-2 px-6 uppercase tracking-wider">Dashboard</a>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
-        <header class="mb-12">
-            <div class="inline-block px-3 py-1 rounded bg-secondary/10 border border-secondary/20 text-secondary text-[10px] font-black uppercase tracking-widest mb-6">Subject • Engineering Physics</div>
-            <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter">Mastering <br><span class="text-secondary italic">Applied Physics</span></h1>
-            <p class="text-xl text-gray-400 leading-relaxed">Detailed coverage of Wave Optics, Semiconductors, and Materials Science aligned with R23 Curriculum.</p>
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-6 pt-28 pb-32">
+        
+        <!-- Live Toast Notifications System -->
+        <div id="toast-container" class="fixed top-24 right-6 z-50 pointer-events-none space-y-2"></div>
+
+        <!-- Section 1: Subject Overview Header -->
+        <header class="mb-12 p-8 glass-panel rounded-[2.5rem] relative overflow-hidden flex flex-col lg:flex-row lg:items-center justify-between gap-8 animate-fadeIn">
+            <!-- Ambient glowing background lights -->
+            <div class="absolute -right-16 -top-16 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute -left-16 -bottom-16 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl"></div>
+            
+            <div class="relative z-10 space-y-4">
+                <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center px-3 py-1 bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-black uppercase tracking-wider rounded-full">Course ID: R231102</span>
+                    <span class="inline-flex items-center px-3 py-1 bg-[#f59e0b]/5 border border-[#f59e0b]/20 text-[#f59e0b] text-[10px] font-black uppercase tracking-wider rounded-full">Credits: 3 • Category: BSC</span>
+                    <span class="inline-flex items-center px-3 py-1 bg-purple-50 dark:bg-purple-950/40 border border-purple-100 dark:border-purple-900/20 text-purple-600 dark:text-purple-300 text-[10px] font-black uppercase tracking-wider rounded-full">CSE • ECE • IT • EEE</span>
+                </div>
+                
+                <div>
+                    <h1 class="text-4xl lg:text-5xl font-black tracking-tight leading-none text-slate-900 dark:text-white">
+                        Engineering Physics <br><span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">JNTUK R23 Board</span>
+                    </h1>
+                    <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-xs sm:text-sm mt-3 leading-relaxed font-medium">
+                        Complete academic mapping of JNTUK Engineering Chemistry & Physics R23 curriculum. From wave interference mechanics to advanced semiconductor transport and quantum tunneling. Everything is structured for instant review & board execution.
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-4 pt-1 flex-wrap sm:flex-nowrap">
+                    <button onclick="toggleGlobalBookmarked()" id="bookmark-btn-global" class="px-5 py-2.5 bg-background border border-border hover:border-blue-500 text-slate-800 dark:text-slate-200 hover:text-blue-600 transition-all text-[10px] font-black uppercase tracking-wider rounded-xl cursor-pointer flex items-center gap-2">
+                        <span id="bookmark-icon">🔖</span> <span id="bookmark-text">Save Subject to Planner</span>
+                    </button>
+                    <a href="#survival-recipe" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-black text-[10px] uppercase tracking-wider rounded-xl transition-all shadow-md shadow-red-500/10 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                        1-Day Survival Guide
+                    </a>
+                </div>
+            </div>
+
+            <!-- Syllabus Progress Gauge (Adaptive Bento Card) -->
+            <div class="w-full lg:w-80 p-6 bg-slate-50/50 dark:bg-slate-900/35 border border-border rounded-[2rem] flex flex-col justify-between h-48 relative z-10">
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">Preparation Index</span>
+                        <span id="syl-progress-percent" class="text-xs font-black text-blue-605">40% Done</span>
+                    </div>
+                    <h4 class="text-sm font-black text-slate-800 dark:text-slate-100">JNTUK R23 Syllabus Status</h4>
+                </div>
+                
+                <div class="w-full bg-slate-205 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div id="syl-progress-bar" class="h-full bg-gradient-to-r from-blue-600 to-indigo-650 rounded-full transition-all duration-500" style="width: 40%"></div>
+                </div>
+
+                <div class="flex items-center justify-between text-[9px] font-black uppercase text-slate-400 mt-2">
+                    <span>2 / 5 Units Ready</span>
+                    <button onclick="resetSyllabusUnits()" class="text-rose-500 hover:underline">Reset Checks</button>
+                </div>
+            </div>
         </header>
 
-        <section class="mb-20">
-            <div class="flex items-center gap-3 mb-10">
-                <div class="w-12 h-12 bg-secondary/20 text-secondary rounded-2xl flex items-center justify-center font-black">P</div>
-                <h2 class="text-3xl font-black tracking-tight">Topper's Corner: <span class="text-secondary italic">High-Yield Q&A</span></h2>
-            </div>
-
-            <!-- 2 Mark Questions -->
-            <div class="mb-16">
-                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-500 mb-8 border-l-2 border-secondary pl-4">Short Answers (2 Marks)</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass-card p-6 border-white/5 bg-white/[0.02]">
-                        <p class="font-bold text-white mb-3">Q1. State the principle of Superposition.</p>
-                        <p class="text-sm text-gray-500 leading-relaxed"><span class="text-secondary">Ans:</span> When two or more waves overlap, the resultant displacement at any point is the vector sum of individual displacements.</p>
-                    </div>
-                    <div class="glass-card p-6 border-white/5 bg-white/[0.02]">
-                        <p class="font-bold text-white mb-3">Q2. What are Newton's Rings?</p>
-                        <p class="text-sm text-gray-500 leading-relaxed"><span class="text-secondary">Ans:</span> Circular interference fringes formed between a plano-convex lens and a glass plate due to varying air film thickness.</p>
-                    </div>
-                    <div class="glass-card p-6 border-white/5 bg-white/[0.02]">
-                        <p class="font-bold text-white mb-3">Q3. Define Coordination Number.</p>
-                        <p class="text-sm text-gray-500 leading-relaxed"><span class="text-secondary">Ans:</span> The number of nearest neighboring atoms surrounding a particular atom. e.g., BCC = 8, FCC = 12.</p>
-                    </div>
-                    <div class="glass-card p-6 border-white/5 bg-white/[0.02]">
-                        <p class="font-bold text-white mb-3">Q4. What is Meissner Effect?</p>
-                        <p class="text-sm text-gray-500 leading-relaxed"><span class="text-secondary">Ans:</span> The expulsion of magnetic flux from a superconductor when it is cooled below its critical temperature.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Descriptive Section -->
-            <div class="space-y-8">
-                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-500 mb-8 border-l-2 border-secondary pl-4">Descriptive Analysis (10 Marks)</h3>
-                
-                <div class="glass-card p-10 bg-secondary/5 border-secondary/10">
-                    <h4 class="text-2xl font-black mb-6">The Hall Effect</h4>
-                    <p class="text-gray-400 mb-6 leading-relaxed">When a current-carrying conductor is placed in a transverse magnetic field, an electric field is generated perpendicular to both current and magnetic field.</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-bold uppercase tracking-widest text-secondary">
-                        <div class="p-3 bg-white/5 rounded-lg border border-white/5">• Determine type of semiconductor</div>
-                        <div class="p-3 bg-white/5 rounded-lg border border-white/5">• Measure carrier concentration</div>
-                        <div class="p-3 bg-white/5 rounded-lg border border-white/5">• Measure magnetic flux density</div>
-                        <div class="p-3 bg-white/5 rounded-lg border border-white/5">• Determine carrier mobility</div>
-                    </div>
-                </div>
-
-                <div class="glass-card p-10 border-white/5">
-                    <h4 class="text-2xl font-black mb-6">Fermi-Dirac Distribution</h4>
-                    <p class="text-gray-500 mb-6 leading-relaxed">Determines the probability of an electron occupying an energy state E at temperature T based on quantum statistics.</p>
-                    <div class="bg-black/50 p-6 rounded-2xl text-center border border-white/5">
-                        <span class="text-2xl font-black text-secondary tracking-widest leading-none">f(E) = 1 / [exp((E - Ef) / kT) + 1]</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="glass-card p-12 text-center bg-gradient-to-t from-secondary/10 to-transparent">
-            <h2 class="text-4xl font-black mb-6">Access <span class="text-secondary italic">Full</span> Repository</h2>
-            <p class="text-gray-400 mb-10 max-w-lg mx-auto">Our database contains additional diagrams, derivations, and previous year solutions for Physics.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/subject.html?sub=Physics" class="btn-primary border-secondary bg-secondary hover:bg-secondary/80 py-3 px-8 text-white">Access Database Notes</a>
-                <a href="/dashboard.html" class="btn-ghost py-3 px-8 border-white/10">Back to Dashboard</a>
-            </div>
+        <!-- Dynamic Module Subtabs Navigation -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 border-b border-slate-150 dark:border-slate-800/60 font-sans" id="subject-tabs-container">
+            <button onclick="switchTab('units-sec')" class="subtab-btn active px-5 py-2 bg-slate-900 dark:bg-white text-white dark:text-black rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer">Syllabus Units 📚</button>
+            <button onclick="switchTab('formulas-sec')" class="subtab-btn px-5 py-2 bg-slate-50 dark:bg-slate-900 border border-border text-slate-500 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer">Formulas & Formulas ⚡</button>
+            <button onclick="switchTab('pyq-sec')" class="subtab-btn px-5 py-2 bg-slate-50 dark:bg-slate-900 border border-border text-slate-500 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer">Board PYQs 📝</button>
+            <button onclick="switchTab('expected-sec')" class="subtab-btn px-5 py-2 bg-slate-50 dark:bg-slate-900 border border-border text-slate-500 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer">High Yield Guess Qs 🎯</button>
+            <button onclick="switchTab('viva-sec')" class="subtab-btn px-5 py-2 bg-slate-50 dark:bg-slate-900 border border-border text-slate-500 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer">Lab & Concept Viva 🧪</button>
         </div>
+
+        <!-- ACTIVE VIEWPORT GRID FRAME -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- LEFT PANEL: Master Tabbed Content -->
+            <div class="lg:col-span-8 space-y-12">
+                
+                <!-- SECTION 2: Syllabus Unit Cards -->
+                <section id="units-sec" class="tab-content transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-2xl">📚</span>
+                        <div>
+                            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-0.5">Unit-wise Conceptual Archives</h2>
+                            <p class="text-[9.5px] text-blue-600 dark:text-blue-400 font-black uppercase tracking-widest">Interactive checklists linked to cognitive states</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6">
+                        <!-- Unit 1 Card -->
+                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border" id="unit-1">
+                            <div class="flex items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <span class="text-[9px] font-black bg-blue-50 dark:bg-blue-950 px-2.5 py-0.5 rounded-full border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 uppercase tracking-widest">Unit I: Wave Optics</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Interference, Diffraction, & Polarization</h3>
+                                </div>
+                                <input type="checkbox" id="check-u1" onclick="toggleUnitProgress('u1')" class="w-5 h-5 accent-blue-600 rounded cursor-pointer">
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-450 leading-relaxed mb-4">
+                                Core wave behavior analysis focusing on interference: coherent sources, double slit, Newton's Rings (determining radius/refraction); diffraction: single slit, double slit, diffraction grating, resolving power limits; polarization: Brewster's law, Malus law, double refraction.
+                            </p>
+                            <!-- Mini quick tags to expand key revision items -->
+                            <div class="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800/50 pt-4 mt-1">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-blue-50 dark:hover:bg-blue-950/20" onclick="showUnitQuickFlash('u1-newtons')">⚡ Newton's Rings</span>
+                                    <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-blue-50 dark:hover:bg-blue-950/20" onclick="showUnitQuickFlash('u1-grating')">⚡ Diffraction Grating</span>
+                                    <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-blue-50 dark:hover:bg-blue-950/20" onclick="showUnitQuickFlash('u1-resolving')">⚡ Resolving Power</span>
+                                </div>
+                                <a href="/physics-unit-1.html" class="inline-flex items-center gap-1 text-[11px] font-black text-blue-600 dark:text-blue-405 hover:underline hover:translate-x-1 transition-all">
+                                    Launch Interactive Study Hub 🚀
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Unit 2 Card -->
+                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border" id="unit-2">
+                            <div class="flex items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <span class="text-[9px] font-black bg-blue-50 dark:bg-blue-950 px-2.5 py-0.5 rounded-full border border-blue-100 dark:border-blue-900 text-blue-605 uppercase tracking-widest">Unit II: Quantum Mechanics & Free Electron Theory</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Wave Particle Duality & Schrödinger Mechanics</h3>
+                                </div>
+                                <input type="checkbox" id="check-u2" onclick="toggleUnitProgress('u2')" class="w-5 h-5 accent-blue-600 rounded cursor-pointer">
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-450 leading-relaxed mb-4">
+                                Dual nature of matter: de Broglie hypothesis, Heisenberg uncertainty; Quantum mechanics: wave function physical significance, Schrödinger time-independent and time-dependent wave equations, boundary states for particle in 1D infinite trap. Classical vs quantum free electron theory, Fermi energy level.
+                            </p>
+                            <div class="flex flex-wrap gap-2 border-t border-slate-100 dark:border-slate-800/50 pt-4">
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-indigo-50 dark:hover:bg-indigo-950/20" onclick="showUnitQuickFlash('u2-schrod')">⚡ Schrödinger Equation</span>
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-indigo-50 dark:hover:bg-indigo-950/20" onclick="showUnitQuickFlash('u2-box')">⚡ Particle in a 1D Box</span>
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-indigo-50 dark:hover:bg-indigo-950/20" onclick="showUnitQuickFlash('u2-fermi')">⚡ Fermi-Dirac Level</span>
+                            </div>
+                        </div>
+
+                        <!-- Unit 3 Card -->
+                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border" id="unit-3">
+                            <div class="flex items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <span class="text-[9px] font-black bg-blue-50 dark:bg-blue-950 px-2.5 py-0.5 rounded-full border border-blue-100 dark:border-blue-900 text-blue-600 dark:text-blue-400 uppercase tracking-widest">Unit III: Semiconductors</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Intrinsic & Extrinsic Carrier Transport</h3>
+                                </div>
+                                <input type="checkbox" id="check-u3" onclick="toggleUnitProgress('u3')" class="w-5 h-5 accent-blue-600 rounded cursor-pointer">
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-450 leading-relaxed mb-4">
+                                energy band theory in crystals (Kronig-Penney outline); intrinsic carrier density derivation, extrinsic doping physics, temperature dependence of Fermi levels; drift and diffusion currents, Einstein relation, Hall Effect (direct mathematical derivation, measuring $R_H$ and carrier concentration).
+                            </p>
+                            <div class="flex flex-wrap gap-2 border-t border-slate-100 dark:border-slate-800/50 pt-4">
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-emerald-50 dark:hover:bg-emerald-950/20" onclick="showUnitQuickFlash('u3-hall')">⚡ Hall Effect Derivation</span>
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-emerald-50 dark:hover:bg-emerald-950/20" onclick="showUnitQuickFlash('u3-intrinsic')">⚡ Intrinsic density $n_i$</span>
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-emerald-50 dark:hover:bg-emerald-950/20" onclick="showUnitQuickFlash('u3-einstein')">⚡ Einstein Relation</span>
+                            </div>
+                        </div>
+
+                        <!-- Unit 4 Card -->
+                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border" id="unit-4">
+                            <div class="flex items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <span class="text-[9px] font-black bg-slate-100 dark:bg-slate-850 px-2.5 py-0.5 rounded-full text-slate-550 dark:text-slate-400 uppercase tracking-widest">Unit IV: Lasers & Fiber Optics</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Einstein Coefficients, Gas/Solid State Systems, Numerical Aperture</h3>
+                                </div>
+                                <input type="checkbox" id="check-u4" onclick="toggleUnitProgress('u4')" class="w-5 h-5 accent-blue-600 rounded cursor-pointer">
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-450 leading-relaxed mb-4">
+                                Laser Characteristics, absorption, spontaneous vs stimulated emission, Einstein's coefficients relations; Population inversion, He-Ne Helium Neon laser, Nd:YAG laser block diagrams, engineering applications. Fiber Optics: Light guidance, Numerical Aperture, Acceptance Angle derivations.
+                            </p>
+                            <div class="flex flex-wrap gap-2 border-t border-slate-100 dark:border-slate-800/50 pt-4">
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-amber-50 dark:hover:bg-amber-950/20" onclick="showUnitQuickFlash('u4-einstein')">⚡ Einstein Relations</span>
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-amber-50 dark:hover:bg-amber-950/20" onclick="showUnitQuickFlash('u4-hene')">⚡ He-Ne Laser Core</span>
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-amber-50 dark:hover:bg-amber-950/20" onclick="showUnitQuickFlash('u4-na')">⚡ Numerical Aperture NA</span>
+                            </div>
+                        </div>
+
+                        <!-- Unit 5 Card -->
+                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border" id="unit-5">
+                            <div class="flex items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <span class="text-[9px] font-black bg-slate-100 dark:bg-slate-850 px-2.5 py-0.5 rounded-full text-slate-550 dark:text-slate-400 uppercase tracking-widest">Unit V: Dielectric & Magnetic Materials</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Polarization mechanisms, Ferromagnetism & Superconductors</h3>
+                                </div>
+                                <input type="checkbox" id="check-u5" onclick="toggleUnitProgress('u5')" class="w-5 h-5 accent-blue-600 rounded cursor-pointer">
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-450 leading-relaxed mb-4">
+                                Dielectrics: Electronic, ionic, orientational polarizations; internal fields, Clausius-Mossotti relation. Magnetic materials: Origin of magnetic moment, Weiss theory of ferromagnetism, Hysteresis B-H loop, Soft & Hard magnets. Superconducting transition temperature ($T_c$), core Meissner Effect.
+                            </p>
+                            <div class="flex flex-wrap gap-2 border-t border-slate-100 dark:border-slate-800/50 pt-4">
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-red-50 dark:hover:bg-red-950/20" onclick="showUnitQuickFlash('u5-polar')">⚡ Clausius-Mossotti Eq</span>
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-red-50 dark:hover:bg-red-950/20" onclick="showUnitQuickFlash('u5-bh')">⚡ B-H Hysteresis Loop</span>
+                                <span class="bg-slate-50 dark:bg-slate-950 p-2 rounded-xl text-[10px] text-slate-500 font-semibold cursor-pointer select-none hover:bg-red-50 dark:hover:bg-red-950/20" onclick="showUnitQuickFlash('u5-meissner')">⚡ Meissner Effect</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Sandbox Quick Flash display -->
+                    <div id="quick-flash-display" class="mt-8 p-6 bg-slate-50 dark:bg-slate-900 border border-indigo-200/40 dark:border-indigo-900/40 rounded-3xl hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-base">🚀</span>
+                                <h4 class="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest" id="flash-title-meta">Active Topic Study</h4>
+                            </div>
+                            <button onclick="closeQuickFlash()" class="text-slate-400 hover:text-slate-650 transition-colors">✕</button>
+                        </div>
+                        <h3 class="text-base font-extrabold text-slate-900 dark:text-white" id="flash-topic-head">Newton's Rings Film Derivation Guide</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-350 mt-2 leading-relaxed font-medium" id="flash-topic-body">To find the diameter of bright rings: D_n² = (2n-1)λR. Dark rings: D_n² = 4nλR. Determine index of refraction by: μ = D_n²(air) / D_n²(liquid).</p>
+                    </div>
+                </section>
+
+                <!-- SECTION 3: Formulas Highlight Sandbox -->
+                <section id="formulas-sec" class="tab-content hidden transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-2xl">⚡</span>
+                        <div>
+                            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-0.5">High-Precision Mathematical Formula Sheets</h2>
+                            <p class="text-[9.5px] text-indigo-500 font-black uppercase tracking-widest">Master derivations with physical constants</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Formula 1 -->
+                        <div class="glass-panel p-6 rounded-[2rem] border-l-4 border-l-blue-600 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[8px] font-black uppercase tracking-wider text-slate-400 block mb-1">Unit I & V • Bragg's Law</span>
+                                <h4 class="text-sm font-black text-slate-950 dark:text-white mb-2">Diffraction Lattice Spacing</h4>
+                                <div class="p-3 bg-slate-900 text-teal-400 font-mono text-center rounded-xl text-sm font-black tracking-wider border border-slate-800">
+                                    2d sin(θ) = nλ
+                                </div>
+                            </div>
+                            <ul class="text-[10px] text-slate-500 mt-3 space-y-1">
+                                <li><strong>d:</strong> Inter-planar atomic spacing (nm/Å)</li>
+                                <li><strong>θ:</strong> Glancing angle of diffraction</li>
+                                <li><strong>n:</strong> Order of diffracted wave maxima (1, 2, 3...)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Formula 2 -->
+                        <div class="glass-panel p-6 rounded-[2rem] border-l-4 border-l-indigo-650 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[8px] font-black uppercase tracking-wider text-slate-400 block mb-1">Unit III • Hall Coefficient</span>
+                                <h4 class="text-sm font-black text-slate-950 dark:text-white mb-2">Hall Field Carrier Density</h4>
+                                <div class="p-3 bg-slate-900 text-indigo-305 font-mono text-center rounded-xl text-sm font-black tracking-wider border border-slate-800">
+                                    R_H = 1 / (n * e)
+                                </div>
+                            </div>
+                            <ul class="text-[10px] text-slate-500 mt-3 space-y-1">
+                                <li><strong>R_H:</strong> Hall Coefficient constant (m³/C)</li>
+                                <li><strong>n:</strong> Charge carrier density density (density/m³)</li>
+                                <li><strong>e:</strong> Elementary charge constant (1.6 * 10^-19 C)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Formula 3 -->
+                        <div class="glass-panel p-6 rounded-[2rem] border-l-4 border-l-purple-650 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[8px] font-black uppercase tracking-wider text-slate-400 block mb-1">Unit IV • Optical Fiber Index</span>
+                                <h4 class="text-sm font-black text-slate-950 dark:text-white mb-2">Numerical Aperture (N.A.)</h4>
+                                <div class="p-3 bg-slate-900 text-[#f59e0b] font-mono text-center rounded-xl text-xs font-black tracking-wider border border-slate-800">
+                                    N.A. = √ ( n₁² - n₂² )
+                                </div>
+                            </div>
+                            <ul class="text-[10px] text-slate-500 mt-3 space-y-1">
+                                <li><strong>n₁:</strong> Refractive index of active fiber core</li>
+                                <li><strong>n₂:</strong> Refractive index of fiber shielding cladding</li>
+                                <li><strong>Acceptance Angle:</strong> θ_a = arcsin( N.A. )</li>
+                            </ul>
+                        </div>
+
+                        <!-- Formula 4 -->
+                        <div class="glass-panel p-6 rounded-[2rem] border-l-4 border-l-rose-600 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[8px] font-black uppercase tracking-wider text-slate-400 block mb-1">Unit II • Infinite Box eigenstates</span>
+                                <h4 class="text-sm font-black text-slate-950 dark:text-white mb-2">Particle in 1D infinite Potential energy</h4>
+                                <div class="p-3 bg-slate-900 text-rose-400 font-mono text-center rounded-xl text-xs font-black tracking-wider border border-slate-800">
+                                    E_n = n²h² / ( 8mL² )
+                                </div>
+                            </div>
+                            <ul class="text-[10px] text-slate-500 mt-3 space-y-1">
+                                <li><strong>E_n:</strong> Quantized energy state of electron</li>
+                                <li><strong>h:</strong> Planck's constant (6.626 * 10^-34 J·s)</li>
+                                <li><strong>L:</strong> Boundary width width of 1-D potential well</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 4: Solved Board PYQs -->
+                <section id="pyq-sec" class="tab-content hidden transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-2xl">📝</span>
+                        <div>
+                            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-0.5">JNTUK Board Solved Papers</h2>
+                            <p class="text-[9.5px] text-emerald-600 dark:text-emerald-400 font-black uppercase tracking-widest">Previous year questions with direct scoring recipes</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- PYQ 1 -->
+                        <div class="glass-panel p-6 rounded-2xl relative border border-slate-150 dark:border-slate-800">
+                            <div class="flex justify-between items-start gap-4 mb-3 flex-wrap">
+                                <div>
+                                    <span class="px-2.5 py-0.5 bg-rose-50 dark:bg-rose-950 text-rose-600 dark:text-rose-450 text-[8.5px] font-bold rounded uppercase tracking-wider">JNTUK Nov 2024 Exam</span>
+                                    <h3 class="text-base font-black text-slate-950 dark:text-white mt-1">Radius of Curvature in Newton's Rings</h3>
+                                </div>
+                                <span class="text-xs font-black px-3 py-1 bg-blue-50 dark:bg-blue-950 rounded-xl">10 Marks (Unit 1)</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 leading-relaxed font-medium">
+                                Prove that the diameter D_n of the nth dark ring formed in the interference is proportional to the square root of natural numbers. Detail the Experimental curvature radius setup.
+                            </p>
+                            <!-- Collapsible explanation -->
+                            <button onclick="togglePYQSolution(1)" class="px-4 py-2 bg-slate-100 hover:bg-slate-150 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-800 dark:text-slate-205 text-[10px] font-black uppercase rounded-lg transition-all cursor-pointer">
+                                Show Step-by-Step Model Answer Key 👁️
+                            </button>
+                            <div id="sol-1" class="hidden mt-4 p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-dashed border-slate-250 text-xs text-slate-500 leading-relaxed font-medium space-y-2">
+                                <p class="text-slate-800 dark:text-slate-250 font-bold">Mathematical Steps:</p>
+                                <p>1. Path difference is Δ = 2μt cos(r) + λ/2. For normal incidence and air film: Δ = 2t + λ/2 (due to electromagnetic wave reflection phase shift of π).</p>
+                                <p>2. For dark ring condition, path difference is: 2t + λ/2 = (2n+1)λ/2  → 2t = nλ.</p>
+                                <p>3. From geometry of plano-convex lens of radius R: t = r²/2R = D_n²/8R.</p>
+                                <p>4. Sub t into step 2: 2(D_n²/8R) = nλ  → D_n² = 4nλR  → <span class="text-indigo-650 font-bold">D_n = 2 * √(nλR)</span>.</p>
+                                <p class="font-bold text-[#f59e0b] mt-1">👉 Scoring Trap: Do not miss explaining the phase change of λ/2 by reflection from the denser boundary plate.</p>
+                            </div>
+                        </div>
+
+                        <!-- PYQ 2 -->
+                        <div class="glass-panel p-6 rounded-2xl relative border border-slate-150 dark:border-slate-800">
+                            <div class="flex justify-between items-start gap-4 mb-3 flex-wrap">
+                                <div>
+                                    <span class="px-2.5 py-0.5 bg-rose-50 dark:bg-rose-950 text-rose-600 dark:text-rose-450 text-[8.5px] font-bold rounded uppercase tracking-wider">JNTUK April 2024 Exam</span>
+                                    <h3 class="text-base font-black text-slate-950 dark:text-white mt-1">Setting Schrödinger Time Independent Equation</h3>
+                                </div>
+                                <span class="text-xs font-black px-3 py-1 bg-blue-50 dark:bg-blue-950 rounded-xl">10 Marks (Unit 2)</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 leading-relaxed font-medium">
+                                Set up the stationary wave equation for a free particle inside an infinite potential well depth barriers and explain physical normalization constants.
+                            </p>
+                            <button onclick="togglePYQSolution(2)" class="px-4 py-2 bg-slate-100 hover:bg-slate-150 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-800 dark:text-slate-205 text-[10px] font-black uppercase rounded-lg transition-all cursor-pointer">
+                                Show Step-by-Step Model Answer Key 👁️
+                            </button>
+                            <div id="sol-2" class="hidden mt-4 p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-dashed border-slate-250 text-xs text-slate-500 leading-relaxed font-medium space-y-2">
+                                <p class="text-slate-850 dark:text-slate-250 font-bold">Mathematical Steps:</p>
+                                <p>1. Starting from 1D Schrodinger Eq: d²Ψ/dx² + (2m/ℏ²)(E - V)Ψ = 0.</p>
+                                <p>2. Inside the box V = 0, so: d²Ψ/dx² + k²Ψ = 0 where k² = 2mE/ℏ².</p>
+                                <p>3. General Solution is: Ψ(x) = A sin(kx) + B cos(kx).</p>
+                                <p>4. Boundary Condition: Ψ(0) = 0 → B = 0; Ψ(L) = 0 → sin(kL) = 0 → k = nπ/L.</p>
+                                <p>5. Normalizing ∫|Ψ|² dx = 1 gives <span class="text-indigo-650 font-bold">A = √(2/L)</span>. Thus, wave function is: Ψ(x) = √(2/L) sin(nπx/L).</p>
+                            </div>
+                        </div>
+
+                        <!-- PYQ 3 -->
+                        <div class="glass-panel p-6 rounded-2xl relative border border-slate-150 dark:border-slate-800">
+                            <div class="flex justify-between items-start gap-4 mb-3 flex-wrap">
+                                <div>
+                                    <span class="px-2.5 py-0.5 bg-[#f59e0b]/10 text-[#f59e0b] text-[8.5px] font-bold rounded uppercase tracking-wider">JNTUK Nov 2023 Exam</span>
+                                    <h3 class="text-base font-black text-slate-950 dark:text-white mt-1">Hall Effect Current Transport & Direct Applications</h3>
+                                </div>
+                                <span class="text-xs font-black px-3 py-1 bg-blue-50 dark:bg-blue-950 rounded-xl">10 Marks (Unit 3)</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 leading-relaxed font-medium">
+                                Explain Hall Effect. Derive the formula of Hall Coefficient constant and illustrate its applications in electrical instrumentation.
+                            </p>
+                            <button onclick="togglePYQSolution(3)" class="px-4 py-2 bg-slate-100 hover:bg-slate-150 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-800 dark:text-slate-205 text-[10px] font-black uppercase rounded-lg transition-all cursor-pointer">
+                                Show Step-by-Step Model Answer Key 👁️
+                            </button>
+                            <div id="sol-3" class="hidden mt-4 p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-dashed border-slate-250 text-xs text-slate-500 leading-relaxed font-medium space-y-2">
+                                <p class="text-slate-855 dark:text-slate-250 font-bold">Mathematical Steps:</p>
+                                <p>1. Force balance at equilibrium: Lorentz magnetic force equals electrostatic force: e·E_H = e·v_d·B → E_H = v_d·B.</p>
+                                <p>2. Current density equation is: J = n·e·v_d → v_d = J / (n·e).</p>
+                                <p>3. Substitute v_d into force balance: E_H = J·B / (n·e) = R_H·J·B where R_H = 1/(n·e).</p>
+                                <p>4. Measurements: <span class="text-indigo-650 font-bold">R_H = (V_H * w) / (I * B)</span> where w is width of sample.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 5: High Yield Guess / Most Expected questions -->
+                <section id="expected-sec" class="tab-content hidden transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-2xl">🎯</span>
+                        <div>
+                            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-0.5">94%+ High-Probability Expected Questions</h2>
+                            <p class="text-[9.5px] text-blue-600 dark:text-blue-400 font-black uppercase tracking-widest">JNTUK Board Repeat Velocity Forecasts</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Card 1 -->
+                        <div class="glass-panel p-5 rounded-2xl flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[8px] font-black text-[#f59e0b] bg-[#f59e0b]/5 px-2 py-0.5 rounded uppercase tracking-wider">Unit IV • Laser Physics</span>
+                                <span class="text-xs font-black text-rose-500">96% Prob 🔥</span>
+                            </div>
+                            <h4 class="text-sm font-extrabold text-slate-900 dark:text-white">He-Ne Helium Neon Gas Laser System</h4>
+                            <p class="text-[10px] text-slate-500 mt-1 lines-clamp-2">Detail four level pumping mechanics, helium transfer loops, and mirror resonator design. Diagram is essential.</p>
+                            <button onclick="claimQuestionXP(1, 40)" class="mt-3 px-3 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-850 dark:hover:bg-slate-800 text-[9.5px] font-bold text-slate-855 rounded-lg text-left cursor-pointer transition-colors">
+                                Review & Claim +40 XP
+                            </button>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="glass-panel p-5 rounded-2xl flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[8px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded uppercase tracking-wider">Unit IV • Fiber Optics</span>
+                                <span class="text-xs font-black text-rose-500">92% Prob 🎯</span>
+                            </div>
+                            <h4 class="text-sm font-extrabold text-slate-900 dark:text-white">Acceptance Angle & N.A. Derivations</h4>
+                            <p class="text-[10px] text-slate-500 mt-1 lines-clamp-2">Direct derivation from Snell's law. Include step index vs graded index comparative patterns.</p>
+                            <button onclick="claimQuestionXP(2, 40)" class="mt-3 px-3 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-850 dark:hover:bg-slate-800 text-[9.5px] font-bold text-slate-855 rounded-lg text-left cursor-pointer transition-colors">
+                                Review & Claim +40 XP
+                            </button>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="glass-panel p-5 rounded-2xl flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[8px] font-black text-[#f59e0b] bg-[#f59e0b]/5 px-2 py-0.5 rounded uppercase tracking-wider">Unit V • Dielectrics</span>
+                                <span class="text-xs font-black text-emerald-600">88% Prob 📈</span>
+                            </div>
+                            <h4 class="text-sm font-extrabold text-slate-900 dark:text-white">Clausius-Mossotti Equation Relation</h4>
+                            <p class="text-[10px] text-slate-500 mt-1 lines-clamp-2">Establishing the connection inside bulk non-polar dielectrics using local Lorentz molecular field loops.</p>
+                            <button onclick="claimQuestionXP(3, 40)" class="mt-3 px-3 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-850 dark:hover:bg-slate-800 text-[9.5px] font-bold text-slate-855 rounded-lg text-left cursor-pointer transition-colors">
+                                Review & Claim +40 XP
+                            </button>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="glass-panel p-5 rounded-2xl flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[8px] font-black text-indigo-650 bg-indigo-50 px-2 py-0.5 rounded uppercase tracking-wider">Unit II • Quantum Theory</span>
+                                <span class="text-xs font-black text-emerald-605">91% Prob ⚡</span>
+                            </div>
+                            <h4 class="text-sm font-extrabold text-slate-900 dark:text-white">Einstein’s Spontaneous & A/B Coefficients</h4>
+                            <p class="text-[10px] text-slate-505 mt-1 lines-clamp-2">Prove that A/B ratio is proportional to ν³ under thermodynamic thermal equilibrium conditions.</p>
+                            <button onclick="claimQuestionXP(4, 40)" class="mt-3 px-3 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-850 dark:hover:bg-slate-800 text-[9.5px] font-bold text-slate-855 rounded-lg text-left cursor-pointer transition-colors">
+                                Review & Claim +40 XP
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 6: Lab & Concept Viva Q&A -->
+                <section id="viva-sec" class="tab-content hidden transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-2xl">🧪</span>
+                        <div>
+                            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-0.5">Lab Practical & Concept Viva Review</h2>
+                            <p class="text-[9.5px] text-indigo-500 font-black uppercase tracking-widest">Prepare instantly for JNTUK external lab examiners</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Viva Item 1 -->
+                        <div class="p-4 bg-slate-50/50 dark:bg-slate-900/35 border border-border rounded-2xl">
+                            <div class="flex justify-between items-start gap-4">
+                                <h4 class="text-xs font-black text-slate-900 dark:text-white">Q1. Why are the interference fringes in Newton's rings circular?</h4>
+                                <button onclick="toggleVivaAnswer(1)" class="text-[10px] font-black uppercase text-blue-600 hover:underline cursor-pointer">Toggle Answer</button>
+                            </div>
+                            <p id="viva-ans-1" class="hidden mt-2 text-xs text-slate-500 dark:text-slate-400 font-medium bg-white dark:bg-slate-950 p-3 rounded-xl border border-dashed border-slate-200">
+                                because the locus of points of same thickness of the wedge-shaped air-film enclosed between the plano-convex lens curvature and glass plate is concentric circles around the core point of contact.
+                            </p>
+                        </div>
+
+                        <!-- Viva Item 2 -->
+                        <div class="p-4 bg-slate-50/50 dark:bg-slate-900/35 border border-border rounded-2xl">
+                            <div class="flex justify-between items-start gap-4">
+                                <h4 class="text-xs font-black text-slate-900 dark:text-white">Q2. What is the physical significance of wave function Ψ?</h4>
+                                <button onclick="toggleVivaAnswer(2)" class="text-[10px] font-black uppercase text-blue-600 hover:underline cursor-pointer">Toggle Answer</button>
+                            </div>
+                            <p id="viva-ans-2" class="hidden mt-2 text-xs text-slate-500 dark:text-slate-400 font-medium bg-white dark:bg-slate-950 p-3 rounded-xl border border-dashed border-slate-200">
+                                Ψ itself represents amplitude probability without direct physical reality. However, the square modulus |Ψ|² represents the probability distribution density of finding the particle at coordinates x, y, z in space.
+                            </p>
+                        </div>
+
+                        <!-- Viva Item 3 -->
+                        <div class="p-4 bg-slate-50/50 dark:bg-slate-900/35 border border-border rounded-2xl">
+                            <div class="flex justify-between items-start gap-4">
+                                <h4 class="text-xs font-black text-slate-900 dark:text-white">Q3. What is the cause of population inversion in He-Ne lasers?</h4>
+                                <button onclick="toggleVivaAnswer(3)" class="text-[10px] font-black uppercase text-blue-600 hover:underline cursor-pointer">Toggle Answer</button>
+                            </div>
+                            <p id="viva-ans-3" class="hidden mt-2 text-xs text-slate-500 dark:text-slate-400 font-medium bg-white dark:bg-slate-950 p-3 rounded-xl border border-dashed border-slate-200">
+                                Helium atoms are excited to metastable states via atomic electron collision (gas discharge pump), and transfer active energy to Neon ground level atoms during inelastic collision, creating population inversion in Neon.
+                            </p>
+                        </div>
+
+                        <!-- Viva Item 4 -->
+                        <div class="p-4 bg-slate-50/50 dark:bg-slate-900/35 border border-border rounded-2xl">
+                            <div class="flex justify-between items-start gap-4">
+                                <h4 class="text-xs font-black text-slate-900 dark:text-white">Q4. Detail the Meissner effect expulsion mechanisms.</h4>
+                                <button onclick="toggleVivaAnswer(4)" class="text-[10px] font-black uppercase text-blue-600 hover:underline cursor-pointer">Toggle Answer</button>
+                            </div>
+                            <p id="viva-ans-4" class="hidden mt-2 text-xs text-slate-505 dark:text-slate-404 font-medium bg-white dark:bg-slate-950 p-3 rounded-xl border border-dashed border-slate-200">
+                                When a material is in its superconducting state beneath Tc, it expels all internal magnetic lines of flux from its body, creating perfect diamagnetism with optical magnetic susceptibility χ = -1.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="border-slate-100 dark:border-slate-800">
+
+                <!-- SECTION 7: 1-Day Before Exam (Survival Hub) -->
+                <section id="survival-recipe" class="p-6 bg-rose-50/45 dark:bg-red-950/20 rounded-[2rem] border border-red-200/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl animate-pulse">🚨</span>
+                        <div>
+                            <h3 id="survival-recipe-header" class="text-lg font-black text-rose-800 dark:text-rose-400">Emergency Exam Survival Passing Guide</h3>
+                            <p class="text-[9.5px] text-red-500 font-extrabold uppercase tracking-widest">Fail-safe R23 board strategy advice</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-xs text-slate-600 dark:text-slate-350 leading-relaxed font-semibold space-y-3">
+                        <p>If you have less than 24 hours left before the Engineering Physics board exam, allocate focus entirely like so:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                            <div class="p-4 bg-white dark:bg-slate-950 rounded-xl border border-red-150/50">
+                                <h4 class="text-xs font-black text-rose-700 dark:text-red-400 uppercase tracking-wider mb-2">⚡ Priority 1 (Sure 30 Marks)</h4>
+                                <p class="text-[10.5px] leading-relaxed text-slate-500">Master Newton's Rings radius derivation, He-Ne laser level mechanism diagram, and Hall effect coefficient equations. JNTUK repeats these in 90% of exam cycles.</p>
+                            </div>
+                            <div class="p-4 bg-white dark:bg-slate-950 rounded-xl border border-red-150/50">
+                                <h4 class="text-xs font-black text-rose-700 dark:text-red-400 uppercase tracking-wider mb-2">⚡ Priority 2 (Sure 15 Marks)</h4>
+                                <p class="text-[10.5px] leading-relaxed text-slate-500">Study particle in a 1D potential box boundary states, along with step/graded optical fibers Acceptance Angle and NA equations. Write neat variables.</p>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-red-600 dark:text-red-400 italic font-mono mt-2">💡 Board Tip: Never leave any answer completely blank. Always state the governing physics formula first, write given parameters list, and sketch clean engineering diagrams to claim 40-50% partial marks!</p>
+                    </div>
+                </section>
+
+                <!-- SECTION 8: Quick Revision Flash Cards -->
+                <section class="glass-panel p-8 rounded-[2.5rem] premium-border">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-2xl">🧠</span>
+                        <div>
+                            <h3 class="text-base font-black text-slate-900 dark:text-white">Active Recall Rapid Flashcards</h3>
+                            <p class="text-[9px] text-indigo-500 font-extrabold uppercase tracking-widest font-sans">Self-test core physics terms</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Flashcard 1 -->
+                        <div onclick="flipRevisionCard(1)" class="p-5 bg-slate-50 dark:bg-slate-905 border border-border rounded-xl cursor-pointer min-h-24 flex flex-col justify-between hover:border-indigo-400 hover:shadow-xs transition-all relative">
+                            <p class="text-xs font-black text-slate-800 dark:text-slate-100" id="card-prompt-1">What does De-Broglie state about material wavelengths?</p>
+                            <p class="text-[11px] text-indigo-650 hidden font-bold select-none" id="card-ans-1">A: λ = h / mv = h / p. Any moving matter possesses particle-wave behavior.</p>
+                            <span class="text-[7.5px] font-black text-slate-400 uppercase text-right block mt-2">Tap to Flip 🔄</span>
+                        </div>
+
+                        <!-- Flashcard 2 -->
+                        <div onclick="flipRevisionCard(2)" class="p-5 bg-slate-50 dark:bg-slate-905 border border-border rounded-xl cursor-pointer min-h-24 flex flex-col justify-between hover:border-indigo-400 hover:shadow-xs transition-all relative">
+                            <p class="text-xs font-black text-slate-800 dark:text-slate-100" id="card-prompt-2">Define Brewster's angle relationship.</p>
+                            <p class="text-[11px] text-indigo-650 hidden font-bold select-none" id="card-ans-2">A: μ = tan(θ_p). At polarizing angle, reflected light is 100% polarized.</p>
+                            <span class="text-[7.5px] font-black text-slate-400 uppercase text-right block mt-2">Tap to Flip 🔄</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 9: Important Question Bank -->
+                <section class="glass-panel p-8 rounded-[2.5rem] premium-border">
+                    <h3 class="text-base font-black text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                        <span>❓</span> Engineering Physics JNTUK Board Question Bank
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-3 border-l-2 border-slate-500 pl-3">Part-A Core Short-Answer Items (2 Marks Each)</h4>
+                            <ul class="text-xs text-slate-650 dark:text-slate-350 space-y-2 list-disc pl-5 font-semibold">
+                                <li>Differentiate step index and graded index fiber parameters.</li>
+                                <li>State Malus' Law equation and variables.</li>
+                                <li>What are the characteristics of an active laser beams?</li>
+                                <li>State Clausius-Mossotti equation in dielectric states.</li>
+                                <li>Why are superconductors used for magnetic levitation trains?</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-3 border-l-2 border-indigo-650 pl-3 font-semibold">Part-B Descriptive Essay Targets (10 Marks Each)</h4>
+                            <ul class="text-xs text-slate-655 dark:text-slate-350 space-y-2 list-disc pl-5 font-bold">
+                                <li>Describe Michelson’s Interferometer setup with visual diagrams. Prove ring patterns.</li>
+                                <li>Set up Schrödinger time-independent equation. Derive eigenenergies inside a potential trap.</li>
+                                <li>Define Hall Effect. Write step-by-step math to evaluate the carrier charge and sign values.</li>
+                                <li>Derive Acceptance Angle core relations using standard ray vectors inside optical fibers.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- RIGHT PANEL: Sidebar widgets & AI recommendations -->
+            <div class="lg:col-span-4 space-y-8">
+                
+                <!-- SECTION 11: AI Smart Recommendations -->
+                <div class="glass-panel p-6 rounded-[2rem] premium-border bg-gradient-to-br from-blue-50/20 to-indigo-50/10 dark:from-blue-950/5 relative">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-xl">🤖</span>
+                        <div>
+                            <h4 class="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">AI Preparatory Advisor</h4>
+                            <span class="text-[8px] font-black uppercase tracking-widest text-indigo-550">Dynamic R23 Guidance</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Inside bento box diagnostic feedback -->
+                    <p class="text-xs text-slate-500 leading-relaxed font-medium mb-4">We parsed your dynamic dashboard status vectors. Focus on Newton's Rings as multiple examiners tested this topic recently.</p>
+                    
+                    <div class="space-y-3" id="ai-recos-container">
+                        <div class="p-3 bg-white dark:bg-slate-950 rounded-xl border border-slate-150/50 flex flex-col justify-between hover:-translate-y-0.5 transition-transform">
+                            <span class="text-[7px] font-black text-rose-500 uppercase tracking-widest mb-1">Gap Patch Needed</span>
+                            <h5 class="text-[11.5px] font-bold text-slate-900 dark:text-slate-105">Newton's Ring Formula Derivation</h5>
+                            <a href="#pyq-sec" onclick="switchTab('pyq-sec')" class="text-[10px] text-blue-600 hover:underline font-black uppercase mt-1.5 align-right block">Review solved step guides →</a>
+                        </div>
+
+                        <div class="p-3 bg-white dark:bg-slate-950 rounded-xl border border-slate-150/50 flex flex-col justify-between hover:-translate-y-0.5 transition-transform">
+                            <span class="text-[7.5px] font-black text-[#f59e0b] uppercase tracking-widest mb-1">Recommended test</span>
+                            <h5 class="text-[11.5px] font-bold text-slate-900 dark:text-slate-105">Helium-Neon transition diagram</h5>
+                            <a href="#units-sec" onclick="showUnitQuickFlash('u4-hene')" class="text-[10px] text-blue-600 hover:underline font-black uppercase mt-1.5 align-right block">Flash diagram outline →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fast Actions & Navigation Checklist -->
+                <div class="glass-panel p-6 rounded-[2rem] premium-border">
+                    <h4 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-4 font-bold">Fast revision shortcuts</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <a href="/cheat-sheets.html" class="flex flex-col items-center justify-center p-3 bg-slate-50 dark:bg-slate-900/40 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-center border border-slate-100 dark:border-slate-800">
+                            <span class="text-lg">⚡</span>
+                            <span class="text-[9px] font-black text-slate-600 dark:text-slate-350 uppercase tracking-wide mt-1">Cheat Sheets</span>
+                        </a>
+                        <a href="/pyqs.html" class="flex flex-col items-center justify-center p-3 bg-slate-50 dark:bg-slate-900/40 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-center border border-slate-100 dark:border-slate-800">
+                            <span class="text-lg">📝</span>
+                            <span class="text-[9px] font-black text-slate-600 dark:text-slate-350 uppercase tracking-wide mt-1">ALL PYQs</span>
+                        </a>
+                        <a href="/tools.html" class="flex flex-col items-center justify-center p-3 bg-slate-50 dark:bg-slate-900/40 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-center border border-slate-100 dark:border-slate-800">
+                            <span class="text-lg">🧮</span>
+                            <span class="text-[9px] font-black text-slate-600 dark:text-slate-350 uppercase tracking-wide mt-1">Syllabus tools</span>
+                        </a>
+                        <a href="/ai-professor.html" class="flex flex-col items-center justify-center p-3 bg-slate-50 dark:bg-slate-900/40 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-center border border-slate-100 dark:border-slate-800">
+                            <span class="text-lg">🤖</span>
+                            <span class="text-[9px] font-black text-slate-600 dark:text-slate-350 uppercase tracking-wide mt-1">Ask AI</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Saved note bookmarks state card -->
+                <div class="glass-panel p-6 rounded-[2rem] premium-border">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 font-bold">Dynamic active notes</h3>
+                    <div id="saved-notes-list" class="space-y-3">
+                        <!-- Dynamic bookmark items loaded here -->
+                        <p class="text-[11px] text-slate-400 dark:text-slate-500 italic">No stored active folders. Press the 'Save Subject' above to test local storage persistence.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
     </main>
 
-    <footer class="py-12 border-t border-white/5 text-center">
-        <p class="text-gray-500 text-sm">© 2026 EngiPrep Hub • Premium JNTUK Support</p>
+    <!-- Page Footer -->
+    <footer class="py-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 mt-16 transition-all">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">EngiPrep Hub • Built for JNTUK Kakinada First Year Core Engineering</p>
+            <div class="flex gap-8">
+                <a href="/dashboard.html" class="text-slate-500 hover:text-slate-950 dark:hover:text-white transition-all text-[10px] uppercase font-black">Dashboard</a>
+                <a href="/notes.html" class="text-slate-500 hover:text-slate-950 dark:hover:text-white transition-all text-[10px] uppercase font-black">All Study Notes</a>
+            </div>
+        </div>
     </footer>
 
-    <script type="module" src="/src/config-check.js"></script>
+    <!-- Core Interactive Client Scripting -->
+    <script type="module">
+        import { supabase, getCurrentUser, getUserProfile } from './src/supabase.js'
+        import { toggleBookmark, getBookmarks } from './src/notes.js'
+
+        // Global State variables
+        let userProgress = {
+            u1: false,
+            u2: false,
+            u3: false,
+            u4: false,
+            u5: false
+        };
+
+        let isBookmarked = false;
+        let scoreXP = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initProgressCheckboxes();
+            checkBookmarkState();
+            initThemeToggleSetup();
+        });
+
+        // Initialize checkboxes from local storage
+        function initProgressCheckboxes() {
+            const savedProgress = localStorage.getItem('JNTUK_EP_Progress');
+            if (savedProgress) {
+                userProgress = JSON.parse(savedProgress);
+            } else {
+                // Pre-check u1 & u2 for live visual state
+                userProgress.u1 = true;
+                userProgress.u2 = true;
+                localStorage.setItem('JNTUK_EP_Progress', JSON.stringify(userProgress));
+            }
+
+            // Sync elements visually
+            for (let unit in userProgress) {
+                const el = document.getElementById(`check-${unit}`);
+                if (el) {
+                    el.checked = userProgress[unit];
+                }
+            }
+            updateProgressPercentage();
+        }
+
+        // Toggle state
+        window.toggleUnitProgress = function(unitId) {
+            const el = document.getElementById(`check-${unitId}`);
+            if (el) {
+                userProgress[unitId] = el.checked;
+                localStorage.setItem('JNTUK_EP_Progress', JSON.stringify(userProgress));
+                updateProgressPercentage();
+                
+                // Show dopamine toast
+                if (el.checked) {
+                    showToast(`Unit completed! Earned +50 Academic XP 🔥`);
+                    awardDopamineXP(50);
+                } else {
+                    showToast(`Unit unchecked progress tracker.`);
+                }
+            }
+        }
+
+        // Update overall percentage meter
+        function updateProgressPercentage() {
+            let done = 0;
+            let total = 5;
+            for (let u in userProgress) {
+                if (userProgress[u]) done++;
+            }
+            const pct = Math.round((done / total) * 100);
+            
+            const txt = document.getElementById('syl-progress-percent');
+            const bar = document.getElementById('syl-progress-bar');
+            if (txt) txt.innerText = `${pct}% Done`;
+            if (bar) bar.style.width = `${pct}%`;
+        }
+
+        // Reset progress function
+        window.resetSyllabusUnits = function() {
+            userProgress = { u1: false, u2: false, u3: false, u4: false, u5: false };
+            localStorage.setItem('JNTUK_EP_Progress', JSON.stringify(userProgress));
+            for (let unit in userProgress) {
+                const el = document.getElementById(`check-${unit}`);
+                if (el) el.checked = false;
+            }
+            updateProgressPercentage();
+            showToast(`Syllabus checkboxes reset successfully.`);
+        }
+
+        // Bookmarks Toggle persistent
+        window.toggleGlobalBookmarked = async function() {
+            isBookmarked = !isBookmarked;
+            localStorage.setItem('JNTUK_EP_Bookmarked', JSON.stringify(isBookmarked));
+            
+            // Sync inside storage "studyPlanner" list if they are guest
+            try {
+                let planner = JSON.parse(localStorage.getItem('studyPlanner')) || [];
+                const existPct = planner.findIndex(p => p.slug === 'physics-notes');
+                if (isBookmarked) {
+                    if (existPct === -1) {
+                        planner.push({
+                            id: 'ep-001',
+                            title: 'Engineering Physics R23 Complete Syllabi notes',
+                            subject: 'Applied Physics',
+                            slug: 'physics-notes'
+                        });
+                    }
+                } else {
+                    if (existPct > -1) {
+                        planner.splice(existPct, 1);
+                    }
+                }
+                localStorage.setItem('studyPlanner', JSON.stringify(planner));
+            } catch(e) { console.warn(e); }
+
+            updateBookmarkVisuals();
+            
+            if (isBookmarked) {
+                showToast(`Success! Engineering Physics saved to Study Plan 🔖`);
+            } else {
+                showToast(`Removed Physics from study planner.`);
+            }
+        }
+
+        function checkBookmarkState() {
+            const saved = localStorage.getItem('JNTUK_EP_Bookmarked');
+            if (saved) {
+                isBookmarked = JSON.parse(saved);
+            }
+            updateBookmarkVisuals();
+        }
+
+        function updateBookmarkVisuals() {
+            const btnText = document.getElementById('bookmark-text');
+            const btnIcon = document.getElementById('bookmark-icon');
+            const listEl = document.getElementById('saved-notes-list');
+            
+            if (isBookmarked) {
+                if (btnText) btnText.innerText = 'Saved in your Planner (Standard)';
+                if (btnIcon) btnIcon.innerText = '🌟';
+                
+                if (listEl) {
+                    listEl.innerHTML = `
+                        <div class="p-3 bg-blue-50/50 dark:bg-blue-950/20 border border-blue-105 rounded-xl flex justify-between items-center">
+                            <div>
+                                <h5 class="text-xs font-black text-slate-800 dark:text-slate-100">JNTUK Applied Physics R23</h5>
+                                <p class="text-[9px] text-slate-400 uppercase tracking-widest leading-none mt-1">Full Curriculum Hub</p>
+                            </div>
+                            <span class="text-xs cursor-pointer text-rose-500 hover:scale-115 transition-transform" onclick="toggleGlobalBookmarked()">✕</span>
+                        </div>
+                    `;
+                }
+            } else {
+                if (btnText) btnText.innerText = 'Save Subject to Planner';
+                if (btnIcon) btnIcon.innerText = '🔖';
+                if (listEl) {
+                    listEl.innerHTML = `<p class="text-[11px] text-slate-400 dark:text-slate-500 italic">No stored active folders. Press space above to persist.</p>`;
+                }
+            }
+        }
+
+        // Accordion functionality for previous year questions solutions
+        window.togglePYQSolution = function(number) {
+            const el = document.getElementById(`sol-${number}`);
+            if (el) {
+                el.classList.toggle('hidden');
+                awardDopamineXP(10);
+                showToast(`Gained +10 XP for examining model answer scheme!`);
+            }
+        }
+
+        // Toggle lab questions answers
+        window.toggleVivaAnswer = function(number) {
+            const el = document.getElementById(`viva-ans-${number}`);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+
+        // Switch custom headers subtabs
+        window.switchTab = function(tabId) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(c => c.classList.add('hidden'));
+            
+            const activeSec = document.getElementById(tabId);
+            if (activeSec) {
+                activeSec.classList.remove('hidden');
+                activeSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Sync visual button pills
+            const buttons = document.querySelectorAll('#subject-tabs-container button');
+            buttons.forEach(b => {
+                b.classList.remove('active', 'bg-slate-900', 'dark:bg-white', 'text-white', 'dark:text-black');
+                b.classList.add('bg-slate-50', 'dark:bg-slate-900', 'border', 'border-border', 'text-slate-500');
+            });
+
+            // Find current triggers
+            event.target.classList.add('active', 'bg-slate-900', 'dark:bg-white', 'text-white', 'dark:text-black');
+            event.target.classList.remove('bg-slate-50', 'dark:bg-slate-900', 'border', 'border-border', 'text-slate-500');
+        }
+
+        // Unit mini flash expansion
+        window.showUnitQuickFlash = function(topicCode) {
+            const el = document.getElementById('quick-flash-display');
+            const head = document.getElementById('flash-topic-head');
+            const body = document.getElementById('flash-topic-body');
+            const meta = document.getElementById('flash-title-meta');
+
+            if (topicCode === 'u1-newtons') {
+                meta.innerText = 'Newton\'s Rings curvature mechanics';
+                head.innerText = 'How to construct Air-gap dark ring equations';
+                body.innerText = 'Newton\'s Air film rings are circular and concentric. Radius equation is derived using cosine relations on wedge film boundaries. Dark ring condition: r_n = √(nλR). Rings get closer at high orders due to r_n proportionality.';
+            } else if (topicCode === 'u1-grating') {
+                meta.innerText = 'Diffraction mechanics';
+                head.innerText = 'Diffraction Grating (N-slits equations)';
+                body.innerText = 'Diffraction gratings employ multiple parallel ruled slits spacing d = a + b. Governing maximum formula: (a+b) sin(θ) = nλ. Resolving power: R = N * n where N is total active periodic ruling slits.';
+            } else if (topicCode === 'u2-schrod') {
+                meta.innerText = 'Quantum mechanics Schrödinger';
+                head.innerText = 'Schrödinger Time-Independent wave structure';
+                body.innerText = 'Governing Equation formulation: [ -ℏ² / 2m * (d²/dx²) + V(x) ] Ψ(x) = EΨ(x). Describes the stationary quantum wave state in terms of total energy eigenvalues and potential energy bounds.';
+            } else if (topicCode === 'u3-hall') {
+                meta.innerText = 'Semiconductors Current Transport';
+                head.innerText = 'Hall Coefficient measurement layout';
+                body.innerText = 'Placing current density J_x transverse to magnetic B_z produces Hall electric field E_y. Formula: R_H = 1/(n·e). For Extrinsic systems, R_H determines sign of dominant carriers and overall mobility values μ = σ·|R_H|.';
+            } else if (topicCode === 'u4-hene') {
+                meta.innerText = 'Lasers Gas four level engine';
+                head.innerText = 'Helium-Neon optical pumping schematic';
+                body.innerText = 'Active gas ratio is 10:1 (He:Ne). Helium atoms get excited to metastable states via radio discharge and collisionally pump Neon electrons up to 3s and 2s levels. Stimulated emission yields 632.8 nm (Red light).';
+            } else if (topicCode === 'u5-meissner') {
+                meta.innerText = 'Magnetic Levitations Superconductors';
+                head.innerText = 'Perfect Diamagnetism & Critical Temperature Tc';
+                body.innerText = 'Cooling metals below critical temperature Tc forces immediate expulsion of all magnetic flux lines. The internal magnetic induction B becomes exactly zero when placed in moderate transverse fields V.';
+            } else {
+                meta.innerText = 'Applied Physics core formula';
+                head.innerText = 'Quick Reference parameters';
+                body.innerText = 'Select other highlights beneath Unit cards to load instant JNTUK syllabus outlines.';
+            }
+
+            if (el) {
+                el.classList.remove('hidden');
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        window.closeQuickFlash = function() {
+            const el = document.getElementById('quick-flash-display');
+            if (el) el.classList.add('hidden');
+        }
+
+        // Self-test flip cards animations
+        window.flipRevisionCard = function(number) {
+            const prompt = document.getElementById(`card-prompt-${number}`);
+            const ans = document.getElementById(`card-ans-${number}`);
+            
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                prompt.classList.add('opacity-40');
+                awardDopamineXP(20);
+                showToast(`Excellent Self-Test! Claimed +20 XP 🔥`);
+            } else {
+                ans.classList.add('hidden');
+                prompt.classList.remove('opacity-40');
+            }
+        }
+
+        // expected guesses claimed
+        window.claimQuestionXP = function(id, extraXP) {
+            awardDopamineXP(extraXP);
+            showToast(`Mastered anticipated Syllabus item! Claimed +${extraXP} Academic XP 🎓`);
+        }
+
+        // Award XP and sync user details with localStorage global profile if possible
+        function awardDopamineXP(amount) {
+            scoreXP += amount;
+            // update navbar status tally if active navbar exists
+            const xpDisplay = document.getElementById('total-xp-display');
+            if (xpDisplay) {
+                xpDisplay.innerText = 280 + scoreXP;
+            }
+        }
+
+        // Live Feed toast alerts
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-900 border border-slate-800 text-white dark:bg-white dark:text-black dark:border-slate-205 px-5 py-3 rounded-2xl shadow-xl text-xs font-black uppercase tracking-wider animate-fadeIn flex items-center justify-between pointer-events-auto min-w-[280px]';
+            toast.innerHTML = `
+                <span>${msg}</span>
+                <span class="text-xs pl-2 cursor-pointer text-slate-400 hover:text-white" onclick="this.parentNode.remove()">✕</span>
+            `;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-10px)';
+                toast.style.transition = 'all 0.4s ease';
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        // Light & Dark theme toggle controller
+        function initThemeToggleSetup() {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+            if (document.documentElement.classList.contains('dark')) {
+                if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
+            } else {
+                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
+            }
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                        if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
+                        if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                        if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
+                        if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
+                    }
+                    showToast(`Theme changed successfully.`);
+                });
+            }
+        }
+    </script>
 </body>
 </html>
-

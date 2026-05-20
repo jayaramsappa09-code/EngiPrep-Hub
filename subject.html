@@ -157,6 +157,9 @@
         
         const params = new URLSearchParams(window.location.search)
         const subject = params.get('sub') || 'Mathematics I'
+        if (subject.toLowerCase().includes('physics') || subject.toLowerCase().includes('ap102')) {
+            window.location.replace('/physics-notes.html');
+        }
         let currentNotes = []
         let currentFilter = 'all'
         let isExamMode = false
