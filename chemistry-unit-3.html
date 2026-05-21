@@ -3,1070 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 3: Electrochemistry & Battery Technologies | EngiPrep Hub</title>
-    <meta name="description" content="Premium JNTUK R23 Engineering Chemistry Unit 3 exam prep resource. Master Nernst Equation, Potentiometry, Zinc-Air, Lithium-Ion, PEMFC with interactive simulators.">
-    <link rel="stylesheet" href="/src/style.css">
-    
-    <!-- KaTeX Math Integrational Support -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false},
-                    {left: "\\(", right: "\\)", display: false},
-                    {left: "\\[", right: "\\]", display: true}
-                ],
-                throwOnError: false
-            });
-            loadInternalTracker();
-            computeNernstSim();
-            computeTitrationSim();
-            computeSgpa();
-            computeAttendance();
-        });
-    </script>
+    <title>Electrochemistry & Applications | Engineering Chemistry R23</title>
+    <meta name="description" content="Engineering Chemistry Unit 3: Nernst equation, potentiometry, conductometry, reference electrodes, batteries, PEMFC.">
+    <link rel="stylesheet" href="/src/index.css">
     <style>
-        .glass-card {
-            background-color: rgba(9, 10, 26, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.12);
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .light .glass-card {
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(59, 130, 246, 0.15);
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.03);
-        }
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.35);
-            box-shadow: 0 12px 36px -8px rgba(59, 130, 246, 0.16);
-        }
-        .viva-card-inner {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
+        .perspective { perspective: 1000px; }
+        .preserve-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
     </style>
-    <script>document.documentElement.style.display = 'none';</script>
-    <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#030308] dark:bg-[#030308] text-slate-350 dark:text-slate-350 bg-gradient-to-tr from-[#040410] via-[#030308] to-[#040714] min-h-screen font-sans antialiased selection:bg-blue-600 selection:text-white">
-
-    <!-- Navbar header -->
-    <nav class="fixed top-0 w-full z-50 bg-[#030308]/85 backdrop-blur-md border-b border-blue-950/45 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between font-semibold">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-[#10b981] rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl"></div>
-                    <span class="relative z-10 text-white font-black text-lg">EP</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none">EngiPrep <span class="text-[#10b981]">Hub</span></span>
-                    <span class="text-[6.5px] font-black uppercase tracking-[0.22em] text-[#10b981] mt-1">JNTUK R23 Regulation Workspace</span>
-                </div>
+<body class="bg-[#050508] text-slate-300 min-h-screen font-sans antialiased selection:bg-blue-500/30 selection:text-white">
+    
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-white/5 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
             <div class="flex items-center gap-4">
-                <a href="/all-subjects.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase hover:bg-slate-800/40 text-slate-300 transition-all">
-                    All Subjects
-                </a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-[#10b981] hover:bg-[#0ea572] rounded-xl text-xs font-black uppercase tracking-wider transition-all text-white shadow-lg shadow-emerald-500/10">Dashboard</a>
+                <a href="https://engi-prephub.vercel.app/chemistry-topper-notes.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Topper Notes</a>
+                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-xl text-xs font-black uppercase text-white transition-all">Dashboard</a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Outer Section -->
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        
-        <!-- Breadcrumb -->
-        <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
-            <ol class="flex items-center gap-2">
-                <li><a href="/" class="hover:text-[#10b981]">Home</a></li>
-                <li>/</li>
-                <li><a href="/all-subjects.html" class="hover:text-[#10b981]">Subjects</a></li>
-                <li>/</li>
-                <li><a href="/chemistry-unit-1.html" class="hover:text-[#10b981]">Engineering Chemistry</a></li>
-                <li>/</li>
-                <li class="text-[#10b981]" aria-current="page">Unit III: Electrochemistry &amp; Applications</li>
-            </ol>
-        </nav>
-
-        <!-- HEADER HERO -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#040910] border border-emerald-950/45">
-            <div class="absolute right-0 top-0 w-80 h-80 bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
-            <div class="space-y-4 relative z-10 max-w-2xl">
-                <div class="flex items-center gap-2 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-emerald-500/15 border border-emerald-500/25 text-[#10b981] text-[10px] font-black uppercase tracking-widest rounded-full">Unit III Syllabus Pack</span>
-                    <span class="px-2.5 py-0.5 bg-[#10b981]/15 border border-emerald-500/25 text-[#10b981] text-[10px] font-black uppercase tracking-widest rounded-full">Weightage: 14 Marks</span>
-                    <span class="px-2.5 py-0.5 bg-cyan-500/15 border border-cyan-500/25 text-cyan-400 text-[10px] font-black uppercase tracking-widest rounded-full">Score Probability: 100%</span>
+            <!-- Main Content -->
+            <div class="lg:col-span-9 space-y-8">
+                
+                <!-- HERO SECTION -->
+                <div class="relative p-8 border border-white/5 rounded-[2rem] bg-blue-950/10 overflow-hidden">
+                    <div class="absolute right-0 top-0 w-80 h-80 bg-blue-600/15 rounded-full blur-[100px] pointer-events-none"></div>
+                    <div class="space-y-4 relative z-10 max-w-2xl">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="px-2.5 py-0.5 bg-blue-500/15 border border-blue-500/25 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit III Workspace</span>
+                        </div>
+                        <div>
+                            <h1 class="text-4xl lg:text-5xl font-black text-white tracking-tight">Engineering Chemistry R23 Ultimate Exam System</h1>
+                            <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
+                                Premium JNTUK Scoring Notes • PYQs • Derivations • Viva • Rapid Revision
+                            </p>
+                            <div class="flex flex-wrap gap-2.5 mt-5">
+                                <a href="#reactions" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-300 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all cursor-pointer">🧪 Jump to Reactions</a>
+                                <a href="#derivations" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-300 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all cursor-pointer">⚡ Important Derivations</a>
+                                <a href="#revision" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-300 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all cursor-pointer">🧠 Quick Revision Mode</a>
+                                <a href="#pyqs" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-300 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all cursor-pointer">📘 PYQ Predictor</a>
+                                <a href="#calculator" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-300 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all cursor-pointer">🧮 Numerical Solver</a>
+                                <a href="#oneday" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-300 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all cursor-pointer">🔥 Exam Survival Sheet</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight">
-                        ELECTROCHEMISTRY &amp; <br>
-                        <span class="bg-gradient-to-r from-[#10b981] via-emerald-400 to-[#10b981] bg-clip-text text-transparent">BATTERY APPLICATIONS</span>
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        Topper-style survival engine for JNTUK R23 first-year scholars. Master electrochemical cells, Nernst equation calculations, potentiometry, conductivity equations, reference electrodes (NHE &amp; Calomel), Lithium-ion batteries, and PEM fuel cells.
-                    </p>
-                </div>
-                <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <a href="#quick-revision" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all text-white">Rapid Revision 🔥</a>
-                    <a href="#formulas" class="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-350 rounded-lg text-[10px] font-black uppercase tracking-widest hover:border-slate-750 transition-all">Cheat Sheet 🧮</a>
-                    <a href="#simulators" class="px-4 py-2 bg-emerald-950/45 border border-emerald-900/40 text-[#10b981] rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-emerald-900/50 transition-all font-bold">Titration Sandbox 🧪</a>
-                </div>
+
+                <!-- ANALYTICS -->
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-6 bg-rose-950/10 border border-rose-500/20 rounded-2xl">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-rose-400">🔥</span>
+                            <h3 class="text-xs font-black text-white uppercase tracking-widest">Most Repeated Derivation</h3>
+                        </div>
+                        <p class="text-sm font-bold text-rose-300">Nernst Equation Derivation</p>
+                        <p class="text-[10px] text-slate-500 mt-2 font-medium">Standard 10-mark theory question in almost every paper.</p>
+                    </div>
+                    <div class="p-6 bg-emerald-950/10 border border-emerald-500/20 rounded-2xl">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-emerald-400">⚡</span>
+                            <h3 class="text-xs font-black text-white uppercase tracking-widest">Fastest Scoring Topic</h3>
+                        </div>
+                        <p class="text-sm font-bold text-emerald-300">Conductometric Titrations</p>
+                        <p class="text-[10px] text-slate-500 mt-2 font-medium">Just draw the 4 graphs and label axes.</p>
+                    </div>
+                    <div class="p-6 bg-indigo-950/10 border border-indigo-500/20 rounded-2xl">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-indigo-400">🧠</span>
+                            <h3 class="text-xs font-black text-white uppercase tracking-widest">Must Memorize Reactions</h3>
+                        </div>
+                        <p class="text-sm font-bold text-indigo-300">Lithium-ion Battery Anode/Cathode</p>
+                        <p class="text-[10px] text-slate-500 mt-2 font-medium">LiC6 &lt;-&gt; C6 + Li+ + e-</p>
+                    </div>
+                    <div class="p-6 bg-amber-950/10 border border-amber-500/20 rounded-2xl">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-amber-400">❌</span>
+                            <h3 class="text-xs font-black text-white uppercase tracking-widest">Most Common Mistakes</h3>
+                        </div>
+                        <p class="text-sm font-bold text-amber-300">Sign conventions in E_cell</p>
+                        <p class="text-[10px] text-slate-500 mt-2 font-medium">E_cell = E_cathode - E_anode. Don't swap them!</p>
+                    </div>
+                </section>
+
+                <!-- SANDBOX -->
+                <section id="calculator" class="p-8 bg-[#0a0a0f] border border-white/5 rounded-2xl scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6">
+                        <h2 class="text-xl font-black text-white">🧮 Nernst Equation Solver</h2>
+                        <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-[10px] font-bold uppercase rounded-md border border-blue-500/30">Interactive Sandbox</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Standard E°cell (V)</label>
+                                <input type="number" step="0.01" value="1.10" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">[Product] M</label>
+                                    <input type="number" step="0.01" value="0.1" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">[Reactant] M</label>
+                                    <input type="number" step="0.01" value="0.01" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors">
+                                </div>
+                            </div>
+                            <button class="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl text-xs font-black uppercase text-white transition-all shadow-lg shadow-blue-600/20">Calculate E_cell</button>
+                        </div>
+                        <div class="bg-blue-950/20 border border-blue-500/20 rounded-xl p-6 flex flex-col justify-center items-center text-center">
+                            <span class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">Potential at 298K (n=2)</span>
+                            <div class="text-5xl font-black text-white mb-2">1.07 V</div>
+                            <p class="text-xs font-bold text-slate-400">E = E° - (0.0591/n) * log(P/R)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 1 DAY PREP -->
+                <section id="oneday" class="p-8 bg-gradient-to-br from-blue-900/20 to-[#050508] border border-blue-500/30 rounded-2xl scroll-mt-24 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px]"></div>
+                    <h2 class="text-xl font-black text-white mb-6 flex items-center gap-3">
+                        <span class="text-2xl">⏰</span> IF YOU HAVE ONLY 3 HOURS:
+                    </h2>
+                    <div class="space-y-4 relative z-10">
+                        <div class="flex items-center gap-4 bg-black/40 p-4 rounded-xl border border-white/5">
+                            <div class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-black">1</div>
+                            <div class="flex-1">
+                                <h4 class="text-sm font-bold text-white">Study Nernst Equation</h4>
+                                <p class="text-[10px] text-slate-400 mt-0.5">Learn derivation and practice at least 2 numericals.</p>
+                            </div>
+                            <span class="hidden sm:inline-block px-2 py-1 bg-rose-500/20 text-rose-400 text-[9px] font-bold uppercase rounded border border-rose-500/30">🔥 99% Repeat</span>
+                        </div>
+                        <div class="flex items-center gap-4 bg-black/40 p-4 rounded-xl border border-white/5">
+                            <div class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-black">2</div>
+                            <div class="flex-1">
+                                <h4 class="text-sm font-bold text-white">Lithium-ion & PEMFC</h4>
+                                <p class="text-[10px] text-slate-400 mt-0.5">Learn anode/cathode reactions and block diagrams.</p>
+                            </div>
+                            <span class="hidden sm:inline-block px-2 py-1 bg-emerald-500/20 text-emerald-400 text-[9px] font-bold uppercase rounded border border-emerald-500/30">⚡ Easy 8 Marks</span>
+                        </div>
+                        <div class="flex items-center gap-4 bg-black/40 p-4 rounded-xl border border-white/5">
+                            <div class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-black">3</div>
+                            <div class="flex-1">
+                                <h4 class="text-sm font-bold text-white">Reference Electrodes</h4>
+                                <p class="text-[10px] text-slate-400 mt-0.5">NHE and Calomel. Outline diagrams perfectly.</p>
+                            </div>
+                            <span class="hidden sm:inline-block px-2 py-1 bg-amber-500/20 text-amber-400 text-[9px] font-bold uppercase rounded border border-amber-500/30">🧠 Viva Important</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIVA CARDS -->
+                <section id="viva" class="p-8 bg-[#0a0a0f] border border-white/5 rounded-2xl scroll-mt-24">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-black text-white">🧠 Interactive Viva Cards</h2>
+                        <span class="px-2 py-1 bg-amber-500/20 text-amber-500 text-[10px] font-bold uppercase rounded border border-amber-500/30">Flip to Answer</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="group perspective h-32 relative cursor-pointer">
+                            <div class="absolute inset-0 preserve-3d transition-all duration-500 group-hover:rotate-y-180 w-full h-full">
+                                <div class="absolute inset-0 backface-hidden bg-slate-900 border border-white/10 rounded-xl p-5 flex flex-col justify-center items-center text-center">
+                                    <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2">Question 1</span>
+                                    <h3 class="text-sm font-black text-white">What is a Reference Electrode?</h3>
+                                </div>
+                                <div class="absolute inset-0 backface-hidden rotate-y-180 bg-blue-900/40 border border-blue-500/30 rounded-xl p-5 flex flex-col justify-center items-center text-center px-4">
+                                    <span class="text-[10px] text-blue-300 font-bold uppercase tracking-widest mb-2">Answer</span>
+                                    <p class="text-xs font-medium text-white leading-relaxed">An electrode with a well known and stable equilibrium potential, used to measure potentials of other electrodes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group perspective h-32 relative cursor-pointer">
+                            <div class="absolute inset-0 preserve-3d transition-all duration-500 group-hover:rotate-y-180 w-full h-full">
+                                <div class="absolute inset-0 backface-hidden bg-slate-900 border border-white/10 rounded-xl p-5 flex flex-col justify-center items-center text-center">
+                                    <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2">Question 2</span>
+                                    <h3 class="text-sm font-black text-white">Why is Li-ion preferred?</h3>
+                                </div>
+                                <div class="absolute inset-0 backface-hidden rotate-y-180 bg-blue-900/40 border border-blue-500/30 rounded-xl p-5 flex flex-col justify-center items-center text-center px-4">
+                                    <span class="text-[10px] text-blue-300 font-bold uppercase tracking-widest mb-2">Answer</span>
+                                    <p class="text-xs font-medium text-white leading-relaxed">It has high energy density, no memory effect, and low self-discharge compared to other batteries.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </div>
 
-            <!-- Dashboard status tracker -->
-            <div id="prog-card" class="w-full md:w-80 p-5 bg-[#04040a] border border-emerald-950/60 rounded-2xl flex flex-col justify-between h-48 relative z-10 shadow-inner">
-                <div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400">Exam Progress Tracker</span>
-                        <span id="tracker-status" class="text-[10px] font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/25">0% DONE</span>
-                    </div>
-                    <form class="contents">
-                        <h4 class="text-xs font-black text-white mt-2">Electrochemistry Topper XP Goal</h4>
-                    </form>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span>XP Progress</span>
-                        <span id="pct-indicator" class="font-bold">0%</span>
-                    </div>
-                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
-                        <div id="pb-indicator" class="h-full bg-gradient-to-r from-emerald-500 to-indigo-500 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between pt-1">
-                    <span id="rank-badge" class="text-[9px] text-[#10b981] font-black uppercase">Rank: Cell Novice 🔋</span>
-                    <button onclick="resetInternalTracker()" class="text-[9px] text-rose-500 hover:underline font-black uppercase bg-transparent border-0 cursor-pointer">Reset Work</button>
-                </div>
-            </div>
-        </header>
-
-        <!-- TAB BUTTONS -->
-        <div class="flex border-b border-blue-950/50 gap-2 mb-8 overflow-x-auto text-xs font-black uppercase tracking-wider pb-1">
-            <button onclick="switchTab('chemistry-landing')" id="btn-tab-chemistry-landing" class="px-5 py-3 border-b-2 border-emerald-500 text-emerald-400 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                👑 Chemistry Subject Hub
-            </button>
-            <button onclick="switchTab('unit3-concepts')" id="btn-tab-unit3-concepts" class="px-5 py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                📚 Unit III Exam Prep Kit
-            </button>
-            <button onclick="switchTab('simulators')" id="btn-tab-simulators" class="px-5 py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                🧪 Premium Simulators &amp; Tools
-            </button>
-        </div>
-
-        <!-- ======================= TAB 1: CHEMISTRY SUBJECT HUB ======================= -->
-        <div id="tabcont-chemistry-landing" class="tab-pane space-y-12">
-            
-            <!-- Hero banner detail -->
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-6 glass-card bg-gradient-to-br from-[#0c1a12] to-[#04040c]">
-                    <h3 class="text-sm font-black text-emerald-400 uppercase tracking-widest mb-1">Subject Title</h3>
-                    <h2 class="text-xl font-extrabold text-white">Engineering Chemistry</h2>
-                    <p class="text-xs text-slate-400 mt-2">JNTUK Subject Code: R231103. Comprehensive molecular approach to modern electrical systems, structural mechanics, water purification, and energy grids.</p>
-                </div>
-                <div class="p-6 glass-card bg-gradient-to-br from-[#0e121c] to-[#04040c]">
-                    <h3 class="text-sm font-black text-blue-400 uppercase tracking-widest mb-1">Overall Difficulty</h3>
-                    <h2 class="text-xl font-extrabold text-white">Medium-High (72% Pass rate)</h2>
-                    <p class="text-xs text-slate-400 mt-2">High theoretical volume. Requires exact chemical equations, cell dynamics, structures of polymers, and numerical clarity over hard math proofs.</p>
-                </div>
-                <div class="p-6 glass-card bg-gradient-to-br from-[#1c1a0e] to-[#04040c]">
-                    <h3 class="text-sm font-black text-amber-500 uppercase tracking-widest mb-1">Topper Study Strategy</h3>
-                    <h2 class="text-xl font-extrabold text-white">Visual Synthesis Method</h2>
-                    <p class="text-xs text-slate-400 mt-2">Do not write paragraph stories. Learn 12 crucial cell diagrams, memorise 4 titration curves, and master the Nernst-equation calculation layout to lock your O+ grade.</p>
-                </div>
-            </section>
-
-            <!-- UNIT NAVIGATION CARDS -->
-            <section class="space-y-4">
-                <h3 class="text-lg font-black text-white uppercase tracking-tight flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> JNTUK R23 Regulation Chemistry Syllabus Hub
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                    
-                    <a href="/chemistry-unit-1.html" class="p-4 glass-card bg-[#050510] hover:scale-[1.02] flex flex-col justify-between h-40">
-                        <div>
-                            <span class="text-[9px] font-black uppercase text-slate-500">Unit I</span>
-                            <h4 class="text-xs font-extrabold text-white mt-1">Structure &amp; Bonding Models</h4>
-                        </div>
-                        <span class="text-[9px] font-black text-blue-400 uppercase tracking-wider">Explore Unit 1 ➔</span>
-                    </a>
-                    
-                    <a href="/chemistry-unit-2.html" class="p-4 glass-card bg-[#050510] hover:scale-[1.02] flex flex-col justify-between h-40">
-                        <div>
-                            <span class="text-[9px] font-black uppercase text-slate-500">Unit II</span>
-                            <h4 class="text-xs font-extrabold text-white mt-1">Modern Analytical Techniques</h4>
-                        </div>
-                        <span class="text-[9px] font-black text-blue-400 uppercase tracking-wider">Explore Unit 2 ➔</span>
-                    </a>
-                    
-                    <div class="p-4 glass-card bg-gradient-to-br from-[#0c2a1c]/20 to-[#03030a] border-emerald-500/35 flex flex-col justify-between h-40 relative overflow-hidden">
-                        <div class="absolute right-0 top-0 text-[3rem] font-bold text-emerald-500/5 select-none font-mono">03</div>
-                        <div>
-                            <span class="text-[9px] font-black uppercase text-emerald-400">Unit III • Active</span>
-                            <h4 class="text-xs font-extrabold text-white mt-1">Electrochemistry &amp; Applications</h4>
-                        </div>
-                        <span class="text-[10px] font-black text-emerald-400 uppercase tracking-wider flex items-center gap-1">Present Unit <span class="animate-pulse">●</span></span>
-                    </div>
-
-                    <a href="/chemistry-unit-4.html" class="p-4 glass-card bg-[#050510] hover:scale-[1.02] flex flex-col justify-between h-40">
-                        <div>
-                            <span class="text-[9px] font-black uppercase text-slate-500">Unit IV</span>
-                            <h4 class="text-xs font-extrabold text-white mt-1">Polymer Chemistry</h4>
-                        </div>
-                        <span class="text-[9px] font-black text-blue-400 uppercase tracking-wider">Explore Unit 4 ➔</span>
-                    </a>
-
-                    <a href="/chemistry-unit-5.html" class="p-4 glass-card bg-[#050510] hover:scale-[1.02] flex flex-col justify-between h-40">
-                        <div>
-                            <span class="text-[9px] font-black uppercase text-slate-500">Unit V</span>
-                            <h4 class="text-xs font-extrabold text-white mt-1">Material Chemistry</h4>
-                        </div>
-                        <span class="text-[9px] font-black text-blue-400 uppercase tracking-wider">Explore Unit 5 ➔</span>
-                    </a>
-                </div>
-            </section>
-
-            <!-- ROADMAP, MOST DIFFICULT, MOST SCORING -->
-            <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <div class="p-6 glass-card space-y-4">
-                    <h3 class="text-md font-black text-white uppercase tracking-tight text-blue-400">🔥 Scoring Units Breakdown</h3>
-                    
-                    <div class="space-y-3 font-semibold text-xs text-slate-350">
-                        <div class="flex items-center justify-between border-b border-slate-900 pb-2">
-                            <span>Unit III: Electrochemistry and Cells</span>
-                            <span class="text-emerald-400">14 Marks (Highest Scoring - Algorithmic)</span>
-                        </div>
-                        <div class="flex items-center justify-between border-b border-slate-900 pb-2">
-                            <span>Unit I: MOT Diagrams of $O_2, CO$ and Bonding</span>
-                            <span class="text-emerald-400">14 Marks (Guaranteed Bond Order Questions)</span>
-                        </div>
-                        <div class="flex items-center justify-between border-b border-slate-900 pb-2">
-                            <span>Unit IV: Polymers &amp; Bakelite/Nylon synthesis</span>
-                            <span class="text-amber-500">14 Marks (Memory-heavy structures)</span>
-                        </div>
-                    </div>
-
-                    <div class="p-4 bg-blue-950/20 border border-blue-900/25 rounded-xl text-[11px] leading-relaxed text-slate-400">
-                        <b>Study Sequence Recommendation:</b> Begin with <b>Unit III</b> (Nernst math &amp; Battery steps are formula-bound) ➔ <b>Unit I</b> (Molecular diagram rules are fixed) ➔ <b>Unit II</b> (Potentiometric &amp; UV parameters) ➔ <b>Unit IV</b> (Polymers writing flow) ➔ <b>Unit V</b> (Nanomaterials theories).
-                    </div>
-                </div>
-
-                <div class="p-6 glass-card space-y-3">
-                    <h3 class="text-md font-black text-white uppercase tracking-tight text-amber-500">⚠️ Night-Before-Exam Survival Strategy</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Pressed for time? Don't stress. Follow this verified path to pass chemistry in only three hours of intensive, high-retention review:
-                    </p>
-                    <ul class="text-xs text-slate-350 space-y-2 list-none pl-0">
-                        <li class="flex gap-2">
-                            <span class="text-[#10b981] font-bold">✓</span>
-                            <span><b>Hour 1:</b> Memorize standard Nernst derivation steps &amp; write down 3 sample cell equations. (Unit 3)</span>
-                        </li>
-                        <li class="flex gap-2">
-                            <span class="text-[#10b981] font-bold">✓</span>
-                            <span><b>Hour 2:</b> Draw the specific Energy Level Molecular Diagrams of $O_2$ and $CO$ to calculate bond orders. (Unit 1)</span>
-                        </li>
-                        <li class="flex gap-2">
-                            <span class="text-[#10b981] font-bold">✓</span>
-                            <span><b>Hour 3:</b> Memorize reactions for Calomel electrode, Zinc-Air battery, and Lithium-Ion secondary storage. (Unit 3)</span>
-                        </li>
-                    </ul>
-                    <div class="p-3 bg-red-950/20 border border-red-900/35 rounded-xl text-[10px] text-red-400">
-                        <b>Critical Error Alert:</b> Never write unstructured pages. Board examiners use key-reaction scoring templates. If they do not see structural chemical reactions, you get zero even if you write four pages!
-                    </div>
-                </div>
-            </section>
-        </div>
-
-
-        <!-- ======================= TAB 2: UNIT III PREP KIT ======================= -->
-        <div id="tabcont-unit3-concepts" class="tab-pane space-y-16 hidden">
-            
-            <!-- STUDY PLAN CHECKLIST -->
-            <section class="glass-card p-6 bg-slate-950/50 border border-slate-900">
-                <div class="flex items-center justify-between mb-4 border-b border-blue-950/45 pb-2">
-                    <h3 class="text-sm font-black text-emerald-400 uppercase tracking-widest">Syllabus Complete Task Checklists</h3>
-                    <span class="text-[9.5px] text-slate-500">Each tick updates your global XP score!</span>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs font-semibold text-slate-400">
-                    <label class="flex items-center gap-2.5 p-2 bg-[#050510] hover:bg-slate-900/30 rounded-lg border border-slate-900 cursor-pointer select-none">
-                        <input type="checkbox" id="chk-u3-1" onclick="toggleTask('u3-1', 12.5)" class="accent-emerald-500">
-                        <span>Electrochemical Cells</span>
-                    </label>
-                    <label class="flex items-center gap-2.5 p-2 bg-[#050510] hover:bg-slate-900/30 rounded-lg border border-slate-900 cursor-pointer select-none">
-                        <input type="checkbox" id="chk-u3-2" onclick="toggleTask('u3-2', 12.5)" class="accent-emerald-500">
-                        <span>Nernst Equation Math</span>
-                    </label>
-                    <label class="flex items-center gap-2.5 p-2 bg-[#050510] hover:bg-slate-900/30 rounded-lg border border-slate-900 cursor-pointer select-none">
-                        <input type="checkbox" id="chk-u3-3" onclick="toggleTask('u3-3', 12.5)" class="accent-emerald-500">
-                        <span>Conductometric titrations</span>
-                    </label>
-                    <label class="flex items-center gap-2.5 p-2 bg-[#050510] hover:bg-slate-900/30 rounded-lg border border-slate-900 cursor-pointer select-none">
-                        <input type="checkbox" id="chk-u3-4" onclick="toggleTask('u3-4', 12.5)" class="accent-emerald-500">
-                        <span>Potentiometric titrations</span>
-                    </label>
-                    <label class="flex items-center gap-2.5 p-2 bg-[#050510] hover:bg-slate-900/30 rounded-lg border border-slate-900 cursor-pointer select-none">
-                        <input type="checkbox" id="chk-u3-5" onclick="toggleTask('u3-5', 12.5)" class="accent-emerald-500">
-                        <span>NHE &amp; Calomel Electrodes</span>
-                    </label>
-                    <label class="flex items-center gap-2.5 p-2 bg-[#050510] hover:bg-slate-900/30 rounded-lg border border-slate-900 cursor-pointer select-none">
-                        <input type="checkbox" id="chk-u3-6" onclick="toggleTask('u3-6', 12.5)" class="accent-emerald-500">
-                        <span>Zinc-Air &amp; Li-Ion Batteries</span>
-                    </label>
-                    <label class="flex items-center gap-2.5 p-2 bg-[#050510] hover:bg-slate-900/30 rounded-lg border border-slate-900 cursor-pointer select-none">
-                        <input type="checkbox" id="chk-u3-7" onclick="toggleTask('u3-7', 12.5)" class="accent-emerald-500">
-                        <span>H2-O2 Fuel Cells</span>
-                    </label>
-                    <label class="flex items-center gap-2.5 p-2 bg-[#050510] hover:bg-slate-900/30 rounded-lg border border-slate-900 cursor-pointer select-none">
-                        <input type="checkbox" id="chk-u3-8" onclick="toggleTask('u3-8', 12.5)" class="accent-emerald-500">
-                        <span>PEMFC technology</span>
-                    </label>
-                </div>
-            </section>
-
-            <!-- UNIT INTRODUCTION -->
-            <section class="glass-card p-8 bg-gradient-to-tr from-[#05150d] via-[#030308] to-slate-950/20">
-                <h3 class="text-sm font-black text-[#10b981] uppercase tracking-widest">Syllabus Scope Definition</h3>
-                <h2 class="text-2xl font-black text-white mt-1">UNIT III INTRODUCTION: Electrochemistry</h2>
-                <div class="mt-4 text-xs sm:text-sm text-slate-350 leading-relaxed space-y-3">
-                    <p>
-                        This unit establishes the boundary between chemical structures and engineering thermodynamics. You will transition from standard reduction potentials (Nernst equation) to operational instrumentation methods such as **Potentiometry (Redox titrations)** and **Conductometry (Acid-Base titrations)**.
-                    </p>
-                    <p>
-                        Furthermore, we investigate the energy conversion models behind portable grids: the highly stable <b>Calomel electrode</b>, multi-cell **Zinc-Air batteries**, **Lithium-Ion systems**, standard **$H_2-O_2$ Fuel cells**, and **Polymer Electrolyte Membrane Fuel Cells (PEMFC)** designed for modern zero-emission vehicles.
-                    </p>
-                </div>
-            </section>
-
-            <!-- 10 OBJECTS OF SYLLABUS DETAIL -->
-            <section class="space-y-8">
-                <h3 class="text-xl font-black text-white uppercase tracking-tight flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span> Syllabus Topics Core Concept Library
-                </h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300 leading-relaxed font-sans">
-                    
-                    <!-- topic 1 -->
-                    <div id="sc-1" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 1</span>
-                        <h4 class="text-sm font-black text-white">Electrochemical Cell</h4>
-                        <p>A device capable of either generating electrical energy from chemical reactions (Galvanic/Voltaic) or facilitating chemical changes via electricity (Electrolytic cell).</p>
-                        <p class="text-slate-400"><b>Structure formulation:</b> Anode (site of Oxidation, negative charge) and Cathode (site of Reduction, positive charge), bridged by an ion-conducting electrolyte salt bridge.</p>
-                        <p class="text-emerald-400 font-semibold font-mono">$$\text{Cell Reaction Representation: } \text{Zn(s)} \mid \text{Zn}^{2+}(\text{aq}) \parallel \text{Cu}^{2+}(\text{aq}) \mid \text{Cu(s)}$$</p>
-                    </div>
-
-                    <!-- topic 2 -->
-                    <div id="sc-2" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 2</span>
-                        <h4 class="text-sm font-black text-white">Nernst Equation formulation</h4>
-                        <p>An equation that relates the reduction potential of an electrochemical cell (or half-cell) to the temperature and activities/concentrations of chemical species involved.</p>
-                        <p class="text-slate-400"><b>Key equation:</b> Calculates non-standard cell electromotive potential with high mathematical accuracy.</p>
-                        <p class="text-emerald-400 font-bold font-mono bg-[#03030b] p-2.5 rounded text-center">
-                            $$E_{\text{cell}} = E^{\circ}_{\text{cell}} - \frac{2.303 RT}{nF} \log \left(\frac{[\text{Anode Ions}]}{[\text{Cathode Ions}]}\right)$$
-                        </p>
-                        <p class="text-[10px] text-slate-500">At standard $25^{\circ}\text{C}$ ($298\text{ K}$), the constant factor reduces to $0.0592 \text{ V}$.</p>
-                    </div>
-
-                    <!-- topic 3 -->
-                    <div id="sc-3" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 3</span>
-                        <h4 class="text-sm font-black text-white">Potentiometry &amp; Potentiometric Titrations</h4>
-                        <p>An electrochemical analysis technique where the potential difference between a reference electrode and an indicator electrode is measured as a function of titrant volume added.</p>
-                        <p class="text-slate-400"><b>Redox Titration model:</b> Involving $Fe^{2+}$ vs $K_2Cr_2O_7$. The equivalence point manifests as an abrupt vertical inflection on the Potential vs. Volume curve ($dE/dV$ first derivative spike).</p>
-                    </div>
-
-                    <!-- topic 4 -->
-                    <div id="sc-4" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 4</span>
-                        <h4 class="text-sm font-black text-white">Concept of Conductivity &amp; Conductivity Cell</h4>
-                        <p>Conductivity ($\kappa$) measures an electrolyte solution's ability to conduct electrical current. It represents the reciprocal of resistivity ($\rho$).</p>
-                        <p class="text-slate-400"><b>Cell Constant ($G^{\ast}$):</b> Ratio of distance between electrodes ($l$) to area ($a$), measured utilizing a Wheatstone bridge framework inside a specialized glass conductivity cell.</p>
-                        <p class="text-[#10b981] font-mono font-bold">$$\kappa = G \cdot G^{\ast} \implies \kappa = \left(\frac{1}{R}\right) \cdot \left(\frac{l}{a}\right)$$</p>
-                    </div>
-
-                    <!-- topic 5 -->
-                    <div id="sc-5" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 5</span>
-                        <h4 class="text-sm font-black text-white">Conductometric Titrations (Acid-Base)</h4>
-                        <p>Measurements of electrolytic conductivity variations as the titration progress alters the ionic species concentrations.</p>
-                        <p class="text-slate-400"><b>Acid-Base Example:</b> Strong Acid (HCl) vs Strong Base (NaOH). The conductance decreases sharply first as hyper-mobile $H^+$ ions are replaced by slower $Na^+$, reach a minimum at equivalence, and then rise due to free highly mobile $OH^-$ ions.</p>
-                    </div>
-
-                    <!-- topic 6 -->
-                    <div id="sc-6" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 6</span>
-                        <h4 class="text-sm font-black text-white">Potentiometric Sensors with Examples</h4>
-                        <p>Electrochemical sensors that convert specific chemical activity changes into measurable indicator electrode potentials under zero-current conditions.</p>
-                        <p class="text-slate-400"><b>Primary Example:</b> The standard **Glass pH electrode** acts as a potentiometric sensor selectively permeable to hydronium ions ($H^+$), generating potential differences directly proportional to pH values.</p>
-                    </div>
-
-                    <!-- topic 7 -->
-                    <div id="sc-7" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 7</span>
-                        <h4 class="text-sm font-black text-white">Reference Electrodes: NHE &amp; Calomel</h4>
-                        <p>Electrodes whose potential remains completely stable and independent of the sample chemistry, acting as a potential baseline reference.</p>
-                        <p class="text-slate-400"><b>NHE (Normal Hydrogen Electrode):</b> Gas electrode, bubbling $H_2$ gas at $1\text{ atm}$ over solid platinum foil immersed in $1\text{ M } H^+$ solution. Potential is arbitrarily defined as $0.000\text{ V}$.</p>
-                        <p class="text-slate-400"><b>Saturated Calomel Electrode (SCE):</b> Secondary reference based on liquid mercury, solid mercurous chloride paste ($Hg_2Cl_2$ paste), and saturated aqueous $KCl$ electrolyte. Highly practical with potential of $+0.242\text{ V}$.</p>
-                    </div>
-
-                    <!-- topic 8 -->
-                    <div id="sc-8" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 8</span>
-                        <h4 class="text-sm font-black text-white">Primary Cells: Zinc-Air Battery</h4>
-                        <p>Primary (non-rechargeable) battery utilizing zinc oxidation at the anode alongside oxygen reduction drawn directly from the atmosphere at a gas-diffusion cathode.</p>
-                        <p class="text-slate-400"><b>Anode half reaction:</b> $$\text{Zn} + 2\text{OH}^- \rightarrow \text{ZnO} + \text{H}_2\text{O} + 2e^-$$</p>
-                        <p class="text-slate-400"><b>Cathode half reaction:</b> $$\text{O}_2 + 2\text{H}_2\text{O} + 4e^- \rightarrow 4\text{OH}^-$$</p>
-                        <span class="text-[10px] text-amber-500 font-bold">Key Benefit: Infinite cathode reactant storage because oxygen is taken from free surrounding air!</span>
-                    </div>
-
-                    <!-- topic 9 -->
-                    <div id="sc-9" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 9</span>
-                        <h4 class="text-sm font-black text-white">Secondary Cells: Lithium-Ion Batteries</h4>
-                        <p>High energy-density rechargeable storage device operating via intercalation/de-intercalation of Lithium ions ($Li^+$) between a layered graphite anode ($LiC_6$) and a lithium metal oxide cathode ($LiCoO_2$).</p>
-                        <p class="text-slate-400 font-mono">$$\textbf{Anode: } \text{LiC}_6 \rightleftharpoons 6\text{C} + \text{Li}^+ + e^-$$</p>
-                        <p class="text-slate-400 font-mono">$$\textbf{Cathode: } \text{CoO}_2 + \text{Li}^+ + e^- \rightleftharpoons \text{LiCoO}_2$$</p>
-                        <p class="text-slate-500">The process of discharging transfers ions from graphite to oxide; charging reverses the direction.</p>
-                    </div>
-
-                    <!-- topic 10 -->
-                    <div id="sc-10" class="p-6 bg-slate-950/80 border border-slate-900/60 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-black uppercase tracking-wider">Concept 10</span>
-                        <h4 class="text-sm font-black text-white">Fuel Cells: H2-O2 &amp; PEMFC</h4>
-                        <p>Continuous conversion cells that produce electricity from the constant feed of oxidation gas fuel (hydrogen) and reduction gas oxidizer (oxygen).</p>
-                        <p class="text-slate-400"><b>PEMFC (Polymer Electrolyte Membrane Fuel Cell):</b> Employs an ultra-thin hydrogen-ion selective polymeric membrane (commonly Nafion) as the solid acidic electrolyte matrix operating at low temperatures.</p>
-                        <p class="text-slate-400 font-mono">$$\textbf{PEMFC Reactions: } \text{H}_2 \rightarrow 2\text{H}^+ + 2e^- \quad \text{(Anode, Platinum Catalyst)}$$</p>
-                        <p class="text-slate-400 font-mono">$$\frac{1}{2}\text{O}_2 + 2\text{H}^+ + 2e^- \rightarrow \text{H}_2\text{O} \quad \text{(Cathode)}$$</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- HIGH YIELD FORMULA SHEET -->
-            <section id="formulas" class="glass-card p-8 bg-gradient-to-br from-slate-900 to-emerald-950/40 scroll-mt-24">
-                <h3 class="text-sm font-black text-emerald-400 uppercase tracking-widest mb-1">Cheat Sheet</h3>
-                <h2 class="text-2xl font-black text-white mb-6">High-Yield Formula Sheet &amp; Memory Hacks</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
-                    
-                    <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl space-y-2">
-                        <h4 class="text-emerald-400 font-extrabold uppercase">1. Nernst potential equation</h4>
-                        <div class="p-2.5 bg-slate-900 text-[#10b981] text-[11px] font-bold rounded">
-                            $$E = E^{\circ} - \frac{0.0592}{n} \log_{10} \frac{[\text{Red}]}{[\text{Ox}]}$$
-                        </div>
-                        <p class="text-[10px] text-slate-550 leading-relaxed font-sans">
-                            • Valid solely at $298\text{ K}$ ($25^{\circ}\text{C}$).<br>
-                            • $n$ represents moles of electrons transferred.<br>
-                            • $E^{\circ}$ is standard cell potential.
-                        </p>
-                    </div>
-
-                    <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl space-y-2">
-                        <h4 class="text-emerald-400 font-extrabold uppercase">2. Cell Potential (EMF)</h4>
-                        <div class="p-2.5 bg-slate-900 text-[#10b981] text-[11px] font-bold rounded">
-                            $$E_{\text{cell}} = E_{\text{RHS}} - E_{\text{LHS}}$$
-                            $$E_{\text{cell}} = E_{\text{cathode}} - E_{\text{anode}}$$
-                        </div>
-                        <p class="text-[10px] text-slate-550 leading-relaxed font-sans">
-                            • Both potentials must represent reduction potentials.<br>
-                            • If Oxidation potential is given, reverse the sign!
-                        </p>
-                    </div>
-
-                    <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl space-y-2">
-                        <h4 class="text-emerald-400 font-extrabold uppercase">3. Conductivity cell parameter</h4>
-                        <div class="p-2.5 bg-slate-900 text-[#10b981] text-[11px] font-bold rounded">
-                            $$G^{\ast} = \frac{l}{a}$$
-                            $$\kappa = \frac{G^{\ast}}{R} = G^{\ast} \cdot G$$
-                        </div>
-                        <p class="text-[10px] text-slate-550 leading-relaxed font-sans">
-                            • $G$: conductance in Siemens ($S$ or $\Omega^{-1}$)<br>
-                            • $G^{\ast}$: cell constant measuring in $\text{cm}^{-1}$<br>
-                            • $\kappa$: Specific conductivity in $\text{S cm}^{-1}$.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Memory Aid Banner -->
-                <div class="mt-6 p-4 bg-[#0e2c1c]/15 border border-[#10b981]/25 rounded-xl flex items-center gap-4 text-xs">
-                    <span class="text-2xl">🧠</span>
+            <!-- Sidebar -->
+            <aside class="lg:col-span-3 space-y-6">
+                <!-- Tracker -->
+                <div class="w-full p-5 bg-[#0a0a0f] border border-white/5 rounded-2xl flex flex-col justify-between h-32 relative z-10">
                     <div>
-                        <h4 class="font-extrabold text-[#10b981] uppercase font-sans">Mnemonic Hack: AnOx RedCat Plus NHE</h4>
-                        <p class="text-slate-400 mt-0.5 font-sans leading-relaxed">
-                            Remember: <b>AnOx</b> = **An**ode is **Ox**idation. <b>RedCat</b> = **Red**uction occurs at the **Cat**hode. <b>Saturated Calomel</b> is ALWAYS $+0.242\text{ V}$ relative to NHE at $0.00\text{ V}$.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- IMPORTANT DERIVATIONS -->
-            <section id="derivations" class="glass-card p-8 space-y-8 scroll-mt-24">
-                <h3 class="text-sm font-black text-emerald-400 uppercase tracking-widest">Board Answer Formats</h3>
-                <h2 class="text-2xl font-black text-white">Physically Valid Derivations</h2>
-                
-                <!-- Derivation 1 -->
-                <div class="p-6 bg-[#04040a] border border-slate-900 rounded-2xl space-y-4">
-                    <span class="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-900/30 text-[9.5px] font-semibold uppercase tracking-wider rounded">Highly Probability Derivation</span>
-                    <h3 class="text-md sm:text-base font-black text-white font-mono">Thermodynamic Derivation of Nernst Equation</h3>
-                    <p class="text-xs text-slate-400">Step-by-step mathematical bridge from free energy parameters to standard concentrations.</p>
-                    
-                    <div class="text-xs text-[#cad5e2] space-y-3 leading-relaxed font-sans">
-                        <p><b>Step 1: Write down Gibbst thermodynamic relation</b><br>
-                        Free energy changes in non-equilibrium conditions relate to reaction quotients ($Q$) via:<br>
-                        $$\Delta G = \Delta G^{\circ} + RT \ln Q \quad \text{--- (Equation 1)}$$</p>
-
-                        <p><b>Step 2: Connect thermodynamic energy to electrical EMF output</b><br>
-                        We know that the maximum electronic work done represents mechanical charges, so:<br>
-                        $$\Delta G = -nFE_{\text{cell}} \quad \text{and} \quad \Delta G^{\circ} = -nFE^{\circ}_{\text{cell}}$$</p>
-
-                        <p><b>Step 3: Substitute terms back into Equation 1</b><br>
-                        $$-nFE_{\text{cell}} = -nFE^{\circ}_{\text{cell}} + RT \ln Q$$</p>
-
-                        <p><b>Step 4: Isolate Cell Potential via division</b><br>
-                        Divide both sides through by $-nF$:<br>
-                        $$E_{\text{cell}} = E^{\circ}_{\text{cell}} - \frac{RT}{nF} \ln Q$$</p>
-
-                        <p><b>Step 5: Convert natural logarithm to log base 10 at 298 Kelvin</b><br>
-                        Substitute $R = 8.314 \text{ J mol}^{-1}\text{K}^{-1}$, $F = 96485 \text{ C mol}^{-1}$, and $T = 298.15\text{ K}$:<br>
-                        $$\frac{2.303 \times 8.314 \times 298.15}{96485} = 0.05916$$<br>
-                        <span class="text-emerald-400 font-bold block text-center bg-slate-950 p-3 rounded border border-dashed border-emerald-900/40">
-                            $$E_{\text{cell}} = E^{\circ}_{\text{cell}} - \frac{0.0592}{n} \log_{10} Q$$
-                        </span></p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SOLVED NUMERICALS -->
-            <section class="glass-card p-8 space-y-6">
-                <h3 class="text-sm font-black text-emerald-400 uppercase tracking-widest">Exam Solver Layouts</h3>
-                <h2 class="text-2xl font-black text-white">Board Solved Numerical Lab</h2>
-
-                <!-- Numerical 1 -->
-                <div class="p-5 bg-[#030308] border border-blue-950/45 rounded-xl space-y-3 font-sans">
-                    <span class="px-2 py-0.5 bg-[#10b981]/15 text-[#10b981] border border-emerald-900/30 text-[9px] font-black rounded uppercase">JNTUK Model 1</span>
-                    <h4 class="text-xs sm:text-sm font-black text-white font-mono">Calculate the potential of a Daniell cell operating at $298\text{ K}$ with $[\text{Zn}^{2+}] = 0.1\text{ M}$ and $[\text{Cu}^{2+}] = 0.01\text{ M}$. Standard potential $E^{\circ} = 1.10\text{ V}$.</h4>
-                    
-                    <div class="text-xs text-slate-400 mt-2 space-y-3 leading-relaxed">
-                        <p><b>Explicit Steps:</b><br>
-                        1. **Identify the Net Reaction Flow:**<br>
-                        $$\text{Zn(s)} + \text{Cu}^{2+}(\text{aq}) \rightarrow \text{Zn}^{2+}(\text{aq}) + \text{Cu(s)}$$<br>
-                        Here,Zinc loses 2 electrons ($n = 2$), Copper gains 2 electrons.</p>
-                        
-                        <p>2. **Write Nernst Equation quotient:**<br>
-                        $$Q = \frac{[\text{Zn}^{2+}]}{[\text{Cu}^{2+}]} = \frac{0.1}{0.01} = 10$$</p>
-
-                        <p>3. **Compute values:**<br>
-                        $$E_{\text{cell}} = E^{\circ}_{\text{cell}} - \frac{0.0592}{n} \log_{10} Q$$<br>
-                        $$E_{\text{cell}} = 1.10 - \frac{0.0592}{2} \log_{10}(10)$$<br>
-                        $$E_{\text{cell}} = 1.10 - 0.0296(1) = 1.0704\text{ V}$$</p>
-                        
-                        <div class="p-2.5 bg-slate-900 rounded border-l-4 border-emerald-500 font-mono text-emerald-400 text-center font-bold">
-                            Final Boxed Answer: E_cell = 1.07 V
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-xs font-black text-white">Prep Tracker</h4>
+                            <span class="text-[10px] font-bold text-blue-400">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-900 border border-white/5 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-blue-500 h-full w-[0%]"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Numerical 2 -->
-                <div class="p-5 bg-[#030308] border border-blue-950/45 rounded-xl space-y-3 font-sans">
-                    <span class="px-2 py-0.5 bg-[#10b981]/15 text-[#10b981] border border-emerald-900/30 text-[9px] font-black rounded uppercase">JNTUK Model 2</span>
-                    <h4 class="text-xs sm:text-sm font-black text-white font-mono">Using a conductivity cell with constant $0.5\text{ cm}^{-1}$, an electrolyte displays a resistance of $50\ \Omega$. Calculate its explicit conductivity ($\kappa$).</h4>
-                    
-                    <div class="text-xs text-slate-400 mt-2 space-y-3 leading-relaxed">
-                        <p><b>Explicit Steps:</b><br>
-                        1. **Identify the parameters:** Cell constant $G^{\ast} = 0.5\text{ cm}^{-1}$, Resistance $R = 50\ \Omega$ (Conductance $G = 1/50 = 0.02\text{ S}$).<br>
-                        2. **Formulate the specific conductivity:**<br>
-                        $$\kappa = G \cdot G^{\ast} \implies \kappa = \frac{G^{\ast}}{R}$$<br>
-                        $$\kappa = \frac{0.5}{50} = 0.01\text{ S cm}^{-1}$$</p>
-
-                        <div class="p-2.5 bg-slate-900 rounded border-l-4 border-emerald-500 font-mono text-emerald-400 text-center font-bold">
-                            Final Boxed Answer: Specific Conductivity = 0.01 S/cm (or 10 mS/cm)
-                        </div>
-                    </div>
+                <!-- TOC -->
+                <div class="bg-[#0a0a0f] border border-white/5 rounded-2xl p-4 sticky top-28">
+                    <h4 class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3 px-3">UNIT 3 — Electrochemistry</h4>
+                    <nav class="space-y-1">
+                        <a href="#t-01" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">01</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Electrochemical Cells</span>
+                        </a>
+                        <a href="#t-02" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">02</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Nernst Equation</span>
+                        </a>
+                        <a href="#t-03" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">03</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Cell Potential Numericals</span>
+                        </a>
+                        <a href="#t-04" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">04</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Conductometry</span>
+                        </a>
+                        <a href="#t-05" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">05</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Potentiometry</span>
+                        </a>
+                        <a href="#t-06" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">06</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Reference Electrodes</span>
+                        </a>
+                        <a href="#t-07" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">07</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Batteries & Fuel Cells</span>
+                        </a>
+                        <a href="#t-08" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">08</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">PEMFC</span>
+                        </a>
+                        <a href="#t-09" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">09</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">PYQs & Viva</span>
+                        </a>
+                        <a href="#t-10" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
+                            <span class="text-[10px] text-blue-400 font-black mb-0.5">10</span>
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Quick Revision</span>
+                        </a>
+                    </nav>
                 </div>
-            </section>
 
-            <!-- BOARD PYQ BANK & PREDICTIONS -->
-            <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <div class="p-6 glass-card space-y-4">
-                    <h3 class="text-md font-black text-white uppercase tracking-tight text-emerald-400">📊 Official JNTUK PYQ Bank</h3>
-                    <div class="space-y-4 text-xs font-semibold">
-                        <div class="p-3 bg-slate-950/40 rounded-xl border border-slate-900 flex justify-between items-start">
-                            <div>
-                                <h4 class="text-white text-xs">Lithium-Ion Battery Intercalation</h4>
-                                <p class="text-slate-450 mt-1 font-sans">Detail the design, working principles, &amp; chemical reactions of standard LiCoO2 batteries.</p>
-                            </div>
-                            <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[8.5px] font-mono">10 Marks</span>
-                        </div>
-                        <div class="p-3 bg-slate-950/40 rounded-xl border border-slate-900 flex justify-between items-start">
-                            <div>
-                                <h4 class="text-white text-xs">Calomel Reference Electrode SCE</h4>
-                                <p class="text-slate-450 mt-1 font-sans">Explain NHE and Calomel setups with explicit diagrams and standard reactions.</p>
-                            </div>
-                            <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[8.5px] font-mono">10 Marks</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-6 glass-card space-y-4">
-                    <h3 class="text-md font-black text-white uppercase tracking-tight text-amber-500">🎯 Prediction Portal (98% probability)</h3>
-                    <div class="space-y-3 text-xs leading-relaxed text-slate-400">
-                        <p>We predict the **Nernst chemical derivation** alongside a **Daniell cell numerical** represents 50% of tomorrow's paper.</p>
-                        <p>The remaining 50% will focus on continuous power: **Zinc-Air battery reactions** or **PEMFC fuel cell systems (Nafion structures)**.</p>
-                        <div class="p-3 bg-amber-500/10 border border-amber-500/25 rounded-md text-[10.5px] text-amber-500 font-sans">
-                            <b>Examiner Warning:</b> Do not confuse Potentiometric (potential difference redox) with Conductometric (conductance acid-base) titrations. Mixing these graphs results in total structural failure!
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- INTERACTIVE VIVA FLASHCARDS -->
-            <section id="quick-revision" class="space-y-6">
-                <h3 class="text-xl font-black text-white uppercase tracking-tight flex items-center gap-2">
-                    <span>🧪</span> Oral Exam &amp; Viva Simulator Cards
-                </h3>
-                <p class="text-xs text-slate-400 font-medium">Click on any card to flip and view the answer or reveal examiner traps.</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    
-                    <!-- Viva 1 -->
-                    <div class="relative w-full h-40 cursor-pointer group" onclick="flipVivaCard(this)">
-                        <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-[#03030a] shadow-md">
-                            <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                <span class="text-[8px] font-black text-amber-500 uppercase tracking-widest">Question 1</span>
-                                <h4 class="text-xs sm:text-sm font-black text-slate-100">Why is Calomel preferred over NHE in laboratory setups?</h4>
-                                <span class="text-[8px] text-slate-500 uppercase tracking-widest text-[#10b981]">Click to Reveal ➔</span>
-                            </div>
-                            <div class="viva-card-back absolute inset-0 p-5 bg-[#091a13] rounded-2xl flex flex-col justify-between">
-                                <p class="text-[11px] text-slate-300 leading-relaxed font-sans"><b>Answer:</b> NHE requires constant setup of explosive, pure hydrogen gas bubbled at exactly $1\text{ atm}$ alongside highly corrosive acid. Calomel SCE is rugged, non-explosive, and solid paste.</p>
-                                <span class="text-[8px] text-emerald-400 font-semibold uppercase tracking-widest">Gold Answer 👍</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Viva 2 -->
-                    <div class="relative w-full h-40 cursor-pointer group" onclick="flipVivaCard(this)">
-                        <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-[#03030a] shadow-md">
-                            <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                <span class="text-[8px] font-black text-amber-500 uppercase tracking-widest">Question 2</span>
-                                <h4 class="text-xs sm:text-sm font-black text-slate-100">What electrolyte is used in Polymer Electrolyte Membrane Fuel Cells (PEMFC)?</h4>
-                                <span class="text-[8px] text-slate-500 uppercase tracking-widest text-[#10b981]">Click to Reveal ➔</span>
-                            </div>
-                            <div class="viva-card-back absolute inset-0 p-5 bg-[#091a13] rounded-2xl flex flex-col justify-between">
-                                <p class="text-[11px] text-slate-300 leading-relaxed font-sans"><b>Answer:</b> An ultra-thin polymeric membrane polymer, typically **Nafion** (sulfonated tetrafluoroethylene copolymer), which selectively passes $H^+$ protons but bars electrons.</p>
-                                <span class="text-[8px] text-emerald-400 font-semibold uppercase tracking-widest">Topper Answer 👍</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Viva 3 -->
-                    <div class="relative w-full h-40 cursor-pointer group" onclick="flipVivaCard(this)">
-                        <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-[#03030a] shadow-md">
-                            <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                <span class="text-[8px] font-black text-amber-500 uppercase tracking-widest">Question 3</span>
-                                <h4 class="text-xs sm:text-sm font-black text-slate-100">Explain why Zn-Air battery is classified as primary?</h4>
-                                <span class="text-[8px] text-slate-500 uppercase tracking-widest text-[#10b981]">Click to Reveal ➔</span>
-                            </div>
-                            <div class="viva-card-back absolute inset-0 p-5 bg-[#091a13] rounded-2xl flex flex-col justify-between">
-                                <p class="text-[11px] text-slate-300 leading-relaxed font-sans"><b>Answer:</b> Its zinc metal anode slowly oxidizes to ZnO irreversibly. Because Zinc has high passivation limits, the cell reactions are difficult to reverse safely, making it a primary power source.</p>
-                                <span class="text-[8px] text-emerald-400 font-semibold uppercase tracking-widest">Examiner Trap Defeated 👍</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </aside>
         </div>
-
-
-        <!-- ======================= TAB 3: SIMULATORS & INTERACTIVE TOOLS ======================= -->
-        <div id="tabcont-simulators" class="tab-pane space-y-16 hidden">
-            
-            <section class="max-w-4xl mx-auto space-y-8">
-                
-                <div class="p-6 bg-slate-950/60 border border-blue-950/45 rounded-3xl space-y-4">
-                    <h3 class="text-md font-black text-white uppercase tracking-tight text-[#10b981]">1. Interactive Nernst Potential Solver</h3>
-                    <p class="text-xs text-slate-400">Dynamically update reactant parameters to verify standard Cell Electromotive parameters ($E_{\text{cell}}$) at $298\text{ K}$ instantly.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs text-slate-350">
-                        <div>
-                            <label class="block font-bold text-slate-400 mb-1">Standard Pot $E^{\circ}$ (Volts)</label>
-                            <input id="input-e0" type="number" step="0.01" value="1.10" class="w-full bg-[#03030a] border border-slate-800 rounded px-3 py-1.5 font-mono text-[#10b981] outline-none">
-                        </div>
-                        <div>
-                            <label class="block font-bold text-slate-400 mb-1">Concentration of Oxidized site (Anode M)</label>
-                            <input id="input-anode" type="number" step="0.01" value="0.1" class="w-full bg-[#03030a] border border-slate-800 rounded px-3 py-1.5 font-mono text-[#10b981] outline-none">
-                        </div>
-                        <div>
-                            <label class="block font-bold text-slate-400 mb-1">Concentration of Reduced site (Cathode M)</label>
-                            <input id="input-cathode" type="number" step="0.01" value="0.01" class="w-full bg-[#03030a] border border-slate-800 rounded px-3 py-1.5 font-mono text-[#10b981] outline-none">
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-4 pt-2">
-                        <button onclick="computeNernstSim()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 font-extrabold text-white text-xs uppercase rounded-xl transition-all">Compute Potential ⚡</button>
-                        <div id="calc-result" class="text-sm font-mono text-[#10b981] font-bold">Waiting for input...</div>
-                    </div>
-                </div>
-
-                <div class="p-6 bg-slate-950/60 border border-blue-950/45 rounded-3xl space-y-4">
-                    <h3 class="text-md font-black text-white uppercase tracking-tight text-blue-400">2. Conductometric Titration Curve Simulator</h3>
-                    <p class="text-xs text-slate-400">Choose acid-base combination pathways and simulate the resulting conductivity graphs inside our virtual conductivity cells.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                        <div>
-                            <label class="block font-bold text-slate-400 mb-1">Select Acid vs Base Pair System</label>
-                            <select id="select-titration" onchange="computeTitrationSim()" class="w-full bg-[#03030a] border border-slate-800 rounded px-3 py-2 text-slate-300 outline-none">
-                                <option value="strong-strong">Strong Acid (HCl) vs Strong Base (NaOH)</option>
-                                <option value="weak-strong">Weak Acid (CH3COOH) vs Strong Base (NaOH)</option>
-                                <option value="strong-weak">Strong Acid (HCl) vs Weak Base (NH4OH)</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col justify-end">
-                            <span class="text-[10px] text-slate-500 leading-relaxed font-sans">
-                                Conductivity cell parameters are updated at $25^{\circ}\text{C}$. Slower replacement sodium ions drop general electrical curves until neutralization points.
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Virtual Graph Screen -->
-                    <div class="p-5 bg-[#03030a] rounded-2xl border border-slate-900 flex flex-col items-center">
-                        <h4 class="text-xs text-slate-200 mb-4 font-mono">Normalized Conductivity $\kappa$ vs. Volume of Base Added</h4>
-                        
-                        <div class="w-full max-w-lg h-40 flex items-end justify-between px-6 pb-2 border-b border-l border-slate-800 relative">
-                            <!-- Graph content renders here dynamically -->
-                            <div id="g-point-1" class="w-3 bg-blue-500 rounded-t" style="height: 90%"></div>
-                            <div id="g-point-2" class="w-3 bg-blue-500 rounded-t" style="height: 70%"></div>
-                            <div id="g-point-3" class="w-3 bg-blue-500 rounded-t" style="height: 50%"></div>
-                            <div id="g-point-4" class="w-3 bg-blue-500 rounded-t" style="height: 30%"></div>
-                            <div id="g-point-5" class="w-3 bg-blue-500 rounded-t" style="height: 10%"></div>
-                            <div id="g-point-6" class="w-3 bg-blue-500 rounded-t" style="height: 35%"></div>
-                            <div id="g-point-7" class="w-3 bg-blue-500 rounded-t" style="height: 60%"></div>
-                            <div id="g-point-8" class="w-3 bg-blue-500 rounded-t" style="height: 85%"></div>
-                            
-                            <!-- Graph labels -->
-                            <span class="absolute left-1 top-2 text-[8px] text-slate-600">Max Conductivity</span>
-                            <span class="absolute right-2 bottom-1 text-[8px] text-slate-600">Volume added ➔</span>
-                            <span id="label-equivalence" class="absolute left-1/2 bottom-3 -translate-x-1/2 text-[9px] text-[#10b981] font-bold bg-[#03030a] px-2 rounded-full border border-[#10b981]/20">Equivalence Point (V)</span>
-                        </div>
-                        <p id="titration-info" class="text-[11px] text-slate-400 mt-3 font-semibold text-center font-sans">
-                            Neutralizing HCl with basic NaOH drops conductivity recursively since fast $H^+$ gets consumed. Excess NaOH adds hyper-mobile $OH^-$ reversing the curve trajectory.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- SGPA AND ATTENDANCE CALCULATORS -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    
-                    <!-- SGPA -->
-                    <div class="p-6 bg-slate-950/60 border border-blue-950/45 rounded-3xl space-y-4">
-                        <h4 class="text-xs font-black text-emerald-400 uppercase tracking-widest">SGPA Calculator (JNTUK R23 Rules)</h4>
-                        <p class="text-[10px] text-slate-400">Calculate academic GPA based on relative credits. Input grades below.</p>
-                        
-                        <div class="space-y-3 text-xs">
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block font-semibold text-slate-400 mb-1">Mathematics-1 Grade</label>
-                                    <select id="sgpa-m1" class="w-full bg-[#03030a] border border-slate-800 rounded px-2 py-1 outline-none">
-                                        <option value="10">O (Outstanding - 10)</option>
-                                        <option value="9">A+ (Excellent - 9)</option>
-                                        <option value="8">A (Very Good - 8)</option>
-                                        <option value="7">B (Good - 7)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block font-semibold text-slate-400 mb-1">Chemistry Grade</label>
-                                    <select id="sgpa-chem" class="w-full bg-[#03030a] border border-slate-800 rounded px-2 py-1 outline-none">
-                                        <option value="10">O (Outstanding - 10)</option>
-                                        <option value="9">A+ (Excellent - 9)</option>
-                                        <option value="8">A (Very Good - 8)</option>
-                                        <option value="7">B (Good - 7)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button onclick="computeSgpa()" class="w-full py-1.5 bg-[#10b981] font-bold text-white uppercase rounded text-xs">Calculate SGPA ➔</button>
-                            <p id="sgpa-result" class="text-center font-mono font-bold text-[#10b981] text-xs pt-1">Estimated SGPA: 10.00</p>
-                        </div>
-                    </div>
-
-                    <!-- Attendance -->
-                    <div class="p-6 bg-slate-950/60 border border-blue-950/45 rounded-3xl space-y-4">
-                        <h4 class="text-xs font-black text-emerald-400 uppercase tracking-widest">Attendance Buffer Tool</h4>
-                        <p class="text-[10px] text-slate-400">JNTUK mandates $75\%$ attendance minimum to sit for external tests.</p>
-                        
-                        <div class="space-y-3 text-xs">
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block font-semibold text-slate-400 mb-1">Total Classes Held</label>
-                                    <input id="att-held" type="number" value="100" class="w-full bg-[#03030a] border border-slate-800 rounded px-2 py-1 outline-none">
-                                </div>
-                                <div>
-                                    <label class="block font-semibold text-slate-400 mb-1">Classes Attended</label>
-                                    <input id="att-attended" type="number" value="82" class="w-full bg-[#03030a] border border-slate-800 rounded px-2 py-1 outline-none">
-                                </div>
-                            </div>
-                            <button onclick="computeAttendance()" class="w-full py-1.5 bg-blue-600 font-bold text-white uppercase rounded text-xs">Check Eligibility ➔</button>
-                            <p id="att-result" class="text-center font-mono font-bold text-xs pt-1">Loading...</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
     </main>
-
-    <!-- Global Footer -->
-    <footer class="border-t border-slate-900 bg-[#020206] py-12 px-6 text-xs text-slate-500 font-medium">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex flex-col">
-                <span class="text-sm font-black text-white">EngiPrep Hub – JNTUK Premium Survival Toolkit</span>
-                <span class="mt-1">Dedicated academic resources aligned strictly to R23 regulations.</span>
-            </div>
-            <div class="flex gap-4">
-                <a href="/" class="hover:text-slate-300">Home</a>
-                <span>•</span>
-                <a href="/all-subjects.html" class="hover:text-slate-300">All Subjects</a>
-                <span>•</span>
-                <a href="/privacy-policy.html" class="hover:text-slate-300">Privacy Policy</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Interactive script parameters -->
-    <script>
-        // Core Tab System
-        function switchTab(tabId) {
-            // hide all pane items
-            const panes = document.querySelectorAll(".tab-pane");
-            panes.forEach(pane => pane.classList.add("hidden"));
-
-            // show relevant pane
-            document.getElementById("tabcont-" + tabId).classList.remove("hidden");
-
-            // remove active styling from buttons
-            const buttons = document.querySelectorAll("[id^='btn-tab-']");
-            buttons.forEach(btn => {
-                btn.className = btn.className.replace("border-emerald-500 text-emerald-400", "border-transparent text-slate-400");
-            });
-
-            // set active color on tab
-            const activeBtn = document.getElementById("btn-tab-" + tabId);
-            activeBtn.className = activeBtn.className.replace("border-transparent text-slate-400", "border-emerald-500 text-emerald-400");
-        }
-
-        // Viva Flip card
-        function flipVivaCard(card) {
-            const inner = card.querySelector('.viva-card-inner');
-            if (inner.classList.contains('viva-card-flipped')) {
-                inner.classList.remove('viva-card-flipped');
-                inner.style.transform = 'rotateY(0deg)';
-            } else {
-                inner.classList.add('viva-card-flipped');
-                inner.style.transform = 'rotateY(180deg)';
-            }
-        }
-
-        // Checklist State Tracker (XP increments)
-        let checkedTasks = {};
-        function toggleTask(id, weight) {
-            const checkbox = document.getElementById('chk-' + id);
-            const isChecked = checkbox.checked;
-            
-            // save back to local state
-            checkedTasks[id] = isChecked;
-            localStorage.setItem('chemistry_tasks_u3', JSON.stringify(checkedTasks));
-            calculateOverallXp();
-        }
-
-        function loadInternalTracker() {
-            try {
-                const stored = localStorage.getItem('chemistry_tasks_u3');
-                if (stored) {
-                    checkedTasks = JSON.parse(stored);
-                    Object.keys(checkedTasks).forEach(id => {
-                        const chk = document.getElementById('chk-' + id);
-                        if (chk) {
-                            chk.checked = checkedTasks[id];
-                        }
-                    });
-                }
-            } catch(e) {
-                console.error(e);
-            }
-            calculateOverallXp();
-        }
-
-        function resetInternalTracker() {
-            checkedTasks = {};
-            localStorage.removeItem('chemistry_tasks_u3');
-            
-            // Reset checkboxes
-            const chks = document.querySelectorAll("input[type='checkbox']");
-            chks.forEach(chk => chk.checked = false);
-            
-            calculateOverallXp();
-        }
-
-        function calculateOverallXp() {
-            let totalPossible = 8;
-            let checkedCount = 0;
-            
-            Object.keys(checkedTasks).forEach(k => {
-                if(checkedTasks[k]) checkedCount++;
-            });
-
-            let percentage = Math.round((checkedCount / totalPossible) * 100);
-            
-            // Apply parameters to DOM elements
-            document.getElementById("pct-indicator").innerText = percentage + "%";
-            document.getElementById("pb-indicator").style.width = percentage + "%";
-            
-            const badge = document.getElementById("rank-badge");
-            const status = document.getElementById("tracker-status");
-
-            if (percentage === 0) {
-                status.innerText = "NOT STARTED";
-                status.className = "text-[10px] font-black text-rose-500 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/25";
-                badge.innerText = "Rank: Cell Novice 🔋";
-            } else if (percentage < 50) {
-                status.innerText = "IN PROGRESS";
-                status.className = "text-[10px] font-black text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/25";
-                badge.innerText = "Rank: Redox Master 🧪";
-            } else if (percentage < 100) {
-                status.innerText = "NEARLY READY";
-                status.className = "text-[10px] font-black text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/25";
-                badge.innerText = "Rank: Battery Architect ⚡";
-            } else {
-                status.innerText = "EXAM CRUSH READY";
-                status.className = "text-[10px] font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/25";
-                badge.innerText = "Rank: Faraday Prodigy 👑";
-            }
-        }
-
-        // Nernst Equation Simulation Compute Logic
-        function computeNernstSim() {
-            const e0 = parseFloat(document.getElementById("input-e0").value) || 0;
-            const anode = parseFloat(document.getElementById("input-anode").value) || 1;
-            const cathode = parseFloat(document.getElementById("input-cathode").value) || 1;
-            
-            // assume n = 2 for Daniel Cell Zinc-Copper system
-            const n = 2;
-            const resultElement = document.getElementById("calc-result");
-            
-            if (anode <= 0 || cathode <= 0) {
-                resultElement.innerText = "Error: Concentrations must be > 0";
-                resultElement.className = "text-rose-500 font-mono font-bold text-xs";
-                return;
-            }
-
-            const calculatedPotential = e0 - (0.0592 / n) * Math.log10(anode / cathode);
-            resultElement.innerText = "Calculated potential: " + calculatedPotential.toFixed(4) + " V";
-            resultElement.style.color = "#10b981";
-        }
-
-        // Titration Graph Dynamic Sim
-        function computeTitrationSim() {
-            const system = document.getElementById("select-titration").value;
-            const titrationInfo = document.getElementById("titration-info");
-            
-            // modify high-points
-            const bar1 = document.getElementById("g-point-1");
-            const bar2 = document.getElementById("g-point-2");
-            const bar3 = document.getElementById("g-point-3");
-            const bar4 = document.getElementById("g-point-4");
-            const bar5 = document.getElementById("g-point-5");
-            const bar6 = document.getElementById("g-point-6");
-            const bar7 = document.getElementById("g-point-7");
-            const bar8 = document.getElementById("g-point-8");
-            const equivalence = document.getElementById("label-equivalence");
-
-            if (system === "strong-strong") {
-                // V shaped
-                bar1.style.height = "90%";
-                bar2.style.height = "68%";
-                bar3.style.height = "42%";
-                bar4.style.height = "18%";
-                bar5.style.height = "40%";
-                bar6.style.height = "60%";
-                bar7.style.height = "78%";
-                bar8.style.height = "93%";
-                equivalence.innerText = "Equivalence point: 10ml (neutral pH)";
-                titrationInfo.innerText = "Hydrochloric acid vs Sodium hydroxide. High-mobility H+ ions get substituted by slower Na+ ions dropping conductivities recursively. Hyper-mobile OH- addition after neutral mark raises the curve steeply.";
-            } else if (system === "weak-strong") {
-                // progressive rising
-                bar1.style.height = "20%";
-                bar2.style.height = "25%";
-                bar3.style.height = "32%";
-                bar4.style.height = "40%";
-                bar5.style.height = "52%";
-                bar6.style.height = "65%";
-                bar7.style.height = "78%";
-                bar8.style.height = "90%";
-                equivalence.innerText = "Equivalence point: 10ml (basic buffer)";
-                titrationInfo.innerText = "Weak Acetic acid has low initial dissociation. Adding strong base NaOH forms highly soluble Sodium acetate, raising mobile ions count and conductance progressively. Fast OH- elevates curve post equivalence.";
-            } else {
-                // Strong acid vs Weak base: drops, then remains flat
-                bar1.style.height = "90%";
-                bar2.style.height = "65%";
-                bar3.style.height = "45%";
-                bar4.style.height = "25%";
-                bar5.style.height = "26%";
-                bar6.style.height = "27%";
-                bar7.style.height = "28%";
-                bar8.style.height = "28%";
-                equivalence.innerText = "Equivalence point: 10ml (Ammonium salt equilibrium)";
-                titrationInfo.innerText = "Strong HCl neutralized by weak Ammonium process. High H+ is consumed so curve falls fast. After equivalence, added Ammonium hydroxide has weak self ionization due to common ion effect, keeping graph flat.";
-            }
-        }
-
-        // SGPA math
-        function computeSgpa() {
-            const m1 = parseFloat(document.getElementById("sgpa-m1").value) || 10;
-            const chem = parseFloat(document.getElementById("sgpa-chem").value) || 10;
-            
-            // Assume 4 credits each JNTUK R23 external
-            const sgpa = ((m1 * 4) + (chem * 4)) / 8;
-            document.getElementById("sgpa-result").innerText = "Estimated GPA: " + sgpa.toFixed(2);
-        }
-
-        // Attendance check
-        function computeAttendance() {
-            const held = parseFloat(document.getElementById("att-held").value) || 100;
-            const attended = parseFloat(document.getElementById("att-attended").value) || 0;
-            const attResult = document.getElementById("att-result");
-
-            if(held <= 0) {
-                attResult.innerText = "Invalid columns.";
-                attResult.className = "text-rose-500 font-mono font-bold text-center";
-                return;
-            }
-
-            const pct = (attended / held) * 100;
-            if(pct >= 75) {
-                attResult.innerText = "Allowed! (Current: " + pct.toFixed(1) + "%). Safe to sit for board assays.";
-                attResult.className = "text-emerald-400 font-mono font-bold text-center";
-            } else {
-                const requiredClasses = Math.ceil((0.75 * held - attended) / 0.25);
-                attResult.innerText = "Condonation Required! (Current: " + pct.toFixed(1) + "%). Attend " + Math.max(0, requiredClasses) + " more sessions.";
-                attResult.className = "text-rose-500 font-mono font-bold text-center";
-            }
-        }
-    </script>
 </body>
 </html>
