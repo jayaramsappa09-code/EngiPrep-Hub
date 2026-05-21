@@ -6,8 +6,13 @@ import multer from 'multer';
 import mammoth from 'mammoth';
 import fs from 'fs';
 import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const pdfParse = require('pdf-parse');
+const getCurrentRequire = () => {
+  if (typeof require !== 'undefined') {
+    return require;
+  }
+  return createRequire(import.meta.url);
+};
+const pdfParse = getCurrentRequire()('pdf-parse');
 
 dotenv.config();
 const upload = multer({ dest: 'uploads/' });
