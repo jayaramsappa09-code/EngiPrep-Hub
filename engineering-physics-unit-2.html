@@ -70,7 +70,7 @@
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 bg-gradient-to-tr from-[#080816] via-[#050508] to-[#120720] min-h-screen font-sans antialiased selection:bg-indigo-600 selection:text-slate-900 dark:text-slate-50">
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-300 dark:text-slate-300 bg-gradient-to-tr from-[#080816] via-[#050508] to-[#120720] min-h-screen font-sans antialiased selection:bg-indigo-600 selection:text-slate-900 dark:text-slate-50">
 
     <!-- Premium Header Navbar -->
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
@@ -90,7 +90,13 @@
                 </div>
             </a>
             
+            
+            
             <div id="nav-actions" class="flex items-center gap-4">
+                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
                 <a href="/physics-notes.html" class="px-4 py-2 border border-slate-750 rounded-xl bg-slate-900/40 text-xs font-bold uppercase hover:bg-slate-800/40 text-slate-300 transition-all flex items-center gap-1.5 active:scale-95">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                     Subject Hub
@@ -170,7 +176,7 @@
             <!-- LEFT NAVIGATION SIDEBAR -->
             <aside class="lg:col-span-3 sticky top-28 space-y-4 max-h-[80vh] overflow-y-auto pr-2 no-scrollbar">
                 <div class="p-1 rounded-2xl bg-slate-950/50 border border-slate-900/60 space-y-1">
-                    <div class="p-3 text-[9px] font-black text-slate-550 uppercase tracking-widest border-b border-slate-900/60 dark:text-slate-400">Table of Contents</div>
+                    <div class="p-3 text-[9px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-900/60 dark:text-slate-400">Table of Contents</div>
                     
                     <a href="#intro" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
                         <span class="text-xs text-indigo-400">01</span> Introduction & Coherence
@@ -232,7 +238,7 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
                         <div class="md:col-span-7 space-y-4">
-                            <p class="text-xs text-slate-350 sm:text-sm">
+                            <p class="text-xs text-slate-300 sm:text-sm">
                                 Solids are classified into <b class="text-indigo-400">Crystalline</b> and <b class="text-rose-400">Amorphous</b> states depending on their atomic arrangement. In a crystal, constituents are bound by high-cohesion electrostatic forces forming regular, periodic structural planes.
                             </p>
                             
@@ -246,7 +252,7 @@
                                 </p>
                             </div>
 
-                            <p class="text-xs text-slate-350 sm:text-sm">
+                            <p class="text-xs text-slate-300 sm:text-sm">
                                 To study this periodic state mathematically, we define the following relationship:
                             </p>
                             <div class="p-3 bg-slate-950 text-center font-mono text-xs text-indigo-400 rounded-xl font-bold border border-slate-900">
@@ -299,7 +305,7 @@
                         <div class="p-6 bg-slate-950 border border-slate-900 rounded-2xl">
                             <span class="text-[8px] font-black uppercase tracking-widest text-[#f59e0b] block mb-1">Fundamental Unit</span>
                             <h4 class="text-xs font-black text-slate-900 dark:text-slate-50 mb-2">Defining the Unit Cell</h4>
-                            <p class="text-xs sm:text-sm text-slate-350 leading-relaxed font-semibold">
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-semibold">
                                 The <b class="text-indigo-400">Unit Cell</b> is defined as the smallest structural volume or building block of a crystal, which, when translated repeatedly in three directions, generates the complete crystal lattice macrostructure.
                             </p>
                         </div>
@@ -307,10 +313,10 @@
                         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
                             <div class="md:col-span-7 space-y-3">
                                 <h4 class="text-xs font-black text-slate-900 dark:text-slate-50">Lattice Parameters (The 6 Configuration Constants):</h4>
-                                <p class="text-xs leading-relaxed text-slate-350">
+                                <p class="text-xs leading-relaxed text-slate-300">
                                     The size, geometry, and spatial orientation of a unit cell are uniquely defined by six scalar variables:
                                 </p>
-                                <ul class="list-disc pl-5 text-xs space-y-2 text-slate-350 font-medium">
+                                <ul class="list-disc pl-5 text-xs space-y-2 text-slate-300 font-medium">
                                     <li><b class="text-slate-100">Three axial lengths (interceptss):</b> $a, b, c$ along the $x, y, z$ crystallographic axes.</li>
                                     <li><b class="text-slate-100">Three axial angles:</b> 
                                         <ul class="list-none pl-3 space-y-1 text-[11px] mt-1 text-slate-400">
@@ -372,34 +378,34 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
                                 <span class="text-indigo-400 font-bold text-xs">1. Space Lattice</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">An infinite, periodic three-dimensional arrangement of imaginary points in space where each point has an identical neighborhood.</p>
+                                <p class="text-[11px] text-slate-300 leading-relaxed font-medium">An infinite, periodic three-dimensional arrangement of imaginary points in space where each point has an identical neighborhood.</p>
                             </div>
                             <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
                                 <span class="text-indigo-400 font-bold text-xs">2. Basis (Motif)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">A group of one or more atoms attached identically to each and every lattice point to manifest physical crystal structures.</p>
+                                <p class="text-[11px] text-slate-300 leading-relaxed font-medium">A group of one or more atoms attached identically to each and every lattice point to manifest physical crystal structures.</p>
                             </div>
                             <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
                                 <span class="text-indigo-400 font-bold text-xs">3. Conventional vs Primitive Cell</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-semibold">
+                                <p class="text-[11px] text-slate-300 leading-relaxed font-semibold">
                                     • <b class="text-white">Primitive Cell:</b> Smallest unit cell having lattice points ONLY at the corners (Effective atoms $N=1$).<br>
                                     • <b class="text-white">Conventional Cell:</b> Crystal unit containing multiple lattice points representing complete symmetry (e.g. BCC, FCC).
                                 </p>
                             </div>
                             <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
                                 <span class="text-indigo-400 font-bold text-xs">4. Coordination Number (CN)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">The number of nearest-neighbor atomic spheres that directly touch any reference atomic sphere in the crystal structure.</p>
+                                <p class="text-[11px] text-slate-300 leading-relaxed font-medium">The number of nearest-neighbor atomic spheres that directly touch any reference atomic sphere in the crystal structure.</p>
                             </div>
                             <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
                                 <span class="text-indigo-400 font-bold text-xs">5. Atomic Radius (r)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">Half of the nearest interatomic separation distance $d$ between two co-planar identical touching atoms in a stable lattice.</p>
+                                <p class="text-[11px] text-slate-300 leading-relaxed font-medium">Half of the nearest interatomic separation distance $d$ between two co-planar identical touching atoms in a stable lattice.</p>
                             </div>
                             <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
                                 <span class="text-indigo-400 font-bold text-xs">6. Atomic Packing Fraction (APF)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-semibold">The ratio of total volumetric space occupied by hard atomic spheres inside a unit cell to the total geometric space volume of the unit cell itself.</p>
+                                <p class="text-[11px] text-slate-300 leading-relaxed font-semibold">The ratio of total volumetric space occupied by hard atomic spheres inside a unit cell to the total geometric space volume of the unit cell itself.</p>
                             </div>
                             <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 col-span-1 md:col-span-2 space-y-1">
                                 <span class="text-indigo-400 font-bold text-xs">7. Miller Indices (h k l)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">The set of three smallest integers derived as inverses of intercepts of a crystallographic plane along axial coordinates, cleared of fractional multipliers.</p>
+                                <p class="text-[11px] text-slate-300 leading-relaxed font-medium">The set of three smallest integers derived as inverses of intercepts of a crystallographic plane along axial coordinates, cleared of fractional multipliers.</p>
                             </div>
                         </div>
                     </div>
@@ -412,7 +418,7 @@
                         <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Core Board Derivations (APF & Spacing)</h2>
                     </div>
 
-                    <p class="text-xs sm:text-sm text-slate-350 leading-relaxed mb-6">
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
                         For cubic crystals, we analyze three primary types of structures: Simple Cubic (SC), Body-Centered Cubic (BCC), and Face-Centered Cubic (FCC). Memorize these five specific key properties for each system:
                     </p>
 
@@ -660,8 +666,8 @@
                                     </div>
                                     <div class="text-[10.5px] leading-relaxed">
                                         <span class="text-slate-500 font-bold block">Interplanar Resolution:</span>
-                                        <span class="text-slate-350">Lattice constants: </span><b class="text-white" id="stat-val-a">4.00 &Aring;</b> <br>
-                                        <span class="text-slate-350">Miller Indices Plane: </span><b class="text-purple-400" id="stat-val-hkl">(1 1 1)</b>
+                                        <span class="text-slate-300">Lattice constants: </span><b class="text-white" id="stat-val-a">4.00 &Aring;</b> <br>
+                                        <span class="text-slate-300">Miller Indices Plane: </span><b class="text-purple-400" id="stat-val-hkl">(1 1 1)</b>
                                     </div>
                                 </div>
 
@@ -810,7 +816,7 @@
                 <!-- SECTION 9: Most Expected Predictor -->
                 <section id="predictor" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-rose-500">
                     <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-rose-450">09</span>
+                        <span class="text-xl font-bold text-rose-400">09</span>
                         <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Most Expected Predictor (R23 Exams)</h2>
                     </div>
 
@@ -880,7 +886,7 @@
                                 <div class="absolute inset-0 bg-[#0d0718] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between viva-card-front">
                                     <div>
                                         <div class="flex items-center justify-between border-b border-slate-900 pb-2 mb-2">
-                                            <span class="text-[8px] uppercase tracking-wider font-extrabold text-indigo-450">01. Symmetry Parameters</span>
+                                            <span class="text-[8px] uppercase tracking-wider font-extrabold text-indigo-400">01. Symmetry Parameters</span>
                                             <span class="text-[9px] font-black text-indigo-400">FLIP 🧪</span>
                                         </div>
                                         <h4 class="text-xs font-extrabold text-white">Why is Triclinic system known as the least symmetric?</h4>
@@ -913,7 +919,7 @@
                                 </div>
                                 <!-- BACK -->
                                 <div class="absolute inset-0 bg-[#120a22] border border-[#f59e0b]/50 rounded-2xl p-5 flex flex-col justify-between viva-card-back text-[11px] leading-relaxed select-none">
-                                    <p class="font-medium text-slate-350">
+                                    <p class="font-medium text-slate-300">
                                         It physically counts the total number of nearest neighbor atoms directly touching any reference atom inside the cubic grid system. It represents grid coordination density. (SC=6, BCC=8, FCC=12)
                                     </p>
                                     <span class="text-[8px] font-black text-[#f59e0b] uppercase tracking-widest text-right">Awarded +10 XP</span>
@@ -962,9 +968,9 @@
                         <div class="p-6 bg-slate-950/85 border border-slate-900 rounded-3xl space-y-3">
                             <span class="text-[8px] font-black uppercase text-cyan-400 tracking-wider block mb-1">Key Coordination numbers & Packing constants</span>
                             <div class="overflow-x-auto">
-                                <table class="w-full text-left text-[11px] text-slate-350 font-medium">
+                                <table class="w-full text-left text-[11px] text-slate-300 font-medium">
                                     <thead>
-                                        <tr class="border-b border-slate-800 text-slate-450 font-black">
+                                        <tr class="border-b border-slate-800 text-slate-400 font-black">
                                             <th class="py-1">System</th>
                                             <th class="py-1">Effective Atoms (N)</th>
                                             <th class="py-1">Relation Radius r</th>

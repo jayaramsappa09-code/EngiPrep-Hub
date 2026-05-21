@@ -46,7 +46,7 @@ files.forEach(file => {
   content = content.replace(/text-\[10px\]/g, 'text-xs');
   
   // Specific wrong Tailwind classes
-  content = content.replace(/text-slate-450/g, 'text-slate-400');
+  content = content.replace(/text-slate-400/g, 'text-slate-400');
   content = content.replace(/text-rose-505/g, 'text-rose-500');
   content = content.replace(/border-purple-650/g, 'border-purple-600');
   

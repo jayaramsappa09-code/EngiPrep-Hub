@@ -194,7 +194,7 @@ function renderTasks() {
 
         return \`
         <div class="px-5 py-4 bg-white dark:bg-slate-900 border \${isOverdue ? 'border-rose-300 dark:border-rose-900/50' : 'border-slate-200 dark:border-slate-800'} rounded-xl shadow-sm flex items-start gap-4 hover:border-blue-500/40 transition-colors">
-            <input type="checkbox" \${t.completed ? 'checked' : ''} onchange="window.toggleTask('\${t.id}')" class="mt-1 flex-shrink-0 w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 accent-blue-600 cursor-pointer">
+            <input type="checkbox" \${t.completed ? 'checked' : ''} onchange="window.toggleTask('\${t.id}')" class="mt-1 flex-shrink-0 w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 accent-blue-600 cursor-pointer dark:text-blue-400">
             <div class="flex-1 min-w-0">
                 <p class="\${t.completed ? 'opacity-50 line-through' : ''} text-sm font-bold text-slate-900 dark:text-slate-50 mb-1 leading-snug">\${t.title}</p>
                 <div class="flex items-center gap-2 text-xs font-medium \${isOverdue ? 'text-rose-500' : 'text-slate-500 dark:text-slate-400'}">

@@ -73,7 +73,7 @@
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#030308] text-slate-350 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-[#030308] text-slate-300 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-blue-600 selection:text-white">
 
     <!-- Toast message system -->
     <div id="toast-notif" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 bg-[#090b1e]/90 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none">
@@ -96,7 +96,7 @@
             </a>
             
             <div class="flex items-center gap-4">
-                <a href="/data-structures-basics.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase text-slate-350 transition-all">
+                <a href="/data-structures-basics.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase text-slate-300 transition-all">
                     Syllabus Hub
                 </a>
                 <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
@@ -147,7 +147,7 @@
                         <a href="#calculator" class="px-3 py-1.5 border border-emerald-500/30 bg-emerald-500/10 hover:bg-[#10b981]/25 text-[#10b981] rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
                             Run Complexity Analyzer ⚡
                         </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-450 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
+                        <a href="#calculator" class="px-3 py-1.5 border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
                             Visualize Data Structures 🎯
                         </a>
                         <a href="#calculator" class="px-3 py-1.5 border border-amber-500/30 bg-amber-500/10 hover:bg-amber-600/20 text-amber-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
@@ -250,7 +250,7 @@
                         <p>
                             A <b>Queue</b> is a linear structure based on the <b>First In First Out (FIFO)</b> principle. Elements are inserted at the back end (<code class="text-blue-400">rear</code>) and removed from the front boundary (<code class="text-blue-400">front</code>).
                         </p>
-                        <ul class="list-disc list-inside space-y-2 text-slate-350 bg-[#050616] p-4 rounded-xl border border-blue-950">
+                        <ul class="list-disc list-inside space-y-2 text-slate-300 bg-[#050616] p-4 rounded-xl border border-blue-950">
                             <li><b class="text-white">Enqueue:</b> Appends a data value at the <code class="text-[#0dffc0]">rear</code> of the queue.</li>
                             <li><b class="text-white">Dequeue:</b> Pops and yields the item located at the <code class="text-[#0dffc0]">front</code> index.</li>
                             <li><b class="text-white">Properties:</b> Requires dual-pointers track management: <code class="text-indigo-400">front</code> and <code class="text-indigo-400">rear</code>.</li>
@@ -310,13 +310,13 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="p-4 bg-[#10081d] border border-purple-550/20 rounded-xl">
                                 <b class="text-white text-xs block">Circular Array Solution</b>
-                                <p class="text-[11px] text-slate-450 mt-1">
+                                <p class="text-[11px] text-slate-400 mt-1">
                                     Circular queues use modular arithmetic to wrap pointers back to index 0: <code class="text-[#0dffc0]">rear = (rear + 1) % MAX</code>. This recycled indexing model completely prevents false overflows.
                                 </p>
                             </div>
                             <div class="p-4 bg-slate-950/70 border border-slate-900 rounded-xl">
                                 <b class="text-white text-xs block">Circular Empty/Full Check Formulas</b>
-                                <p class="text-[11px] text-slate-450 mt-1">
+                                <p class="text-[11px] text-slate-400 mt-1">
                                     Empty: <code class="text-[#0dffc0]">front == -1</code>. Full: <code class="text-[#0dffc0]">(rear + 1) % MAX == front</code>.
                                 </p>
                             </div>
@@ -428,7 +428,7 @@ int dequeue() {
                                 </div>
                                 <div class="flex gap-2 mt-4">
                                     <button onclick="simulateQueue('enqueue')" class="px-3 py-1.5 bg-blue-600/20 text-blue-400 border border-blue-650/20 hover:bg-blue-600/35 text-xs font-black uppercase rounded cursor-pointer transition-all">Enqueue</button>
-                                    <button onclick="simulateQueue('dequeue')" class="px-3 py-1.5 bg-rose-600/20 text-rose-450 border border-rose-650/20 hover:bg-rose-600/35 text-xs font-black uppercase rounded cursor-pointer transition-all">Dequeue</button>
+                                    <button onclick="simulateQueue('dequeue')" class="px-3 py-1.5 bg-rose-600/20 text-rose-400 border border-rose-650/20 hover:bg-rose-600/35 text-xs font-black uppercase rounded cursor-pointer transition-all">Dequeue</button>
                                 </div>
                             </div>
                             
@@ -466,15 +466,15 @@ int dequeue() {
                     <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans">
                         <div class="p-5 bg-emerald-500/5 border border-emerald-500/20 rounded-xl space-y-1">
                             <span class="text-[#0dffc0] text-[9.5px] font-mono tracking-wider font-bold">BOARD TRACE TEST: CIRCULAR ARRAY WRAPAROUND</span>
-                            <p class="mt-2 text-slate-350">
+                            <p class="mt-2 text-slate-300">
                                 Trace a circular queue of size 5 with elements: <code class="text-white">[empty, empty, 30, 40, 50]</code>, where <code class="text-white">front = 2</code> and <code class="text-white">rear = 4</code>.
                             </p>
                             <div class="bg-black/40 border border-blue-950 p-4 rounded-xl font-mono text-[11px] text-indigo-400 space-y-1">
                                 1. Current State: front=2, rear=4, elements=3.<br>
                                 2. Action: Enqueue(60) requested.<br>
                                 3. Wrap pointer: <code class="text-[#0dffc0]">rear = (rear + 1) % 5 = (4 + 1) % 5 = 0</code>.<br>
-                                4. Store value: <code class="text-emerald-450">queue[0] = 60</code>.<br>
-                                5. Result: <code class="text-emerald-450">[60, empty, 30, 40, 50] (front=2, rear=0)</code>! Circular wraparound successfully prevents a false overflow!
+                                4. Store value: <code class="text-emerald-400">queue[0] = 60</code>.<br>
+                                5. Result: <code class="text-emerald-400">[60, empty, 30, 40, 50] (front=2, rear=0)</code>! Circular wraparound successfully prevents a false overflow!
                             </div>
                         </div>
                         <div class="pt-2">
@@ -522,7 +522,7 @@ int isCircularQueueFull() {
                     <div class="space-y-4 text-xs font-medium font-sans">
                         <div class="p-4 bg-rose-500/5 rounded-xl border border-rose-500/20 space-y-2">
                             <span class="text-rose-455 uppercase font-black tracking-widest text-[8.5px]">PREDICTED BOARD EXAM ESSAYS (10 MARKS EACH)</span>
-                            <ul class="list-decimal list-inside space-y-1.5 text-slate-350">
+                            <ul class="list-decimal list-inside space-y-1.5 text-slate-300">
                                 <li>Detail representations of standard Queues. Illustrate why linear arrays fall into False Overflow layouts, and write C codes to resolve this circularly.</li>
                                 <li>Explain implementations of a Queue using Singly Linked List nodes. Write operations routines for Head Enqueue &amp; Tail Dequeue.</li>
                                 <li>Describe applications of Queues in modern OS task scheduling (e.g., Round Robin, CPU scheduling).</li>
@@ -587,7 +587,7 @@ int isCircularQueueFull() {
                     </div>
                     <div class="space-y-4 text-xs font-medium text-slate-400 font-sans leading-relaxed">
                         <p>Evaluate these standard Queue application domains:</p>
-                        <ul class="list-disc list-inside space-y-1.5 text-slate-350">
+                        <ul class="list-disc list-inside space-y-1.5 text-slate-300">
                             <li><b class="text-white">OS Task Buffering:</b> Incoming system keyboard inputs, print task queues, and network packet requests follow strict FIFO sequences.</li>
                             <li><b class="text-white">Breadth First Search (BFS):</b> BFS tracks untraversed neighbor nodes sequentially inside a queue.</li>
                         </ul>
@@ -609,7 +609,7 @@ int isCircularQueueFull() {
                     <div class="space-y-4 text-xs font-medium text-slate-400 font-sans">
                         <div class="p-5 bg-yellow-500/5 border border-yellow-500/20 rounded-xl space-y-2 leading-relaxed">
                             <span class="text-[9px] font-black uppercase text-yellow-500 tracking-widest font-mono font-sans">FIFO BUS LINE MNEMONIC</span>
-                            <p class="text-slate-350">
+                            <p class="text-slate-300">
                                 <b>"Join at Rear, exit from Front!"</b><br>
                                 Imagine a queue of passengers waiting to board a bus. New passengers join the line at the very back (<code class="text-blue-400">rear</code>), while passengers who arrived first exit from the very front (<code class="text-blue-400">front</code>). No cutting in line allowed!
                             </p>
@@ -632,17 +632,17 @@ int isCircularQueueFull() {
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center font-sans text-xs">
                         <div class="md:col-span-8 space-y-4 font-medium leading-relaxed">
                             <h4 class="text-sm font-black text-white">How to score maximum marks in Unit IV Queues:</h4>
-                            <p class="text-slate-350">
+                            <p class="text-slate-300">
                                 1. <b>Represent Array Queue Cells visibly:</b> Draw linear arrays split into cells. Clearly label the active pointers <code class="text-blue-405">F</code> (front) and <code class="text-[#f59e0b]">R</code> (rear) above their respective indexes to show insertions and deletions.
                             </p>
-                            <p class="text-slate-350">
+                            <p class="text-slate-300">
                                 2. <b>Write down the modular formula:</b> When describing circular arrays queue logic, always write the modulus formula <code class="text-[#0dffc0]">(index + 1) % MAX</code> in a bold, visible callout box. Giving this equation secures full points on the design section.
                             </p>
                         </div>
                         <div class="md:col-span-4 p-5 bg-[#030308] border border-rose-500/20 rounded-2xl text-center space-y-3">
                             <span class="text-lg">🎓</span>
                             <h5 class="text-xs font-bold text-white font-sans">Done reviewing?</h5>
-                            <p class="text-[10px] text-slate-450 leading-relaxed font-sans">Ensure you have checked all checkboxes to save your Unit 4 progress in your browser.</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed font-sans">Ensure you have checked all checkboxes to save your Unit 4 progress in your browser.</p>
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-11" onclick="toggleScoreTask('tag-11')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
                                 <span>I am exam-ready (+20 XP)</span>
@@ -711,7 +711,7 @@ int isCircularQueueFull() {
                 statusText.className = 'text-[10px] font-black text-rose-500 font-sans';
             } else if (percentage < 40) {
                 statusText.innerText = 'FIFO TRAINEE 🛠️';
-                statusText.className = 'text-[10px] font-black text-blue-450 font-sans';
+                statusText.className = 'text-[10px] font-black text-blue-400 font-sans';
             } else if (percentage < 85) {
                 statusText.innerText = 'SHIFTER DEQUEUING 🧠';
                 statusText.className = 'text-[10px] font-black text-indigo-400 font-sans';
@@ -788,7 +788,7 @@ int isCircularQueueFull() {
                 btnLinear.classList.remove('bg-[#3b82f6]/25', 'text-blue-400');
                 btnLinear.classList.add('text-slate-400');
 
-                feed.innerHTML = "Switched to recycled <b>Circular Queue</b>. Indices wrap around the buffer seamlessly using modulus arithmetic: <code class='text-purple-450'>(rear+1)%MAX</code>!";
+                feed.innerHTML = "Switched to recycled <b>Circular Queue</b>. Indices wrap around the buffer seamlessly using modulus arithmetic: <code class='text-purple-400'>(rear+1)%MAX</code>!";
             }
             renderQueueCells();
         };
@@ -812,7 +812,7 @@ int isCircularQueueFull() {
                 if (val !== null) {
                     cell.className += " border-emerald-500 bg-emerald-500/5 text-emerald-400";
                 } else {
-                    cell.className += " border-slate-800 bg-slate-950/60 text-slate-650";
+                    cell.className += " border-slate-800 bg-slate-950/60 text-slate-600";
                 }
 
                 if (isFront && isRear) {
@@ -826,7 +826,7 @@ int isCircularQueueFull() {
                 // Render cell data content
                 const dataDisp = (val !== null) ? val : "[ ]";
                 cell.innerHTML = `
-                    <span class="text-[7.5px] text-slate-550 pt-1 font-sans">idx: ${idx}</span>
+                    <span class="text-[7.5px] text-slate-500 pt-1 font-sans">idx: ${idx}</span>
                     <span class="font-extrabold text-[#0dffc0] text-sm pb-1">${dataDisp}</span>
                     <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 flex gap-0.5 whitespace-nowrap text-[7px] font-bold">
                         ${isFront ? '<span class="text-blue-400 uppercase tracking-tighter">F</span>' : ''}
@@ -864,7 +864,7 @@ int isCircularQueueFull() {
                     feed.innerHTML = `Enqueued element matching payload: [${val}] at rear index: ${qRear}.`;
                 } else {
                     if (qFront === -1) {
-                        feed.innerHTML = `<span class='text-rose-550 font-bold'>Queue Underflow:</span> There are no elements left in the queue!`;
+                        feed.innerHTML = `<span class='text-rose-500 font-bold'>Queue Underflow:</span> There are no elements left in the queue!`;
                         return;
                     }
                     const dequeuedVal = qArray[qFront];
@@ -883,7 +883,7 @@ int isCircularQueueFull() {
                 // Circular Queue Simulation
                 if (action === 'enqueue') {
                     if ((qRear + 1) % maxQSize === qFront) {
-                        feed.innerHTML = `<span class='text-rose-550 font-bold'>Queue Overflow:</span> The circular array is completely full!`;
+                        feed.innerHTML = `<span class='text-rose-500 font-bold'>Queue Overflow:</span> The circular array is completely full!`;
                         return;
                     }
                     if (qFront === -1) qFront = 0;
@@ -892,7 +892,7 @@ int isCircularQueueFull() {
                     feed.innerHTML = `Circular Enqueued [${val}] at recycled rear index: ${qRear}.`;
                 } else {
                     if (qFront === -1) {
-                        feed.innerHTML = `<span class='text-rose-550 font-bold'>Queue Underflow:</span> Circular list contains no records.`;
+                        feed.innerHTML = `<span class='text-rose-500 font-bold'>Queue Underflow:</span> Circular list contains no records.`;
                         return;
                     }
                     const dequeuedVal = qArray[qFront];

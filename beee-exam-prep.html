@@ -46,7 +46,13 @@
                 <a href="/tools.html" class="nav-link">Tools</a>
             </div>
 
+            
+            
             <div class="flex items-center gap-4" id="nav-actions">
+                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
                 <div class="h-10 w-24 bg-slate-100 rounded-xl animate-pulse"></div>
             </div>
         </div>
@@ -97,15 +103,15 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                         <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
                             <span class="font-extrabold text-blue-600 dark:text-blue-400">Step 1: Open load $R_L$</span>
-                            <p class="text-[11px] text-slate-450 mt-1">Remove the load resistor across terminals $A$ & $B$. This leaves the terminal open-circuited.</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Remove the load resistor across terminals $A$ & $B$. This leaves the terminal open-circuited.</p>
                         </div>
                         <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
                             <span class="font-extrabold text-indigo-600">Step 2: Calculate $V_{th}$</span>
-                            <p class="text-[11px] text-slate-450 mt-1">Determine the open-circuit voltage across terminals $A-B$ using standard Mesh, Nodal, or Loop analysis.</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Determine the open-circuit voltage across terminals $A-B$ using standard Mesh, Nodal, or Loop analysis.</p>
                         </div>
                         <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
                             <span class="font-extrabold text-emerald-600">Step 3: Calculate $R_{th}$</span>
-                            <p class="text-[11px] text-slate-450 mt-1">Deactivate all sources (Voltage source → Short circuit, Current source → Open circuit) & look inside $A-B$.</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Deactivate all sources (Voltage source → Short circuit, Current source → Open circuit) & look inside $A-B$.</p>
                         </div>
                     </div>
                     
@@ -122,7 +128,7 @@
                     <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-[10px] font-extrabold uppercase rounded-lg">Unit 2</span>
                     <h2 class="text-xl font-extrabold text-slate-900 dark:text-slate-50">AC Circuits & Resonance basics</h2>
                 </div>
-                <p class="text-xs text-slate-500 dark:text-slate-450 leading-relaxed dark:text-slate-400">Alternating quantities are defined as sinusoidal waves. The most crucial topics are RMS value derivation, average value calculation, and Series RLC Resonance.</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed dark:text-slate-400">Alternating quantities are defined as sinusoidal waves. The most crucial topics are RMS value derivation, average value calculation, and Series RLC Resonance.</p>
                 
                 <div class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl space-y-4">
                     <h3 class="text-sm font-bold text-slate-900 dark:text-slate-50">RLC Series Resonance Derivation</h3>
@@ -132,7 +138,7 @@
                         <p class="font-bold text-[#64748b]">At Resonance Condition:</p>
                         <p>X_L = X_C  ==>  2 * π * f_r * L = 1 / (2 * π * f_r * C)</p>
                         <p>f_r^2 = 1 / (4 * π^2 * L * C)</p>
-                        <p class="text-blue-650 font-black">f_r = 1 / (2 * π * √(L * C))</p>
+                        <p class="text-blue-600 font-black">f_r = 1 / (2 * π * √(L * C))</p>
                     </div>
                     <ul class="list-disc pl-5 text-xs text-slate-500 space-y-1 dark:text-slate-400">
                         <li>At resonance, Impedance $Z = R$ is at its minimum.</li>
@@ -148,7 +154,7 @@
                     <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-[10px] font-extrabold uppercase rounded-lg">Unit 3</span>
                     <h2 class="text-xl font-extrabold text-slate-900 dark:text-slate-50">DC Machines & Transformers</h2>
                 </div>
-                <p class="text-xs text-slate-500 dark:text-slate-450 leading-relaxed dark:text-slate-400">This unit holds massive weight because it contains core mechanical-to-electrical converter equations. Do not skip either the <strong>Transformer EMF Equation</strong> or <strong>DC Motor EMF derivation</strong>.</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed dark:text-slate-400">This unit holds massive weight because it contains core mechanical-to-electrical converter equations. Do not skip either the <strong>Transformer EMF Equation</strong> or <strong>DC Motor EMF derivation</strong>.</p>
                 
                 <div class="bento-card p-6 space-y-4">
                     <h3 class="text-sm font-bold text-slate-900 dark:text-slate-50">⚡ EMF Equation of a Transformer</h3>
@@ -157,9 +163,9 @@
                     <div class="bg-blue-50/50 dark:bg-blue-950/20 p-4 rounded-2xl border border-blue-100/10 text-xs font-mono space-y-1">
                         <p class="font-black text-blue-600 dark:text-blue-400">// Average rate of change of flux:</p>
                         <p>dΦ/dt = e_avg = 4 * f * Φ_m</p>
-                        <p class="mt-2 font-black text-indigo-650">// Form Factor (sinusoidal) = RMS value / Average value = 1.11:</p>
+                        <p class="mt-2 font-black text-indigo-600">// Form Factor (sinusoidal) = RMS value / Average value = 1.11:</p>
                         <p>e_rms = 1.11 * e_avg = 4.44 * f * Φ_m</p>
-                        <p class="mt-2 font-black text-emerald-650">// RMS voltage inside winding:</p>
+                        <p class="mt-2 font-black text-emerald-600">// RMS voltage inside winding:</p>
                         <p class="text-indigo-600 font-extrabold">E_1 = 4.44 * f * N_1 * Φ_m</p>
                         <p class="text-emerald-600 font-extrabold">E_2 = 4.44 * f * N_2 * Φ_m</p>
                     </div>
@@ -172,7 +178,7 @@
                     <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-[10px] font-extrabold uppercase rounded-lg">Unit 4</span>
                     <h2 class="text-xl font-extrabold text-slate-900 dark:text-slate-50">Semiconductor Diodes & Applications</h2>
                 </div>
-                <p class="text-xs text-slate-500 dark:text-slate-450 leading-relaxed dark:text-slate-400">Semiconductor physics introduces Rectifier systems. Memorize the difference between Half Wave and Full Wave rectifiers (especially efficiency and ripple factors).</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed dark:text-slate-400">Semiconductor physics introduces Rectifier systems. Memorize the difference between Half Wave and Full Wave rectifiers (especially efficiency and ripple factors).</p>
                 
                 <div class="flex flex-col gap-4">
                     <div class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl space-y-4">
@@ -188,17 +194,17 @@
                                 </thead>
                                 <tbody class="divide-y divide-border/50">
                                     <tr>
-                                        <td class="p-3 font-bold text-slate-700 dark:text-slate-350">Max Efficiency ($\eta$)</td>
+                                        <td class="p-3 font-bold text-slate-700 dark:text-slate-300">Max Efficiency ($\eta$)</td>
                                         <td class="p-3 text-red-500 font-mono">40.6%</td>
                                         <td class="p-3 text-emerald-500 font-mono">81.2%</td>
                                     </tr>
                                     <tr>
-                                        <td class="p-3 font-bold text-slate-700 dark:text-slate-350">Ripple Factor ($\gamma$)</td>
+                                        <td class="p-3 font-bold text-slate-700 dark:text-slate-300">Ripple Factor ($\gamma$)</td>
                                         <td class="p-3 font-mono">1.21</td>
                                         <td class="p-3 font-mono">0.482</td>
                                     </tr>
                                     <tr>
-                                        <td class="p-3 font-bold text-slate-700 dark:text-slate-350">Peak Inverse Voltage (PIV)</td>
+                                        <td class="p-3 font-bold text-slate-700 dark:text-slate-300">Peak Inverse Voltage (PIV)</td>
                                         <td class="p-3 font-mono">V_m</td>
                                         <td class="p-3 font-mono">2 * V_m (Center) / V_m (Bridge)</td>
                                     </tr>
@@ -218,18 +224,18 @@
                 <div class="p-6 bg-slate-50 border border-slate-200 dark:border-slate-800 rounded-3xl space-y-3">
                     <span class="text-[9px] font-black text-rose-500 uppercase bg-rose-50 dark:bg-rose-950/30 border border-rose-100/30 px-2 py-0.5 rounded">Repeated 6+ Times</span>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-slate-50">1. DC Motor Torque Derivation</h3>
-                    <p class="text-xs text-slate-550 leading-relaxed">Derive the armature torque equation for a standard DC shunt motor. Clearly state magnetic flux and armature current ratios.</p>
+                    <p class="text-xs text-slate-500 leading-relaxed">Derive the armature torque equation for a standard DC shunt motor. Clearly state magnetic flux and armature current ratios.</p>
                 </div>
                 <div class="p-6 bg-slate-50 border border-slate-200 dark:border-slate-800 rounded-3xl space-y-3">
                     <span class="text-[9px] font-black text-blue-600 uppercase bg-blue-50 dark:bg-blue-950/30 border border-blue-100/30 px-2 py-0.5 rounded dark:text-blue-400">Repeated 5+ Times</span>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-slate-50">2. CB & CE Characteristics</h3>
-                    <p class="text-xs text-slate-550 leading-relaxed">State the input and output configuration characteristics of a BJT running in Common Emitter (CE) configuration. Draw standard curves.</p>
+                    <p class="text-xs text-slate-500 leading-relaxed">State the input and output configuration characteristics of a BJT running in Common Emitter (CE) configuration. Draw standard curves.</p>
                 </div>
             </div>
         </section>
 
         <!-- 6. QUICK REVISION SECTION -->
-        <section class="mt-16 bg-[#090d16] text-slate-350 rounded-[2.5rem] p-8 space-y-6 animate-fade-up">
+        <section class="mt-16 bg-[#090d16] text-slate-300 rounded-[2.5rem] p-8 space-y-6 animate-fade-up">
             <h2 class="text-xl font-extrabold text-slate-900 dark:text-slate-50 flex items-center gap-2">⚡ Memory Tricks & Exam Shortcuts</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed">
                 <div class="space-y-2">

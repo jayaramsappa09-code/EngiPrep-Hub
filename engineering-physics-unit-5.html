@@ -84,7 +84,13 @@
                 </div>
             </a>
             
+            
+            
             <div id="nav-actions" class="flex items-center gap-4">
+                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
                 <a href="/physics-notes.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase hover:bg-slate-800/40 text-slate-300 transition-all flex items-center gap-1.5 active:scale-95">
                     Subject Hub
                 </a>
@@ -119,7 +125,7 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-3 pt-2">
                     <a href="#derivations" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all text-white">Go to Derivations ⚡</a>
-                    <a href="#viva" class="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-350 rounded-lg text-[10px] font-black uppercase tracking-widest hover:border-slate-700 transition-all">Test Your Viva 🧪</a>
+                    <a href="#viva" class="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg text-[10px] font-black uppercase tracking-widest hover:border-slate-700 transition-all">Test Your Viva 🧪</a>
                     <a href="#calculator" class="px-4 py-2 bg-emerald-950/50 border border-emerald-900/50 text-emerald-400 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-emerald-900/50 transition-all font-bold">Try Hall Solver 🧮</a>
                 </div>
             </div>
@@ -234,7 +240,7 @@
                     <h2 class="text-xl font-black text-white uppercase tracking-tight flex items-center gap-2">
                         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 1. Unit Overview &amp; Exam Strategy
                     </h2>
-                    <p class="text-sm text-slate-350 leading-relaxed">
+                    <p class="text-sm text-slate-300 leading-relaxed">
                         Historically, <b>Unit V</b> can determine a student's entire Grade in first-year physics. It connects mathematical models of the quantum solid to electronic components. In previous units, we assumed valence electrons moved completely freely (Sommerfeld Quantum Theory). Inside Unit V, we introduce the <b>periodic potential of positive lattice ion cores</b>. This realistic assumption unlocks the secret of band gaps, the existence of holes, and forms the mathematical basis for semiconductor conductivities.
                     </p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-semibold">
@@ -261,7 +267,7 @@
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 01</span>
                             <h3 class="text-sm font-bold text-white">Bloch's Theorem (Qualitative)</h3>
-                            <p class="text-slate-450"><b>Definition:</b> In daily metal lattices, Coulombic potentials are strictly periodic with the property $V(x) = V(x+a)$ where $a$ is the lattice constant. Bloch's theorem states that the solutions of the Schrödinger equation under such potentials are plane waves modulated by a periodic function $u_k(x)$ representing the crystal lattice periodicity.</p>
+                            <p class="text-slate-400"><b>Definition:</b> In daily metal lattices, Coulombic potentials are strictly periodic with the property $V(x) = V(x+a)$ where $a$ is the lattice constant. Bloch's theorem states that the solutions of the Schrödinger equation under such potentials are plane waves modulated by a periodic function $u_k(x)$ representing the crystal lattice periodicity.</p>
                             <p class="text-teal-400 font-mono mt-1 bg-slate-900 p-1.5 rounded text-[11px] text-center">$\psi_k(x) = u_k(x) e^{i k x} \quad \text{where } u_k(x + a) = u_k(x)$</p>
                             <ul class="text-[10px] text-slate-500 space-y-0.5 mt-1 list-disc pl-4">
                                 <li><b>Examiner Trap:</b> Do not confuse $u_k(x)$ with the general wave $\psi$. $u_k(x)$ carries the lattice period periodicity, whereas $e^{i k x}$ acts as the free-bound envelope operator.</li>
@@ -273,7 +279,7 @@
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 02</span>
                             <h3 class="text-sm font-bold text-white">Kronig-Penney Model (Qualitative)</h3>
-                            <p class="text-slate-450"><b>Definition:</b> This model represents the actual continuous array of atomic potentials as a simplified 1-dimensional periodic succession of rectangular potential wells of width $a$ and barrier width $b$ of potential height $V_0$.</p>
+                            <p class="text-slate-400"><b>Definition:</b> This model represents the actual continuous array of atomic potentials as a simplified 1-dimensional periodic succession of rectangular potential wells of width $a$ and barrier width $b$ of potential height $V_0$.</p>
                             <p class="text-teal-400 font-mono mt-1 bg-slate-900 p-1.5 rounded text-[11px] text-center">$$P \frac{\sin(\alpha a)}{\alpha a} + \cos(\alpha a) = \cos(k a)$$</p>
                             <p class="text-slate-400 mt-1">Where $P = \frac{m V_0 b a}{\hbar^2}$ is the barrier strength. Since $|\cos(k a)| \le 1$, allowed energy bands only exist where the left-hand expression lies between $-1$ and $+1$. All other states represent forbidden band gaps.</p>
                             <ul class="text-[10px] text-slate-500 space-y-0.5 list-disc pl-4">
@@ -285,7 +291,7 @@
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 03</span>
                             <h3 class="text-sm font-bold text-white">Energy vs. Wavevector (E vs K) Diagram</h3>
-                            <p class="text-slate-450"><b>Definition:</b> Plots energy $E$ as a function of the wavevector $k$ ($\text{where } k = 2\pi / \lambda$). For completely free electrons, this is a smooth parabola ($E = \frac{\hbar^2 k^2}{2m}$). Under periodic potential systems, energy discontinuities occur at zone boundary indices of $k = \pm \frac{n\pi}{a}$, dividing the spaces into distinct Brillouin Zones and creating band gaps.</p>
+                            <p class="text-slate-400"><b>Definition:</b> Plots energy $E$ as a function of the wavevector $k$ ($\text{where } k = 2\pi / \lambda$). For completely free electrons, this is a smooth parabola ($E = \frac{\hbar^2 k^2}{2m}$). Under periodic potential systems, energy discontinuities occur at zone boundary indices of $k = \pm \frac{n\pi}{a}$, dividing the spaces into distinct Brillouin Zones and creating band gaps.</p>
                             <ul class="text-[10px] text-slate-500 space-y-0.5 list-disc pl-4">
                                 <li><b>Topper Tip:</b> Draw both the extended zone scheme (energy spreading upwards continuously) and the reduced zone scheme (all curves mapped back into the first Brillouin Zone between $-\frac{\pi}{a}$ and $+\frac{\pi}{a}$).</li>
                             </ul>
@@ -295,16 +301,16 @@
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 04</span>
                             <h3 class="text-sm font-bold text-white">Velocity vs. Wavevector (V vs K) Diagram</h3>
-                            <p class="text-slate-450"><b>Definition:</b> Illustrates the group velocity $V_g$ of an electron traveling inside a periodic solid as a function of wavevector $k$. Calculated from the slope of the $E$- $k$ dispersion curve:</p>
+                            <p class="text-slate-400"><b>Definition:</b> Illustrates the group velocity $V_g$ of an electron traveling inside a periodic solid as a function of wavevector $k$. Calculated from the slope of the $E$- $k$ dispersion curve:</p>
                             <p class="text-teal-400 font-mono mt-1 bg-slate-900 p-1 rounded text-[11px] text-center">$v_g = \frac{1}{\hbar} \frac{dE}{dk}$</p>
-                            <p class="text-slate-450"><b>Crucial Property:</b> While free electrons accelerate infinitely under energy growth, periodic electrons experience Bragg reflection. Consequently, as $k$ approaches the Brillouin Zone boundary boundary $\pm \frac{\pi}{a}$, the velocity drops precisely to zero, creating stationary standing-waves which cannot carry current.</p>
+                            <p class="text-slate-400"><b>Crucial Property:</b> While free electrons accelerate infinitely under energy growth, periodic electrons experience Bragg reflection. Consequently, as $k$ approaches the Brillouin Zone boundary boundary $\pm \frac{\pi}{a}$, the velocity drops precisely to zero, creating stationary standing-waves which cannot carry current.</p>
                         </div>
 
                         <!-- Effective Mass of Electron -->
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 05</span>
                             <h3 class="text-sm font-bold text-white">Effective Mass of Electron ($m^*$)</h3>
-                            <p class="text-slate-450"><b>Definition:</b> The apparent mass parameter of an electron traveling inside a periodic lattice under the quantum electrostatic influence of surrounding positive ion cores. It is defined mathematically from the reciprocal of the $E$-$k$ curve's second derivative:</p>
+                            <p class="text-slate-400"><b>Definition:</b> The apparent mass parameter of an electron traveling inside a periodic lattice under the quantum electrostatic influence of surrounding positive ion cores. It is defined mathematically from the reciprocal of the $E$-$k$ curve's second derivative:</p>
                             <p class="text-teal-400 font-mono mt-1 bg-slate-900 p-1 rounded text-[11px] text-center">$m^* = \frac{\hbar^2}{\frac{d^2E}{dk^2}}$</p>
                             <ul class="text-[10px] text-slate-500 space-y-0.5 list-disc pl-4">
                                 <li><b>Physical Meaning:</b> Near the bottom of a band, curvature is positive and $m^* > 0$. At the inflection point near the middle, $m^* \to \infty$ (doesn't accelerate). Near the top of the band, curvature is negative and $m^* &lt; 0$ (electron acts as if it has a negative mass, which is equivalent to a physical hole!).</li>
@@ -315,25 +321,25 @@
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 06</span>
                             <h3 class="text-sm font-bold text-white">Classification of Crystalline Solids &amp; Hole concept</h3>
-                            <p class="text-slate-450"><b>Band Gap Classifications:</b> Metals (completely overlapping or half-filled bands, $E_g = 0$), Semiconductors (fully occupied valence band, empty conduction band separated by small energy gaps $E_g \approx 1\text{ eV}$), and Insulators (wide bands with $E_g > 5\text{ eV}$ where thermal activation is impossible).</p>
-                            <p class="text-slate-450"><b>Concept of Hole:</b> A vacant electronic state inside an otherwise filled valence band. It behaves physically equivalent to a positive charge particle ($+e$) possessing positive effective mass.</p>
+                            <p class="text-slate-400"><b>Band Gap Classifications:</b> Metals (completely overlapping or half-filled bands, $E_g = 0$), Semiconductors (fully occupied valence band, empty conduction band separated by small energy gaps $E_g \approx 1\text{ eV}$), and Insulators (wide bands with $E_g > 5\text{ eV}$ where thermal activation is impossible).</p>
+                            <p class="text-slate-400"><b>Concept of Hole:</b> A vacant electronic state inside an otherwise filled valence band. It behaves physically equivalent to a positive charge particle ($+e$) possessing positive effective mass.</p>
                         </div>
 
                         <!-- Intrinsic Semiconductors: Concentration, conductivity, Fermi Level -->
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 07</span>
                             <h3 class="text-sm font-bold text-white">Intrinsic Semiconductors (Basic)</h3>
-                            <p class="text-slate-450"><b>Intrinsic Phase:</b> High-purity semiconductor materials free from heavy doping. The electron carrier concentration in the conduction band ($n$) is structurally identical to the hole carrier concentration in the valence band ($p$). This matched quantity is the intrinsic concentration particle $n_i$:</p>
+                            <p class="text-slate-400"><b>Intrinsic Phase:</b> High-purity semiconductor materials free from heavy doping. The electron carrier concentration in the conduction band ($n$) is structurally identical to the hole carrier concentration in the valence band ($p$). This matched quantity is the intrinsic concentration particle $n_i$:</p>
                             <p class="text-teal-400 font-mono mt-1 bg-slate-900 p-1 rounded text-[11px] text-center">$n_i = \sqrt{n p} = A T^{3/2} e^{-\frac{E_g}{2 k_B T}}$</p>
-                            <p class="text-slate-450"><b>Fermi Level Position:</b> At $T = 0 \text{ K}$, the intrinsic Fermi energy $E_{Fi}$ sits precisely in the middle of the bandgap ($E_c - E_v$). As $T > 0 \text{ K}$, it shifts slightly depending on differences in effective electron-hole masses.</p>
+                            <p class="text-slate-400"><b>Fermi Level Position:</b> At $T = 0 \text{ K}$, the intrinsic Fermi energy $E_{Fi}$ sits precisely in the middle of the bandgap ($E_c - E_v$). As $T > 0 \text{ K}$, it shifts slightly depending on differences in effective electron-hole masses.</p>
                         </div>
 
                         <!-- Extrinsic Semiconductors & Fermi Shifting -->
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 08</span>
                             <h3 class="text-sm font-bold text-white">Extrinsic Semiconductors &amp; Fermi Shifting Laws</h3>
-                            <p class="text-slate-450"><b>Extrinsic Doping:</b> Pentavalent impurities (P, As) generate n-type semiconductor profiles, donor energy levels $E_d$, and $n \approx N_d$. Trivalent impurities (B, Al) generate p-type semiconductors, acceptor energetic level $E_a$, and $p \approx N_a$.</p>
-                            <p class="text-slate-450"><b>Fermi Shifting Laws:</b><br>
+                            <p class="text-slate-400"><b>Extrinsic Doping:</b> Pentavalent impurities (P, As) generate n-type semiconductor profiles, donor energy levels $E_d$, and $n \approx N_d$. Trivalent impurities (B, Al) generate p-type semiconductors, acceptor energetic level $E_a$, and $p \approx N_a$.</p>
+                            <p class="text-slate-400"><b>Fermi Shifting Laws:</b><br>
                             • <b>In n-type semiconductors:</b> $E_F$ shifts near conduction band edge $E_c$. Increasing $N_d$ moves $E_F$ closer to $E_c$. Increasing temperature $T$ forces $E_F$ to shift back downwards toward the intrinsic midline $E_{Fi}$.<br>
                             • <b>In p-type semiconductors:</b> $E_F$ shifts near valence band edge $E_v$. Increasing acceptor concentration $N_a$ moves $E_F$ closer to $E_v$, while rising temperatures also pull $E_F$ back upwards.</p>
                         </div>
@@ -342,9 +348,9 @@
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 09</span>
                             <h3 class="text-sm font-bold text-white">Drift and Diffusion Currents</h3>
-                            <p class="text-slate-450"><b>Drift Current Density ($J_{\text{drift}}$):</b> Net movement of carriers excited along an external applied electric field $E$. Governed by carrier mobility $\mu$:</p>
+                            <p class="text-slate-400"><b>Drift Current Density ($J_{\text{drift}}$):</b> Net movement of carriers excited along an external applied electric field $E$. Governed by carrier mobility $\mu$:</p>
                             <p class="text-teal-400 font-mono bg-slate-900 p-1 rounded text-center text-[10px]">$$J_{\text{drift}} = (n e \mu_n + p e \mu_p) E$$</p>
-                            <p class="text-slate-450"><b>Diffusion Current Density ($J_{\text{diff}}$):</b> Thermodynamic drift originating from concentration gradient slopes ($dn/dx$ or $dp/dx$). No electric field required:</p>
+                            <p class="text-slate-400"><b>Diffusion Current Density ($J_{\text{diff}}$):</b> Thermodynamic drift originating from concentration gradient slopes ($dn/dx$ or $dp/dx$). No electric field required:</p>
                             <p class="text-teal-400 font-mono bg-slate-900 p-1 rounded text-center text-[10px]">$$J_{\text{diff}} = e D_n \frac{dn}{dx} \quad (\text{electrons}) \quad \Big| \quad J_{\text{diff}} = -e D_p \frac{dp}{dx} \quad (\text{holes})$</p>
                         </div>
 
@@ -352,7 +358,7 @@
                         <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Syllabus Topic 10</span>
                             <h3 class="text-sm font-bold text-white">Einstein's Equation</h3>
-                            <p class="text-slate-450"><b>Definition:</b> In physical systems, diffusion currents and electrostatic drift are fundamentally coupled as both arise from identical energetic environments. Einstein's equation establishes the linear proportion relating the diffusion coefficient $D$ directly to carrier mobility $\mu$ at structural temperatures $T$:</p>
+                            <p class="text-slate-400"><b>Definition:</b> In physical systems, diffusion currents and electrostatic drift are fundamentally coupled as both arise from identical energetic environments. Einstein's equation establishes the linear proportion relating the diffusion coefficient $D$ directly to carrier mobility $\mu$ at structural temperatures $T$:</p>
                             <p class="text-teal-400 font-mono mt-1 bg-slate-900 p-1.5 rounded text-[11px] text-center">$$\frac{D_n}{\mu_n} = \frac{D_p}{\mu_p} = \frac{k_B T}{e}$$</p>
                             <ul class="text-[10px] text-slate-500 space-y-0.5 list-disc pl-4">
                                 <li><b>Examiner Trap:</b> Always make sure temperature $T$ is calculated in Kelvin. Direct numerical problems in JNTUK highly test this proportional ratio constant!</li>
@@ -458,7 +464,7 @@
                         <h3 class="text-base font-black text-white">1. Intrinsic Carrier Concentration ($n_i$ Representation)</h3>
                         <p class="text-xs text-slate-400">Derives the mathematical expression for charge density in pure semiconductors by integrating state properties from conduction and valence band extremities.</p>
                         
-                        <div class="text-xs text-slate-350 space-y-3 font-medium leading-relaxed font-sans">
+                        <div class="text-xs text-slate-300 space-y-3 font-medium leading-relaxed font-sans">
                             <p><b>Step 1: Calculate concentration of conduction electrons ($n$)</b><br>
                             The density of electrons in the energy interval $E$ and $E+dE$ in the conduction band is:<br>
                             $dn = Z(E) \cdot f(E) \cdot dE$<br>
@@ -537,7 +543,7 @@
                             Since the Hall coefficient is defined as $R_H = \frac{E_H}{J_x B_z}$, we find:<br>
                             <span class="text-emerald-400 font-bold font-mono">$$R_H = \frac{1}{ne} \quad (\text{For n-type}) \quad \Big| \quad R_H = \frac{1}{pe} \quad (\text{For p-type})$$</span><br>
                             Since $E_H = \frac{V_H}{d}$ (transverse width) and current density $J_x = \frac{I_x}{d \cdot t}$ (where $t$ is thickness), we can write the final Hall voltage expression:<br>
-                            <span class="text-teal-400 font-mono font-bold text-center block bg-[#03030b] p-3 rounded border border-dashed border-teal-900 block">
+                            <span class="text-teal-400 font-mono font-bold text-center block bg-[#03030b] p-3 rounded border border-dashed border-teal-900">
                                 $$V_H = \frac{R_H \cdot I_x \cdot B_z}{t}$$
                             </span></p>
                         </div>
@@ -552,7 +558,7 @@
                             <span class="text-xs text-slate-500 font-mono font-bold">100% Client-Side Engine</span>
                         </div>
                         <h3 class="text-lg font-black text-white mt-1">Interactive Hall Coefficient &amp; Voltage Solver</h3>
-                        <p class="text-xs text-slate-450 mt-1">Simulate real JNTUK lab manual experiments. Alter the drift carrier density, strip thickness, applied current, and perpendicular magnetic excitation below to find $R_H$ and $V_H$ in real-time.</p>
+                        <p class="text-xs text-slate-400 mt-1">Simulate real JNTUK lab manual experiments. Alter the drift carrier density, strip thickness, applied current, and perpendicular magnetic excitation below to find $R_H$ and $V_H$ in real-time.</p>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs font-bold font-sans">
@@ -601,7 +607,7 @@
                     <!-- Problem 1 -->
                     <div class="p-5 bg-slate-950/40 border border-slate-900 rounded-xl space-y-3 font-mono">
                         <span class="text-[10px] text-emerald-400 uppercase font-black tracking-wide block">Model Problem 01 (Hall Effect Experiment)</span>
-                        <p class="text-xs text-slate-350 font-sans leading-relaxed">
+                        <p class="text-xs text-slate-300 font-sans leading-relaxed">
                             <strong>Problem:</strong> A silicon strip of width $d = 2\text{ cm}$ and thickness $t = 1\text{ mm}$ experiences a transverse magnetic field of $B_z = 0.5\text{ Tesla}$ and a bias current of $I_x = 10\text{ mA}$. If it generates a measured Hall voltage of $V_H = 37.5\text{ mV}$, calculate the Hall Coefficient ($R_H$) and carrier density ($n$) of the semiconductor.
                         </p>
                         <div class="text-[11.5px] text-slate-400 leading-relaxed font-semibold bg-[#03030b] p-3.5 rounded-lg border border-slate-900 font-mono space-y-1">
@@ -625,7 +631,7 @@
                     <!-- Problem 2 -->
                     <div class="p-5 bg-slate-950/40 border border-slate-900 rounded-xl space-y-3 font-mono">
                         <span class="text-[10px] text-teal-400 uppercase font-black tracking-wide block">Model Problem 02 (Intrinsic Semiconductors)</span>
-                        <p class="text-xs text-slate-350 font-sans leading-relaxed">
+                        <p class="text-xs text-slate-300 font-sans leading-relaxed">
                             <strong>Problem:</strong> Determine the intrinsic carrier concentration $n_i$ in germanium at $T=300 \text{ K}$. Given that the energetic band gap of germanium is $E_g = 0.7\text{ eV}$ and the product of effective masses is $(m_e^* m_h^*)^{3/4} = 0.35 \cdot m_0^{3/2}$. (Assume $m_0 = 9.1 \times 10^{-31}\text{ kg}$).
                         </p>
                         <div class="text-[11.5px] text-slate-400 leading-relaxed font-semibold bg-[#03030b] p-3.5 rounded-lg border border-slate-900 font-mono space-y-1">
@@ -647,7 +653,7 @@
                     <!-- Problem 3 -->
                     <div class="p-5 bg-slate-950/40 border border-slate-900 rounded-xl space-y-3 font-mono">
                         <span class="text-[10px] text-indigo-400 uppercase font-black tracking-wide block">Model Problem 03 (Einstein Equation Calculation)</span>
-                        <p class="text-xs text-slate-350 font-sans leading-relaxed">
+                        <p class="text-xs text-slate-300 font-sans leading-relaxed">
                             <strong>Problem:</strong> The mobility of electrons inside a silicon wafer at room temperature ($300\text{ K}$) is measured as $\mu_n = 0.13\text{ m}^2/\text{V}\cdot\text{s}$. Compute the electron diffusion coefficient $D_n$ for this device.
                         </p>
                         <div class="text-[11.5px] text-slate-400 leading-relaxed font-semibold bg-[#03030b] p-3.5 rounded-lg border border-slate-900 font-mono space-y-1">
@@ -682,7 +688,7 @@
                                 <span class="bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 text-emerald-400">10 Marks (Essay)</span>
                             </div>
                             <h4 class="text-sm font-black text-slate-100">Derive the mathematical expression for the intrinsic carrier density of an intrinsic semiconductor? Plot the location of the Fermi level and prove its position at absolute zero temperatures.</h4>
-                            <p class="text-slate-450 font-medium"><b>Answer Blueprint:</b> Must include density of states $Z(E)dE$ equations, integration of $n$ in conduction band and $p$ inside valence bands, mass action multiplication step, and the final logarithmic expression of $E_F$ illustrating midpoint placement.</p>
+                            <p class="text-slate-400 font-medium"><b>Answer Blueprint:</b> Must include density of states $Z(E)dE$ equations, integration of $n$ in conduction band and $p$ inside valence bands, mass action multiplication step, and the final logarithmic expression of $E_F$ illustrating midpoint placement.</p>
                         </div>
 
                         <!-- PYQ 2 -->
@@ -692,7 +698,7 @@
                                 <span class="bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20 text-teal-400">10 Marks / 8 Marks</span>
                             </div>
                             <h4 class="text-sm font-black text-slate-100">Define the Hall Effect. Derive the formula for the Hall Coefficient ($R_H$) of a semiconductor and discuss 4 vital industrial applications.</h4>
-                            <p class="text-slate-450 font-medium"><b>Answer Blueprint:</b> Requires drawing a clean 3D semiconductor strip with magnetic axes ($B_z$, $I_x$, $V_H$). Map Lorentz magnetic deflection to transverse electric field force at equilibrium. State applications: carrier character tracking, extraction of concentration $n$, mobility calculations, magnetic sensor probes.</p>
+                            <p class="text-slate-400 font-medium"><b>Answer Blueprint:</b> Requires drawing a clean 3D semiconductor strip with magnetic axes ($B_z$, $I_x$, $V_H$). Map Lorentz magnetic deflection to transverse electric field force at equilibrium. State applications: carrier character tracking, extraction of concentration $n$, mobility calculations, magnetic sensor probes.</p>
                         </div>
 
                         <!-- PYQ 3 -->
@@ -720,7 +726,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
                         <!-- Prediction Card 1 -->
                         <div class="p-5 bg-slate-950/80 rounded-xl space-y-2.5 border border-[#1b3a2a]">
-                            <span class="text-[9px] font-black text-emerald-450 uppercase">HIGH-CONFIDENCE EXAM SLOT</span>
+                            <span class="text-[9px] font-black text-emerald-400 uppercase">HIGH-CONFIDENCE EXAM SLOT</span>
                             <h4 class="text-sm text-white font-bold leading-relaxed">Effective Mass Curvature Properties</h4>
                             <p class="text-slate-400 leading-relaxed font-sans">
                                 Expect a <b>6 Marks</b> comparative question on the physical concept of Effective Mass ($m^*$). The question will ask how mass changes inside a periodic crystal and how to derive a negative effective mass near band limits.
@@ -755,7 +761,7 @@
                 <section id="viva" class="glass-card p-8 scroll-mt-24 space-y-6">
                     <div class="border-b border-emerald-950 pb-3">
                         <h2 class="text-xl font-black text-white uppercase tracking-tight">9. JNTUK Lab Viva Flashcard Engine</h2>
-                        <p class="text-xs text-slate-450 mt-1">Tap any cards to flip and expose direct answers desired by JNTUK external examiners during physical laboratory evaluations.</p>
+                        <p class="text-xs text-slate-400 mt-1">Tap any cards to flip and expose direct answers desired by JNTUK external examiners during physical laboratory evaluations.</p>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -874,7 +880,7 @@
                     <div class="flex items-center gap-3">
                         <span class="text-3xl">🚨</span>
                         <div>
-                            <h3 class="text-base font-black text-rose-450 uppercase tracking-tight">11. 1-Day-Before-Exam Unit V Survival Strategy</h3>
+                            <h3 class="text-base font-black text-rose-400 uppercase tracking-tight">11. 1-Day-Before-Exam Unit V Survival Strategy</h3>
                             <p class="text-[9px] uppercase tracking-widest text-[#10b981]">Complete 3-Hour Rapid Score Road map</p>
                         </div>
                     </div>
@@ -894,7 +900,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 font-sans">
                             <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
                                 <h4 class="text-[#f59e00] font-black uppercase">MUST STUDY IF TIME IS LOW</h4>
-                                <ul class="list-disc list-inside text-slate-450 space-y-1">
+                                <ul class="list-disc list-inside text-slate-400 space-y-1">
                                     <li>Hall Effect Derivation (RH)</li>
                                     <li>Einstein Relations Equation Ratio</li>
                                     <li>Bloch wave formula condition</li>
@@ -902,7 +908,7 @@
                             </div>
                             <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1 font-sans">
                                 <h4 class="text-emerald-400 font-black uppercase">FASTEST SCORING SECTIONS</h4>
-                                <ul class="list-disc list-inside text-slate-450 space-y-1">
+                                <ul class="list-disc list-inside text-slate-400 space-y-1">
                                     <li>Drude Classical Theory Failures comparison</li>
                                     <li>Group speed boundaries statement</li>
                                     <li>Formula problems on Hall Sensor properties</li>
