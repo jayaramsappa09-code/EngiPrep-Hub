@@ -24,6 +24,10 @@
             border-radius: 1.25rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .dark .glass-card {
+            background-color: rgba(5, 5, 15, 0.85);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
         .glass-card:hover {
             border-color: rgba(59, 130, 246, 0.35);
             box-shadow: 0 12px 36px -8px rgba(59, 130, 246, 0.16);
@@ -32,6 +36,9 @@
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
         }
+        .viva-card-flipped {
+            transform: rotateY(180deg);
+        }
         .viva-card-front, .viva-card-back {
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
@@ -39,7 +46,7 @@
         .viva-card-back {
             transform: rotateY(180deg);
         }
-        /* Custom horizontal scroll removal */
+        /* Custom scroll removal helper */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -50,6 +57,12 @@
         /* Code line numbers and styles */
         .code-container {
             font-family: 'Fira Code', 'JetBrains Mono', monospace;
+        }
+        /* Dynamic state highlights */
+        .active-nav-card {
+            border-color: rgba(59, 130, 246, 0.4);
+            background-color: rgba(59, 130, 246, 0.08);
+            color: #3b82f6 !important;
         }
     </style>
     
@@ -65,7 +78,9 @@
                 throwOnError: false
             });
             // Initialize Lucide icons
-            lucide.createIcons();
+            if (window.lucide) {
+                lucide.createIcons();
+            }
             // Load state trackers
             initPlatform();
         });
@@ -73,9 +88,15 @@
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#030308] text-slate-300 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-[#030308] text-slate-350 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-blue-600 selection:text-white">
 
-    <!-- Navbar header -->
+    <!-- Toast system -->
+    <div id="toast-notif" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 bg-[#090b1e]/90 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none">
+        <span class="p-1 bg-emerald-500/10 rounded-lg"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i></span>
+        <span id="toast-message">Value Saved! +20 XP</span>
+    </div>
+
+    <!-- Navigation Header -->
     <nav class="fixed top-0 w-full z-50 bg-[#030308]/85 backdrop-blur-md border-b border-blue-950/45 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between font-semibold">
             <a href="/" class="flex items-center gap-4 group">
@@ -84,7 +105,7 @@
                     <span class="relative z-10 text-white font-black text-lg">EP</span>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none">EngiPrep <span class="text-blue-500">Hub</span></span>
+                    <span class="text-xl font-black tracking-tighter text-white leading-none font-sans">EngiPrep <span class="text-blue-500">Hub</span></span>
                     <span class="text-[6.5px] font-black uppercase tracking-[0.22em] text-blue-500 mt-1">JNTUK R23 Regulation Workspace</span>
                 </div>
             </a>
@@ -108,13 +129,15 @@
                 <li>/</li>
                 <li><a href="/semester-2.html" class="hover:text-blue-500">Sem 2</a></li>
                 <li>/</li>
-                <li class="text-blue-500" aria-current="page">Linear & Non-Linear Data Structures</li>
+                <li class="text-blue-500 animate-pulse" aria-current="page">Linear & Non-Linear Data Structures Basics</li>
             </ol>
         </nav>
 
         <!-- DASHBOARD HERO FRAME -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-[#04091c] border border-blue-950/45">
+        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#04091c] border border-blue-950/45">
+            <!-- Radiant Background Glows -->
             <div class="absolute right-0 top-0 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+            <div class="absolute left-1/4 bottom-0 w-60 h-60 bg-indigo-600/5 rounded-full blur-[80px] pointer-events-none"></div>
             
             <div class="space-y-4 relative z-10 max-w-2xl">
                 <div class="flex items-center gap-2 flex-wrap">
@@ -123,913 +146,945 @@
                     <span class="px-2.5 py-0.5 bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">Credits: 3.0</span>
                 </div>
                 <div>
-                    <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight uppercase">
+                    <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight uppercase font-sans">
                         Data Structures <br>
-                        <span class="bg-gradient-to-r from-blue-500 via-indigo-400 to-blue-500 bg-clip-text text-transparent italic">Core Learning Platform</span>
+                        <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400 bg-clip-text text-transparent italic">Core Essentials Guide</span>
                     </h1>
                     <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        Topper-style premium interactive survival hub. Toggle complete code blocks, view live algorithm traces, run expression parser sandboxes, review quick revision card sets, and solve board predicted long answer sheets.
+                        Curated specifically for JNTUK R23 Regulation. Master Linear and Non-Linear representations, Abstract Data Types, stack expressions evaluation, dynamic linked insertions, tree traversals, and board derivations instantly.
                     </p>
                 </div>
-                <!-- Mini Quick Actions -->
                 <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <a href="#simulations" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all text-white shadow-md">Sandbox Simulators 🛠️</a>
-                    <a href="#cheat-sheets" class="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg text-[10px] font-black uppercase tracking-widest hover:border-slate-700 transition-all">Cheat Sheets 🧮</a>
-                    <a href="#viva-questions" class="px-4 py-2 bg-indigo-950/45 border border-indigo-900/40 text-indigo-400 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-indigo-900/50 transition-all font-bold">Viva Decks 🧠</a>
+                    <a href="#derivations" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all text-white">Go to Derivations ⚡</a>
+                    <a href="#viva" class="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg text-[10px] font-black uppercase tracking-widest hover:border-slate-700 transition-all">Test Your Viva 🧪</a>
+                    <a href="#calculator" class="px-4 py-2 bg-indigo-950/50 border border-indigo-900/50 text-indigo-400 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-indigo-900/50 transition-all">Interactive Sandboxes 🛠️</a>
                 </div>
             </div>
 
-            <!-- Dashboard XP Stats Card -->
-            <div id="xp-tracker-card" class="w-full lg:w-80 p-5 bg-[#04040a] border border-blue-950/60 rounded-2xl flex flex-col justify-between h-52 relative z-10 shadow-inner">
+            <!-- Study Session Tracker Bento Card -->
+            <div class="w-full md:w-80 p-5 bg-slate-950/60 border border-slate-900 rounded-2xl flex flex-col justify-between h-52 relative z-10 shadow-inner">
                 <div>
                     <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-blue-400">Syllabus Completion XP</span>
-                        <span id="tracker-xp-pct" class="text-[10px] font-black text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/25">0% DONE</span>
+                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Unit Coverage Index</span>
+                        <span id="overall-status-text" class="text-[10px] font-black text-rose-500">NOT STARTED</span>
                     </div>
-                    <h4 class="text-xs font-black text-white mt-3">Interactive Workspace Score</h4>
-                    <p class="text-[10.5px] text-slate-500 mt-1 font-medium">Earn +20 XP per syllabus concept checklist completion.</p>
+                    <h4 class="text-xs font-black text-white mt-1">Study Session Tracker</h4>
                 </div>
                 
                 <div class="space-y-2">
                     <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span id="xp-points-summary">0 / 400 XP Unlocked</span>
-                        <span id="streak-meter" class="font-bold text-orange-400 flex items-center gap-0.5">🔥 4 Days</span>
+                        <span>Checklist progress</span>
+                        <span id="percentage-indicator" class="font-bold">0%</span>
                     </div>
-                    <div class="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-900">
-                        <div id="xp-progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-700" style="width: 0%"></div>
+                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                        <div id="progress-bar-indicator" class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500" style="width: 0%"></div>
                     </div>
                 </div>
 
-                <div class="flex items-center justify-between pt-1">
-                    <span id="rank-badge" class="text-[9px] text-indigo-400 font-extrabold uppercase flex items-center gap-1">
-                        <i data-lucide="award" class="w-3.5 h-3.5"></i> Rank: DS Apprentice
-                    </span>
-                    <button onclick="resetPlatTracker()" class="text-[9px] text-rose-500 hover:underline font-black uppercase bg-transparent border-0 cursor-pointer">Reset Progress</button>
+                <div class="flex items-center justify-between">
+                    <span class="text-[8.5px] text-slate-500 font-extrabold uppercase dark:text-slate-400">12 Prep Modules Curated</span>
+                    <button onclick="resetInternalTracker()" class="text-[9px] text-[#f43f5e] hover:underline font-extrabold cursor-pointer uppercase">Reset Progress</button>
                 </div>
             </div>
         </header>
 
-        <!-- MODE SELECTION WRAPPER -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-            <button onclick="changeHubMode('full')" id="btn-mode-full" class="p-4 rounded-xl border border-blue-500/30 bg-blue-500/10 text-white font-black text-xs uppercase tracking-wider text-left flex items-start gap-3 transition-all">
-                <div class="p-1.5 bg-blue-500/20 rounded text-blue-400 mt-0.5"><i data-lucide="graduation-cap" class="w-4 h-4"></i></div>
-                <div>
-                    <div>Full Syllabus Walkthrough</div>
-                    <p class="text-[10px] text-slate-400 font-medium normal-case mt-1">Deep explanation, C/C++ implementations, complexity proofs, and pointer traces.</p>
-                </div>
-            </button>
+        <!-- TWO COLUMNS VIEWPORT: LEFT NAV & RIGHT Master Panel -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            <button onclick="changeHubMode('survival')" id="btn-mode-survival" class="p-4 rounded-xl border border-slate-800 bg-slate-900/10 text-slate-450 font-black text-xs uppercase tracking-wider text-left flex items-start gap-3 hover:border-indigo-500/20 transition-all">
-                <div class="p-1.5 bg-slate-800 rounded text-slate-400 mt-0.5"><i data-lucide="zap" class="w-4 h-4"></i></div>
-                <div>
-                    <div>Night-Before-Exam Mode</div>
-                    <p class="text-[10px] text-slate-500 font-medium normal-case mt-1">Filters out code logic to showcase high-weight formulas, memory Mnemonics, &amp; JNTUK writing guides.</p>
+            <!-- LEFT NAVIGATION SIDEBAR -->
+            <aside class="lg:col-span-3 sticky top-28 space-y-4 max-h-[80vh] overflow-y-auto pr-2 no-scrollbar">
+                <div class="p-1 rounded-2xl bg-[#050510] border border-blue-950/50 space-y-1 shadow-2xl">
+                    <div class="p-3 text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-blue-950/30">Table of Contents</div>
+                    
+                    <a href="#intro" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">01</span> Introduction & Pointers
+                    </a>
+                    <a href="#core-principles" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">02</span> Key Core Principles
+                    </a>
+                    <a href="#definitions" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">03</span> Essential Definitions
+                    </a>
+                    <a href="#derivations" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">04</span> Core Board Derivations
+                    </a>
+                    <a href="#formula-sheet" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">05</span> High-Yield Formula Sheet
+                    </a>
+                    <a href="#calculator" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">06</span> Interactive Sandbox
+                    </a>
+                    <a href="#numericals" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">07</span> Solved Board Numericals
+                    </a>
+                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">08</span> JNTUK Solved Papers
+                    </a>
+                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">09</span> Most Expected Predictor
+                    </a>
+                    <a href="#viva" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">10</span> Lab Concept Viva Cards
+                    </a>
+                    <a href="#revision-sheets" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">11</span> Quick Revision Sheets
+                    </a>
+                    <a href="#mnemonics" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">12</span> Memory Aids & Mnemonics
+                    </a>
+                    <a href="#survival-plan" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
+                        <span class="text-xs text-blue-400 font-mono">13</span> 1-Day Prep Final Tips
+                    </a>
                 </div>
-            </button>
-            
-            <button onclick="changeHubMode('lab')" id="btn-mode-lab" class="p-4 rounded-xl border border-slate-800 bg-slate-900/10 text-slate-450 font-black text-xs uppercase tracking-wider text-left flex items-start gap-3 hover:border-emerald-500/20 transition-all">
-                <div class="p-1.5 bg-slate-800 rounded text-slate-400 mt-0.5"><i data-lucide="terminal" class="w-4 h-4"></i></div>
-                <div>
-                    <div>Lab Exam &amp; Viva Deck</div>
-                    <p class="text-[10px] text-slate-500 font-medium normal-case mt-1">Observation tables, record boilerplate formats, edge-case trap explanations, and dynamic flip-cards.</p>
-                </div>
-            </button>
-        </div>
 
-        <!-- STICKY BOTTOM UNIT NAVIGATION -->
-        <div class="flex border-b border-blue-950/50 gap-2 mb-8 overflow-x-auto text-xs font-black uppercase tracking-wider pb-1 no-scrollbar">
-            <button onclick="switchUnitTab('unit1')" id="btn-unit-unit1" class="px-5 py-3 border-b-2 border-blue-500 text-blue-400 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                Unit I: Complexity, Search/Sort
-            </button>
-            <button onclick="switchUnitTab('unit2')" id="btn-unit-unit2" class="px-5 py-3 border-b-2 border-transparent text-slate-450 hover:text-slate-200 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                Unit II: Linked Lists
-            </button>
-            <button onclick="switchUnitTab('unit3')" id="btn-unit-unit3" class="px-5 py-3 border-b-2 border-transparent text-slate-450 hover:text-slate-200 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                Unit III: Stacks &amp; Expressions
-            </button>
-            <button onclick="switchUnitTab('unit4')" id="btn-unit-unit4" class="px-5 py-3 border-b-2 border-transparent text-slate-450 hover:text-slate-200 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                Unit IV: Queues &amp; Deques
-            </button>
-            <button onclick="switchUnitTab('unit5')" id="btn-unit-unit5" class="px-5 py-3 border-b-2 border-transparent text-slate-450 hover:text-slate-200 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                Unit V: Trees, Hashing, Graphs
-            </button>
-        </div>
+                <div class="p-5 bg-gradient-to-br from-blue-950/20 to-indigo-950/20 border border-blue-900/20 rounded-2xl text-center shadow-lg">
+                    <span class="text-[14px]">🔥</span>
+                    <h5 class="text-xs font-black text-white mt-1">Struggling with Linked Lists?</h5>
+                    <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">Our step-by-step trace sandboxes show pointer mutations instantly.</p>
+                </div>
+            </aside>
 
-        <!-- ========================================================================= -->
-        <!-- PREMIUM INTERACTIVE SIMULATORS BENTO BOX (PERSISTENT & ALWAYS ENGAGING) -->
-        <!-- ========================================================================= -->
-        <section id="simulations" class="mb-14 scroll-mt-24">
-            <h3 class="text-xl font-black text-white uppercase tracking-tight mb-6 flex items-center gap-2">
-                <span class="w-3 h-3 bg-blue-500 rounded-full animate-ping"></span> 🛠️ Live Algorithmic Execution Sandboxes
-            </h3>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- RIGHT PANEL: STUDY BLOCKS -->
+            <div class="lg:col-span-9 space-y-16">
                 
-                <!-- SIMULATOR 1: SEARCH & SORT WIDGET -->
-                <div class="p-6 glass-card bg-[#050512]">
-                    <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-                        <div class="flex items-center gap-2">
-                            <span class="p-1 bg-blue-500/10 text-blue-400 rounded"><i data-lucide="sliders" class="w-4 h-4"></i></span>
-                            <h4 class="text-xs font-black text-white uppercase tracking-widest">Searching &amp; Sorting Sandbox</h4>
-                        </div>
-                        <div class="flex items-center gap-1.5 bg-slate-900 p-1 rounded-lg border border-slate-800">
-                            <button onclick="triggerSimSet('search')" id="sim-set-search-btn" class="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-[9px] font-black rounded uppercase">Search Mode</button>
-                            <button onclick="triggerSimSet('sort')" id="sim-set-sort-btn" class="px-2 py-0.5 text-slate-500 text-[9px] font-black rounded uppercase">Sort Mode</button>
-                        </div>
-                    </div>
-
-                    <!-- SEARCH SUB-SECTION -->
-                    <div id="sim-body-search" class="space-y-4">
-                        <p class="text-[11px] text-slate-400 leading-relaxed font-medium">Trace Linear vs Binary search pointers live. Targets are localized in a pre-sorted integer array.</p>
-                        
-                        <!-- Visual Array container -->
-                        <div class="flex justify-center items-center gap-1.5 py-4" id="sim-search-array-render">
-                            <!-- Populated dynamically -->
-                        </div>
-
-                        <!-- Controls -->
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 items-end">
-                            <div>
-                                <label class="text-[9px] font-black uppercase text-slate-500 block mb-1">Target Value</label>
-                                <input type="number" id="sim-search-target" value="56" class="w-full bg-[#030308] border border-blue-950 px-2.5 py-1.5 text-xs text-white rounded focus:border-blue-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="text-[9px] font-black uppercase text-slate-500 block mb-1">Algorithm</label>
-                                <select id="sim-search-algo" class="w-full bg-[#030308] border border-blue-950 px-2.5 py-1.5 text-[10px] text-slate-200 font-bold rounded focus:border-blue-500 outline-none">
-                                    <option value="binary">Binary Search</option>
-                                    <option value="linear">Linear Search</option>
-                                </select>
-                            </div>
-                            <button onclick="runSearchSimStep(true)" class="py-2.5 bg-blue-600 hover:bg-blue-700 text-[10px] font-black uppercase rounded text-white font-bold tracking-wider transition-all">Start Trace</button>
-                            <button onclick="runSearchSimStep(false)" class="py-2.5 bg-[#030308] border border-blue-950 hover:border-slate-700 text-[10px] font-black uppercase rounded text-slate-400 font-bold tracking-wider transition-all">Next Step ➔</button>
-                        </div>
-
-                        <!-- Feedback Box -->
-                        <div id="sim-search-feedback" class="p-3 bg-slate-950 border border-slate-900/60 rounded-xl font-mono text-[10.5px] text-blue-400 text-center">
-                            Click 'Start Trace' or 'Next Step' to inspect pointer operations.
-                        </div>
-                    </div>
-
-                    <!-- SORT SUB-SECTION -->
-                    <div id="sim-body-sort" class="space-y-4 hidden">
-                        <p class="text-[11px] text-slate-400 leading-relaxed font-semibold">Visualizing standard pass swaps. Current Active Array of values: [29, 10, 14, 37, 13]</p>
-                        
-                        <div class="flex justify-center items-end gap-3 py-6 h-28 border-b border-slate-900" id="sim-sort-array-render">
-                            <!-- Render bars dynamically -->
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-2">
-                            <button onclick="rewindSortSim()" class="py-2.5 bg-slate-900 border border-slate-800 text-[10px] font-black uppercase text-slate-400 rounded">Reset Array</button>
-                            <button onclick="runSortSimStep()" class="py-2.5 bg-[#10b981] hover:bg-emerald-600 text-[10px] font-black uppercase text-white rounded">Next Step ➔</button>
-                            <span id="sim-sort-comparisons" class="flex items-center justify-center bg-slate-950 rounded text-[9px] font-mono text-emerald-400 uppercase border border-slate-900">Swaps: 0</span>
-                        </div>
-                        
-                        <div id="sim-sort-feedback" class="p-3 bg-slate-950 border border-slate-900/60 rounded-xl font-mono text-[10.5px] text-emerald-400 text-center">
-                            Toggle Sort to compare ascending values.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SIMULATOR 2: EXPRESSION PARSER & EXPRESSIONS SANDBOX -->
-                <div class="p-6 glass-card bg-[#050512]">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="p-1 bg-indigo-500/10 text-indigo-400 rounded"><i data-lucide="cpu" class="w-4 h-4"></i></span>
-                        <h4 class="text-xs font-black text-white uppercase tracking-widest">Stack Expressions Infix to Postfix Converter</h4>
+                <!-- SECTION 1: Introduction & Pointers -->
+                <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-blue-400 font-mono">01</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Introduction, Memory Coherence &amp; Pointers</h2>
                     </div>
                     
-                    <p class="text-[11px] text-slate-400 leading-relaxed font-semibold mb-3">
-                        Enter any mathematical infix string (e.g. <code class="text-indigo-400">a+b*c-d/e</code>) to trace exactly how the operator priority precedence works with dynamic stack manipulations.
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                        <div class="md:col-span-7 space-y-4">
+                            <p class="text-xs text-slate-300 sm:text-sm">
+                                All program execution relies on memory organization. An <b class="text-blue-400">Abstract Data Type (ADT)</b> defines a mathematical model for a data type along with the operations allowed on it, entirely separating the logical definition from its physical memory implementation.
+                            </p>
+                            
+                            <div class="p-4 bg-[#050512] border-l-4 border-l-blue-500 rounded-r-xl border border-y-0 border-r-0 space-y-2">
+                                <h4 class="text-xs font-black text-white uppercase tracking-widest text-[10px]">Segmented Memory Anatomy:</h4>
+                                <p class="text-xs text-slate-400">
+                                    • <b class="text-slate-200">The Stack Frame:</b> Handles local dynamic parameters and automatic function activation blocks. Storage runs in strict, highly fast LIFO order managed automatically by the frame pointer.
+                                </p>
+                                <p class="text-xs text-slate-400">
+                                    • <b class="text-slate-200">The Heap Space:</b> Serves unstructured dynamic storage pools requested explicitly by the user (C: <code class="text-blue-450 font-bold font-mono">malloc</code>, C++: <code class="text-indigo-400 font-semibold font-mono">new</code>). Must be hand-freed to avoid fatal leaks.
+                                </p>
+                             </div>
+
+                            <p class="text-xs text-slate-300 sm:text-sm">
+                                To represent these dynamic heap links in native code, look at this structured layout formula:
+                            </p>
+                            <div class="p-3 bg-black/40 text-center font-mono text-xs text-blue-400 rounded-xl font-extrabold border border-blue-950/40">
+                                Pointer Variable Variable = Holds Address of Target Allocation
+                            </div>
+                        </div>
+
+                        <!-- Graphics / Checklist checklist bento -->
+                        <div class="md:col-span-5 p-5 bg-[#050512] rounded-2xl border border-blue-950/40 space-y-4">
+                            <span class="text-[9px] font-black uppercase text-blue-400 tracking-widest block font-mono">Linear Memory Model</span>
+                            <div class="bg-black/30 p-4 rounded-xl border border-blue-950/20 font-mono text-[9px] text-indigo-400 space-y-2">
+                                <div class="border border-blue-950 p-1.5 flex justify-between bg-blue-950/10"><span>0x7FFE (Stack Base)</span> <span class="text-slate-400">int var_x;</span></div>
+                                <div class="p-1.5 text-center text-slate-650">↓ Unallocated Gap ↓</div>
+                                <div class="border border-emerald-900/60 p-1.5 flex justify-between bg-emerald-950/10 text-emerald-400"><span>0x01FA (Heap Base)</span> <span class="text-slate-400">Node* ptr;</span></div>
+                            </div>
+                            
+                            <!-- SCORE TRK CHECKBOX -->
+                            <div class="pt-2 border-t border-blue-950/35">
+                                <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                    <input type="checkbox" id="tag-1" onclick="toggleScoreTask('tag-1')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                    <span>Master Memory Allocations ADT Block (+20 XP)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 2: Key Core Principles -->
+                <section id="core-principles" class="glass-card p-8 scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-blue-400 font-mono">02</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Key Core Principles &amp; Complexity</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-[#04091c]/40 border border-blue-950/45 rounded-2xl">
+                            <span class="text-[8px] font-black uppercase tracking-widest text-[#f59e0b] block mb-1">Structural Sorting &amp; Bounds</span>
+                            <h4 class="text-xs font-black text-white tracking-wide uppercase mb-3">Syllabus Classification Trees</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium">
+                                <div class="p-4 bg-black/40 rounded-xl border border-blue-950/40">
+                                    <span class="text-blue-400 font-bold block mb-1">1. Linear Structures</span>
+                                    <p class="text-slate-400 text-[11px]">Elements are arranged in a sequential, adjacent format where each cell has a distinct unique predecessor and successor (Arrays, Lists, Stack, Queue).</p>
+                                </div>
+                                <div class="p-4 bg-black/40 rounded-xl border border-blue-950/40">
+                                    <span class="text-indigo-400 font-bold block mb-1">2. Non-Linear Structures</span>
+                                    <p class="text-slate-400 text-[11px]">Hierarchical or mesh arrangements that form complex multidirectional relationships rather than simple single chains (Trees, Graphs).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                            <div class="md:col-span-7 space-y-3">
+                                <h4 class="text-xs font-black text-white uppercase">Asymptotic Complexity Metrics:</h4>
+                                <p class="text-xs leading-relaxed text-slate-350">
+                                    Determined as input sizes approach infinity ($n \to \infty$).
+                                </p>
+                                <ul class="list-disc pl-5 text-xs space-y-2 text-slate-400 font-medium leading-relaxed">
+                                    <li><b class="text-slate-200">Big-O notation ($O$):</b> Formally $f(n) = O(g(n))$ if there exist positive constants $c, n_0$ such that $0 \le f(n) \le c \cdot g(n)$ for all $n \ge n_0$. Describes the absolute worst-case time bounding limit.</li>
+                                    <li><b class="text-slate-200">Big-Omega ($\Omega$):</b> Represents $f(n) = \Omega(g(n))$ where $f(n) \ge c \cdot g(n)$ for all $n \ge n_0$. Describes the lower bounds or best-case behavior.</li>
+                                    <li><b class="text-slate-200">Big-Theta ($\Theta$):</b> Describes tight bounding, meaning $c_1 \cdot g(n) \le f(n) \le c_2 \cdot g(n)$ showing precise growth traits.</li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Graph or complexity ranking visual -->
+                            <div class="md:col-span-5 p-4 bg-slate-950 border border-blue-950/40 rounded-xl flex flex-col justify-between h-56">
+                                <span class="text-[9px] font-black uppercase text-indigo-400 tracking-widest block font-mono">Big-O Limit Curve</span>
+                                <div class="flex-grow flex items-end justify-between gap-1 pb-4 h-28 border-b border-blue-950/40">
+                                    <div class="w-1/5 bg-emerald-500/20 text-emerald-400 text-[9px] font-mono text-center rounded-t border-t border-emerald-500/40 py-1" style="height: 15%">O(1)</div>
+                                    <div class="w-1/5 bg-indigo-500/20 text-indigo-400 text-[9px] font-mono text-center rounded-t border-t border-indigo-500/40 py-1" style="height: 35%">O(log n)</div>
+                                    <div class="w-1/5 bg-blue-500/20 text-blue-400 text-[9px] font-mono text-center rounded-t border-t border-blue-500/40 py-1" style="height: 55%">O(n)</div>
+                                    <div class="w-1/5 bg-purple-500/20 text-purple-400 text-[9px] font-mono text-center rounded-t border-t border-purple-500/40 py-1" style="height: 75%">O(n log n)</div>
+                                    <div class="w-1/5 bg-rose-500/20 text-rose-400 text-[9px] font-mono text-center rounded-t border-t border-rose-500/40 py-1" style="height: 95%">O(n²)</div>
+                                </div>
+                                <div class="pt-3">
+                                    <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                        <input type="checkbox" id="tag-2" onclick="toggleScoreTask('tag-2')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                        <span>Master Linear vs Non-Linear Types (+20 XP)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 3: Essential Definitions -->
+                <section id="definitions" class="glass-card p-8 scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-blue-400 font-mono">03</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Essential Definitions</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-5 bg-slate-900/30 border border-blue-950/30 rounded-xl space-y-2">
+                            <span class="text-[9px] font-mono font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded">C STRUCT TEMPLATE</span>
+                            <h4 class="text-xs font-black text-white">Self-Referential Structure</h4>
+                            <p class="text-xs text-slate-450 leading-relaxed font-semibold">
+                                A struct in C or C++ that contains a pointer member directing to a structure variable of the same type. Absolutely essential for forming dynamic node-link structures.
+                            </p>
+                            <div class="p-2.5 bg-black/60 border border-blue-950/40 rounded font-mono text-[10px] text-[#1aebbc]">
+<pre>struct Node {
+    int data;
+    struct Node* next; // Self-pointer
+};</pre>
+                            </div>
+                        </div>
+
+                        <div class="p-5 bg-slate-900/30 border border-blue-950/30 rounded-xl space-y-3 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[9px] font-mono font-bold text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded">TOPPER DICTIONARY</span>
+                                <h4 class="text-xs font-black text-white mt-1">Syllabus Core Definitions:</h4>
+                                <ul class="text-[11px] text-slate-400 space-y-2 list-none pl-0 leading-relaxed font-medium">
+                                    <li>⚡ <b class="text-slate-200">Array ADT:</b> Contiguous, sequential memory slots that host uniform data arrays indexed with Instant Access $O(1)$.</li>
+                                    <li>⚡ <b class="text-slate-200">Singly Linked List:</b> Series of nodes linked sequentially via single forward direction pointers.</li>
+                                    <li>⚡ <b class="text-slate-200">Sizeof pointer:</b> Standard pointer addresses require exactly 4 bytes in 32-bit compilation, and 8 bytes in 64-bit platforms.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none pt-2 border-t border-blue-950/10">
+                                    <input type="checkbox" id="tag-3" onclick="toggleScoreTask('tag-3')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                    <span>Memorize Self-Referential Rules (+20 XP)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 4: Core Board Derivations -->
+                <section id="derivations" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-blue-500">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-blue-400 font-mono">04</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Core Board Derivations (JNTUK Heavy Weight)</h2>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- Derivation 1 -->
+                        <div class="p-6 bg-slate-950/60 border border-blue-950/40 rounded-2xl space-y-3">
+                            <span class="px-2.5 py-0.5 bg-blue-500/15 border border-blue-500/25 text-blue-400 text-[9px] font-black uppercase tracking-wider rounded">Derivation A</span>
+                            <h3 class="text-md font-black text-white">Average Case Time Complexity &amp; Recurrence Case of Quick Sort</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-medium">
+                                Quick Sort splits around a chosen Pivot element. Assuming equal probability ($1/n$) of the pivot landing on any relative position index, we represent the recurrence relation as:
+                            </p>
+                            <div class="p-4 bg-black/40 text-[11.5px] text-blue-400 font-mono rounded-xl border border-blue-950/30">
+                                $$T(n) = \Theta(n) + \frac{2}{n} \sum_{i=1}^{n-1} T(i)$$
+                                Multiply by $n$ to clear the denominator:
+                                $$n T(n) = \Theta(n^2) + 2 \sum_{i=1}^{n-1} T(i)$$
+                                Subtracting the term for $(n-1)$ to perform mathematical reduction:
+                                $$n T(n) - (n-1)T(n-1) \approx 2 T(n-1) + 2n$$
+                                Dividing by $n(n+1)$ and applying standard summation yield the result:
+                                $$T(n) = 2(n+1) \ln(n) \implies \Theta(n \log n)$$
+                            </div>
+                            <p class="text-xs text-[#f59e0b] font-bold">⚠️ Exam Alert: Shows why unbalanced $k=0$ bad splits yield $O(n^2)$, whereas uniform splits yield $O(n \log n)$.</p>
+                            <div class="pt-2">
+                                <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                    <input type="checkbox" id="tag-4" onclick="toggleScoreTask('tag-4')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                    <span>Study Quick Sort Recurrence Proof (+20 XP)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Derivation 2 -->
+                        <div class="p-6 bg-slate-950/60 border border-blue-950/40 rounded-2xl space-y-3">
+                            <span class="px-2.5 py-0.5 bg-indigo-500/15 border border-indigo-500/25 text-indigo-400 text-[9px] font-black uppercase tracking-wider rounded">Derivation B</span>
+                            <h3 class="text-md font-black text-white">Circular Queue Boundary Pointer modulo Equations</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-semibold">
+                                In a linear queue, when elements are dequeued, the vacated indices at the front cannot be reused. This produces a "False Overflow" error despite empty capacity. Modulo arithmetic wraps indexes around boundaries.
+                            </p>
+                            <div class="p-4 bg-black/30 rounded-xl space-y-2 border border-blue-950/30 font-mono text-[11px] text-indigo-400">
+                                <div>Rear index increment: <b class="text-white">rear = (rear + 1) % MAX</b></div>
+                                <div>Front index increment: <b class="text-white">front = (front + 1) % MAX</b></div>
+                                <div>Circular Queue FULL condition: <b class="text-rose-400 font-extrabold">(rear + 1) % MAX == front</b></div>
+                            </div>
+                        </div>
+
+                        <!-- Derivation 3 -->
+                        <div class="p-6 bg-slate-950/60 border border-blue-950/40 rounded-2xl space-y-3">
+                            <span class="px-2.5 py-0.5 bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-[9px] font-black uppercase tracking-wider rounded">Derivation C</span>
+                            <h3 class="text-md font-black text-white">Minimum and Maximum Height Limit of Binary Search Tree ($N$ Nodes)</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Let $h$ denote height, and $N$ be total nodes:
+                            </p>
+                            <div class="p-4 bg-black/40 text-[11px] text-emerald-400 font-mono rounded-xl border border-blue-950/30">
+                                • <b>Skewed Tree (Max Height):</b> Each non-leaf node has exactly one child.
+                                $$h_{max} = N - 1 \implies O(N) \text{ search latency.}$$
+                                • <b>Perfect Balanced Tree (Min Height):</b> All levels completely filled.
+                                $$N = 2^{h+1} - 1 \implies h_{min} = \lfloor \log_2(N+1) \rfloor - 1 \implies O(\log N) \text{ search.}$$
+                            </div>
+                            <div class="pt-2">
+                                <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                    <input type="checkbox" id="tag-5" onclick="toggleScoreTask('tag-5')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                    <span>Analyze BST Height &amp; Modulo Boundary Mathematics (+20 XP)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 5: High-Yield Formula Sheet -->
+                <section id="formula-sheet" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-[#f59e0b]">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-[#f59e0b] font-mono">05</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">High-Yield Formula Sheet</h2>
+                    </div>
+
+                    <p class="text-xs text-slate-400 mb-5 leading-relaxed font-semibold">
+                        JNTUK R23 semester exams frequently feature numerical questions on mapping multidimensional arrays to physical memory addresses. Use these exact formulas.
                     </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="p-5 bg-slate-950 border border-blue-900/30 rounded-xl space-y-2">
+                            <span class="text-[8px] text-indigo-400 uppercase font-bold tracking-widest font-mono">Row-Major Order Mapping (RMO)</span>
+                            <h4 class="text-xs font-bold text-white uppercase">2D Array Address (Row Major)</h4>
+                            <div class="p-3 bg-black/40 rounded text-[11px] font-mono text-indigo-400 border border-blue-950">
+                                Address of $A[i][j]$:
+                                $$addr = Base + [i \times C + j] \times Size$$
+                                Where $C$ is the total Column Count, and $Size$ is element size in bytes.
+                            </div>
+                        </div>
+                        
+                        <div class="p-5 bg-slate-950 border border-blue-900/30 rounded-xl space-y-2">
+                            <span class="text-[8px] text-blue-400 uppercase font-bold tracking-widest font-mono">Column-Major Order Mapping (CMO)</span>
+                            <h4 class="text-xs font-bold text-white uppercase">2D Array Address (Column Major)</h4>
+                            <div class="p-3 bg-black/40 rounded text-[11px] font-mono text-blue-400 border border-blue-950">
+                                Address of $A[i][j]$:
+                                $$addr = Base + [j \times R + i] \times Size$$
+                                Where $R$ is total Row Count of the matrix interface structure.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Complexities table -->
+                    <div class="p-6 bg-[#04040a] border border-blue-950/40 rounded-2xl space-y-4">
+                        <h4 class="text-xs font-black text-white uppercase tracking-wide">Big-O Complexity Metrics Match-Sheet</h4>
+                        <div class="overflow-x-auto rounded-xl">
+                            <table class="w-full text-xs text-left text-slate-400 font-mono">
+                                <thead class="bg-indigo-950/25 text-white uppercase text-[8.5px] font-bold">
+                                    <tr>
+                                        <th class="p-3">Data Structure</th>
+                                        <th class="p-3">Search</th>
+                                        <th class="p-3">Insertion</th>
+                                        <th class="p-3">Deletion</th>
+                                        <th class="p-3">Space Complexity</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-blue-950/20 text-[11px] font-medium">
+                                    <tr>
+                                        <td class="p-3 font-semibold text-slate-200">Array</td>
+                                        <td class="p-3 text-red-400">O(N)</td>
+                                        <td class="p-3 text-red-400">O(N)</td>
+                                        <td class="p-3 text-red-400">O(N)</td>
+                                        <td class="p-3 text-emerald-400">O(N)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-semibold text-slate-200">Singly Linked List</td>
+                                        <td class="p-3 text-red-400">O(N)</td>
+                                        <td class="p-3 text-indigo-400">O(1)</td>
+                                        <td class="p-3 text-indigo-400">O(1)</td>
+                                        <td class="p-3 text-emerald-400">O(N)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-semibold text-slate-200">Binary Search Tree (BST)</td>
+                                        <td class="p-3 text-indigo-400">O(log N) average</td>
+                                        <td class="p-3 text-indigo-400">O(log N) average</td>
+                                        <td class="p-3 text-indigo-400">O(log N) average</td>
+                                        <td class="p-3 text-emerald-400">O(N)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-semibold text-slate-200">Hash Table</td>
+                                        <td class="p-3 text-indigo-400">O(1) average</td>
+                                        <td class="p-3 text-indigo-400">O(1) average</td>
+                                        <td class="p-3 text-indigo-400">O(1) average</td>
+                                        <td class="p-3 text-emerald-400">O(N)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pt-2 flex flex-wrap gap-4">
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-6" onclick="toggleScoreTask('tag-6')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Learn 2D Array Mapping Formulas (+20 XP)</span>
+                            </label>
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-7" onclick="toggleScoreTask('tag-7')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Memorize ADT Runtime Cheat Sheets (+20 XP)</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 6: Interactive Sandbox -->
+                <section id="calculator" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-indigo-500">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-indigo-400 font-mono">06</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Interactive Sandbox (Live Algorithmic Trace)</h2>
+                    </div>
+
+                    <p class="text-xs text-slate-450 leading-relaxed mb-6 font-semibold">
+                        Enter mathematical values below to execute trace programs on-the-fly and inspect pointer movements, stack operations, or array swaps.
+                    </p>
+
+                    <!-- SIMULATORS GRID -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        
+                        <!-- SIMULATOR 1: SEARCH & SORT WIDGET -->
+                        <div class="p-6 bg-slate-950 border border-blue-950/40 rounded-2xl space-y-4">
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="p-1 bg-blue-500/10 text-blue-400 rounded"><i data-lucide="sliders" class="w-4 h-4"></i></span>
+                                    <h4 class="text-xs font-black text-white uppercase tracking-widest">Search &amp; Sort Pointers</h4>
+                                </div>
+                                <div class="flex items-center gap-1.5 bg-black/40 p-1 rounded-lg border border-blue-950/35">
+                                    <button onclick="triggerSimSet('search')" id="sim-set-search-btn" class="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-[9px] font-black rounded uppercase">Search Mode</button>
+                                    <button onclick="triggerSimSet('sort')" id="sim-set-sort-btn" class="px-2 py-0.5 text-slate-500 text-[9px] font-black rounded uppercase">Sort Mode</button>
+                                </div>
+                            </div>
+
+                            <!-- SEARCH ELEMENT -->
+                            <div id="sim-body-search" class="space-y-4">
+                                <p class="text-[11px] text-slate-400 font-semibold leading-relaxed">Trace standard Linear vs Binary pointer indices. Array: <code class="text-blue-400">[12, 17, 24, 30, 45, 56, 72, 80, 90]</code></p>
+                                
+                                <div class="flex justify-center items-center gap-1.5 py-4 overflow-x-auto no-scrollbar" id="sim-search-array-render">
+                                    <!-- Rendered dynamically -->
+                                </div>
+
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 items-end">
+                                    <div>
+                                        <label class="text-[9px] font-black uppercase text-slate-500 block mb-1">Target</label>
+                                        <input type="number" id="sim-search-target" value="56" class="w-full bg-[#030308] border border-blue-950 px-2 py-1.5 text-xs text-white rounded">
+                                    </div>
+                                    <div>
+                                        <label class="text-[9px] font-black uppercase text-slate-500 block mb-1">Algorithm</label>
+                                        <select id="sim-search-algo" class="w-full bg-[#030308] border border-blue-950 px-1 py-1.5 text-[9px] text-white rounded">
+                                            <option value="binary">Binary Search</option>
+                                            <option value="linear">Linear Search</option>
+                                        </select>
+                                    </div>
+                                    <button onclick="runSearchSimStep(true)" class="py-2.5 bg-blue-600 hover:bg-blue-700 text-[10px] font-black uppercase rounded text-white tracking-widest leading-none">Trace</button>
+                                    <button onclick="runSearchSimStep(false)" class="py-2.5 bg-slate-900 border border-slate-800 text-[10px] font-black uppercase rounded text-slate-400 tracking-widest leading-none">Next ➔</button>
+                                </div>
+
+                                <div id="sim-search-feedback" class="p-3 bg-slate-900/60 border border-blue-950/20 rounded-xl font-mono text-[10px] text-blue-400 text-center">
+                                    Click 'Trace' to launch search simulator.
+                                </div>
+                            </div>
+
+                            <!-- SORT ELEMENT -->
+                            <div id="sim-body-sort" class="space-y-4 hidden">
+                                <p class="text-[11px] text-slate-400 font-semibold leading-relaxed">Bubble sort animation. Array elements: [29, 10, 14, 37, 13]</p>
+                                
+                                <div class="flex justify-center items-end gap-3 py-6 h-28 border-b border-blue-950/20" id="sim-sort-array-render">
+                                    <!-- Rendered dynamically -->
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="rewindSortSim()" class="py-2 bg-slate-900 border border-slate-800 text-[10px] font-black uppercase text-slate-400 rounded">Reset</button>
+                                    <button onclick="runSortSimStep()" class="py-2 bg-emerald-600 hover:bg-[#10b981] text-[10px] font-black uppercase text-white rounded">Step ➔</button>
+                                    <span id="sim-sort-comparisons" class="flex items-center justify-center bg-[#020208] rounded text-[9px] font-mono text-emerald-400 border border-blue-950/30">Swaps: 0</span>
+                                </div>
+
+                                <div id="sim-sort-feedback" class="p-3 bg-slate-900/60 border border-blue-950/20 rounded-xl font-mono text-[10px] text-emerald-400 text-center">
+                                    Click 'Step' to perform a comparison swap pass.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SIMULATOR 2: EXPRESSION STACK -->
+                        <div class="p-6 bg-slate-950 border border-blue-950/40 rounded-2xl space-y-4">
+                            <div class="flex items-center gap-2">
+                                <span class="p-1 bg-indigo-500/10 text-indigo-400 rounded"><i data-lucide="cpu" class="w-4 h-4"></i></span>
+                                <h4 class="text-xs font-black text-white uppercase tracking-widest">Stack Expressions Debugger</h4>
+                            </div>
+
+                            <p class="text-[11px] text-slate-400 font-semibold leading-relaxed">
+                                Enter an Infix string (e.g. <code class="text-indigo-400">A+B*(C-D)/E</code>) to trace precendence operator priority on Stack push/pop frames.
+                            </p>
+
+                            <div class="space-y-4">
+                                <div class="flex gap-2">
+                                    <input type="text" id="infix-input-field" value="A+B*(C-D)" class="flex-grow bg-[#030308] border border-blue-950 p-2 text-xs text-white rounded font-mono">
+                                    <button onclick="evalInfixToPostfix()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-xs font-black uppercase rounded text-white tracking-widest leading-none">Evaluate</button>
+                                </div>
+
+                                <div class="max-h-36 overflow-y-auto border border-blue-950/30 rounded-xl bg-black/40 no-scrollbar">
+                                    <table class="w-full text-[9px] font-mono text-left text-slate-450">
+                                        <thead class="bg-indigo-950/30 text-white uppercase">
+                                            <tr>
+                                                <th class="p-2 border-b border-indigo-950/50">Char</th>
+                                                <th class="p-2 border-b border-indigo-950/50">Stack Top</th>
+                                                <th class="p-2 border-b border-indigo-950/50">Postfix String</th>
+                                                <th class="p-2 border-b border-indigo-950/50">Action Log</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="infix-table-rows" class="divide-y divide-blue-950/20 text-slate-400">
+                                            <tr><td colspan="4" class="p-4 text-center">Fill expression above to display stack steps.</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-blue-950/20 mt-6 flex flex-wrap gap-4">
+                        <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                            <input type="checkbox" id="tag-8" onclick="toggleScoreTask('tag-8')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                            <span>Complete Search/Sort Pointers Trace (+20 XP)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                            <input type="checkbox" id="tag-9" onclick="toggleScoreTask('tag-9')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                            <span>Perform Expression Parsing Tracing (+20 XP)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                            <input type="checkbox" id="tag-10" onclick="toggleScoreTask('tag-10')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                            <span>Unlock interactive sandboxes (+20 XP)</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- SECTION 7: Solved Board Numericals -->
+                <section id="numericals" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-emerald-500">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-emerald-400 font-mono">07</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Solved Board Numericals</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Numerical 1 -->
+                        <div class="p-5 bg-[#03030c] border border-blue-950/40 rounded-xl space-y-4">
+                            <h4 class="text-xs font-bold text-white uppercase flex items-center gap-2">
+                                <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded font-mono">PROBLEM 1</span>
+                                <span>Binary Search Tree (BST) Construction from given Sequence Keys</span>
+                            </h4>
+                            <p class="text-[11.5px] text-slate-400 leading-relaxed font-semibold">
+                                <b>Question:</b> Draw the complete Binary Search Tree generated by inserting keys: <code class="text-emerald-400 font-bold">[45, 12, 70, 3, 33, 60, 85]</code> in order. Show insertion rules clearly.
+                            </p>
+                            <div class="p-4 bg-black/40 rounded-xl font-mono text-[10px] text-slate-300 border border-blue-950/20 leading-relaxed whitespace-pre font-medium">
+Step 1: Insert 45 (Root):          [45]
+Step 2: Insert 12 (&lt;45):         [45]
+                                /
+                             [12]
+Step 3: Insert 70 (&gt;45):         [45]
+                                /    \
+                             [12]    [70]
+Step 4: Insert 3 (&lt;12):          [45]
+                                /    \
+                             [12]    [70]
+                             /
+                           [3]
+Step 5: Insert 33 (&gt;12, &lt;45):    [45]
+                                /    \
+                             [12]    [70]
+                             /  \
+                           [3]  [33]
+Step 6: Insert 60 (&gt;45, &lt;70):    [45]
+                                /    \
+                             [12]    [70]
+                             /  \     /
+                           [3]  [33] [60]
+Step 7: Insert 85 (&gt;70):         [45]
+                                /    \
+                             [12]    [70]
+                             /  \     /  \
+                           [3]  [33] [60] [85]
+                            </div>
+                        </div>
+
+                        <!-- Numerical 2 -->
+                        <div class="p-5 bg-[#03030c] border border-blue-950/40 rounded-xl space-y-4">
+                            <h4 class="text-xs font-bold text-white uppercase flex items-center gap-2">
+                                <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded font-mono">PROBLEM 2</span>
+                                <span>Hash Collision Resolution Probing step-by-step</span>
+                            </h4>
+                            <p class="text-[11px] text-slate-450 leading-relaxed">
+                                <b>Problem:</b> Given array integers <code class="text-blue-400">[19, 26, 13, 48, 17]</code>, insert keys into a hash table of size $m=10$ using hash function $h(k) = k \bmod 10$, using Linear Probing.
+                            </p>
+                            <div class="overflow-x-auto rounded-xl">
+                                <table class="w-full text-[10px] text-left text-slate-400 font-mono">
+                                    <thead class="bg-blue-950/25 text-slate-100 uppercase text-[8px]">
+                                        <tr>
+                                            <th class="p-2 border-b border-blue-950">Key</th>
+                                            <th class="p-2 border-b border-blue-950">Hash Slot h(k)</th>
+                                            <th class="p-2 border-b border-blue-950">Collision?</th>
+                                            <th class="p-2 border-b border-blue-950">Actual Allocated Slot</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-blue-950/20">
+                                        <tr><td class="p-2 font-bold text-white">19</td><td class="p-2">9 (19%10)</td><td class="p-2 text-slate-500">None</td><td class="p-2 text-emerald-400">9</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">26</td><td class="p-2">6 (26%10)</td><td class="p-2 text-slate-500">None</td><td class="p-2 text-emerald-400">6</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">13</td><td class="p-2">3 (13%10)</td><td class="p-2 text-slate-500">None</td><td class="p-2 text-emerald-400">3</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">48</td><td class="p-2">8 (48%10)</td><td class="p-2 text-slate-500">None</td><td class="p-2 text-emerald-400">8</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">17</td><td class="p-2">7 (17%10)</td><td class="p-2 text-rose-400">Yes (7 occupied by 17 initial)</td><td class="p-2 text-emerald-400">0 (Primes next available: Slots wrap to 0)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 flex flex-wrap gap-4">
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-11" onclick="toggleScoreTask('tag-11')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Master BST Construction Numericals (+20 XP)</span>
+                            </label>
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-12" onclick="toggleScoreTask('tag-12')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Complete Hash Collision Resolution Matrices (+20 XP)</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 8: JNTUK Solved Papers -->
+                <section id="solved-papers" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-purple-500">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-purple-400 font-mono">08</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">JNTUK Solved Board papers</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- PYQ Answer A -->
+                        <div class="p-5 bg-purple-950/5 border border-purple-900/15 rounded-xl space-y-3">
+                            <span class="px-2 py-0.5 bg-purple-500/10 text-purple-400 text-[8.5px] rounded font-black tracking-widest font-mono">JNTUK MAY 2024</span>
+                            <h4 class="text-xs font-black text-white">Tabular trace of Postfix expression evaluation:</h4>
+                            <p class="text-[11px] text-slate-400 leading-relaxed font-semibold">
+                                <b>Question:</b> Evaluate the following postfix string using a stack: <code class="text-purple-400">5, 4, 6, *, +, 9, 3, /, -</code>. Show the continuous table of symbol states.
+                            </p>
+                            <div class="overflow-x-auto rounded-xl">
+                                <table class="w-full text-[10px] text-left text-slate-400 font-mono">
+                                    <thead class="bg-purple-950/20 text-white uppercase text-[8px]">
+                                        <tr>
+                                            <th class="p-2 border-b border-purple-950/35">Symbol</th>
+                                            <th class="p-2 border-b border-purple-950/35">Op Done</th>
+                                            <th class="p-2 border-b border-purple-950/35">Stack Content</th>
+                                            <th class="p-2 border-b border-purple-950/35">Explanation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-purple-950/10">
+                                        <tr><td class="p-2 font-bold text-white">5</td><td class="p-2">Push</td><td class="p-2 text-emerald-400">[5]</td><td class="p-2">Operand onto stack</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">4</td><td class="p-2">Push</td><td class="p-2 text-emerald-400">[5, 4]</td><td class="p-2">Operand onto stack</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">6</td><td class="p-2">Push</td><td class="p-2 text-emerald-400">[5, 4, 6]</td><td class="p-2">Operand onto stack</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">*</td><td class="p-2">Pop 6,4; Mult</td><td class="p-2 text-emerald-400">[5, 24]</td><td class="p-2">Multiply $4 \times 6 = 24$. Push 24.</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">+</td><td class="p-2">Pop 24,5; Add</td><td class="p-2 text-emerald-400">[29]</td><td class="p-2">Add $5 + 24 = 29$. Push 29.</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">9</td><td class="p-2">Push</td><td class="p-2 text-emerald-400">[29, 9]</td><td class="p-2">Operand onto stack</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">3</td><td class="p-2">Push</td><td class="p-2 text-emerald-400">[29, 9, 3]</td><td class="p-2">Operand onto stack</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">/</td><td class="p-2">Pop 3,9; Div</td><td class="p-2 text-emerald-400">[29, 3]</td><td class="p-2">Divide $9 / 3 = 3$. Push 3.</td></tr>
+                                        <tr><td class="p-2 font-bold text-white">-</td><td class="p-2">Pop 3,29; Sub</td><td class="p-2 text-emerald-400">[26]</td><td class="p-2">Subtract $29 - 3 = 26$. Final Result: 26.</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- PYQ Answer B -->
+                        <div class="p-5 bg-purple-950/5 border border-purple-900/15 rounded-xl space-y-3">
+                            <span class="px-2 py-0.5 bg-purple-500/10 text-purple-400 text-[8.5px] rounded font-black tracking-widest font-mono">JNTUK DEC 2023</span>
+                            <h4 class="text-xs font-black text-white">Singly vs Doubly List Comparison Matrix</h4>
+                            <p class="text-slate-400 text-xs leading-relaxed font-semibold">
+                                Compare physical node declarations and link counts to obtain 8/8 full marks.
+                            </p>
+                            <div class="p-3 bg-black/40 rounded border border-purple-950/30 text-[10.5px] font-mono text-purple-400">
+                                <b>Singly Node Space:</b> [Data] -> [ptr next] (needs exactly 1 pointer capacity)<br>
+                                <b>Doubly Node Space:</b> [ptr prev] -> [Data] -> [ptr next] (needs exactly 2 pointers margin)
+                            </div>
+                        </div>
+
+                        <div class="pt-2 flex flex-wrap gap-4">
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-13" onclick="toggleScoreTask('tag-13')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Master Postfix Evaluation Traces (+20 XP)</span>
+                            </label>
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-14" onclick="toggleScoreTask('tag-14')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Study List representation PYQ answers (+20 XP)</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 9: Most Expected Predictor -->
+                <section id="predictor" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-rose-500">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-rose-400 font-mono">09</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Most Expected Predictor (Upcoming Exams)</h2>
+                    </div>
 
                     <div class="space-y-4">
-                        <div class="flex gap-2">
-                            <input type="text" id="infix-input-field" value="A+B*(C-D)" placeholder="infix string" class="flex-grow bg-[#030308] border border-blue-950 p-2 text-xs text-white rounded outline-none font-mono focus:border-indigo-500">
-                            <button onclick="evalInfixToPostfix()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-xs font-black uppercase rounded text-white tracking-widest transition-all">Evaluate</button>
-                        </div>
-
-                        <!-- Interactive Dry Run Table Output -->
-                        <div class="max-h-36 overflow-y-auto border border-blue-950/60 rounded-xl no-scrollbar bg-black/40">
-                            <table class="w-full text-[10px] font-mono text-left text-slate-400">
-                                <thead class="bg-indigo-950/30 text-white sticky top-0 uppercase text-[9px]">
-                                    <tr>
-                                        <th class="p-2 border-b border-indigo-950">Symbol</th>
-                                        <th class="p-2 border-b border-indigo-950">Stack Frame</th>
-                                        <th class="p-2 border-b border-indigo-950">Postfix String</th>
-                                        <th class="p-2 border-b border-indigo-950">Active Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="infix-table-rows" class="divide-y divide-blue-950/30">
-                                    <tr>
-                                        <td colspan="4" class="p-4 text-center text-slate-650">Enter expression above to output trace lines.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ========================================================================= -->
-        <!-- COHESIVE CORE CONTENT BY SYLLABUS UNIT TABS -->
-        <!-- ========================================================================= -->
-        
-        <!-- SECTION 1: UNIT I -->
-        <section id="content-unit1" class="unit-pane space-y-12">
-            
-            <!-- Unit Header -->
-            <div class="p-6 glass-card bg-gradient-to-r from-blue-950/20 via-slate-900/30 to-blue-950/10 border-blue-500/20">
-                <span class="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-wider rounded border border-blue-500/20">Unit I Syllabus Focus</span>
-                <h2 class="text-2xl font-black text-white mt-2">Introduction to Linear Data Structures &amp; Complexity, Searching-Sorting Techniques</h2>
-                <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">
-                    Study standard complexity equations ($O(1)$, $O(\log n)$, $O(n)$, $O(n^2)$), investigate searching models (Linear &amp; Binary), and implement the five sorting structures (Bubble Sort, Selection Sort, Insertion Sort, Quick Sort, and Merge Sort).
-                </p>
-            </div>
-
-            <!-- Roadmaps -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Learning Roadmap -->
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30">
-                    <h3 class="text-sm font-black text-blue-400 uppercase tracking-widest flex items-center gap-1.5">
-                        <i data-lucide="git-branch" class="w-4 h-4"></i> Unit I Learning Roadmap
-                    </h3>
-                    <ul class="text-xs text-slate-400 space-y-2 list-none pl-0">
-                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span> <b>Step 1:</b> Define Abstract Data Type (ADT) parameters ($O(1)$ vs $O(n)$ bounds).</li>
-                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span> <b>Step 2:</b> Contrast Pointer operations in Search algorithms.</li>
-                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span> <b>Step 3:</b> Master Divide-and-Conquer logic (Quicksort partitioning vs Mergesort array split).</li>
-                    </ul>
-                </div>
-                <!-- Checklist -->
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest">Score Checklist</h3>
-                    <div class="grid grid-cols-2 gap-3 text-xs font-bold text-slate-400">
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-1" onclick="toggleTask('tag-1', 20)" class="accent-blue-500"><span>Linear vs Binary Search</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-2" onclick="toggleTask('tag-2', 20)" class="accent-blue-500"><span>Bubble &amp; Selection Sort</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-3" onclick="toggleTask('tag-3', 20)" class="accent-blue-500"><span>Insertion Sort</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-4" onclick="toggleTask('tag-4', 20)" class="accent-blue-500"><span>Quick &amp; Merge Sort</span></label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- DETAILED CONCEPTS (ONLY EXPORT ACCORDING TO SYLLABUS DIRECTIVES) -->
-            <div class="space-y-8">
-                <h3 class="text-lg font-black text-white uppercase tracking-tight">Core Concepts Library</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-5 bg-slate-900/40 border border-slate-900 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[9px] font-black uppercase tracking-wider rounded">Concept 1</span>
-                        <h4 class="text-sm font-black text-white">Abstract Data Type (ADT) Parameters</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            An ADT defines a user-facing data representation and the set of operations permitted on it, completed without exposing the underlying implementation. It serves as an architectural design blueprint (independent of any programming language).
-                        </p>
-                    </div>
-                    
-                    <div class="p-5 bg-slate-900/40 border border-slate-900 rounded-2xl space-y-2">
-                        <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[9px] font-black uppercase tracking-wider rounded">Concept 2</span>
-                        <h4 class="text-sm font-black text-white">Time &amp; Space Complexity Metrics</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            A standardized mathematical framework to analyze algorithmic efficiency. Time Complexity calculates the instruction counts as input size grows toward infinity, while Space Complexity quantifies auxiliary RAM overhead.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- ALGORITHMIC SUB-PANES -->
-                <div class="space-y-6">
-                    <h3 class="text-md font-black text-indigo-400 uppercase tracking-widest border-b border-blue-950/40 pb-2">Program Synthesis: Linear &amp; Binary Search</h3>
-                    
-                    <!-- Binary Search Logic Frame -->
-                    <div class="p-6 bg-slate-950/65 border border-slate-900 rounded-2xl space-y-4">
-                        <div class="flex items-center justify-between flex-wrap gap-2">
-                            <h4 class="text-sm font-black text-white">Binary Search C/C++ Implementation (Standard Iterative)</h4>
-                            <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-mono rounded">Time: O(log n) • Space: O(1)</span>
-                        </div>
-                        <p class="text-xs text-slate-450 leading-relaxed">
-                            <b>Real-world Analogy:</b> Locating a specific contact inside a physical dictionary by jumping immediately to the middle, checking ordering, and halving the target search area. Requires pre-sorted arrays.
-                        </p>
-                        
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 overflow-x-auto text-[11.5px] text-blue-400 font-mono no-scrollbar leading-relaxed">
-<pre class="code-container">
-int binarySearch(int arr[], int size, int target) {
-    int low = 0, high = size - 1;
-    while (low &lt;= high) {
-        int mid = low + (high - low) / 2;
-        if (arr[mid] == target) 
-            return mid; // Target index located!
-        if (arr[mid] &lt; target) 
-            low = mid + 1; // Discard left half
-        else 
-            high = mid - 1; // Discard right half
-    }
-    return -1; // Target is absent
-}
-</pre>
-                        </div>
-
-                        <!-- Dry Run Table -->
-                        <div class="overflow-x-auto rounded-xl border border-slate-900 text-[10px] font-mono bg-black/30">
-                            <table class="w-full text-slate-400 text-left">
-                                <thead class="bg-blue-950/30 text-white uppercase text-[8.5px]">
-                                    <tr>
-                                        <th class="p-2 border-b border-slate-900">Step</th>
-                                        <th class="p-2 border-b border-slate-900">Low Index</th>
-                                        <th class="p-2 border-b border-slate-900">High Index</th>
-                                        <th class="p-2 border-b border-slate-900">Calculated Mid (Val)</th>
-                                        <th class="p-2 border-b border-slate-900">Decision Outcome</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="p-2">1</td>
-                                        <td class="p-2">0 (Val: 12)</td>
-                                        <td class="p-2">8 (Val: 90)</td>
-                                        <td class="p-2">4 (Val: 56)</td>
-                                        <td class="p-2">Target == 56. Located at index 4!</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <h3 class="text-md font-black text-indigo-400 uppercase tracking-widest border-b border-blue-950/40 pb-2">Sorting Architectures Deep-Dive</h3>
-                    
-                    <!-- Bubble, Selection, Insertion Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        
-                        <!-- Bubble Sort Box -->
-                        <div class="p-5 bg-slate-900/30 border border-slate-900 rounded-xl space-y-3">
-                            <h4 class="text-sm font-black text-white">Bubble Sort Strategy</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed font-semibold">
-                                Repeatedly compares adjacent cells and swaps them if disordered. Sinks largest elements to the end of array first.
-                            </p>
-                            <span class="text-[10px] text-indigo-400 font-mono block">Worst/Avg: O(n²) • Best: O(n) (sorted)<br>Stability: Stable • In-Place: Yes</span>
-                            <div class="p-2.5 bg-[#030308] border border-blue-950/50 rounded font-mono text-[9px] text-[#1aebbc]">
-                                for (i = 0; i &lt; n-1; i++)<br>
-                                &nbsp;&nbsp;for (j = 0; j &lt; n-i-1; j++)<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;if (a[j] &gt; a[j+1]) swap();
+                        <div class="flex items-center gap-3 bg-rose-500/5 p-4 border border-rose-500/20 rounded-xl">
+                            <span class="text-white text-lg">⚡</span>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase">Expected Predictor Questions for Score Boost:</h4>
+                                <p class="text-[10.5px] text-slate-400 mt-1">Focus intensely on these 5 highest-weight recurring domains to pass the exam smoothly:</p>
                             </div>
                         </div>
 
-                        <!-- Selection Sort Box -->
-                        <div class="p-5 bg-slate-900/30 border border-slate-900 rounded-xl space-y-3">
-                            <h4 class="text-sm font-black text-white">Selection Sort Strategy</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed font-semibold">
-                                Divides array into sorted and unsorted zones. Iteratively selects the absolute minimum from unsorted and places it at the start.
-                            </p>
-                            <span class="text-[10px] text-indigo-400 font-mono block">Worst/Avg/Best: O(n²) complexity<br>Stability: Unstable • In-Place: Yes</span>
-                            <div class="p-2.5 bg-[#030308] border border-blue-950/50 rounded font-mono text-[9px] text-[#1aebbc]">
-                                for (i = 0; i &lt; n-1; i++) {<br>
-                                &nbsp;&nbsp;min = i;<br>
-                                &nbsp;&nbsp;/* Locate unsorted min &amp; swap */<br>
-                                }
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-medium leading-relaxed">
+                            <div class="p-4 bg-slate-950 rounded-xl border border-blue-950/30 space-y-1.5">
+                                <span class="text-emerald-400 font-mono font-bold">1. Quick Sort Partitioning [10 Marks]</span>
+                                <p class="text-slate-405 text-[11px]">Describe pivot swap partitions, explain average case time recurrence equations, and write the partition subroutine in C.</p>
+                            </div>
+                            <div class="p-4 bg-slate-950 rounded-xl border border-blue-950/30 space-y-1.5">
+                                <span class="text-emerald-400 font-mono font-bold">2. Doubly Node Deletion [10 Marks]</span>
+                                <p class="text-slate-405 text-[11px]">Illustrate step-by-step case pointers: deletion from the front, from the tail, and from any middle positional node index.</p>
+                            </div>
+                            <div class="p-4 bg-slate-950 rounded-xl border border-blue-950/30 space-y-1.5">
+                                <span class="text-emerald-400 font-mono font-bold">3. Infix-to-Postfix conversion [10 Marks]</span>
+                                <p class="text-slate-405 text-[11px]">Write the complete algorithmic execution steps using priority operand/operator stack procedures.</p>
+                            </div>
+                            <div class="p-4 bg-slate-950 rounded-xl border border-blue-950/30 space-y-1.5">
+                                <span class="text-emerald-400 font-mono font-bold">4. Circular Queue [10 Marks]</span>
+                                <p class="text-slate-405 text-[11px]">Provide boundaries and modulo math conditions: Enqueue, Dequeue, IsFull, IsEmpty structures.</p>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-15" onclick="toggleScoreTask('tag-15')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Track high potential predictor checklists (+20 XP)</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 10: Lab Concept Viva Cards -->
+                <section id="viva" class="glass-card p-8 scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-blue-400 font-mono">10</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Lab Concept Viva Cards</h2>
+                    </div>
+
+                    <p class="text-xs text-slate-400 mb-6 leading-relaxed font-semibold">
+                        JNTUK R23 laboratory evaluations require quick conceptual speed. Tap these cards below to check your understanding of dynamic node layouts.
+                    </p>
+
+                    <!-- GRID FLIP CARDS -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Card 1 -->
+                        <div onclick="flipVivaCard(this)" class="h-44 group cursor-pointer perspective relative">
+                            <div class="viva-card-inner w-full h-full relative duration-500">
+                                <!-- Front -->
+                                <div class="viva-card-front absolute inset-0 bg-slate-950 border border-blue-950/50 p-5 rounded-2xl flex flex-col justify-between shadow-xl">
+                                    <div class="flex items-center justify-between text-[10px] text-blue-400 font-mono">
+                                        <span>Q1: MEMORY CONSTRAINT</span>
+                                        <span>Click to Flip 🧪</span>
+                                    </div>
+                                    <h4 class="text-xs font-black text-white font-sans pr-5">Why does a Linked List Stack never overflow during runtime?</h4>
+                                    <div class="text-[9px] text-slate-500 uppercase tracking-widest font-mono">Dynamic heap borders</div>
+                                </div>
+                                <!-- Back -->
+                                <div class="viva-card-back absolute inset-0 bg-slate-900 border border-emerald-500/30 p-5 rounded-2xl flex flex-col justify-between shadow-xl">
+                                    <div class="flex items-center justify-between text-[10px] text-emerald-400 font-mono">
+                                        <span>ANSWER KEY</span>
+                                        <span>Memory safe</span>
+                                    </div>
+                                    <p class="text-[10.5px] text-slate-300 leading-relaxed font-semibold">
+                                        Unlike fixed size arrays, a linked stack requests heap cells on-the-fly via <code>malloc</code>, hence memory allocation is strictly limited by overall system physical RAM bounds rather than compiled code indices.
+                                    </p>
+                                    <div class="text-[9px] text-emerald-400 uppercase font-mono tracking-widest">Topper explanation</div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Insertion Sort Box -->
-                        <div class="p-5 bg-slate-900/30 border border-slate-900 rounded-xl space-y-3">
-                            <h4 class="text-sm font-black text-white">Insertion Sort Strategy</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed font-semibold">
-                                Loops through from index 1. Inserts the active target card into its precisely sorted correct slot in the left sorted slice.
-                            </p>
-                            <span class="text-[10px] text-indigo-400 font-mono block">Worst/Avg: O(n²) • Best: O(n) (sorted)<br>Stability: Stable • In-Place: Yes</span>
-                            <div class="p-2.5 bg-[#030308] border border-blue-950/50 rounded font-mono text-[9px] text-[#1aebbc]">
-                                for (i = 1; i &lt; n; i++) {<br>
-                                &nbsp;&nbsp;key = a[i]; j = i-1;<br>
-                                &nbsp;&nbsp;while (j &gt;= 0 &amp;&amp; a[j] &gt; key)...<br>
-                                }
+                        <!-- Card 2 -->
+                        <div onclick="flipVivaCard(this)" class="h-44 group cursor-pointer perspective relative">
+                            <div class="viva-card-inner w-full h-full relative duration-500">
+                                <!-- Front -->
+                                <div class="viva-card-front absolute inset-0 bg-slate-950 border border-blue-950/50 p-5 rounded-2xl flex flex-col justify-between shadow-xl">
+                                    <div class="flex items-center justify-between text-[10px] text-blue-400 font-mono">
+                                        <span>Q2: PIVOT BOUNDS</span>
+                                        <span>Click to Flip 🧪</span>
+                                    </div>
+                                    <h4 class="text-xs font-black text-white font-sans pr-5">Why is Binary Search faster, and what is its absolute precondition?</h4>
+                                    <div class="text-[9px] text-slate-500 uppercase tracking-widest font-mono">Complexity: O(Log N)</div>
+                                </div>
+                                <!-- Back -->
+                                <div class="viva-card-back absolute inset-0 bg-slate-900 border border-emerald-500/30 p-5 rounded-2xl flex flex-col justify-between shadow-xl">
+                                    <div class="flex items-center justify-between text-[10px] text-emerald-400 font-mono">
+                                        <span>ANSWER KEY</span>
+                                        <span>Pre-ordering prerequisite</span>
+                                    </div>
+                                    <p class="text-[10.5px] text-slate-300 leading-relaxed font-semibold">
+                                        It halves the remaining search area in each step. Core Precondition: <b>The array must be pre-sorted</b> so that comparing index keys guides the left/right pointer updates.
+                                    </p>
+                                    <div class="text-[9px] text-emerald-400 uppercase font-mono tracking-widest">O(Log N) speed properties</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-6">
+                        <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                            <input type="checkbox" id="tag-16" onclick="toggleScoreTask('tag-16')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                            <span>Practice all Viva Decks cards (+20 XP)</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- SECTION 11: Quick Revision Sheets -->
+                <section id="revision-sheets" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-cyan-500">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-cyan-400 font-mono">11</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Quick Revision Sheets</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Revision table -->
+                        <div class="p-5 bg-[#03030c] border border-blue-950/40 rounded-xl space-y-3">
+                            <h4 class="text-xs font-bold text-white uppercase">Sorting Algorithms Complexity Matrix Cheat Sheet</h4>
+                            <div class="overflow-x-auto rounded-xl">
+                                <table class="w-full text-[10px] text-left text-slate-400 font-mono font-bold">
+                                    <thead class="bg-blue-950/25 text-slate-200 uppercase text-[8px]">
+                                        <tr>
+                                            <th class="p-2 border-b border-blue-950">Algorithm</th>
+                                            <th class="p-2 border-b border-blue-950">Best Case</th>
+                                            <th class="p-2 border-b border-blue-950">Average Case</th>
+                                            <th class="p-2 border-b border-blue-950">Worst Case</th>
+                                            <th class="p-2 border-b border-blue-950">Space</th>
+                                            <th class="p-2 border-b border-blue-950">Stability</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-blue-950/20 text-[10.5px]">
+                                        <tr><td class="p-2 text-white">Bubble Sort</td><td class="p-2 text-emerald-400">O(N) (optimized)</td><td class="p-2">O(N²)</td><td class="p-2">O(N²)</td><td class="p-2">O(1)</td><td class="p-2 text-emerald-450">Stable</td></tr>
+                                        <tr><td class="p-2 text-white">Selection Sort</td><td class="p-2">O(N²)</td><td class="p-2">O(N²)</td><td class="p-2">O(N²)</td><td class="p-2">O(1)</td><td class="p-2 text-red-400">Unstable</td></tr>
+                                        <tr><td class="p-2 text-white">Insertion Sort</td><td class="p-2 text-emerald-400">O(N)</td><td class="p-2">O(N²)</td><td class="p-2">O(N²)</td><td class="p-2">O(1)</td><td class="p-2 text-emerald-450">Stable</td></tr>
+                                        <tr><td class="p-2 text-white">Quick Sort</td><td class="p-2">O(N log N)</td><td class="p-2">O(N log N)</td><td class="p-2 text-red-400">O(N²)</td><td class="p-2">O(log N)</td><td class="p-2 text-red-400">Unstable</td></tr>
+                                        <tr><td class="p-2 text-white">Merge Sort</td><td class="p-2 text-emerald-400">O(N log N)</td><td class="p-2 text-emerald-400">O(N log N)</td><td class="p-2 text-emerald-400">O(N log N)</td><td class="p-2 text-red-400">O(N)</td><td class="p-2 text-emerald-450">Stable</td></tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ========================================================================= -->
-        <!-- SECTION 2: UNIT II -->
-        <!-- ========================================================================= -->
-        <section id="content-unit2" class="unit-pane space-y-12 hidden">
-            
-            <div class="p-6 glass-card bg-gradient-to-r from-blue-950/10 via-slate-900/30 to-slate-950 border-blue-500/20">
-                <span class="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-wider rounded border border-blue-500/20">Unit II Syllabus Focus</span>
-                <h2 class="text-2xl font-black text-white mt-2">Linked Lists representations &amp; structural operations</h2>
-                <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">
-                    Examine dynamic Memory allocations. Complete representations and operations (Insert, Delete, Traverse on Singly, Doubly, and Circular Linked Lists). Analyze structural parameters of Arrays vs Linked Lists.
-                </p>
-            </div>
-
-            <!-- Roadmaps -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30">
-                    <h3 class="text-sm font-black text-blue-400 uppercase tracking-widest">Unit II Study Roadmap</h3>
-                    <ul class="text-xs text-slate-400 space-y-2">
-                        <li><b>1. Node Representation:</b> Define data payload + address pointer wrapper struct.</li>
-                        <li><b>2. Pointer Manipulation:</b> Verify order of link updates to prevent memory leaks and dangling links.</li>
-                        <li><b>3. Doubly Linked List Traversal:</b> Traverse both forward and backward structures.</li>
-                    </ul>
-                </div>
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest font-sans">Checklist</h3>
-                    <div class="grid grid-cols-2 gap-3 text-xs font-bold text-slate-400 font-medium">
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-5" onclick="toggleTask('tag-5', 20)" class="accent-blue-500"><span>Singly Represent &amp; Insert</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-6" onclick="toggleTask('tag-6', 20)" class="accent-blue-500"><span>Singly Delete Node</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-7" onclick="toggleTask('tag-7', 20)" class="accent-blue-500"><span>Doubly Linked Lists</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-8" onclick="toggleTask('tag-8', 20)" class="accent-blue-500"><span>Array vs List Comparison</span></label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Conceptual Comparison Matrix -->
-            <div class="p-6 bg-[#04040a] border border-blue-950/40 rounded-2xl space-y-4">
-                <h4 class="text-sm font-black text-white font-mono uppercase">Arrays vs Linked Lists Architectural Comparison</h4>
-                <div class="overflow-x-auto rounded-xl">
-                    <table class="w-full text-xs text-left text-slate-400">
-                        <thead class="bg-indigo-950/20 text-white uppercase text-[9px] font-black">
-                            <tr>
-                                <th class="p-3">Metric Parameter</th>
-                                <th class="p-3">Static Array Representation</th>
-                                <th class="p-3">Dynamic Linked List</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-blue-950/20 font-semibold font-medium text-[11px]">
-                            <tr>
-                                <td class="p-3 text-white">Memory Allocation</td>
-                                <td class="p-3">Contiguous RAM blocks (Static / compile time)</td>
-                                <td class="p-3 text-blue-400">Non-contiguous, dynamic allocation via Heap (malloc/new)</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 text-white">Access Complexity</td>
-                                <td class="p-3">Instant O(1) via hardware index math</td>
-                                <td class="p-3">Sequential O(n) sequential pointer jump traversal</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 text-white">Insertion Overhead</td>
-                                <td class="p-3">Costly O(n) because other elements must shift left/right</td>
-                                <td class="p-3 text-blue-400">Lightweight O(1) assuming the address cell pointer is known</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- CODE VIEW: NODE STRUT & SINGLY INSERTION -->
-            <div class="p-6 bg-slate-950/60 border border-slate-900 rounded-2xl space-y-4">
-                <h4 class="text-sm font-black text-white font-mono flex items-center justify-between">
-                    <span>Singly Linked List Nodes creation &amp; Position Insertion</span>
-                    <span class="text-xs text-indigo-400 font-normal">Complexities: Insert Head O(1) • Insert End O(n)</span>
-                </h4>
-                
-                <div class="p-4 bg-slate-950 rounded-xl border border-blue-950/50 overflow-x-auto text-[11px] text-blue-400 font-mono no-scrollbar leading-relaxed">
-<pre class="code-container">
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-struct Node {
-    int data;
-    struct Node* next;
-};
-
-// Insert at the beginning (Head Insertion)
-struct Node* insertAtHead(struct Node* head, int data) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode-&gt;data = data;
-    newNode-&gt;next = head; // Points to current head
-    return newNode;       // New node becomes the new head
-}
-
-// Pointer structure flow:
-// 1. Create newNode: [data|next]
-// 2. Map newNode-&gt;next to head: [data|next] ---&gt; [HeadNode|...]
-// 3. Update Head reference to active newNode.
-</pre>
-                </div>
-                
-                <p class="text-xs text-slate-450 leading-relaxed">
-                    <b>Common Student Trap:</b> Forgetting to allocate heap memory using <code>(struct Node*)malloc(...)</code> in C. If you merely declare the reference pointer, writing to it yields an immediate <b>Segmentation Fault</b>!
-                </p>
-            </div>
-
-        </section>
-
-        <!-- ========================================================================= -->
-        <!-- SECTION 3: UNIT III -->
-        <!-- ========================================================================= -->
-        <section id="content-unit3" class="unit-pane space-y-12 hidden">
-            
-            <div class="p-6 glass-card bg-gradient-to-r from-blue-950/10 via-slate-900/30 to-slate-950 border-blue-500/20">
-                <span class="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-wider rounded border border-blue-500/20">Unit III Syllabus Focus</span>
-                <h2 class="text-2xl font-black text-white mt-2">Stacks Introduction, Array/List implementation, &amp; Expression evaluation</h2>
-                <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">
-                    Understand the properties of LIFO. Build Stack arrays and linked implementations. Discover Expression evaluations (Infix, Postfix, Prefix) and Backtracking traversal paths.
-                </p>
-            </div>
-
-            <!-- Roadmaps -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30">
-                    <h3 class="text-sm font-black text-blue-400 uppercase tracking-widest">Stack Operations Roadmap</h3>
-                    <ul class="text-xs text-slate-400 space-y-2 font-medium">
-                        <li><b>1. Push Functionality:</b> Add data to top. Verify <code>top == MAX - 1</code> overflow condition for solid arrays.</li>
-                        <li><b>2. Pop Functionality:</b> Retrieve and remove. Double check <code>top == -1</code> underflow blockages.</li>
-                        <li><b>3. ADT Infix Conversions:</b> Maintain compiler tracking array grids using standard precedence weights.</li>
-                    </ul>
-                </div>
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest">Checklist</h3>
-                    <div class="grid grid-cols-2 gap-3 text-xs font-bold text-slate-400 font-semibold">
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-9" onclick="toggleTask('tag-9', 20)" class="accent-blue-500"><span>Stack Struct Array code</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-10" onclick="toggleTask('tag-10', 20)" class="accent-blue-500"><span>Linked List Stack implementation</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-11" onclick="toggleTask('tag-11', 20)" class="accent-blue-500"><span>Infix to Postfix algorithms</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-12" onclick="toggleTask('tag-12', 20)" class="accent-blue-500"><span>Evaluation of expression</span></label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Array implementation vs Linked List diagrammatic details -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-5 bg-slate-900/40 border border-slate-905 rounded-xl space-y-2">
-                    <h4 class="text-xs font-black text-white uppercase tracking-wider">Method A: Static Stack Array Structure</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed font-semibold">
-                        Simple index array operations. The integer variable <code>top</code> points to the active element. Inserts require incrementing top; removals require decrementing top.
-                    </p>
-                    <div class="p-3 bg-[#030308] border border-blue-950 rounded text-[10.5px] font-mono whitespace-pre text-[#1aeebc]">
-    top++  --&gt; pushes val to stack
-    top--  --&gt; pops val off stack
-    Overflow condition: top == Limit
-                    </div>
-                </div>
-                <div class="p-5 bg-slate-900/40 border border-slate-905 rounded-xl space-y-2">
-                    <h4 class="text-xs font-black text-white uppercase tracking-wider">Method B: Linked List Stack (Dynamic Stack)</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed font-semibold">
-                        No size limits! Memory is dynamic. The active <code>top</code> pointer points to the head node of the list. Pushing is equivalent to adding a node at the head, and popping is removing the head node.
-                    </p>
-                    <div class="p-3 bg-[#030308] border border-blue-950 rounded text-[10.5px] font-mono whitespace-pre text-[#1aeebc]">
-    push: temp-&gt;next = top; top = temp;
-    pop:  temp = top; top = top-&gt;next; free(temp);
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- ========================================================================= -->
-        <!-- SECTION 4: UNIT IV -->
-        <!-- ========================================================================= -->
-        <section id="content-unit4" class="unit-pane space-y-12 hidden">
-            
-            <div class="p-6 glass-card bg-gradient-to-r from-blue-950/10 via-slate-900/30 to-slate-950 border-blue-500/20">
-                <span class="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-wider rounded border border-blue-500/20">Unit IV Syllabus Focus</span>
-                <h2 class="text-2xl font-black text-white mt-2">Queues &amp; Deques Introduction, Circular Pointers and operations</h2>
-                <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">
-                    Deep dive into FIFO (First In First Out) concepts. Construct Linear Queues, Circular indexes, Double-Ended Queues (Deques), and trace queue applications such as Breadth-First-Search traversals.
-                </p>
-            </div>
-
-            <!-- Roadmaps -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30 font-semibold font-medium text-xs leading-relaxed">
-                    <h3 class="text-xs font-black text-indigo-400 uppercase tracking-widest">Unit IV Learning Roadmap</h3>
-                    <ul class="text-xs text-slate-400 space-y-2 font-medium">
-                        <li><b>1. Front/Rear Movement:</b> Rear adds items (Enqueue); Front retrieves them (Dequeue).</li>
-                        <li><b>2. Circular Index wrap-around:</b> <code>(rear + 1) % MAX</code>. Solves unused slots error in linear array indices!</li>
-                        <li><b>3. Double Ended Queue:</b> Permitting operations at both ends.</li>
-                    </ul>
-                </div>
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest">Syllabus Check</h3>
-                    <div class="grid grid-cols-2 gap-3 text-xs font-bold text-slate-400 font-semibold">
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-13" onclick="toggleTask('tag-13', 20)" class="accent-blue-500"><span>Queue Array implementation</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-14" onclick="toggleTask('tag-14', 20)" class="accent-blue-500"><span>Queue Linked structures</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-15" onclick="toggleTask('tag-15', 20)" class="accent-blue-500"><span>Circular Queue math</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-16" onclick="toggleTask('tag-16', 20)" class="accent-blue-500"><span>Deques representations</span></label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Circular Queue Formulas -->
-            <div class="p-6 bg-[#04040a] border border-blue-950/40 rounded-2xl space-y-3 text-xs font-sans leading-relaxed">
-                <h4 class="text-sm font-black text-white font-mono uppercase text-indigo-400">Circular Queue Index Optimization Formulas</h4>
-                <p class="text-slate-400 font-semibold mb-3">
-                    In a standard linear queue, once elements are dequeued, the starting cells remain completely empty and cannot be reused, triggering a premature "Overflow" error. Circular Queues solve this using modulo index math:
-                </p>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
-                    <div class="p-3 bg-slate-950 border border-slate-900 rounded-xl">
-                        <span class="text-[9px] text-slate-500 block uppercase">Check Empty</span>
-                        <div class="text-indigo-400 font-black text-xs py-1">front == -1</div>
-                    </div>
-                    <div class="p-3 bg-slate-950 border border-slate-900 rounded-xl">
-                        <span class="text-[9px] text-slate-500 block uppercase">Enqueue rear index increment math</span>
-                        <div class="text-indigo-400 font-black text-xs py-1">rear = (rear + 1) % MAX</div>
-                    </div>
-                    <div class="p-3 bg-slate-950 border border-slate-900 rounded-xl">
-                        <span class="text-[9px] text-slate-500 block uppercase">Check Full Queue condition</span>
-                        <div class="text-indigo-400 font-black text-xs py-1">(rear + 1) % MAX == front</div>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- ========================================================================= -->
-        <!-- SECTION 5: UNIT V -->
-        <!-- ========================================================================= -->
-        <section id="content-unit5" class="unit-pane space-y-12 hidden">
-            
-            <div class="p-6 glass-card bg-gradient-to-r from-blue-950/10 via-slate-900/30 to-slate-950 border-blue-500/20">
-                <span class="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-wider rounded border border-blue-500/20">Unit V Syllabus Focus</span>
-                <h2 class="text-2xl font-black text-white mt-2">Trees, Hashing algorithms, &amp; Graph representations</h2>
-                <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">
-                    Master Binary Search Trees (BST traversal algorithms: pre-order, post-order, in-order). Analyze Hashing, Collisions (Chaining &amp; Open Addressing), Graphs, and DFS/BFS traversals.
-                </p>
-            </div>
-
-            <!-- Roadmaps -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30 text-xs font-semibold">
-                    <h3 class="text-sm font-black text-blue-400 uppercase tracking-widest">Unit V Study Sequence</h3>
-                    <ul class="text-xs text-slate-400 space-y-2 font-medium">
-                        <li><b>1. BST Insertions:</b> Traverses left if smaller; traverses right if larger. Runs in O(log n) average.</li>
-                        <li><b>2. Hash Functions:</b> Module arrays mapped using key mod array_size tables.</li>
-                        <li><b>3. Traversal systems:</b> Depth First Search (DFS uses Stack) and Breadth First Search (BFS uses Queue).</li>
-                    </ul>
-                </div>
-                <div class="p-6 glass-card space-y-3 bg-slate-950/30">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest">Checklist</h3>
-                    <div class="grid grid-cols-2 gap-3 text-xs font-bold text-slate-400">
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-17" onclick="toggleTask('tag-17', 20)" class="accent-blue-500"><span>BST structures &amp; traverse</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-18" onclick="toggleTask('tag-18', 20)" class="accent-blue-500"><span>BST Deletion logic</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-19" onclick="toggleTask('tag-19', 20)" class="accent-blue-500"><span>Hash Collision techniques</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer select-none"><input type="checkbox" id="tag-20" onclick="toggleTask('tag-20', 20)" class="accent-blue-500"><span>Graph BFS/DFS Traversal</span></label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BST IN-ORDER, PRE-ORDER AND POST-ORDER EXPLANATION -->
-            <div class="p-6 bg-[#04040a] border border-blue-950/40 rounded-2xl space-y-4">
-                <div class="flex items-center justify-between flex-wrap gap-2 text-xs">
-                    <h4 class="text-sm font-black text-white font-mono uppercase">Binary Tree Traversals Paths Summary</h4>
-                    <span class="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 text-[9px] font-mono rounded font-extrabold uppercase">L = Left, R = Right, N = Node Node</span>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
-                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-900/60">
-                        <span class="text-[#1aebbc] font-bold">1. Inorder (L-N-R) traversal</span>
-                        <p class="text-slate-400 text-[11px] font-sans mt-2">Visits left child first, then active root parent node, then right child. <b>Yields ascending sorted keys in BSTs!</b></p>
-                    </div>
-                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-900/60">
-                        <span class="text-blue-400 font-bold">2. Preorder (N-L-R) traversal</span>
-                        <p class="text-slate-400 text-[11px] font-sans mt-2">Visits active parent node immediately, then left, then right. Great for cloning nested tree setups.</p>
-                    </div>
-                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-900/60">
-                        <span class="text-indigo-400 font-bold">3. Postorder (L-R-N) traversal</span>
-                        <p class="text-slate-400 text-[11px] font-sans mt-2">Visits left child first, then right child, then climbs to the root node. Used for file deletion tree cleans.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COLLISION RESOLUTION COMPARISON -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Chaining -->
-                <div class="p-6 bg-slate-950/40 border border-slate-900 rounded-xl space-y-3 text-xs leading-relaxed font-sans">
-                    <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[9px] rounded font-black tracking-widest uppercase">Resolution A</span>
-                    <h4 class="text-sm font-black text-white">Chaining Method (Open Hashing)</h4>
-                    <p class="text-slate-400 font-semibold">
-                        Each index cell of the hash table points directly to an external Singly Linked List of collided elements. If collisions strike an identical cell, we simply append the node to the linked list.
-                    </p>
-                    <p class="text-blue-400 font-bold italic">No table size limit overflow! Worst case search complexity degrades to O(n) if all elements cluster at a single index cell.</p>
-                </div>
-                <!-- Open Addressing -->
-                <div class="p-6 bg-slate-950/40 border border-slate-900 rounded-xl space-y-3 text-xs leading-relaxed font-sans">
-                    <span class="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 text-[9px] rounded font-black tracking-widest uppercase">Resolution B</span>
-                    <h4 class="text-sm font-black text-white">Open Addressing (Closed Hashing)</h4>
-                    <p class="text-slate-400 font-semibold font-medium">
-                        All keys are stored squarely within the table itself. If a collision arises, we probe adjacent cells sequentially based on a formula:
-                    </p>
-                    <ul class="text-[11px] text-slate-400 space-y-1 pl-4 list-decimal">
-                        <li><b>Linear Probing:</b> Probe is $h(x, i) = (h(x) + i) \pmod m$.</li>
-                        <li><b>Quadratic Probing:</b> Probing increments quadratically: $i^2$.</li>
-                        <li><b>Double Hashing:</b> Uses a secondary hash function for probe dynamic intervals.</li>
-                    </ul>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- ========================================================================= -->
-        <!-- NIGHT BEFORE EXAM TOOLKIT PANEL (FILTERED / TOGGLED DISPLAY) -->
-        <!-- ========================================================================= -->
-        <section id="cheat-sheets" class="mt-16 border-t border-slate-900 pt-16 scroll-mt-24">
-            <h3 class="text-xl font-black text-white uppercase tracking-tight mb-6 flex items-center gap-2">
-                <span class="p-1.5 bg-indigo-500/10 text-indigo-400 rounded"><i data-lucide="award" class="w-5 h-5"></i></span>
-                🔥 Night-Before-Exam Instant Memory Sheet
-            </h3>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <!-- Time complexity Big O quick grid -->
-                <div class="p-6 glass-card bg-[#050510] space-y-4">
-                    <h4 class="text-sm font-black text-white flex items-center justify-between">
-                        <span>Algorithmic Big-O Master Metric Sheet</span>
-                        <span class="text-[9px] font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">All Units Cheat Chart</span>
-                    </h4>
-                    
-                    <div class="overflow-x-auto rounded-xl">
-                        <table class="w-full text-[10.5px] text-left text-slate-400 font-mono font-bold font-medium leading-relaxed">
-                            <thead class="bg-indigo-950/20 text-white uppercase text-[8px]">
-                                <tr>
-                                    <th class="p-2 border-b border-blue-950">Algorithm</th>
-                                    <th class="p-2 border-b border-blue-950">Best Case</th>
-                                    <th class="p-2 border-b border-blue-950">Average Time</th>
-                                    <th class="p-2 border-b border-blue-950">Worst Case</th>
-                                    <th class="p-2 border-b border-blue-950">Space</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-blue-950/20">
-                                <tr>
-                                    <td class="p-2 text-white">Linear Search</td>
-                                    <td class="p-2 text-emerald-405">$O(1)$</td>
-                                    <td class="p-2">$O(n)$</td>
-                                    <td class="p-2">$O(n)$</td>
-                                    <td class="p-2 text-blue-400">$O(1)$</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 text-white">Binary Search</td>
-                                    <td class="p-2 text-emerald-405">$O(1)$</td>
-                                    <td class="p-2">$O(\log n)$</td>
-                                    <td class="p-2">$O(\log n)$</td>
-                                    <td class="p-2 text-blue-400">$O(1)$</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 text-white">Bubble Sort</td>
-                                    <td class="p-2 text-emerald-405">$O(n)$</td>
-                                    <td class="p-2">$O(n^2)$</td>
-                                    <td class="p-2">$O(n^2)$</td>
-                                    <td class="p-2 text-blue-400">$O(1)$</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 text-white">Selection Sort</td>
-                                    <td class="p-2">$O(n^2)$</td>
-                                    <td class="p-2">$O(n^2)$</td>
-                                    <td class="p-2">$O(n^2)$</td>
-                                    <td class="p-2 text-blue-400">$O(1)$</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 text-white">Quick Sort</td>
-                                    <td class="p-2 text-emerald-405">$O(n \log n)$</td>
-                                    <td class="p-2">$O(n \log n)$</td>
-                                    <td class="p-2 text-rose-500">$O(n^2)$</td>
-                                    <td class="p-2 text-blue-400">$O(\log n)$</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 text-white">Merge Sort</td>
-                                    <td class="p-2 text-emerald-405">$O(n \log n)$</td>
-                                    <td class="p-2">$O(n \log n)$</td>
-                                    <td class="p-2">$O(n \log n)$</td>
-                                    <td class="p-2 text-rose-500">$O(n)$</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <p class="text-[9.5px] text-slate-500 font-medium leading-relaxed leading-tight text-center">
-                        <b>Memory Tip:</b> Quick Sort degenerates to $O(n^2)$ if the pivot is chosen poorly (i.e. already sorted keys). Merge Sort is stable, but has high auxiliary space $O(n)$ overhead.
-                    </p>
-                </div>
-
-                <!-- JNTUK Exam writing style guide cards -->
-                <div class="p-6 glass-card bg-[#050510] space-y-4">
-                    <h4 class="text-sm font-black text-white flex items-center gap-1.5 uppercase text-indigo-400"><i data-lucide="pencil" class="w-4 h-4"></i> How JNTUK Examiners Evaluate 10/10 Schemes</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed font-semibold">
-                        Don't waste page writes writing paragraphs. Board evaluation is structural and aligns with specific scoring templates. Ensure you write:
-                    </p>
-                    
-                    <ul class="text-xs text-slate-350 space-y-2.5 pl-0 pr-2 font-medium">
-                        <li class="flex items-start gap-1.5"><span class="text-indigo-400 font-bold">✓</span><span><b>Always write Down the ADT Struct Definition:</b> If asked about lists/stacks, start by declaring the node struct framework instantly. This guarantees basic marks.</span></li>
-                        <li class="flex items-start gap-1.5"><span class="text-indigo-400 font-bold">✓</span><span><b>Output dry runs using Step Tables:</b> Examiners love matrix iterations! Drawing loop tracer tables makes your copy look professional and neat.</span></li>
-                        <li class="flex items-start gap-1.5"><span class="text-indigo-400 font-bold">✓</span><span><b>Big-O complexity label boxes:</b> Place the worst/best/avg time complexity markers prominently in boxed margins.</span></li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ========================================================================= -->
-        <!-- PREMIUM FLIP CARD DECK — LABS & VIVA PREPARATION DESK -->
-        <!-- ========================================================================= -->
-        <section id="viva-questions" class="mt-16 border-t border-slate-900 pt-16 scroll-mt-24">
-            <h3 class="text-xl font-black text-white uppercase tracking-tight mb-2 flex items-center gap-2">
-                <span class="p-1.5 bg-[#10b981]/10 text-emerald-400 rounded"><i data-lucide="shield-check" class="w-5 h-5"></i></span>
-                🧠 Premium Lab Viva Flip Card Deck
-            </h3>
-            <p class="text-xs text-slate-400 mb-8 font-medium">Click on any board predicted examiner question block to flip and show the topper-grade solution logic instantly.</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-                
-                <!-- card 1 -->
-                <div class="group h-48 [perspective:1000px] cursor-pointer" onclick="flipCard(this)">
-                    <div class="viva-card-inner relative w-full h-full text-center shadow-md transition-transform duration-500 rounded-2xl border border-blue-950/45">
-                        <!-- Front -->
-                        <div class="viva-card-front absolute inset-0 h-full w-full bg-[#070714] p-5 flex flex-col justify-between rounded-2xl">
-                            <div class="flex items-center justify-between text-[9px] text-[#10b981] uppercase font-mono font-black"><span>Question 1 • S2 Lab</span><span>Click to Flip</span></div>
-                            <h4 class="text-xs font-black text-white text-left font-sans leading-relaxed">What causes a Segmentation Fault when implementing Linked Lists in C?</h4>
-                            <span class="text-[9.5px] text-slate-500 text-left">Category: Core Memory Debugging</span>
-                        </div>
-                        <!-- Back -->
-                        <div class="viva-card-back absolute inset-0 h-full w-full bg-[#102a1c]/90 text-white p-5 flex flex-col justify-between rounded-2xl">
-                            <span class="text-[8.5px] text-[#10b981] font-black uppercase tracking-widest text-left font-mono">Topper Logic Verified</span>
-                            <p class="text-[10px] text-slate-100 text-left leading-relaxed">Usually triggered when trying to dereference a <code>NULL</code> pointer reference (e.g. <code>ptr->next</code> where ptr is NULL) or write to heap cells without running <code>malloc</code> allocating size first.</p>
-                            <span class="text-[7.5px] text-emerald-400 font-mono text-left uppercase font-bold">Avoid referencing null nodes at all bounds.</span>
+                        <div class="pt-2 flex flex-wrap gap-4">
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-17" onclick="toggleScoreTask('tag-17')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Master Sorting complex revision matrix (+20 XP)</span>
+                            </label>
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-18" onclick="toggleScoreTask('tag-18')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Lock final comparisons sheets (+20 XP)</span>
+                            </label>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <!-- card 2 -->
-                <div class="group h-48 [perspective:1000px] cursor-pointer" onclick="flipCard(this)">
-                    <div class="viva-card-inner relative w-full h-full text-center shadow-md transition-transform duration-500 rounded-2xl border border-blue-950/45">
-                        <!-- Front -->
-                        <div class="viva-card-front absolute inset-0 h-full w-full bg-[#070714] p-5 flex flex-col justify-between rounded-2xl">
-                            <div class="flex items-center justify-between text-[9px] text-[#10b981] uppercase font-mono font-black"><span>Question 2 • S2 Lab</span><span>Click to Flip</span></div>
-                            <h4 class="text-xs font-black text-white text-left font-sans leading-relaxed">Why is Binary Search faster than Linear Search logic?</h4>
-                            <span class="text-[9.5px] text-slate-500 text-left">Category: Search Efficiency</span>
+                <!-- SECTION 12: Memory Aids & Mnemonics -->
+                <section id="mnemonics" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-yellow-500">
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
+                        <span class="text-xl font-bold text-yellow-500 font-mono">12</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Memory Aids &amp; Mnemonics</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-5 bg-yellow-500/5 border border-yellow-500/20 rounded-xl space-y-3 font-sans text-xs leading-relaxed">
+                            <span class="text-[9px] font-black uppercase text-yellow-500 tracking-widest font-mono">VERBAL SYMBOLS MATRIX</span>
+                            <p class="text-slate-350">
+                                <b>1. The STACK Mnemonic: "LIFO Card Trays"</b><br>
+                                Imagine a dinner tray stack. You place ("Push") onto the top, and remove ("Pop") only from the top. The first tray placed rests at the absolute bottom, yielding <i>Last In First Out</i> memory behavior.
+                            </p>
+                            <p class="text-slate-350">
+                                <b>2. The QUEUE Mnemonic: "FIFO Checkout Gates"</b><br>
+                                Imagine a grocery store checkout lane. Customers join at the rear ("Enqueue") and exit after paying at the front ("Dequeue"). Strict <i>First In First Out</i> behavior.
+                            </p>
+                            <p class="text-slate-350">
+                                <b>3. Singly traversal safety rule: "No Null Pointer Jumps"</b><br>
+                                Never write <code class="text-[#1aebbc]">temp = temp->next</code> inside loops without checking <code class="text-[#1aebbc]">temp != NULL</code> first. Otherwise, your program will crash instantly from a <b>Segmentation Fault</b>!
+                            </p>
                         </div>
-                        <!-- Back -->
-                        <div class="viva-card-back absolute inset-0 h-full w-full bg-[#102a1c]/90 text-white p-5 flex flex-col justify-between rounded-2xl">
-                            <span class="text-[8.5px] text-[#10b981] font-black uppercase tracking-widest text-left font-mono">Topper Logic Verified</span>
-                            <p class="text-[10px] text-slate-100 text-left leading-relaxed">Linear search checks iteratively sequentially, $O(n)$. Binary Search halves the input size in every step, reducing operations logarithmic scale $O(\log n)$. For a 1 million elements list, Linear checks 1 million times, Binary only 20!</p>
-                            <span class="text-[7.5px] text-emerald-400 font-mono text-left uppercase font-bold">Required condition: Input must be pre-sorted.</span>
+                        <div class="pt-2">
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-19" onclick="toggleScoreTask('tag-19')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>Secure Memory Aids &amp; pointer trap rules (+20 XP)</span>
+                            </label>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <!-- card 3 -->
-                <div class="group h-48 [perspective:1000px] cursor-pointer" onclick="flipCard(this)">
-                    <div class="viva-card-inner relative w-full h-full text-center shadow-md transition-transform duration-500 rounded-2xl border border-blue-950/45">
-                        <!-- Front -->
-                        <div class="viva-card-front absolute inset-0 h-full w-full bg-[#070714] p-5 flex flex-col justify-between rounded-2xl">
-                            <div class="flex items-center justify-between text-[9px] text-[#10b981] uppercase font-mono font-black"><span>Question 3 • S2 Lab</span><span>Click to Flip</span></div>
-                            <h4 class="text-xs font-black text-white text-left font-sans leading-relaxed">What represents the main error in a standard linear Queue array?</h4>
-                            <span class="text-[9.5px] text-slate-500 text-left">Category: Data Structure Traps</span>
+                <!-- SECTION 13: 1-Day Prep Final Tips -->
+                <section id="survival-plan" class="p-8 bg-rose-50/5 border border-rose-500/20 rounded-[2rem] scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6 border-b border-rose-500/25 pb-3">
+                        <span class="text-xl font-bold text-rose-400 font-mono">13</span>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">1-Day Prep Final Tips (Scoring Maximum Marks)</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center font-sans">
+                        <div class="md:col-span-8 space-y-4 text-xs font-medium leading-relaxed">
+                            <h4 class="text-sm font-black text-white">How to Score Maximum Marks in JNTUK R23 Data Structures:</h4>
+                            <p class="text-slate-350">
+                                1. <b>Prioritize Numerical Problems Tree Tables:</b> BST constructions, prefix traces, and hash linear probing tables hold high marks and take less time. Always complete these sections first.
+                            </p>
+                            <p class="text-slate-350">
+                                2. <b>Neat Structural Node Mappings:</b> While illustrating Linked List operations, draw block pointer maps. Shade structural links (e.g. before/after states) using bold markers to earn quick points.
+                            </p>
+                            <p class="text-slate-350">
+                                3. <b>Comment your C/C++ Code:</b> Briefly explain the significance of temporary node creation <code class="text-rose-400">Node* temp</code> to show the examiner you have direct programmatic control.
+                            </p>
                         </div>
-                        <!-- Back -->
-                        <div class="viva-card-back absolute inset-0 h-full w-full bg-[#102a1c]/90 text-white p-5 flex flex-col justify-between rounded-2xl">
-                            <span class="text-[8.5px] text-[#10b981] font-black uppercase tracking-widest text-left font-mono">Topper Logic Verified</span>
-                            <p class="text-[10px] text-slate-100 text-left leading-relaxed">In standard linear queues, empty spaces left behind by deleted values cannot be reused as <code>rear</code> reaches MAX bounds blindly, triggering a fake Queue Overflow error. Circular Queue indices resolve this.</p>
-                            <span class="text-[7.5px] text-emerald-400 font-mono text-left uppercase font-bold">Fixed with: rear = (rear+1)%MAX index loops.</span>
+                        <div class="md:col-span-4 p-5 bg-[#030308] border border-rose-500/20 rounded-2xl">
+                            <span class="text-[14px]">🎓</span>
+                            <h5 class="text-xs font-bold text-white mt-2">Ready to Score max marks?</h5>
+                            <p class="text-[10px] text-slate-400 mt-1 mb-4 leading-relaxed">Ensure you check the final progress bars. Good luck!</p>
+                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
+                                <input type="checkbox" id="tag-20" onclick="toggleScoreTask('tag-20')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
+                                <span>I am exam-ready (+20 XP)</span>
+                            </label>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <!-- card 4 -->
-                <div class="group h-48 [perspective:1000px] cursor-pointer" onclick="flipCard(this)">
-                    <div class="viva-card-inner relative w-full h-full text-center shadow-md transition-transform duration-500 rounded-2xl border border-blue-950/45">
-                        <!-- Front -->
-                        <div class="viva-card-front absolute inset-0 h-full w-full bg-[#070714] p-5 flex flex-col justify-between rounded-2xl">
-                            <div class="flex items-center justify-between text-[9px] text-[#10b981] uppercase font-mono font-black"><span>Question 4 • S2 Lab</span><span>Click to Flip</span></div>
-                            <h4 class="text-xs font-black text-white text-left font-sans leading-relaxed">What ensures Binary Tree traversal orders yield sorted ascending output keys?</h4>
-                            <span class="text-[9.5px] text-slate-500 text-left">Category: BST traversal properties</span>
-                        </div>
-                        <!-- Back -->
-                        <div class="viva-card-back absolute inset-0 h-full w-full bg-[#102a1c]/90 text-white p-5 flex flex-col justify-between rounded-2xl">
-                            <span class="text-[8.5px] text-[#10b981] font-mono font-black uppercase tracking-widest text-left">Topper Logic Verified</span>
-                            <p class="text-[10px] text-slate-100 text-left leading-relaxed">Doing an <b>Inorder</b> traversal (visits Left Subtree, Root Parent, and Right Subtree sequentially) on a Binary Search Tree (BST) will always list the keys in sorted ascending order.</p>
-                            <span class="text-[7.5px] text-emerald-400 font-mono text-left uppercase font-bold">Mathematical pattern proof is guaranteed.</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ========================================================================= -->
-        <!-- CORE FOOTER CALL TO ACTION -->
-        <!-- ========================================================================= -->
-        <div class="glass-card p-12 text-center bg-gradient-to-t from-blue-500/10 to-transparent bg-white dark:bg-slate-900 mt-20 text-center shadow-sm">
-            <h2 class="text-4xl font-black mb-6">Mastered the <span class="text-blue-500 italic">Entire Core Syllabus</span>?</h2>
-            <p class="text-slate-400 dark:text-slate-400 mb-10 max-w-lg mx-auto text-xs sm:text-sm">You have unlocked our simulated laboratory testing engine. Try taking our live Semester 2 Mock Diagnostic to measure ready grade scores.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/semester-2.html" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 font-black text-xs uppercase tracking-wider rounded-xl text-white transition-all">Back to Semester 2 Grid ➔</a>
-                <a href="/dashboard.html" class="px-8 py-3.5 bg-transparent border border-slate-700 hover:border-slate-500 font-black text-xs uppercase tracking-wider rounded-xl text-slate-300 transition-all">View Student Stats Panel</a>
             </div>
         </div>
-
     </main>
 
-    <footer class="py-12 border-t text-center border-slate-205 dark:border-slate-900 border">
-        <p class="text-slate-550 dark:text-slate-500 text-sm font-semibold uppercase tracking-wider">© 2026 EngiPrep Hub • Premium Academic Survivals Network</p>
-    </footer>
-
-    <!-- ========================================================================= -->
-    <!-- INTERACTIVE ENGINE JAVASCRIPT BLOCK (PURE VANILLA CLIENT-SIDE STATE) -->
-    <!-- ========================================================================= -->
     <script>
-        // Global variables state declaration
-        let userXP = 0;
-        const maxXPValue = 400; // 20 tasks * 20 XP each
-        const searchArr = [12, 23, 34, 45, 56, 67, 78, 89, 90];
+        // Trackers
+        let scoreXP = 0;
+        const maxXPValue = 400; // 20 tasks * 20 XP each = 400 XP
+
+        // Prepopulated Sandbox Array
+        const searchArr = [12, 17, 24, 30, 45, 56, 72, 80, 90];
         let searchSimState = {
             low: 0,
-            high: 8,
+            high: searchArr.length - 1,
             mid: -1,
             step: 0,
             found: false,
@@ -1050,19 +1105,20 @@ struct Node* insertAtHead(struct Node* head, int data) {
         // Initialize state logic from Local Storage
         function initPlatform() {
             // Load XP progress
-            const storedXP = localStorage.getItem('engi_ds_xp');
+            const storedXP = localStorage.getItem('engi_ds_basics_score');
             if (storedXP) {
-                userXP = parseInt(storedXP);
+                scoreXP = parseInt(storedXP);
+                
                 // Synchronize checklist items
                 for (let i = 1; i <= 20; i++) {
-                    const taskCheck = localStorage.getItem(`engi_ds_task_${i}`);
+                    const taskCheck = localStorage.getItem(`engi_ds_basics_task_${i}`);
                     const chkElement = document.getElementById(`tag-${i}`);
                     if (chkElement && taskCheck === 'done') {
                         chkElement.checked = true;
                     }
                 }
             } else {
-                userXP = 0;
+                scoreXP = 0;
             }
             updateXPUIRender();
 
@@ -1073,153 +1129,102 @@ struct Node* insertAtHead(struct Node* head, int data) {
             renderSortBars();
         }
 
+        // Show Toast helper
+        function showToastMessage(msg) {
+            const toast = document.getElementById('toast-notif');
+            document.getElementById('toast-message').innerText = msg;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0px)';
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+            }, 3000);
+        }
+
         function updateXPUIRender() {
             // Cap value bounds
-            if (userXP < 0) userXP = 0;
-            if (userXP > maxXPValue) userXP = maxXPValue;
+            if (scoreXP < 0) scoreXP = 0;
+            if (scoreXP > maxXPValue) scoreXP = maxXPValue;
 
             // Save to browser store
-            localStorage.setItem('engi_ds_xp', userXP);
+            localStorage.setItem('engi_ds_basics_score', scoreXP);
 
             // Calculate percentage
-            const pctVal = Math.round((userXP / maxXPValue) * 100);
+            const pctVal = Math.round((scoreXP / maxXPValue) * 100);
             
             // Render text elements
-            document.getElementById('tracker-xp-pct').innerText = `${pctVal}% DONE`;
-            document.getElementById('xp-points-summary').innerText = `${userXP} / ${maxXPValue} XP Unlocked`;
-            document.getElementById('xp-progress-bar').style.width = `${pctVal}%`;
+            document.getElementById('percentage-indicator').innerText = `${pctVal}%`;
+            document.getElementById('progress-bar-indicator').style.width = `${pctVal}%`;
 
-            // Render rank badges
-            const rankBadge = document.getElementById('rank-badge');
-            if (pctVal < 30) {
-                rankBadge.innerHTML = `<i data-lucide="award" class="w-3.5 h-3.5"></i> Rank: DS Apprentice`;
-            } else if (pctVal < 70) {
-                rankBadge.innerHTML = `<i data-lucide="award" class="w-3.5 h-3.5"></i> Rank: Dynamic Pointer`;
+            // Toggle overall progress status
+            const statusEl = document.getElementById('overall-status-text');
+            if (pctVal === 0) {
+                statusEl.innerText = 'NOT STARTED';
+                statusEl.className = 'text-[10px] font-black text-rose-500';
+            } else if (pctVal < 40) {
+                statusEl.innerText = 'DS APPRENTICE 🛠️';
+                statusEl.className = 'text-[10px] font-black text-indigo-400';
+            } else if (pctVal < 80) {
+                statusEl.innerText = 'DYNAMIC POINTER 🧠';
+                statusEl.className = 'text-[10px] font-black text-[#f59e0b]';
             } else {
-                rankBadge.innerHTML = `<i data-lucide="award" class="w-3.5 h-3.5"></i> Rank: BST Ranger 🎯`;
-            }
-            if (window.lucide) {
-                lucide.createIcons();
+                statusEl.innerText = 'JNTUK MASTER ELITE 🏆';
+                statusEl.className = 'text-[10px] font-black text-emerald-400 animate-pulse';
             }
         }
 
         // Checklist task toggles
-        function toggleTask(chkId, taskXP) {
+        window.toggleScoreTask = function(chkId) {
             const chkElement = document.getElementById(chkId);
             const indexValue = chkId.split('-')[1]; // Extracts index 1 to 20
             
             if (chkElement.checked) {
-                userXP += 20;
-                localStorage.setItem(`engi_ds_task_${indexValue}`, 'done');
+                scoreXP += 20;
+                localStorage.setItem(`engi_ds_basics_task_${indexValue}`, 'done');
+                showToastMessage(`Checkpoint master! +20 XP 🔥`);
             } else {
-                userXP -= 20;
-                localStorage.setItem(`engi_ds_task_${indexValue}`, 'undone');
+                scoreXP -= 20;
+                localStorage.setItem(`engi_ds_basics_task_${indexValue}`, 'undone');
+                showToastMessage(`Removed Checkpoint! -20 XP`);
             }
             updateXPUIRender();
-        }
+        };
 
         // Reset Plat function
-        function resetPlatTracker() {
+        window.resetInternalTracker = function() {
             if (confirm("Reset all study checklists and unlocked XP values?")) {
-                localStorage.removeItem('engi_ds_xp');
+                localStorage.removeItem('engi_ds_basics_score');
                 for (let i = 1; i <= 20; i++) {
-                    localStorage.removeItem(`engi_ds_task_${i}`);
+                    localStorage.removeItem(`engi_ds_basics_task_${i}`);
                     const chkElement = document.getElementById(`tag-${i}`);
                     if (chkElement) chkElement.checked = false;
                 }
-                userXP = 0;
+                scoreXP = 0;
                 updateXPUIRender();
+                showToastMessage("Platform data completely reset.");
             }
-        }
+        };
 
-        // Switch custom Mode switches
-        function changeHubMode(mode) {
-            const sections = ['cheat-sheets', 'viva-questions', 'simulations'];
-            
-            // Visual Active States
-            const btnFull = document.getElementById('btn-mode-full');
-            const btnSurvival = document.getElementById('btn-mode-survival');
-            const btnLab = document.getElementById('btn-mode-lab');
-
-            // Reset buttons styles
-            [btnFull, btnSurvival, btnLab].forEach(btn => {
-                if (btn) {
-                    btn.classList.remove('border-blue-500/30', 'bg-blue-500/10', 'text-white', 'border-indigo-500/20', 'border-emerald-500/20');
-                    btn.classList.add('border-slate-800', 'bg-slate-900/10', 'text-slate-450');
-                }
+        // Table Content Navigation highlights
+        window.highlightNav = function(el) {
+            document.querySelectorAll('.nav-anchor-lnk').forEach(lnk => {
+                lnk.classList.remove('active-nav-card');
             });
+            el.classList.add('active-nav-card');
+        };
 
-            // Set styles based on target mode selected
-            if (mode === 'full') {
-                btnFull.classList.remove('border-slate-800', 'bg-slate-900/10', 'text-slate-450');
-                btnFull.classList.add('border-blue-500/30', 'bg-blue-500/10', 'text-white');
-                
-                // Show standard panes and scroll elements
-                document.querySelectorAll('.unit-pane').forEach(u => u.classList.add('hidden'));
-                document.getElementById('content-unit1').classList.remove('hidden');
-                document.getElementById('cheat-sheets').classList.remove('hidden');
-                document.getElementById('viva-questions').classList.remove('hidden');
-            } 
-            else if (mode === 'survival') {
-                btnSurvival.classList.remove('border-slate-800', 'bg-slate-900/10', 'text-slate-455');
-                btnSurvival.classList.add('border-blue-500/30', 'bg-blue-500/10', 'text-white');
-                
-                // Keep only Cheat charts and formulas open
-                document.querySelectorAll('.unit-pane').forEach(u => u.classList.add('hidden'));
-                document.getElementById('cheat-sheets').classList.remove('hidden');
-                document.getElementById('viva-questions').classList.add('hidden');
-                window.location.hash = '#cheat-sheets';
-            }
-            else if (mode === 'lab') {
-                btnLab.classList.remove('border-slate-800', 'bg-slate-900/10', 'text-slate-455');
-                btnLab.classList.add('border-blue-500/30', 'bg-blue-500/10', 'text-white');
-                
-                // Highlight Live Sandboxes and Viva Cards
-                document.querySelectorAll('.unit-pane').forEach(u => u.classList.add('hidden'));
-                document.getElementById('viva-questions').classList.remove('hidden');
-                window.location.hash = '#viva-questions';
-            }
-        }
-
-        // Switch horizontal Tabs Unit
-        function switchUnitTab(unitId) {
-            // Hide all sub-panes first
-            document.querySelectorAll('.unit-pane').forEach(pane => pane.classList.add('hidden'));
-            
-            // Show target
-            const activePane = document.getElementById(`content-${unitId}`);
-            if (activePane) activePane.classList.remove('hidden');
-
-            // Set button bottom border active
-            const buttons = ['unit1', 'unit2', 'unit3', 'unit4', 'unit5'];
-            buttons.forEach(btnKey => {
-                const b = document.getElementById(`btn-unit-${btnKey}`);
-                if (b) {
-                    if (btnKey === unitId) {
-                        b.classList.remove('border-transparent', 'text-slate-450');
-                        b.classList.add('border-blue-500', 'text-blue-400');
-                    } else {
-                        b.classList.add('border-transparent', 'text-slate-450');
-                        b.classList.remove('border-blue-500', 'text-blue-400');
-                    }
-                }
-            });
-        }
-
-        // Flip interactive Viva Deck card
-        function flipCard(element) {
-            const inner = element.querySelector('.viva-card-inner');
-            if (inner) {
-                if (inner.style.transform === 'rotateY(180deg)') {
-                    inner.style.transform = 'rotateY(0deg)';
-                } else {
-                    inner.style.transform = 'rotateY(180deg)';
-                }
-            }
-        }
+        // Flip Cards Q&A
+        window.flipVivaCard = function(el) {
+            const inner = el.querySelector('.viva-card-inner');
+            inner.classList.toggle('viva-card-flipped');
+            scoreXP += 5;
+            updateXPUIRender();
+            showToastMessage(`Practiced Oral Viva! +5 XP 🧪`);
+        };
 
         // TRIGGER SUB WIDGET TOGGLES
-        function triggerSimSet(mode) {
+        window.triggerSimSet = function(mode) {
             const btnSearch = document.getElementById('sim-set-search-btn');
             const btnSort = document.getElementById('sim-set-sort-btn');
             const bodySearch = document.getElementById('sim-body-search');
@@ -1228,7 +1233,7 @@ struct Node* insertAtHead(struct Node* head, int data) {
             if (mode === 'search') {
                 btnSearch.classList.add('bg-blue-500/20', 'text-blue-400');
                 btnSort.classList.remove('bg-blue-500/20', 'text-blue-400', 'bg-emerald-500/20', 'text-emerald-400');
-                btnSort.classList.add('text-slate-500');
+                btnSort.classList.add('text-slate-550');
                 
                 bodySearch.classList.remove('hidden');
                 bodySort.classList.add('hidden');
@@ -1236,17 +1241,18 @@ struct Node* insertAtHead(struct Node* head, int data) {
             } else {
                 btnSort.classList.add('bg-emerald-500/20', 'text-emerald-400');
                 btnSearch.classList.remove('bg-blue-500/20', 'text-blue-400');
-                btnSearch.classList.add('text-slate-500');
+                btnSearch.classList.add('text-slate-550');
 
                 bodySort.classList.remove('hidden');
                 bodySearch.classList.add('hidden');
                 rewindSortSim();
             }
-        }
+        };
 
         // SEARCH SIMULATOR ALGORITHMIC ENGINE
         function renderSearchArray() {
             const container = document.getElementById('sim-search-array-render');
+            if(!container) return;
             container.innerHTML = '';
             
             searchArr.forEach((val, idx) => {
@@ -1256,30 +1262,30 @@ struct Node* insertAtHead(struct Node* head, int data) {
                 // Set boundary style classes dynamically
                 if (idx === searchSimState.activeIdx) {
                     // Active mid match
-                    cell.className += " border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold scale-110 shadow-emerald-500/10";
+                    cell.className += " border-emerald-500 bg-emerald-500/10 text-emerald-450 font-bold scale-110 shadow-emerald-500/10";
                 } else if (idx >= searchSimState.low && idx <= searchSimState.high && searchSimState.step > 0) {
                     // Active search zone
                     cell.className += " border-blue-500 bg-blue-500/5 text-blue-400";
                 } else {
                     // Inactive zone
-                    cell.className += " border-slate-900 bg-[#030308] text-slate-500";
+                    cell.className += " border-[#101530] bg-[#030308] text-slate-600";
                 }
                 
                 cell.innerHTML = `
                     <span>${val}</span>
-                    <span class="text-[7.2px] text-slate-550 font-medium block leading-none font-sans mt-0.5">${idx}</span>
+                    <span class="text-[7.2px] text-slate-550 block font-sans mt-0.5">${idx}</span>
                 `;
                 container.appendChild(cell);
             });
         }
 
-        function runSearchSimStep(restart = false) {
+        window.runSearchSimStep = function(restart = false) {
             const algo = document.getElementById('sim-search-algo').value;
             const targetVal = parseInt(document.getElementById('sim-search-target').value);
             const feedbackBox = document.getElementById('sim-search-feedback');
 
             if (isNaN(targetVal)) {
-                feedbackBox.innerHTML = "<span class='text-rose-500 font-bold'>Error: Enter a valid integer target.</span>";
+                feedbackBox.innerHTML = "<span class='text-rose-500 font-bold'>Error: Enter a valid target cell index.</span>";
                 return;
             }
 
@@ -1292,7 +1298,7 @@ struct Node* insertAtHead(struct Node* head, int data) {
                     found: false,
                     activeIdx: -1
                 };
-                feedbackBox.innerHTML = `Searching for Target: ${targetVal}. Click 'Next Step' to initiate.`;
+                feedbackBox.innerHTML = `Searching for Target: ${targetVal}. Click 'Next' to step down.`;
                 renderSearchArray();
                 return;
             }
@@ -1300,7 +1306,7 @@ struct Node* insertAtHead(struct Node* head, int data) {
             // Linear search implementation step
             if (algo === 'linear') {
                 if (searchSimState.step >= searchArr.length) {
-                    feedbackBox.innerHTML = `<span class='text-rose-500'>Target ${targetVal} absent across all indices.</span>`;
+                    feedbackBox.innerHTML = `<span class='text-rose-500 font-semibold'>Target ${targetVal} absent across indices boundaries.</span>`;
                     return;
                 }
                 
@@ -1310,18 +1316,19 @@ struct Node* insertAtHead(struct Node* head, int data) {
                 searchSimState.high = currIdx;
                 
                 if (searchArr[currIdx] === targetVal) {
-                    feedbackBox.innerHTML = `<span class='text-[#1aebbc] font-bold'>SUCCEEDED! Target ${targetVal} located instantly at index ${currIdx}.</span>`;
+                    feedbackBox.innerHTML = `<span class='text-emerald-400 font-bold'>MATCH SECURED! Target ${targetVal} isolated at index [${currIdx}].</span>`;
+                    searchSimState.found = true;
                     renderSearchArray();
                     return;
                 } else {
-                    feedbackBox.innerHTML = `Checking index ${currIdx} : Array val ${searchArr[currIdx]} != target ${targetVal}`;
+                    feedbackBox.innerHTML = `Checking index [${currIdx}] val: ${searchArr[currIdx]} != target ${targetVal}`;
                 }
                 searchSimState.step++;
             } 
             // Binary search iterative step
             else {
                 if (searchSimState.low > searchSimState.high) {
-                    feedbackBox.innerHTML = `<span class='text-rose-500'>Finished. Low pointer of array exceeds high. Target ${targetVal} absent.</span>`;
+                    feedbackBox.innerHTML = `<span class='text-rose-500 font-semibold'>Finished. Low exceeds High bounds. Target ${targetVal} does not exist.</span>`;
                     return;
                 }
 
@@ -1331,24 +1338,25 @@ struct Node* insertAtHead(struct Node* head, int data) {
                 searchSimState.step++;
 
                 if (searchArr[currentMid] === targetVal) {
-                    feedbackBox.innerHTML = `<span class='text-[#1aebbc] font-bold'>MATCH FOUND! Binary path target located at Mid index ${currentMid}.</span>`;
+                    feedbackBox.innerHTML = `<span class='text-emerald-450 font-bold'>MATCH FOUND! Binary partition index [${currentMid}] is perfect.</span>`;
                     renderSearchArray();
                     return;
                 } else if (searchArr[currentMid] < targetVal) {
-                    feedbackBox.innerHTML = `Mid [${currentMid}] val: ${searchArr[currentMid]} < target ${targetVal}. Shifting low pointer to mid + 1.`;
+                    feedbackBox.innerHTML = `Mid [${currentMid}] val: ${searchArr[currentMid]} < target ${targetVal}. Halving left: low pointer -> mid + 1.`;
                     searchSimState.low = currentMid + 1;
                 } else {
-                    feedbackBox.innerHTML = `Mid [${currentMid}] val: ${searchArr[currentMid]} > target ${targetVal}. Shifting high pointer to mid - 1.`;
+                    feedbackBox.innerHTML = `Mid [${currentMid}] val: ${searchArr[currentMid]} > target ${targetVal}. Halving right: high pointer -> mid - 1.`;
                     searchSimState.high = currentMid - 1;
                 }
             }
 
             renderSearchArray();
-        }
+        };
 
         // SORTING SIMULATION PASS GRAPH BUILD ENGINE
         function renderSortBars() {
             const container = document.getElementById('sim-sort-array-render');
+            if(!container) return;
             container.innerHTML = '';
 
             sortArr.forEach((val, idx) => {
@@ -1358,22 +1366,22 @@ struct Node* insertAtHead(struct Node* head, int data) {
                 const bar = document.createElement('div');
                 bar.className = "w-full rounded-t-md transition-all duration-300 relative";
                 
-                // Compute visual height
+                // Height multiplier
                 const barHeight = val * 2 + 10;
                 bar.style.height = `${barHeight}px`;
 
-                // Set styles depending on swapping indicators
+                // Set swapping tags highlights
                 if (idx === sortSimState.activeIdx1 || idx === sortSimState.activeIdx2) {
-                    bar.className += " bg-emerald-500 scale-105 shadow-lg shadow-emerald-500/20";
+                    bar.className += " bg-emerald-500 scale-105 shadow-md shadow-emerald-500/20";
                 } else {
-                    bar.className += " bg-slate-900 border border-slate-800 hover:bg-slate-850";
+                    bar.className += " bg-[#182046] border border-blue-950 hover:bg-[#1f285c]";
                 }
 
                 bar.innerHTML = `<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-[9px] font-mono text-slate-400 font-bold">${val}</span>`;
                 wrapper.appendChild(bar);
 
                 const label = document.createElement('span');
-                label.className = "text-[8px] text-slate-650 font-mono mt-1 block block-index";
+                label.className = "text-[8px] text-slate-500 font-mono mt-1 block leading-none";
                 label.innerText = `idx ${idx}`;
                 wrapper.appendChild(label);
 
@@ -1381,7 +1389,7 @@ struct Node* insertAtHead(struct Node* head, int data) {
             });
         }
 
-        function rewindSortSim() {
+        window.rewindSortSim = function() {
             sortArr = [...sortOriginalArr];
             sortSimState = {
                 i: 0,
@@ -1392,22 +1400,20 @@ struct Node* insertAtHead(struct Node* head, int data) {
                 activeIdx2: -1
             };
             document.getElementById('sim-sort-comparisons').innerText = "Swaps: 0";
-            document.getElementById('sim-sort-feedback').innerText = "Array restored to default disorder configuration.";
+            document.getElementById('sim-sort-feedback').innerText = "Unsorted array state restored.";
             renderSortBars();
-        }
+        };
 
-        function runSortSimStep() {
+        window.runSortSimStep = function() {
             const feed = document.getElementById('sim-sort-feedback');
             const swapText = document.getElementById('sim-sort-comparisons');
 
             if (sortSimState.done) {
-                feed.innerHTML = "<span class='text-emerald-450 font-bold'>Awesome! Array has been fully ordered.</span>";
+                feed.innerHTML = "<span class='text-emerald-400 font-bold'>Awesome! Array has been fully ordered.</span>";
                 return;
             }
 
             const len = sortArr.length;
-            
-            // Perform standard Bubble Sort pass-by-pass
             let tempI = sortSimState.i;
             let tempJ = sortSimState.j;
 
@@ -1417,35 +1423,34 @@ struct Node* insertAtHead(struct Node* head, int data) {
                     sortSimState.activeIdx2 = tempJ + 1;
 
                     if (sortArr[tempJ] > sortArr[tempJ + 1]) {
-                        // Swap values
+                        // Swap
                         let temp = sortArr[tempJ];
                         sortArr[tempJ] = sortArr[tempJ + 1];
                         sortArr[tempJ + 1] = temp;
                         
                         sortSimState.swaps++;
                         swapText.innerText = `Swaps: ${sortSimState.swaps}`;
-                        feed.innerHTML = `Discovered ${sortArr[tempJ+1]} > ${sortArr[tempJ]}. Swapped elements.`;
+                        feed.innerHTML = `Discovered ${sortArr[tempJ+1]} > ${sortArr[tempJ]}. Swapped position indices.`;
                     } else {
-                        feed.innerHTML = `Elements ${sortArr[tempJ]} and ${sortArr[tempJ+1]} are correctly ordered. No swap needed.`;
+                        feed.innerHTML = `Values ${sortArr[tempJ]} and ${sortArr[tempJ+1]} are in correct ascending order.`;
                     }
 
-                    // Increment inner pointer
+                    // Increment inner counter
                     sortSimState.j++;
                 } else {
-                    // Finished single pass of bubble sort, increment pass counter
                     sortSimState.j = 0;
                     sortSimState.i++;
-                    feed.innerHTML = `Pass ${tempI + 1} finished bounds search. Largest element filtered to back.`;
+                    feed.innerHTML = `Pass ${tempI + 1} finished boundary scans. Largest value sorted at back.`;
                 }
             } else {
                 sortSimState.done = true;
                 sortSimState.activeIdx1 = -1;
                 sortSimState.activeIdx2 = -1;
-                feed.innerHTML = "<span class='text-emerald-400 font-black'>Unification match perfect! Core arrays are fully sorted.</span>";
+                feed.innerHTML = "<span class='text-emerald-450 font-black'>Swaps matching perfect. Sorted core bounds complete!</span>";
             }
 
             renderSortBars();
-        }
+        };
 
         // EXPRESSION EVALUATOR INFIX TO POSTFIX CONVERTER
         function getPriority(op) {
@@ -1459,13 +1464,14 @@ struct Node* insertAtHead(struct Node* head, int data) {
             return /[a-zA-Z0-9]/.test(char);
         }
 
-        function evalInfixToPostfix() {
+        window.evalInfixToPostfix = function() {
             const exp = document.getElementById('infix-input-field').value.replace(/\s+/g, '');
             const tableBody = document.getElementById('infix-table-rows');
+            if(!tableBody) return;
             tableBody.innerHTML = '';
 
             if (!exp) {
-                tableBody.innerHTML = "<tr><td colspan='4' class='p-4 text-center text-rose-500'>Value was blank. Try entering 'A+B'!</td></tr>";
+                tableBody.innerHTML = "<tr><td colspan='4' class='p-4 text-center text-rose-500'>Empty payload. Try entering A+B!</td></tr>";
                 return;
             }
 
@@ -1479,25 +1485,25 @@ struct Node* insertAtHead(struct Node* head, int data) {
 
                 if (isAlphaNumeric(char)) {
                     postfix += char;
-                    action = `Append operand '${char}' to output postfix string.`;
+                    action = `Append operand '${char}' to Postfix.`;
                 } 
                 else if (char === '(') {
                     stack.push(char);
-                    action = `Push '(' onto priority control Stack.`;
+                    action = `Push Open Paren '(' onto stack.`;
                 } 
                 else if (char === ')') {
                     while (stack.length > 0 && stack[stack.length - 1] !== '(') {
                         postfix += stack.pop();
                     }
-                    stack.pop(); // pop '(' off stack
-                    action = `Closing paren detected. Pop operators until matching '(' matches.`;
+                    stack.pop(); // pop '('
+                    action = `Pop stack to Postfix until matches '(' paren.`;
                 } 
                 else {
                     while (stack.length > 0 && getPriority(stack[stack.length - 1]) >= getPriority(char)) {
                         postfix += stack.pop();
                     }
                     stack.push(char);
-                    action = `Operator '${char}' input priority is higher than stack top value. Push operator.`;
+                    action = `Operator '${char}' details logic. Push.`;
                 }
 
                 logRows.push({
@@ -1508,31 +1514,27 @@ struct Node* insertAtHead(struct Node* head, int data) {
                 });
             }
 
-            // pop remaining values
             while (stack.length > 0) {
                 postfix += stack.pop();
                 logRows.push({
                     symbol: "[EOF]",
                     stack: [...stack].join(', ') || "[empty]",
                     postfix: postfix,
-                    action: `Syllabus string finished. Flush remaining operator stack values.`
+                    action: `Flush remaining operators from stack.`
                 });
             }
 
-            // Render details table rows dynamically
             logRows.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td class="p-2 border-b border-blue-950 font-bold text-white">${row.symbol}</td>
-                    <td class="p-2 border-b border-blue-950 text-indigo-400 font-bold font-mono">${row.stack}</td>
+                    <td class="p-2 border-b border-blue-950 text-indigo-400 font-bold">${row.stack}</td>
                     <td class="p-2 border-b border-blue-950 text-emerald-400">${row.postfix}</td>
-                    <td class="p-2 border-b border-blue-950 text-slate-400 text-[9.5px]/relaxed">${row.action}</td>
+                    <td class="p-2 border-b border-blue-950 text-slate-400 text-[9px]/relaxed">${row.action}</td>
                 `;
                 tableBody.appendChild(tr);
             });
-        }
+        };
     </script>
-
-    <script type="module" src="/src/config-check.js"></script>
 </body>
 </html>
