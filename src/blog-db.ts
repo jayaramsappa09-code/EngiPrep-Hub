@@ -147,6 +147,102 @@ export const blogDatabase: Blog[] = [
             <p class="text-slate-400 text-sm leading-loose">Substitute step 3 into step 2, and you magically arrive at the final time-independent equation.</p>
         `,
         tags: ["Unit 1", "Derivations", "High Weightage"]
+    },
+    {
+        id: 8,
+        category: "Programming",
+        title: "Top 5 Recurring C Programming Viva Questions",
+        excerpt: "Don't get caught off guard during your external lab evaluation. Master these 5 concepts.",
+        content: `
+            <p class="text-slate-400 text-sm leading-loose mb-6">External examiners love asking questions that test your fundamental understanding rather than syntax.</p>
+            <div class="space-y-4">
+                <details class="bg-slate-900 border border-slate-800 p-4 rounded-xl group cursor-pointer">
+                    <summary class="text-slate-50 font-bold text-sm select-none list-none flex justify-between items-center group-open:mb-3">
+                        1. What is the exact difference between malloc() and calloc()?
+                        <span class="text-blue-500 group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-slate-400 text-sm leading-loose">malloc() allocates uninitialized memory (contains garbage values) and takes one argument (total bytes). calloc() allocates zero-initialized memory and takes two arguments (number of elements, size of each element).</p>
+                </details>
+                <details class="bg-slate-900 border border-slate-800 p-4 rounded-xl group cursor-pointer">
+                    <summary class="text-slate-50 font-bold text-sm select-none list-none flex justify-between items-center group-open:mb-3">
+                        2. Why do we use pointers instead of returning values?
+                        <span class="text-blue-500 group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-slate-400 text-sm leading-loose">A C function can only return a single value. Pointers allow us to modify multiple variables passed to a function directly in memory (pass by reference).</p>
+                </details>
+                <details class="bg-slate-900 border border-slate-800 p-4 rounded-xl group cursor-pointer">
+                    <summary class="text-slate-50 font-bold text-sm select-none list-none flex justify-between items-center group-open:mb-3">
+                        3. What is a 'dangling pointer'?
+                        <span class="text-blue-500 group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-slate-400 text-sm leading-loose">A pointer pointing to a memory location that has been deleted (freed). Accessing it causes undefined behavior.</p>
+                </details>
+            </div>
+            <p class="text-slate-400 text-sm mt-6 leading-loose">Pro tip: Always answer concisely. If you trail off, examiners will pick up on your uncertainty.</p>
+        `,
+        tags: ["Labs", "Viva", "C Lang"]
+    },
+    {
+        id: 9,
+        category: "Mathematics",
+        title: "Stop Fearing the Laplace Transform",
+        excerpt: "Most students lose marks on Laplace transforms because they rely on integration. Here is the shortcut table trick.",
+        content: `
+            <p class="text-slate-400 text-sm leading-loose mb-4">You shouldn't be manually integrating <em>e^(-st) * f(t)</em> in the exam hall unless explicitly asked. Memorize the standard transforms to save 15 minutes.</p>
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full text-left border-collapse border border-slate-800">
+                    <thead>
+                        <tr class="bg-slate-900">
+                            <th class="p-3 border border-slate-800 text-sm text-slate-300">f(t)</th>
+                            <th class="p-3 border border-slate-800 text-sm text-slate-300">L{f(t)}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-400 font-mono text-sm">
+                        <tr>
+                            <td class="p-3 border border-slate-800">1</td>
+                            <td class="p-3 border border-slate-800">1/s</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border border-slate-800">t^n</td>
+                            <td class="p-3 border border-slate-800">n! / s^(n+1)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border border-slate-800">e^(at)</td>
+                            <td class="p-3 border border-slate-800">1 / (s - a)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border border-slate-800">sin(at)</td>
+                            <td class="p-3 border border-slate-800">a / (s^2 + a^2)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-slate-400 text-sm leading-loose">Memorize these 4 fundamental pairs. Almost all complex problems can be simplified down to these using the First Shifting Theorem.</p>
+        `,
+        tags: ["M2", "Shortcuts", "Formulas"]
+    },
+    {
+        id: 10,
+        category: "Study Hacks",
+        title: "How to use the 'Pomodoro Technique' effectively for Engineering",
+        excerpt: "The standard 25-minute Pomodoro is too short for engineering subjects. Try the 'Deep Work' variant instead.",
+        content: `
+            <p class="text-slate-400 text-sm leading-loose mb-4">A standard 25-minute study block followed by a 5-minute break works great for memorizing vocabulary, but it's terrible for complex engineering derivations or coding questions.</p>
+            <h4 class="text-lg font-black text-slate-50 mb-2 mt-6">The 50/10 Engineering Pomodoro</h4>
+            <p class="text-slate-400 text-sm leading-loose mb-4">It takes about 15 minutes just to load the context of a complex thermodynamics problem or a data structures algorithm into your working memory. If you stop at 25 minutes, you break your flow.</p>
+            <ul class="list-none text-slate-400 text-sm leading-loose mb-6 space-y-4">
+                <li class="flex gap-3">
+                    <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">1</span>
+                    <span><strong>50 Minutes Deep Focus:</strong> No phone, no tabs open other than the notes. Work on solving a single complex previous year question from start to finish.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">2</span>
+                    <span><strong>10 Minutes True Break:</strong> Do not look at a screen. Walk around, stretch, get water. Letting your eyes focus on distant objects reduces eye strain.</span>
+                </li>
+            </ul>
+            <p class="text-slate-400 text-sm leading-loose">Try scheduling just three 50/10 blocks per evening instead of randomly studying for hours. Your retention will skyrocket.</p>
+        `,
+        tags: ["Productivity", "Focus", "Exam Prep"]
     }
 ];
 
