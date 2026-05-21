@@ -23,7 +23,12 @@
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#0a0a0f] text-gray-300">
+<body class="bg-[#0a0a0f] text-gray-300">\n
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress-container" class="fixed top-0 left-0 w-full h-1 bg-transparent z-[100]">
+        <div id="reading-progress-bar" class="h-full bg-blue-600 transition-all duration-150 w-0"></div>
+    </div>
+
     <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b uppercase font-black tracking-tighter border-slate-200 dark:border-slate-800 border">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2">
@@ -397,7 +402,16 @@ switch(expression) {
             <h3 class="text-3xl font-black text-slate-900 dark:text-slate-50 mb-8">Ready for Unit 2?</h3>
             <a href="/subject.html?sub=Programming%20for%20Problem%20Solving%20Using%20C" class="btn-primary">Explore Full Subject</a>
         </div>
-    </main>
+    
+            <!-- Gamification & Progress Marker -->
+            <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
+                <button class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 mx-auto complete-topic-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    Mark as Complete <span class="bg-emerald-700/50 px-2 py-0.5 rounded text-xs ml-2">+10 XP</span>
+                </button>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-4 font-bold max-w-sm mx-auto">Login via Dashboard to save your progress, secure your streak, and unlock AI features.</p>
+            </div>
+\n</main>
 
     <footer class="py-20 border-t text-center border-slate-200 dark:border-slate-800 border">
         <p class="text-slate-600 dark:text-slate-400 text-[10px] uppercase font-black tracking-widest italic mb-4">Hand-curated for JNTUK R23 Students</p>

@@ -13,7 +13,12 @@
         .rotate-y-180 { transform: rotateY(180deg); }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-300 min-h-screen font-sans antialiased selection:bg-indigo-500/30 selection:text-slate-50">
+<body class="bg-slate-950 text-slate-300 min-h-screen font-sans antialiased selection:bg-indigo-500/30 selection:text-slate-50">\n
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress-container" class="fixed top-0 left-0 w-full h-1 bg-transparent z-[100]">
+        <div id="reading-progress-bar" class="h-full bg-blue-600 transition-all duration-150 w-0"></div>
+    </div>
+
     
     <!-- Nav -->
     <nav class="fixed top-0 w-full z-50 bg-slate-900 border border-slate-800 backdrop-blur-xl bg-slate-950/80 border-b px-6">
@@ -289,7 +294,16 @@
 
             </aside>
         </div>
-    </main>
+    
+            <!-- Gamification & Progress Marker -->
+            <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
+                <button class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 mx-auto complete-topic-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    Mark as Complete <span class="bg-emerald-700/50 px-2 py-0.5 rounded text-xs ml-2">+10 XP</span>
+                </button>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-4 font-bold max-w-sm mx-auto">Login via Dashboard to save your progress, secure your streak, and unlock AI features.</p>
+            </div>
+\n</main>
     <script type="module" src="/src/ai-widget.ts"></script>
 </body>
 </html>

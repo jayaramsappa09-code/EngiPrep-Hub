@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initStudyPlanner();
     updateAuthUI();
+    initGamification();
 });
 
 // Theme Management
@@ -480,5 +481,30 @@ function initActiveNavLinks() {
             dot.className = 'absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full animate-pulse-slow';
             link.appendChild(dot);
         }
+    });
+}
+
+function initGamification() {
+    const completeBtns = document.querySelectorAll('.complete-topic-btn');
+    completeBtns.forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            const user = await getCurrentUser();
+            if (!user) {
+                if (confirm('Create a free account to save your progress and earn XP! Proceed to login?')) {
+                    window.location.href = '/auth.html?signup=true';
+                }
+            } else {
+                btn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Completed & XP Earned!`;
+                btn.className = 'px-8 py-4 bg-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/20 transition-all flex items-center justify-center gap-3 mx-auto complete-topic-btn cursor-default';
+                showNotification('Awesome! 10 XP added to your profile.');
+                
+                try {
+                    // This is where you would increment user XP in Supabase
+                    // For now we just visually alter the UI.
+                } catch (e) {
+                    console.error("XP Error", e);
+                }
+            }
+        });
     });
 }

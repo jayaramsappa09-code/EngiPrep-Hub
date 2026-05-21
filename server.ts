@@ -5,8 +5,9 @@ import dotenv from 'dotenv';
 import multer from 'multer';
 import mammoth from 'mammoth';
 import fs from 'fs';
-// @ts-ignore
-import pdfParse from 'pdf-parse';
+import * as pdfParseModule from 'pdf-parse';
+const pdfParse = pdfParseModule.default || pdfParseModule;
+
 
 dotenv.config();
 const upload = multer({ dest: 'uploads/' });
