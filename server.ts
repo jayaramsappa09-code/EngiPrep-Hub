@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import multer from 'multer';
 import mammoth from 'mammoth';
 import fs from 'fs';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const pdfParse = require('pdf-parse');
 
 dotenv.config();
@@ -52,7 +54,7 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', hasKey });
 });
 
-app.post('/api/notes/parse', upload.single('file'), async (req, res) => {
+app.post('/api/notes/parse', upload.single('file'), async (req: any, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
   const filePath = req.file.path;
