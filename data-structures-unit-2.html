@@ -3,794 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 2: Singly, Doubly, &amp; Circular Linked Lists | EngiPrep Hub</title>
-    <meta name="description" content="Ultimate JNTUK R23 Data Structures Unit II guide. Master Singly, Doubly, and Circular Linked List representations, node pointers traversal, and operations.">
-    <link class="stylesheet" href="/src/style.css" rel="stylesheet">
-
-    <!-- KaTeX CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-
-    <!-- Lucide icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        .glass-card {
-            background-color: rgba(9, 10, 26, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.12);
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.35);
-            box-shadow: 0 12px 36px -8px rgba(59, 130, 246, 0.16);
-        }
-        .viva-card-inner {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-        .viva-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .active-nav-card {
-            border-color: rgba(59, 130, 246, 0.4);
-            background-color: rgba(59, 130, 246, 0.08);
-            color: #3b82f6 !important;
-        }
-    </style>
+    <title>JNTUK R23 Linked Lists (SLL, DLL, CLL) | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Linked Lists (SLL, DLL, CLL). Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
+    <link rel="stylesheet" href="/src/style.css">
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ],
-                throwOnError: false
-            });
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-            initPlatform();
-        });
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
     </script>
+    <style>
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
+    </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#030308] text-slate-350 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-blue-600 selection:text-white">
-
-    <!-- Toast message system -->
-    <div id="toast-notif" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 bg-[#090b1e]/90 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none">
-        <span class="p-1 bg-emerald-500/10 rounded-lg"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i></span>
-        <span id="toast-message">Progress Saved!</span>
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 w-full z-50 bg-[#030308]/85 backdrop-blur-md border-b border-blue-950/45 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between font-semibold">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl"></div>
-                    <span class="relative z-10 text-white font-black text-lg">EP</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none font-sans">EngiPrep <span class="text-blue-500">Hub</span></span>
-                    <span class="text-[6.5px] font-black uppercase tracking-[0.22em] text-blue-500 mt-1">JNTUK R23 Regulation Workspace</span>
-                </div>
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            <div class="flex items-center gap-4">
-                <a href="/data-structures-basics.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase text-slate-350 transition-all">
-                    Syllabus Hub
-                </a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-white">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
-    <!-- Main Outer Container -->
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        
-        <!-- Breadcrumbs -->
         <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
             <ol class="flex items-center gap-2">
                 <li><a href="/" class="hover:text-blue-500">Home</a></li>
                 <li>/</li>
-                <li><a href="/semester-2.html" class="hover:text-blue-500">Sem 2</a></li>
+                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
                 <li>/</li>
-                <li><a href="/data-structures-basics.html" class="hover:text-blue-500">Data Structures</a></li>
+                <li><a href="/subject.html?slug=data-structures" class="hover:text-blue-500">data structures</a></li>
                 <li>/</li>
-                <li class="text-blue-500" aria-current="page">Unit II: Linked Lists</li>
+                <li class="text-blue-500" aria-current="page">Linked Lists (SLL, DLL, CLL)</li>
             </ol>
         </nav>
-
-        <!-- TOP HEADER BOX -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#04091c] border border-blue-950/45">
-            <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none font-sans"></div>
-            <div class="space-y-4 relative z-10 max-w-2xl">
-                <div class="flex items-center gap-2 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-indigo-500/15 border border-indigo-500/25 text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit II Workspace</span>
-                    <span class="px-2.5 py-0.5 bg-[#f59e0b]/15 border border-[#f59e0b]/25 text-[#f59e0b] text-[10px] font-black uppercase tracking-widest rounded-full">Difficulty: Hard</span>
-                </div>
-                <div>
-                    <h1 class="text-3xl lg:text-4xl font-extrabold text-white uppercase tracking-tight font-sans">
-                        Unit II: Singly, Doubly &amp;<br>Circular Linked Lists
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        Trace nodes memory allocation patterns. Conquer pointer redirection layouts across insertions, deletions, list traversals, and array-linked list comparisons.
-                    </p>
-                    <div class="flex flex-wrap gap-2.5 mt-5">
-                        <a href="#solved-papers" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Solve Core Programs 💻
-                        </a>
-                        <a href="#viva" class="px-3 py-1.5 border border-purple-500/30 bg-purple-500/10 hover:bg-purple-600/20 text-purple-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Practice Viva Questions 🧠
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-emerald-500/30 bg-emerald-500/10 hover:bg-[#10b981]/25 text-[#10b981] rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Run Complexity Analyzer ⚡
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-450 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Visualize Data Structures 🎯
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-amber-500/30 bg-amber-500/10 hover:bg-amber-600/20 text-amber-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Open Code Playground 🚀
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Unit Tracking Bento Box -->
-            <div class="w-full md:w-80 p-5 bg-slate-950/60 border border-slate-900 rounded-2xl flex flex-col justify-between h-52 relative z-10 shadow-inner">
-                <div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-[#f43f5e]">CODING NOT STARTED</span>
-                        <span id="overall-status-text" class="text-[10px] font-black text-rose-500 font-sans">0% Completed</span>
-                    </div>
-                    <h4 class="text-xs font-black text-white mt-1">DSA Preparation Tracker</h4>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span>Problem Solving Progress</span>
-                        <span id="percentage-indicator" class="font-bold">0%</span>
-                    </div>
-                    <div class="w-full bg-[#101438] h-2 rounded-full overflow-hidden">
-                        <div id="progress-bar-indicator" class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between font-sans">
-                    <span class="text-[8.5px] text-slate-500 font-extrabold uppercase">15 Smart Coding Modules</span>
-                    <button onclick="resetInternalTracker()" class="text-[9px] text-[#f43f5e] hover:underline font-extrabold cursor-pointer uppercase">Reset Status</button>
-                </div>
-            </div>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Linked Lists (SLL, DLL, CLL) <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Singly linked lists, doubly linked lists, circular linked lists, representation and operations.</p>
         </header>
-
-        <!-- TWO COLUMN VIEWPORT -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- LEFT NAVIGATION SIDEBAR -->
-            <aside class="lg:col-span-3 sticky top-28 space-y-4 max-h-[80vh] overflow-y-auto pr-2 no-scrollbar">
-                <div class="p-1 rounded-2xl bg-[#050510] border border-blue-950/50 space-y-1 shadow-2xl">
-                    <div class="p-3 text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-blue-950/30">Table of Contents</div>
-                    
-                    <a href="#intro" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">01</span> Introduction to the Data Structure
-                    </a>
-                    <a href="#core-principles" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">02</span> Core Theory Concepts
-                    </a>
-                    <a href="#definitions" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">03</span> Operations &amp; Time Complexity
-                    </a>
-                    <a href="#derivations" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">04</span> Algorithms &amp; Working Logic
-                    </a>
-                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">05</span> Code Implementations
-                    </a>
-                    <a href="#numericals" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">06</span> Step-by-Step Dry Runs
-                    </a>
-                    <a href="#calculator" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">07</span> Visual Simulations
-                    </a>
-                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">08</span> Important Interview Programs
-                    </a>
-                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">09</span> JNTUK PYQs &amp; Repeated Questions
-                    </a>
-                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">10</span> Most Expected Exam Problems
-                    </a>
-                    <a href="#viva" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">11</span> Viva &amp; Lab Questions
-                    </a>
-                    <a href="#revision-sheets" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">12</span> Quick Revision Notes
-                    </a>
-                    <a href="#formula-sheet" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">13</span> Complexity Cheat Sheet
-                    </a>
-                    <a href="#mnemonics" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">14</span> Memory Tricks &amp; Patterns
-                    </a>
-                </div>
-            </aside>
-
-            <!-- RIGHT PANEL: MASTER CONTENT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">Dynamic Data Structures</h2>
+                    <p>Unlike arrays, linked lists allocate memory dynamically and do not require contiguous memory blocks.</p>
+                </section>
 
-                <!-- 01 SLL Representations -->
-                <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">01</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Singly Linked List Representation</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400">
-                        <p>
-                            A <b>Singly Linked List (SLL)</b> is a collection of nodes allocated dynamically in non-contiguous location buffers. Each node has two components:
-                        </p>
-                        <ul class="list-disc list-inside space-y-2 text-slate-350 bg-[#050616] p-4 rounded-xl border border-blue-950">
-                            <li><b class="text-white">Data Field:</b> Holds the actual payload information (integer, character, object).</li>
-                            <li><b class="text-white">Next Pointer:</b> Contains the reference/address link to the subsequent node in sequence. The final node next parameter is <code class="text-[#0dffc0]">NULL</code>.</li>
-                        </ul>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-1" onclick="toggleScoreTask('tag-1')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master Singly List physical allocation (+20 XP)</span>
-                            </label>
+                
+
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">SLL Node Structure</h4>
+                            <p class="font-mono text-sm mt-2">struct Node { int data; struct Node* next; };</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">DLL Node Structure</h4>
+                            <p class="font-mono text-sm mt-2">struct Node { int data; struct Node* prev, *next; };</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 02 DLL & Circular List logic -->
-                <section id="core-principles" class="glass-card p-8 scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">02</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">DLL &amp; Circular List logic</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium leading-relaxed text-slate-400">
-                        <p>
-                            We address traverse limits by introducing bidirectional linkages and loops:
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-blue-400 font-bold uppercase text-[9.5px]">Doubly Linked Lists (DLL)</span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    Each node holds two pointers: <code class="text-[#0dffc0]">prev</code> and <code class="text-[#0dffc0]">next</code>. This allows full bidirectional traversal, although it increases memory consumption slightly.
-                                </p>
-                            </div>
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-indigo-400 font-bold uppercase text-[9.5px]">Circular Linked Lists (CLL)</span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    The final node points directly back to the head node instead of <code class="text-[#0dffc0]">NULL</code>, forming a circular loop useful for scheduling patterns.
-                                </p>
-                            </div>
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">SLL Operations <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Write a C program to insert a node at the beginning and end of a Singly Linked List.</p>
                         </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-2" onclick="toggleScoreTask('tag-2')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Learn DLL and CLL structures (+20 XP)</span>
-                            </label>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">DLL Deletion <span class="text-blue-500">(5 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Write an algorithm to delete a specific node from a Doubly Linked List.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 03 Essential tradeoffs list -->
-                <section id="definitions" class="glass-card p-8 scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">03</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Essential Tradeoffs List</h2>
-                    </div>
-                    <div class="space-y-5 text-xs text-slate-400">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans">
-                            <div class="p-4 bg-slate-950/70 border border-slate-900 rounded-xl space-y-1">
-                                <b class="text-white text-xs block">Array Properties</b>
-                                <p class="text-[11px] text-slate-450 leading-relaxed">
-                                    Contiguous memory. Constant time random access $\mathcal{O}(1)$. Shifting cost during insertion is $\mathcal{O}(n)$.
-                                </p>
-                            </div>
-                            <div class="p-4 bg-slate-950/70 border border-slate-900 rounded-xl space-y-1">
-                                <b class="text-white text-xs block">Linked List Properties</b>
-                                <p class="text-[11px] text-slate-450 leading-relaxed">
-                                    Dynamic non-contiguous nodes. Safe pointers redirection. Insertion at head is constant $\mathcal{O}(1)$. Access time is progressive $\mathcal{O}(n)$.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-3" onclick="toggleScoreTask('tag-3')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Understand structural tradeoffs (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 04 Core SLL insertions code -->
-                <section id="derivations" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-blue-500 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">04</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Core SLL insertions code</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed">
-                        <p>Write clean C-styled pointers redirection templates clearly showing node creation:</p>
-                        <pre class="bg-slate-950/90 p-4 rounded-xl border border-blue-950 text-[#0dffc0] font-mono text-[10.5px]">
-// SLL Node structure
-struct Node {
-    int data;
-    struct Node* next;
-};
-
-// Insert at Head operation
-struct Node* insertAtHead(struct Node* head, int value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = value;
-    newNode->next = head; // Point new node next link to old head
-    return newNode;       // Return new node as updated head
-}</pre>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-4" onclick="toggleScoreTask('tag-4')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Memorize Insertion logic structures (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 05 High-Yield SLL Formula sheet -->
-                <section id="formula-sheet" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-[#f59e0b]">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-[#f59e0b] font-mono">05</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">High-Yield SLL Formula sheet</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium font-sans text-slate-400">
-                        <p>Operational complexity summaries for various parts of a Linked List:</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono">
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl">
-                                <span class="text-blue-400 font-bold block text-[9px] uppercase">Insertion/Deletion at Head</span>
-                                <h4 class="text-white font-extrabold text-sm mt-1">Time complexity: $\mathcal{O}(1)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">SLL, DLL, and CLL require only dynamic pointer flips to update the head node.</p>
-                            </div>
-                            <div class="p-[#101530] bg-slate-950 border border-slate-900 rounded-xl p-4">
-                                <span class="text-[#f59e0b] font-bold block text-[9px] uppercase">Pointer Search Traverse</span>
-                                <h4 class="text-white font-extrabold text-sm mt-1">Time complexity: $\mathcal{O}(n)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">To search or access an element, we must traverse the list sequentially from the head.</p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-5" onclick="toggleScoreTask('tag-5')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Lock high-yield reference parameters (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 06 Interactive Sandbox SLL -->
-                <section id="calculator" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-indigo-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-indigo-400 font-mono">06</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Interactive Sandbox: LinkedList Node Visualizer</h2>
-                    </div>
-                    
-                    <div class="p-5 bg-[#01020d] border border-blue-950 rounded-xl space-y-6">
-                        <div class="flex items-center gap-3 flex-wrap">
-                            <div class="flex flex-col gap-1">
-                                <label class="text-[9px] text-slate-550 uppercase font-bold tracking-wider">Node data value:</label>
-                                <input type="number" id="sll-node-input" value="10" class="px-3 py-1 bg-[#030308] border border-blue-950 rounded text-xs text-center text-white font-mono w-20">
-                            </div>
-                            <div class="flex gap-2 mt-4 flex-wrap">
-                                <button onclick="simulateSLL('add-head')" class="px-3 py-1.5 bg-blue-600/20 text-blue-400 border border-blue-600/30 hover:bg-blue-600/30 font-black text-xs uppercase rounded cursor-pointer transition-all">Insert Head</button>
-                                <button onclick="simulateSLL('add-tail')" class="px-3 py-1.5 bg-indigo-600/20 text-indigo-400 border border-indigo-600/30 hover:bg-indigo-600/30 font-black text-xs uppercase rounded cursor-pointer transition-all">Insert Tail</button>
-                                <button onclick="simulateSLL('del-head')" class="px-3 py-1.5 bg-rose-600/20 text-rose-400 border border-rose-600/30 hover:bg-rose-600/30 font-black text-xs uppercase rounded cursor-pointer transition-all">Delete Head</button>
-                            </div>
-                        </div>
-
-                        <!-- Logical visual list nodes -->
-                        <div class="py-6 px-4 bg-[#020206] border border-blue-950/35 rounded-lg flex items-center justify-start gap-2.5 overflow-x-auto min-h-24 no-scrollbar" id="sll-visualization-container">
-                            <!-- JS driven nodes render here dynamically -->
-                        </div>
-
-                        <!-- Logs trace -->
-                        <div class="p-3 bg-slate-950/90 border border-blue-950 font-mono text-[10.5px] text-slate-500 leading-normal rounded" id="sll-v-feed">
-                            LinkedList state helper log trace loaded. Add nodes to watch head updating sequence.
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 07 Dynamic lists solved examples -->
-                <section id="numericals" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-emerald-500 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-emerald-500 font-mono">07</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Dynamic Lists Solved Examples</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed">
-                        <div class="p-5 bg-emerald-500/5 border border-emerald-500/20 rounded-xl space-y-1">
-                            <span class="text-[#0dffc0] text-[9.5px] font-mono tracking-wider font-bold">BOARD SOLVED TEST: REDIRECT FLIPS FOR SLL REVERSAL</span>
-                            <p class="mt-2 text-slate-350">
-                                Trace pointer redirections step-by-step to reverse a list: <code class="text-white">Head -> [10] -> [20] -> [30] -> NULL</code>.
-                            </p>
-                            <div class="bg-black/40 border border-blue-950 p-4 rounded-xl font-mono text-[11px] text-indigo-400">
-                                1. Set three pointers: <code class="text-[#0dffc0]">prev = NULL, current = head, next = NULL</code>.<br>
-                                2. In loop, save next reference: <code class="text-[#0dffc0]">next = current->next</code>.<br>
-                                3. Flip pointers linkage: <code class="text-[#0dffc0]">current->next = prev</code>.<br>
-                                4. Progress trackers: <code class="text-[#0dffc0]">prev = current, current = next</code>.<br>
-                                5. When current equals NULL, make <code class="text-[#0dffc0]">head = prev</code>. Result linked: <code class="text-emerald-400">Head -> [30] -> [20] -> [10] -> NULL</code>!
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-6" onclick="toggleScoreTask('tag-6')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Review Reversed linked-list pointer logic (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 08 JNTUK Solved Papers DLL -->
-                <section id="solved-papers" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-purple-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-purple-500 font-mono">08</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">JNTUK Solved Papers DLL</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans">
-                        <div class="border-l-2 border-purple-500 pl-4 space-y-1">
-                            <h4 class="font-extrabold text-white">Doubly LinkedList Insertion at Head in C <span class="text-purple-400">(10 Marks JNTUK Exam)</span></h4>
-                            <p>To safely insert a new node at the head in DLL, update both the forward and backward pointers:</p>
-                            <pre class="bg-slate-950/85 p-3 rounded-lg border border-purple-950 text-[#0dffc0] font-mono text-[10.5px]">
-struct Node* insertHeadDLL(struct Node* head, int val) {
-    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
-    temp->data = val;
-    temp->prev = NULL;
-    temp->next = head;
-
-    if (head != NULL) {
-        head->prev = temp; // Link backward pointer of old head to temp
-    }
-    return temp; // Updated Head node returning
-}</pre>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-7" onclick="toggleScoreTask('tag-7')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master DLL structural insertions (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 09 Most Expected Predictor -->
-                <section id="predictor" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-rose-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/25 pb-3">
-                        <span class="text-xl font-bold text-rose-500 font-mono">09</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Most Expected Predictor</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium font-sans">
-                        <div class="p-4 bg-rose-500/5 rounded-xl border border-rose-500/20 space-y-2">
-                            <span class="text-rose-450 uppercase font-black tracking-widest text-[8.5px]">PREDICTED BOARD EXAM ESSAYS (10 MARKS EACH)</span>
-                            <ul class="list-decimal list-inside space-y-1.5 text-slate-350">
-                                <li>Detail representation and algorithms to insert and delete nodes at specific middle positions in Double Linked Lists.</li>
-                                <li>Explain representations of Singly Linked List structures and write code for Head/Tail deletions.</li>
-                                <li>Detail the differences between Circular Linked Lists and Singly Linked Lists, highlighting circular traversal conditions.</li>
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                
                             </ul>
                         </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-8" onclick="toggleScoreTask('tag-8')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Check-off essay questions review (+20 XP)</span>
-                            </label>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"N/A"</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">N/A</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 10 Lab Concept Viva Cards -->
-                <section id="viva" class="glass-card p-8 scroll-mt-24 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">10</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Lab Concept Viva Cards</h2>
-                    </div>
-                    <p class="text-xs text-slate-400 mb-6 font-sans">Flip and verify concepts verbal prep instantly:</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Card 1 -->
-                        <div class="relative w-full h-32 cursor-pointer select-none group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between animate-fadeIn">
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">Why do Circular Lists avoid storing NULL references?</h4>
-                                    <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
+                                    <h4 class="text-xs font-black text-slate-100">Singly Linked List?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">Because the final node's next field contains the address pointer to the original head node, forming a continuous cycle.</p>
-                                    <span class="text-[9px] text-emerald-400">Score unlocked!</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Each node contains data and a pointer to the next node.</p>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Card 2 -->
-                        <div class="relative w-full h-32 cursor-pointer select-none group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between animate-[#030308]">
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">What memory footprint issue is associated with DLL nodes?</h4>
-                                    <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
+                                    <h4 class="text-xs font-black text-slate-100">Doubly Linked List?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between animate-f">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal">Each node requires two overhead address markers/pointers (prev, next), which consumes double the pointer storage space compared to a Singly Linked List.</p>
-                                    <span class="text-[9px] text-emerald-400 font-sans">Score unlocked!</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Each node contains pointers to both the previous and next nodes.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-                <!-- 11 SLL vs Array cheats -->
-                <section id="revision-sheets" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-cyan-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-cyan-500 font-mono">11</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">SLL vs Array cheats</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 font-sans leading-relaxed">
-                        <p>Evaluate these comparison vectors:</p>
-                        <ul class="list-disc list-inside space-y-1.5 text-slate-350">
-                            <li><b class="text-white">Access Speed:</b> Arrays: constant $\mathcal{O}(1)$ via index calculations. Lists: sequential traverse $\mathcal{O}(n)$.</li>
-                            <li><b class="text-white">Dynamic Allocations:</b> Arrays can cause buffer overflow or waste unused pre-allocated indices. Lists allocate nodes strictly when needed.</li>
-                        </ul>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-9" onclick="toggleScoreTask('tag-9')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Save tradeoffs summaries indicators (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 12 Memory Aids & Mnemonics -->
-                <section id="mnemonics" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-yellow-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-yellow-500 font-mono">12</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Memory Aids &amp; Mnemonics</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 font-sans">
-                        <div class="p-5 bg-yellow-500/5 border border-yellow-500/20 rounded-xl space-y-2 leading-relaxed">
-                            <span class="text-[9px] font-black uppercase text-yellow-500 tracking-widest font-mono">SLL LINK MNEMONIC</span>
-                            <p class="text-slate-350 font-sans">
-                                <b>"Flipping head requires connecting references before breaking links!"</b><br>
-                                In SLL insert actions, always assign <code class="text-[#0dffc0]">newNode->next = head</code> FIRST, then assign <code class="text-[#0dffc0]">head = newNode</code>. Reversing this order breaks your references chain, leaving the existing nodes orphaned in memory!
-                            </p>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-10" onclick="toggleScoreTask('tag-10')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Maintain Pointer swap safety rules (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 13 1-Day Prep Final Tips -->
-                <section id="survival-plan" class="p-8 bg-rose-50/5 border border-rose-500/20 rounded-[2rem] scroll-mt-24 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-rose-500/25 pb-3">
-                        <span class="text-xl font-bold text-rose-400 font-mono">13</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">1-Day Prep Final Tips (Scoring Maximum Marks)</h2>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center font-sans text-xs">
-                        <div class="md:col-span-8 space-y-4 font-medium leading-relaxed">
-                            <h4 class="text-sm font-black text-white">How to score maximum marks in Unit II Linked Lists:</h4>
-                            <p class="text-slate-350">
-                                1. <b>Represent pointers using physical links arrows:</b> If an insertion is requested (e.g. between nodes A and B), illustrate the links clearly. Cross out the broken references and draw bold arrows for the updated link locations.
-                            </p>
-                            <p class="text-slate-350">
-                                2. <b>Write SLL Struct definition first:</b> Every linked list question should start with the defining <code class="text-rose-400">struct Node</code> block. Even if the examiner asks for general logic, writing this struct immediately secures safety points.
-                            </p>
-                        </div>
-                        <div class="md:col-span-4 p-5 bg-[#030308] border border-rose-500/20 rounded-2xl text-center space-y-3">
-                            <span class="text-lg">🎓</span>
-                            <h5 class="text-xs font-bold text-white">Done reviewing?</h5>
-                            <p class="text-[10px] text-slate-450 leading-relaxed font-sans">Make sure you have crossed all checks to lock Unit II status in your browser storage.</p>
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-11" onclick="toggleScoreTask('tag-11')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>I am exam-ready (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
             </div>
         </div>
     </main>
-
     <script>
-        let scoreXP = 0;
-        const maxXPValue = 220; // 11 tasks * 20 value = 220 total
-
-        let sllList = [10, 20, 30]; // Initial visual node queue
-
-        function initPlatform() {
-            const storedXP = localStorage.getItem('engi_ds_u2_score');
-            if (storedXP) {
-                scoreXP = parseInt(storedXP);
-                for (let i = 1; i <= 11; i++) {
-                    const status = localStorage.getItem(`engi_ds_u1_u2_task_${i}`);
-                    const elCheck = document.getElementById(`tag-${i}`);
-                    if (elCheck && status === 'done') {
-                        elCheck.checked = true;
-                    }
-                }
+        function flipVivaCard(card) {
+            const inner = card.querySelector('.viva-card-inner');
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
             } else {
-                scoreXP = 0;
-            }
-            updateXPUIRender();
-            renderSLLNodes();
-        }
-
-        function showToastMessage(msg) {
-            const toast = document.getElementById('toast-notif');
-            document.getElementById('toast-message').innerText = msg;
-            toast.style.opacity = '1';
-            toast.style.transform = 'translateY(0px)';
-            
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(20px)';
-            }, 2500);
-        }
-
-        function updateXPUIRender() {
-            if (scoreXP < 0) scoreXP = 0;
-            if (scoreXP > maxXPValue) scoreXP = maxXPValue;
-
-            localStorage.setItem('engi_ds_u2_score', scoreXP);
-            const percentage = Math.round((scoreXP / maxXPValue) * 100);
-
-            document.getElementById('percentage-indicator').innerText = `${percentage}%`;
-            document.getElementById('progress-bar-indicator').style.width = `${percentage}%`;
-
-            const statusText = document.getElementById('overall-status-text');
-            if (percentage === 0) {
-                statusText.innerText = 'NOT STARTED';
-                statusText.className = 'text-[10px] font-black text-rose-500 font-sans';
-            } else if (percentage < 40) {
-                statusText.innerText = 'POINTER TRAINEE 🛠️';
-                statusText.className = 'text-[10px] font-black text-blue-450 font-sans';
-            } else if (percentage < 85) {
-                statusText.innerText = 'NODE EXPERT 🧠';
-                statusText.className = 'text-[10px] font-black text-indigo-400 font-sans';
-            } else {
-                statusText.innerText = 'LINKED ARCHITECT 🏆';
-                statusText.className = 'text-[10px] font-black text-emerald-400 animate-pulse font-sans';
+                inner.style.transform = 'rotateY(180deg)';
             }
         }
-
-        window.toggleScoreTask = function(chkId) {
-            const chkElement = document.getElementById(chkId);
-            const indexValue = chkId.split('-')[1];
-            
-            if (chkElement.checked) {
-                scoreXP += 20;
-                localStorage.setItem(`engi_ds_u1_u2_task_${indexValue}`, 'done');
-                showToastMessage(`Checkpoint master! +20 XP 🔥`);
-            } else {
-                scoreXP -= 20;
-                localStorage.setItem(`engi_ds_u1_u2_task_${indexValue}`, 'undone');
-                showToastMessage(`Removed Checkpoint! -20 XP`);
-            }
-            updateXPUIRender();
-        };
-
-        window.resetInternalTracker = function() {
-            if (confirm("Reset all study checklists and unlocked XP values for Unit II?")) {
-                localStorage.removeItem('engi_ds_u2_score');
-                for (let i = 1; i <= 11; i++) {
-                    localStorage.removeItem(`engi_ds_u1_u2_task_${i}`);
-                    const chkElement = document.getElementById(`tag-${i}`);
-                    if (chkElement) chkElement.checked = false;
-                }
-                scoreXP = 0;
-                updateXPUIRender();
-                showToastMessage("Platform data completely reset.");
-            }
-        };
-
-        window.highlightNav = function(el) {
-            document.querySelectorAll('.nav-anchor-lnk').forEach(lnk => {
-                lnk.classList.remove('active-nav-card');
-            });
-            el.classList.add('active-nav-card');
-        };
-
-        window.flipVivaCard = function(el) {
-            const inner = el.querySelector('.viva-card-inner');
-            inner.classList.toggle('viva-card-flipped');
-            scoreXP += 5;
-            updateXPUIRender();
-            showToastMessage(`Practiced Oral Viva! +5 XP 🧪`);
-        };
-
-        // LinkedList Simulator
-        function renderSLLNodes() {
-            const container = document.getElementById('sll-visualization-container');
-            if(!container) return;
-            container.innerHTML = '';
-
-            if (sllList.length === 0) {
-                container.innerHTML = `<span class="text-xs text-rose-500 font-bold font-mono">Head -> NULL (Empty list state)</span>`;
-                return;
-            }
-
-            // Head item label
-            const headLabel = document.createElement('div');
-            headLabel.className = "flex flex-col items-center justify-center font-mono text-[10px] font-black text-blue-400 uppercase tracking-widest pl-2";
-            headLabel.innerHTML = `<span>Head</span><span class="text-slate-650">↓</span>`;
-            container.appendChild(headLabel);
-
-            sllList.forEach((val, idx) => {
-                // Node cell block representation
-                const nodeBlock = document.createElement('div');
-                nodeBlock.className = "flex items-stretch border border-blue-500/30 bg-[#060920] rounded-lg overflow-hidden font-mono text-xs scale-95 md:scale-100 shadow-sm";
-                nodeBlock.innerHTML = `
-                    <div class="px-3 py-1.5 bg-blue-500/10 text-white font-extrabold flex items-center justify-center border-r border-blue-500/20">${val}</div>
-                    <div class="px-2 py-1.5 text-blue-400 bg-[#030616] flex items-center justify-center min-w-[28px] font-black">next</div>
-                `;
-                container.appendChild(nodeBlock);
-
-                // Pointer directional arrow
-                const arrow = document.createElement('div');
-                arrow.className = "text-indigo-500 font-black text-sm flex items-center justify-center px-1";
-                if (idx === sllList.length - 1) {
-                    arrow.innerHTML = `<span>→</span> <span class="bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] text-rose-400 font-bold ml-1.5">NULL</span>`;
-                } else {
-                    arrow.innerHTML = `<span>→</span>`;
-                }
-                container.appendChild(arrow);
-            });
-        }
-
-        window.simulateSLL = function(action) {
-            const valInput = document.getElementById('sll-node-input');
-            const feed = document.getElementById('sll-v-feed');
-            const dataVal = parseInt(valInput.value);
-
-            if (isNaN(dataVal) && (action === 'add-head' || action === 'add-tail')) {
-                feed.innerHTML = `<span class="text-rose-500 font-bold">Error: Put a numerical integer inside node values field.</span>`;
-                return;
-            }
-
-            if (action === 'add-head') {
-                sllList.unshift(dataVal);
-                feed.innerHTML = `Allocated node dynamic block data index. Flipped Head pointer to brand-new [${dataVal} | next] node successfully.`;
-            } else if (action === 'add-tail') {
-                sllList.push(dataVal);
-                feed.innerHTML = `Traversed entire sequence starting from head node. Swapped final NULL pointer link of old tail to point to [${dataVal}].`;
-            } else if (action === 'del-head') {
-                if (sllList.length === 0) {
-                    feed.innerHTML = `<span class="text-rose-500 font-bold">Underflow warning: Linked List is empty! Nothing to pop.</span>`;
-                    return;
-                }
-                const removedValue = sllList.shift();
-                feed.innerHTML = `Preserved old head next address reference, called free() on popped Node holding value: ${removedValue}. Head pointer successfully redirected to index successor.`;
-            }
-            renderSLLNodes();
-        };
     </script>
 </body>
 </html>

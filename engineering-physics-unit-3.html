@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 3: Dielectric & Magnetic Materials Hub | EngiPrep Hub</title>
-    <meta name="description" content="Ultimate JNTUK R23 Engineering Physics Unit 3 Prep Platform. Clausius-Mossotti, Lorentz internal field, B-H loop, domain wall movement, and soft/hard magnets.">
+    <title>JNTUK R23 Intrinsic &amp; Extrinsic Carrier Transport | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Intrinsic &amp; Extrinsic Carrier Transport. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
     <link rel="stylesheet" href="/src/style.css">
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -14,1153 +14,137 @@
         }
     </script>
     <style>
-        .glass-card {
-            background-color: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .light .glass-card {
-            background-color: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
-        }
-        .glass-card:hover {
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
-        }
-        .viva-card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .viva-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
     </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 bg-gradient-to-tr from-[#080816] via-[#050508] to-[#0d0714] min-h-screen font-sans antialiased selection:bg-indigo-600 selection:text-white">
-
-    <!-- Premium Header Navbar -->
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-[#4f46e5] to-[#312e81] rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-indigo-500/10"></div>
-                    <span class="relative z-10 text-white font-black text-lg">EP</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none">EngiPrep <span class="text-indigo-500">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
-                </div>
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            <div id="nav-actions" class="flex items-center gap-4">
-                <a href="/physics-notes.html" class="px-4 py-2 border border-slate-700/50 rounded-xl bg-slate-900/40 text-xs font-bold uppercase hover:bg-slate-800/40 text-slate-300 transition-all flex items-center gap-1.5 active:scale-95">
-                    Subject Hub
-                </a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-indigo-500/10 text-white">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
-    <!-- Main Outer Container -->
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        
-        <!-- TOP BANNER HERO -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#0a0a16] shadow-sm">
-            <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-            
-            <div class="space-y-4 relative z-10 max-w-3xl">
-                <div class="flex items-center gap-2.5 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-indigo-500/15 border border-indigo-500/25 text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit III Strategy Kit</span>
-                    <span class="px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">Score Weighting: ~16 Marks</span>
-                    <span class="px-2.5 py-0.5 bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[10px] font-black uppercase tracking-widest rounded-full">High Scoring Core Unit</span>
-                </div>
-                <div>
-                    <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight">
-                        DIELECTRIC & MAGNETIC MATERIALS <br>
-                        <span class="bg-gradient-to-r from-indigo-400 via-pink-400 to-rose-400 bg-clip-text text-transparent">Complete Exam Survival Kit</span>
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        Curated specifically for JNTUK R23 Engineering Physics. Skip bulky textbooks—this kit delivers the exact formulations for local field Lorentz calculations, Clausius-Mossotti ratios, ferromagnetic domains, hysteresis B-H properties, and soft/hard magnet classifications.
-                    </p>
-                </div>
-                <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <a href="#derivations" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all text-white">Go to Derivations ⚡</a>
-                    <a href="#viva" class="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg text-[10px] font-black uppercase tracking-widest hover:border-slate-700 transition-all">Test Your Viva 🧪</a>
-                    <a href="#calculator" class="px-4 py-2 bg-indigo-950/50 border border-indigo-900/50 text-indigo-400 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-indigo-900/50 transition-all font-bold">Try Field Calculator 🧮</a>
-                </div>
-            </div>
-
-            <!-- Tracker -->
-            <div class="w-full md:w-80 p-5 bg-[#08081a] border border-[#1a1a36] rounded-2xl flex flex-col justify-between h-48 relative z-10">
-                <div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Unit Coverage</span>
-                        <span id="tracker-status" class="text-[10px] font-black text-[#f59e0b]">NOT COMPLETED</span>
-                    </div>
-                    <h4 class="text-xs font-black text-white mt-1">Study Session Tracker</h4>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span>Checklist progress</span>
-                        <span id="pct-indicator" class="font-bold">0%</span>
-                    </div>
-                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
-                        <div id="pb-indicator" class="h-full bg-gradient-to-r from-[#4f46e5] to-[#a855f7] rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <span class="text-[8.5px] text-slate-400 font-extrabold uppercase font-mono">11 Prep Blocks Complete</span>
-                    <button onclick="resetInternalTracker()" class="text-[9px] text-rose-500 hover:underline font-extrabold uppercase bg-transparent border-0 cursor-pointer">Reset Status</button>
-                </div>
-            </div>
+        <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2">
+                <li><a href="/" class="hover:text-blue-500">Home</a></li>
+                <li>/</li>
+                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
+                <li>/</li>
+                <li><a href="/subject.html?slug=engineering-physics" class="hover:text-blue-500">engineering physics</a></li>
+                <li>/</li>
+                <li class="text-blue-500" aria-current="page">Intrinsic &amp; Extrinsic Carrier Transport</li>
+            </ol>
+        </nav>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Intrinsic &amp; Extrinsic Carrier Transport <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Intrinsic/extrinsic transport, drift/diffusion, Fermi levels, and the Hall Effect.</p>
         </header>
-
-        <!-- LAYOUT GRID -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- LEFT NAVIGATION -->
-            <aside class="lg:col-span-3 sticky top-28 space-y-4 max-h-[85vh] overflow-y-auto pr-2">
-                <div class="p-1.5 rounded-2xl bg-slate-950/50 border border-slate-900/60 space-y-1">
-                    <div class="p-3 text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-900/60">Syllabus Index</div>
-                    
-                    <a href="#intro" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>1.</span> Unit Overview
-                    </a>
-                    <a href="#concepts" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>2.</span> Core Concepts
-                    </a>
-                    <a href="#frequency" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>3.</span> Polarization & Frequency
-                    </a>
-                    <a href="#magnetic-class" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>4.</span> Magnetic Properties
-                    </a>
-                    <a href="#derivations" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>5.</span> Step-by-Step Derivations
-                    </a>
-                    <a href="#formula-sheet" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>6.</span> High-Yield Formula Sheet
-                    </a>
-                    <a href="#calculator" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>7.</span> Field Solver Sandbox 🧮
-                    </a>
-                    <a href="#numericals" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>8.</span> Solved Numericals
-                    </a>
-                    <a href="#solved-papers" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>9.</span> JNTUK Solved Papers
-                    </a>
-                    <a href="#predictor" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>10.</span> Most Expected Predictor
-                    </a>
-                    <a href="#viva" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>11.</span> Viva Flipcards 🧩
-                    </a>
-                    <a href="#revision-sheets" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>12.</span> Quick Revision Sheets
-                    </a>
-                    <a href="#memory-tricks" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>12.5.</span> Memory Tricks & Mnemonics
-                    </a>
-                    <a href="#fast-scoring" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>12.6.</span> Priorities & Core Warnings
-                    </a>
-                    <a href="#survival-plan" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>13.</span> 1-Day Prep Final Tips
-                    </a>
-                </div>
-            </aside>
-
-            <!-- RIGHT Study Blocks -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">Semiconductor Band Theory</h2>
+                    <p>Materials are classified by energy band gaps. Semiconductors have a small band gap (~1 eV) allowing thermal excitation.</p>
+                </section>
+
                 
-                <!-- PROGRESS CHECKLIST -->
-                <section class="glass-card p-6 bg-slate-950/40 border border-slate-900/80 rounded-2xl">
-                    <h3 class="text-xs font-extrabold text-[#f59e0b] uppercase tracking-wider mb-3">Goal Tracker Challenge</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u3-1" onclick="toggleTask('u3-1', 12)" class="accent-indigo-500">
-                            <span>Introduction to Dielectrics</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u3-2" onclick="toggleTask('u3-2', 12)" class="accent-indigo-500">
-                            <span>Polarizability & Polarization</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u3-3" onclick="toggleTask('u3-3', 12)" class="accent-indigo-500">
-                            <span>Internal Space Lorentz Field</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u3-4" onclick="toggleTask('u3-4', 12)" class="accent-indigo-500">
-                            <span>Clausius-Mossotti Derivation</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u3-5" onclick="toggleTask('u3-5', 12)" class="accent-indigo-500">
-                            <span>Ferro/Dia/Para Magnetic Models</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u3-6" onclick="toggleTask('u3-6', 12)" class="accent-indigo-500">
-                            <span>Domain Walls & Hysteresis Cycle</span>
-                        </label>
-                    </div>
-                </section>
 
-                <!-- 1. OVERVIEW -->
-                <section id="intro" class="glass-card p-8 bg-slate-900/60 scroll-mt-24">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight mb-4 flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> 1. Unit Overview & Exam Weight
-                    </h2>
-                    <p class="text-sm text-slate-300 leading-relaxed mb-4">
-                        This unit splits mathematically and qualitatively into two major halves: Dielectrics (insulators acting under extreme capacitive fields) and Magnetic properties of solids. JNTUK extremely heavily tests the physical representation of dielectric constant, polarization, and mathematical formulation of Clausius-Mossotti and B-H loops.
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-semibold">
-                        <div class="p-3.5 bg-indigo-950/20 rounded-xl border border-indigo-900/40">
-                            <h4 class="text-indigo-400 font-extrabold uppercase">Exam Importance</h4>
-                            <p class="text-slate-400 mt-1">Both dielectric and magnetic sub-questions appear as major 10M selections in external papers. The Clausius-Mossotti proof and B-H loops are prime repeats.</p>
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Intrinsic Density</h4>
+                            <p class="font-mono text-sm mt-2">n_i² = N_c N_v exp(-E_g/kT)</p>
                         </div>
-                        <div class="p-3.5 bg-[#1e102e]/20 rounded-xl border border-purple-900/40">
-                            <h4 class="text-purple-400 font-extrabold uppercase">Practical Application</h4>
-                            <p class="text-slate-400 mt-1">High-permittivity dielectrics are core to modern microchip capacitors whereas magnetic materials drive transformers and storage memories.</p>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Hall Coefficient</h4>
+                            <p class="font-mono text-sm mt-2">R_H = 1 / (n·e)</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 2. CORE CONCEPTS -->
-                <section id="concepts" class="glass-card p-8 scroll-mt-24 space-y-8">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight border-b border-slate-800 pb-3 flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-indigo-555"></span> 2. Complete Syllabus Core Concepts
-                    </h2>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed">
-                        <!-- Dielectric Constant & Susceptibility -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-indigo-600/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 01</span>
-                            <h3 class="text-sm font-bold text-white">Dielectric Constant & Susceptibility</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> Dielectric constant ($\varepsilon_r$) is the ratio of permittivity of the medium to permittivity of free space. Polarization vector $P$ is proportional to E-field via electric susceptibility ($\chi_e$).</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-emerald-400 text-center">P = \varepsilon_0 \chi_e E</div>
-                        </div>
-
-                        <!-- Polarizability mechanisms -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-indigo-600/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 02</span>
-                            <h3 class="text-sm font-bold text-white">4 Polarizability Components</h3>
-                            <p class="text-slate-400">Induced dipole formation occurs via four mechanisms:</p>
-                            <ul class="text-[10.5px] space-y-0.5 text-slate-400 list-disc list-inside">
-                                <li><strong>Electronic:</strong> Displacement of electron cloud relative to nucleus.</li>
-                                <li><strong>Ionic:</strong> Separation of positive/negative ions.</li>
-                                <li><strong>Orientation:</strong> Alignment of pre-existing polar molecules.</li>
-                                <li><strong>Space Charge:</strong> Accumulation of mobile carriers at boundaries.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Internal Field (Lorentz Field) -->
-                        <div class="p-5 bg-slate-950/60 border border-[#1b1c36] rounded-xl space-y-2">
-                            <span class="bg-indigo-600/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 03</span>
-                            <h3 class="text-sm font-bold text-white">Lorentz Internal Field (E_local)</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> The actual electric field acting on a single specific atom tucked inside a dielectric bulk. Sum of external field ($E$) and space-field induced by surrounding dipoles.</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-emerald-400">E_local = E + P / (3 * \varepsilon_0)</div>
-                            <p class="text-[10px] text-slate-400"><strong>Common Trap:</strong> E_local is always higher than raw average macroscopic field E in isotropic cubic crystals!</p>
-                        </div>
-
-                        <!-- Clausius-Mossotti Relation -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-indigo-600/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 04</span>
-                            <h3 class="text-sm font-bold text-white">Clausius-Mossotti Equation</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> Relates macroscopic dielectric constant ($\varepsilon_r$) to microscopic polarizability ($\alpha_e$). Directly models how single-atom properties yield bulk materials values.</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-indigo-400 text-center">(\varepsilon_r - 1) / (\varepsilon_r + 2) = (N \alpha_e) / (3 \varepsilon_0)</div>
-                        </div>
-
-                        <!-- Magnetic Domains -->
-                        <div class="p-5 bg-slate-950/60 border border-[#2d1c3a] rounded-xl space-y-2">
-                            <span class="bg-indigo-600/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 05</span>
-                            <h3 class="text-sm font-bold text-white">Magnetic Domains & Walls</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> Microscopic regions inside ferromagnetic solids where all magnetic moments are spontaneously aligned in the same direction. Separated by transitioning "domain walls" whose displacement models saturation.</p>
-                            <p class="text-[10px] text-slate-500">Magnetization occurs through domain wall displacement (reversible/irreversible) and domain rotation under strong external fields.</p>
-                        </div>
-
-                        <!-- Soft vs Hard Magnetic Materials -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-indigo-600/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 06</span>
-                            <h3 class="text-sm font-bold text-white">Soft vs Hard Magnets</h3>
-                            <p class="text-slate-400"><strong>Soft Magnets:</strong> Easily magnetized and demagnetized. Low coercivity, thin Hysteresis loop, low power dissipation (losses). Used in AC transformers.</p>
-                            <p class="text-slate-400"><strong>Hard Magnets:</strong> High magnetic retentivity and exceptionally high coercivity. Extremely wide loop. Used to fabricate stable permanent magnets.</p>
-                        </div>
-
-                        <!-- Displacement & Relations between Vectors -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-indigo-600/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 07</span>
-                            <h3 class="text-sm font-bold text-white">Displacement & Relations between Vectors</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> Relates the applied electric field $E$, polarization density of the material $P$, and dielectric displacement vector $D$. This is a major textbook question.</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-emerald-450 text-center">D = \varepsilon_0 E + P = \varepsilon_0 \varepsilon_r E</div>
-                            <p class="text-[10px] text-slate-500"><strong>Shortcut:</strong> Useful for calculating displacement density in micro-strip capacitor problems.</p>
-                        </div>
-
-                        <!-- Atomic Origin of Magnetism & Bohr Magneton -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-indigo-650/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 08</span>
-                            <h3 class="text-sm font-bold text-white">Atomic Origin of Magnetism & Bohr Magneton</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> Magnetism arises from two motions of atomic electrons: (1) orbital rotation of electron around nucleus, (2) spin of the electron on its own axis. The smallest unit is the Bohr Magneton ($\mu_B$).</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-emerald-450 text-center">\mu_B = \frac{e\hbar}{2m} = 9.274 \times 10^{-24} \text{ A}\cdot\text{m}^2</div>
-                        </div>
-
-                        <!-- Magnetic Susceptibility and Permeability relations -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-indigo-605/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 09</span>
-                            <h3 class="text-sm font-bold text-white">Magnetic Vector Relations</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> In any magnetic medium, the net magnetic induction vector $B$ is a superposition of the magnetizing field $H$ and the induced bulk magnetization $M$.</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-indigo-400 text-center">B = \mu_0(H + M) = \mu_0 \mu_r H \quad \text{and} \quad \chi_m = M / H</div>
-                            <p class="text-[10px] text-slate-500"><strong>Formula Tip:</strong> Relative permeability is relates to susceptibility via: $\mu_r = 1 + \chi_m$.</p>
-                        </div>
-
-                        <!-- Hysteresis Loop Parameters -->
-                        <div class="p-5 bg-slate-950/60 border border-[#2d1c3a] rounded-xl space-y-2">
-                            <span class="bg-indigo-600/20 text-indigo-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 10</span>
-                            <h3 class="text-sm font-bold text-white">Hysteresis Loop Metrics</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> The lagging of magnetic induction $B$ behind the magnetizing field $H$ during cyclic magnetization. Important parameters:</p>
-                            <ul class="text-[10.5px] space-y-0.5 text-slate-400 list-disc list-inside">
-                                <li><strong>Retentivity ($B_r$):</strong> The remnant induction left when $H$ is dropped to zero.</li>
-                                <li><strong>Coercivity ($H_c$):</strong> The demagnetizing force required to drop $B$ to zero.</li>
-                                <li><strong>Energy Loss:</strong> Directly proportional to the area enclosed by the loop.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 3: TYPES & FREQUENCY DEPENDENCE of polarization -->
-                <section id="frequency" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-[#4152dd]">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-950 pb-3">
-                        <span class="text-xl font-bold text-indigo-400">03</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Types & Frequency Dependence of Polarizations</h2>
-                    </div>
-
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
                     <div class="space-y-6">
-                        <p class="text-xs sm:text-sm text-slate-350 leading-relaxed">
-                            Crystalline lattices polarize differently under electric fields across different operating frequencies. As the frequency response increases, heavier molecular mechanisms fail to align, eventually leaving only electronic vibrations.
-                        </p>
-
-                        <!-- Bento grid for types -->
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            <!-- electronic -->
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl space-y-2">
-                                <span class="text-[9px] font-black uppercase text-indigo-400 bg-indigo-500/10 px-1 py-0.5 rounded">Electronic (Quantitative)</span>
-                                <h4 class="text-xs font-bold text-[#fafafa] pt-1">Electronic Polarizability</h4>
-                                <p class="text-[10px] text-slate-400">Displacement of electron clouds centered at nucleus. Independent of temperature. <b class="text-teal-400 font-mono">f &le; 10¹⁵ Hz</b> (Optical range).</p>
-                            </div>
-                            <!-- ionic -->
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl space-y-2">
-                                <span class="text-[9px] font-black uppercase text-pink-400 bg-pink-500/10 px-1 py-0.5 rounded">Ionic (Quantitative)</span>
-                                <h4 class="text-xs font-bold text-[#fafafa] pt-1">Ionic Polarizability</h4>
-                                <p class="text-[10px] text-slate-400">Relative displacement of positive and negative ion centers. Independent of temperature. <b class="text-teal-400 font-mono">f &le; 10¹³ Hz</b> (Infrared range).</p>
-                            </div>
-                            <!-- orientation -->
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl space-y-2">
-                                <span class="text-[9px] font-black uppercase text-orange-400 bg-orange-500/10 px-1 py-0.5 rounded">Orientation (Qualitative)</span>
-                                <h4 class="text-xs font-bold text-[#fafafa] pt-1">Orientational (Dipolar)</h4>
-                                <p class="text-[10px] text-slate-400">Alignment of polar molecules with permanent dipole moments. Highly temperature dependent ($\propto 1/T$). <b class="text-teal-400 font-mono">f &le; 10¹⁰ Hz</b> (Microwave/Radio).</p>
-                            </div>
-                            <!-- space charge -->
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl space-y-2">
-                                <span class="text-[9px] font-black uppercase text-purple-400 bg-purple-500/10 px-1 py-0.5 rounded">Space Charge</span>
-                                <h4 class="text-xs font-bold text-[#fafafa] pt-1">Space Charge Accumulation</h4>
-                                <p class="text-[10px] text-slate-400">Migration of charges to interfaces of different phases. Extremely slow reaction rate. <b class="text-teal-400 font-mono">f &le; 10³ Hz</b> (Power line frequency).</p>
-                            </div>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Hall Effect Derivation <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Explain Hall Effect. Derive the expression for Hall coefficient.</p>
                         </div>
-
-                        <!-- Complex Dielectric Constant & Loss -->
-                        <div class="p-5 bg-slate-950 border border-slate-900 rounded-2xl space-y-3 font-semibold text-xs leading-relaxed">
-                            <span class="text-[8px] tracking-widest text-[#e11d48] font-black uppercase block">Complex Polarization Limits</span>
-                            <h4 class="text-xs font-extrabold text-slate-100">Frequency Dependence & Dielectric Loss</h4>
-                            <p class="text-slate-400">
-                                When a fluctuating AC field $\mathbf{E} = E_0 e^{i\omega t}$ is loaded, polar orientation flags a phase lag. Permittivity shifts into a math expression complex dielectric constant:
-                            </p>
-                            <div class="p-3 bg-[#11111d] font-mono text-center text-teal-400 text-xs rounded-xl font-black max-w-sm mx-auto">
-                                &varepsilon;* = &varepsilon;' - i &varepsilon;''
-                            </div>
-                            <p class="text-slate-400">
-                                Where <b class="text-slate-100">&varepsilon;'</b> is the real permittivity (storage), and <b class="text-rose-400">&varepsilon;''</b> is the imaginary permittivity (loss component reflecting dissipation). The dissipation tangent is:
-                            </p>
-                            <div class="p-3 bg-[#11111d] font-mono text-center text-emerald-400 text-xs rounded-xl font-black max-w-sm mx-auto">
-                                tan(&delta;) = &varepsilon;'' / &varepsilon;'  &rArr;  Loss = 2&pi; f &Epsilon;₀ &varepsilon;'' E²
-                            </div>
-                            <p class="text-[10.5px] text-slate-500">Note: Dielectric loss is proportional to power thermal losses inside capacitor cores operating under high AC frequencies.</p>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Einstein Relation <span class="text-blue-500">(5 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Deduce the Einstein’s relation between diffusion coefficient and mobility.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- SECTION 4: CLASSIFICATION of magnetic materials -->
-                <section id="magnetic-class" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-[#a855f7]">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-950 pb-3">
-                        <span class="text-xl font-bold text-purple-400">04</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Classification of Magnetic Materials</h2>
-                    </div>
-
-                    <div class="space-y-6">
-                        <p class="text-xs sm:text-sm text-slate-350 leading-relaxed">
-                            Mag magnetic configurations depend heavily on atomic dipole orbital movements and quantum exchange spin couplings. Memorize this definitive classification chart:
-                        </p>
-
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse text-xs font-medium text-slate-300">
-                                <thead>
-                                    <tr class="border-b border-slate-800 text-slate-400 font-extrabold uppercase text-[10px]">
-                                        <th class="py-3 px-2">Type</th>
-                                        <th class="py-3 px-2">Atomic Dipoles alignment</th>
-                                        <th class="py-3 px-2">Susceptibility ($\chi_m$)</th>
-                                        <th class="py-3 px-2">Temp Dependency</th>
-                                        <th class="py-3 px-2">Key Examples</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-900 text-slate-400">
-                                    <tr>
-                                        <td class="py-3 px-2 font-black text-blue-400 text-[12px]">Diamagnetic</td>
-                                        <td class="py-3 px-2">No permanent dipoles. Induced opposite directions. (⇅)</td>
-                                        <td class="py-3 px-2 font-mono text-rose-500 font-black">Negative & Small <br> (-10⁻⁵)</td>
-                                        <td class="py-3 px-2">Independent of Temperature</td>
-                                        <td class="py-3 px-2 font-semibold">Copper, Bismuth, Gold, H₂O</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-3 px-2 font-black text-emerald-400 text-[12px]">Paramagnetic</td>
-                                        <td class="py-3 px-2">Randomly oriented permanent dipoles (➔ ⬂ ⬀)</td>
-                                        <td class="py-3 px-2 font-mono text-emerald-400 font-black">Positive & Small <br> (10⁻³ to 10⁻⁵)</td>
-                                        <td class="py-3 px-2">Curie Law <br> $\chi_m = C / T$</td>
-                                        <td class="py-3 px-2 font-semibold">Aluminium, Platinum, Mn, O₂</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-3 px-2 font-black text-[#f59e0b] text-[12px]">Ferromagnetic</td>
-                                        <td class="py-3 px-2">Spontaneous parallel alignment in domains (⇈⇈)</td>
-                                        <td class="py-3 px-2 font-mono text-[#f59e0b] font-black">Positive & Very Large <br> (10³ to 10⁵)</td>
-                                        <td class="py-3 px-2">Curie-Weiss Law <br> $\chi_m = C / (T - \theta_c)$</td>
-                                        <td class="py-3 px-2 font-semibold">Iron, Cobalt, Nickel, Gadolinium</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-3 px-2 font-black text-rose-500 text-[12px]">Antiferromagnetic</td>
-                                        <td class="py-3 px-2">Equal anti-parallel cancel-out spins (⇅⇅⇅)</td>
-                                        <td class="py-3 px-2 font-mono text-rose-455 font-black">Positive & Small <br> (10⁻³ to 10⁻⁵)</td>
-                                        <td class="py-3 px-2">Peaks at Neel Temp $T_N$. <br> Above $T_N \rightarrow$ Paramagnetic</td>
-                                        <td class="py-3 px-2 font-semibold">MnO, Cr₂O₃, FeO, CoO</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-3 px-2 font-black text-purple-400 text-[12px]">Ferrimagnetic</td>
-                                        <td class="py-3 px-2">Unequal anti-parallel spins leaving Net Dipole (⇈↓⇈↓)</td>
-                                        <td class="py-3 px-2 font-mono text-purple-400 font-bold">Positive & High</td>
-                                        <td class="py-3 px-2">Decreases with Temp. <br> Curie transition</td>
-                                        <td class="py-3 px-2 font-semibold">Ferrites ($\text{Fe}_3\text{O}_4$), Magnetite</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 6: HIGH-YIELD FORMULA SHEET & CORE CONSTANTS -->
-                <section id="formula-sheet" class="glass-card p-8 scroll-mt-24 bg-gradient-to-br from-slate-900 to-[#120a1f] border border-indigo-900/30">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-950 pb-3">
-                        <span class="text-xl font-bold text-amber-500">06</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">High-Yield Formula Sheet & Core Constants</h2>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-indigo-400 font-extrabold uppercase">1. Polarization Vector Relationship</h4>
-                            <div class="p-2 bg-slate-900 text-teal-400 text-center rounded text-sm font-bold leading-relaxed">
-                                P = N &alpha; E_local<br>
-                                P = &epsilon;_0 (&epsilon;_r - 1) E
-                            </div>
-                            <p class="text-[10px] text-slate-500">N is number density, alpha is the microscopic atomic susceptibility parameter.</p>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-indigo-400 font-extrabold uppercase">2. Displacement Vector (D)</h4>
-                            <div class="p-2 bg-slate-900 text-teal-400 text-center rounded text-sm font-bold">
-                                D = &epsilon;_0 E + P = &epsilon;_0 &epsilon;_r E
-                            </div>
-                            <p class="text-[10px] text-slate-500">This connects the macroscopic displacement field to the bulk polarization state.</p>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-indigo-400 font-extrabold uppercase">3. Clausius-Mossotti Equation</h4>
-                            <div class="p-2 bg-slate-900 text-teal-400 text-center rounded text-sm font-bold">
-                                (&epsilon;_r - 1) / (&epsilon;_r + 2) = N &alpha; / (3 &epsilon;_0)
-                            </div>
-                            <p class="text-[10px] text-slate-500">Applicable strictly to elemental solids with high isotropic symmetric properties inside 3D cubic lattices.</p>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-indigo-400 font-extrabold uppercase">4. Magnetic Induction & Susceptibility</h4>
-                            <div class="p-2 bg-slate-900 text-teal-400 text-center rounded text-sm font-bold">
-                                B = &mu;_0 (H + M) <br>
-                                &chi;_m = M / H <br>
-                                &mu;_r = 1 + &chi;_m
-                            </div>
-                            <p class="text-[10px] text-slate-500">H: field intensity; M: bulk magnetization vector; B: magnetic induction; &mu;_r: relative permeability.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 5: STEP-BY-STEP BOARD DERIVATIONS -->
-                <section id="derivations" class="glass-card p-8 scroll-mt-24 space-y-10 border-l-4 border-l-[#a855f7]">
-                    <div class="flex items-center gap-3 mb-4 border-b border-slate-950 pb-3">
-                        <span class="text-xl font-bold text-purple-400">05</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Step-by-Step Board Derivations</h2>
-                    </div>
-
-                    <!-- Derivation 1 -->
-                    <div class="p-6 bg-slate-950/50 border border-slate-900 rounded-2xl space-y-4">
-                        <span class="px-2.5 py-0.5 bg-indigo-500/10 text-indigo-400 border border-indigo-900/30 text-[9px] font-black rounded uppercase">JNTUK Prime Repeat (7-10 Marks)</span>
-                        <h3 class="text-base font-black text-white">1. Clausius-Mossotti Equation Derivation</h3>
-                        <p class="text-xs text-slate-400"><strong>Goal:</strong> Mathematically establish bulk dielectric constant &epsilon;_r relative to individual atomic polarizability parameters.</p>
-                        
-                        <div class="text-xs text-slate-300 space-y-3 font-medium leading-relaxed">
-                            <p><strong>Step 1: Express Polarization (P) using Local Lorentz and Macroscopic fields</strong><br>
-                            Bulk Polarization is proportional to localized field:  $P = N \alpha E_{\text{local}} \quad \text{--- (Eq. 1)}$ <br>
-                            Also, from electrostatic boundary equations: $P = \varepsilon_0 (\varepsilon_r - 1) E \quad \text{--- (Eq. 2)}$</p>
-                            
-                            <p><strong>Step 2: Introduce Lorentz Local field & substitute</strong><br>
-                            Lorentz internal local field inside a symmetric cubic lattice: $E_{\text{local}} = E + \frac{P}{3\varepsilon_0}$<br>
-                            Substitute this into Equation 1:<br>
-                            $P = N \alpha \left( E + \frac{P}{3\varepsilon_0} \right) \implies P = N \alpha E + \frac{N \alpha P}{3\varepsilon_0}$<br>
-                            $P \left( 1 - \frac{N \alpha}{3\varepsilon_0} \right) = N \alpha E \implies E = \frac{P}{N \alpha} \left( 1 - \frac{N \alpha}{3\varepsilon_0} \right) \quad \text{--- (Eq. 3)}$</p>
-
-                            <p><strong>Step 3: Combine equations to eliminate E</strong><br>
-                            From Equation 2, the macroscopic field is: $E = \frac{P}{\varepsilon_0(\varepsilon_r - 1)}$. Equating this to Equation 3:<br>
-                            $\frac{P}{\varepsilon_0(\varepsilon_r - 1)} = \frac{P}{N\alpha} \left(1 - \frac{N\alpha}{3\varepsilon_0}\right)$<br>
-                            Divide both sides by $P$ and rearrange terms:<br>
-                            $\frac{N\alpha}{\varepsilon_0(\varepsilon_r - 1)} = 1 - \frac{N\alpha}{3\varepsilon_0} \implies \frac{N\alpha}{\varepsilon_0} \left[ \frac{1}{\varepsilon_r - 1} + \frac{1}{3} \right] = 1$<br>
-                            $\frac{N\alpha}{\varepsilon_0} \left[ \frac{3 + \varepsilon_r - 1}{3(\varepsilon_r - 1)} \right] = 1 \implies \frac{N\alpha}{3\varepsilon_0} \left[ \frac{\varepsilon_r + 2}{\varepsilon_r - 1} \right] = 1$<br>
-                            Rearranging to isolate macroscopic and microscopic parameters:<br>
-                            <span class="font-mono text-emerald-450 text-xs block py-2 text-center font-black bg-slate-900 rounded-xl my-2 border border-slate-800">
-                                \frac{\varepsilon_r - 1}{\varepsilon_r + 2} = \frac{N \alpha}{3 \varepsilon_0}
-                            </span>
-                            This is the famous **Clausius-Mossotti relation**, fundamental to solid state physical optics.
-                            </p>
-                        </div>
-                        <div class="p-3 bg-red-950/20 border border-red-900/30 rounded-xl text-[10.5px] text-red-400 font-bold">
-                            ⚠️ Common Error: Do not confuse $E$ (macroscopic field) with $E_{\text{local}}$ (local field felt by an atom). Mixing them up will cost you full marks.
-                        </div>
-                    </div>
-
-                    <!-- Derivation 2 -->
-                    <div class="p-6 bg-slate-950/50 border border-slate-900 rounded-2xl space-y-4">
-                        <span class="px-2.5 py-0.5 bg-pink-500/10 text-pink-400 border border-pink-900/30 text-[9px] font-black rounded uppercase">定量推导 QUANTITATIVE DERIVATION</span>
-                        <h3 class="text-base font-black text-white">2. Electronic Polarizability ($\alpha_e$) Derivation</h3>
-                        <p class="text-xs text-slate-400"><strong>Goal:</strong> Formulate the electric displacement of the electron cloud to solve electronic polarizability volume dependency.</p>
-                        
-                        <div class="text-xs text-slate-300 space-y-3 font-medium leading-relaxed">
-                            <p><strong>Step 1: Model the Atom</strong><br>
-                            Consider a classical nuclear model with atomic charge $+Ze$ centered inside a spherical negative electron cloud of radius $R$ with total negative charge $-Ze$ distributed uniformly.</p>
-                            
-                            <p><strong>Step 2: Apply External Electric Field $E$</strong><br>
-                            Under an applied field $E$, the positive nucleus shifts in the direction of the field, and the electron cloud shifts in the opposite direction. Let $d$ be the equilibrium separation distance between their centers.</p>
-                            
-                            <p><strong>Step 3: Equate Electrostatic and Restoring Forces</strong><br>
-                            At equilibrium, the electrostatic restoring force pulling the electron cloud back equals the force exerted by the external field:<br>
-                            • **Force of external field:** $F_{\text{field}} = Z e E$<br>
-                            • **Electrostatic restoring force:** By Gauss's Law, the charge contained inside a sphere of radius $d$ is $q' = Ze \left(\frac{d}{R}\right)^3$. The Coulomb force between this fraction of charge and the nucleus is:<br>
-                            $F_{\text{restore}} = \frac{(Ze) q'}{4 \pi \varepsilon_0 d^2} = \frac{(Ze) (Ze \frac{d^3}{R^3})}{4 \pi \varepsilon_0 d^2} = \frac{Z^2 e^2 d}{4 \pi \varepsilon_0 R^3}$<br>
-                            Equating $F_{\text{field}} = F_{\text{restore}}$ at steady equilibrium state:<br>
-                            $Z e E = \frac{Z^2 e^2 d}{4 \pi \varepsilon_0 R^3} \implies d = \frac{4 \pi \varepsilon_0 R^3}{Z e} E$</p>
-
-                            <p><strong>Step 4: Compute Induced Dipole Moment & Polarizability</strong><br>
-                            The induced electronic dipole moment is defined as:<br>
-                            $\mu_{\text{ind}} = Z e d = Z e \left( \frac{4 \pi \varepsilon_0 R^3}{Z e} E \right) = 4 \pi \varepsilon_0 R^3 E$<br>
-                            Since the induced dipole moment is also expressed as $\mu_{\text{ind}} = \alpha_e E$, we get:<br>
-                            <span class="font-mono text-emerald-450 text-xs block py-2 text-center font-black bg-slate-900 rounded-xl my-2 border border-slate-800">
-                                \alpha_e = 4 \pi \varepsilon_0 R^3
-                            </span>
-                            Electronic polarizability is directly proportional to the volume of the atom ($V = \frac{4}{3}\pi R^3$). This proves why larger atoms have higher electronic polarizability values!
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Derivation 3 -->
-                    <div class="p-6 bg-slate-950/50 border border-slate-900 rounded-2xl space-y-4">
-                        <span class="px-2.5 py-0.5 bg-purple-500/10 text-purple-400 border border-purple-900/30 text-[9px] font-black rounded uppercase">QUANTITATIVE MODEL</span>
-                        <h3 class="text-base font-black text-white">3. Ionic Polarizability ($\alpha_i$) Derivation</h3>
-                        <p class="text-xs text-slate-400"><strong>Goal:</strong> Formulate polarizability due to displacement of positive and negative ions in a diatomic crystal.</p>
-                        
-                        <div class="text-xs text-slate-300 space-y-3 font-medium leading-relaxed">
-                            <p><strong>Step 1: Define Crystalline Ions Parameters</strong><br>
-                            Consider a diatomic ionic solid. Let $M$ be the mass of positive ion (e.g. $\text{Na}^+$) and $m$ be the mass of negative ion (e.g. $\text{Cl}^-$). Both carry equal and opposite charge $e$.</p>
-                            
-                            <p><strong>Step 2: Apply Electric Field to Shift Centers</strong><br>
-                            Under field $E$, positive ions shift by distance $x_1$ and negative ions shift by $x_2$ in opposite directions. The restoring force constant is given by $k = \omega_0^2 \mu$ (where $\omega_0$ is the angular frequency of lattice vibration). At equilibrium:<br>
-                            • **For positive ion:** $e E = M \omega_0^2 x_1 \implies x_1 = \frac{e E}{M \omega_0^2}$<br>
-                            • **For negative ion:** $e E = m \omega_0^2 x_2 \implies x_2 = \frac{e E}{m \omega_0^2}$</p>
-
-                            <p><strong>Step 3: Total Displacement & Dipole Moment</strong><br>
-                            The total displacement separating positive and negative centers of mass is:<br>
-                            $x = x_1 + x_2 = \frac{e E}{\omega_0^2} \left[ \frac{1}{M} + \frac{1}{m} \right]$<br>
-                            The corresponding induced ionic dipole moment is:<br>
-                            $\mu_i = e x = \frac{e^2 E}{\omega_0^2} \left[ \frac{1}{M} + \frac{1}{m} \right]$<br>
-                            Since $\mu_i = \alpha_i E$, ionic polarizability is isolated as:<br>
-                            <span class="font-mono text-emerald-450 text-xs block py-2 text-center font-black bg-slate-900 rounded-xl my-2 border border-slate-800">
-                                \alpha_i = \frac{e^2}{\omega_0^2} \left[ \frac{1}{M} + \frac{1}{m} \right]
-                            </span>
-                            This demonstrates how ionic polarizability varies inversely with the square of the lattice resonant mechanical frequency.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 7: INTERACTIVE SANDBOX -->
-                <section id="calculator" class="glass-card p-8 scroll-mt-24 space-y-6">
-                    <div>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight border-b border-slate-800 pb-3 flex items-center justify-between">
-                            <span>🧮 7. High-Yield Interactive Sandbox</span>
-                            <span class="text-xs bg-indigo-505/20 text-indigo-400 px-3 py-1 rounded">Pre-compiled Solver</span>
-                        </h2>
-                        <p class="text-xs text-slate-400 mt-1">Simulate dielectric local fields, Clausius-Mossotti ratios, and classification parameters in real-time.</p>
-                    </div>
-
-                    <!-- Sandbox Tabs -->
-                    <div class="flex border-b border-slate-805 gap-2 pb-1">
-                        <button onclick="switchTab('lorentz')" id="tab-btn-lorentz" class="px-4 py-2 text-xs font-bold text-white border-b-2 border-indigo-500 bg-transparent cursor-pointer transition-all">Lorentz Local Field</button>
-                        <button onclick="switchTab('clausius')" id="tab-btn-clausius" class="px-4 py-2 text-xs font-bold text-slate-400 border-b-2 border-transparent hover:text-white bg-transparent cursor-pointer transition-all">Clausius-Mossotti</button>
-                        <button onclick="switchTab('magnetic')" id="tab-btn-magnetic" class="px-4 py-2 text-xs font-bold text-slate-400 border-b-2 border-transparent hover:text-white bg-transparent cursor-pointer transition-all">Magnetic B-H-M Solver</button>
-                    </div>
-
-                    <!-- Sandbox Content Containers -->
-                    <!-- TAB 1: Lorentz Local Field -->
-                    <div id="tab-content-lorentz" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold">
-                            <div>
-                                <label class="block text-slate-400 mb-1">Applied Macroscopic Field E (V/m)</label>
-                                <input id="calc-field-e" type="number" value="30000" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-white font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1">Polarization P (C/m²)</label>
-                                <input id="calc-pol-p" type="number" step="1e-11" value="1.2e-6" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-white font-mono">
-                            </div>
-                        </div>
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 flex justify-between items-center flex-wrap gap-4">
-                            <div>
-                                <span class="text-[9px] font-black text-indigo-400 uppercase tracking-widest block">Calculated E_local</span>
-                                <span id="calc-result" class="text-2xl font-mono text-emerald-400 font-extrabold">75179.6 V/m</span>
-                            </div>
-                            <button onclick="evaluateLorentzField()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-xs font-black uppercase text-white cursor-pointer border-0">Calculate Local Field ⚡</button>
-                        </div>
-                        <p class="text-[10px] text-slate-550 font-mono">Proof Step: E_local = E + P/(3·&epsilon;_0) = 30000 + 1.2e-6 / (3 · 8.854e-12)</p>
-                    </div>
-
-                    <!-- TAB 2: Clausius-Mossotti -->
-                    <div id="tab-content-clausius" class="space-y-4 hidden">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold">
-                            <div>
-                                <label class="block text-slate-400 mb-1">Atomic Density N (atoms/m³)</label>
-                                <input id="clausius-n" type="number" value="5e28" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-white font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1">Electronic Polarizability &alpha;_e (F·m²)</label>
-                                <input id="clausius-alpha" type="number" step="1e-41" value="3.5e-40" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-white font-mono">
-                            </div>
-                        </div>
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 flex justify-between items-center flex-wrap gap-4">
-                            <div>
-                                <span class="text-[9px] font-black text-indigo-400 uppercase tracking-widest block">Solved Dielectric Constant &epsilon;_r</span>
-                                <span id="clausius-result" class="text-2xl font-mono text-emerald-400 font-extrabold">3.88</span>
-                            </div>
-                            <button onclick="evaluateClausius()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-xs font-black uppercase text-white cursor-pointer border-0">Calculate Permittivity ⚡</button>
-                        </div>
-                        <div class="p-3 bg-slate-900/50 rounded text-[10px] text-slate-400 font-mono space-y-1">
-                            <div>• Parameter &gamma; = (N · &alpha;)/(3 · &epsilon;₀)</div>
-                            <div>• Dielectric Constant &epsilon;_r = (1 + 2&gamma;) / (1 - &gamma;)</div>
-                        </div>
-                    </div>
-
-                    <!-- TAB 3: Magnetic Solve -->
-                    <div id="tab-content-magnetic" class="space-y-4 hidden">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold">
-                            <div>
-                                <label class="block text-slate-400 mb-1">Field Intensity H (A/m)</label>
-                                <input id="mag-h" type="number" value="250" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-white font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1">Relative Permeability &mu;_r</label>
-                                <input id="mag-mur" type="number" value="500" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-white font-mono">
-                            </div>
-                        </div>
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 grid grid-cols-2 gap-4">
-                            <div>
-                                <span class="text-[9px] font-black text-indigo-400 uppercase tracking-widest block">Magnetization Vector M (A/m)</span>
-                                <span id="mag-result-m" class="text-lg font-mono text-white font-extrabold">--</span>
-                            </div>
-                            <div>
-                                <span class="text-[9px] font-black text-indigo-400 uppercase tracking-widest block">Magnetic Induction B (Tesla)</span>
-                                <span id="mag-result-b" class="text-lg font-mono text-emerald-400 font-extrabold">--</span>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-[10px] text-slate-400 font-mono">Using B = &mu;₀(H + M) & M = (&mu;_r - 1)H</span>
-                            <button onclick="evaluateMagnetic()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-xs font-black uppercase text-white cursor-pointer border-0">Solve Magnetic states ⚡</button>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 6. SOLVED Board NUMERICALS -->
-                <section id="numericals" class="glass-card p-8 scroll-mt-24 space-y-6">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight border-b border-slate-800 pb-3">5. Fully Solved JNTUK Numerical Models</h2>
-
-                    <!-- Problem 1 -->
-                    <div class="p-5 bg-slate-950/40 border border-slate-900 rounded-xl space-y-3">
-                        <span class="text-[10px] text-indigo-400 uppercase font-black tracking-widest block font-mono">Problem Model 1</span>
-                        <p class="text-xs text-slate-350">
-                            <strong>Problem:</strong> A dielectric material has an electric susceptibility of $4.5$ at room temperature. Determine the relative permittivity (&varepsilon;_r) of the material and the absolute bulk polarization vector $P$ under a macroscopic field of $3 \times 10^4\text{ V/m}$.
-                        </p>
-                        <div class="text-[11.5px] text-slate-400 leading-relaxed font-semibold bg-[#070714] p-3 rounded-lg border border-slate-900 font-mono">
-                            <strong>Solution steps:</strong><br>
-                            1. Relationship: $\varepsilon_r = 1 + \chi_e = 1 + 4.5 = 5.5$. <br>
-                            2. Polarization: $P = \varepsilon_0 \chi_e E = (8.854 \times 10^{-12}\text{ F/m}) \times 4.5 \times (3 \times 10^4\text{ V/m}) = 1.195 \times 10^{-6}\text{ C/m}^2$.
-                        </div>
-                        <div class="text-xs font-black text-emerald-400 bg-slate-950 p-2 text-center rounded border border-dashed border-emerald-500/30">
-                            Final Outputs: Dielectric constant = 5.5, Polarization P = 1.195e-6 C/m²
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 9: JNTUK SOLVED PAPERS -->
-                <section id="solved-papers" class="glass-card p-8 scroll-mt-24 space-y-6">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-950 pb-3">
-                        <span class="text-xl font-bold text-teal-400">09</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">JNTUK Solved Papers</h2>
-                    </div>
-
-                    <div class="space-y-6">
-                        <!-- Solved Q1 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl space-y-3">
-                            <div class="flex justify-between items-center text-[9px] uppercase font-bold text-teal-400">
-                                <span>JNTUK Nov 2024 Exam Paper</span>
-                                <span class="bg-teal-500/10 px-2 py-0.5 rounded">10 Marks Selection</span>
-                            </div>
-                            <h3 class="text-sm font-black text-slate-100">Question: Explain Lorentz internal local field inside a symmetric cubic dielectric. Obtain the formula.</h3>
-                            <div class="p-4 bg-slate-900/60 rounded-xl space-y-2 text-xs text-slate-400 font-semibold leading-relaxed">
-                                <p><b class="text-slate-200">Full Score Answer Steps:</b></p>
-                                <ol class="list-decimal list-inside space-y-1">
-                                    <li><b>Introduction:</b> Define $E_{\text{local}}$ as the actual localized field acting on an atom wrapped inside dielectric materials bulk.</li>
-                                    <li><b>Field Divisions:</b> Define the concept of the imaginary Lorentz cavity sphere of radius $R$. Divide the total local field into 4 core components:<br>
-                                        <span class="font-mono text-[11px] block text-teal-300 pl-4">$E_{\text{local}} = E_1 + E_2 + E_3 + E_4$</span>
-                                        • $E_1$: Field due to external charged plates.<br>
-                                        • $E_2$: Depolarizing field from surface charges ($E_2 = -P/\varepsilon_0$).<br>
-                                        • $E_3$: Field due to polarization charges on the cavity surface ($E_3 = P/3\varepsilon_0$).<br>
-                                        • $E_4$: Field due to dipoles residing within the cavity (cancels out to zero in symmetric cubic cells).
-                                    </li>
-                                    <li><b>Final Formula:</b> Combining macroscopic field $E = E_1 + E_2$, we yield:<br>
-                                        <span class="font-mono text-emerald-400 text-center block text-xs bg-slate-950 py-2 rounded border border-slate-800 my-1">$E_{\text{local}} = E + \frac{P}{3\varepsilon_0}$</span>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-
-                        <!-- Solved Q2 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl space-y-3">
-                            <div class="flex justify-between items-center text-[9px] uppercase font-bold text-pink-400">
-                                <span>JNTUK May 2023 Exam Paper</span>
-                                <span class="bg-pink-500/10 px-2 py-0.5 rounded">10 Marks Selection</span>
-                            </div>
-                            <h3 class="text-sm font-black text-slate-100">Question: State the differences between soft and hard magnetic materials. Sketch their hysteresis loops.</h3>
-                            <div class="p-4 bg-slate-900/60 rounded-xl space-y-2 text-xs text-slate-400 font-semibold leading-relaxed">
-                                <p><b class="text-slate-200">Core Comparative Points to write:</b></p>
-                                <ul class="list-disc list-inside space-y-1.5 pl-2">
-                                    <li><b>Coercivity:</b> Soft magnets have very low coercivity ($H_c &lt; 100 \text{ A/m}$); hard magnets have very high coercivity ($H_c &gt; 10^4 \text{ A/m}$).</li>
-                                    <li><b>Retentivity:</b> Soft magnets have high retentivity but demagnetize easily; hard magnets retain alignment permanently.</li>
-                                    <li><b>Area of Loop (Hysteresis Loss):</b> Soft magnets have a narrow, thin loop (low core heating losses); hard magnets have a very broad loop (high energy store).</li>
-                                    <li><b>Applications:</b> Soft magnets are used inside AC transformers and electromagnets; hard magnets are used for permanent magnets in DC motors.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 10: MOST EXPECTED PREDICTOR -->
-                <section id="predictor" class="glass-card p-8 scroll-mt-24 space-y-6 bg-gradient-to-br from-[#120516] to-[#050508] border border-pink-900/20">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-950 pb-3">
-                        <span class="text-xl font-bold text-pink-400">10</span>
-                        <h2 class="text-xl font-black text-[#fafafa] uppercase tracking-tight">Most Expected Predictor</h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-semibold">
-                        <div class="p-5 bg-slate-950 rounded-2xl border border-slate-900 space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="bg-[#10b981]/10 text-emerald-400 text-[9px] px-2 py-0.5 rounded uppercase font-black font-mono">Prediction 01</span>
-                                <span class="text-emerald-400 font-bold">96% Weight Probability</span>
-                            </div>
-                            <h4 class="text-xs font-black text-white">Quantitative Derivation of Electronic & Ionic Polarizabilities</h4>
-                            <p class="text-slate-400 leading-relaxed">
-                                <b>Exam tip:</b> You must practice both derivations on paper. Draw the positive displacement diagram showing nucleus-cloud separation vector $d$ and state Gauss's sphere parameters correctly.
-                            </p>
-                        </div>
-
-                        <div class="p-5 bg-slate-950 rounded-2xl border border-slate-900 space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="bg-[#10b981]/10 text-emerald-400 text-[9px] px-2 py-0.5 rounded uppercase font-black font-mono">Prediction 02</span>
-                                <span class="text-emerald-400 font-bold">94% Weight Probability</span>
-                            </div>
-                            <h4 class="text-xs font-black text-white">Curie Temperature Transitions & Domain Concepts</h4>
-                            <p class="text-slate-400 leading-relaxed">
-                                <b>Exam tip:</b> Describe the spontaneous polarization alignment in magnetic domains. Master drawing the Curie-Weiss law graph showing how ferromagnetism switches to paramagnetism at $T > T_C$.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 11: CONCEPT VIVA CARDS -->
-                <section id="viva" class="glass-card p-8 scroll-mt-24 space-y-6 text-xs leading-relaxed">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-950 pb-3">
-                        <span class="text-xl font-bold text-indigo-400">11</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Lab Concept Viva Cards</h2>
-                    </div>
-                    <p class="text-xs text-slate-400 mb-6">Click any card below to flip and review rapid direct response states for JNTUK external examiners.</p>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <!-- Card 1 -->
-                        <div onclick="flipCard(this)" class="min-h-36 relative select-none cursor-pointer group">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-550">
-                                <div class="viva-card-front absolute inset-0 w-full h-full bg-[#09091a] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs text-slate-200 font-bold leading-relaxed">Q1. What is the effect of temperature on electronic and ionic polarizabilities?</h4>
-                                    <span class="text-[8px] uppercase tracking-widest text-slate-500">Flip card to read answer 🔄</span>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 w-full h-full bg-indigo-950/50 border border-indigo-800/40 rounded-2xl p-5 flex flex-col justify-between">
-                                    <p class="text-[11px] text-slate-300 font-medium">Both electronic and ionic polarizabilities are entirely independent of temperature. Temperature only alters orientation properties parameters because thermal agitation opposes alignment!</p>
-                                    <span class="text-[8px] uppercase tracking-widest text-[#f59e0b] font-black">Verified JNTUK Viva Answer</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div onclick="flipCard(this)" class="min-h-36 relative select-none cursor-pointer group">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-550">
-                                <div class="viva-card-front absolute inset-0 w-full h-full bg-[#09091a] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs text-slate-200 font-bold leading-relaxed">Q2. Define retentivity and coercivity of magnetic cores?</h4>
-                                    <span class="text-[8px] uppercase tracking-widest text-slate-500">Flip card to read answer 🔄</span>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 w-full h-full bg-[#1b102b] border border-purple-800/40 rounded-2xl p-5 flex flex-col justify-between">
-                                    <p class="text-[11px] text-slate-300 font-medium">Retentivity is the residual magnetic induction ($B_r$) left in the core when external magnetic intensity $H$ drops to zero. Coercivity ($H_c$) is the reverse field required to reduce residual magnetization to zero.</p>
-                                    <span class="text-[8px] uppercase tracking-widest text-[#f59e0b] font-black">Verified JNTUK Viva Answer</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div onclick="flipCard(this)" class="min-h-36 relative select-none cursor-pointer group">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-550">
-                                <div class="viva-card-front absolute inset-0 w-full h-full bg-[#09091a] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs text-slate-200 font-bold leading-relaxed">Q3. Why are ferrites excellent for high frequency transformer cores?</h4>
-                                    <span class="text-[8px] uppercase tracking-widest text-slate-500">Flip card to read answer 🔄</span>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 w-full h-full bg-emerald-950/40 border border-emerald-800/40 rounded-2xl p-5 flex flex-col justify-between">
-                                    <p class="text-[11px] text-slate-300 font-medium">Ferrites are ferrimagnetic oxides with exceptionally high electrical resistance. High resistivity cuts eddy current heating losses to near zero under high AC operating frequencies!</p>
-                                    <span class="text-[8px] uppercase tracking-widest text-[#f59e0b] font-black font-bold">Verified JNTUK Viva Answer</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div onclick="flipCard(this)" class="min-h-36 relative select-none cursor-pointer group">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-550">
-                                <div class="viva-card-front absolute inset-0 w-full h-full bg-[#09091a] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs text-slate-200 font-bold leading-relaxed">Q4. What is the Clausius-Mossotti equation restriction?</h4>
-                                    <span class="text-[8px] uppercase tracking-widest text-slate-500">Flip card to read answer 🔄</span>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 w-full h-full bg-[#1e071c] border border-pink-800/40 rounded-2xl p-5 flex flex-col justify-between">
-                                    <p class="text-[11px] text-slate-300 font-medium">It is applicable only to highly symmetric, isotropic elemental solids (like cubic lattices) where there are no permanent dipolar moments under zero applied fields.</p>
-                                    <span class="text-[8px] uppercase tracking-widest text-[#f59e0b] font-black">Verified JNTUK Viva Answer</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 12: QUICK REVISION SHEETS -->
-                <section id="revision-sheets" class="glass-card p-8 scroll-mt-24 bg-[#05050e] border border-indigo-950 space-y-6">
-                    <div class="flex items-center gap-3 mb-4 border-b border-slate-950 pb-3">
-                        <span class="text-xl font-bold text-amber-500">12</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Quick Revision Sheets</h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-semibold">
-                        <div class="p-4 bg-slate-950 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[8.5px] font-black uppercase text-amber-500">DIELECTRIC VECTORS</span>
-                            <p class="text-[11px] text-slate-400">
-                                • <b>Permittivity:</b> Capacity of core medium to polarize ($\varepsilon$).<br>
-                                • <b>Susceptibility ($\chi_e$):</b> Scale of polarization alignment vector per unit applied field force. $P = \varepsilon_0 \chi_e E$.<br>
-                                • <b>Displacement ($D$):</b> Combines applied field influence and medium polarization response. $D = \varepsilon_0 E + P$.
-                            </p>
-                        </div>
-                        <div class="p-4 bg-slate-950 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[8.5px] font-black uppercase text-amber-500">MAGNETIC SCALES</span>
-                            <p class="text-[11px] text-slate-400">
-                                • <b>Dipole Moment ($\mu_m$):</b> Quantum spin & orbital electrons torque product.<br>
-                                • <b>Magnetization ($M$):</b> Net magnetic dipole moment induced per unit volume.<br>
-                                • <b>Susceptibility ($\chi_m$):</b> Ratio of induced magnetization $M$ to field $H$ ($\chi_m = M/H$).
-                            </p>
-                        </div>
-                        <div class="p-4 bg-slate-950 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[8.5px] font-black uppercase text-amber-500">HYSTERESIS METRICS</span>
-                            <p class="text-[11px] text-slate-400">
-                                • <b>Domain wall movement:</b> Spontaneous boundary shifting occurring under low applied external fields.<br>
-                                • <b>Domain rotation:</b> Hard structural moment rotation matching strong direction fields.<br>
-                                • <b>Hysteresis Area:</b> Measures thermal losses occurring during cyclic magnetization.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 12.5: MEMORY TRICKS & MNEMONICS -->
-                <section id="memory-tricks" class="glass-card p-8 scroll-mt-24 bg-[#0a0614] border border-pink-900/30 space-y-4">
-                    <div class="flex items-center gap-3 mb-4 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-pink-400">12.5</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Memory Tricks & Mnemonics</h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
-                        <!-- Mnemonic 1 -->
-                        <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[9px] font-black uppercase text-pink-400">Permittivity vs Permeability Mnemonic</span>
-                            <h4 class="text-xs font-bold text-slate-100">Remembering Electric vs Magnetic Vectors</h4>
-                            <p class="text-slate-400 font-medium leading-relaxed">
-                                • <b>DIELECTRICS (Electric)</b> starts with <b>"D"</b> &rArr; uses <b>D</b>isplacement Vector, <b>P</b>olarization, and electric <b>S</b>usceptibility ($\chi_e$). <br>
-                                • <b>MAGNETICS</b> starts with <b>"M"</b> &rArr; uses <b>M</b>agnetization, <b>B</b>-field induction, and magnetic <b>S</b>usceptibility ($\chi_m$). <br>
-                                • Formula memory bridge: Both have identical linear shape: <br>
-                                <span class="font-mono text-emerald-400 block text-center bg-[#0d0d1e] p-1.5 rounded mt-1.5">$D = \varepsilon_0 E + P \quad \longleftrightarrow \quad B = \mu_0(H + M)$</span>
-                            </p>
-                        </div>
-
-                        <!-- Mnemonic 2 -->
-                        <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[9px] font-black uppercase text-orange-400">Susceptibility Scales</span>
-                            <h4 class="text-xs font-bold text-slate-100">Memory Hack for Magnetic Susceptibilities ($\chi_m$)</h4>
-                            <p class="text-slate-400 font-medium leading-relaxed">
-                                Use the acronym <b>"D-P-F (Don't Play Football)"</b> for the categories: <br>
-                                • <b>D</b>ia (Don't) &rArr; <b>Negative</b> and small (-10⁻⁵) <br>
-                                • <b>P</b>ara (Play) &rArr; <b>Positive</b> and small (+10⁻⁵) <br>
-                                • <b>F</b>erro (Football) &rArr; <b>Positive</b> and <b>HUGE</b> (+10⁵)
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 12.6: FASTEST SCORING TOPICS & MUST STUDY IF TIME IS LOW -->
-                <section id="fast-scoring" class="glass-card p-8 scroll-mt-24 bg-[#050914] border border-teal-900/30 space-y-4">
-                    <div class="flex items-center gap-3 mb-4 border-b border-[#0f1d3a] pb-3">
-                        <span class="text-xl font-bold text-teal-400">12.6</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Fastest Scoring Topics & Priorities</h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
-                        <!-- Card 1 -->
-                        <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[9px] font-black uppercase text-teal-400">MUST STUDY IF TIME IS LOW</span>
-                            <h4 class="text-xs font-bold text-rose-400">The 80/20 Rule Selection (Guaranteed 12+ Marks)</h4>
-                            <ul class="list-disc list-inside space-y-1.5 text-slate-400">
-                                <li><b>Clausius-Mossotti Derivation</b>: Worth 7 Marks and repeated in 90% of JNTUK exams. Memorize the algebraic substitution of $E_{local}$ is vital.</li>
-                                <li><b>Hysteresis B-H Curve</b>: Worth 5 Marks. Know the physical meaning of Retentivity, Coercivity, and the area difference.</li>
-                                <li><b>Soft vs Hard Magnetic Difference Table</b>: Frequently asked as a short answer 4 Marks table.</li>
-                            </ul>
-                        </div>
-                        <!-- Card 2 -->
-                        <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[9px] font-black uppercase text-indigo-400">FASTEST SCORING FORMULAE</span>
-                            <h4 class="text-xs font-bold text-indigo-300">Quick High-Yield Numerical Rules</h4>
-                            <p class="text-slate-400 leading-relaxed">
-                                Solve problems instantly using these two golden identities: <br>
-                                1. $\varepsilon_r = 1 + \chi_e$ <br>
-                                2. $\mu_r = 1 + \chi_m$ <br>
-                                • Keep in mind: $\varepsilon_0 = 8.854 \times 10^{-12}\text{ F/m}$ and $\mu_0 = 4\pi \times 10^{-7}\text{ H/m}$.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 13: 1-DAY PREP FINAL SURVIVAL PLAN -->
-                <section id="survival-plan" class="glass-card p-8 bg-rose-950/10 border border-rose-550/20 scroll-mt-24 space-y-6 text-xs font-semibold leading-relaxed">
-                    <div class="flex items-center gap-3 border-b border-slate-950 pb-3">
-                        <span class="text-xl">🚨</span>
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
                         <div>
-                            <h3 class="text-base font-black text-rose-500 uppercase tracking-tight">1-Day Prep Final Tips</h3>
-                            <p class="text-[9px] uppercase tracking-widest text-slate-400">Last-Minute Priority Exam Strategy Protocol</p>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                
+                            </ul>
                         </div>
-                    </div>
-
-                    <div class="text-xs text-slate-300 space-y-3">
-                        <p class="text-sm">In a time crunch? Here is how to lock in 14-20 Marks in just 2 hours of study time:</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-900 space-y-2">
-                                <h4 class="text-[#f59e0b] font-extrabold uppercase text-[10.5px]">Hour 1: Derivations & Diagrams</h4>
-                                <ul class="list-disc list-inside space-y-1 text-slate-400 font-mono text-[10px]">
-                                    <li>Draw the parallel positive displacement atom diagram for <b>Electronic Polarizability</b>.</li>
-                                    <li>Write down the 3 steps of the <b>Clausius-Mossotti Equation derivation</b> twice.</li>
-                                    <li>Perfect the <b>B-H loop graph</b>, drawing retentivity and coercivity points on the axes.</li>
-                                </ul>
-                            </div>
-                            <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-900 space-y-2">
-                                <h4 class="text-rose-400 font-extrabold uppercase text-[10.5px]">Hour 2: Classifications & Formulae</h4>
-                                <ul class="list-disc list-inside space-y-1 text-slate-400 font-mono text-[10px]">
-                                    <li>Study the 5 classification rows of magnetic categories (Dia, Para, Ferro, Antiferro, Ferri).</li>
-                                    <li>Recall temperature responses: paramagnetism Curie law vs antiferromagnetism Neel boundary peaking.</li>
-                                    <li>Use our <b>Tabbed Field Sandbox</b> to practice converting H to M and B fields.</li>
-                                </ul>
-                            </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"N/A"</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">N/A</p>
                         </div>
                     </div>
                 </section>
 
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card 1 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Charge Carriers?</h4>
+                                </div>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Electrons in conduction band and holes in valence band contribute to current.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Hall Effect?</h4>
+                                </div>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">A transverse voltage is produced when a magnetic field is applied perpendicular to current flow.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
-
-    <!-- FOOTER -->
-    <footer class="py-12 border-t border-slate-900 bg-slate-950/80 mt-16 text-center text-slate-500 text-xs">
-        <p>EngiPrep Hub • Official JNTUK R23 First Year Engineering Physics Revision Modules</p>
-    </footer>
-
-    <!-- LOGIC SCRIPTS -->
     <script>
-        function switchTab(tabId) {
-            const tabs = ['lorentz', 'clausius', 'magnetic'];
-            tabs.forEach(t => {
-                const btn = document.getElementById(`tab-btn-${t}`);
-                const content = document.getElementById(`tab-content-${t}`);
-                if (t === tabId) {
-                    btn.classList.add('border-indigo-500', 'text-white');
-                    btn.classList.remove('border-transparent', 'text-slate-400');
-                    content.classList.remove('hidden');
-                } else {
-                    btn.classList.remove('border-indigo-500', 'text-white');
-                    btn.classList.add('border-transparent', 'text-slate-400');
-                    content.classList.add('hidden');
-                }
-            });
-        }
-
-        function evaluateLorentzField() {
-            const e = parseFloat(document.getElementById('calc-field-e').value);
-            const p = parseFloat(document.getElementById('calc-pol-p').value);
-            const eps0 = 8.854e-12;
-
-            if (isNaN(e) || isNaN(p)) {
-                alert('Please enter valid numeric parameters.');
-                return;
-            }
-
-            const localField = e + (p / (3 * eps0));
-            document.getElementById('calc-result').innerText = localField.toFixed(1) + ' V/m';
-        }
-
-        function evaluateClausius() {
-            const n = parseFloat(document.getElementById('clausius-n').value);
-            const alpha = parseFloat(document.getElementById('clausius-alpha').value);
-            const eps0 = 8.854e-12;
-
-            if (isNaN(n) || isNaN(alpha)) {
-                alert('Please enter valid numeric parameters.');
-                return;
-            }
-
-            const gamma = (n * alpha) / (3 * eps0);
-            if (gamma >= 1) {
-                document.getElementById('clausius-result').innerText = 'Polarization Catastrophe 💥';
-                return;
-            }
-
-            const epsR = (1 + 2 * gamma) / (1 - gamma);
-            document.getElementById('clausius-result').innerText = epsR.toFixed(3);
-        }
-
-        function evaluateMagnetic() {
-            const h = parseFloat(document.getElementById('mag-h').value);
-            const mur = parseFloat(document.getElementById('mag-mur').value);
-            const mu0 = 4 * Math.PI * 1e-7;
-
-            if (isNaN(h) || isNaN(mur)) {
-                alert('Please enter valid numeric parameters.');
-                return;
-            }
-
-            const m = (mur - 1) * h;
-            const b = mu0 * mur * h;
-
-            document.getElementById('mag-result-m').innerText = m.toFixed(1) + ' A/m';
-            document.getElementById('mag-result-b').innerText = b.toExponential(4) + ' T';
-        }
-
-        // Checklist states mechanics
-        let completedStages = {};
-        function toggleTask(id, weight) {
-            const chk = document.getElementById(`chk-${id}`);
-            completedStages[id] = chk.checked;
-            localStorage.setItem('EP_U3_stages', JSON.stringify(completedStages));
-            recalculateProgress();
-        }
-
-        function recalculateProgress() {
-            let done = 0;
-            let total = 6;
-            for (let k in completedStages) {
-                if (completedStages[k]) done++;
-            }
-            const pct = Math.round((done / total) * 100);
-            document.getElementById('pct-indicator').innerText = pct + '%';
-            document.getElementById('pb-indicator').style.width = pct + '%';
-
-            const statusText = document.getElementById('tracker-status');
-            if (pct === 100) {
-                statusText.innerText = 'STORY COMPLETE 🔥';
-                statusText.style.color = '#34d399';
-            } else if (pct > 0) {
-                statusText.innerText = 'IN PROGRESS ⏳';
-                statusText.style.color = '#60a5fa';
-            } else {
-                statusText.innerText = 'NOT STARTED';
-                statusText.style.color = '#f59e0b';
-            }
-        }
-
-        function resetInternalTracker() {
-            completedStages = {};
-            localStorage.setItem('EP_U3_stages', JSON.stringify(completedStages));
-            for(let i=1; i<=6; i++) {
-                const item = document.getElementById(`chk-u3-${i}`);
-                if (item) item.checked = false;
-            }
-            recalculateProgress();
-        }
-
-        function loadSavedTracker() {
-            const saved = localStorage.getItem('EP_U3_stages');
-            if (saved) {
-                completedStages = JSON.parse(saved);
-                for(let i=1; i<=6; i++) {
-                    const item = document.getElementById(`chk-u3-${i}`);
-                    if (item) item.checked = completedStages[`u3-${i}`] || false;
-                }
-            }
-            recalculateProgress();
-        }
-
-        function flipCard(card) {
+        function flipVivaCard(card) {
             const inner = card.querySelector('.viva-card-inner');
-            inner.classList.toggle('viva-card-flipped');
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
+            } else {
+                inner.style.transform = 'rotateY(180deg)';
+            }
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadSavedTracker();
-            // Initialize tab solver values
-            evaluateMagnetic();
-        });
     </script>
 </body>
 </html>

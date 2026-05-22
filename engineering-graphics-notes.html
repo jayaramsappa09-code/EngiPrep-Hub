@@ -365,8 +365,9 @@
                                                 <button onclick="window.setCADTool('line')" id="tool-line" class="cad-tool-btn py-1.5 rounded-lg text-[10px] font-mono bg-cyan-500/20 text-cyan-400 border border-cyan-500/40">Line (L)</button>
                                                 <button onclick="window.setCADTool('circle')" id="tool-circle" class="cad-tool-btn py-1.5 rounded-lg text-[10px] font-mono bg-slate-900 text-slate-400 border border-slate-850">Circle (C)</button>
                                                 <button onclick="window.setCADTool('polygon')" id="tool-polygon" class="cad-tool-btn py-1.5 rounded-lg text-[10px] font-mono bg-slate-900 text-slate-400 border border-slate-850">Pentagon</button>
-                                                <button onclick="window.setCADTool('compass')" id="tool-compass" class="cad-tool-btn py-1.5 rounded-lg text-[10px] font-mono bg-slate-900 text-slate-400 border border-slate-850 mt-1 col-span-1">Compass</button>
-                                                <button onclick="window.setCADTool('ruler')" id="tool-ruler" class="cad-tool-btn py-1.5 rounded-lg text-[10px] font-mono bg-slate-900 text-slate-400 border border-slate-850 mt-1 col-span-2">Dynamic Ruler</button>
+                                                <button onclick="window.setCADTool('compass')" id="tool-compass" class="cad-tool-btn py-1.5 rounded-lg text-[10px] font-mono bg-slate-900 text-slate-400 border border-slate-850 mt-1">Compass</button>
+                                                <button onclick="window.setCADTool('ruler')" id="tool-ruler" class="cad-tool-btn py-1.5 rounded-lg text-[10px] font-mono bg-slate-900 text-slate-400 border border-slate-850 mt-1">Ruler (R)</button>
+                                                <button onclick="window.setCADTool('trim')" id="tool-trim" class="cad-tool-btn py-1.5 rounded-lg text-[10px] font-mono bg-slate-900 text-slate-400 border border-slate-850 mt-1">Trim (TR)</button>
                                             </div>
                                         </div>
 
@@ -1423,6 +1424,209 @@
             ctx.fillText('Y', canvas.width - 25, canvas.height / 2 - 6);
         }
 
+        function getDistanceToSegment(p, a, b) {
+            const dx = b.x - a.x;
+            const dy = b.y - a.y;
+            const l2 = dx * dx + dy * dy;
+            if (l2 === 0) return Math.hypot(p.x - a.x, p.y - a.y);
+            
+            let t = ((p.x - a.x) * dx + (p.y - a.y) * dy) / l2;
+            t = Math.max(0, Math.min(1, t));
+            
+            return Math.hypot(p.x - (a.x + t * dx), p.y - (a.y + t * dy));
+        }
+
+        function getLineIntersection(p1, p2, p3, p4) {
+            const x1 = p1.x, y1 = p1.y;
+            const x2 = p2.x, y2 = p2.y;
+            const x3 = p3.x, y3 = p3.y;
+            const x4 = p4.x, y4 = p4.y;
+            
+            const denom = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+            if (denom === 0) return null; // Parallel lines
+            
+            const ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom;
+            const ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom;
+            
+            if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1) {
+                return {
+                    x: x1 + ua * (x2 - x1),
+                    y: y1 + ua * (y2 - y1),
+                    t: ua
+                };
+            }
+            return null;
+        }
+
+        function getPentagonVertices(polygonEl) {
+            const vertices = [];
+            const sides = 5;
+            const cx = polygonEl.startX;
+            const cy = polygonEl.startY;
+            const r = polygonEl.r || 10;
+            for (let i = 0; i < sides; i++) {
+                const angle = (i * 2 * Math.PI / sides) - Math.PI / 2;
+                vertices.push({
+                    x: cx + r * Math.cos(angle),
+                    y: cy + r * Math.sin(angle)
+                });
+            }
+            return vertices;
+        }
+
+        function performTrimAt(pt) {
+            let closestIndex = -1;
+            let minDistance = Infinity;
+            
+            for (let i = 0; i < cadState.elements.length; i++) {
+                const el = cadState.elements[i];
+                if (el.type === 'line' || el.type === 'ruler') {
+                    const d = getDistanceToSegment(pt, { x: el.startX, y: el.startY }, { x: el.endX, y: el.endY });
+                    if (d < minDistance) {
+                        minDistance = d;
+                        closestIndex = i;
+                    }
+                }
+            }
+            
+            const threshold = 12;
+            if (closestIndex === -1 || minDistance > threshold) {
+                window.showEGNotification("No line segment found near click to trim.");
+                return;
+            }
+            
+            const selectedEl = cadState.elements[closestIndex];
+            const A = { x: selectedEl.startX, y: selectedEl.startY };
+            const B = { x: selectedEl.endX, y: selectedEl.endY };
+            
+            let intersectionTs = [];
+            
+            for (let i = 0; i < cadState.elements.length; i++) {
+                if (i === closestIndex) continue;
+                
+                const el = cadState.elements[i];
+                
+                if (el.type === 'line' || el.type === 'ruler') {
+                    const C = { x: el.startX, y: el.startY };
+                    const D = { x: el.endX, y: el.endY };
+                    const inter = getLineIntersection(A, B, C, D);
+                    if (inter) {
+                        intersectionTs.push(inter.t);
+                    }
+                } else if (el.type === 'polygon') {
+                    const vertices = getPentagonVertices(el);
+                    for (let j = 0; j < 5; j++) {
+                        const C = vertices[j];
+                        const D = vertices[(j + 1) % 5];
+                        const inter = getLineIntersection(A, B, C, D);
+                        if (inter) {
+                            intersectionTs.push(inter.t);
+                        }
+                    }
+                } else if (el.type === 'circle') {
+                    const cx = el.startX;
+                    const cy = el.startY;
+                    const r = el.r || 5;
+                    
+                    const dx = B.x - A.x;
+                    const dy = B.y - A.y;
+                    const fx = A.x - cx;
+                    const fy = A.y - cy;
+                    
+                    const a = dx * dx + dy * dy;
+                    const b = 2 * (fx * dx + fy * dy);
+                    const c = (fx * fx + fy * fy) - r * r;
+                    
+                    if (a > 0.0001) {
+                        const discriminant = b * b - 4 * a * c;
+                        if (discriminant >= 0) {
+                            const sqrtDisc = Math.sqrt(discriminant);
+                            const t1 = (-b - sqrtDisc) / (2 * a);
+                            const t2 = (-b + sqrtDisc) / (2 * a);
+                            
+                            if (t1 >= 0 && t1 <= 1) intersectionTs.push(t1);
+                            if (t2 >= 0 && t2 <= 1) intersectionTs.push(t2);
+                        }
+                    }
+                }
+            }
+            
+            intersectionTs.sort((a, b) => a - b);
+            
+            let uniqueTs = [];
+            intersectionTs.forEach(t => {
+                if (uniqueTs.length === 0 || t - uniqueTs[uniqueTs.length - 1] > 0.001) {
+                    uniqueTs.push(t);
+                }
+            });
+            
+            uniqueTs = uniqueTs.filter(t => t > 0.001 && t < 0.999);
+            uniqueTs.unshift(0);
+            uniqueTs.push(1);
+            
+            if (uniqueTs.length === 2) {
+                cadState.elements.splice(closestIndex, 1);
+                addTerminalLine(`Trim tool: Removed entire segment since it did not cross other lines.`);
+                window.showEGNotification("Removed full line (no intersection crossings).");
+                window.recordXP(15);
+                redrawCADCanvas();
+                return;
+            }
+            
+            const dx = B.x - A.x;
+            const dy = B.y - A.y;
+            const l2 = dx * dx + dy * dy;
+            let tClick = 0;
+            if (l2 > 0) {
+                tClick = ((pt.x - A.x) * dx + (pt.y - A.y) * dy) / l2;
+            }
+            tClick = Math.max(0, Math.min(1, tClick));
+            
+            let subSegmentIndex = -1;
+            for (let i = 1; i < uniqueTs.length; i++) {
+                if (tClick >= uniqueTs[i - 1] && tClick <= uniqueTs[i]) {
+                    subSegmentIndex = i;
+                    break;
+                }
+            }
+            
+            if (subSegmentIndex === -1) {
+                subSegmentIndex = 1;
+            }
+            
+            let newSegments = [];
+            for (let i = 1; i < uniqueTs.length; i++) {
+                if (i === subSegmentIndex) continue;
+                
+                const tStart = uniqueTs[i - 1];
+                const tEnd = uniqueTs[i];
+                
+                const subStartX = A.x + tStart * (B.x - A.x);
+                const subStartY = A.y + tStart * (B.y - A.y);
+                const subEndX = A.x + tEnd * (B.x - A.x);
+                const subEndY = A.y + tEnd * (B.y - A.y);
+                
+                const segLen = Math.hypot(subEndX - subStartX, subEndY - subStartY);
+                if (segLen > 0.5) {
+                    newSegments.push({
+                        type: selectedEl.type,
+                        startX: subStartX,
+                        startY: subStartY,
+                        endX: subEndX,
+                        endY: subEndY
+                    });
+                }
+            }
+            
+            cadState.elements.splice(closestIndex, 1, ...newSegments);
+            
+            addTerminalLine(`Trim tool success: Segment split at crossing nodes into ${uniqueTs.length - 1} sub-segments. Selected part removed.`);
+            window.showEGNotification("Trim success: Removed crossing line segment portion!");
+            window.recordXP(15);
+            
+            redrawCADCanvas();
+        }
+
         function initCADCanvas() {
             const canvas = document.getElementById('cad-canvas');
             if (!canvas) return;
@@ -1440,6 +1644,12 @@
 
             canvas.addEventListener('mousedown', function(e) {
                 const pt = getCanvasMousePos(canvas, e);
+                
+                if (cadState.tool === 'trim') {
+                    performTrimAt(pt);
+                    return;
+                }
+                
                 cadState.startX = pt.x;
                 cadState.startY = pt.y;
                 
