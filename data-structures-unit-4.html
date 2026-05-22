@@ -3,912 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 4: Linear &amp; Circular Queues | EngiPrep Hub</title>
-    <meta name="description" content="Ultimate JNTUK R23 Data Structures Unit IV guide. Master FIFO queues, linear and circular queues, boundary pointers, applications, and C codes.">
+    <title>JNTUK R23 Queues &amp; Deques | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Queues &amp; Deques. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
     <link rel="stylesheet" href="/src/style.css">
-
-    <!-- KaTeX CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-
-    <!-- Lucide icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        .glass-card {
-            background-color: rgba(9, 10, 26, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.12);
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.35);
-            box-shadow: 0 12px 36px -8px rgba(59, 130, 246, 0.16);
-        }
-        .viva-card-inner {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-        .viva-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .active-nav-card {
-            border-color: rgba(59, 130, 246, 0.4);
-            background-color: rgba(59, 130, 246, 0.08);
-            color: #3b82f6 !important;
-        }
-    </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ],
-                throwOnError: false
-            });
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-            initPlatform();
-        });
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
     </script>
+    <style>
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
+    </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#030308] text-slate-350 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-blue-600 selection:text-white">
-
-    <!-- Toast message system -->
-    <div id="toast-notif" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 bg-[#090b1e]/90 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none">
-        <span class="p-1 bg-emerald-500/10 rounded-lg"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i></span>
-        <span id="toast-message">Progress Saved!</span>
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 w-full z-50 bg-[#030308]/85 backdrop-blur-md border-b border-blue-950/45 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between font-semibold">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl"></div>
-                    <span class="relative z-10 text-white font-black text-lg">EP</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none font-sans">EngiPrep <span class="text-blue-500">Hub</span></span>
-                    <span class="text-[6.5px] font-black uppercase tracking-[0.22em] text-blue-500 mt-1">JNTUK R23 Regulation Workspace</span>
-                </div>
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            <div class="flex items-center gap-4">
-                <a href="/data-structures-basics.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase text-slate-350 transition-all">
-                    Syllabus Hub
-                </a>
-                <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-white">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
-    <!-- Main Outer Container -->
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        
-        <!-- Breadcrumbs -->
         <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
             <ol class="flex items-center gap-2">
                 <li><a href="/" class="hover:text-blue-500">Home</a></li>
                 <li>/</li>
-                <li><a href="/semester-2.html" class="hover:text-blue-500">Sem 2</a></li>
+                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
                 <li>/</li>
-                <li><a href="/data-structures-basics.html" class="hover:text-blue-500">Data Structures</a></li>
+                <li><a href="/subject.html?slug=data-structures" class="hover:text-blue-500">data structures</a></li>
                 <li>/</li>
-                <li class="text-blue-500" aria-current="page">Unit IV: Queues</li>
+                <li class="text-blue-500" aria-current="page">Queues &amp; Deques</li>
             </ol>
         </nav>
-
-        <!-- TOP HEADER BOX -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#04091c] border border-blue-950/45">
-            <div class="absolute right-0 top-0 w-80 h-80 bg-[#a855f7]/10 rounded-full blur-[100px] pointer-events-none font-sans"></div>
-            <div class="space-y-4 relative z-10 max-w-2xl">
-                <div class="flex items-center gap-2 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-purple-500/15 border border-purple-500/25 text-purple-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit IV Workspace</span>
-                    <span class="px-2.5 py-0.5 bg-[#f59e0b]/15 border border-[#f59e0b]/25 text-[#f59e0b] text-[10px] font-black uppercase tracking-widest rounded-full">Difficulty: Hard</span>
-                </div>
-                <div>
-                    <h1 class="text-3xl lg:text-4xl font-extrabold text-white uppercase tracking-tight font-sans">
-                        Unit IV: FIFO Queues &amp;<br>Circular Structures
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed font-sans">
-                        Unlock First-In-First-Out (FIFO) queue states. Master pointer-shifts indices across linear arrays and dynamic linked nodes, with deep highlights on circular array recycling logic.
-                    </p>
-                    <div class="flex flex-wrap gap-2.5 mt-5">
-                        <a href="#solved-papers" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Solve Core Programs 💻
-                        </a>
-                        <a href="#viva" class="px-3 py-1.5 border border-purple-500/30 bg-purple-500/10 hover:bg-purple-600/20 text-purple-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Practice Viva Questions 🧠
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-emerald-500/30 bg-emerald-500/10 hover:bg-[#10b981]/25 text-[#10b981] rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Run Complexity Analyzer ⚡
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-450 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Visualize Data Structures 🎯
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-amber-500/30 bg-amber-500/10 hover:bg-amber-600/20 text-amber-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Open Code Playground 🚀
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Unit Tracking Bento Box -->
-            <div class="w-full md:w-80 p-5 bg-slate-950/60 border border-slate-900 rounded-2xl flex flex-col justify-between h-52 relative z-10 shadow-inner">
-                <div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-[#f43f5e]">CODING NOT STARTED</span>
-                        <span id="overall-status-text" class="text-[10px] font-black text-rose-500 font-sans">0% Completed</span>
-                    </div>
-                    <h4 class="text-xs font-black text-white mt-1 font-sans">DSA Preparation Tracker</h4>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span>Problem Solving Progress</span>
-                        <span id="percentage-indicator" class="font-bold">0%</span>
-                    </div>
-                    <div class="w-full bg-[#101438] h-2 rounded-full overflow-hidden">
-                        <div id="progress-bar-indicator" class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between font-sans">
-                    <span class="text-[8.5px] text-slate-500 font-extrabold uppercase">15 Smart Coding Modules</span>
-                    <button onclick="resetInternalTracker()" class="text-[9px] text-[#f43f5e] hover:underline font-extrabold cursor-pointer uppercase">Reset Status</button>
-                </div>
-            </div>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Queues &amp; Deques <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Queue properties, operations, circular queues, deques, implementation using arrays/linked lists.</p>
         </header>
-
-        <!-- TWO COLUMN VIEWPORT -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- LEFT NAVIGATION SIDEBAR -->
-            <aside class="lg:col-span-3 sticky top-28 space-y-4 max-h-[80vh] overflow-y-auto pr-2 no-scrollbar">
-                <div class="p-1 rounded-2xl bg-[#050510] border border-blue-950/50 space-y-1 shadow-2xl">
-                    <div class="p-3 text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-blue-950/30">Table of Contents</div>
-                    
-                    <a href="#intro" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">01</span> Introduction to the Data Structure
-                    </a>
-                    <a href="#core-principles" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">02</span> Core Theory Concepts
-                    </a>
-                    <a href="#definitions" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">03</span> Operations &amp; Time Complexity
-                    </a>
-                    <a href="#derivations" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">04</span> Algorithms &amp; Working Logic
-                    </a>
-                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">05</span> Code Implementations
-                    </a>
-                    <a href="#numericals" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">06</span> Step-by-Step Dry Runs
-                    </a>
-                    <a href="#calculator" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">07</span> Visual Simulations
-                    </a>
-                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">08</span> Important Interview Programs
-                    </a>
-                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">09</span> JNTUK PYQs &amp; Repeated Questions
-                    </a>
-                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">10</span> Most Expected Exam Problems
-                    </a>
-                    <a href="#viva" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">11</span> Viva &amp; Lab Questions
-                    </a>
-                    <a href="#revision-sheets" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">12</span> Quick Revision Notes
-                    </a>
-                    <a href="#formula-sheet" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">13</span> Complexity Cheat Sheet
-                    </a>
-                    <a href="#mnemonics" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">14</span> Memory Tricks &amp; Patterns
-                    </a>
-                </div>
-            </aside>
-
-            <!-- RIGHT PANEL: MASTER CONTENT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">FIFO Operations</h2>
+                    <p>Queues operate strictly on First-In-First-Out (FIFO) logic, essential for scheduling and buffering.</p>
+                </section>
 
-                <!-- 01 FIFO Queue Mechanics -->
-                <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">01</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">First-In-First-Out (FIFO) Queue Mechanics</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400">
-                        <p>
-                            A <b>Queue</b> is a linear structure based on the <b>First In First Out (FIFO)</b> principle. Elements are inserted at the back end (<code class="text-blue-400">rear</code>) and removed from the front boundary (<code class="text-blue-400">front</code>).
-                        </p>
-                        <ul class="list-disc list-inside space-y-2 text-slate-350 bg-[#050616] p-4 rounded-xl border border-blue-950">
-                            <li><b class="text-white">Enqueue:</b> Appends a data value at the <code class="text-[#0dffc0]">rear</code> of the queue.</li>
-                            <li><b class="text-white">Dequeue:</b> Pops and yields the item located at the <code class="text-[#0dffc0]">front</code> index.</li>
-                            <li><b class="text-white">Properties:</b> Requires dual-pointers track management: <code class="text-indigo-400">front</code> and <code class="text-indigo-400">rear</code>.</li>
-                        </ul>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-1" onclick="toggleScoreTask('tag-1')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master FIFO operations models (+20 XP)</span>
-                            </label>
+                
+
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">CQ Enqueue</h4>
+                            <p class="font-mono text-sm mt-2">rear = (rear + 1) % MAX;</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">CQ Dequeue</h4>
+                            <p class="font-mono text-sm mt-2">front = (front + 1) % MAX;</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 02 Array vs List Queues -->
-                <section id="core-principles" class="glass-card p-8 scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">02</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">Array vs List Queue Representations</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 leading-relaxed font-sans">
-                        <p>
-                            Queues can be represented sequentially using arrays or dynamically using nodes:
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-blue-400 font-bold uppercase text-[9.5px]">Sequential Array Storage</span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    Maintains dual indexes: <code class="text-[#0dffc0]">front</code> and <code class="text-[#0dffc0]">rear</code>. Access operations are constant-time $\mathcal{O}(1)$, but the fixed array size limits the queue's capacity.
-                                </p>
-                            </div>
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-indigo-400 font-bold uppercase text-[9.5px]">Linked List Nodes Tracking</span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    References both head (front) and tail (rear) nodes. Dynamically allocates nodes to prevent overflow bugs, ensuring clean insertions.
-                                </p>
-                            </div>
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Circular Queue Operations <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Explain the implementation of Circular Queue with suitable C functions.</p>
                         </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-2" onclick="toggleScoreTask('tag-2')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Learn queue representations tradeoffs (+20 XP)</span>
-                            </label>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Deque <span class="text-blue-500">(5 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">What is a Double Ended Queue (Deque)? Explain its input restricted variant.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 03 False Overflow boundaries -->
-                <section id="definitions" class="glass-card p-8 scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">03</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">The False Overflow Problem</h2>
-                    </div>
-                    <div class="space-y-5 text-xs text-slate-400 leading-relaxed font-sans">
-                        <p>
-                            In standard linear queues, dequeuing elements shifts the <code class="text-[#0dffc0]">front</code> index forward, leaving the empty slots before it unusable. When <code class="text-[#0dffc0]">rear == MAX - 1</code>, the queue triggers an <b>Overflow</b> error on enqueues, even if the slots before the <code class="text-[#0dffc0]">front</code> index are free. This block of unused memory is known as a <b>False Overflow</b>.
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-[#10081d] border border-purple-550/20 rounded-xl">
-                                <b class="text-white text-xs block">Circular Array Solution</b>
-                                <p class="text-[11px] text-slate-450 mt-1">
-                                    Circular queues use modular arithmetic to wrap pointers back to index 0: <code class="text-[#0dffc0]">rear = (rear + 1) % MAX</code>. This recycled indexing model completely prevents false overflows.
-                                </p>
-                            </div>
-                            <div class="p-4 bg-slate-950/70 border border-slate-900 rounded-xl">
-                                <b class="text-white text-xs block">Circular Empty/Full Check Formulas</b>
-                                <p class="text-[11px] text-slate-450 mt-1">
-                                    Empty: <code class="text-[#0dffc0]">front == -1</code>. Full: <code class="text-[#0dffc0]">(rear + 1) % MAX == front</code>.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-3" onclick="toggleScoreTask('tag-3')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Verify Circular formulas bounds check (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 04 Core Queue Enqueue/Dequeue code -->
-                <section id="derivations" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-blue-500 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">04</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Core Circular Queue Enqueue/Dequeue Code</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed">
-                        <p>Write robust C-styled implementations showing modular arithmetic index calculations precisely:</p>
-                        <pre class="bg-slate-950/90 p-4 rounded-xl border border-blue-950 text-[#0dffc0] font-mono text-[10.5px]">
-#define MAX 5
-int queue[MAX];
-int front = -1, rear = -1;
-
-// Enqueue in Circular Queue
-void enqueue(int val) {
-    if ((rear + 1) % MAX == front) {
-        printf("Queue Overflow Error\n");
-        return;
-    }
-    if (front == -1) front = 0; // First element boundary init
-    rear = (rear + 1) % MAX;    // Wrap index circularly
-    queue[rear] = val;
-}
-
-// Dequeue in Circular Queue
-int dequeue() {
-    if (front == -1) {
-        printf("Queue Underflow Error\n");
-        return -1;
-    }
-    int data = queue[front];
-    if (front == rear) { // Solo element popped: Reset queue state
-        front = -1; rear = -1;
-    } else {
-        front = (front + 1) % MAX; // Progress circularly
-    }
-    return data;
-}</pre>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-4" onclick="toggleScoreTask('tag-4')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Commit Circular algorithms to memory (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 05 High-Yield Queue cheat sheet -->
-                <section id="formula-sheet" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-[#f59e0b]">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-[#f59e0b] font-mono">05</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">High-Yield Queue Time metrics</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium font-sans text-slate-400">
-                        <p>Quick operational cost reference chart for Circular and Linear Queue structures:</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono">
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl">
-                                <span class="text-blue-400 font-bold block text-[9px] uppercase">Enqueue &amp; Dequeue Operations</span>
-                                <h4 class="text-white font-extrabold text-sm mt-1">Time complexity: $\mathcal{O}(1)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">Pointers (front/rear) are updated directly using constant-time calculations.</p>
-                            </div>
-                            <div class="p-[#101530] bg-slate-950 border border-slate-900 rounded-xl p-4">
-                                <span class="text-[#f59e0b] font-bold block text-[9px] uppercase">Pointer Search Traverse</span>
-                                <h4 class="text-white font-extrabold text-sm mt-1">Time complexity: $\mathcal{O}(n)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">To search inside a queue, we must systematically scan from the front index to the rear index.</p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-5" onclick="toggleScoreTask('tag-5')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Lock high-yield variables parameters (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 06 Interactive Queue Simulator -->
-                <section id="calculator" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-indigo-500 font-sans">
-                    <div class="flex items-center justify-between mb-6 border-b border-blue-950/55 pb-3">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xl font-bold text-indigo-400 font-mono">06</span>
-                            <h2 class="text-xl font-black text-white uppercase tracking-tight">Interactive Queue Simulator</h2>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="switchQueueType('linear')" id="qtype-linear-btn" class="px-2.5 py-1 rounded bg-[#3b82f6]/25 text-blue-400 border border-blue-505/15 hover:bg-blue-600/10 text-[9px] uppercase font-black cursor-pointer">Linear Queue</button>
-                            <button onclick="switchQueueType('circular')" id="qtype-circular-btn" class="px-2.5 py-1 rounded bg-[#030308] text-slate-400 border border-blue-950 hover:bg-blue-600/10 text-[9px] uppercase font-black cursor-pointer">Circular Queue</button>
-                        </div>
-                    </div>
-
-                    <div class="p-5 bg-[#01020d] border border-blue-950 rounded-xl space-y-6">
-                        <div class="flex items-center justify-between flex-wrap gap-4">
-                            <div class="flex items-center gap-3">
-                                <div class="flex flex-col gap-1">
-                                    <label class="text-[9px] text-slate-500 uppercase font-black tracking-widest leading-none">Enqueue Data:</label>
-                                    <input type="number" id="q-sim-input" value="10" class="px-3 py-1.5 bg-[#030308] border border-blue-950 rounded text-xs text-center text-white font-mono w-20">
-                                </div>
-                                <div class="flex gap-2 mt-4">
-                                    <button onclick="simulateQueue('enqueue')" class="px-3 py-1.5 bg-blue-600/20 text-blue-400 border border-blue-650/20 hover:bg-blue-600/35 text-xs font-black uppercase rounded cursor-pointer transition-all">Enqueue</button>
-                                    <button onclick="simulateQueue('dequeue')" class="px-3 py-1.5 bg-rose-600/20 text-rose-450 border border-rose-650/20 hover:bg-rose-600/35 text-xs font-black uppercase rounded cursor-pointer transition-all">Dequeue</button>
-                                </div>
-                            </div>
-                            
-                            <!-- Tracking pointers feedback indicators -->
-                            <div class="flex gap-4 font-mono text-[10.5px]">
-                                <div class="px-3 py-1.5 bg-slate-950/60 border border-slate-900 rounded">
-                                    <span class="text-blue-400 font-bold block text-[8px] uppercase">FRONT PTR</span>
-                                    <span id="q-ptr-front" class="text-white font-extrabold">-1</span>
-                                </div>
-                                <div class="p-3 bg-slate-950/60 border border-[#101530] rounded px-3 py-1.5">
-                                    <span class="text-[#f59e0b] font-bold block text-[8px] uppercase">REAR PTR</span>
-                                    <span id="q-ptr-rear" class="text-white font-extrabold">-1</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Visual representation of Queue buffer cells -->
-                        <div class="py-6 px-4 bg-[#020206] border border-blue-950/45 rounded-lg flex items-center justify-center gap-4 text-xs font-mono" id="q-cells-container">
-                            <!-- Dynamically generated elements representation -->
-                        </div>
-
-                        <!-- Trace Feed logger -->
-                        <div class="p-3 bg-slate-950/90 border border-blue-950 font-mono text-[10.5px] text-slate-500 leading-normal rounded" id="q-logs-feed">
-                            Queue trace log buffer initialized. Add 5 items to test linear overflow boundaries!
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 07 Circular Index solved traces -->
-                <section id="numericals" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-emerald-500 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-emerald-500 font-mono">07</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Circular Index Solved Traces</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans">
-                        <div class="p-5 bg-emerald-500/5 border border-emerald-500/20 rounded-xl space-y-1">
-                            <span class="text-[#0dffc0] text-[9.5px] font-mono tracking-wider font-bold">BOARD TRACE TEST: CIRCULAR ARRAY WRAPAROUND</span>
-                            <p class="mt-2 text-slate-350">
-                                Trace a circular queue of size 5 with elements: <code class="text-white">[empty, empty, 30, 40, 50]</code>, where <code class="text-white">front = 2</code> and <code class="text-white">rear = 4</code>.
-                            </p>
-                            <div class="bg-black/40 border border-blue-950 p-4 rounded-xl font-mono text-[11px] text-indigo-400 space-y-1">
-                                1. Current State: front=2, rear=4, elements=3.<br>
-                                2. Action: Enqueue(60) requested.<br>
-                                3. Wrap pointer: <code class="text-[#0dffc0]">rear = (rear + 1) % 5 = (4 + 1) % 5 = 0</code>.<br>
-                                4. Store value: <code class="text-emerald-450">queue[0] = 60</code>.<br>
-                                5. Result: <code class="text-emerald-450">[60, empty, 30, 40, 50] (front=2, rear=0)</code>! Circular wraparound successfully prevents a false overflow!
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-6" onclick="toggleScoreTask('tag-6')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Save Wraparound calculation reviews (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 08 JNTUK Solved CLL Queue -->
-                <section id="solved-papers" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-purple-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-purple-500 font-mono">08</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">JNTUK Solved Questions CLL Queue</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans">
-                        <div class="border-l-2 border-purple-500 pl-4 space-y-1">
-                            <h4 class="font-bold text-white">Full Circular Queue check C-implementation <span class="text-purple-400">(5 Marks JNTUK Board)</span></h4>
-                            <p>Write standard functional blocks checking if circular array bounds are saturated from incoming data streams:</p>
-                            <pre class="bg-slate-950/85 p-3 rounded-lg border border-purple-950 text-[#0dffc0] font-mono text-[10.5px]">
-int isCircularQueueFull() {
-    if ((rear + 1) % MAX == front) {
-        return 1; // True: Queue is completely full
-    }
-    return 0; // False: Empty slots exist
-}</pre>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-7" onclick="toggleScoreTask('tag-7')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master full boundaries verification (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 09 Most Expected Predictor -->
-                <section id="predictor" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-rose-500 animate-fadeIn">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/25 pb-3">
-                        <span class="text-xl font-bold text-rose-500 font-mono">09</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Most Expected Predictor</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium font-sans">
-                        <div class="p-4 bg-rose-500/5 rounded-xl border border-rose-500/20 space-y-2">
-                            <span class="text-rose-455 uppercase font-black tracking-widest text-[8.5px]">PREDICTED BOARD EXAM ESSAYS (10 MARKS EACH)</span>
-                            <ul class="list-decimal list-inside space-y-1.5 text-slate-350">
-                                <li>Detail representations of standard Queues. Illustrate why linear arrays fall into False Overflow layouts, and write C codes to resolve this circularly.</li>
-                                <li>Explain implementations of a Queue using Singly Linked List nodes. Write operations routines for Head Enqueue &amp; Tail Dequeue.</li>
-                                <li>Describe applications of Queues in modern OS task scheduling (e.g., Round Robin, CPU scheduling).</li>
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                
                             </ul>
                         </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-8" onclick="toggleScoreTask('tag-8')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Check-off anticipated essay modules (+20 XP)</span>
-                            </label>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"N/A"</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">N/A</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 10 Lab Concept Viva Cards -->
-                <section id="viva" class="glass-card p-8 scroll-mt-24 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">10</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Lab Concept Viva Cards</h2>
-                    </div>
-                    <p class="text-xs text-slate-400 mb-6 font-sans">Flip and verify concepts verbal prep instantly:</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Card 1 -->
-                        <div class="relative w-full h-32 cursor-pointer select-none group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between">
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">Why does enqueue increment 'rear' first in C?</h4>
-                                    <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
+                                    <h4 class="text-xs font-black text-slate-100">Enqueue &amp; Dequeue?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">Because rear indicates the index of the latest inserted element. We must increment rear to the next empty index before storing new data values.</p>
-                                    <span class="text-[9px] text-emerald-400 font-bold">Score unlocked!</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Enqueue adds to the rear; Dequeue removes from the front.</p>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Card 2 -->
-                        <div class="relative w-full h-32 cursor-pointer select-none group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between">
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">Under what conditions does 'front == rear' occur?</h4>
-                                    <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
+                                    <h4 class="text-xs font-black text-slate-100">Circular Queue?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">It indicates the queue has exactly one remaining element. Choosing to dequeue this single element requires resetting both front and rear back to -1.</p>
-                                    <span class="text-[9px] text-emerald-400 font-bold">Score unlocked!</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Connects the last position back to the first to utilize empty space efficiently.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-                <!-- 11 Queue Real World Applications -->
-                <section id="revision-sheets" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-cyan-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-cyan-500 font-mono">11</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Queue Real World Applications</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 font-sans leading-relaxed">
-                        <p>Evaluate these standard Queue application domains:</p>
-                        <ul class="list-disc list-inside space-y-1.5 text-slate-350">
-                            <li><b class="text-white">OS Task Buffering:</b> Incoming system keyboard inputs, print task queues, and network packet requests follow strict FIFO sequences.</li>
-                            <li><b class="text-white">Breadth First Search (BFS):</b> BFS tracks untraversed neighbor nodes sequentially inside a queue.</li>
-                        </ul>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-9" onclick="toggleScoreTask('tag-9')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Save Applications review summaries (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 12 Memory Aids & Mnemonics -->
-                <section id="mnemonics" class="glass-card p-8 scroll-mt-24 border-[#f59e0b] border-l-4">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-yellow-500 font-mono">12</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Memory Aids &amp; Mnemonics</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 font-sans">
-                        <div class="p-5 bg-yellow-500/5 border border-yellow-500/20 rounded-xl space-y-2 leading-relaxed">
-                            <span class="text-[9px] font-black uppercase text-yellow-500 tracking-widest font-mono font-sans">FIFO BUS LINE MNEMONIC</span>
-                            <p class="text-slate-350">
-                                <b>"Join at Rear, exit from Front!"</b><br>
-                                Imagine a queue of passengers waiting to board a bus. New passengers join the line at the very back (<code class="text-blue-400">rear</code>), while passengers who arrived first exit from the very front (<code class="text-blue-400">front</code>). No cutting in line allowed!
-                            </p>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-10" onclick="toggleScoreTask('tag-10')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Review Bus analogies indicators (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 13 1-Day Prep Final Tips -->
-                <section id="survival-plan" class="p-8 bg-rose-50/5 border border-rose-500/20 rounded-[2rem] scroll-mt-24 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-rose-500/25 pb-3">
-                        <span class="text-xl font-bold text-[#f43f5e] font-mono">13</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">1-Day Prep Final Tips (Scoring Maximum Marks)</h2>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center font-sans text-xs">
-                        <div class="md:col-span-8 space-y-4 font-medium leading-relaxed">
-                            <h4 class="text-sm font-black text-white">How to score maximum marks in Unit IV Queues:</h4>
-                            <p class="text-slate-350">
-                                1. <b>Represent Array Queue Cells visibly:</b> Draw linear arrays split into cells. Clearly label the active pointers <code class="text-blue-405">F</code> (front) and <code class="text-[#f59e0b]">R</code> (rear) above their respective indexes to show insertions and deletions.
-                            </p>
-                            <p class="text-slate-350">
-                                2. <b>Write down the modular formula:</b> When describing circular arrays queue logic, always write the modulus formula <code class="text-[#0dffc0]">(index + 1) % MAX</code> in a bold, visible callout box. Giving this equation secures full points on the design section.
-                            </p>
-                        </div>
-                        <div class="md:col-span-4 p-5 bg-[#030308] border border-rose-500/20 rounded-2xl text-center space-y-3">
-                            <span class="text-lg">🎓</span>
-                            <h5 class="text-xs font-bold text-white font-sans">Done reviewing?</h5>
-                            <p class="text-[10px] text-slate-450 leading-relaxed font-sans">Ensure you have checked all checkboxes to save your Unit 4 progress in your browser.</p>
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-11" onclick="toggleScoreTask('tag-11')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>I am exam-ready (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
             </div>
         </div>
     </main>
-
     <script>
-        let scoreXP = 0;
-        const maxXPValue = 220; // 11 tasks * 20 = 220 XP
-
-        let qType = 'linear'; // 'linear' or 'circular'
-        const maxQSize = 5;
-        let qArray = new Array(maxQSize).fill(null);
-        let qFront = -1;
-        let qRear = -1;
-
-        function initPlatform() {
-            const storedXP = localStorage.getItem('engi_ds_u4_score');
-            if (storedXP) {
-                scoreXP = parseInt(storedXP);
-                for (let i = 1; i <= 11; i++) {
-                    const status = localStorage.getItem(`engi_ds_u4_task_${i}`);
-                    const elCheck = document.getElementById(`tag-${i}`);
-                    if (elCheck && status === 'done') {
-                        elCheck.checked = true;
-                    }
-                }
+        function flipVivaCard(card) {
+            const inner = card.querySelector('.viva-card-inner');
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
             } else {
-                scoreXP = 0;
-            }
-            updateXPUIRender();
-            renderQueueCells();
-        }
-
-        function showToastMessage(msg) {
-            const toast = document.getElementById('toast-notif');
-            document.getElementById('toast-message').innerText = msg;
-            toast.style.opacity = '1';
-            toast.style.transform = 'translateY(0px)';
-            
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(20px)';
-            }, 2500);
-        }
-
-        function updateXPUIRender() {
-            if (scoreXP < 0) scoreXP = 0;
-            if (scoreXP > maxXPValue) scoreXP = maxXPValue;
-
-            localStorage.setItem('engi_ds_u4_score', scoreXP);
-            const percentage = Math.round((scoreXP / maxXPValue) * 100);
-
-            document.getElementById('percentage-indicator').innerText = `${percentage}%`;
-            document.getElementById('progress-bar-indicator').style.width = `${percentage}%`;
-
-            const statusText = document.getElementById('overall-status-text');
-            if (percentage === 0) {
-                statusText.innerText = 'NOT STARTED';
-                statusText.className = 'text-[10px] font-black text-rose-500 font-sans';
-            } else if (percentage < 40) {
-                statusText.innerText = 'FIFO TRAINEE 🛠️';
-                statusText.className = 'text-[10px] font-black text-blue-450 font-sans';
-            } else if (percentage < 85) {
-                statusText.innerText = 'SHIFTER DEQUEUING 🧠';
-                statusText.className = 'text-[10px] font-black text-indigo-400 font-sans';
-            } else {
-                statusText.innerText = 'QUEUE ELITE 🏆';
-                statusText.className = 'text-[10px] font-black text-emerald-400 animate-pulse font-sans';
+                inner.style.transform = 'rotateY(180deg)';
             }
         }
-
-        window.toggleScoreTask = function(chkId) {
-            const chkElement = document.getElementById(chkId);
-            const indexValue = chkId.split('-')[1];
-            
-            if (chkElement.checked) {
-                scoreXP += 20;
-                localStorage.setItem(`engi_ds_u4_task_${indexValue}`, 'done');
-                showToastMessage(`Checkpoint master! +20 XP 🔥`);
-            } else {
-                scoreXP -= 20;
-                localStorage.setItem(`engi_ds_u4_task_${indexValue}`, 'undone');
-                showToastMessage(`Removed Checkpoint! -20 XP`);
-            }
-            updateXPUIRender();
-        };
-
-        window.resetInternalTracker = function() {
-            if (confirm("Reset all study checklists and unlocked XP values for Unit IV?")) {
-                localStorage.removeItem('engi_ds_u4_score');
-                for (let i = 1; i <= 11; i++) {
-                    localStorage.removeItem(`engi_ds_u4_task_${i}`);
-                    const chkElement = document.getElementById(`tag-${i}`);
-                    if (chkElement) chkElement.checked = false;
-                }
-                scoreXP = 0;
-                updateXPUIRender();
-                showToastMessage("Platform data completely reset.");
-            }
-        };
-
-        window.highlightNav = function(el) {
-            document.querySelectorAll('.nav-anchor-lnk').forEach(lnk => {
-                lnk.classList.remove('active-nav-card');
-            });
-            el.classList.add('active-nav-card');
-        };
-
-        window.flipVivaCard = function(el) {
-            const inner = el.querySelector('.viva-card-inner');
-            inner.classList.toggle('viva-card-flipped');
-            scoreXP += 5;
-            updateXPUIRender();
-            showToastMessage(`Practiced Oral Viva! +5 XP 🧪`);
-        };
-
-        // Queue visualizer
-        window.switchQueueType = function(mode) {
-            qType = mode;
-            qArray = new Array(maxQSize).fill(null);
-            qFront = -1;
-            qRear = -1;
-
-            const btnLinear = document.getElementById('qtype-linear-btn');
-            const btnCir = document.getElementById('qtype-circular-btn');
-            const feed = document.getElementById('q-logs-feed');
-
-            if (mode === 'linear') {
-                btnLinear.classList.add('bg-[#3b82f6]/25', 'text-blue-400');
-                btnCir.classList.remove('bg-[#3b82f6]/25', 'text-blue-400', 'bg-purple-500/25', 'text-purple-400');
-                btnCir.classList.add('text-slate-400');
-                
-                feed.innerHTML = "Switched to standard <b>Linear Queue</b>. Track Front and Rear indices values to watch False Overflow errors occur!";
-            } else {
-                btnCir.classList.add('bg-[#a855f7]/25', 'text-purple-400');
-                btnLinear.classList.remove('bg-[#3b82f6]/25', 'text-blue-400');
-                btnLinear.classList.add('text-slate-400');
-
-                feed.innerHTML = "Switched to recycled <b>Circular Queue</b>. Indices wrap around the buffer seamlessly using modulus arithmetic: <code class='text-purple-450'>(rear+1)%MAX</code>!";
-            }
-            renderQueueCells();
-        };
-
-        function renderQueueCells() {
-            const container = document.getElementById('q-cells-container');
-            if(!container) return;
-            container.innerHTML = '';
-
-            document.getElementById('q-ptr-front').innerText = qFront;
-            document.getElementById('q-ptr-rear').innerText = qRear;
-
-            qArray.forEach((val, idx) => {
-                const cell = document.createElement('div');
-                cell.className = "w-12 h-14 flex flex-col items-center justify-between rounded-lg border font-mono text-xs transition-all relative";
-
-                // Highlighting active front or rear pointer positions
-                let isFront = (idx === qFront);
-                let isRear = (idx === qRear);
-
-                if (val !== null) {
-                    cell.className += " border-emerald-500 bg-emerald-500/5 text-emerald-400";
-                } else {
-                    cell.className += " border-slate-800 bg-slate-950/60 text-slate-650";
-                }
-
-                if (isFront && isRear) {
-                    cell.className += " ring-2 ring-indigo-500 scale-105";
-                } else if (isFront) {
-                    cell.className += " border-blue-500 scale-105";
-                } else if (isRear) {
-                    cell.className += " border-[#f59e0b] scale-105";
-                }
-
-                // Render cell data content
-                const dataDisp = (val !== null) ? val : "[ ]";
-                cell.innerHTML = `
-                    <span class="text-[7.5px] text-slate-550 pt-1 font-sans">idx: ${idx}</span>
-                    <span class="font-extrabold text-[#0dffc0] text-sm pb-1">${dataDisp}</span>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 flex gap-0.5 whitespace-nowrap text-[7px] font-bold">
-                        ${isFront ? '<span class="text-blue-400 uppercase tracking-tighter">F</span>' : ''}
-                        ${isRear ? '<span class="text-[#f59e0b] uppercase tracking-tighter">R</span>' : ''}
-                    </div>
-                `;
-                container.appendChild(cell);
-            });
-        }
-
-        window.simulateQueue = function(action) {
-            const valInput = document.getElementById('q-sim-input');
-            const feed = document.getElementById('q-logs-feed');
-            const val = parseInt(valInput.value);
-
-            if (isNaN(val) && action === 'enqueue') {
-                feed.innerHTML = "<span class='text-rose-500 font-bold'>Error: Enter a valid integer to enqueue.</span>";
-                return;
-            }
-
-            if (qType === 'linear') {
-                if (action === 'enqueue') {
-                    if (qRear === maxQSize - 1) {
-                        // Linear queue throws overflow error even if space is available at the front
-                        if (qFront > 0) {
-                            feed.innerHTML = `<span class='text-rose-500 font-extrabold'>FALSE OVERFLOW TRIPPED!</span> rear is at max value (${qRear}), but index 0 to ${qFront-1} are completely empty. Switch to Circular Queue to solve this!`;
-                        } else {
-                            feed.innerHTML = `<span class='text-rose-500 font-bold'>Queue Overflow:</span> The array storage is completely full!`;
-                        }
-                        return;
-                    }
-                    if (qFront === -1) qFront = 0;
-                    qRear++;
-                    qArray[qRear] = val;
-                    feed.innerHTML = `Enqueued element matching payload: [${val}] at rear index: ${qRear}.`;
-                } else {
-                    if (qFront === -1) {
-                        feed.innerHTML = `<span class='text-rose-550 font-bold'>Queue Underflow:</span> There are no elements left in the queue!`;
-                        return;
-                    }
-                    const dequeuedVal = qArray[qFront];
-                    qArray[qFront] = null;
-                    feed.innerHTML = `Dequeued element [${dequeuedVal}] from front index: ${qFront}.`;
-                    
-                    if (qFront === qRear) {
-                        qFront = -1;
-                        qRear = -1;
-                        feed.innerHTML += " Queue is now completely empty. Resetting pointers back to -1.";
-                    } else {
-                        qFront++;
-                    }
-                }
-            } else {
-                // Circular Queue Simulation
-                if (action === 'enqueue') {
-                    if ((qRear + 1) % maxQSize === qFront) {
-                        feed.innerHTML = `<span class='text-rose-550 font-bold'>Queue Overflow:</span> The circular array is completely full!`;
-                        return;
-                    }
-                    if (qFront === -1) qFront = 0;
-                    qRear = (qRear + 1) % maxQSize;
-                    qArray[qRear] = val;
-                    feed.innerHTML = `Circular Enqueued [${val}] at recycled rear index: ${qRear}.`;
-                } else {
-                    if (qFront === -1) {
-                        feed.innerHTML = `<span class='text-rose-550 font-bold'>Queue Underflow:</span> Circular list contains no records.`;
-                        return;
-                    }
-                    const dequeuedVal = qArray[qFront];
-                    qArray[qFront] = null;
-                    feed.innerHTML = `Circular Dequeued [${dequeuedVal}] from front index: ${qFront}.`;
-                    
-                    if (qFront === qRear) {
-                        qFront = -1;
-                        qRear = -1;
-                        feed.innerHTML += " Circular buffer reset: front &amp; rear set back to -1.";
-                    } else {
-                        qFront = (qFront + 1) % maxQSize;
-                    }
-                }
-            }
-            renderQueueCells();
-        };
     </script>
 </body>
 </html>

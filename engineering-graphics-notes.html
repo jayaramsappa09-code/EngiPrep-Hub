@@ -1645,6 +1645,12 @@
             canvas.addEventListener('mousedown', function(e) {
                 const pt = getCanvasMousePos(canvas, e);
                 
+                // Add trace if near vertex
+                const vertex = isNearVertex(pt);
+                if (vertex) {
+                    drawProjectionTrace(vertex);
+                }
+                
                 if (cadState.tool === 'trim') {
                     performTrimAt(pt);
                     return;
@@ -1733,6 +1739,44 @@
             });
         }
 
+        function isNearVertex(pt) {
+            for (const el of cadState.elements) {
+                if (el.type === 'line' || el.type === 'ruler') {
+                    if (Math.hypot(pt.x - el.startX, pt.y - el.startY) < 15) return {x: el.startX, y: el.startY};
+                    if (Math.hypot(pt.x - el.endX, pt.y - el.endY) < 15) return {x: el.endX, y: el.endY};
+                }
+            }
+            return null;
+        }
+
+        function drawProjectionTrace(vertex) {
+            const canvas = document.getElementById('cad-canvas');
+            const targetY = canvas.height / 2;
+            
+            const trace = {
+                startX: vertex.x,
+                startY: vertex.y,
+                endX: vertex.x,
+                endY: targetY,
+                alpha: 1
+            };
+            
+            cadState.tempTraces = cadState.tempTraces || [];
+            cadState.tempTraces.push(trace);
+            
+            let alpha = 1;
+            const interval = setInterval(() => {
+                alpha -= 0.05;
+                trace.alpha = alpha;
+                redrawCADCanvas();
+                if (alpha <= 0) {
+                    clearInterval(interval);
+                    cadState.tempTraces = cadState.tempTraces.filter(t => t !== trace);
+                    redrawCADCanvas();
+                }
+            }, 50);
+        }
+
         function redrawCADCanvas() {
             const canvas = document.getElementById('cad-canvas');
             if (!canvas) return;
@@ -1745,6 +1789,18 @@
             cadState.elements.forEach(el => {
                 drawElement(ctx, el, false);
             });
+            
+            // Draw temporary traces
+            if (cadState.tempTraces) {
+                cadState.tempTraces.forEach(t => {
+                    ctx.strokeStyle = `rgba(234, 179, 8, ${t.alpha})`; // yellow
+                    ctx.setLineDash([5, 5]);
+                    ctx.beginPath();
+                    ctx.moveTo(t.startX, t.startY);
+                    ctx.lineTo(t.endX, t.endY);
+                    ctx.stroke();
+                });
+            }
             
             // Draw current active preview line or shape
             if (cadState.isDrawing) {

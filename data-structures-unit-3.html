@@ -3,823 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 3: Stacks &amp; Expression Evaluations | EngiPrep Hub</title>
-    <meta name="description" content="Ultimate JNTUK R23 Data Structures Unit III guide. Master Last-In-First-Out (LIFO) stacks, Array and Linked List stack implementations, and expression evaluations.">
+    <title>JNTUK R23 Stacks &amp; Applications | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Stacks &amp; Applications. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
     <link rel="stylesheet" href="/src/style.css">
-
-    <!-- KaTeX CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-
-    <!-- Lucide icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        .glass-card {
-            background-color: rgba(9, 10, 26, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.12);
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.35);
-            box-shadow: 0 12px 36px -8px rgba(59, 130, 246, 0.16);
-        }
-        .viva-card-inner {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-        .viva-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .active-nav-card {
-            border-color: rgba(59, 130, 246, 0.4);
-            background-color: rgba(59, 130, 246, 0.08);
-            color: #3b82f6 !important;
-        }
-    </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ],
-                throwOnError: false
-            });
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-            initPlatform();
-        });
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
     </script>
+    <style>
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
+    </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#030308] text-slate-350 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-blue-600 selection:text-white">
-
-    <!-- Toast message system -->
-    <div id="toast-notif" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 bg-[#090b1e]/90 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none">
-        <span class="p-1 bg-emerald-500/10 rounded-lg"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i></span>
-        <span id="toast-message">Progress Saved!</span>
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 w-full z-50 bg-[#030308]/85 backdrop-blur-md border-b border-blue-950/45 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between font-semibold">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl"></div>
-                    <span class="relative z-10 text-white font-black text-lg">EP</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none font-sans">EngiPrep <span class="text-blue-500">Hub</span></span>
-                    <span class="text-[6.5px] font-black uppercase tracking-[0.22em] text-blue-500 mt-1">JNTUK R23 Regulation Workspace</span>
-                </div>
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            <div class="flex items-center gap-4">
-                <a href="/data-structures-basics.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase text-slate-350 transition-all">
-                    Syllabus Hub
-                </a>
-                <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-white">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
-    <!-- Main Outer Container -->
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        
-        <!-- Breadcrumbs -->
         <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
             <ol class="flex items-center gap-2">
                 <li><a href="/" class="hover:text-blue-500">Home</a></li>
                 <li>/</li>
-                <li><a href="/semester-2.html" class="hover:text-blue-500">Sem 2</a></li>
+                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
                 <li>/</li>
-                <li><a href="/data-structures-basics.html" class="hover:text-blue-500">Data Structures</a></li>
+                <li><a href="/subject.html?slug=data-structures" class="hover:text-blue-500">data structures</a></li>
                 <li>/</li>
-                <li class="text-blue-500" aria-current="page">Unit III: Stacks</li>
+                <li class="text-blue-500" aria-current="page">Stacks &amp; Applications</li>
             </ol>
         </nav>
-
-        <!-- TOP HEADER BOX -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#04091c] border border-blue-950/45">
-            <div class="absolute right-0 top-0 w-80 h-80 bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none font-sans"></div>
-            <div class="space-y-4 relative z-10 max-w-2xl">
-                <div class="flex items-center gap-2 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit III Workspace</span>
-                    <span class="px-2.5 py-0.5 bg-[#f59e0b]/15 border border-[#f59e0b]/25 text-[#f59e0b] text-[10px] font-black uppercase tracking-widest rounded-full">Difficulty: Medium</span>
-                </div>
-                <div>
-                    <h1 class="text-3xl lg:text-4xl font-extrabold text-white uppercase tracking-tight font-sans">
-                        Unit III: Stacks &amp;<br>Applications
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        Explore Last-In-First-Out (LIFO) stacks models. Conquer operations implementations using sequential arrays and dynamic links, along with expression converters and backtracking.
-                    </p>
-                    <div class="flex flex-wrap gap-2.5 mt-5">
-                        <a href="#solved-papers" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Solve Core Programs 💻
-                        </a>
-                        <a href="#viva" class="px-3 py-1.5 border border-purple-500/30 bg-purple-500/10 hover:bg-purple-600/20 text-purple-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Practice Viva Questions 🧠
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-emerald-500/30 bg-emerald-500/10 hover:bg-[#10b981]/25 text-[#10b981] rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Run Complexity Analyzer ⚡
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-450 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Visualize Data Structures 🎯
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-amber-500/30 bg-amber-500/10 hover:bg-amber-600/20 text-amber-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Open Code Playground 🚀
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Unit Tracking Bento Box -->
-            <div class="w-full md:w-80 p-5 bg-slate-950/60 border border-slate-900 rounded-2xl flex flex-col justify-between h-52 relative z-10 shadow-inner">
-                <div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-[#f43f5e]">CODING NOT STARTED</span>
-                        <span id="overall-status-text" class="text-[10px] font-black text-rose-500 font-sans">0% Completed</span>
-                    </div>
-                    <h4 class="text-xs font-black text-white mt-1">DSA Preparation Tracker</h4>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span>Problem Solving Progress</span>
-                        <span id="percentage-indicator" class="font-bold">0%</span>
-                    </div>
-                    <div class="w-full bg-[#101438] h-2 rounded-full overflow-hidden">
-                        <div id="progress-bar-indicator" class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between font-sans">
-                    <span class="text-[8.5px] text-slate-500 font-extrabold uppercase">15 Smart Coding Modules</span>
-                    <button onclick="resetInternalTracker()" class="text-[9px] text-[#f43f5e] hover:underline font-extrabold cursor-pointer uppercase">Reset Status</button>
-                </div>
-            </div>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Stacks &amp; Applications <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Stack properties, operations, array and linked list implementation, expression evaluation.</p>
         </header>
-
-        <!-- TWO COLUMN VIEWPORT -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- LEFT NAVIGATION SIDEBAR -->
-            <aside class="lg:col-span-3 sticky top-28 space-y-4 max-h-[80vh] overflow-y-auto pr-2 no-scrollbar">
-                <div class="p-1 rounded-2xl bg-[#050510] border border-blue-950/50 space-y-1 shadow-2xl">
-                    <div class="p-3 text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-blue-950/30">Table of Contents</div>
-                    
-                    <a href="#intro" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">01</span> Introduction to the Data Structure
-                    </a>
-                    <a href="#core-principles" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">02</span> Core Theory Concepts
-                    </a>
-                    <a href="#definitions" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">03</span> Operations &amp; Time Complexity
-                    </a>
-                    <a href="#derivations" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">04</span> Algorithms &amp; Working Logic
-                    </a>
-                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">05</span> Code Implementations
-                    </a>
-                    <a href="#numericals" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">06</span> Step-by-Step Dry Runs
-                    </a>
-                    <a href="#calculator" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">07</span> Visual Simulations
-                    </a>
-                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">08</span> Important Interview Programs
-                    </a>
-                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">09</span> JNTUK PYQs &amp; Repeated Questions
-                    </a>
-                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">10</span> Most Expected Exam Problems
-                    </a>
-                    <a href="#viva" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">11</span> Viva &amp; Lab Questions
-                    </a>
-                    <a href="#revision-sheets" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">12</span> Quick Revision Notes
-                    </a>
-                    <a href="#formula-sheet" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">13</span> Complexity Cheat Sheet
-                    </a>
-                    <a href="#mnemonics" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">14</span> Memory Tricks &amp; Patterns
-                    </a>
-                </div>
-            </aside>
-
-            <!-- RIGHT PANEL: MASTER CONTENT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">LIFO Operations</h2>
+                    <p>Stacks follow the Last-In-First-Out (LIFO) principle. They are fundamental in recursion and parsing.</p>
+                </section>
 
-                <!-- 01 LIFO Stack Operations -->
-                <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">01</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Last-In-First-Out (LIFO) Stack Operations</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400">
-                        <p>
-                            A <b>Stack</b> is a linear structure conforming to the <b>Last In First Out (LIFO)</b> operational principle. Elements are pushed onto and popped from the absolute top boundary exclusively.
-                        </p>
-                        <ul class="list-disc list-inside space-y-2 text-slate-350 bg-[#050616] p-4 rounded-xl border border-blue-950">
-                            <li><b class="text-white">Push:</b> Adds an element onto the top.</li>
-                            <li><b class="text-white">Pop:</b> Removes and returns the element at the top.</li>
-                            <li><b class="text-white">Peek/Top:</b> Audits the value of the top element without altering structure states.</li>
-                        </ul>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-1" onclick="toggleScoreTask('tag-1')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master Stack operations mechanics (+20 XP)</span>
-                            </label>
+                
+
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Push Operation</h4>
+                            <p class="font-mono text-sm mt-2">stack[++top] = value;</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Pop Operation</h4>
+                            <p class="font-mono text-sm mt-2">value = stack[top--];</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 02 Array vs List Stacks -->
-                <section id="core-principles" class="glass-card p-8 scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">02</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Array vs List Stack Implementations</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium leading-relaxed text-slate-400">
-                        <p>
-                            Stacks can be implemented dynamically or sequentially with different boundaries:
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans">
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-blue-400 font-bold uppercase text-[9.5px]">Arrays Implementation</span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    Uses a fixed size sequence array and an integer tracking index (<code class="text-[#0dffc0]">top</code>). Quick constant access, but risks throwing an Overflow error when memory boundaries are exceeded.
-                                </p>
-                            </div>
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-indigo-400 font-bold uppercase text-[9.5px]">Linked List Implementation</span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    Pushes and pops elements from the head boundary of a Singly Linked List, where the head represents the active top pointer. Completely avoids overflow issues because it allocates node memory dynamically.
-                                </p>
-                            </div>
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Infix to Postfix <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Convert the infix expression (A+B)*C-D/E into postfix notation using a stack.</p>
                         </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-2" onclick="toggleScoreTask('tag-2')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Learn Array &amp; List implementations (+20 XP)</span>
-                            </label>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Stack via Linked List <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Implement Stack push and pop operations using Linked List.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 03 Essential overflow bounds -->
-                <section id="definitions" class="glass-card p-8 scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">03</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Essential Overflow Bounds</h2>
-                    </div>
-                    <div class="space-y-5 text-xs text-slate-400">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans">
-                            <div class="p-4 bg-slate-950/70 border border-slate-900 rounded-xl space-y-1">
-                                <b class="text-white text-xs block">Overflow Conditions</b>
-                                <p class="text-[11px] text-slate-450 leading-relaxed">
-                                    Triggered in array-backed stacks when pushing onto a completely saturated index: <code class="text-[#0dffc0]">top == MAX - 1</code>.
-                                </p>
-                            </div>
-                            <div class="p-4 bg-slate-950/70 border border-slate-900 rounded-xl space-y-1">
-                                <b class="text-white text-xs block">Underflow Conditions</b>
-                                <p class="text-[11px] text-slate-450 leading-relaxed">
-                                    Triggered during pop requests on an empty stack structure: <code class="text-[#0dffc0]">top == -1</code>.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-3" onclick="toggleScoreTask('tag-3')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Verify State Overflow Conditions (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 04 Core Stack Push/Pop code -->
-                <section id="derivations" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-blue-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">04</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Core Array-Backed Stack Push/Pop Code</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans">
-                        <p>Write simple array-backed stack structures containing boundaries checks in standard C:</p>
-                        <pre class="bg-slate-950/90 p-4 rounded-xl border border-blue-950 text-[#0dffc0] font-mono text-[10.5px]">
-#define MAX 100
-int stack[MAX];
-int top = -1;
-
-// Push operation
-void push(int val) {
-    if (top == MAX - 1) {
-        printf("Overflow Error\n");
-        return;
-    }
-    stack[++top] = val; // Increment top index FIRST, then assign value
-}
-
-// Pop operation
-int pop() {
-    if (top == -1) {
-        printf("Underflow Error\n");
-        return -1;
-    }
-    return stack[top--]; // Return top value FIRST, then decrement index
-}</pre>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-4" onclick="toggleScoreTask('tag-4')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Commit C stack algorithm to memory (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 05 High-Yield Stack cheat sheet -->
-                <section id="formula-sheet" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-[#f59e0b]">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-[#f59e0b] font-mono">05</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">High-Yield Stack Cheat Sheet</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium font-sans text-slate-400">
-                        <p>Quick operational cost breakdown for Stack data types:</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono">
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl">
-                                <span class="text-blue-400 font-bold block text-[9px] uppercase">Push &amp; Pop operational cost</span>
-                                <h4 class="text-white font-extrabold text-sm mt-1">Time complexity: $\mathcal{O}(1)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">We push or pop elements from the top index exclusively; no shifting is required.</p>
-                            </div>
-                            <div class="p-[#101530] bg-slate-950 border border-slate-900 rounded-xl p-4">
-                                <span class="text-[#f59e0b] font-bold block text-[9px] uppercase">Element Access / Search Cost</span>
-                                <h4 class="text-white font-extrabold text-sm mt-1">Time complexity: $\mathcal{O}(n)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">To search inside a stack, we must systematically pop and examine every element.</p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-5" onclick="toggleScoreTask('tag-5')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Lock high-yield Stack runtime parameters (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 06 Interactive Converter Sandbox -->
-                <section id="calculator" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-indigo-500 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-indigo-400 font-mono">06</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Interactive Converter: Infix to Postfix Parser</h2>
-                    </div>
-                    
-                    <div class="p-5 bg-[#01020d] border border-blue-950 rounded-xl space-y-6">
-                        <div class="flex items-center gap-3 flex-wrap text-sm font-sans">
-                            <div class="flex flex-col gap-1 flex-grow">
-                                <label class="text-[9px] text-slate-500 uppercase font-black tracking-wider">Infix Expression payload String:</label>
-                                <input type="text" id="infix-input-field" value="A+B*C" class="px-3 py-1.5 bg-[#030308] border border-blue-950 rounded text-xs text-white font-mono uppercase font-bold">
-                            </div>
-                            <button onclick="evalInfixToPostfix()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-black text-xs uppercase cursor-pointer mt-4 transition-all whitespace-nowrap">Convert Step-by-Step</button>
-                        </div>
-
-                        <!-- Render dynamic conversion log matrix table -->
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs font-sans">
-                                <thead>
-                                    <tr class="border-b border-blue-950 text-indigo-400 font-bold">
-                                        <th class="p-2.5">Symbol Read</th>
-                                        <th class="p-2.5">Stack Contents (LIFO List)</th>
-                                        <th class="p-2.5">Postfix Accumulated String</th>
-                                        <th class="p-2.5">Algorithmic Explanation Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-blue-950/30 text-slate-400 font-mono" id="infix-table-rows">
-                                    <tr>
-                                        <td colspan="4" class="p-4 text-center text-slate-500">Enter an Infix mathematical equation (e.g., A+B*C) above and click 'Convert'.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 07 Expression Solved examples -->
-                <section id="numericals" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-emerald-500 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-emerald-500 font-mono">07</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Infix Conversion Solved Examples</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed">
-                        <div class="p-5 bg-emerald-500/5 border border-emerald-500/20 rounded-xl space-y-1">
-                            <span class="text-[#0dffc0] text-[9.5px] font-mono tracking-wider font-bold">BOARD SOLVED TEST: TRACING EXPRESSION (val: A+B*C)</span>
-                            <p class="mt-2 text-slate-350">
-                                Trace Infix to Postfix conversion: <code class="text-white">A+B*C</code>, showing stack updates.
-                            </p>
-                            <div class="bg-black/40 border border-blue-950 p-4 rounded-xl font-mono text-[11px] text-indigo-400 space-y-1">
-                                1. Symbol Read: 'A' -> Postfix: A<br>
-                                2. Symbol Read: '+' -> Operator. Stack: [+], Postfix: A<br>
-                                3. Symbol Read: 'B' -> Postfix: AB<br>
-                                4. Symbol Read: '*' -> Precedence of '*' > '+'. Stack: [+, *], Postfix: AB<br>
-                                5. Symbol Read: 'C' -> Postfix: ABC<br>
-                                6. [EOF]: Pop stack to end. Postfix outcome: <code class="text-emerald-400">ABC*+</code>!
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-6" onclick="toggleScoreTask('tag-6')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Save Expression Trace examples (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 08 JNTUK Solved Evaluation -->
-                <section id="solved-papers" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-purple-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-purple-500 font-mono">08</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">JNTUK Solved Evaluation paper</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans">
-                        <div class="border-l-2 border-purple-500 pl-4 space-y-1">
-                            <h4 class="font-extrabold text-white">Evaluate Postfix Equation "2 3 1 * + 9 -" <span class="text-purple-400">(5 Marks JNTUK Board)</span></h4>
-                            <p>To evaluate a postfix string, push values onto the stack. When an operator is read, pop the top two values, apply the operator, and push the result back:</p>
-                            <div class="bg-slate-950/85 p-3 rounded-lg border border-purple-950 text-[#0dffc0] font-mono text-[10.5px] space-y-1">
-                                <p>1. Data 2: Push(2) -> Stack: [2]</p>
-                                <p>2. Data 3: Push(3) -> Stack: [2, 3]</p>
-                                <p>3. Data 1: Push(1) -> Stack: [2, 3, 1]</p>
-                                <p>4. Operator '*': Pop(1), Pop(3). 3 * 1 = 3. Push(3) -> Stack: [2, 3]</p>
-                                <p>5. Operator '+': Pop(3), Pop(2). 2 + 3 = 5. Push(5) -> Stack: [5]</p>
-                                <p>6. Data 9: Push(9) -> Stack: [5, 9]</p>
-                                <p>7. Operator '-': Pop(9), Pop(5). 5 - 9 = -4. Push(-4) -> Final Result: <b class="text-emerald-400">-4</b></p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-7" onclick="toggleScoreTask('tag-7')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master dynamic values stack evaluations (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 09 Most Expected Predictor -->
-                <section id="predictor" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-rose-500 animate-fadeIn">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/25 pb-3">
-                        <span class="text-xl font-bold text-rose-500 font-mono">09</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Most Expected Predictor</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium font-sans">
-                        <div class="p-4 bg-rose-500/5 rounded-xl border border-rose-500/20 space-y-2">
-                            <span class="text-rose-455 uppercase font-black tracking-widest text-[8.5px]">PREDICTED BOARD EXAM ESSAYS (10 MARKS EACH)</span>
-                            <ul class="list-decimal list-inside space-y-1.5 text-slate-350">
-                                <li>Explain stack operations (push, pop, peek), and write C functions for Linked List stack implementations.</li>
-                                <li>Trace the step-by-step conversion of infix expression <code class="text-white">A + (B * C - (D / E ^ F) * G) * H</code> to postfix using a stack outline table.</li>
-                                <li>Describe stack applications in backtracking maze, nested parenthesis validations, and string reversals.</li>
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                
                             </ul>
                         </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-8" onclick="toggleScoreTask('tag-8')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Check-off expected essay reviews (+20 XP)</span>
-                            </label>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"N/A"</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">N/A</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 10 Lab Concept Viva Cards -->
-                <section id="viva" class="glass-card p-8 scroll-mt-24 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">10</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Lab Concept Viva Cards</h2>
-                    </div>
-                    <p class="text-xs text-slate-400 mb-6 font-sans">Flip and verify concepts verbal prep instantly:</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Card 1 -->
-                        <div class="relative w-full h-32 cursor-pointer select-none group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between animate-fadeIn">
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">How does recursion use stacks implicitly?</h4>
-                                    <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
+                                    <h4 class="text-xs font-black text-slate-100">Push &amp; Pop?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">Each recursive call allocates a new activation record containing variables and return addresses, pushing them onto the system's runtime call stack.</p>
-                                    <span class="text-[9px] text-emerald-400 font-bold">Score unlocked!</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Push adds an element to the top; Pop removes the top element.</p>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Card 2 -->
-                        <div class="relative w-full h-32 cursor-pointer select-none group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between animate-fadeIn">
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">Why do we prefix expression values conversion operations?</h4>
-                                    <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
+                                    <h4 class="text-xs font-black text-slate-100">Expression Parsing?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">Parsing postfix allows compilers to resolve complex math without parenthesis boundaries checking or backtracking on operator relative precedence weights.</p>
-                                    <span class="text-[9px] text-emerald-400 font-bold">Score unlocked!</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Using stacks to evaluate postfix expressions or check balanced parentheses.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-                <!-- 11 Stack Backtracking Cheatsheet -->
-                <section id="revision-sheets" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-cyan-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-cyan-500 font-mono">11</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Stack Backtracking Cheatsheet</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 font-sans leading-relaxed">
-                        <p>Evaluate these Stack application vectors:</p>
-                        <ul class="list-disc list-inside space-y-1.5 text-slate-350">
-                            <li><b class="text-white">Balancing Symbols:</b> For every closing bracket, pop the stack and ensure it matches the corresponding opening symbol types.</li>
-                            <li><b class="text-white">Backtracking:</b> Save current coordinate paths on the stack. If a dead end is reached, pop the stack to return to the previous decision point.</li>
-                        </ul>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-9" onclick="toggleScoreTask('tag-9')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Save Backtracking summary indications (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 12 Memory Aids & Mnemonics -->
-                <section id="mnemonics" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-yellow-500 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-yellow-500 font-mono">12</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Memory Aids &amp; Mnemonics</h2>
-                    </div>
-                    <div class="space-y-4 text-xs text-slate-400 font-sans">
-                        <div class="p-5 bg-yellow-500/5 border border-yellow-500/20 rounded-xl space-y-2 leading-relaxed">
-                            <span class="text-[9px] font-black uppercase text-yellow-500 tracking-widest font-mono">LIFO TRAY STACK MNEMONIC</span>
-                            <p class="text-slate-350">
-                                <b>"First placed is last popped!"</b><br>
-                                Imagine cafeteria dinner trays stacked vertically. The first tray you wash and place at the absolute bottom of the stack can only be retrieved after popping every tray placed on top of it.
-                            </p>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-10" onclick="toggleScoreTask('tag-10')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Learn Trays stack analogies (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 13 1-Day Prep Final Tips -->
-                <section id="survival-plan" class="p-8 bg-rose-50/5 border border-rose-500/20 rounded-[2rem] scroll-mt-24 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-rose-500/25 pb-3">
-                        <span class="text-xl font-bold text-rose-400 font-mono">13</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">1-Day Prep Final Tips (Scoring Maximum Marks)</h2>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center font-sans text-xs">
-                        <div class="md:col-span-8 space-y-4 font-medium leading-relaxed">
-                            <h4 class="text-sm font-black text-white">How to score maximum marks in Unit III Stacks:</h4>
-                            <p class="text-slate-350">
-                                1. <b>Represent Stacks vertically:</b> Always draw stacks as vertical buckets open at the top. Clearly label the active index address <code class="text-blue-400">top</code> indicating where pushes and pops occur.
-                            </p>
-                            <p class="text-slate-350">
-                                2. <b>Detail Precedence rankings:</b> During expression evaluations, explicitly state precedence rules (e.g. $\text{exponent } (\wedge) &gt; \text{multiplication } (*) &gt; \text{addition } (+)$). Placing this chart in your answer sheet instantly pleases the evaluator.
-                            </p>
-                        </div>
-                        <div class="md:col-span-4 p-5 bg-[#030308] border border-rose-500/20 rounded-2xl text-center space-y-3">
-                            <span class="text-lg">🎓</span>
-                            <h5 class="text-xs font-bold text-white">Done reviewing?</h5>
-                            <p class="text-[10px] text-slate-450 leading-relaxed font-sans">Verify you clicked all checklist items to register your Unit III accomplishments progress.</p>
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-11" onclick="toggleScoreTask('tag-11')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>I am exam-ready (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
             </div>
         </div>
     </main>
-
     <script>
-        let scoreXP = 0;
-        const maxXPValue = 220; // 1tasks * 20 value = 220 total
-
-        function initPlatform() {
-            const storedXP = localStorage.getItem('engi_ds_u3_score');
-            if (storedXP) {
-                scoreXP = parseInt(storedXP);
-                for (let i = 1; i <= 11; i++) {
-                    const status = localStorage.getItem(`engi_ds_u3_task_${i}`);
-                    const elCheck = document.getElementById(`tag-${i}`);
-                    if (elCheck && status === 'done') {
-                        elCheck.checked = true;
-                    }
-                }
+        function flipVivaCard(card) {
+            const inner = card.querySelector('.viva-card-inner');
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
             } else {
-                scoreXP = 0;
-            }
-            updateXPUIRender();
-        }
-
-        function showToastMessage(msg) {
-            const toast = document.getElementById('toast-notif');
-            document.getElementById('toast-message').innerText = msg;
-            toast.style.opacity = '1';
-            toast.style.transform = 'translateY(0px)';
-            
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(20px)';
-            }, 2500);
-        }
-
-        function updateXPUIRender() {
-            if (scoreXP < 0) scoreXP = 0;
-            if (scoreXP > maxXPValue) scoreXP = maxXPValue;
-
-            localStorage.setItem('engi_ds_u3_score', scoreXP);
-            const percentage = Math.round((scoreXP / maxXPValue) * 100);
-
-            document.getElementById('percentage-indicator').innerText = `${percentage}%`;
-            document.getElementById('progress-bar-indicator').style.width = `${percentage}%`;
-
-            const statusText = document.getElementById('overall-status-text');
-            if (percentage === 0) {
-                statusText.innerText = 'NOT STARTED';
-                statusText.className = 'text-[10px] font-black text-rose-500 font-sans';
-            } else if (percentage < 40) {
-                statusText.innerText = 'STACK NOVICE 🛠️';
-                statusText.className = 'text-[10px] font-black text-blue-450 font-sans';
-            } else if (percentage < 85) {
-                statusText.innerText = 'PARSING TRACER 🧠';
-                statusText.className = 'text-[10px] font-black text-indigo-400 font-sans';
-            } else {
-                statusText.innerText = 'STACK MASTER 🏆';
-                statusText.className = 'text-[10px] font-black text-emerald-400 animate-pulse font-sans';
+                inner.style.transform = 'rotateY(180deg)';
             }
         }
-
-        window.toggleScoreTask = function(chkId) {
-            const chkElement = document.getElementById(chkId);
-            const indexValue = chkId.split('-')[1];
-            
-            if (chkElement.checked) {
-                scoreXP += 20;
-                localStorage.setItem(`engi_ds_u3_task_${indexValue}`, 'done');
-                showToastMessage(`Checkpoint master! +20 XP 🔥`);
-            } else {
-                scoreXP -= 20;
-                localStorage.setItem(`engi_ds_u3_task_${indexValue}`, 'undone');
-                showToastMessage(`Removed Checkpoint! -20 XP`);
-            }
-            updateXPUIRender();
-        };
-
-        window.resetInternalTracker = function() {
-            if (confirm("Reset all study checklists and unlocked XP values for Unit III?")) {
-                localStorage.removeItem('engi_ds_u3_score');
-                for (let i = 1; i <= 11; i++) {
-                    localStorage.removeItem(`engi_ds_u3_task_${i}`);
-                    const chkElement = document.getElementById(`tag-${i}`);
-                    if (chkElement) chkElement.checked = false;
-                }
-                scoreXP = 0;
-                updateXPUIRender();
-                showToastMessage("Platform data completely reset.");
-            }
-        };
-
-        window.highlightNav = function(el) {
-            document.querySelectorAll('.nav-anchor-lnk').forEach(lnk => {
-                lnk.classList.remove('active-nav-card');
-            });
-            el.classList.add('active-nav-card');
-        };
-
-        window.flipVivaCard = function(el) {
-            const inner = el.querySelector('.viva-card-inner');
-            inner.classList.toggle('viva-card-flipped');
-            scoreXP += 5;
-            updateXPUIRender();
-            showToastMessage(`Practiced Oral Viva! +5 XP 🧪`);
-        };
-
-        // Expression Parser Conversion Logic
-        function getPriority(op) {
-            if (op === '+' || op === '-') return 1;
-            if (op === '*' || op === '/') return 2;
-            if (op === '^') return 3;
-            return 0;
-        }
-
-        function isAlphaNumeric(char) {
-            return /[a-zA-Z0-9]/.test(char);
-        }
-
-        window.evalInfixToPostfix = function() {
-            const exp = document.getElementById('infix-input-field').value.replace(/\s+/g, '');
-            const tableBody = document.getElementById('infix-table-rows');
-            if(!tableBody) return;
-            tableBody.innerHTML = '';
-
-            if (!exp) {
-                tableBody.innerHTML = "<tr><td colspan='4' class='p-4 text-center text-rose-500'>Empty equation payload. Please write e.g., A+B!</td></tr>";
-                return;
-            }
-
-            let stack = [];
-            let postfix = "";
-            let logRows = [];
-
-            for (let i = 0; i < exp.length; i++) {
-                let char = exp[i];
-                let action = "";
-
-                if (isAlphaNumeric(char)) {
-                    postfix += char;
-                    action = `Append operand '${char}' directly to postfix string.`;
-                } 
-                else if (char === '(') {
-                    stack.push(char);
-                    action = `Push open parenthesis '(' onto operator stack.`;
-                } 
-                else if (char === ')') {
-                    while (stack.length > 0 && stack[stack.length - 1] !== '(') {
-                        postfix += stack.pop();
-                    }
-                    stack.pop(); // Pop '('
-                    action = `Closing paren reached. Pop and append operators until '(' is matched.`;
-                } 
-                else {
-                    while (stack.length > 0 && getPriority(stack[stack.length - 1]) >= getPriority(char)) {
-                        postfix += stack.pop();
-                    }
-                    stack.push(char);
-                    action = `Operator '${char}' seen. Pop operators of higher or equal precedence, then push '${char}'.`;
-                }
-
-                logRows.push({
-                    symbol: char,
-                    stack: [...stack].join(', ') || "[empty]",
-                    postfix: postfix,
-                    action: action
-                });
-            }
-
-            while (stack.length > 0) {
-                const poppedOp = stack.pop();
-                postfix += poppedOp;
-                logRows.push({
-                    symbol: "[EOF]",
-                    stack: [...stack].join(', ') || "[empty]",
-                    postfix: postfix,
-                    action: `End of expression reached. Flush remaining operator '${poppedOp}' from stack.`
-                });
-            }
-
-            logRows.forEach(row => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="p-2.5 border-b border-blue-950/40 font-bold text-white">${row.symbol}</td>
-                    <td class="p-2.5 border-b border-blue-950/40 text-indigo-400 font-bold">${row.stack}</td>
-                    <td class="p-2.5 border-b border-blue-950/40 text-emerald-400 font-bold">${row.postfix}</td>
-                    <td class="p-2.5 border-b border-blue-950/40 text-slate-400 text-[10px]/relaxed font-sans">${row.action}</td>
-                `;
-                tableBody.appendChild(tr);
-            });
-        };
     </script>
 </body>
 </html>

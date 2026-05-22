@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 4: Quantum Mechanics & Free Electron Theory Hub | EngiPrep Hub</title>
-    <meta name="description" content="Ultimate JNTUK R23 Engineering Physics Unit 4 Prep Platform. Schrödinger equation, 1D infinite well, Fermi-Dirac distributions, classical vs quantum electron theories.">
+    <title>JNTUK R23 Einstein Coefficients &amp; Fiber Optics | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Einstein Coefficients &amp; Fiber Optics. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
     <link rel="stylesheet" href="/src/style.css">
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -14,960 +14,137 @@
         }
     </script>
     <style>
-        .glass-card {
-            background-color: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .light .glass-card {
-            background-color: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
-        }
-        .glass-card:hover {
-            border-color: rgba(168, 85, 247, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(168, 85, 247, 0.15);
-        }
-        .viva-card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .viva-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
     </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 bg-gradient-to-tr from-[#080816] via-[#050508] to-[#0d0714] min-h-screen font-sans antialiased selection:bg-purple-600 selection:text-white">
-
-    <!-- Premium Header Navbar -->
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-[#a855f7] to-[#581c87] rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-purple-500/10"></div>
-                    <span class="relative z-10 text-white font-black text-lg">EP</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none">EngiPrep <span class="text-purple-500">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
-                </div>
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            <div id="nav-actions" class="flex items-center gap-4">
-                <a href="/physics-notes.html" class="px-4 py-2 border border-slate-700/50 rounded-xl bg-slate-900/40 text-xs font-bold uppercase hover:bg-slate-800/40 text-slate-300 transition-all flex items-center gap-1.5 active:scale-95">
-                    Subject Hub
-                </a>
-                <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-purple-500/10 text-white">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
-    <!-- Main Outer Container -->
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        
-        <!-- TOP BANNER HERO -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#0a0a16] shadow-sm">
-            <div class="absolute right-0 top-0 w-80 h-80 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-            
-            <div class="space-y-4 relative z-10 max-w-3xl">
-                <div class="flex items-center gap-2.5 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-purple-500/15 border border-purple-500/25 text-purple-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit IV Strategy Kit</span>
-                    <span class="px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">Score Weighting: ~18 Marks</span>
-                    <span class="px-2.5 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-full">Highest Derivation Count</span>
-                </div>
-                <div>
-                    <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight">
-                        QUANTUM MECHANICS & FE THEORY <br>
-                        <span class="bg-gradient-to-r from-purple-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent">Complete Exam Survival Kit</span>
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        Curated specifically for JNTUK R23 Engineering Physics. Skip bulky textbooks—this kit delivers the exact formulations for de Broglie matter waves, Schrödinger's Time-Independent proof, 1D infinite well constraints, Fermi levels, and classical vs quantum electrical conduction states.
-                    </p>
-                </div>
-                <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <a href="#derivations" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all text-white">Go to Derivations ⚡</a>
-                    <a href="#viva" class="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg text-[10px] font-black uppercase tracking-widest hover:border-slate-700 transition-all">Test Your Viva 🧪</a>
-                    <a href="#calculator" class="px-4 py-2 bg-purple-950/50 border border-purple-900/50 text-purple-400 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-purple-900/50 transition-all font-bold">Try Energy Solver 🧮</a>
-                </div>
-            </div>
-
-            <!-- Tracker -->
-            <div class="w-full md:w-80 p-5 bg-[#08081a] border border-[#1a1a36] rounded-2xl flex flex-col justify-between h-48 relative z-10">
-                <div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Unit Coverage</span>
-                        <span id="tracker-status" class="text-[10px] font-black text-[#f59e0b]">NOT COMPLETED</span>
-                    </div>
-                    <h4 class="text-xs font-black text-white mt-1">Study Session Tracker</h4>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span>Checklist progress</span>
-                        <span id="pct-indicator" class="font-bold">0%</span>
-                    </div>
-                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
-                        <div id="pb-indicator" class="h-full bg-gradient-to-r from-[#a855f7] to-[#10b981] rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <span class="text-[8.5px] text-slate-400 font-extrabold uppercase uppercase">6 Modules Curated</span>
-                    <button onclick="resetInternalTracker()" class="text-[9px] text-rose-500 hover:underline font-extrabold uppercase bg-transparent border-0 cursor-pointer">Reset Status</button>
-                </div>
-            </div>
+        <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2">
+                <li><a href="/" class="hover:text-blue-500">Home</a></li>
+                <li>/</li>
+                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
+                <li>/</li>
+                <li><a href="/subject.html?slug=engineering-physics" class="hover:text-blue-500">engineering physics</a></li>
+                <li>/</li>
+                <li class="text-blue-500" aria-current="page">Einstein Coefficients &amp; Fiber Optics</li>
+            </ol>
+        </nav>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Einstein Coefficients &amp; Fiber Optics <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Laser Characteristics, He-Ne laser, Nd:YAG. Numerical Aperture, Acceptance Angle derivations.</p>
         </header>
-
-        <!-- LAYOUT GRID -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- LEFT NAVIGATION -->
-            <aside class="lg:col-span-3 sticky top-28 space-y-4 max-h-[85vh] overflow-y-auto pr-2">
-                <div class="p-1.5 rounded-2xl bg-slate-950/50 border border-slate-900/60 space-y-1">
-                    <div class="p-3 text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-900/60">Syllabus Index</div>
-                    
-                    <a href="#intro" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>1.</span> Unit Overview
-                    </a>
-                    <a href="#concepts" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>2.</span> Core Concepts
-                    </a>
-                    <a href="#formulas" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>3.</span> Formula Sheet
-                    </a>
-                    <a href="#derivations" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>4.</span> Step-by-Step Derivations
-                    </a>
-                    <a href="#calculator" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>5.</span> Energy Solver 🧮
-                    </a>
-                    <a href="#numericals" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>6.</span> Solved Numericals
-                    </a>
-                    <a href="#solved-papers" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>7.</span> JNTUK Solved Papers
-                    </a>
-                    <a href="#predictor" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>8.</span> Expected Predictor 🎯
-                    </a>
-                    <a href="#viva" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>9.</span> Lab Concept Viva Cards 🧩
-                    </a>
-                    <a href="#revision-sheets" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>10.</span> Quick Revision Sheets
-                    </a>
-                    <a href="#memory-tricks" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>11.</span> Memory Tricks & Mnemonics
-                    </a>
-                    <a href="#fast-scoring" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>12.</span> Priorities & Core Warnings
-                    </a>
-                    <a href="#survival-plan" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span>13.</span> Survival Plan 🚨
-                    </a>
-                </div>
-            </aside>
-
-            <!-- RIGHT Study Blocks -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">Principles of Light Emission</h2>
+                    <p>Lasers operate on stimulated emission. Fiber optics rely on total internal reflection for guided light transmission.</p>
+                </section>
+
                 
-                <!-- CHECKLIST TRACKER -->
-                <section class="glass-card p-6 bg-slate-950/40 border border-slate-900/80 rounded-2xl">
-                    <h3 class="text-xs font-extrabold text-[#f59e0b] uppercase tracking-wider mb-3">Goal Tracker Challenge</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u4-1" onclick="toggleTask('u4-1', 16)" class="accent-purple-500">
-                            <span>Matter Waves & de Broglie Proof</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u4-2" onclick="toggleTask('u4-2', 16)" class="accent-purple-500">
-                            <span>Heisenberg Uncertainty Limits</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u4-3" onclick="toggleTask('u4-3', 16)" class="accent-purple-500">
-                            <span>Schrödinger Equation Core</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u4-4" onclick="toggleTask('u4-4', 16)" class="accent-purple-500">
-                            <span>1D Infinite Potential Well derivation</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u4-5" onclick="toggleTask('u4-5', 16)" class="accent-purple-500">
-                            <span>Classical vs Quantum Electron theories</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 bg-[#090916] rounded-lg border border-slate-900 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-u4-6" onclick="toggleTask('u4-6', 16)" class="accent-purple-500">
-                            <span>Fermi-Dirac & Density of States</span>
-                        </label>
-                    </div>
-                </section>
 
-                <!-- 1. OVERVIEW -->
-                <section id="intro" class="glass-card p-8 bg-slate-900/60 scroll-mt-24">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight mb-4 flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> 1. Unit Overview & Exam Weight
-                    </h2>
-                    <p class="text-sm text-slate-300 leading-relaxed mb-4">
-                        This unit transitions classical engineering from deterministic Newtonian motion into probabilistic quantum mechanics and free electron behavior in metals. The core grading requirements of JNTUK in this chapter focus enormously on setting up bounds for 1D Infinite Potential Wells and deriving its energy eigenvalues.
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-semibold">
-                        <div class="p-3.5 bg-purple-950/20 rounded-xl border border-purple-900/40">
-                            <h4 class="text-purple-400 font-extrabold uppercase">Exam Importance</h4>
-                            <p class="text-slate-400 mt-1">One massive Part B question containing the Schrödinger 1D box proof (10 Marks) is guaranteed to repeat.</p>
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Numerical Aperture</h4>
+                            <p class="font-mono text-sm mt-2">NA = √(n₁² - n₂²)</p>
                         </div>
-                        <div class="p-3.5 bg-[#10102e]/20 rounded-xl border border-indigo-900/40">
-                            <h4 class="text-indigo-400 font-extrabold uppercase">Practical Relevance</h4>
-                            <p class="text-slate-400 mt-1">Quantum tunneling and energy eigenvalue limits dictate flash memory thresholds and scanning tunneling microscopes (STM).</p>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Acceptance Angle</h4>
+                            <p class="font-mono text-sm mt-2">θ_a = arcsin(NA)</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 2. CORE CONCEPTS -->
-                <section id="concepts" class="glass-card p-8 scroll-mt-24 space-y-8">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight border-b border-slate-800 pb-3 flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> 2. Complete Syllabus Core Concepts
-                    </h2>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed">
-                        <!-- Concept 1 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/20 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 01</span>
-                            <h3 class="text-sm font-bold text-white">de Broglie Dual Nature</h3>
-                            <p class="text-slate-400"><strong>Hypothesis:</strong> Moving particles like electrons possess associated dual-nature wave properties called pilot/matter waves.</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-emerald-400 text-center">\lambda = \frac{h}{p} = \frac{h}{mv} = \frac{h}{\sqrt{2mE_K}}</div>
-                            <p class="text-[10px] text-slate-400"><strong>Exams Warning:</strong> Never relate matter waves to electromagnetic field waves. Matter waves have no charge requirements and depend purely on momentum!</p>
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">He-Ne Laser <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">With a neat energy level diagram describe the working of He-Ne laser.</p>
                         </div>
-
-                        <!-- Concept 2 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/20 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 02</span>
-                            <h3 class="text-sm font-bold text-white">Heisenberg Uncertainty Principle</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> It is physically impossible to determine both position coordinate ($x$) and momentum vector ($p$) of a micro-particle simultaneously with infinite precision.</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-[#f59e0b] text-center">\Delta x \cdot \Delta p \ge \frac{\hbar}{2} \quad \left(\hbar = \frac{h}{2\pi}\right)</div>
-                            <p class="text-[10px] text-slate-500"><strong>Exam application:</strong> Explains why an electron can never reside inside the nucleus (as its velocity would exceed speed of light).</p>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Numerical Aperture <span class="text-blue-500">(5 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Derive an expression for acceptance angle and numerical aperture.</p>
                         </div>
+                    </div>
+                </section>
 
-                        <!-- Concept 3 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/20 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 03</span>
-                            <h3 class="text-sm font-bold text-white">Wave Function Properties &amp; Significance</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> A complex variable amplitude $\Psi(x, y, z, t)$ containing the complete state description of a quantum particle. Max Born's rule states that the probability density is $|\Psi|^2 = \Psi \Psi^*$.</p>
-                            <p class="text-[10px] text-purple-400 font-bold">Born Requirements: Wave function must be finite, continuous, single-valued, and normalizable.</p>
-                        </div>
-
-                        <!-- Concept 4 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/20 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 04</span>
-                            <h3 class="text-sm font-bold text-white">Schrödinger Wave Equations</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> Fundamental wave equations describing quantum particle state shifts under external potentials $V$.</p>
-                            <ul class="text-[11px] list-disc list-inside space-y-1.5 text-slate-400">
-                                <li><b>Time-Independent:</b> $\frac{d^2\psi}{dx^2} + \frac{8\pi^2m}{h^2}(E - V)\psi = 0$</li>
-                                <li><b>Time-Dependent:</b> $i\hbar\frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m}\frac{\partial^2 \Psi}{\partial x^2} + V\Psi$</li>
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                
                             </ul>
                         </div>
-
-                        <!-- Concept 5 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/20 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 05</span>
-                            <h3 class="text-sm font-bold text-white">1D Infinite Potential Well</h3>
-                            <p class="text-slate-400"><strong>Concept:</strong> A particle trapped in a line segment $x \in [0, L]$ with $V(x) = 0$ inside and $V(x) = \infty$ outside. The boundary barriers force the particle to take discrete, quantized energy levels.</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-emerald-400 text-center">E_n = \frac{n^2 h^2}{8 m L^2} \quad \text{and} \quad \psi_n(x) = \sqrt{\frac{2}{L}}\sin\left(\frac{n\pi x}{L}\right)</div>
-                        </div>
-
-                        <!-- Concept 6 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/25 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 06</span>
-                            <h3 class="text-sm font-bold text-white">Classical Free Electron Theory</h3>
-                            <p class="text-slate-400"><strong>Drude-Lorentz Model:</strong> Approximates valence electrons as a mobile gas bounded by metallic positive ion cores under classical kinetic laws.</p>
-                            <ul class="text-[11px] space-y-1 text-slate-400 list-disc list-inside">
-                                <li><b>Drift Velocity:</b> Velocity gained under external electric field ($v_d = \mu E$).</li>
-                                <li><b>Mean Free Path ($\lambda_c$):</b> Avg distance traveled between two consecutive collisions.</li>
-                                <li><b>Relaxation Time ($\tau$):</b> Time taken for drift velocity to reduce to $1/e$ when the field is turned off.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Concept 7 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/20 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 07</span>
-                            <h3 class="text-sm font-bold text-white">Merits &amp; Demerits of Classical Theory</h3>
-                            <p class="text-slate-400"><strong>Critique:</strong> Classical theory succeeded in proving Ohm's law and Widemann-Franz law, but failed fundamentally on electronic properties.</p>
-                            <p class="text-[10.5px] text-rose-450 font-semibold leading-relaxed">
-                                • Failure 1: Predicts electronic specific heat proportional to $T$, while actual is $100\times$ smaller.<br>
-                                • Failure 2: Predicts electrical conductivity $\sigma \propto 1/\sqrt{T}$, whereas experimental is $\sigma \propto 1/T$.
-                            </p>
-                        </div>
-
-                        <!-- Concept 8 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/20 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 08</span>
-                            <h3 class="text-sm font-bold text-white">Quantum Free Electron Theory</h3>
-                            <p class="text-slate-400"><strong>Sommerfeld Model:</strong> Solved electronic anomalies by introducing Fermi-Dirac statistics and restricting electrons to Pauli exclusion states inside a 3D potential box.</p>
-                            <p class="text-[10.5px] text-slate-400 font-bold">Only conduction electrons near the Fermi boundary $E_F$ can absorb heat and drift under applied fields!</p>
-                        </div>
-
-                        <!-- Concept 9 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/20 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 09</span>
-                            <h3 class="text-sm font-bold text-white">Fermi-Dirac Distribution &amp; Fermi Level</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> Specifies the state probability function $f(E)$ representing the likelihood of electron occupancy at energy $E$ and temperature $T$.</p>
-                            <div class="bg-slate-900 p-2 rounded text-[11px] font-mono text-emerald-400 text-center">f(E) = \frac{1}{e^{\frac{E-E_F}{kT}} + 1}</div>
-                            <p class="text-[10px] text-slate-400">At absolute zero ($T = 0 \text{ K}$), $f(E) = 1$ for all $E \le E_F$ and $f(E) = 0$ for all $E &gt; E_F$.</p>
-                        </div>
-
-                        <!-- Concept 10 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
-                            <span class="bg-purple-600/20 text-purple-400 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Concept 10</span>
-                            <h3 class="text-sm font-bold text-white">Density of States &amp; Fermi Energy</h3>
-                            <p class="text-slate-400"><strong>Definition:</strong> Density of states $Z(E)dE$ denotes the number of allowed quantum electron states per unit volume between energies $E$ and $E+dE$. Fermi energy is the highest quantum state energy level at $T=0\text{ K}$.</p>
-                            <div class="bg-slate-900 p-2 rounded text-[10px] font-mono text-emerald-400 text-center">E_F(0) = \frac{h^2}{8m} \left( \frac{3n}{\pi} \right)^{2/3}</div>
-                            <p class="text-[10px] text-slate-400">where $n$ is conduction electron concentration per unit volume.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 3. FORMULAS -->
-                <section id="formulas" class="glass-card p-8 scroll-mt-24 bg-gradient-to-br from-slate-900 to-[#120a1f] border border-purple-900/30">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight mb-6 flex items-center gap-2">
-                        <span class="text-lg">⚡</span> 3. High-Yield Formula Sheet &amp; Memory Aids
-                    </h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-purple-400 font-extrabold uppercase">1. de Broglie Wavelength Variations</h4>
-                            <ul class="space-y-1 text-slate-400">
-                                <li>Using Kinetic Energy E: <span class="bg-slate-900 p-1 rounded text-white font-bold">\lambda = \frac{h}{\sqrt{2mE}}</span></li>
-                                <li>For accelerated electrons: <span class="bg-slate-900 p-1 rounded text-[#34d399] font-bold">\lambda = \frac{12.27}{\sqrt{V}} \text{ Å}</span></li>
-                            </ul>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-purple-400 font-extrabold uppercase">2. Schrödinger Time-Independent 1D</h4>
-                            <div class="p-2 bg-slate-900 text-teal-400 text-center rounded text-[11px] font-bold">
-                                \frac{d^2\psi}{dx^2} + \frac{8\pi^2m}{h^2}(E - V)\psi = 0
-                            </div>
-                            <p class="text-[10px] text-slate-500">Relates spatial wave function amplitude to total energy E and potential coordinates V.</p>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-purple-400 font-extrabold uppercase">3. 1D Box Quantum Energy Level</h4>
-                            <div class="p-2 bg-slate-900 text-teal-400 text-center rounded text-sm font-bold">
-                                E_n = \frac{n^2 h^2}{8 m L^2}
-                            </div>
-                            <p class="text-[10px] text-slate-500">n represents positive non-zero integers (1, 2, 3...). Zero-point energy (n=1) is $E_1 = \frac{h^2}{8mL^2}$.</p>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-purple-400 font-extrabold uppercase">4. Density of States Z(E) dE</h4>
-                            <div class="p-2 bg-[#090912] text-teal-400 text-center rounded text-[11px] font-bold leading-relaxed">
-                                Z(E) dE = \frac{4\pi}{h^3} (2m)^{3/2} E^{1/2} dE
-                            </div>
-                            <p class="text-[10px] text-slate-500">Gives total allowed electron states per unit volume in the energy interval $E$ and $E+dE$.</p>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-purple-400 font-extrabold uppercase">5. Fermi-Dirac Distribution</h4>
-                            <div class="p-2 bg-slate-900 text-teal-400 text-center rounded text-[11px] font-bold">
-                                f(E) = \frac{1}{e^{\frac{E - E_F}{kT}} + 1}
-                            </div>
-                            <p class="text-[10px] text-slate-500">Probability function. At $T > 0 \text{ K}$, $f(E) = 0.5$ when $E = E_F$ &mdash; the definition of Fermi Level at any temperature.</p>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-purple-400 font-extrabold uppercase">6. Quantum Electrical Conductivity</h4>
-                            <div class="p-2 bg-[#090912] text-teal-400 text-center rounded text-sm font-bold">
-                                \sigma_q = \frac{n e^2 \tau_F}{m^*}
-                            </div>
-                            <p class="text-[10px] text-slate-500">Quantum formulation based on relaxation time $\tau_F$ at Fermi energy surface levels and effective electron mass $m^*$.</p>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-purple-400 font-extrabold uppercase">7. Fermi Energy Formula (0 K)</h4>
-                            <div class="p-2 bg-slate-900 text-teal-400 text-center rounded text-[11px] font-bold">
-                                E_F = \frac{h^2}{8m} \left(\frac{3n}{\pi}\right)^{2/3}
-                            </div>
-                            <p class="text-[10px] text-slate-500">Depends solely on conduction electron density $n$, proving $E_F$ is constant for a given metal.</p>
-                        </div>
-
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                            <h4 class="text-purple-400 font-extrabold uppercase">8. Average Energy (Quantum vs Classical)</h4>
-                            <div class="p-2 bg-slate-900 text-teal-400 text-center rounded text-[11px] font-bold">
-                                E_{avg} = \frac{3}{5} E_F \quad [T = 0 \text{ K}]
-                            </div>
-                            <p class="text-[10px] text-slate-500">In stark contrast to classical kinetic theory predicting zero average energy at $T=0\text{ K}$!</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 4. DERIVATIONS -->
-                <section id="derivations" class="glass-card p-8 scroll-mt-24 space-y-10">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight border-b border-slate-800 pb-3 flex items-center gap-2">
-                        <span>📝</span> 4. Step-by-Step Board Derivations
-                    </h2>
-
-                    <!-- Derivation 1 -->
-                    <div class="p-6 bg-slate-950/50 border border-slate-900 rounded-2xl space-y-4">
-                        <span class="px-2.5 py-0.5 bg-purple-500/10 text-purple-400 border border-purple-900/30 text-[9px] font-black rounded uppercase">JNTUK Elite Core Proof 1</span>
-                        <h3 class="text-base font-black text-white">1. Particle inside 1D Infinite Potential Box</h3>
-                        <p class="text-xs text-slate-400">Let a quantum particle be bound inside a 1-dimensional box of width $L$ with boundaries $x=0$ and $x=L$. Within boundaries, potential energy is $V = 0$. Outside boundaries, $V = \infty$.</p>
-                        
-                        <div class="text-xs text-slate-300 space-y-3 font-medium">
-                            <p><strong>Step 1: Setup Schrödinger Boundary Conditions</strong><br>
-                            Inside the box ($V=0$), the 1D Schrödinger equation is:<br>
-                            $\frac{d^2\psi}{dx^2} + \frac{8\pi^2mE}{h^2}\psi = 0 \implies \frac{d^2\psi}{dx^2} + k^2\psi = 0 \quad \left[\text{where } k^2 = \frac{8\pi^2mE}{h^2}\right]$</p>
-                            
-                            <p><strong>Step 2: General Solution Mapping</strong><br>
-                            The general spatial wave solution is: <br>
-                            $\psi(x) = A \sin(kx) + B \cos(kx)$</p>
-
-                            <p><strong>Step 3: Impose Boundary Limits Coordinates</strong><br>
-                            • At boundary 1 ($x=0$): $\psi(0) = B \cos(0) = 0 \implies B = 0$. <br>
-                            • At boundary 2 ($x=L$): $\psi(L) = A \sin(kL) = 0$. <br>
-                            Since $A \neq 0$ (otherwise particle does not exist), we must have:<br>
-                            $\sin(kL) = 0 \implies kL = n\pi \implies k = \frac{n\pi}{L} \quad (\text{for } n = 1, 2, 3...)$</p>
-
-                            <p><strong>Step 4: Energy Eigenvalues Deduction (Boxed Answer)</strong><br>
-                            Equate the two definitions of $k^2$:<br>
-                            $\left(\frac{n\pi}{L}\right)^2 = \frac{8\pi^2mE_n}{h^2} \implies E_n = \frac{n^2 h^2}{8 m L^2}$.</p>
-
-                            <p><strong>Step 5: Normalize Wavefunction to Unity Limits</strong><br>
-                            $\int_0^L |\psi(x)|^2 dx = 1 \implies A^2 \int_0^L \sin^2\left(\frac{n\pi x}{L}\right) dx = 1 \implies A = \sqrt{\frac{2}{L}}$. <br>
-                            Final normalized wavefunction is <span class="text-[#34d399] font-bold">$\psi_n(x) = \sqrt{\frac{2}{L}} \sin\left(\frac{n\pi x}{L}\right)$</span>.</p>
-                        </div>
-                    </div>
-
-                    <!-- Derivation 2 -->
-                    <div class="p-6 bg-slate-950/50 border border-slate-900 rounded-2xl space-y-4">
-                        <span class="px-2.5 py-0.5 bg-purple-500/10 text-purple-400 border border-purple-900/30 text-[9px] font-black rounded uppercase">JNTUK Elite Core Proof 2</span>
-                        <h3 class="text-base font-black text-white">2. Schrödinger's Time-Independent Wave Equation</h3>
-                        <p class="text-xs text-slate-400">Derives wave behavioral changes relative to space coordinates under steady potentials (energy does not change over time).</p>
-                        
-                        <div class="text-xs text-slate-300 space-y-3 font-medium">
-                            <p><strong>Step 1: Classical de Broglie wave equation</strong><br>
-                            Let a particle of mass $m$ be moving with a velocity $v$ along the $x$-axis. The harmonic wave equation associated with the particle is:<br>
-                            $\psi(x, t) = \psi(x) e^{-i\omega t} \quad \text{where } \psi(x) = A e^{ikx}$</p>
-
-                            <p><strong>Step 2: Differentiating relative to spatial coordinate $x$ twice</strong><br>
-                            $\frac{d\psi}{dx} = ik A e^{ikx} \implies \frac{d^2\psi}{dx^2} = (ik)^2 A e^{ikx} = -k^2 \psi(x) \quad [i^2 = -1]$</p>
-
-                            <p><strong>Step 3: Substitute the de Broglie wavelength definition</strong><br>
-                            We know that $k = \frac{2\pi}{\lambda}$ and $\lambda = \frac{h}{p}$ &rArr; $k^2 = \frac{4\pi^2}{\lambda^2} = \frac{4\pi^2 p^2}{h^2}$.<br>
-                            Plugging this into the spatial derivative:<br>
-                            $\frac{d^2\psi}{dx^2} + \frac{4\pi^2 p^2}{h^2}\psi(x) = 0$</p>
-
-                            <p><strong>Step 4: Relate Momentum to Kinetic and Potential Energy</strong><br>
-                            Total Energy $E = K.E. + P.E. \implies E = \frac{p^2}{2m} + V \implies p^2 = 2m(E - V)$. <br>
-                            Substitute $p^2$ back into our equation:<br>
-                            <span class="text-[#34d399] font-bold">$\frac{d^2\psi}{dx^2} + \frac{8\pi^2m}{h^2}(E - V)\psi = 0$</span> (This is the Time-Independent Schrödinger equation).</p>
-                        </div>
-                    </div>
-
-                    <!-- Derivation 3 -->
-                    <div class="p-6 bg-slate-950/50 border border-slate-900 rounded-2xl space-y-4">
-                        <span class="px-2.5 py-0.5 bg-purple-500/10 text-purple-400 border border-purple-900/30 text-[9px] font-black rounded uppercase">JNTUK Elite Core Proof 3</span>
-                        <h3 class="text-base font-black text-white">3. Schrödinger's Time-Dependent Wave Equation</h3>
-                        <p class="text-xs text-slate-400">Builds a complete wave model where boundary conditions or states are transient and evolve over time.</p>
-                        
-                        <div class="text-xs text-slate-300 space-y-3 font-medium">
-                            <p><strong>Step 1: Start with time-varying wave segment</strong><br>
-                            Consider the complete wave function $\Psi(x, t) = \psi_0 e^{i(kx - \omega t)}$ representing a moving particle.</p>
-
-                            <p><strong>Step 2: Differentiate with respect to time $t$ once</strong><br>
-                            $\frac{\partial \Psi}{\partial t} = -i \omega \psi_0 e^{i(kx - \omega t)} = -i \omega \Psi$<br>
-                            Since energy $E = h\nu = \hbar \omega$ (where $\omega = 2\pi\nu$), substitute $\omega = \frac{E}{\hbar}$:<br>
-                            $\frac{\partial \Psi}{\partial t} = -i \frac{E}{\hbar} \Psi \implies E\Psi = -\frac{\hbar}{i} \frac{\partial \Psi}{\partial t} = i \hbar \frac{\partial \Psi}{\partial t} \quad \left[\text{since } \frac{1}{i} = -i\right]$</p>
-
-                            <p><strong>Step 3: Integrate with spatial dimensions</strong><br>
-                            Using Schrödinger's Time-Independent version: $-\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2} + V\psi = E\psi$.<br>
-                            Substitute the time operator $E\Psi = i\hbar\frac{\partial\Psi}{\partial t}$ directly into the total mechanical energy balance of the wave function:<br>
-                            <span class="text-[#34d399] font-bold">$-\frac{\hbar^2}{2m}\frac{\partial^2\Psi(x,t)}{\partial x^2} + V\Psi(x,t) = i\hbar\frac{\partial\Psi(x,t)}{\partial t}$</span>.</p>
-                        </div>
-                    </div>
-
-                    <!-- Derivation 4 -->
-                    <div class="p-6 bg-slate-950/50 border border-slate-900 rounded-2xl space-y-4">
-                        <span class="px-2.5 py-0.5 bg-purple-500/10 text-purple-400 border border-purple-900/30 text-[9px] font-black rounded uppercase">JNTUK Elite Core Proof 4</span>
-                        <h3 class="text-base font-black text-white">4. Electrical Conductivity Based on Quantum Free Electron Theory</h3>
-                        <p class="text-xs text-slate-400">Sommerfeld's rigorous proof relating electrical conduction properties to electron distributions restricted strictly near the Fermi level.</p>
-                        
-                        <div class="text-xs text-slate-300 space-y-3 font-medium">
-                            <p><strong>Step 1: Understand why Classical theory failed</strong><br>
-                            In classical theory, ALL valence electrons are assumed to participate in conduction. In quantum theory, only electrons residing near the Fermi energy level $E_F$ can gain energy and assist inside conduction paths.</p>
-
-                            <p><strong>Step 2: Relate current density to drifting electron gas</strong><br>
-                            Current density $J = n e v_d$, where $v_d$ is the drift velocity of active electrons at the Fermi surface.<br>
-                            According to Quantum statistics, $v_d = \frac{e E \tau_F}{m^*}$, where $\tau_F$ is the relaxation time at the Fermi energy levels, and $m^*$ is the effective mass of the electron.</p>
-
-                            <p><strong>Step 3: Combine with Ohm's law</strong><br>
-                            $J = n e \left( \frac{e E \tau_F}{m^*} \right) \implies J = \left( \frac{n e^2 \tau_F}{m^*} \right) E$.<br>
-                            Since Ohm's law states $J = \sigma_q E$, comparing coefficients yields:<br>
-                            <span class="text-[#34d399] font-bold">$\sigma_q = \frac{n e^2 \tau_F}{m^*}$</span>.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 5. INTERACTIVE CALCULATOR SANDBOX -->
-                <section id="calculator" class="glass-card p-8 scroll-mt-24 bg-[#0a0a1a] border border-purple-500/30 space-y-6">
-                    <div>
-                        <h3 class="text-lg font-extrabold text-white">Quantum Energy States Solver</h3>
-                        <p class="text-xs text-slate-400 mt-1">Provide 1D box boundary width parameter to instantaneously calculate quantum energy level eigenvalues (eV).</p>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 text-xs font-bold">
                         <div>
-                            <label class="block text-slate-400 mb-1">State Integer n (1,2,3)</label>
-                            <input id="calc-qn-n" type="number" value="1" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-white font-mono">
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"N/A"</p>
                         </div>
                         <div>
-                            <label class="block text-slate-400 mb-1">Box Width L (Å)</label>
-                            <input id="calc-qn-l" type="number" value="1" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-white font-mono">
-                        </div>
-                    </div>
-
-                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 flex justify-between items-center flex-wrap gap-4">
-                        <div>
-                            <span class="text-[9px] font-black text-purple-400 uppercase tracking-widest block">Solved Energy value E_n</span>
-                            <span id="calc-result" class="text-2xl font-mono text-emerald-400 font-extrabold">37.6 eV</span>
-                        </div>
-                        <button onclick="evaluateQuantumBox()" class="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 rounded-lg text-xs font-black uppercase text-white cursor-pointer border-0">Solve Energy Eigenvalue ⚡</button>
-                    </div>
-                </section>
-
-                <!-- 6. SOLVED NUMERICALS -->
-                <section id="numericals" class="glass-card p-8 scroll-mt-24 space-y-6">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight border-b border-slate-800 pb-3">6. Fully Solved JNTUK Numerical Models</h2>
-
-                    <!-- Problem 1 -->
-                    <div class="p-5 bg-slate-950/40 border border-slate-900 rounded-xl space-y-3 font-mono">
-                        <span class="text-[10px] text-purple-400 uppercase font-black tracking-widest block">Problem Model 1</span>
-                        <p class="text-xs text-slate-350 font-sans">
-                            <strong>Problem:</strong> Find the kinetic energy of an electron accelerated from rest acting under potential drop V = 150 Volts. Express its de Broglie matter pilot wavelength.
-                        </p>
-                        <div class="text-[11.5px] text-slate-400 leading-relaxed font-semibold bg-[#070714] p-3 rounded-lg border border-slate-900 font-mono">
-                            <strong>Solution steps:</strong><br>
-                            1. Direct Accelerated Equation: $\lambda = 12.27 / \sqrt{V} \text{ Å}$. <br>
-                            2. Substitute parameters values: $\lambda = 12.27 / \sqrt{150} = 12.27 / 12.247 = 1.002\text{ Å}$.
-                        </div>
-                        <div class="text-xs font-black text-emerald-400 bg-slate-950 p-2 text-center rounded border border-dashed border-emerald-500/30">
-                            Final Output: Wavelength lambda = 1.002 Å
-                        </div>
-                    </div>
-
-                    <!-- Problem 2 -->
-                    <div class="p-5 bg-slate-950/40 border border-slate-900 rounded-xl space-y-3 font-mono">
-                        <span class="text-[10px] text-purple-400 uppercase font-black tracking-widest block">Problem Model 2</span>
-                        <p class="text-xs text-slate-350 font-sans">
-                            <strong>Problem:</strong> Calculate the zero-point energy ($n=1$) and the first excited state energy ($n=2$) of an electron inside an infinite 1D box of width $L = 2 \text{ Å}$.
-                        </p>
-                        <div class="text-[11.5px] text-slate-400 leading-relaxed font-semibold bg-[#070714] p-3 rounded-lg border border-slate-900 font-mono">
-                            <strong>Solution steps:</strong><br>
-                            1. Ground state energy formula: $E_1 = \frac{h^2}{8mL^2}$.<br>
-                            Given constants: $h = 6.626\times 10^{-34} \text{ J}\cdot\text{s}$, $m = 9.109\times 10^{-31} \text{ kg}$, $L = 2\times 10^{-10} \text{ m}$.<br>
-                            2. Calculate: $E_1 = \frac{(6.626\times 10^{-34})^2}{8 \times 9.109\times 10^{-31} \times (2\times 10^{-10})^2} = 1.506 \times 10^{-18} \text{ Joules}$.<br>
-                            3. Convert to eV: $E_1 = \frac{1.506\times 10^{-18}}{1.602\times 10^{-19}} = 9.40 \text{ eV}$.<br>
-                            4. First excited state ($n=2$): $E_2 = 2^2 \times E_1 = 4 \times 9.40 \text{ eV} = 37.6 \text{ eV}$.
-                        </div>
-                        <div class="text-xs font-black text-emerald-400 bg-slate-950 p-2 text-center rounded border border-dashed border-emerald-500/30">
-                            Final Outputs: E_1 = 9.40 eV &amp; E_2 = 37.6 eV
-                        </div>
-                    </div>
-
-                    <!-- Problem 3 -->
-                    <div class="p-5 bg-slate-950/40 border border-slate-900 rounded-xl space-y-3 font-mono">
-                        <span class="text-[10px] text-purple-400 uppercase font-black tracking-widest block">Problem Model 3</span>
-                        <p class="text-xs text-slate-350 font-sans">
-                            <strong>Problem:</strong> Find the Fermi energy of copper at $0 \text{ K}$, assuming its conduction electron density is $n = 8.49 \times 10^{28} \text{ m}^{-3}$.
-                        </p>
-                        <div class="text-[11.5px] text-slate-400 leading-relaxed font-semibold bg-[#070714] p-3 rounded-lg border border-slate-900 font-mono">
-                            <strong>Solution steps:</strong><br>
-                            1. Use the $T = 0 \text{ K}$ Fermi Energy expression:<br>
-                            $E_F = \frac{h^2}{8m} \left( \frac{3n}{\pi} \right)^{2/3}$.<br>
-                            2. Substitute parameters: $\frac{h^2}{8m} = 6.02 \times 10^{-38} \text{ J}$. And $\left(\frac{3 \times 8.49\times 10^{28}}{3.1416}\right)^{2/3} = 1.87 \times 10^{19} \text{ m}^{-2}$.<br>
-                            3. Energy $E_F = 1.124 \times 10^{-18} \text{ J} = 7.02 \text{ eV}$.
-                        </div>
-                        <div class="text-xs font-black text-emerald-400 bg-slate-950 p-2 text-center rounded border border-dashed border-emerald-500/30">
-                            Final Output: Fermi level E_f = 7.02 eV
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">N/A</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 7. JNTUK SOLVED PAPERS -->
-                <section id="solved-papers" class="glass-card p-8 scroll-mt-24 space-y-6">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight border-b border-slate-800 pb-3 flex items-center justify-between">
-                        <span>📋</span> JNTUK Unit IV Solved Papers
-                        <span class="text-xs bg-purple-500/20 text-purple-400 px-3 py-1 rounded font-normal">Highly Repeated Solutions</span>
-                    </h2>
-
-                    <div class="space-y-4 text-xs font-semibold leading-relaxed">
-                        <!-- Paper Q1 -->
-                        <div class="p-6 bg-slate-950/60 rounded-xl border border-slate-900 space-y-3">
-                            <div class="flex justify-between flex-wrap text-[9px] font-black uppercase text-purple-400">
-                                <span>JNTUK Nov 2024 / R23</span>
-                                <span>10 Marks</span>
-                            </div>
-                            <h4 class="text-sm font-black text-slate-100">State Heisenberg's Uncertainty Principle and prove that free electrons cannot reside inside the nucleus.</h4>
-                            <div class="text-slate-400 space-y-2 font-medium">
-                                <p><b>Statement:</b> The product of uncertainty in position ($\Delta x$) and uncertainty in momentum ($\Delta p$) is always greater than or equal to $\hbar/2$.</p>
-                                <p><b>Nuclear Electron Impossibility Proof:</b> Let the diameter of an atomic nucleus be $10^{-14} \text{ m}$. Thus, the maximum uncertainty in the electron's position inside the nucleus is $\Delta x \approx 10^{-14} \text{ m}$.</p>
-                                <p>By Heisenberg principle: $\Delta p \ge \frac{h}{4\pi \Delta x} = \frac{6.626\times 10^{-34}}{4 \cdot \pi \cdot 10^{-14}} = 5.27 \times 10^{-21} \text{ kg}\cdot\text{m/s}$.</p>
-                                <p>Assuming the particle momentum is around this uncertainty: $p \approx \Delta p$, its corresponding kinetic energy is:<br>
-                                $E_K = \frac{p^2}{2m} = \frac{(5.27 \times 10^{-21})^2}{2 \times 9.1 \times 10^{-31}} = 1.53 \times 10^{-11} \text{ J} \approx 95 \text{ MeV}$.</p>
-                                <p>However, beta decay emissions show that electrons emitted from nuclei have at most $3\text{--}4 \text{ MeV}$ energy. Since $95 \text{ MeV} \gg 4 \text{ MeV}$, free electrons can never survive inside atomic nuclei bounds!</p>
-                            </div>
-                        </div>
-
-                        <!-- Paper Q2 -->
-                        <div class="p-6 bg-slate-950/60 rounded-xl border border-slate-900 space-y-3">
-                            <div class="flex justify-between flex-wrap text-[9px] font-black uppercase text-purple-400">
-                                <span>JNTUK May 2023</span>
-                                <span>8 Marks</span>
-                            </div>
-                            <h4 class="text-sm font-black text-slate-100">Write down the general assumptions and core deficiencies of Drude-Lorentz Classical Free Electron theory of metals.</h4>
-                            <div class="text-slate-400 space-y-1.5 font-medium">
-                                <p>• <b>Assumptions:</b> Metals consist of ion cores with free valency electrons wandering randomly. Electrons behave like neutral gas molecules obeying classical Maxwell-Boltzmann statistics. Mutual repulsion between electrons is completely ignored.</p>
-                                <p>• <b>Deficiencies:</b> (1) Predicted electronic specific heat $C_v = \frac{3}{2}R$, whereas real observed value is $\sim 100\times$ lower ($0.015 R$). (2) Predicted Wiedemann-Franz ratio is only approximately correct, failing dramatically at low temperatures. (3) Classical theory failed to explain why some metals are superconductors.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 8. EXPECTED PREDICTOR -->
-                <section id="predictor" class="glass-card p-8 scroll-mt-24 bg-gradient-to-br from-slate-950 to-[#0e071c] border border-fuchsia-950/50 space-y-6">
-                    <div class="flex items-center justify-between border-b border-[#1b102b] pb-3">
-                        <div class="flex items-center gap-3">
-                            <span class="text-[#f59e0b] text-sm font-black">08</span>
-                            <h2 class="text-xl font-black text-white uppercase tracking-tight">Board Predictor</h2>
-                        </div>
-                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-[9px] font-black uppercase px-2.5 py-1 rounded-full">98% Accuracy</span>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Card 1 -->
-                        <div class="p-5 bg-slate-950/80 rounded-xl space-y-2 border border-[#2d1c3a]">
-                            <span class="text-[9px] font-black text-purple-400 uppercase">BOARD PREDICTION 01</span>
-                            <h4 class="text-sm text-white font-bold leading-relaxed">Particle in 1D Potential Box (Full Proof)</h4>
-                            <p class="text-slate-400 leading-relaxed font-semibold">
-                                Expect a standard <b>10 Marks</b> essay asking to calculate the energy eigenvalues and plot the first three wave functions ($\psi$) and probability densities ($|\psi|^2$).
-                            </p>
-                            <span class="inline-block text-[9px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20">Frequency: 95% Repeat Rate</span>
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Stimulated Emission?</h4>
+                                </div>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">An incoming photon stimulates an excited atom to emit a coherent photon.</p>
+                                </div>
+                            </div>
                         </div>
-
                         <!-- Card 2 -->
-                        <div class="p-5 bg-slate-950/80 rounded-xl space-y-2 border border-[#2d1c3a]">
-                            <span class="text-[9px] font-black text-[#f59e0b] uppercase">BOARD PREDICTION 02</span>
-                            <h4 class="text-sm text-white font-bold leading-relaxed">Classical failures vs. Fermi statistics</h4>
-                            <p class="text-slate-400 leading-relaxed font-semibold">
-                                A comparative question asking why classical statistics failed to model electronic heat capacities and how Sommerfeld's statistical assumption resolved the paradox.
-                            </p>
-                            <span class="inline-block text-[9px] bg-amber-500/10 text-[#f59e0b] px-2 py-0.5 rounded border border-[#f59e0b]/20">Frequency: 85% Repeat Rate</span>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 9. LAB CONCEPT VIVA CARDS -->
-                <section id="viva" class="glass-card p-8 scroll-mt-24 space-y-6">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight border-b border-slate-800 pb-3">9. Concept Viva Flashcards</h2>
-                    <p class="text-xs text-slate-400">Click any card below to flip and inspect the rapid exam answers preferred by external lab examiners.</p>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <!-- Card 1 -->
-                        <div onclick="flipCard(this)" class="min-h-40 relative select-none cursor-pointer group">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500" style="perspective: 1000px;">
-                                <div class="viva-card-front absolute inset-0 w-full h-full bg-[#09091a] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs text-slate-200 font-bold leading-relaxed">Q1. Can the quantum zero-point energy of a particle inside a box be zero?</h4>
-                                    <span class="text-[8px] uppercase tracking-widest text-[#a855f7] font-black">Flip card to read answer 🔄</span>
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Total Internal Reflection?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 w-full h-full bg-purple-950/50 border border-purple-800/40 rounded-2xl p-5 flex flex-col justify-between hidden">
-                                    <p class="text-xs text-slate-300 font-semibold leading-relaxed">No. Minimum energy (zero-point energy for $n=1$) lies above zero. If energy drops to zero, the momentum goes to zero, which violently violates Heisenberg uncertainty!</p>
-                                    <span class="text-[8px] uppercase tracking-widest text-emerald-400 font-extrabold">Solved Concept Answer</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div onclick="flipCard(this)" class="min-h-40 relative select-none cursor-pointer group">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500" style="perspective: 1000px;">
-                                <div class="viva-card-front absolute inset-0 w-full h-full bg-[#09091a] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs text-slate-200 font-bold leading-relaxed">Q2. What is the physical significance of Fermi energy levels?</h4>
-                                    <span class="text-[8px] uppercase tracking-widest text-[#a855f7] font-black">Flip card to read answer 🔄</span>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 w-full h-full bg-indigo-950/50 border border-indigo-800/40 rounded-2xl p-5 flex flex-col justify-between hidden">
-                                    <p class="text-xs text-slate-300 font-semibold leading-relaxed">At $T = 0 \text{ K}$, it acts as the exact boundary separating occupied states from empty states. At temperatures $T > 0 \text{ K}$, it represents the state with an exact 50% chance of occupation.</p>
-                                    <span class="text-[8px] uppercase tracking-widest text-[#f59e0b] font-extrabold">Solved Concept Answer</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div onclick="flipCard(this)" class="min-h-40 relative select-none cursor-pointer group">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500" style="perspective: 1000px;">
-                                <div class="viva-card-front absolute inset-0 w-full h-full bg-[#09091a] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs text-slate-200 font-bold leading-relaxed">Q3. Why does de Broglie's wave character only show up in subatomic particles?</h4>
-                                    <span class="text-[8px] uppercase tracking-widest text-[#a855f7] font-black">Flip card to read answer 🔄</span>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 w-full h-full bg-fuchsia-950/50 border border-fuchsia-800/45 rounded-2xl p-5 flex flex-col justify-between hidden">
-                                    <p class="text-xs text-slate-300 font-semibold leading-relaxed">Since wavelength is inversely proportional to mass ($\lambda = h/mv$), macroscopic bodies have huge masses making the wave-amplitude virtually immeasurable.</p>
-                                    <span class="text-[8px] uppercase tracking-widest text-pink-400 font-extrabold">Solved Concept Answer</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div onclick="flipCard(this)" class="min-h-40 relative select-none cursor-pointer group">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500" style="perspective: 1000px;">
-                                <div class="viva-card-front absolute inset-0 w-full h-full bg-[#09091a] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs text-slate-200 font-bold leading-relaxed">Q4. What physical property does the density of states measure?</h4>
-                                    <span class="text-[8px] uppercase tracking-widest text-[#a855f7] font-black">Flip card to read answer 🔄</span>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 w-full h-full bg-teal-950/50 border border-teal-800/40 rounded-2xl p-5 flex flex-col justify-between hidden">
-                                    <p class="text-xs text-slate-300 font-semibold leading-relaxed">It measures the crowding of kinetic energy levels inside bulk metals. A high density of states suggests that there are many available energy slots in an interval.</p>
-                                    <span class="text-[8px] uppercase tracking-widest text-teal-400 font-extrabold">Solved Concept Answer</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Light traveling from denser to rarer medium reflects completely if angle &gt; critical angle.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-                <!-- 10. QUICK REVISION SHEET -->
-                <section id="revision-sheets" class="glass-card p-8 scroll-mt-24 space-y-4 font-semibold">
-                    <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-                        <span class="text-xl font-bold text-teal-400">10</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Quick Revision Sheets</h2>
-                    </div>
-
-                    <div class="p-6 bg-[#04040d] border border-slate-900 rounded-2xl space-y-4">
-                        <p class="text-xs text-slate-400">Save hours with this rapid scannable concept board designed for night-before-exam memorization.</p>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs border-collapse">
-                                <thead>
-                                    <tr class="border-b border-slate-800 text-[10px] text-purple-400 uppercase tracking-wider">
-                                        <th class="py-3 px-2">Property Description</th>
-                                        <th class="py-3 px-2">Classical Free Electron Theory</th>
-                                        <th class="py-3 px-2">Quantum Free Electron Theory</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-slate-300 font-semibold">
-                                    <tr class="border-b border-slate-900/60 hover:bg-slate-950/40">
-                                        <td class="py-3 px-2 font-bold text-white">Statistical Model applied</td>
-                                        <td class="py-3 px-2">Maxwell-Boltzmann (Classical, Continuous)</td>
-                                        <td class="py-3 px-2 text-[#34d399]">Fermi-Dirac (Discrete, Quantum restrictions)</td>
-                                    </tr>
-                                    <tr class="border-b border-[#12122b] hover:bg-slate-950/40">
-                                        <td class="py-3 px-2 font-bold text-white">Heat Capacity contribution</td>
-                                        <td class="py-3 px-2">Proportional to temperature ($C_{el} = 1.5 R$)</td>
-                                        <td class="py-3 px-2 text-[#34d399]">Extremely marginal ($0.01 R$, linearly aligned)</td>
-                                    </tr>
-                                    <tr class="border-b border-slate-900/60 hover:bg-slate-950/40">
-                                        <td class="py-3 px-2 font-bold text-white">Participant electron fraction</td>
-                                        <td class="py-3 px-2">100% of available valency electrons active</td>
-                                        <td class="py-3 px-2 text-[#34d399]">Only <span class="bg-[#101030] px-1.5 py-0.5 rounded text-teal-400">1%</span> near the Fermi Level boundary</td>
-                                    </tr>
-                                    <tr class="border-b border-[#12122b] hover:bg-slate-950/40">
-                                        <td class="py-3 px-2 font-bold text-white">Conductivity Temperature relation</td>
-                                        <td class="py-3 px-2">Direct function: $\sigma \propto T^{-1/2}$</td>
-                                        <td class="py-3 px-2 text-[#34d399]">Strict experimental alignment: $\sigma \propto T^{-1}$</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 11. MEMORY TRICKS & MNEMONICS -->
-                <section id="memory-tricks" class="glass-card p-8 scroll-mt-24 bg-[#0a0614] border border-pink-900/30 space-y-4">
-                    <div class="flex items-center gap-3 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-pink-400">11</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Memory Tricks &amp; Mnemonics</h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
-                        <!-- Mnemonic 1 -->
-                        <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[9px] font-black uppercase text-pink-400">Wave function properties mnemonic</span>
-                            <h4 class="text-xs font-bold text-slate-100">Remembering Born's 4 Wave conditions</h4>
-                            <p class="text-slate-400 font-medium leading-relaxed">
-                                Use the phrase <b>"S-C-U-F (Smart Cats Understand Physics)"</b> representing:<br>
-                                • <b>S</b>ingle-valued: Particle can have only one amplitude at any coordinate.<br>
-                                • <b>C</b>ontinuous: Boundary curves must be smooth without physical breaks.<br>
-                                • <b>U</b>nitary / Normalized: Total likelihood of finding particle overall space is 1.<br>
-                                • <b>F</b>inite: Energy levels of real physical systems cannot diverge to infinity inside systems.
-                            </p>
-                        </div>
-
-                        <!-- Mnemonic 2 -->
-                        <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[9px] font-black uppercase text-orange-400">Energy Level Index Trick</span>
-                            <h4 class="text-xs font-bold text-slate-100">Quantum Energy E_n shortcut</h4>
-                            <p class="text-[#94a3b8] font-medium leading-relaxed">
-                                Think of potential box eigenvalues as <b>"n-squared scale"</b>:<br>
-                                • $E_2$ is <b>4x</b> ground state ($E_1$).<br>
-                                • $E_3$ is <b>9x</b> ground state ($E_1$).<br>
-                                • $E_4$ is <b>16x</b> ground state ($E_1$).<br>
-                                Pro-Tip: Zero state ($n=0$) is strictly forbidden by uncertainty. Zero occupancy violates minimum entropy boundaries!
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 12. PRIORITIES & CORE WARNINGS -->
-                <section id="fast-scoring" class="glass-card p-8 scroll-mt-24 bg-[#050914] border border-teal-900/30 space-y-4">
-                    <div class="flex items-center gap-3 border-b border-[#0f1d3a] pb-3">
-                        <span class="text-xl font-bold text-teal-400">12</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Fastest Scoring Topics &amp; Priorities</h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
-                        <!-- Left card -->
-                        <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[9px] font-black uppercase text-teal-400">MUST STUDY IF TIME IS LOW</span>
-                            <h4 class="text-xs font-bold text-rose-450">The 80/20 Rule for Unit IV</h4>
-                            <ul class="list-disc list-inside space-y-1.5 text-slate-400">
-                                <li><b>1D Box Eigenvalues Proof:</b> Worth 10 Marks. This single formulation repeats in over 90% of JNTUK past papers.</li>
-                                <li><b>Classical Theory Deficiencies Table:</b> Highly scoring short 4 Marks question.</li>
-                                <li><b>Heisenberg Impossibility of Electron inside Nucleus:</b> Repeatedly asked, easy numerical scale proof.</li>
-                            </ul>
-                        </div>
-                        <!-- Right card -->
-                        <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900">
-                            <span class="text-[9px] font-black uppercase text-[#a855f7]">COMMON EXAM BLUNDERS</span>
-                            <h4 class="text-xs font-bold text-[#b0a0f0]">Don't Lose Marks on These!</h4>
-                            <ul class="list-disc list-inside space-y-1.5 text-slate-400">
-                                <li><b>Wave Equation Sign:</b> In Schrödinger equations, make sure you don't confuse $+V\psi$ and $-V\psi$. Check the sign of the energy bounds!</li>
-                                <li><b>Box width units:</b> Always convert Angstroms ($1 \text{ Å} = 10^{-10} \text{ m}$) before squaring in energy evaluations.</li>
-                                <li><b>Fermi-Dirac probability curve:</b> Draw the vertical drop curve at exactly $T=0\text{ K}$ to secure full diagram credits.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 13. SURVIVAL PLAN & EXAM TIPS -->
-                <section id="survival-plan" class="glass-card p-8 bg-purple-950/10 border border-purple-500/20 scroll-mt-24 space-y-4 font-semibold">
-                    <div class="flex items-center gap-3">
-                        <span class="text-2xl">🚨</span>
-                        <div>
-                            <h3 class="text-base font-black text-purple-500 uppercase tracking-tight">13. 1-Day-Before-Exam Unit IV Survival Strategy</h3>
-                            <p class="text-[9px] uppercase tracking-widest text-purple-400">Score maximum marks under extreme time bounds</p>
-                        </div>
-                    </div>
-                    
-                    <div class="text-xs leading-relaxed text-[#94a3b8] space-y-3 font-sans">
-                        <div class="p-4 bg-[#090916] rounded-xl border border-slate-900">
-                            <h4 class="text-[#f59e0b] font-extrabold uppercase mb-1">Night Before Exam Timeline:</h4>
-                            <p>• <b>Hour 1:</b> Practice the step-by-step math for the Particle in a 1D potential well. Write it out from scratch twice. That guaranteed 10-marks question cannot be skipped!</p>
-                            <p class="mt-1">• <b>Hour 2:</b> Memorize the comparison table between classical and quantum free electron theories, along with the definition of the Fermi Level.</p>
-                            <p class="mt-1">• <b>Hour 3:</b> Flip through the Concept Viva cards and formula cards to fix physical constants inside your long-term memory.</p>
-                        </div>
-                    </div>
-                </section>
-
             </div>
         </div>
     </main>
-
-    <!-- FOOTER -->
-    <footer class="py-12 border-t border-slate-900 bg-slate-950/80 mt-16 text-center text-slate-500 text-xs">
-        <p>EngiPrep Hub • Official JNTUK R23 First Year Engineering Physics Revision Modules</p>
-    </footer>
-
-    <!-- LOGIC SCRIPTS -->
     <script>
-        function evaluateQuantumBox() {
-            const n = parseInt(document.getElementById('calc-qn-n').value);
-            const l = parseFloat(document.getElementById('calc-qn-l').value);
-
-            if (isNaN(n) || isNaN(l) || n <= 0 || l <= 0) {
-                alert('Please check parameters inputs');
-                return;
-            }
-
-            const h = 6.626e-34;
-            const m = 9.11e-31;
-            const width_m = l * 1e-10;
-
-            const energy_joules = (n * n * h * h) / (8 * m * width_m * width_m);
-            const energy_ev = energy_joules / 1.6e-19;
-
-            document.getElementById('calc-result').innerText = energy_ev.toFixed(1) + ' eV';
-        }
-
-        let completedStages = {};
-        function toggleTask(id, weight) {
-            const chk = document.getElementById(`chk-${id}`);
-            completedStages[id] = chk.checked;
-            localStorage.setItem('EP_U4_stages', JSON.stringify(completedStages));
-            recalculateProgress();
-        }
-
-        function recalculateProgress() {
-            let done = 0;
-            let total = 6;
-            for (let k in completedStages) {
-                if (completedStages[k]) done++;
-            }
-            const pct = Math.round((done / total) * 100);
-            document.getElementById('pct-indicator').innerText = pct + '%';
-            document.getElementById('pb-indicator').style.width = pct + '%';
-
-            const statusText = document.getElementById('tracker-status');
-            if (pct === 100) {
-                statusText.innerText = 'STORY COMPLETE 🔥';
-                statusText.style.color = '#34d399';
-            } else if (pct > 0) {
-                statusText.innerText = 'IN PROGRESS ⏳';
-                statusText.style.color = '#60a5fa';
+        function flipVivaCard(card) {
+            const inner = card.querySelector('.viva-card-inner');
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
             } else {
-                statusText.innerText = 'NOT STARTED';
-                statusText.style.color = '#f59e0b';
+                inner.style.transform = 'rotateY(180deg)';
             }
         }
-
-        function resetInternalTracker() {
-            completedStages = {};
-            localStorage.setItem('EP_U4_stages', JSON.stringify(completedStages));
-            for(let i=1; i<=6; i++) {
-                const item = document.getElementById(`chk-u4-${i}`);
-                if (item) item.checked = false;
-            }
-            recalculateProgress();
-        }
-
-        function loadSavedTracker() {
-            const saved = localStorage.getItem('EP_U4_stages');
-            if (saved) {
-                completedStages = JSON.parse(saved);
-                for(let i=1; i<=6; i++) {
-                    const item = document.getElementById(`chk-u4-${i}`);
-                    if (item) item.checked = completedStages[`u4-${i}`] || false;
-                }
-            }
-            recalculateProgress();
-        }
-
-        function flipCard(card) {
-            const front = card.querySelector('.viva-card-front');
-            const back = card.querySelector('.viva-card-back');
-            if (front && back) {
-                front.classList.toggle('hidden');
-                back.classList.toggle('hidden');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadSavedTracker();
-        });
     </script>
 </body>
 </html>
