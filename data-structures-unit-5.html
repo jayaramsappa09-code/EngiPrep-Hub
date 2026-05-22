@@ -3,1031 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 5: Trees, Hashing, &amp; Graphs | EngiPrep Hub</title>
-    <link rel="canonical" href="https://engiprephub.vercel.app/data-structures-unit-5">
-    <meta name="description" content="Ultimate JNTUK R23 Data Structures Unit V guide. Master Trees, BST traversals, DFS, BFS graph representations, and Hashing collision resolution.">
+    <title>JNTUK R23 Trees, Hashing &amp; Graphs | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Trees, Hashing &amp; Graphs. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
     <link rel="stylesheet" href="/src/style.css">
-
-    <!-- KaTeX CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-
-    <!-- Lucide icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        .glass-card {
-            background-color: rgba(9, 10, 26, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.12);
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.35);
-            box-shadow: 0 12px 36px -8px rgba(59, 130, 246, 0.16);
-        }
-        .viva-card-inner {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-        .viva-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .active-nav-card {
-            border-color: rgba(59, 130, 246, 0.4);
-            background-color: rgba(59, 130, 246, 0.08);
-            color: #3b82f6 !important;
-        }
-    </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ],
-                throwOnError: false
-            });
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-            initPlatform();
-        });
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
     </script>
+    <style>
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
+    </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
-
-    <meta property="og:title" content="JNTUK R23 Unit 5: Trees, Hashing, &amp; Graphs | EngiPrep Hub">
-    <meta property="og:description" content="Ultimate JNTUK R23 Data Structures Unit V guide. Master Trees, BST traversals, DFS, BFS graph representations, and Hashing collision resolution.">
-    <meta property="og:url" content="https://engiprephub.vercel.app/data-structures-unit-5">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="EngiPrep Hub">
-
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
-
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "JNTUK R23 Unit 5: Trees, Hashing, &amp; Graphs | EngiPrep Hub",
-      "description": "Ultimate JNTUK R23 Data Structures Unit V guide. Master Trees, BST traversals, DFS, BFS graph representations, and Hashing collision resolution.",
-      "provider": {
-        "@type": "Organization",
-        "name": "EngiPrep Hub",
-        "sameAs": "https://engiprephub.vercel.app"
-      }
-    }
-    </script>
-
 </head>
-<body class="bg-[#030308] text-slate-300 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-blue-600 selection:text-white">\n
-    <!-- Reading Progress Bar -->
-    <div id="reading-progress-container" class="fixed top-0 left-0 w-full h-1 bg-transparent z-[100]">
-        <div id="reading-progress-bar" class="h-full bg-blue-600 transition-all duration-150 w-0"></div>
-    </div>
-
-
-    <!-- Toast message system -->
-    <div id="toast-notif" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 bg-[#090b1e]/90 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none">
-        <span class="p-1 bg-emerald-500/10 rounded-lg"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i></span>
-        <span id="toast-message">Progress Saved!</span>
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 w-full z-50 bg-[#030308]/85 backdrop-blur-md border-b border-blue-950/45 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between font-semibold">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl"></div>
-                    <span class="relative z-10 text-white font-black text-lg">EP</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none font-sans">EngiPrep <span class="text-blue-500">Hub</span></span>
-                    <span class="text-[6.5px] font-black uppercase tracking-[0.22em] text-blue-500 mt-1">JNTUK R23 Regulation Workspace</span>
-                </div>
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            <div class="flex items-center gap-4">
-                <a href="/data-structures-basics.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase text-slate-300 transition-all">
-                    Syllabus Hub
-                </a>
-                <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
-                <a href="/tasks.html" class="hidden md:block px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Tasks</a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-white">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
-    <!-- Main Outer Container -->
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        
-        <!-- Breadcrumbs -->
         <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
             <ol class="flex items-center gap-2">
                 <li><a href="/" class="hover:text-blue-500">Home</a></li>
                 <li>/</li>
-                <li><a href="/semester-2.html" class="hover:text-blue-500">Sem 2</a></li>
+                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
                 <li>/</li>
-                <li><a href="/data-structures-basics.html" class="hover:text-blue-500">Data Structures</a></li>
+                <li><a href="/subject.html?slug=data-structures" class="hover:text-blue-500">data structures</a></li>
                 <li>/</li>
-                <li class="text-blue-500" aria-current="page">Unit V: Trees, Hashing, &amp; Graphs</li>
+                <li class="text-blue-500" aria-current="page">Trees, Hashing &amp; Graphs</li>
             </ol>
         </nav>
-
-        <!-- TOP HEADER BOX -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#04091c] border border-blue-950/45">
-            <div class="absolute right-0 top-0 w-80 h-80 bg-rose-600/10 rounded-full blur-[100px] pointer-events-none font-sans"></div>
-            <div class="space-y-4 relative z-10 max-w-2xl">
-                <div class="flex items-center gap-2 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-rose-500/15 border border-rose-500/25 text-rose-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit V Workspace</span>
-                    <span class="px-2.5 py-0.5 bg-[#f59e0b]/15 border border-[#f59e0b]/25 text-[#f59e0b] text-[10px] font-black uppercase tracking-widest rounded-full">Difficulty: Hard</span>
-                </div>
-                <div>
-                    <h1 class="text-3xl lg:text-4xl font-extrabold text-white uppercase tracking-tight font-sans">
-                        Unit V: Trees, Hashing &amp;<br>Graph Structures
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        Conquer non-linear hierarchical trees, Binary Search Tree (BST) recursive traversals, map collisions resolving linear probing models, and graph representations (BFS/DFS).
-                    </p>
-                    <div class="flex flex-wrap gap-2.5 mt-5">
-                        <a href="#solved-papers" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Solve Core Programs 💻
-                        </a>
-                        <a href="#viva" class="px-3 py-1.5 border border-purple-500/30 bg-purple-500/10 hover:bg-purple-600/20 text-purple-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Practice Viva Questions 🧠
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-emerald-500/30 bg-emerald-500/10 hover:bg-[#10b981]/25 text-[#10b981] rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Run Complexity Analyzer ⚡
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Visualize Data Structures 🎯
-                        </a>
-                        <a href="#calculator" class="px-3 py-1.5 border border-amber-500/30 bg-amber-500/10 hover:bg-amber-600/20 text-amber-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
-                            Open Code Playground 🚀
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Unit Tracking Bento Box -->
-            <div class="w-full md:w-80 p-5 bg-slate-950/60 border border-slate-900 rounded-2xl flex flex-col justify-between h-52 relative z-10 shadow-inner">
-                <div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-[#f43f5e]">CODING NOT STARTED</span>
-                        <span id="overall-status-text" class="text-[10px] font-black text-rose-500 font-sans">0% Completed</span>
-                    </div>
-                    <h4 class="text-xs font-black text-white mt-1 font-sans">DSA Preparation Tracker</h4>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span>Problem Solving Progress</span>
-                        <span id="percentage-indicator" class="font-bold">0%</span>
-                    </div>
-                    <div class="w-full bg-[#101438] h-2 rounded-full overflow-hidden">
-                        <div id="progress-bar-indicator" class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between font-sans">
-                    <span class="text-[8.5px] text-slate-500 font-extrabold uppercase">15 Smart Coding Modules</span>
-                    <button onclick="resetInternalTracker()" class="text-[9px] text-[#f43f5e] hover:underline font-extrabold cursor-pointer uppercase">Reset Status</button>
-                </div>
-            </div>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Trees, Hashing &amp; Graphs <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Trees, Binary Search Tree (Insertion/Deletion/Traversal), Hashing collision techniques, Graph traversals.</p>
         </header>
-
-        <!-- TWO COLUMN VIEWPORT -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- LEFT NAVIGATION SIDEBAR -->
-            <aside class="lg:col-span-3 sticky top-28 space-y-4 max-h-[80vh] overflow-y-auto pr-2 no-scrollbar">
-                <div class="p-1 rounded-2xl bg-[#050510] border border-blue-950/50 space-y-1 shadow-2xl">
-                    <div class="p-3 text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-blue-950/30">Table of Contents</div>
-                    
-                    <a href="#intro" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">01</span> Introduction to the Data Structure
-                    </a>
-                    <a href="#core-principles" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">02</span> Core Theory Concepts
-                    </a>
-                    <a href="#definitions" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">03</span> Operations &amp; Time Complexity
-                    </a>
-                    <a href="#derivations" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">04</span> Algorithms &amp; Working Logic
-                    </a>
-                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">05</span> Code Implementations
-                    </a>
-                    <a href="#numericals" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">06</span> Step-by-Step Dry Runs
-                    </a>
-                    <a href="#calculator" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">07</span> Visual Simulations
-                    </a>
-                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">08</span> Important Interview Programs
-                    </a>
-                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">09</span> JNTUK PYQs &amp; Repeated Questions
-                    </a>
-                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">10</span> Most Expected Exam Problems
-                    </a>
-                    <a href="#viva" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">11</span> Viva &amp; Lab Questions
-                    </a>
-                    <a href="#revision-sheets" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">12</span> Quick Revision Notes
-                    </a>
-                    <a href="#formula-sheet" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">13</span> Complexity Cheat Sheet
-                    </a>
-                    <a href="#mnemonics" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">14</span> Memory Tricks &amp; Patterns
-                    </a>
-                </div>
-            </aside>
-
-            <!-- RIGHT PANEL: MASTER CONTENT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">Non-Linear Structures &amp; Maps</h2>
+                    <p>Hierarchical data is represented using Trees, while interconnected network systems use Graphs.</p>
+                </section>
 
-                <!-- 01 Trees & Traversals -->
-                <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">01</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">Trees &amp; Traversals</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400">
-                        <p>
-                            A <b>Tree</b> is a non-linear, hierarchical structure representing nodes linked by edges. A <b>Binary Tree</b> constrains every node to hold at most two children: Left Child and Right Child.
-                        </p>
-                        <ul class="list-disc list-inside space-y-2.5 text-slate-300 bg-[#050616] p-4 rounded-xl border border-blue-950">
-                            <li><b class="text-white">Preorder (DLR):</b> Visit Root node first, then traverse left tree, then traverse right tree recursively.</li>
-                            <li><b class="text-white">Inorder (LDR):</b> Traverse left tree, visit root node, then traverse right tree.</li>
-                            <li><b class="text-white">Postorder (LRD):</b> Traverse left tree first, then right tree, and visit root node last.</li>
-                        </ul>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-1" onclick="toggleScoreTask('tag-1')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master Tree operations and traversals (+20 XP)</span>
-                            </label>
+                
+
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">BST Property</h4>
+                            <p class="font-mono text-sm mt-2">Left_Val &amp;lt; Root_Val &amp;lt; Right_Val</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Hash Function</h4>
+                            <p class="font-mono text-sm mt-2">index = key % SIZE;</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 02 BST and Hashing Logic -->
-                <section id="core-principles" class="glass-card p-[#101530] p-8 scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">02</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">BST and Hashing Logic</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 leading-relaxed font-sans">
-                        <p>
-                            Non-linear organization formats data logically for search operations:
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-blue-400 font-bold uppercase text-[9.5px]">Binary Search Trees (BST)</span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    Enforces a strict relational constraint: for any node, $ \text{Left\_Child} &lt; \text{Root} &lt; \text{Right\_Child} $. Inorder traversal of a BST always yields sorted data.
-                                </p>
-                            </div>
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-indigo-400 font-bold uppercase text-[9.5px]">Hashing Maps Representation</span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    Uses a hash function, e.g., $ \text{index} = \text{key} \% \text{SIZE} $, to map key values directly to table addresses in average constant time $\mathcal{O}(1)$.
-                                </p>
-                            </div>
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Tree Traversals <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Construct a BST for: 50, 30, 20, 40, 70, 60, 80. Write its Inorder, Preorder and Postorder.</p>
                         </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-2" onclick="toggleScoreTask('tag-2')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Learn BST and Hashing properties (+20 XP)</span>
-                            </label>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">BFS and DFS <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Explain Breadth First Search (BFS) and Depth First Search (DFS) with an example.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 03 Key Terminologies -->
-                <section id="definitions" class="glass-card p-8 scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">03</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Key Terminologies</h2>
-                    </div>
-                    <div class="space-y-5 text-xs text-slate-400">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans">
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1">
-                                <b class="text-white text-xs block">Graph Representations</b>
-                                <p class="text-[11px] text-slate-400 leading-relaxed font-sans">
-                                    Adjacency Matrix: A 2D array representation. Time complexity: constant check $\mathcal{O}(1)$, Space: quadratic $\mathcal{O}(v^2)$. Adjacency List: An array of linked lists, optimal for sparse graphs.
-                                </p>
-                            </div>
-                            <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1">
-                                <b class="text-white text-xs block font-sans">Graph Traversals (BFS &amp; DFS)</b>
-                                <p class="text-[11px] text-slate-400 leading-relaxed font-sans">
-                                    Breadth First Search (BFS) uses a Queue to traverse layer-by-layer. Depth First Search (DFS) uses a Stack or recursion to traverse deep along a path first.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-3" onclick="toggleScoreTask('tag-3')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Verify Graph structures and traversals definitions (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 04 Core Traversals Algorithms -->
-                <section id="derivations" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-blue-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">04</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Core Tree Traversals Codes</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed">
-                        <p>Write simple recursive traversals algorithms inside standard C nodes setup:</p>
-                        <pre class="bg-slate-950/90 p-4 rounded-xl border border-blue-950 text-[#0dffc0] font-mono text-[10.5px]">
-struct Node {
-    int data;
-    struct Node* left;
-    struct Node* right;
-};
-
-// Inorder LDR Traversal representation
-void inorderTraversal(struct Node* root) {
-    if (root == NULL) return;
-    inorderTraversal(root->left);  // Left child recurse FIRST
-    printf("%d ", root->data);     // Visit Root data value
-    inorderTraversal(root->right); // Right child recurse LAST
-}</pre>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-4" onclick="toggleScoreTask('tag-4')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Commit Traversals code blocks (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 05 High-Yield Formula Sheet -->
-                <section id="formula-sheet" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-[#f59e0b]">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-[#f59e0b] font-mono">05</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">High-Yield Formula Sheet</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 leading-relaxed font-sans">
-                        <p>Quick operational cost breakdown for non-linear structures:</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono">
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl">
-                                <span class="text-blue-400 font-bold block text-[9px] uppercase">BST Insertion &amp; Search</span>
-                                <h4 class="text-white font-extrabold text-sm mt-1">Average: $\mathcal{O}(\log n)$ • Worst: $\mathcal{O}(n)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">Worst case occurs if elements are inserted in sorted order, creating a skewed tree.</p>
-                            </div>
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl">
-                                <span class="text-[#f59e0b] font-bold block text-[9px] uppercase">Graph BFS and DFS Traversals</span>
-                                <h4 class="text-white font-extrabold text-sm mt-1">Time: $\mathcal{O}(V + E)$ • Space: $\mathcal{O}(V)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">Traverses every vertex ($V$) and edge ($E$) systematically in linear time.</p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-5" onclick="toggleScoreTask('tag-5')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Lock high-yield parameters sheet (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 06 Interactive BST Builder -->
-                <section id="calculator" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-indigo-500">
-                    <div class="flex items-center justify-between mb-6 border-b border-blue-950/55 pb-3">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xl font-bold text-indigo-400 font-mono">06</span>
-                            <h2 class="text-xl font-black text-white uppercase tracking-tight">Interactive Multi-Sandbox</h2>
-                        </div>
-                        <div class="flex items-center gap-1.5 flex-wrap">
-                            <button onclick="switchUnit5Sim('bst')" id="u5sim-bst-btn" class="px-2.5 py-1 rounded bg-blue-500/25 text-blue-400 border border-blue-500/15 text-[9px] uppercase font-black cursor-pointer">BST Traverser Builder</button>
-                            <button onclick="switchUnit5Sim('hash')" id="u5sim-hash-btn" class="px-2.5 py-1 rounded bg-[#030308] border border-blue-950 text-slate-400 text-[9px] uppercase font-black cursor-pointer">Hashing Linear Probing</button>
-                        </div>
-                    </div>
-
-                    <!-- BST BUILDER WRAPPER -->
-                    <div id="u5sim-body-bst" class="space-y-6">
-                        <div class="p-5 bg-[#01020d] border border-blue-950 rounded-xl space-y-6">
-                            <div class="flex items-center justify-between flex-wrap gap-4">
-                                <div class="flex items-center gap-2 flex-wrap">
-                                    <div class="flex flex-col gap-1">
-                                        <span class="text-[9px] text-slate-500 uppercase font-black tracking-widest leading-none">Add BST Node value:</span>
-                                        <input type="number" id="bst-node-input" value="50" class="px-3 py-1.5 bg-[#030308] border border-blue-950 rounded text-xs text-center text-white font-mono w-20">
-                                    </div>
-                                    <button onclick="insertBSTNode()" class="px-3.5 py-1.5 bg-blue-600/20 text-blue-400 border border-blue-605/20 hover:bg-blue-600/35 text-xs font-black uppercase rounded mt-4 cursor-pointer transition-all">Insert Node</button>
-                                    <button onclick="resetBST()" class="px-3.5 py-1.5 bg-rose-600/10 text-rose-400 border border-rose-605/15 hover:bg-rose-600/25 text-xs font-black uppercase rounded mt-4 cursor-pointer transition-all">Reset Tree</button>
-                                </div>
-                            </div>
-
-                            <!-- Live visual calculations outcomes -->
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
-                                <div class="p-3 bg-[#030309] border border-blue-950 rounded-xl">
-                                    <span class="text-blue-400 font-bold block text-[8px] uppercase">PREORDER TRAVEL (DLR)</span>
-                                    <span id="bst-preorder-seq" class="text-white block mt-1.5 font-extrabold text-[11px]">-</span>
-                                </div>
-                                <div class="p-3 bg-[#030309] border border-blue-950 rounded-xl">
-                                    <span class="text-purple-400 font-bold block text-[8px] uppercase">INORDER (LDR) (SORTED)</span>
-                                    <span id="bst-inorder-seq" class="text-[#0dffc0] block mt-1.5 font-extrabold text-[11px]">-</span>
-                                </div>
-                                <div class="p-3 bg-[#030309] border border-blue-950 rounded-xl">
-                                    <span class="text-[#f59e0b] font-bold block text-[8px] uppercase">POSTORDER TRAVEL (LRD)</span>
-                                    <span id="bst-postorder-seq" class="text-white block mt-1.5 font-extrabold text-[11px]">-</span>
-                                </div>
-                            </div>
-
-                            <!-- Tree levels display logger -->
-                            <div class="p-3 bg-slate-950/90 border border-blue-950 font-mono text-[10.5px] text-slate-500 leading-normal rounded" id="bst-logs-feed">
-                                Tree is empty. Add nodes like 50, then 30, then 70 to construct visual Binary Search Tree states!
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- HASHING PROBING WRAPPER -->
-                    <div id="u5sim-body-hash" class="hidden space-y-6">
-                        <div class="p-5 bg-[#01020d] border border-blue-950 rounded-xl space-y-6">
-                            <div class="flex items-center gap-3">
-                                <div class="flex flex-col gap-1">
-                                    <span class="text-[9px] text-slate-500 uppercase font-black tracking-widest leading-none">Hash Value (Key):</span>
-                                    <input type="number" id="hash-key-input" value="45" class="px-3 py-1.5 bg-[#030308] border border-blue-950 rounded text-xs text-center text-white font-mono w-20">
-                                </div>
-                                <button onclick="insertHashValue()" class="px-3.5 py-1.5 bg-emerald-600/20 text-emerald-400 border border-emerald-605/20 hover:bg-emerald-600/35 text-xs font-black uppercase rounded mt-4 cursor-pointer transition-all">Insert Key</button>
-                                <button onclick="resetHashTable()" class="px-3.5 py-1.5 bg-rose-600/10 text-rose-400 border border-rose-605/15 hover:bg-rose-600/25 text-xs font-black uppercase rounded mt-4 cursor-pointer transition-all font-sans">Reset Map</button>
-                            </div>
-
-                            <!-- HashTable Slot display grid -->
-                            <div class="py-4 px-3 bg-[#020206] border border-blue-950 rounded-lg grid grid-cols-5 md:grid-cols-10 gap-2 font-mono text-xs text-center" id="hash-grid-container">
-                                <!-- Generated blocks -->
-                            </div>
-
-                            <!-- Collision logger feeds -->
-                            <div class="p-3 bg-slate-950/90 border border-blue-950 font-mono text-[10.5px] text-slate-500 leading-normal rounded" id="hash-logs-feed">
-                                Hash table initialized. Hash value '45' to index 5, then hash '25' to watch Linear Probing probe index 6!
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 07 Tracing solved bento -->
-                <section id="numericals" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-emerald-500 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-emerald-500 font-mono">07</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Tree Construct Solved Examples</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed">
-                        <div class="p-5 bg-emerald-500/5 border border-emerald-500/20 rounded-xl space-y-1">
-                            <span class="text-[#0dffc0] text-[9.5px] font-mono tracking-wider font-bold">BOARD SOLVED TRACE: BST CONSTRUCTION</span>
-                            <p class="mt-2 text-slate-300">
-                                Construct a Binary Search Tree for elements: <code class="text-white">45, 12, 56, 30, 78</code> and show its traversals sequences.
-                            </p>
-                            <div class="bg-black/40 border border-blue-950 p-4 rounded-xl font-mono text-[11px] text-indigo-400 space-y-1">
-                                <p>1. Insert 45: Root.</p>
-                                <p>2. Insert 12: 12 &lt; 45. Place 12 as Left Child of 45.</p>
-                                <p>3. Insert 56: 56 &gt; 45. Place 56 as Right Child of 45.</p>
-                                <p>4. Insert 30: 30 &lt; 45 (Left), 30 &gt; 12. Place 30 as Right Child of 12.</p>
-                                <p>5. Insert 78: 78 &gt; 45 (Right), 78 &gt; 56. Place 78 as Right Child of 56.</p>
-                                <p>6. Completed Traversals sequences:</p>
-                                <p class="text-[#0dffc0]">Inorder Traversal: [12, 30, 45, 56, 78] (Always Sorted Ascending!)</p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-6" onclick="toggleScoreTask('tag-6')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Save Tree constructs templates (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 08 JNTUK Solved graph matrix -->
-                <section id="solved-papers" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-purple-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-purple-500 font-mono">08</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">JNTUK Solved Graph matrix</h2>
-                    </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans">
-                        <div class="border-l-2 border-purple-500/40 pl-4 space-y-1">
-                            <h4 class="font-extrabold text-white">Write Adjacency Matrix representing undirected cycle Graph G <span class="text-purple-400">(5 Marks JNTUK Board)</span></h4>
-                            <p>For graph vertices sequence: <code class="text-white">A, B, C</code> forming undirected triangle cycle links:</p>
-                            <div class="bg-slate-950/85 p-3 rounded-lg border border-purple-950 text-[#0dffc0] font-mono text-[10.5px] leading-relaxed">
-                                <p>1. Vertex links: A-B, B-C, C-A.</p>
-                                <p>2. Adjacency Matrix array setup representation:</p>
-                                <pre class="text-[#0dffc0]">
-    A  B  C
-A [ 0  1  1 ]
-B [ 1  0  1 ]
-C [ 1  1  0 ]</pre>
-                                <p class="text-slate-500 mt-2">Matrix is completely symmetrical across diagonal plane because linkages are undirected.</p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-7" onclick="toggleScoreTask('tag-7')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master Graph Matrix representations (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 09 Most Expected Predictor -->
-                <section id="predictor" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-rose-500 animate-fadeIn">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/25 pb-3">
-                        <span class="text-xl font-bold text-rose-500 font-mono">09</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Most Expected Predictor</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium font-sans">
-                        <div class="p-4 bg-rose-500/5 rounded-xl border border-rose-500/20 space-y-2">
-                            <span class="text-rose-455 uppercase font-black tracking-widest text-[8.5px]">PREDICTED BOARD EXAM ESSAYS (10 MARKS EACH)</span>
-                            <ul class="list-decimal list-inside space-y-1.5 text-slate-300">
-                                <li>Detail algorithms for BFS and DFS traversal of a graph. Trace traversals on a sample graph.</li>
-                                <li>Explain collision resolution techniques in hashing: Linear Probing, Quadratic Probing, and Chaining.</li>
-                                <li>Construct a BST for: <code class="text-white">43, 10, 79, 54, 11, 9, 85, 30</code>. Show Inorder, Preorder, and Postorder traversals.</li>
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                
                             </ul>
                         </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-8" onclick="toggleScoreTask('tag-8')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Review expected Non-linear modules (+20 XP)</span>
-                            </label>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"N/A"</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">N/A</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 10 Lab Concept Viva Cards -->
-                <section id="viva" class="glass-card p-8 scroll-mt-24 font-sans">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">10</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">Lab Concept Viva Cards</h2>
-                    </div>
-                    <p class="text-xs text-slate-400 mb-6 font-sans">Flip and verify concepts verbal prep instantly:</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full animate-fadeIn">
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Card 1 -->
-                        <div class="relative w-full h-32 cursor-pointer select-none group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between">
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">Why does BST search complexity degrade to $\mathcal{O}(n)$?</h4>
-                                    <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
+                                    <h4 class="text-xs font-black text-slate-100">Binary Search Tree?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">In a skewed tree (where each node has only one child), searching degenerates into a sequential scan, losing the logarithmic time complexity.</p>
-                                    <span class="text-[9px] text-emerald-400 font-bold">Score unlocked!</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Left child &amp;lt; Root &amp;lt; Right child, allowing efficient O(log n) searching.</p>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Card 2 -->
-                        <div class="relative w-full h-32 cursor-pointer select-none group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between">
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">What is clustering in Linear Probing?</h4>
-                                    <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
+                                    <h4 class="text-xs font-black text-slate-100">Graph Traversal?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between">
-                                    <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">Linear probing can cause keys to cluster around certain indices, forming a primary cluster. This increases probe search times for new keys.</p>
-                                    <span class="text-[9px] text-emerald-400 font-bold">Score unlocked!</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">BFS uses a Queue; DFS uses a Stack (or recursion).</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-                <!-- 11 Collision Resolution Sheets -->
-                <section id="revision-sheets" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-cyan-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-cyan-500 font-mono">11</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Collision Resolution Sheets</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 font-sans leading-relaxed">
-                        <p>Evaluate these collision resolution techniques:</p>
-                        <ul class="list-disc list-inside space-y-1.5 text-slate-300 font-sans">
-                            <li><b class="text-white">Open Addressing:</b> Includes Linear Probing ($i + 1$) and Quadratic Probing ($i + i^2$). It probes the table for the next empty slot directly.</li>
-                            <li><b class="text-white">Separate Chaining:</b> Each slot points to a linked list of collided keys, avoiding primary clustering.</li>
-                        </ul>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-9" onclick="toggleScoreTask('tag-9')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Save Hashing summary indications (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 12 Memory Aids & Mnemonics -->
-                <section id="mnemonics" class="glass-card p-8 border-[#f59e0b] border-l-4 scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-yellow-500 font-mono">12</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Memory Aids &amp; Mnemonics</h2>
-                    </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 font-sans">
-                        <div class="p-5 bg-yellow-500/5 border border-yellow-500/20 rounded-xl space-y-2 leading-relaxed">
-                            <span class="text-[9px] font-black uppercase text-yellow-500 tracking-widest font-mono">TREE TRAVERSAL DLR MNEMONIC</span>
-                            <p class="text-slate-300">
-                                <b>"DLR - Do Leave Right now!"</b><br>
-                                In Preorder traversal: D comes first -> visit root <b>Data</b> first. Then visit <b>Left</b> subtree. Then visit <b>Right</b> subtree last. Remember this pattern for the exam!
-                            </p>
-                        </div>
-                        <div class="pt-2">
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-10" onclick="toggleScoreTask('tag-10')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Lock Tree Mnemonics rules (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 13 1-Day Prep Final Tips -->
-                <section id="survival-plan" class="p-8 bg-rose-50/5 border border-rose-500/20 rounded-[2rem] scroll-mt-24 font-sans grid-cols-1 select-none">
-                    <div class="flex items-center gap-3 mb-6 border-b border-rose-500/25 pb-3 font-sans">
-                        <span class="text-xl font-bold text-rose-400 font-mono">13</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">1-Day Prep Final Tips (Scoring Maximum Marks)</h2>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center font-sans text-xs">
-                        <div class="md:col-span-8 space-y-4 font-medium leading-relaxed">
-                            <h4 class="text-sm font-black text-white">How to score maximum marks in Unit V:</h4>
-                            <p class="text-slate-300 text-xs sm:text-sm">
-                                1. <b>Inorder of a BST is always sorted:</b> When building or tracing a BST, double-check your inorder traversal list. If it's not sorted in ascending order, recalculate the root nodes!
-                            </p>
-                            <p class="text-slate-300 text-xs sm:text-sm">
-                                2. <b>Write Adjacency representations clearly:</b> When drawing a graph, present both the adjacency list and the adjacency matrix. Providing both representations secures full marks from JNTUK evaluators!
-                            </p>
-                        </div>
-                        <div class="md:col-span-4 p-5 bg-[#030308] border border-rose-500/20 rounded-2xl text-center space-y-3">
-                            <span class="text-lg">🎓</span>
-                            <h5 class="text-xs font-bold text-white font-sans">Done reviewing?</h5>
-                            <p class="text-[10px] text-slate-400 leading-relaxed font-sans">Ensure you click the final checkbox to lock your Unit V progress in the browser.</p>
-                            <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
-                                <input type="checkbox" id="tag-11" onclick="toggleScoreTask('tag-11')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>I am exam-ready (+20 XP)</span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
             </div>
         </div>
-    
-            <!-- Gamification & Progress Marker -->
-            <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
-                <button class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 mx-auto complete-topic-btn">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                    Mark as Complete <span class="bg-emerald-700/50 px-2 py-0.5 rounded text-xs ml-2">+10 XP</span>
-                </button>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-4 font-bold max-w-sm mx-auto">Login via Dashboard to save your progress, secure your streak, and unlock AI features.</p>
-            </div>
-\n
-            <!-- Internal Links Section for SEO -->
-            <section class="related-links-section mt-12 py-8 border-t border-slate-200 dark:border-slate-800">
-                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4">Related Study Material</h3>
-                <div class="flex flex-wrap gap-4">
-                    <a href="/exam-survival.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Exam Survival Sheets</a><a href="/maths-1.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Mathematics Notes</a><a href="/unit-1-c-fundamentals.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">PPS Checklists</a>
-                </div>
-            </section>
-            
-</main>
-
+    </main>
     <script>
-        let scoreXP = 0;
-        const maxXPValue = 220; // 11 tasks * 20 = 220 XP
-
-        // BST Node constructor representation
-        class BSTNode {
-            constructor(val) {
-                this.val = val;
-                this.left = null;
-                this.right = null;
-            }
-        }
-
-        let bstRoot = null;
-        let bstPreorder = [];
-        let bstInorder = [];
-        let bstPostorder = [];
-
-        // Hashing tables
-        const hashSize = 10;
-        let hashVals = new Array(hashSize).fill(null);
-
-        function initPlatform() {
-            const storedXP = localStorage.getItem('engi_ds_u5_score');
-            if (storedXP) {
-                scoreXP = parseInt(storedXP);
-                for (let i = 1; i <= 11; i++) {
-                    const status = localStorage.getItem(`engi_ds_u5_task_${i}`);
-                    const elCheck = document.getElementById(`tag-${i}`);
-                    if (elCheck && status === 'done') {
-                        elCheck.checked = true;
-                    }
-                }
+        function flipVivaCard(card) {
+            const inner = card.querySelector('.viva-card-inner');
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
             } else {
-                scoreXP = 0;
-            }
-            updateXPUIRender();
-            
-            // Insert initial visual BST values
-            insertBSTValueLocally(50);
-            insertBSTValueLocally(30);
-            insertBSTValueLocally(70);
-            calculateBSTTraversals();
-            renderBSTLogs();
-
-            renderHashSlots();
-        }
-
-        function showToastMessage(msg) {
-            const toast = document.getElementById('toast-notif');
-            document.getElementById('toast-message').innerText = msg;
-            toast.style.opacity = '1';
-            toast.style.transform = 'translateY(0px)';
-            
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(20px)';
-            }, 2500);
-        }
-
-        function updateXPUIRender() {
-            if (scoreXP < 0) scoreXP = 0;
-            if (scoreXP > maxXPValue) scoreXP = maxXPValue;
-
-            localStorage.setItem('engi_ds_u5_score', scoreXP);
-            const percentage = Math.round((scoreXP / maxXPValue) * 100);
-
-            document.getElementById('percentage-indicator').innerText = `${percentage}%`;
-            document.getElementById('progress-bar-indicator').style.width = `${percentage}%`;
-
-            const statusText = document.getElementById('overall-status-text');
-            if (percentage === 0) {
-                statusText.innerText = 'NOT STARTED';
-                statusText.className = 'text-[10px] font-black text-rose-500 font-sans';
-            } else if (percentage < 40) {
-                statusText.innerText = 'TREE TRAINEE 🛠&nbsp;';
-                statusText.className = 'text-[10px] font-black text-blue-400 font-sans';
-            } else if (percentage < 85) {
-                statusText.innerText = 'HASH COLLIDER 🧠';
-                statusText.className = 'text-[10px] font-black text-indigo-400 font-sans';
-            } else {
-                statusText.innerText = 'NON-LINEAR LEGEND 🏆';
-                statusText.className = 'text-[10px] font-black text-emerald-400 animate-pulse font-sans';
+                inner.style.transform = 'rotateY(180deg)';
             }
         }
-
-        window.toggleScoreTask = function(chkId) {
-            const chkElement = document.getElementById(chkId);
-            const indexValue = chkId.split('-')[1];
-            
-            if (chkElement.checked) {
-                scoreXP += 20;
-                localStorage.setItem(`engi_ds_u5_task_${indexValue}`, 'done');
-                showToastMessage(`Checkpoint master! +20 XP 🔥`);
-            } else {
-                scoreXP -= 20;
-                localStorage.setItem(`engi_ds_u5_task_${indexValue}`, 'undone');
-                showToastMessage(`Removed Checkpoint! -20 XP`);
-            }
-            updateXPUIRender();
-        };
-
-        window.resetInternalTracker = function() {
-            if (confirm("Reset all study checklists and unlocked XP values for Unit V?")) {
-                localStorage.removeItem('engi_ds_u5_score');
-                for (let i = 1; i <= 11; i++) {
-                    localStorage.removeItem(`engi_ds_u5_task_${i}`);
-                    const chkElement = document.getElementById(`tag-${i}`);
-                    if (chkElement) chkElement.checked = false;
-                }
-                scoreXP = 0;
-                updateXPUIRender();
-                showToastMessage("Platform data completely reset.");
-            }
-        };
-
-        window.highlightNav = function(el) {
-            document.querySelectorAll('.nav-anchor-lnk').forEach(lnk => {
-                lnk.classList.remove('active-nav-card');
-            });
-            el.classList.add('active-nav-card');
-        };
-
-        window.flipVivaCard = function(el) {
-            const inner = el.querySelector('.viva-card-inner');
-            inner.classList.toggle('viva-card-flipped');
-            scoreXP += 5;
-            updateXPUIRender();
-            showToastMessage(`Practiced Oral Viva! +5 XP 🧪`);
-        };
-
-        // Sandbox multi buttons triggers
-        window.switchUnit5Sim = function(mode) {
-            const btnBst = document.getElementById('u5sim-bst-btn');
-            const btnHash = document.getElementById('u5sim-hash-btn');
-            const bodyBst = document.getElementById('u5sim-body-bst');
-            const bodyHash = document.getElementById('u5sim-body-hash');
-
-            if (mode === 'bst') {
-                btnBst.classList.add('bg-blue-500/25', 'text-blue-400');
-                btnHash.classList.remove('bg-blue-500/25', 'text-blue-400', 'bg-emerald-500/25', 'text-emerald-400');
-                btnHash.classList.add('text-slate-400');
-
-                bodyBst.classList.remove('hidden');
-                bodyHash.classList.add('hidden');
-            } else {
-                btnHash.classList.add('bg-emerald-500/25', 'text-emerald-400');
-                btnBst.classList.remove('bg-blue-500/25', 'text-blue-400');
-                btnBst.classList.add('text-slate-400');
-
-                bodyHash.classList.remove('hidden');
-                bodyBst.classList.add('hidden');
-            }
-        };
-
-        // Local BST builders helpers
-        function insertBSTValueLocally(val) {
-            const newNode = new BSTNode(val);
-            if (bstRoot === null) {
-                bstRoot = newNode;
-                return;
-            }
-            let current = bstRoot;
-            while(true) {
-                if (val < current.val) {
-                    if (current.left === null) {
-                        current.left = newNode;
-                        break;
-                    }
-                    current = current.left;
-                } else if (val > current.val) {
-                    if (current.right === null) {
-                        current.right = newNode;
-                        break;
-                    }
-                    current = current.right;
-                } else {
-                    break; // Duplicates avoided
-                }
-            }
-        }
-
-        function preorderTraversalHelper(node, list) {
-            if (node === null) return;
-            list.push(node.val);
-            preorderTraversalHelper(node.left, list);
-            preorderTraversalHelper(node.right, list);
-        }
-
-        function inorderTraversalHelper(node, list) {
-            if (node === null) return;
-            inorderTraversalHelper(node.left, list);
-            list.push(node.val);
-            inorderTraversalHelper(node.right, list);
-        }
-
-        function postorderTraversalHelper(node, list) {
-            if (node === null) return;
-            postorderTraversalHelper(node.left, list);
-            postorderTraversalHelper(node.right, list);
-            list.push(node.val);
-        }
-
-        function calculateBSTTraversals() {
-            bstPreorder = [];
-            bstInorder = [];
-            bstPostorder = [];
-            if(bstRoot !== null) {
-                preorderTraversalHelper(bstRoot, bstPreorder);
-                inorderTraversalHelper(bstRoot, bstInorder);
-                postorderTraversalHelper(bstRoot, bstPostorder);
-            }
-            document.getElementById('bst-preorder-seq').innerText = bstPreorder.join(' → ') || "-";
-            document.getElementById('bst-inorder-seq').innerText = bstInorder.join(' → ') || "-";
-            document.getElementById('bst-postorder-seq').innerText = bstPostorder.join(' → ') || "-";
-        }
-
-        function renderBSTLogs() {
-            const feed = document.getElementById('bst-logs-feed');
-            if (bstRoot === null) {
-                feed.innerHTML = "Tree is currently empty.";
-                return;
-            }
-            feed.innerHTML = `Constructed BST Root node: <b>${bstRoot.val}</b>. Traverse parameters mapped successfully. Dynamic tree fully rendered!`;
-        }
-
-        window.insertBSTNode = function() {
-            const val = parseInt(document.getElementById('bst-node-input').value);
-            if(isNaN(val)) {
-                return;
-            }
-            insertBSTValueLocally(val);
-            calculateBSTTraversals();
-            renderBSTLogs();
-            showToastMessage(`Inserted BST node [${val}]!`);
-        };
-
-        window.resetBST = function() {
-            bstRoot = null;
-            calculateBSTTraversals();
-            renderBSTLogs();
-            showToastMessage("BST completely reset.");
-        };
-
-        // Hashing Linear Probing Logic
-        function renderHashSlots() {
-            const container = document.getElementById('hash-grid-container');
-            if(!container) return;
-            container.innerHTML = '';
-
-            hashVals.forEach((val, idx) => {
-                const cell = document.createElement('div');
-                cell.className = "p-3 border rounded-xl flex flex-col justify-between h-16 transition-all font-mono";
-
-                if (val !== null) {
-                    cell.className += " border-emerald-500 bg-emerald-500/5 text-emerald-400 scale-105";
-                } else {
-                    cell.className += " border-slate-800 bg-[#030308] text-slate-600";
-                }
-
-                cell.innerHTML = `
-                    <span class="text-[8px] text-slate-500 uppercase tracking-tighter leading-none block">slot ${idx}</span>
-                    <span class="text-sm font-extrabold block mt-2 text-white">${(val !== null) ? val : '[ ]'}</span>
-                `;
-                container.appendChild(cell);
-            });
-        }
-
-        window.insertHashValue = function() {
-            const key = parseInt(document.getElementById('hash-key-input').value);
-            const feed = document.getElementById('hash-logs-feed');
-
-            if(isNaN(key)) {
-                feed.innerHTML = "<span class='text-rose-500 font-bold'>Error: Enter a valid key inside value block.</span>";
-                return;
-            }
-
-            let initialIndex = key % hashSize;
-            let index = initialIndex;
-            let probesCount = 0;
-            let succeeded = false;
-
-            while(probesCount < hashSize) {
-                if (hashVals[index] === null) {
-                    hashVals[index] = key;
-                    succeeded = true;
-                    if(probesCount === 0) {
-                        feed.innerHTML = `Success! Key <b>${key}</b> modular hashed: <code class="text-emerald-400">${key} % 10 = index ${index}</code> (inserted immediately without collisions).`;
-                    } else {
-                        feed.innerHTML = `Collision at home index ${initialIndex}! Linear Probing checked <b class="text-[#f59e0b]">${probesCount}</b> subsequent cells. Safe storage loaded key <b>${key}</b> successfully at probed index: <code class="text-emerald-400">index ${index}</code>!`;
-                    }
-                    break;
-                }
-                index = (index + 1) % hashSize;
-                probesCount++;
-            }
-
-            if (!succeeded) {
-                feed.innerHTML = `<span class='text-rose-500 font-bold'>HashMap Saturation:</span> All ${hashSize} table slots are completely full. Linear Probing failed to locate empty cells!`;
-                return;
-            }
-
-            renderHashSlots();
-            showToastMessage(`Hashed [${key}] successfully!`);
-        };
-
-        window.resetHashTable = function() {
-            hashVals = new Array(hashSize).fill(null);
-            renderHashSlots();
-            document.getElementById('hash-logs-feed').innerText = "Hash Table completely reset empty.";
-            showToastMessage("HashTable cleared.");
-        };
     </script>
-    <script type="module" src="/src/ai-widget.ts"></script>
 </body>
 </html>

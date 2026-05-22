@@ -3,330 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Engineering Materials | Engineering Chemistry R23</title>
-    <link rel="canonical" href="https://engiprephub.vercel.app/chemistry-unit-2">
-    <meta name="description" content="Engineering Chemistry Unit 2: Semiconductors, Superconductors, Supercapacitors, Nano Materials (Fullerenes, CNT, Graphene).">
-    <link rel="stylesheet" href="/src/index.css">
-    <style>
-        .perspective { perspective: 1000px; }
-        .preserve-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
-    </style>
-
-    <meta property="og:title" content="Modern Engineering Materials | Engineering Chemistry R23">
-    <meta property="og:description" content="Engineering Chemistry Unit 2: Semiconductors, Superconductors, Supercapacitors, Nano Materials (Fullerenes, CNT, Graphene).">
-    <meta property="og:url" content="https://engiprephub.vercel.app/chemistry-unit-2">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="EngiPrep Hub">
-
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
-
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "Modern Engineering Materials | Engineering Chemistry R23",
-      "description": "Engineering Chemistry Unit 2: Semiconductors, Superconductors, Supercapacitors, Nano Materials (Fullerenes, CNT, Graphene).",
-      "provider": {
-        "@type": "Organization",
-        "name": "EngiPrep Hub",
-        "sameAs": "https://engiprephub.vercel.app"
-      }
-    }
+    <title>JNTUK R23 Modern Engineering Materials | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Modern Engineering Materials. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
+    <link rel="stylesheet" href="/src/style.css">
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
     </script>
-
+    <style>
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
+    </style>
+    <script>document.documentElement.style.display = 'none';</script>
+    <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-slate-950 text-slate-300 min-h-screen font-sans antialiased selection:bg-emerald-500/30 selection:text-slate-50">\n
-    <!-- Reading Progress Bar -->
-    <div id="reading-progress-container" class="fixed top-0 left-0 w-full h-1 bg-transparent z-[100]">
-        <div id="reading-progress-bar" class="h-full bg-blue-600 transition-all duration-150 w-0"></div>
-    </div>
-
-    
-    <!-- Nav -->
-    <nav class="fixed top-0 w-full z-50 bg-slate-900 border border-slate-800 backdrop-blur-xl bg-slate-950/80 border-b px-6">
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4">
-                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-emerald-500">Hub</span></span>
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            <div class="flex items-center gap-4">
-                <a href="https://engi-prephub.vercel.app/chemistry-topper-notes.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-slate-50 transition-all">Topper Notes</a>
-                <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
-                <a href="/tasks.html" class="hidden md:block px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Tasks</a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 rounded-xl text-xs font-black uppercase text-slate-50 transition-all">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
+        <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2">
+                <li><a href="/" class="hover:text-blue-500">Home</a></li>
+                <li>/</li>
+                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
+                <li>/</li>
+                <li><a href="/subject.html?slug=chemistry" class="hover:text-blue-500">chemistry</a></li>
+                <li>/</li>
+                <li class="text-blue-500" aria-current="page">Modern Engineering Materials</li>
+            </ol>
+        </nav>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Modern Engineering Materials <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Semiconductors, Super Conductors, Super capacitors, and Nanomaterials (Fullerenes, Carbon Nanotubes, Graphenes).</p>
+        </header>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            <!-- Main Content -->
-            <div class="lg:col-span-9 space-y-8">
+            <div class="lg:col-span-9 space-y-16">
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">Advanced Engineering Materials</h2>
+                    <p>Modern engineering heavily relies on advanced materials like nanomaterials and superconductors.</p>
+                </section>
+
                 
-                <!-- HERO SECTION -->
-                <div class="relative p-8 border border-slate-800 rounded-[2rem] bg-slate-900 overflow-hidden">
-                    <div class="absolute right-0 top-0 w-80 h-80 bg-emerald-600/15 rounded-full blur-[100px] pointer-events-none"></div>
-                    <div class="space-y-4 relative z-10 max-w-2xl">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="px-2.5 py-0.5 bg-emerald-500/15 border border-slate-800 text-emerald-400 text-xs font-black uppercase tracking-widest rounded-full">Unit II Workspace</span>
+                <section id="definitions" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Key Definitions</h2>
+                    <div class="space-y-4">
+                        
+                            <div>
+                                <h4 class="font-bold text-slate-100">Superconductors</h4>
+                                <p class="text-sm text-slate-400">Zero resistivity below critical temperature.</p>
+                            </div>
+                        
+                            <div>
+                                <h4 class="font-bold text-slate-100">Carbon Nanotubes</h4>
+                                <p class="text-sm text-slate-400">Cylindrical carbon molecules.</p>
+                            </div>
+                        
+                    </div>
+                </section>
+
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Capacitance</h4>
+                            <p class="font-mono text-sm mt-2">C = Q / V</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Energy Stored</h4>
+                            <p class="font-mono text-sm mt-2">E = 1/2 CV²</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Carbon Nanotubes <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Explain synthesis of Carbon Nanotubes.</p>
+                        </div>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Supercapacitors <span class="text-blue-500">(5 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">What are supercapacitors? Discuss their applications.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                <li>CNT types</li><li>Meissner effect</li><li>Supercapacitor types</li>
+                            </ul>
                         </div>
                         <div>
-                            <h1 class="text-4xl lg:text-5xl font-black text-slate-50 tracking-tight">Engineering Chemistry R23 Ultimate Exam System</h1>
-                            <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-loose">
-                                Premium JNTUK Scoring Notes • PYQs • Derivations • Viva • Rapid Revision
-                            </p>
-                            <div class="flex flex-wrap gap-2.5 mt-5">
-                                <a href="#reactions" class="px-3 py-1.5 border border-slate-800 bg-emerald-500/10 hover:bg-emerald-600/20 text-emerald-300 rounded-lg text-xs font-black uppercase tracking-widest transition-all cursor-pointer">🧪 Jump to Reactions</a>
-                                <a href="#derivations" class="px-3 py-1.5 border border-slate-800 bg-emerald-500/10 hover:bg-emerald-600/20 text-emerald-300 rounded-lg text-xs font-black uppercase tracking-widest transition-all cursor-pointer">⚡ Important Derivations</a>
-                                <a href="#revision" class="px-3 py-1.5 border border-slate-800 bg-emerald-500/10 hover:bg-emerald-600/20 text-emerald-300 rounded-lg text-xs font-black uppercase tracking-widest transition-all cursor-pointer">🧠 Quick Revision Mode</a>
-                                <a href="#pyqs" class="px-3 py-1.5 border border-slate-800 bg-emerald-500/10 hover:bg-emerald-600/20 text-emerald-300 rounded-lg text-xs font-black uppercase tracking-widest transition-all cursor-pointer">📘 PYQ Predictor</a>
-                                <a href="#calculator" class="px-3 py-1.5 border border-slate-800 bg-emerald-500/10 hover:bg-emerald-600/20 text-emerald-300 rounded-lg text-xs font-black uppercase tracking-widest transition-all cursor-pointer">🧮 Numerical Solver</a>
-                                <a href="#oneday" class="px-3 py-1.5 border border-slate-800 bg-emerald-500/10 hover:bg-emerald-600/20 text-emerald-300 rounded-lg text-xs font-black uppercase tracking-widest transition-all cursor-pointer">🔥 Exam Survival Sheet</a>
-                            </div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"CNTs = Rolled sheets"</p>
                         </div>
-                    </div>
-                </div>
-
-                <!-- ANALYTICS -->
-                <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition-all duration-300">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-rose-400">🔥</span>
-                            <h3 class="text-xs font-black text-slate-50 uppercase tracking-widest">Most Repeated Derivation</h3>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">Draw CNT structures clearly.</p>
                         </div>
-                        <p class="text-sm font-bold text-rose-300">Preparation of Carbon Nanotubes</p>
-                        <p class="text-xs text-slate-400 mt-2 font-medium">Arc-Discharge & CVD asked frequently (10M).</p>
-                    </div>
-                    <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition-all duration-300">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-emerald-400">⚡</span>
-                            <h3 class="text-xs font-black text-slate-50 uppercase tracking-widest">Fastest Scoring Topic</h3>
-                        </div>
-                        <p class="text-sm font-bold text-emerald-300">Applications of Superconductors</p>
-                        <p class="text-xs text-slate-400 mt-2 font-medium">Memorize 4 bullet points for direct 5 marks.</p>
-                    </div>
-                    <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition-all duration-300">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-indigo-400">🧠</span>
-                            <h3 class="text-xs font-black text-slate-50 uppercase tracking-widest">Must Memorize Structure</h3>
-                        </div>
-                        <p class="text-sm font-bold text-indigo-300">Fullerenes (C60) Buckminster structure</p>
-                        <p class="text-xs text-slate-400 mt-2 font-medium">Draw pentagons/hexagons arrangement.</p>
-                    </div>
-                    <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl hover:border-blue-500/40 transition-all duration-300">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-amber-400">❌</span>
-                            <h3 class="text-xs font-black text-slate-50 uppercase tracking-widest">Most Common Mistakes</h3>
-                        </div>
-                        <p class="text-sm font-bold text-amber-300">Mixing up N-type vs P-type dopants</p>
-                        <p class="text-xs text-slate-400 mt-2 font-medium">N-type = Group V (P, As). P-type = Group III (B, Ga).</p>
                     </div>
                 </section>
 
-                <!-- SMART MEMORY MAP -->
-                <section id="memory-map" class="p-8 bg-slate-950 border border-slate-800 rounded-2xl scroll-mt-24 hover:border-blue-500/40 transition-all duration-300">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-black text-slate-50">🧠 Smart Memory Maps</h2>
-                        <span class="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase rounded-md border border-slate-800">Mind Palace</span>
-                    </div>
-                    <div class="p-6 bg-slate-900 border border-slate-800 rounded-xl font-mono text-sm text-emerald-300 leading-loose">
-Semiconductors<br>
-├── Intrinsic (Pure, Si/Ge)<br>
-└── Extrinsic (Doped)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;├── N-Type (e⁻ majority, Pentavalent dopant)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;└── P-Type (h⁺ majority, Trivalent dopant)<br>
-<br>
-Nanomaterials<br>
-├── 0D: Fullerenes (C60)<br>
-├── 1D: Carbon Nanotubes (SWCNT, MWCNT)<br>
-└── 2D: Graphene (Single graphite layer)
-                    </div>
-                </section>
-
-                <!-- SANDBOX -->
-                <section id="calculator" class="p-8 bg-slate-950 border border-slate-800 rounded-2xl scroll-mt-24 hover:border-blue-500/40 transition-all duration-300">
-                    <div class="flex items-center gap-3 mb-6">
-                        <h2 class="text-xl font-black text-slate-50">🧮 Supercapacitor Energy Calculator</h2>
-                        <span class="px-2 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase rounded-md border border-slate-800">Interactive Sandbox</span>
-                    </div>
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-4">
-                            <div>
-                                <label class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Capacitance (F)</label>
-                                <input type="number" value="300" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-50 focus:outline-none focus:border-emerald-500 transition-colors">
-                            </div>
-                            <div>
-                                <label class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Voltage (V)</label>
-                                <input type="number" value="2.7" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-50 focus:outline-none focus:border-emerald-500 transition-colors">
-                            </div>
-                            <button class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 rounded-xl text-xs font-black uppercase text-slate-50 transition-all shadow-lg shadow-emerald-600/20">Calculate E = ½CV²</button>
-                        </div>
-                        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-center items-center text-center">
-                            <span class="text-xs font-black text-emerald-400 uppercase tracking-widest mb-2">Energy Storage</span>
-                            <div class="text-5xl font-black text-slate-50 mb-2">1,093.5 J</div>
-                            <p class="text-xs font-bold text-slate-400">High power density characteristic<br>of modern supercapacitors.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 1 DAY PREP -->
-                <section id="oneday" class="p-8 from-emerald-900/20 to-[#050508] border border-slate-800 rounded-2xl scroll-mt-24 relative overflow-hidden hover:border-blue-500/40 transition-all duration-300 bg-slate-900">
-                    <div class="absolute right-0 top-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px]"></div>
-                    <h2 class="text-xl font-black text-slate-50 mb-6 flex items-center gap-3">
-                        <span class="text-2xl">⏰</span> IF YOU HAVE ONLY 3 HOURS:
-                    </h2>
-                    <div class="space-y-4 relative z-10">
-                        <div class="flex items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800">
-                            <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black">1</div>
-                            <div class="flex-1">
-                                <h4 class="text-sm font-black text-slate-50">CNT Preparation Methods</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Learn Arc-Discharge and Chemical Vapour Deposition (CVD).</p>
-                            </div>
-                            <span class="hidden sm:inline-block px-2 py-1 bg-rose-500/20 text-rose-400 text-xs font-bold uppercase rounded border border-slate-800">🔥 99% Repeat</span>
-                        </div>
-                        <div class="flex items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800">
-                            <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black">2</div>
-                            <div class="flex-1">
-                                <h4 class="text-sm font-black text-slate-50">Superconductors Theory</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Def, Meissner Effect, and strictly 3 applications.</p>
-                            </div>
-                            <span class="hidden sm:inline-block px-2 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase rounded border border-slate-800">⚡ Easy 8 Marks</span>
-                        </div>
-                        <div class="flex items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800">
-                            <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black">3</div>
-                            <div class="flex-1">
-                                <h4 class="text-sm font-black text-slate-50">Supercapacitors</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Introduction and Classification.</p>
-                            </div>
-                            <span class="hidden sm:inline-block px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold uppercase rounded border border-slate-800">🧠 Viva Important</span>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- VIVA CARDS -->
-                <section id="viva" class="p-8 bg-slate-950 border border-slate-800 rounded-2xl scroll-mt-24 hover:border-blue-500/40 transition-all duration-300">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-black text-slate-50">🧠 Interactive Viva Cards</h2>
-                        <span class="px-2 py-1 bg-amber-500/20 text-amber-500 text-xs font-bold uppercase rounded border border-slate-800">Flip to Answer</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="group perspective h-32 relative cursor-pointer">
-                            <div class="absolute inset-0 preserve-3d transition-all duration-500 group-hover:rotate-y-180 w-full h-full">
-                                <div class="absolute inset-0 backface-hidden bg-slate-900 border border-slate-700 rounded-xl p-5 flex flex-col justify-center items-center text-center">
-                                    <span class="text-xs text-slate-400 font-bold uppercase tracking-widest mb-2">Question 1</span>
-                                    <h3 class="text-sm font-black text-slate-50">What is the Meissner Effect?</h3>
+                        <!-- Card 1 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Superconductors?</h4>
                                 </div>
-                                <div class="absolute inset-0 backface-hidden rotate-y-180 bg-emerald-900/40 border border-slate-800 rounded-xl p-5 flex flex-col justify-center items-center text-center px-4">
-                                    <span class="text-xs text-emerald-300 font-bold uppercase tracking-widest mb-2">Answer</span>
-                                    <p class="text-xs font-medium text-slate-50 leading-loose">The expulsion of a magnetic field from a superconductor during its transition to the superconducting state.</p>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Materials that exhibit zero electrical resistance and expel magnetic fields perfectly below a critical temperature.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="group perspective h-32 relative cursor-pointer">
-                            <div class="absolute inset-0 preserve-3d transition-all duration-500 group-hover:rotate-y-180 w-full h-full">
-                                <div class="absolute inset-0 backface-hidden bg-slate-900 border border-slate-700 rounded-xl p-5 flex flex-col justify-center items-center text-center">
-                                    <span class="text-xs text-slate-400 font-bold uppercase tracking-widest mb-2">Question 2</span>
-                                    <h3 class="text-sm font-black text-slate-50">What is a Fullerene?</h3>
+                        <!-- Card 2 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Carbon Nanotubes?</h4>
                                 </div>
-                                <div class="absolute inset-0 backface-hidden rotate-y-180 bg-emerald-900/40 border border-slate-800 rounded-xl p-5 flex flex-col justify-center items-center text-center px-4">
-                                    <span class="text-xs text-emerald-300 font-bold uppercase tracking-widest mb-2">Answer</span>
-                                    <p class="text-xs font-medium text-slate-50 leading-loose">A carbon allotrope whose molecule consists of carbon atoms connected by single and double bonds to form a closed or partially closed mesh (e.g., C60).</p>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Cylindrical carbon molecules with unique properties.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
             </div>
-
-            <!-- Sidebar -->
-            <aside class="lg:col-span-3 space-y-6">
-                <!-- Tracker -->
-                <div class="w-full p-5 bg-slate-950 border border-slate-800 rounded-2xl flex flex-col justify-between h-32 relative z-10 hover:border-blue-500/40 transition-all duration-300">
-                    <div>
-                        <div class="flex items-center justify-between mb-2">
-                            <h4 class="text-xs font-black text-slate-50">Prep Tracker</h4>
-                            <span class="text-xs font-bold text-emerald-400">0%</span>
-                        </div>
-                        <div class="w-full bg-slate-900 border border-slate-800 h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-emerald-500 h-full w-[0%]"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TOC -->
-                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 sticky top-28 hover:border-blue-500/40 transition-all duration-300">
-                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3 px-3">UNIT 2 — Modern Materials</h4>
-                    <nav class="space-y-1">
-                        <a href="#t-01" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">01</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">Semiconductors</span>
-                        </a>
-                        <a href="#t-02" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">02</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">Superconductors</span>
-                        </a>
-                        <a href="#t-03" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">03</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">Super Capacitors</span>
-                        </a>
-                        <a href="#t-04" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">04</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">Nano Materials</span>
-                        </a>
-                        <a href="#t-05" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">05</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">Fullerenes & CNT</span>
-                        </a>
-                        <a href="#t-06" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">06</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">Graphene</span>
-                        </a>
-                        <a href="#t-07" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">07</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">Preparation Methods</span>
-                        </a>
-                        <a href="#t-08" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">08</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">Applications</span>
-                        </a>
-                        <a href="#t-09" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">09</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">PYQs</span>
-                        </a>
-                        <a href="#t-10" class="flex flex-col px-3 py-2 rounded-xl hover:bg-white/5 transition-all group">
-                            <span class="text-xs text-emerald-400 font-black mb-0.5">10</span>
-                            <span class="text-xs font-bold text-slate-400 group-hover:text-slate-50 transition-colors">Exam Revision</span>
-                        </a>
-                    </nav>
-                </div>
-
-            </aside>
         </div>
-    
-            <!-- Gamification & Progress Marker -->
-            <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
-                <button class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 mx-auto complete-topic-btn">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                    Mark as Complete <span class="bg-emerald-700/50 px-2 py-0.5 rounded text-xs ml-2">+10 XP</span>
-                </button>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-4 font-bold max-w-sm mx-auto">Login via Dashboard to save your progress, secure your streak, and unlock AI features.</p>
-            </div>
-\n
-            <!-- Internal Links Section for SEO -->
-            <section class="related-links-section mt-12 py-8 border-t border-slate-200 dark:border-slate-800">
-                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4">Related Study Material</h3>
-                <div class="flex flex-wrap gap-4">
-                    <a href="/pyqs.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">PYQs Predictor</a><a href="/exam-survival.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Exam Survival Sheets</a><a href="/chemistry-topper-notes.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Chemistry Topper Notes</a>
-                </div>
-            </section>
-            
-</main>
-    <script type="module" src="/src/ai-widget.ts"></script>
+    </main>
+    <script>
+        function flipVivaCard(card) {
+            const inner = card.querySelector('.viva-card-inner');
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
+            } else {
+                inner.style.transform = 'rotateY(180deg)';
+            }
+        }
+    </script>
 </body>
 </html>

@@ -772,5 +772,247 @@ module.exports = {
         examStrategy: "Focus on understanding the difference between file modes."
       }
     ]
+  },
+  "Basic Electrical Engineering": {
+    topicDesc: "Ultimate JNTUK R23 BEEE study guide. Complete coverage of DC/AC circuits, electrical machines, energy resources, core electronics, and digital circuits.",
+    units: [
+      {
+        id: "unit-1",
+        title: "DC & AC Circuits",
+        subtitle: "Unit I: Circuits Base",
+        weightage: "~20 Marks",
+        desc: "RLC elements, Ohm's law, Kirchhoff's Laws (KCL/KVL), Superposition theorem, AC waveforms, RMS & Average values, Phase diagrams, and power systems.",
+        introTitle: "Foundations of Electrical Networks",
+        introBody: "Understanding electrical networks is built on Ohm's law and Kirchhoff's laws. For alternating quantities, we master phase values, reactive power elements, and complex impedance systems.",
+        coreHighlight: "The Core Crux of R23: KCL/KVL loop equations, Superposition derivation, and RMS/Average value derivations for sine waves are highly repetitive.",
+        concept1: { title: "Kirchhoff's Laws", detail: "KCL states total current entering a node equals current leaving (conservation of charge). KVL states algebraic sum of voltages in any closed loop is zero." },
+        concept2: { title: "AC Quantities", detail: "RMS (Root Mean Square) represents equivalent heating power of AC. Impedance (Z) combines real resistance (R) and imaginary reactance (X)." },
+        formula1: { title: "Ohm's & Kirchhoff's", eq: "V = I * R ; Σ I_in = Σ I_out ; Σ V_loop = 0" },
+        formula2: { title: "RMS & Form Factor", eq: "I_rms = I_max / √2 = 0.707 * I_max ; FF = RMS / Average = 1.11" },
+        pyq1: { title: "Superposition Theorem", marks: "10 Marks", body: "State and explain Superposition Theorem with a neat circuit analysis example." },
+        pyq2: { title: "RMS & Average Derivation", marks: "10 Marks", body: "Derive the expressions for RMS value, Average value, and Form Factor of a sinusoidal alternating wave." },
+        revisionPoints: ["KCL is based on conservation of charge", "KVL is based on conservation of energy", "Form factor for sine wave is 1.11, peak factor is 1.414"],
+        memoryTricks: "KCL-Charge, KVL-Energy. Form Factor (FF) = 1.11",
+        examStrategy: "Always define the circuit diagrams clearly before applying nodal or mesh equations. Highlight final equations in rectangular boxes.",
+        definitions: [
+          { term: "Kirchhoff's Current Law (KCL)", desc: "The sum of currents entering a junction equals the sum of currents leaving the junction." },
+          { term: "Kirchhoff's Voltage Law (KVL)", desc: "The algebraic sum of voltage drops and EMFs around any closed loop is zero." },
+          { term: "Power Factor", desc: "The ratio of active power (W) to apparent power (VA). Equal to cos φ = R/Z." }
+        ]
+      },
+      {
+        id: "unit-2",
+        title: "Machines & Measuring Instruments",
+        subtitle: "Unit II: Electromechanics",
+        weightage: "~20 Marks",
+        desc: "DC Motor and Generator principles, Single Phase Transformers, Three Phase Induction Motors, Alternators, and moving coil/moving iron measuring instruments.",
+        introTitle: "Dynamic Electromechanical Systems",
+        introBody: "Master how energy is co-converted magnetically. This unit covers operational theory of DC motors, AC transformers, 3-Phase induction, and instruments like PMMC and MI coils.",
+        coreHighlight: "The Core Crux of R23: Transformer EMF equation derivation and the comparison of Moving Coil (PMMC) vs Moving Iron (MI) instruments.",
+        concept1: { title: "Transformer Operation", detail: "A static device that transfers electrical energy between circuits through electromagnetic induction, maintaining frequency." },
+        concept2: { title: "DC Machine EMF", detail: "Generators use Faraday's law of induction where rotating coils generate voltage. Motors utilize Lorentz force where current in magnetic field creates mechanical torque." },
+        formula1: { title: "EMF Equation of Transformer", eq: "E = 4.44 * f * N * Φ_max" },
+        formula2: { title: "DC Machine Back EMF", eq: "E_b = (Φ * Z * N * P) / (60 * A)" },
+        pyq1: { title: "Transformer EMF Derivation", marks: "10 Marks", body: "Derive the EMF equation of a single-phase transformer with standard nomenclature." },
+        pyq2: { title: "Measuring Instruments Comparison", marks: "10 Marks", body: "Compare the construction, scale features, and working principles of Moving Coil (PMMC) and Moving Iron (MI) instruments." },
+        revisionPoints: ["Transformers operate on mutual induction and cannot run on pure DC", "PMMC instruments have uniform scale and measure average/DC only", "MI instruments have cramped non-uniform scale and measure both AC/DC"],
+        memoryTricks: "PMMC = DC only & Uniform scale. MI = AC + DC & cramped scale.",
+        examStrategy: "Draw distinct separate columns when comparing PMMC and Moving Iron. Ensure transformer flux waveform is included in the EMF derivation.",
+        definitions: [
+          { term: "PMMC", desc: "Permanent Magnet Moving Coil meter. Deflection is directly proportional to average current. High accuracy but DC only." },
+          { term: "Mutual Induction", desc: "Production of electromotive force in one circuit by change in current of adjacent electromagnetically linked circuit." }
+        ]
+      },
+      {
+        id: "unit-3",
+        title: "Energy Resources & Safety",
+        subtitle: "Unit III: Generation & Protection",
+        weightage: "~15 Marks",
+        desc: "Power plant schemas (Hydel, Nuclear, Solar, Wind), domestic electricity bill calculation parameters, safety fuses, and shock prevention systems.",
+        introTitle: "Energy Auditing & Electrical Safety",
+        introBody: "Understand global power generation schemas and learn how engineering safety measures are applied. Learn fuse ratings, circuit breakers (MCBs), grounding, and two-part tariffs.",
+        coreHighlight: "The Core Crux of R23: Nuclear/Hydel plant block layout diagrams and numerical electricity bill estimations are highly tested.",
+        concept1: { title: "Power Plant Energy Costs", detail: "Traditional thermal/nuclear power generates high base loads. Renewables like wind/solar use PV arrays and wind currents to feed grids green power." },
+        concept2: { title: "Safety Protections", detail: "Grounding diverts dangerous leakage current to earth. MCBs (Miniature Circuit Breakers) automatically trip when load threshold exceeds safe rating limit." },
+        formula1: { title: "Electricity Unit Cost", eq: "Units (kWh) = [Power (Watts) * Time (hours)] / 1000" },
+        formula2: { title: "Total Monthly Bill", eq: "Total = Fixed Demand Charge + (Units consumed * Energy Unit Tariff)" },
+        pyq1: { title: "Electricity Bill Estimation", marks: "10 Marks", body: "An industry runs five 2kW heaters for 6 hours/day, twenty 100W lamps for 10 hours/day. Estimate monthly bill at ₹8 per unit." },
+        pyq2: { title: "Nuclear Power Plant", marks: "10 Marks", body: "Draw a neat block schematic diagram of a Nuclear Power Plant and explain the function of each subsystem." },
+        revisionPoints: ["1 unit of electricity equals 1 kWh (kilowatt-hour)", "Moderator in nuclear plants slows down fast neutrons (e.g., Heavy Water)", "Fuses are sacrificial safety elements with low melting point"],
+        memoryTricks: "1 Unit = 1 kWh = Power in kW * Hours. Trip MCB = Safe house.",
+        examStrategy: "Draw clean flowcharts for power plants. For bills, show step-by-step product multiplications clearly.",
+        definitions: [
+          { term: "Circuit Breaker (MCB)", desc: "Miniature Circuit Breaker. Automatic thermal-magnetic switch that opens the circuit under excess overcurrent." },
+          { term: "Two-Part Tariff", desc: "Tariff system consisting of a fixed customer demand charge and a variable consumption charge." }
+        ]
+      },
+      {
+        id: "unit-4",
+        title: "Semiconductor Devices",
+        subtitle: "Unit IV: Solid State Electronics",
+        weightage: "~20 Marks",
+        desc: "PN junction diodes, Zener effects, Bipolar Junction Transistor (BJT) operations, configurations (CB, CE, CC), and amplifier profiles.",
+        introTitle: "Introduction to Microelectronics",
+        introBody: "Diodes conduct in only one forward-biased direction. Transistors (BJTs) act as current controllers to enable massive amplification and switching.",
+        coreHighlight: "The Core Crux of R23: V-I diode characteristics, Zener reverse regulator, and CE configuration parameters dominate exam sets.",
+        concept1: { title: "PN Junction Diode", detail: "Formed by joining p-type and n-type silicon. Current flows easily during forward bias, blocked in reverse bias until breakdown." },
+        concept2: { title: "Transistor Amplification", detail: "A BJT controls a larger collector current via a weak base current stream. CE (Common Emitter) configuration offers both voltage and current gain." },
+        formula1: { title: "Diode Equation", eq: "I = I_0 * [e^(V / (η * V_T)) - 1]" },
+        formula2: { title: "CE Current Gains", eq: "β = α / (1 - α) ; I_C = β * I_B + I_CEO" },
+        pyq1: { title: "CE Amplifier Operating Profile", marks: "10 Marks", body: "Explain the block outline and working of a Common Emitter (CE) BJT amplifier with detailed input-output wave forms." },
+        pyq2: { title: "Zener Diode Voltage Regulator", marks: "10 Marks", body: "Explain with a neat circuit schematic how a Zener diode functions as a voltage regulator under variable load and line voltages." },
+        revisionPoints: ["Zener diodes operate in reverse breakdown region to regulate voltage", "Common Emitter (CE) amplifier provides 180° phase shift in output voltage", "Alpha (α) is always less than 1, Beta (β) is typically between 50 to 300"],
+        memoryTricks: "Zener = Reverse Breakdown. CE phase shift = 180 degrees.",
+        examStrategy: "Include complete forward and reverse bias characteristic plots for PN diode and Zener regulator. Label knee voltage of ~0.7V for Silicon.",
+        definitions: [
+          { term: "Zener Effect", desc: "Electric-field-induced quantum mechanical tunneling under high reverse bias, maintaining near-constant breakdown voltage." },
+          { term: "Transistor CE Mode", desc: "Common Emitter configuration where emitter is shared. High gain output, used mostly for amplification." }
+        ]
+      },
+      {
+        id: "unit-5",
+        title: "Circuits & Digital Electronics",
+        subtitle: "Unit V: Digital Systems",
+        weightage: "~15 Marks",
+        desc: "Full wave bridge rectifiers, LC filters, Number systems, Logic Gates, Boolean Algebra, Binary Adders, and Flip-Flops.",
+        introTitle: "Digital Logics & Voltage Rectification",
+        introBody: "Master how alternating power is rectified into clean DC using diode bridges, then delve into binary computer mathematics: boolean expressions, universal gates, and structural flip-flops.",
+        coreHighlight: "The Core Crux of R23: Full wave bridge rectifier derivation, universal logic gate operations (NAND/NOR), and Flip-Flops.",
+        concept1: { title: "Rectification & Filters", detail: "Rectifiers convert AC to pulsating DC. Full wave utilizes four diodes. Capacitors smooth waves by absorbing peak ripple voltage." },
+        concept2: { title: "Boolean & Logic Gates", detail: "NAND and NOR gates are universal gates because any combinational or sequential circuits can be built using them." },
+        formula1: { title: "Full Wave Rectifier Specs", eq: "η_max = 81.2% ; V_dc = 2 * V_m / π ; Ripple Factor = 0.48" },
+        formula2: { title: "DeMorgan's Theorems", eq: "(A + B)' = A' * B' ; (A * B)' = A' + B'" },
+        pyq1: { title: "Full Wave Rectifier Analysis", marks: "10 Marks", body: "Derive the efficiency, ripple factor, and transformer utilization factor (TUF) of a Full-Wave Bridge Rectifier." },
+        pyq2: { title: "Universal Logic Gates Realization", marks: "10 Marks", body: "Prove why NAND and NOR are called universal gates. Realize AND, OR, and NOT gates using only NAND gates." },
+        revisionPoints: ["Bridge rectifier reverse peak voltage (PIV) is Vm", "NAND & NOR are universal gates", "SR Flip flop has invalid state when S=1, R=1"],
+        memoryTricks: "FWR Efficiency = 81.2%, Ripple = 0.48. NAND + NOR are Universal.",
+        examStrategy: "Draw distinct diode conduction paths during positive and negative AC input half-cycles inside your Bridge Rectifier answer.",
+        definitions: [
+          { term: "Universal Gate", desc: "A logic gate which can implement any boolean function without needing any other gate types (NAND and NOR)." },
+          { term: "Ripple Factor", desc: "Measure of unwanted AC fluctuating components sitting on the output of rectified DC power." }
+        ]
+      }
+    ]
+  },
+  "Engineering Graphics": {
+    topicDesc: "Advanced AutoCAD aligned JNTUK R23 Engineering Drawing preparation system. Master conics, orthographic lines, sections of solids, isometric views, and CAD commands.",
+    units: [
+      {
+        id: "unit-1",
+        title: "Geometrical Constructions, Curves & Scales",
+        subtitle: "Unit I: Drafting Foundations",
+        weightage: "~15 Marks",
+        desc: "Dimensioning systems, BIS SP-46 standards, conic sections (ellipse, parabola, hyperbola), cycloidal curves, and constructable scales (Plain, Diagonal).",
+        introTitle: "Principles of Curves & Metric Scaling",
+        introBody: "Learn to trace mechanical geometry using precise pencil weights (HB, 2H), mathematically construct conics, and build plain and diagonal scales with Representative Fractions (RF).",
+        coreHighlight: "The Core Crux of R23: Isometric/general method for conics (e.g., Ellipse construction), cycloids, and diagonal scale calculations.",
+        concept1: { title: "Conic Sections", detail: "Mathematical locus of points. Governed by eccentricity equation e = distance to focus / distance to directrix. e < 1 Ellipse, e = 1 Parabola, e > 1 Hyperbola." },
+        concept2: { title: "Engineering Scales", detail: "Scales convert large dimensions to drawing paper. Plain scale shows 2 units. Diagonal scale uses similarity of triangles to measure three consecutive units (e.g., m, dm, cm) accurately." },
+        formula1: { title: "Eccentricity Model", eq: "e = PF / PD" },
+        formula2: { title: "Length of Scale equation", eq: "LOS = Representative Fraction (R.F) * Maximum length to read" },
+        pyq1: { title: "General Method Ellipse Construction", marks: "10 Marks", body: "Draw an Ellipse when the distance of its focus from the directrix is 50mm and eccentricity is 2/3. Construct a normal and tangent." },
+        pyq2: { title: "Diagonal Scale Construction", marks: "10 Marks", body: "Construct a diagonal scale of R.F = 1/4000 to show meters, decimeters, and centimeters. Mark a distance of 356 meters on the scale." },
+        revisionPoints: ["Conic: Ellipse e < 1, Parabola e = 1, Hyperbola e > 1", "HB pencil for outlines, 2H pencil for light projection grids", "Diagonal scales read up to 1/100th of principal unit, representing 3 dimensions"],
+        memoryTricks: "LOS = R.F * Max Length. e < 1 Ellipse. Diagonal = 3 dimensions, Plain = 2.",
+        examStrategy: "Use extremely sharp pencil tips. Retain construction links (2H) to score higher for drawing accuracy and neatness.",
+        definitions: [
+          { term: "Representative Fraction (R.F)", desc: "Ratio of drawing dimension length of an element to its actual physical length." },
+          { term: "Eccentricity (e)", desc: "Mathematical parameter that defines the slant conic profile geometry relative to its focus-directrix locus." }
+        ]
+      },
+      {
+        id: "unit-2",
+        title: "Orthographic Projections (Points, Lines, Planes)",
+        subtitle: "Unit II: Multi-View Projections",
+        weightage: "~20 Marks",
+        desc: "Orthographic quadrants, first angle projection rules, projection of points, straight lines inclined to both HP & VP, locus trace lines, and projections of regular planes.",
+        introTitle: "Multiview Projective Geometry",
+        introBody: "Understand the core principles of first-angle projection. Master how points and inclined lines translate on horizontal (HP) and vertical (VP) reference quadrants.",
+        coreHighlight: "The Core Crux of R23: Straight line inclined to both planes is highly tested. Trace apparent lengths using locus rotation methods.",
+        concept1: { title: "First-Angle Projection", detail: "In JNTUK, object is placed in quadrant 1: above HP and in-front of VP. Apparent top views land below the horizontal reference line XY, front views land above." },
+        concept2: { title: "Locus Method for Lines", detail: "Inclined lines appear foreshortened. By rotating the true length of a line to reference planes, we project apparent lengths onto their respective locus grids." },
+        formula1: { title: "True Length vs Apparent", eq: "Apparent Front length = True Length * cos θ" },
+        formula2: { title: "XY Reference line splits", eq: "Front views (a') sit above XY ; Top views (a) sit below XY" },
+        pyq1: { title: "Inclined Line Projection", marks: "14 Marks", body: "Line AB, 75mm long, has end A 15mm above HP, 20mm in front of VP. The line is inclined at 30° to HP and 45° to VP. Draw projections and find apparent inclinations." },
+        pyq2: { title: "Inclined Regular Plane", marks: "10 Marks", body: "Draw projections of a regular hexagonal plane of 30mm side, having its surface inclined at 45° to HP and one edge resting on HP inclined 30° to VP." },
+        revisionPoints: ["In First-Angle, Front View (fv) is above XY, Top View (tv) is below", "True length (TL) rotation gives the apparent front/top views on their local loci", " Locus lines of endpoints are always horizontal reference bands"],
+        memoryTricks: "a' is Front View. a is Top View. fv ABOVE, tv BELOW.",
+        examStrategy: "Confirm notations: front view ends with prime (a', b'), top view has no prime (a, b). Draw horizontal locus lines light and parallel.",
+        definitions: [
+          { term: "Orthographic Projection", desc: "A method of drawing where points of an object are projected perpendicular to projection planes." },
+          { term: "Locus of End Point", desc: "The locus representing the path of the endpoint of an inclined line as it rotates through reference planes." }
+        ]
+      },
+      {
+        id: "unit-3",
+        title: "Projections of Solids & Section of Solids",
+        subtitle: "Unit III: 3D Solids drafting",
+        weightage: "~20 Marks",
+        desc: "Projections of solids (prisms, pyramids, cylinders, cones) resting on HP/VP inclined to one or both axes, and section planes cutting solids to reveal internal profiles.",
+        introTitle: "Slicing & Projecting 3D Solids",
+        introBody: "Master multi-stage solid drawing projections (prisms, pyramids, cylinders, cones) and define auxiliary cutting planes that carve through solids at slant paths.",
+        coreHighlight: "The Core Crux of R23: Two-stage projection of tilted solids (e.g., axis inclined to HP, resting edge to VP) and tracing true shape of sectional slices.",
+        concept1: { title: "Solid Classifications", detail: "Prisms and cylinders have uniform parallel bases. Pyramids and cones rise from a base cross-section to meet at a single top vertex called an Apex." },
+        concept2: { title: "Section Cut Geometry", detail: "Cutting plane slicing solid at angle creates sectional views. True shape of section displays the real face of slice, drawn parallel on auxiliary planes." },
+        formula1: { title: "Prism/Cylinder projections", eq: "Identical top & bottom polygonal/circular bases" },
+        formula2: { title: "Section Cutting angles", eq: "Section plane perpendicular to first, slanted to second" },
+        pyq1: { title: "Tilted Pyramid Projection", marks: "14 Marks", body: "A square pyramid, base side 30mm, axis 60mm long, rests on one of its base corners on HP with axis inclined 45° to HP, and 30° to VP." },
+        pyq2: { title: "Sectional Cylinder View", marks: "14 Marks", body: "A cylinder of 50mm diameter and 70mm axis rests vertically on HP. It is cut by a section plane inclined 45° to HP and passing through a point 20mm below top face. Draw sectional views." },
+        revisionPoints: ["Axis perpendicular to HP gives true shape of the base in Top View (tv)", "Apparent section profiles are projected perpendicular to the cut trace lines", "True Shape is drawn on auxiliary XY band parallel to cutting plane tracing line"],
+        memoryTricks: "Prism = parallel column. Pyramid = rises to single point (Apex).",
+        examStrategy: "Always complete the initial simple stage (solid vertically aligned) to lay the scaffolding before tilting the solid to inclined coordinates.",
+        definitions: [
+          { term: "Auxiliary Plane", desc: "An extra reference plane inclined to principal planes where auxiliary orthographic projections are captured." },
+          { term: "True Shape of Section", desc: "The actual cross-sectional flat shape obtained when sliced solid is viewed perpendicular to cutting plane." }
+        ]
+      },
+      {
+        id: "unit-4",
+        title: "Isometric Projections",
+        subtitle: "Unit IV: Isometric 3D Space",
+        weightage: "~15 Marks",
+        desc: "Isometric scale construction, isometric views vs isometric projections, isometric blueprints of planes, prisms, pyramids, and cylinders.",
+        introTitle: "Principles of Isometric Drafting",
+        introBody: "Isometric drawing creates single-view 3D diagrams using 3 equal axis vectors separated by 120 degrees. Learn isometric scale calculations and trace ellipses.",
+        coreHighlight: "The Core Crux of R23: Construction of isometric projections of cylinders using the Four-Center method, and composite solids.",
+        concept1: { title: "Isometric Scale & View", detail: "Isometric scale reduces lines to ~0.815 of true lengths. Isometric view uses true lengths (1.0 scale). Both draw horizontal vectors at slanted 30-degree inclinations." },
+        concept2: { title: "Four-Center Circle Method", detail: "Circles map as ellipses in isometric views. We construct regular rhombuses and project arcs from four intersecting center coordinates to form beautiful tangent ellipses." },
+        formula1: { title: "Isometric Scale Ratio", eq: "Isometric Length = True Length * cos 45° / cos 30° ≈ 0.815 * True Length" },
+        formula2: { title: "Isometric Axis orientation", eq: "30°, 90°, 150° reference slant relative to baseline" },
+        pyq1: { title: "Four-Center Circle Projection", marks: "10 Marks", body: "Construct an Isometric Projection of a circular plane of 50mm diameter using the four-center method." },
+        pyq2: { title: "Composite Solid view", marks: "14 Marks", body: "Draw the isometric view of a cylinder of base diameter 40mm and axis 50mm, resting centrally on top of a square prism block of side 60mm and height 20mm." },
+        revisionPoints: ["Isometric Projection uses isometric scale (0.815), Isometric View is drawn using actual true dimensions (1.0)", "Horizontal circle becomes isometric ellipse on the 30° inclination plane", "All vertical edges remain strictly vertical (90 degrees)"],
+        memoryTricks: "Isometric View = 100% dimensions. Isometric Projection = 81.5% scale length.",
+        examStrategy: "Always start from a base box (bounding box technique) in isometric views. Draw isometric coordinates of base vertices before carving fine detail.",
+        definitions: [
+          { term: "Isometric Axes", desc: "The three coordinate lines representing length, width, and height inclined at 120° to each other." },
+          { term: "Bounding Box Technique", desc: "Drafting a light 3D box containing full width/depth/height bounds, then pruning inner polygons." }
+        ]
+      },
+      {
+        id: "unit-5",
+        title: "Computer-Aided Drafting (CAD)",
+        subtitle: "Unit V: AutoCAD Command Engine",
+        weightage: "~15 Marks",
+        desc: "Introduction to CAD software, UI setup, coordinate systems (relative, polar), basic 2D drawing command scripts (LINE, CIRCLE, ARC), and modifying commands (TRIM, FILLET, ARRAY).",
+        introTitle: "Digital AutoCAD Drafting Protocols",
+        introBody: "Transition raw hand drafting onto digital CAD platforms. Detail command scripts, polar coordinate entry grids, layers setups, and modifiers.",
+        coreHighlight: "The Core Crux of R23: Command strings, absolute vs relative polar coordinates entry syntax, and modifying commands are standard questions.",
+        concept1: { title: "CAD Coordinate Entry", detail: "Absolute: x,y relative to 0,0. Relative: @dx,dy relative to last coordinate. Polar: @length<angle relative to last coordinate." },
+        concept2: { title: "Drawing & Modifying Commands", detail: "Modify block commands perform geometry changes. TRIM prunes overlapping edges; FILLET rounds corners with custom radius; ARRAY duplicates patterns dynamically." },
+        formula1: { title: "Relative Polar Entry", eq: "@length < inclination_angle" },
+        formula2: { title: "Command Entry shortcuts", eq: "L for LINE ; C for CIRCLE ; TR for TRIM ; AR for ARRAY" },
+        pyq1: { title: "AutoCAD Commands List", marks: "10 Marks", body: "Describe the function, command shortcut, and operational prompts of any five modify tools in AutoCAD." },
+        pyq2: { title: "Relative Polar Scripting", marks: "10 Marks", body: "Write the sequence of AutoCAD coordinate command entries required to draw a regular hexagon of 40mm side using Polar Coordinate coordinates." },
+        revisionPoints: ["Polar entry requires @ prefix and angle bracket (e.g., @50<60)", "TRIM command requires selecting cutting boundaries, then pressing Enter before cutting segments", "Limits and Units setups organize viewport bounds before beginning drawing sessions"],
+        memoryTricks: "@Distance < Angle. TR = Trim. C = Circle. L = Line.",
+        examStrategy: "In exam answers, write AutoCAD commands in uppercase. Lay out the interactive computer-prompt dialogue sequences exactly to prove practical competence.",
+        definitions: [
+          { term: "Polar Coordinate System", desc: "Defining points using distance from origin and angle from horizontal axis." },
+          { term: "AutoCAD Layers", desc: "Organizing lines on individual overlay transparencies to govern line weights, display visibility, and printing options." }
+        ]
+      }
+    ]
   }
 };
+
