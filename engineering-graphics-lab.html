@@ -299,6 +299,21 @@
                                 <div class="flex-1 space-y-4">
                                     <div class="bg-black border-2 border-slate-900 rounded-2xl relative overflow-hidden shadow-2xl h-[400px]">
                                         <canvas id="cad-canvas" class="w-full h-full cursor-crosshair absolute inset-0"></canvas>
+                                        
+                                        <!-- Real-time Floating HUD -->
+                                        <div id="cad-floating-hud" class="pointer-events-none absolute hidden bg-[#03030b]/90 border border-cyan-500/30 rounded-lg p-2 px-3 text-[10px] font-cad text-cyan-400 shadow-2xl z-20 backdrop-blur-sm">
+                                            <div class="flex flex-col gap-1">
+                                                <div id="floating-coords" class="flex justify-between gap-4">
+                                                    <span>POS <span id="f-hud-x" class="text-white">0</span>, <span id="f-hud-y" class="text-white">0</span></span>
+                                                    <span class="text-cyan-600">INPUT_ACTIVE</span>
+                                                </div>
+                                                <div id="floating-metrics" class="flex gap-4 border-t border-cyan-900/30 pt-1.5 mt-1 hidden">
+                                                    <span id="f-hud-dist" class="text-emerald-400">L: 0.00</span>
+                                                    <span id="f-hud-angle" class="text-yellow-400">∠ 0°</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="absolute bottom-4 left-4 bg-black/80 p-2 rounded-lg border border-slate-800 font-cad text-[9px] text-cyan-400 flex gap-4">
                                             <span>X: <b id="hud-x" class="text-white">0</b></span>
                                             <span>Y: <b id="hud-y" class="text-white">0</b></span>
@@ -1274,17 +1289,42 @@
                     cadState.startX = Math.round(cadState.startX / 20) * 20; cadState.startY = Math.round(cadState.startY / 20) * 20;
                 }
                 cadState.isDrawing = true;
+                
+                // HUD: Show metrics block when drawing starts
+                document.getElementById('floating-metrics').classList.remove('hidden');
+                document.getElementById('cad-floating-hud').classList.remove('hidden');
             });
 
             canvas.addEventListener('mousemove', function(e) {
                 const pt = getCanvasMousePos(canvas, e); let x = pt.x, y = pt.y;
                 if (document.getElementById('cad-snap').checked) { x = Math.round(x / 20) * 20; y = Math.round(y / 20) * 20; }
                 cadState.currentX = x; cadState.currentY = y;
+                
+                // Update Static HUD
                 document.getElementById('hud-x').innerText = Math.round(x);
                 document.getElementById('hud-y').innerText = Math.round(y);
+                
+                // Update Floating HUD
+                const fhud = document.getElementById('cad-floating-hud');
+                fhud.classList.remove('hidden');
+                fhud.style.left = (pt.x + 20) + 'px';
+                fhud.style.top = (pt.y + 20) + 'px';
+                document.getElementById('f-hud-x').innerText = Math.round(x);
+                document.getElementById('f-hud-y').innerText = Math.round(y);
+
                 if (cadState.isDrawing) {
-                    const deg = Math.atan2(-(y - cadState.startY), x - cadState.startX) * (180 / Math.PI);
-                    document.getElementById('hud-angle').innerText = Math.round(deg < 0 ? deg + 360 : deg) + "°";
+                    const dx = x - cadState.startX;
+                    const dy = y - cadState.startY;
+                    const deg = Math.atan2(-dy, dx) * (180 / Math.PI);
+                    const angle = Math.round(deg < 0 ? deg + 360 : deg);
+                    const dist = Math.hypot(dx, dy).toFixed(2);
+                    
+                    document.getElementById('hud-angle').innerText = angle + "°";
+                    
+                    // Update Floating Metrics
+                    document.getElementById('f-hud-dist').innerText = `L: ${dist}`;
+                    document.getElementById('f-hud-angle').innerText = `∠ ${angle}°`;
+                    
                     redrawCADCanvas();
                 }
             });
@@ -1292,6 +1332,10 @@
             canvas.addEventListener('mouseup', function() {
                 if (!cadState.isDrawing) return;
                 cadState.isDrawing = false;
+                
+                // HUD: Hide metrics block
+                document.getElementById('floating-metrics').classList.add('hidden');
+                
                 let element = { type: cadState.tool, startX: cadState.startX, startY: cadState.startY, endX: cadState.currentX, endY: cadState.currentY };
                 if (cadState.tool === 'circle' || cadState.tool === 'polygon') {
                     element.r = Math.hypot(cadState.currentX - cadState.startX, cadState.currentY - cadState.startY);
@@ -1299,6 +1343,10 @@
                 cadState.elements.push(element);
                 addTerminalLine(`Drawn vector: ${cadState.tool.toUpperCase()} mapped at (${Math.round(element.startX)}, ${Math.round(element.startY)}).`);
                 redrawCADCanvas();
+            });
+
+            canvas.addEventListener('mouseleave', function() {
+                document.getElementById('cad-floating-hud').classList.add('hidden');
             });
         }
 
