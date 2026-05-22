@@ -77,11 +77,11 @@ function initWidget() {
   if (header) {
       const widgetWrapper = document.createElement('div');
       widgetWrapper.innerHTML = widgetHtml;
-      header.insertAdjacentElement('afterend', widgetWrapper.firstElementChild as Node);
+      header.insertAdjacentElement('afterend', widgetWrapper.firstElementChild as any);
   } else if (mainCol) {
       const widgetWrapper = document.createElement('div');
       widgetWrapper.innerHTML = widgetHtml;
-      mainCol.insertBefore(widgetWrapper.firstElementChild as Node, mainCol.firstChild);
+      mainCol.insertBefore(widgetWrapper.firstElementChild as any, mainCol.firstChild);
   }
 
   // Bind logic

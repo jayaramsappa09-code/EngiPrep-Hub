@@ -6,7 +6,7 @@ import multer from 'multer';
 import mammoth from 'mammoth';
 import fs from 'fs';
 import * as pdfParseModule from 'pdf-parse';
-const pdfParse = pdfParseModule.default || pdfParseModule;
+const pdfParse = (pdfParseModule as any).default || pdfParseModule;
 
 
 dotenv.config();
