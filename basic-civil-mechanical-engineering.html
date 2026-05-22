@@ -1,0 +1,1574 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Civil & Mechanical Engineering (R23) | Exam OS</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <script>
+      if (
+        localStorage.getItem("color-theme") === "dark" ||
+        (!("color-theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+    <style>
+      .glass-panel {
+        background-color: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(226, 232, 240, 0.5);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+      .dark .glass-panel {
+        background-color: rgba(15, 23, 42, 0.65);
+        border: 1px solid rgba(51, 65, 85, 0.4);
+      }
+      .glass-panel:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar {
+        overflow-y: auto;
+        height: calc(100vh - 2rem);
+        position: sticky;
+        top: 1rem;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
+      }
+      .rotate-y-180 {
+        transform: rotateY(180deg);
+      }
+      .flashcard-inner {
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+      }
+      .flashcard.flipped .flashcard-inner {
+        transform: rotateY(180deg);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 dark:bg-[#080c16] text-slate-800 dark:text-slate-200 font-sans antialiased selection:bg-amber-500/30"
+  >
+    <div
+      class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col xl:flex-row gap-8"
+    >
+      <!-- LEFT SIDEBAR -->
+      <aside
+        class="w-full xl:w-72 shrink-0 sidebar no-scrollbar order-2 xl:order-1"
+      >
+        <div class="glass-panel p-6 rounded-[2rem] space-y-8">
+          <!-- Civil Nav -->
+          <div>
+            <span
+              class="text-[10px] font-black tracking-widest uppercase text-amber-500 mb-4 flex items-center gap-2"
+              ><span class="w-2 h-2 rounded-full bg-amber-500"></span> CIVIL
+              ENGINEERING</span
+            >
+            <nav
+              class="space-y-2 relative border-l-2 border-slate-200 dark:border-slate-800 ml-2 pl-4"
+            >
+              <a
+                href="#hero"
+                class="block py-2 text-sm font-bold text-slate-900 dark:text-slate-50 transition-colors"
+                >Overview Dashboard</a
+              >
+              <a
+                href="#civil-unit-1"
+                class="block py-2 text-sm font-bold text-slate-500 hover:text-amber-600 dark:hover:text-amber-400 transition-all"
+                >Unit I: Basics & Materials</a
+              >
+              <a
+                href="#civil-unit-2"
+                class="block py-2 text-sm font-bold text-slate-500 hover:text-amber-600 dark:hover:text-amber-400 transition-all"
+                >Unit II: Surveying & Foundations</a
+              >
+              <a
+                href="#civil-unit-3"
+                class="block py-2 text-sm font-bold text-slate-500 hover:text-amber-600 dark:hover:text-amber-400 transition-all"
+                >Unit III: Transportation</a
+              >
+              <a
+                href="#civil-unit-4"
+                class="block py-2 text-sm font-bold text-slate-500 hover:text-amber-600 dark:hover:text-amber-400 transition-all"
+                >Unit IV: Water Resources</a
+              >
+            </nav>
+          </div>
+
+          <!-- Mech Nav -->
+          <div>
+            <span
+              class="text-[10px] font-black tracking-widest uppercase text-blue-500 mb-4 flex items-center gap-2"
+              ><span class="w-2 h-2 rounded-full bg-blue-500"></span> MECHANICAL
+              ENGINEERING</span
+            >
+            <nav
+              class="space-y-2 relative border-l-2 border-slate-200 dark:border-slate-800 ml-2 pl-4"
+            >
+              <a
+                href="#mech-unit-1"
+                class="block py-2 text-sm font-bold text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
+                >Unit I: Intro & Materials</a
+              >
+              <a
+                href="#mech-unit-2"
+                class="block py-2 text-sm font-bold text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
+                >Unit II: Thermal & Manufacturing</a
+              >
+              <a
+                href="#mech-unit-3"
+                class="block py-2 text-sm font-bold text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
+                >Unit III: Power Plants & Robotics</a
+              >
+            </nav>
+          </div>
+
+          <!-- Exam Tools -->
+          <div>
+            <span
+              class="text-[10px] font-black tracking-widest uppercase text-slate-400 mb-4 block"
+              >Exam Tools</span
+            >
+            <nav
+              class="space-y-2 border-l-2 border-slate-200 dark:border-slate-800 ml-2 pl-4"
+            >
+              <a
+                href="#intelligence"
+                class="flex items-center gap-3 py-2 text-sm font-bold text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                ><span>📊</span> Intelligence</a
+              >
+              <a
+                href="#explainer"
+                class="flex items-center gap-3 py-2 text-sm font-bold text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                ><span>🧮</span> Explainer System</a
+              >
+              <a
+                href="#industry"
+                class="flex items-center gap-3 py-2 text-sm font-bold text-slate-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+                ><span>🏭</span> Industry Flow</a
+              >
+              <a
+                href="#memory-tree"
+                class="flex items-center gap-3 py-2 text-sm font-bold text-slate-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                ><span>🧠</span> Memory Tree</a
+              >
+              <a
+                href="#viva"
+                class="flex items-center gap-3 py-2 text-sm font-bold text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                ><span>💡</span> Viva Cards</a
+              >
+              <a
+                href="#crash"
+                class="flex items-center gap-3 py-2 text-sm font-bold text-slate-500 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                ><span>⚡</span> Crash Mode</a
+              >
+            </nav>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="flex-1 w-full order-1 xl:order-2 space-y-12">
+        <!-- HERO SECTION -->
+        <section
+          id="hero"
+          class="glass-panel p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden fade-in"
+        >
+          <div
+            class="absolute -right-20 -top-20 w-64 h-64 bg-amber-500/20 rounded-full blur-[80px]"
+          ></div>
+          <div
+            class="absolute -left-20 -bottom-20 w-48 h-48 bg-blue-500/20 rounded-full blur-[60px]"
+          ></div>
+
+          <div
+            class="relative z-10 flex flex-col md:flex-row gap-8 justify-between items-start md:items-center"
+          >
+            <div>
+              <span class="inline-flex gap-2 mb-6">
+                <span
+                  class="px-3 py-1 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-amber-500/20"
+                  >Civil</span
+                >
+                <span
+                  class="px-3 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-blue-500/20"
+                  >Mech</span
+                >
+              </span>
+              <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-4 leading-tight"
+              >
+                Basic Civil & <br /><span
+                  class="bg-gradient-to-r from-amber-500 via-slate-400 to-blue-500 bg-clip-text text-transparent"
+                  >Mechanical Engg</span
+                >
+              </h1>
+              <p
+                class="text-slate-500 dark:text-slate-400 max-w-2xl text-sm md:text-base font-medium leading-relaxed mb-8"
+              >
+                The ultimate hybrid exam operating system. Master structural
+                analysis, manufacturing processes, surveying, and thermal
+                engineering with interactive flowcharts and targeted
+                intelligence.
+              </p>
+              <div class="flex flex-wrap items-center gap-4">
+                <a
+                  href="#crash"
+                  class="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-black uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center gap-2 hover:scale-105 active:scale-95"
+                >
+                  ⚡ Initiate Crash Mode
+                </a>
+                <a
+                  href="#intelligence"
+                  class="px-6 py-3 glass-panel text-slate-700 dark:text-slate-200 text-xs font-black uppercase tracking-widest rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-2"
+                >
+                  View Analytics
+                </a>
+              </div>
+            </div>
+
+            <div class="hidden md:flex gap-4 shrink-0 relative">
+              <div
+                class="w-32 h-40 bg-amber-100 dark:bg-amber-900/40 rounded-2xl border border-amber-200 dark:border-amber-800 transform rotate-[-6deg] flex flex-col justify-end p-4 shadow-xl"
+              >
+                <div class="w-full h-1 bg-amber-400 mb-2"></div>
+                <div class="w-3/4 h-1 bg-amber-400 mb-2"></div>
+                <span
+                  class="text-amber-700 dark:text-amber-400 font-black text-xs"
+                  >CIVIL</span
+                >
+              </div>
+              <div
+                class="w-32 h-40 bg-blue-100 dark:bg-blue-900/40 rounded-2xl border border-blue-200 dark:border-blue-800 transform rotate-[6deg] flex flex-col justify-end p-4 shadow-xl -ml-16 mt-8 relative z-10"
+              >
+                <div
+                  class="w-8 h-8 rounded-full border-2 border-blue-400 mb-2 flex items-center justify-center"
+                >
+                  <div class="w-4 h-4 bg-blue-400 rounded-full"></div>
+                </div>
+                <span
+                  class="text-blue-700 dark:text-blue-400 font-black text-xs"
+                  >MECH</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EXAM INTELLIGENCE DASHBOARD -->
+        <section
+          id="intelligence"
+          class="glass-panel p-8 rounded-[2rem] fade-in transform-gpu"
+          style="animation-delay: 0.1s"
+        >
+          <div class="flex items-center justify-between mb-8">
+            <h2
+              class="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3"
+            >
+              <span
+                class="p-2 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg"
+                >📊</span
+              >
+              Exam Intelligence
+            </h2>
+            <span
+              class="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full"
+              >Syllabus Insights</span
+            >
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Civil Intelligence -->
+            <div
+              class="p-6 bg-amber-50/50 dark:bg-amber-900/5 rounded-2xl border border-amber-100 dark:border-amber-900/30"
+            >
+              <h3
+                class="text-xs font-black text-amber-600 dark:text-amber-500 uppercase tracking-widest mb-4 flex items-center gap-2"
+              >
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span> Civil
+                Engineering Prep
+              </h3>
+              <div class="space-y-4">
+                <div
+                  class="bg-white dark:bg-[#0c101c] p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm"
+                >
+                  <p
+                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1"
+                  >
+                    Most Repeated
+                  </p>
+                  <p class="text-sm font-bold">Flexible vs Rigid Pavements</p>
+                  <p class="text-xs text-amber-600 mt-2 font-medium">
+                    10M Long Answer (Direct differences)
+                  </p>
+                </div>
+                <div
+                  class="bg-white dark:bg-[#0c101c] p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm"
+                >
+                  <p
+                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1"
+                  >
+                    High Scoring / Easy Diagram
+                  </p>
+                  <p class="text-sm font-bold">Rainwater Harvesting System</p>
+                  <p class="text-xs text-slate-500 mt-2 font-medium">
+                    Draw diagram + write 4 steps = Full marks
+                  </p>
+                </div>
+                <div
+                  class="bg-white dark:bg-[#0c101c] p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm border-l-4 border-l-red-500"
+                >
+                  <p
+                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1"
+                  >
+                    Common Mistake
+                  </p>
+                  <p class="text-sm font-bold">
+                    Mixing up WCB & QB in Surveying.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mech Intelligence -->
+            <div
+              class="p-6 bg-blue-50/50 dark:bg-blue-900/5 rounded-2xl border border-blue-100 dark:border-blue-900/30"
+            >
+              <h3
+                class="text-xs font-black text-blue-600 dark:text-blue-500 uppercase tracking-widest mb-4 flex items-center gap-2"
+              >
+                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                Mechanical Engineering Prep
+              </h3>
+              <div class="space-y-4">
+                <div
+                  class="bg-white dark:bg-[#0c101c] p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm"
+                >
+                  <p
+                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1"
+                  >
+                    Most Repeated
+                  </p>
+                  <p class="text-sm font-bold">
+                    2-Stroke vs 4-Stroke IC Engines
+                  </p>
+                  <p class="text-xs text-blue-600 mt-2 font-medium">
+                    Guaranteed Essay Question
+                  </p>
+                </div>
+                <div
+                  class="bg-white dark:bg-[#0c101c] p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm"
+                >
+                  <p
+                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1"
+                  >
+                    High Weightage Processes
+                  </p>
+                  <p class="text-sm font-bold">Casting & Machining (Lathe)</p>
+                  <p class="text-xs text-slate-500 mt-2 font-medium">
+                    Focus on sequential steps & layout.
+                  </p>
+                </div>
+                <div
+                  class="bg-white dark:bg-[#0c101c] p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm border-l-4 border-l-red-500"
+                >
+                  <p
+                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1"
+                  >
+                    Common Mistake
+                  </p>
+                  <p class="text-sm font-bold">
+                    Confusing Otto (Constant Vol) and Diesel (Constant Press)
+                    Cycles.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================= CIVIL ENGINEERING SECTION ======================= -->
+
+        <section
+          id="civil-unit-1"
+          class="glass-panel p-8 rounded-[2rem] border-l-4 border-l-amber-500 unit-section hidden"
+        >
+          <div class="flex items-center gap-4 mb-6">
+            <div
+              class="w-10 h-10 bg-amber-500 text-white font-black text-xl flex items-center justify-center rounded-xl shadow-lg shadow-amber-500/30"
+            >
+              I
+            </div>
+            <div>
+              <h2 class="text-2xl font-black text-slate-900 dark:text-white">
+                Basics of Civil Engineering
+              </h2>
+              <p
+                class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1"
+              >
+                Materials & Planning
+              </p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div
+              class="bg-slate-50 dark:bg-[#0c101c] p-6 rounded-2xl border border-slate-200 dark:border-slate-800"
+            >
+              <h3 class="text-sm font-black mb-4">Disciplines (Scope)</h3>
+              <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                <li>
+                  <strong class="text-slate-800 dark:text-slate-200"
+                    >Structural:</strong
+                  >
+                  Design of structures to withstand loads.
+                </li>
+                <li>
+                  <strong class="text-slate-800 dark:text-slate-200"
+                    >Geotechnical:</strong
+                  >
+                  Soil properties, foundation design.
+                </li>
+                <li>
+                  <strong class="text-slate-800 dark:text-slate-200"
+                    >Transportation:</strong
+                  >
+                  Roads, railways, airports, traffic.
+                </li>
+              </ul>
+            </div>
+            <div
+              class="bg-slate-50 dark:bg-[#0c101c] p-6 rounded-2xl border border-slate-200 dark:border-slate-800"
+            >
+              <h3 class="text-sm font-black mb-4">Construction Materials</h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 rounded-lg text-xs font-bold border border-amber-200 dark:border-amber-800/50"
+                  >Cement</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold"
+                  >Aggregates</span
+                >
+                <span
+                  class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400 rounded-lg text-xs font-bold border border-red-200 dark:border-red-800/50"
+                  >Bricks</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-lg text-xs font-bold"
+                  >Concrete</span
+                >
+                <span
+                  class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-400 rounded-lg text-xs font-bold border border-emerald-200 dark:border-emerald-800/50"
+                  >Timber</span
+                >
+                <span
+                  class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded-lg text-xs font-bold"
+                  >Steel</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="civil-unit-2"
+          class="glass-panel p-8 rounded-[2rem] border-l-4 border-l-amber-500 unit-section hidden"
+        >
+          <div class="flex items-center gap-4 mb-6">
+            <div
+              class="w-10 h-10 bg-amber-500 text-white font-black text-xl flex items-center justify-center rounded-xl shadow-lg shadow-amber-500/30"
+            >
+              II
+            </div>
+            <div>
+              <h2 class="text-2xl font-black text-slate-900 dark:text-white">
+                Surveying & Foundations
+              </h2>
+              <p
+                class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1"
+              >
+                Measurements & Bearing Capacity
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="p-6 bg-slate-900 rounded-2xl border border-slate-800 text-white mb-6"
+          >
+            <h3
+              class="text-amber-400 text-xs font-black uppercase tracking-widest mb-4"
+            >
+              Surveying Bearings Toolkit
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 bg-slate-800 rounded-xl">
+                <h4 class="font-bold text-sm mb-2">
+                  Whole Circle Bearing (WCB)
+                </h4>
+                <p class="text-xs text-slate-400 mb-2">
+                  Measured strictly clockwise from North (0° to 360°).
+                </p>
+                <div
+                  class="w-full h-1 bg-slate-700 rounded-full overflow-hidden flex"
+                >
+                  <div class="bg-amber-400 w-3/4"></div>
+                </div>
+              </div>
+              <div class="p-4 bg-slate-800 rounded-xl">
+                <h4 class="font-bold text-sm mb-2">
+                  Quadrantal Bearing (QB) / Reduced
+                </h4>
+                <p class="text-xs text-slate-400 mb-2">
+                  Measured from N or S, towards E or W (0° to 90°). Eg: N 30° E.
+                </p>
+                <div
+                  class="w-full h-1 bg-slate-700 rounded-full overflow-hidden flex"
+                >
+                  <div class="bg-blue-400 w-1/4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="border border-slate-200 dark:border-slate-800 p-5 rounded-2xl bg-white dark:bg-[#080c16]"
+            >
+              <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">
+                Shallow Foundations
+              </h4>
+              <p class="text-xs text-slate-500 mb-3">
+                Depth is less than or equal to width (D &le; B). Types: Strip,
+                Spread, Mat/Raft.
+              </p>
+            </div>
+            <div
+              class="border border-slate-200 dark:border-slate-800 p-5 rounded-2xl bg-white dark:bg-[#080c16]"
+            >
+              <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">
+                Deep Foundations
+              </h4>
+              <p class="text-xs text-slate-500 mb-3">
+                Depth is much greater than width (D &gt; B). Used when top soil
+                is weak. Types: Piles, Piers, Caissons.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="civil-unit-3"
+          class="glass-panel p-6 rounded-[2rem] border-l-4 border-l-amber-500 unit-section hidden"
+        >
+          <h2 class="text-xl font-black text-slate-900 dark:text-white mb-2">
+            III. Transportation
+          </h2>
+          <p
+            class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-6 border-b border-slate-200 dark:border-slate-800 pb-4"
+          >
+            Pavements & Railways
+          </p>
+
+          <div class="space-y-4">
+            <div
+              class="bg-amber-50 dark:bg-amber-900/10 p-4 rounded-xl border border-amber-100 dark:border-amber-900/30"
+            >
+              <strong
+                class="text-amber-800 dark:text-amber-400 text-sm block mb-1"
+                >Flexible Pavement</strong
+              >
+              <p class="text-xs text-slate-600 dark:text-slate-400">
+                Asphalt/Bitumen surface. Multi-layered, distributes load through
+                grain-to-grain contact. Lower initial cost, higher maintenance.
+              </p>
+            </div>
+            <div
+              class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-800"
+            >
+              <strong
+                class="text-slate-800 dark:text-slate-200 text-sm block mb-1"
+                >Rigid Pavement</strong
+              >
+              <p class="text-xs text-slate-600 dark:text-slate-400">
+                Concrete surface. Acts as a solid rigid plate, distributes load
+                via beam action. High initial cost, lower maintenance.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="civil-unit-4"
+          class="glass-panel p-6 rounded-[2rem] border-l-4 border-l-amber-500 unit-section hidden"
+        >
+          <h2 class="text-xl font-black text-slate-900 dark:text-white mb-2">
+            IV. Water Resources
+          </h2>
+          <p
+            class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-6 border-b border-slate-200 dark:border-slate-800 pb-4"
+          >
+            Env Engg & Hydrology
+          </p>
+
+          <div class="bg-[#0c101c] rounded-xl p-5 border border-slate-800">
+            <h4 class="text-white text-sm font-bold mb-3">
+              Hydrologic Cycle Components
+            </h4>
+            <ol
+              class="text-xs text-slate-400 space-y-2 list-decimal list-inside font-mono"
+            >
+              <li>Evaporation (Water to vapor)</li>
+              <li>Transpiration (Plants release vapor)</li>
+              <li>Condensation (Clouds form)</li>
+              <li>Precipitation (Rain, snow)</li>
+              <li>Runoff (Flows to rivers/oceans)</li>
+              <li>Infiltration (Seeps into ground)</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- ======================= MECHANICAL ENGINEERING SECTION ======================= -->
+
+        <section
+          id="mech-unit-1"
+          class="glass-panel p-8 rounded-[2rem] border-l-4 border-l-blue-500 unit-section hidden"
+        >
+          <div class="flex items-center gap-4 mb-6">
+            <div
+              class="w-10 h-10 bg-blue-500 text-white font-black text-xl flex items-center justify-center rounded-xl shadow-lg shadow-blue-500/30"
+            >
+              I
+            </div>
+            <div>
+              <h2 class="text-2xl font-black text-slate-900 dark:text-white">
+                Introduction & Materials
+              </h2>
+              <p
+                class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1"
+              >
+                Role in Industry
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div
+              class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 text-center hover:border-blue-500 transition-colors"
+            >
+              <span class="text-2xl mb-2 block">⚙️</span>
+              <h4 class="text-xs font-bold text-slate-900 dark:text-slate-100">
+                Ferrous
+              </h4>
+              <p class="text-[10px] text-slate-500 mt-1">
+                Contains Iron (Steel, Cast Iron)
+              </p>
+            </div>
+            <div
+              class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 text-center hover:border-blue-500 transition-colors"
+            >
+              <span class="text-2xl mb-2 block">🪶</span>
+              <h4 class="text-xs font-bold text-slate-900 dark:text-slate-100">
+                Non-Ferrous
+              </h4>
+              <p class="text-[10px] text-slate-500 mt-1">
+                No Iron (Al, Cu, Brass)
+              </p>
+            </div>
+            <div
+              class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 text-center hover:border-blue-500 transition-colors"
+            >
+              <span class="text-2xl mb-2 block">🏺</span>
+              <h4 class="text-xs font-bold text-slate-900 dark:text-slate-100">
+                Ceramics
+              </h4>
+              <p class="text-[10px] text-slate-500 mt-1">
+                Non-metallic, brittle, high heat resistance
+              </p>
+            </div>
+            <div
+              class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 text-center hover:border-blue-500 transition-colors"
+            >
+              <span class="text-2xl mb-2 block">🧬</span>
+              <h4 class="text-xs font-bold text-slate-900 dark:text-slate-100">
+                Composites
+              </h4>
+              <p class="text-[10px] text-slate-500 mt-1">
+                Combined materials (Carbon Fiber, Fiberglass)
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="mech-unit-2"
+          class="glass-panel p-8 rounded-[2rem] border-l-4 border-l-blue-500 unit-section hidden"
+        >
+          <div class="flex items-center gap-4 mb-6">
+            <div
+              class="w-10 h-10 bg-blue-500 text-white font-black text-xl flex items-center justify-center rounded-xl shadow-lg shadow-blue-500/30"
+            >
+              II
+            </div>
+            <div>
+              <h2 class="text-2xl font-black text-slate-900 dark:text-white">
+                Manufacturing & Thermal
+              </h2>
+              <p
+                class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1"
+              >
+                Engines & Processes
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- IC Engines -->
+            <div class="bg-[#0c101c] p-6 rounded-2xl border border-blue-900/30">
+              <h3 class="text-white font-black mb-4 flex items-center gap-2">
+                <span class="text-blue-500">⚡</span> IC Engines Comparison
+              </h3>
+              <div class="space-y-4">
+                <div
+                  class="p-3 bg-blue-900/20 border border-blue-500/30 rounded-xl"
+                >
+                  <span
+                    class="text-[10px] font-bold text-blue-400 uppercase tracking-widest block mb-1"
+                    >SI Engine (Petrol/Spark)</span
+                  >
+                  <p class="text-xs text-slate-300">
+                    Uses Spark Plug. Otto Cycle (Constant Volume). Carburetor
+                    mixes air & fuel. Low compression ratio.
+                  </p>
+                </div>
+                <div
+                  class="p-3 bg-slate-800/50 border border-slate-700/50 rounded-xl"
+                >
+                  <span
+                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1"
+                    >CI Engine (Diesel/Compression)</span
+                  >
+                  <p class="text-xs text-slate-300">
+                    Uses Fuel Injector. Diesel Cycle (Constant Pressure). Only
+                    air is drawn in. High compression ratio.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Manufacturing -->
+            <div class="space-y-4">
+              <h3 class="text-slate-900 dark:text-white font-black mb-4">
+                Core Manufacturing Processes
+              </h3>
+              <div
+                class="p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 flex items-start gap-3"
+              >
+                <span
+                  class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg text-lg"
+                  >🌋</span
+                >
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900 dark:text-white">
+                    Casting
+                  </h4>
+                  <p class="text-xs text-slate-500">
+                    Molten metal poured into a mold cavity to solidify.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 flex items-start gap-3"
+              >
+                <span
+                  class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg text-lg"
+                  >🔨</span
+                >
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900 dark:text-white">
+                    Forming
+                  </h4>
+                  <p class="text-xs text-slate-500">
+                    Deforming metal via hammers/presses (Forging, Rolling).
+                  </p>
+                </div>
+              </div>
+              <div
+                class="p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 flex items-start gap-3"
+              >
+                <span
+                  class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg text-lg"
+                  >⚙️</span
+                >
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900 dark:text-white">
+                    Machining
+                  </h4>
+                  <p class="text-xs text-slate-500">
+                    Removing material using a cutting tool (Lathe, Milling).
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="mech-unit-3"
+          class="glass-panel p-8 rounded-[2rem] border-l-4 border-l-blue-500 unit-section hidden"
+        >
+          <div class="flex items-center gap-4 mb-6">
+            <div
+              class="w-10 h-10 bg-blue-500 text-white font-black text-xl flex items-center justify-center rounded-xl shadow-lg shadow-blue-500/30"
+            >
+              III
+            </div>
+            <div>
+              <h2 class="text-2xl font-black text-slate-900 dark:text-white">
+                Power Plants & Transmission
+              </h2>
+              <p
+                class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1"
+              >
+                Energy & Drive Systems
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-center text-sm font-bold"
+          >
+            <div
+              class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800"
+            >
+              <span class="mb-1 block text-2xl">🏭</span> Steam
+            </div>
+            <div
+              class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800"
+            >
+              <span class="mb-1 block text-2xl">🌊</span> Hydro
+            </div>
+            <div
+              class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800"
+            >
+              <span class="mb-1 block text-2xl">☢️</span> Nuclear
+            </div>
+            <div
+              class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800"
+            >
+              <span class="mb-1 block text-2xl">⚙️</span> Diesel
+            </div>
+          </div>
+
+          <div
+            class="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-900/30"
+          >
+            <h3
+              class="text-sm font-black text-indigo-900 dark:text-indigo-300 mb-3 uppercase tracking-widest"
+            >
+              Power Transmission Drives
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div
+                class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl"
+              >
+                <strong class="text-slate-800 dark:text-white block mb-1"
+                  >Belt / Chain / Rope Drives</strong
+                >
+                <p class="text-xs text-slate-500">
+                  Flexible drives. Used for long distance power transmission.
+                  Belts can slip, chains do not (positive drive).
+                </p>
+              </div>
+              <div
+                class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl"
+              >
+                <strong class="text-slate-800 dark:text-white block mb-1"
+                  >Gear Drives</strong
+                >
+                <p class="text-xs text-slate-500">
+                  Rigid drives. Used for short distance, precise, high power,
+                  exact velocity ratio transmission without slip.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================= INTERACTIVE TOOLS ======================= -->
+
+        <!-- STEP BY STEP EXPLAINER -->
+        <section
+          id="explainer"
+          class="glass-panel p-8 rounded-[2rem] border-2 border-slate-200 dark:border-slate-700"
+        >
+          <div class="flex items-center gap-4 mb-8">
+            <div
+              class="w-12 h-12 bg-indigo-500 text-white font-black text-xl flex items-center justify-center rounded-2xl shadow-lg shadow-indigo-500/30"
+            >
+              🧮
+            </div>
+            <div>
+              <h2 class="text-2xl font-black text-slate-900 dark:text-white">
+                Concept Explainer System
+              </h2>
+              <p
+                class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mt-1"
+              >
+                4-Step Logic Breakdown
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Civil Example -->
+            <div
+              class="bg-amber-50 dark:bg-amber-900/5 p-6 rounded-2xl border border-amber-200 dark:border-amber-900/30"
+            >
+              <p
+                class="text-[10px] font-black text-amber-600 dark:text-amber-500 uppercase tracking-widest mb-4"
+              >
+                Civil: Bearing Capacity
+              </p>
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <span
+                    class="w-6 h-6 shrink-0 bg-amber-500 text-white text-xs font-black rounded-full flex items-center justify-center"
+                    >1</span
+                  >
+                  <div>
+                    <p
+                      class="text-sm font-bold text-slate-800 dark:text-slate-200"
+                    >
+                      Identify Concept
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      Soil Foundation Interaction
+                    </p>
+                  </div>
+                </div>
+                <div class="ml-3 w-px h-4 bg-amber-300 dark:bg-amber-800"></div>
+                <div class="flex items-start gap-3">
+                  <span
+                    class="w-6 h-6 shrink-0 bg-amber-500 text-white text-xs font-black rounded-full flex items-center justify-center"
+                    >2</span
+                  >
+                  <div>
+                    <p
+                      class="text-sm font-bold text-slate-800 dark:text-slate-200"
+                    >
+                      Define Principle
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      Maximum load soil can safely support without shear failure
+                      or excessive settlement.
+                    </p>
+                  </div>
+                </div>
+                <div class="ml-3 w-px h-4 bg-amber-300 dark:bg-amber-800"></div>
+                <div class="flex items-start gap-3">
+                  <span
+                    class="w-6 h-6 shrink-0 bg-amber-500 text-white text-xs font-black rounded-full flex items-center justify-center"
+                    >3</span
+                  >
+                  <div>
+                    <p
+                      class="text-sm font-bold text-slate-800 dark:text-slate-200"
+                    >
+                      Break into Parts
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      Ultimate Bearing Capacity (max), Safe Bearing Capacity
+                      (max / Factor of Safety).
+                    </p>
+                  </div>
+                </div>
+                <div class="ml-3 w-px h-4 bg-amber-300 dark:bg-amber-800"></div>
+                <div class="flex items-start gap-3">
+                  <span
+                    class="w-6 h-6 shrink-0 bg-amber-500 text-white text-xs font-black rounded-full flex items-center justify-center"
+                    >4</span
+                  >
+                  <div>
+                    <p
+                      class="text-sm font-bold text-slate-800 dark:text-slate-200"
+                    >
+                      Real-World App
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      Determining width of footings for a building.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mech Example -->
+            <div
+              class="bg-blue-50 dark:bg-blue-900/5 p-6 rounded-2xl border border-blue-200 dark:border-blue-900/30"
+            >
+              <p
+                class="text-[10px] font-black text-blue-600 dark:text-blue-500 uppercase tracking-widest mb-4"
+              >
+                Mech: 4-Stroke Engine
+              </p>
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <span
+                    class="w-6 h-6 shrink-0 bg-blue-500 text-white text-xs font-black rounded-full flex items-center justify-center"
+                    >1</span
+                  >
+                  <div>
+                    <p
+                      class="text-sm font-bold text-slate-800 dark:text-slate-200"
+                    >
+                      Identify Concept
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      Internal Combustion Operations
+                    </p>
+                  </div>
+                </div>
+                <div class="ml-3 w-px h-4 bg-blue-300 dark:bg-blue-800"></div>
+                <div class="flex items-start gap-3">
+                  <span
+                    class="w-6 h-6 shrink-0 bg-blue-500 text-white text-xs font-black rounded-full flex items-center justify-center"
+                    >2</span
+                  >
+                  <div>
+                    <p
+                      class="text-sm font-bold text-slate-800 dark:text-slate-200"
+                    >
+                      Define Principle
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      Completes thermodynamic cycle in 4 piston strokes (2 crank
+                      revolutions).
+                    </p>
+                  </div>
+                </div>
+                <div class="ml-3 w-px h-4 bg-blue-300 dark:bg-blue-800"></div>
+                <div class="flex items-start gap-3">
+                  <span
+                    class="w-6 h-6 shrink-0 bg-blue-500 text-white text-xs font-black rounded-full flex items-center justify-center"
+                    >3</span
+                  >
+                  <div>
+                    <p
+                      class="text-sm font-bold text-slate-800 dark:text-slate-200"
+                    >
+                      Break into Parts
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      1. Suction &nbsp; 2. Compression &nbsp; 3. Power/Expansion
+                      &nbsp; 4. Exhaust
+                    </p>
+                  </div>
+                </div>
+                <div class="ml-3 w-px h-4 bg-blue-300 dark:bg-blue-800"></div>
+                <div class="flex items-start gap-3">
+                  <span
+                    class="w-6 h-6 shrink-0 bg-blue-500 text-white text-xs font-black rounded-full flex items-center justify-center"
+                    >4</span
+                  >
+                  <div>
+                    <p
+                      class="text-sm font-bold text-slate-800 dark:text-slate-200"
+                    >
+                      Real-World App
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      Standard automotive engines in cars.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- INDUSTRY VISUALIZATION FLOWCHARTS -->
+        <section id="industry" class="glass-panel p-8 rounded-[2rem]">
+          <div class="flex items-center gap-4 mb-8">
+            <div
+              class="w-12 h-12 bg-slate-800 text-white font-black text-xl flex items-center justify-center rounded-xl shadow-lg"
+            >
+              🏭
+            </div>
+            <div>
+              <h2 class="text-2xl font-black text-slate-900 dark:text-white">
+                Industry Flowcharts
+              </h2>
+              <p
+                class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1"
+              >
+                Real-world pipelines
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div
+              class="p-6 bg-[#0c101c] rounded-2xl border border-amber-900/50"
+            >
+              <h3
+                class="text-amber-500 text-sm font-black mb-6 border-b border-amber-900 pb-2"
+              >
+                Civil: Structural Pipeline
+              </h3>
+              <div class="flex flex-col gap-2 font-mono text-xs text-slate-300">
+                <div
+                  class="p-2 border border-slate-700 bg-slate-800 rounded text-center text-amber-200"
+                >
+                  Site Survey & Soil Test
+                </div>
+                <div class="flex justify-center text-slate-500">↓</div>
+                <div
+                  class="p-2 border border-slate-700 bg-slate-800 rounded text-center"
+                >
+                  Foundation Design
+                </div>
+                <div class="flex justify-center text-slate-500">↓</div>
+                <div
+                  class="p-2 border border-slate-700 bg-slate-800 rounded text-center"
+                >
+                  Superstructure & RCC
+                </div>
+                <div class="flex justify-center text-slate-500">↓</div>
+                <div
+                  class="p-2 border border-slate-700 bg-slate-800 rounded text-center text-green-300"
+                >
+                  Finishing & Handover
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 bg-[#0c101c] rounded-2xl border border-blue-900/50">
+              <h3
+                class="text-blue-500 text-sm font-black mb-6 border-b border-blue-900 pb-2"
+              >
+                Mech: Steam Power Plant Flow
+              </h3>
+              <div class="flex flex-col gap-2 font-mono text-xs text-slate-300">
+                <div
+                  class="p-2 border border-slate-700 bg-slate-800 rounded text-center text-red-300"
+                >
+                  Boiler (Generates Steam)
+                </div>
+                <div class="flex justify-center text-slate-500">↓</div>
+                <div
+                  class="p-2 border border-slate-700 bg-slate-800 rounded text-center text-blue-200"
+                >
+                  Turbine (Expands/Rotates)
+                </div>
+                <div class="flex justify-center text-slate-500">↓</div>
+                <div
+                  class="p-2 border border-slate-700 bg-slate-800 rounded text-center text-cyan-300"
+                >
+                  Condenser (Cools to Water)
+                </div>
+                <div class="flex justify-center text-slate-500">↓</div>
+                <div
+                  class="p-2 border border-slate-700 bg-slate-800 rounded text-center text-purple-300"
+                >
+                  Pump (Returns to Boiler)
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MEMORY TREE -->
+        <section
+          id="memory-tree"
+          class="glass-panel p-8 rounded-[2rem] bg-slate-50 dark:bg-[#0c101c] mb-12"
+        >
+          <div class="mb-6">
+            <h2
+              class="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3"
+            >
+              <span class="p-2 bg-purple-500/20 text-purple-500 rounded-lg"
+                >🧠</span
+              >
+              Memory Trees
+            </h2>
+          </div>
+
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-8 font-mono text-sm text-slate-700 dark:text-slate-300 overflow-x-auto"
+          >
+            <div class="min-w-[300px]">
+              <h3
+                class="text-amber-600 dark:text-amber-400 font-bold mb-4 border-b border-slate-200 dark:border-slate-800 pb-2"
+              >
+                Civil Engineering
+              </h3>
+              <pre>
+Surveying
+├── Instruments
+│   ├── Chain/Tape
+│   ├── Theodolite
+│   └── Dumpy Level
+├── Measurements
+│   ├── Linear
+│   └── Angular (Bearings)
+└── Properties
+    ├── Whole Circle
+    └── Quadrantal
+</pre
+              >
+            </div>
+            <div class="min-w-[300px]">
+              <h3
+                class="text-blue-600 dark:text-blue-400 font-bold mb-4 border-b border-slate-200 dark:border-slate-800 pb-2"
+              >
+                Mechanical Engineering
+              </h3>
+              <pre>
+Thermal Engineering
+├── Cycles
+│   ├── Otto (Petrol)
+│   └── Diesel
+├── Engines
+│   ├── 2-Stroke
+│   └── 4-Stroke
+└── Applications
+    ├── Refrigeration
+    └── Power Plants
+</pre
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- VIVA FLASH CARDS -->
+        <section id="viva" class="glass-panel p-8 rounded-[2rem]">
+          <div class="flex items-center justify-between mb-8">
+            <div>
+              <h2
+                class="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3"
+              >
+                <span class="p-2 bg-emerald-500/20 text-emerald-600 rounded-lg"
+                  >💡</span
+                >
+                Viva Flash Cards
+              </h2>
+              <p
+                class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mt-2"
+              >
+                Click cards to flip
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 perspective-1000"
+          >
+            <!-- Card 1 -->
+            <div
+              class="flashcard h-32 cursor-pointer"
+              onclick="this.classList.toggle('flipped')"
+            >
+              <div class="flashcard-inner w-full h-full relative">
+                <div
+                  class="absolute w-full h-full backface-hidden bg-white dark:bg-slate-800 rounded-xl border border-amber-200 dark:border-amber-700/50 p-4 flex flex-col justify-center items-center text-center shadow-sm"
+                >
+                  <span
+                    class="text-[10px] text-amber-500 uppercase font-black block w-full text-left mb-1"
+                    >CIVIL</span
+                  >
+                  <span
+                    class="text-sm font-bold text-slate-800 dark:text-slate-100"
+                    >What is bearing capacity?</span
+                  >
+                </div>
+                <div
+                  class="absolute w-full h-full backface-hidden rotate-y-180 bg-amber-600 text-white rounded-xl border border-amber-500 p-4 flex flex-col justify-center items-center text-center shadow-lg"
+                >
+                  <span class="text-xs font-medium"
+                    >Load soil can safely support without failure.</span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div
+              class="flashcard h-32 cursor-pointer"
+              onclick="this.classList.toggle('flipped')"
+            >
+              <div class="flashcard-inner w-full h-full relative">
+                <div
+                  class="absolute w-full h-full backface-hidden bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-700/50 p-4 flex flex-col justify-center items-center text-center shadow-sm"
+                >
+                  <span
+                    class="text-[10px] text-blue-500 uppercase font-black block w-full text-left mb-1"
+                    >MECH</span
+                  >
+                  <span
+                    class="text-sm font-bold text-slate-800 dark:text-slate-100"
+                    >What is Otto cycle?</span
+                  >
+                </div>
+                <div
+                  class="absolute w-full h-full backface-hidden rotate-y-180 bg-blue-600 text-white rounded-xl border border-blue-500 p-4 flex flex-col justify-center items-center text-center shadow-lg"
+                >
+                  <span class="text-xs font-medium"
+                    >Ideal cycle for petrol/spark ignition engines (Constant
+                    Volume).</span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div
+              class="flashcard h-32 cursor-pointer"
+              onclick="this.classList.toggle('flipped')"
+            >
+              <div class="flashcard-inner w-full h-full relative">
+                <div
+                  class="absolute w-full h-full backface-hidden bg-white dark:bg-slate-800 rounded-xl border border-amber-200 dark:border-amber-700/50 p-4 flex flex-col justify-center items-center text-center shadow-sm"
+                >
+                  <span
+                    class="text-[10px] text-amber-500 uppercase font-black block w-full text-left mb-1"
+                    >CIVIL</span
+                  >
+                  <span
+                    class="text-sm font-bold text-slate-800 dark:text-slate-100"
+                    >Difference in WCB/QB?</span
+                  >
+                </div>
+                <div
+                  class="absolute w-full h-full backface-hidden rotate-y-180 bg-amber-600 text-white rounded-xl border border-amber-500 p-4 flex flex-col justify-center items-center text-center shadow-lg"
+                >
+                  <span class="text-[10px] font-bold leading-tight"
+                    >WCB: 0-360° from North clockwise.<br />QB: 0-90° from N/S
+                    towards E/W.</span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Card 4 -->
+            <div
+              class="flashcard h-32 cursor-pointer"
+              onclick="this.classList.toggle('flipped')"
+            >
+              <div class="flashcard-inner w-full h-full relative">
+                <div
+                  class="absolute w-full h-full backface-hidden bg-white dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-700/50 p-4 flex flex-col justify-center items-center text-center shadow-sm"
+                >
+                  <span
+                    class="text-[10px] text-blue-500 uppercase font-black block w-full text-left mb-1"
+                    >MECH</span
+                  >
+                  <span
+                    class="text-sm font-bold text-slate-800 dark:text-slate-100"
+                    >Casting vs Machining?</span
+                  >
+                </div>
+                <div
+                  class="absolute w-full h-full backface-hidden rotate-y-180 bg-blue-600 text-white rounded-xl border border-blue-500 p-4 flex flex-col justify-center items-center text-center shadow-lg"
+                >
+                  <span class="text-[10px] font-bold leading-tight"
+                    >Casting: pouring molten metal into mold.<br />Machining:
+                    removing material with tools.</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3-HOUR CRASH REVISION SECTION -->
+        <section
+          id="crash"
+          class="glass-panel p-8 rounded-[2rem] bg-gradient-to-br from-red-500/10 to-transparent border-red-200 dark:border-red-900/30"
+        >
+          <div class="flex items-center gap-4 mb-6">
+            <div
+              class="w-12 h-12 bg-red-600 text-white font-black text-2xl flex items-center justify-center rounded-xl shadow-lg shadow-red-600/30 animate-pulse"
+            >
+              ⚡
+            </div>
+            <div>
+              <h2 class="text-2xl font-black text-slate-900 dark:text-red-100">
+                3-Hour Exam Crash Mode
+              </h2>
+              <p
+                class="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-widest mt-1"
+              >
+                High Scoring Topics Only • Final Revise
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-red-100 dark:border-red-900/50"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <!-- Civil Crash -->
+              <div class="space-y-4">
+                <h4
+                  class="font-black text-amber-600 dark:text-amber-500 uppercase tracking-widest text-sm border-b border-slate-200 dark:border-slate-800 pb-2"
+                >
+                  Civil Target 1.5 Hrs
+                </h4>
+                <ul
+                  class="text-xs text-slate-600 dark:text-slate-400 space-y-3 font-medium"
+                >
+                  <li class="pl-2 border-l-2 border-amber-500">
+                    <strong
+                      class="text-slate-800 dark:text-slate-200 block mb-1"
+                      >Surveying Formulas</strong
+                    >
+                    Conversions WCB to QB and reverse.
+                  </li>
+                  <li class="pl-2 border-l-2 border-amber-500">
+                    <strong
+                      class="text-slate-800 dark:text-slate-200 block mb-1"
+                      >Foundations Overview</strong
+                    >
+                    Draw diagrams for Strip, Spread, Raft. Explain Deep vs
+                    Shallow.
+                  </li>
+                  <li class="pl-2 border-l-2 border-amber-500">
+                    <strong
+                      class="text-slate-800 dark:text-slate-200 block mb-1"
+                      >Pavements & Transport</strong
+                    >
+                    Flexible vs Rigid differences table (Guaranteed 5M).
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Mech Crash -->
+              <div class="space-y-4">
+                <h4
+                  class="font-black text-blue-600 dark:text-blue-500 uppercase tracking-widest text-sm border-b border-slate-200 dark:border-slate-800 pb-2"
+                >
+                  Mech Target 1.5 Hrs
+                </h4>
+                <ul
+                  class="text-xs text-slate-600 dark:text-slate-400 space-y-3 font-medium"
+                >
+                  <li class="pl-2 border-l-2 border-blue-500">
+                    <strong
+                      class="text-slate-800 dark:text-slate-200 block mb-1"
+                      >Engines Revision</strong
+                    >
+                    2-stroke vs 4-stroke operations and differences table.
+                  </li>
+                  <li class="pl-2 border-l-2 border-blue-500">
+                    <strong
+                      class="text-slate-800 dark:text-slate-200 block mb-1"
+                      >Manufacturing Basics</strong
+                    >
+                    Learn definitions for Casting, Welding, Lathe operations.
+                  </li>
+                  <li class="pl-2 border-l-2 border-blue-500">
+                    <strong
+                      class="text-slate-800 dark:text-slate-200 block mb-1"
+                      >Power Plants Flow</strong
+                    >
+                    Block diagrams for Steam and Nuclear generation.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const links = document.querySelectorAll("aside nav a");
+
+        const sectionIds = [
+          "hero",
+          "intelligence",
+          "civil-unit-1",
+          "civil-unit-2",
+          "civil-unit-3",
+          "civil-unit-4",
+          "mech-unit-1",
+          "mech-unit-2",
+          "mech-unit-3",
+          "explainer",
+          "industry",
+          "memory-tree",
+          "viva",
+          "crash",
+        ];
+
+        const sections = sectionIds
+          .map((id) => document.getElementById(id))
+          .filter(Boolean);
+
+        // Add smooth scrolling layout to main
+        const main = document.querySelector("main");
+        main.classList.remove("space-y-12");
+
+        function updateTabs() {
+          let hash = window.location.hash.substring(1) || "hero";
+          if (!sectionIds.includes(hash)) {
+            hash = "hero";
+          }
+
+          sections.forEach((sec) => {
+            if (sec.id === hash) {
+              sec.classList.remove("hidden");
+              sec.classList.remove("fade-in");
+              void sec.offsetWidth; // trigger reflow
+              sec.classList.add("fade-in");
+            } else {
+              sec.classList.add("hidden");
+            }
+          });
+
+          links.forEach((link) => {
+            if (link.getAttribute("href") === "#" + hash) {
+              link.classList.add("active-tab-link");
+              link.style.opacity = "1";
+              link.style.fontWeight = "900";
+            } else {
+              link.classList.remove("active-tab-link");
+              link.style.opacity = "0.6";
+              link.style.fontWeight = "700";
+            }
+          });
+
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        window.addEventListener("hashchange", updateTabs);
+        updateTabs(); // Initialize on load
+      });
+    </script>
+  </body>
+</html>
