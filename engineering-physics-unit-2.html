@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 2: Crystallography Study Hub | EngiPrep Hub</title>
-    <meta name="description" content="Elite JNTUK R23 Engineering Physics Unit 2: Crystallography. Space lattice, Bravais lattices, packing fractions of SC, BCC, FCC, Miller Indices, and interplanar d-spacing calculations.">
+    <title>JNTUK R23 Wave Particle Duality &amp; Schrödinger Mechanics | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Wave Particle Duality &amp; Schrödinger Mechanics. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
     <link rel="stylesheet" href="/src/style.css">
     <script>
-        // Set dark mode immediately based on preference or system
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -15,1219 +14,136 @@
         }
     </script>
     <style>
-        /* Premium custom styling compatible with Tailwind v4 */
-        .glass-card {
-            background-color: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .light .glass-card {
-            background-color: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
-        }
-        .glass-card:hover {
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
-        }
-        
-        .tab-btn-active {
-            background-color: #6366f1;
-            color: #ffffff;
-            font-weight: 800;
-        }
-
-        /* Viva Card flip animations */
-        .viva-card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .viva-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
-
-        /* Lattice float animation */
-        @keyframes latticeFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-6px) rotate(1.5deg); }
-        }
-        .lattice-svg {
-            animation: latticeFloat 6s ease-in-out infinite;
-        }
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
     </style>
-
-    <!-- Gatekeeper for Authentication -->
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 bg-gradient-to-tr from-[#080816] via-[#050508] to-[#120720] min-h-screen font-sans antialiased selection:bg-indigo-600 selection:text-slate-900 dark:text-slate-50">
-
-    <!-- Premium Header Navbar -->
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-[#6366f1] to-[#4f46e5] rounded-xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-indigo-500/10"></div>
-                    <svg class="relative z-10 w-5 h-5 lattice-svg text-slate-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                        <line x1="12" y1="22.08" x2="12" y2="12"/>
-                    </svg>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-indigo-500">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
-                </div>
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            <div id="nav-actions" class="flex items-center gap-4">
-                <a href="/physics-notes.html" class="px-4 py-2 border border-slate-750 rounded-xl bg-slate-900/40 text-xs font-bold uppercase hover:bg-slate-800/40 text-slate-300 transition-all flex items-center gap-1.5 active:scale-95">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-                    Subject Hub
-                </a>
-                <div class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-indigo-950/40 border border-indigo-900/30 rounded-full text-[10px] font-black text-indigo-400 uppercase tracking-wide">
-                    <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
-                    JNTUK R23 Curriculum
-                </div>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-indigo-650 hover:bg-indigo-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-indigo-505/10 text-white">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
-    <!-- Main Outer Container -->
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        
-        <!-- TOP BANNER HERO -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-white dark:bg-slate-900 shadow-sm">
-            <!-- Glowing accent graphics -->
-            <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-            <div class="absolute left-1/4 bottom-0 w-60 h-60 bg-purple-600/5 rounded-full blur-[80px] pointer-events-none"></div>
-
-            <div class="space-y-4 relative z-10 max-w-3xl">
-                <div class="flex items-center gap-2.5 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-indigo-500/15 border border-indigo-500/25 text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit II Strategy Kit</span>
-                    <span class="px-2.5 py-0.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] font-black uppercase tracking-widest rounded-full">Score Weighting: ~14-20 Marks</span>
-                    <span class="px-2.5 py-0.5 bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[10px] font-black uppercase tracking-widest rounded-full">Highly Mathematical</span>
-                </div>
-                <div>
-                    <h1 class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-slate-50 leading-tight tracking-tight">
-                        Crystallography & <br>
-                        <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-rose-400 bg-clip-text text-transparent">Crystal Structures Guide</span>
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        Curated specifically for JNTUK R23 Engineering Physics. Master lattice symmetries, Bravais crystal structures, atomic packing metrics for Simple Cubic, BCC, and FCC, Miller indices vectors, and interplanar spacing derivations instantly.
-                    </p>
-                </div>
-                <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <a href="#derivations" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all text-white">Go to Derivations ⚡</a>
-                    <a href="#viva" class="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg text-[10px] font-black uppercase tracking-widest hover:border-slate-700 transition-all">Test Your Viva 🧪</a>
-                    <a href="#calculator" class="px-4 py-2 bg-indigo-950/50 border border-indigo-900/50 text-indigo-400 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-indigo-900/50 transition-all">Crystal Property Calculator 🧮</a>
-                </div>
-            </div>
-
-            <!-- Fast-Tracking Statistics Bento Frame -->
-            <div class="w-full md:w-80 p-5 bg-slate-950/60 border border-slate-900 rounded-2xl flex flex-col justify-between h-48 relative z-10">
-                <div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Unit Coverage Index</span>
-                        <span id="overall-status-text" class="text-[10px] font-black text-rose-500">NOT STARTED</span>
-                    </div>
-                    <h4 class="text-xs font-black text-slate-900 dark:text-slate-50 mt-1">Study Session Tracker</h4>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span>Checklist progress</span>
-                        <span id="percentage-indicator" class="font-bold">0%</span>
-                    </div>
-                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
-                        <div id="progress-bar-indicator" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <span class="text-[8.5px] text-slate-500 font-extrabold uppercase dark:text-slate-400">12 Prep Modules Curated</span>
-                    <button onclick="resetInternalTracker()" class="text-[9px] text-[#f43f5e] hover:underline font-extrabold cursor-pointer uppercase">Reset Progress</button>
-                </div>
-            </div>
+        <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2">
+                <li><a href="/" class="hover:text-blue-500">Home</a></li>
+                <li>/</li>
+                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
+                <li>/</li>
+                <li><a href="/subject.html?slug=engineering-physics" class="hover:text-blue-500">engineering physics</a></li>
+                <li>/</li>
+                <li class="text-blue-500" aria-current="page">Wave Particle Duality &amp; Schrödinger Mechanics</li>
+            </ol>
+        </nav>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Wave Particle Duality &amp; Schrödinger Mechanics <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Dual nature of matter, Heisenberg uncertainty, Schrödinger wave equations, and 1D potential wells.</p>
         </header>
-
-        <!-- TWO COLUMNS VIEWPORT: LEFT NAV & RIGHT Master Panel -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- LEFT NAVIGATION SIDEBAR -->
-            <aside class="lg:col-span-3 sticky top-28 space-y-4 max-h-[80vh] overflow-y-auto pr-2 no-scrollbar">
-                <div class="p-1 rounded-2xl bg-slate-950/50 border border-slate-900/60 space-y-1">
-                    <div class="p-3 text-[9px] font-black text-slate-550 uppercase tracking-widest border-b border-slate-900/60 dark:text-slate-400">Table of Contents</div>
-                    
-                    <a href="#intro" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">01</span> Introduction & Coherence
-                    </a>
-                    <a href="#core-principles" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">02</span> Key Core Principles
-                    </a>
-                    <a href="#definitions" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">03</span> Essential Definitions
-                    </a>
-                    <a href="#derivations" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">04</span> Core Board Derivations
-                    </a>
-                    <a href="#formula-sheet" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">05</span> High-Yield Formula Sheet
-                    </a>
-                    <a href="#calculator" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">06</span> Interactive Sandbox
-                    </a>
-                    <a href="#numericals" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">07</span> Solved Board Numericals
-                    </a>
-                    <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">08</span> JNTUK Solved Papers
-                    </a>
-                    <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">09</span> Most Expected Predictor
-                    </a>
-                    <a href="#viva" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">10</span> Lab Concept Viva Cards
-                    </a>
-                    <a href="#revision-sheets" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">11</span> Quick Revision Sheets
-                    </a>
-                    <a href="#mnemonics" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">12</span> Memory Aids & Mnemonics
-                    </a>
-                    <a href="#survival-plan" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-indigo-400">13</span> 1-Day Prep Final Tips
-                    </a>
-                </div>
-
-                <div class="p-5 bg-gradient-to-br from-indigo-950/20 to-purple-950/20 border border-indigo-900/20 rounded-2xl text-center">
-                    <span class="text-[14px]">🔥</span>
-                    <h5 class="text-xs font-black text-slate-900 dark:text-slate-50 mt-1">Struggling with packing factors?</h5>
-                    <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">Our step-by-step solvers show every geometric transition clearly.</p>
-                </div>
-            </aside>
-
-            <!-- RIGHT PANEL: STUDY BLOCKS -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">Introduction to Quantum States</h2>
+                    <p>Classical mechanics fails at the atomic scale. Quantum mechanics introduces wave-particle duality, where matter exhibits both particle-like and wave-like behavior, governed by probability amplitudes.</p>
+                </section>
+
                 
-                <!-- SECTION 1: Introduction & Coherence -->
-                <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-indigo-400">01</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Introduction & Coherence Dynamics</h2>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-                        <div class="md:col-span-7 space-y-4">
-                            <p class="text-xs text-slate-350 sm:text-sm">
-                                Solids are classified into <b class="text-indigo-400">Crystalline</b> and <b class="text-rose-400">Amorphous</b> states depending on their atomic arrangement. In a crystal, constituents are bound by high-cohesion electrostatic forces forming regular, periodic structural planes.
-                            </p>
-                            
-                            <div class="p-4 bg-slate-950/60 border-l-4 border-l-indigo-500 rounded-r-xl border border-y-0 border-r-0 space-y-2">
-                                <h4 class="text-xs font-bold text-slate-100">Dimensional Coherence & Spatial Order:</h4>
-                                <p class="text-xs text-slate-300">
-                                    • <b class="text-slate-100">Long-Range Order:</b> Periodicity extends over thousands of lattice parameters. This spatial coherence ensures constructive interference when interacting with electromagnetic fields.
-                                </p>
-                                <p class="text-xs text-slate-300">
-                                    • <b class="text-slate-100">Crystal Cohesion:</b> Arises from the minimization of Gibbs free energy when atoms align perfectly into energy-well positions of the periodic space lattice.
-                                </p>
-                            </div>
 
-                            <p class="text-xs text-slate-350 sm:text-sm">
-                                To study this periodic state mathematically, we define the following relationship:
-                            </p>
-                            <div class="p-3 bg-slate-950 text-center font-mono text-xs text-indigo-400 rounded-xl font-bold border border-slate-900">
-                                Lattice + Basis = Crystal Structure
-                            </div>
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">de Broglie Wavelength</h4>
+                            <p class="font-mono text-sm mt-2">λ = h / √(2mE)</p>
                         </div>
-                        
-                        <!-- 2D SVG Illustration of Lattice + Basis -->
-                        <div class="md:col-span-5 p-5 bg-slate-950/80 rounded-2xl border border-slate-900 space-y-4">
-                            <span class="text-[9px] font-black uppercase text-indigo-400 tracking-widest block font-mono">Coherent Vector Concept</span>
-                            <div class="flex flex-col items-center gap-3 bg-[#0d0d18] p-3 rounded-xl">
-                                <svg class="w-full h-32 text-indigo-400" viewBox="0 0 200 100" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <g opacity="0.3">
-                                        <!-- Dots for lattice points -->
-                                        <circle cx="20" cy="20" r="2" fill="currentColor"/>
-                                        <circle cx="60" cy="20" r="2" fill="currentColor"/>
-                                        <circle cx="100" cy="20" r="2" fill="currentColor"/>
-                                        <circle cx="20" cy="60" r="2" fill="currentColor"/>
-                                        <circle cx="60" cy="60" r="2" fill="currentColor"/>
-                                        <circle cx="100" cy="60" r="2" fill="currentColor"/>
-                                    </g>
-                                    <text x="5" y="90" font-size="8" fill="#64748b" class="font-bold">Lattice Points only</text>
-                                    <!-- Plus sign as Basis -->
-                                    <path d="M142 16 h8 M146 12 v8" stroke="#f43f5e" stroke-width="2"/>
-                                    <circle cx="146" cy="16" r="3" fill="#6366f1" opacity="0.8"/>
-                                    <text x="135" y="32" font-size="8" fill="#64748b" class="font-bold">Basis Unit</text>
-
-                                    <!-- Combining them -->
-                                    <g transform="translate(0, 0)">
-                                        <!-- Lattice Point 1 + Basis 1 -->
-                                        <circle cx="60" cy="50" r="2" fill="#10b981"/>
-                                        <path d="M57 51 h6 M60 48 v6" stroke="#f43f5e" stroke-width="1"/>
-                                        <circle cx="60" cy="50" r="3" fill="#6366f1" opacity="0.5"/>
-                                    </g>
-                                </svg>
-                                <p class="text-[10px] text-center text-slate-400">Coherent translation of the basis unit yields the physical crystalline matter.</p>
-                            </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Particle in 1D Box</h4>
+                            <p class="font-mono text-sm mt-2">E_n = n²h² / (8mL²)</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- SECTION 2: Key Core Principles -->
-                <section id="core-principles" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-indigo-400">02</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Key Core Principles of Crystallography</h2>
-                    </div>
-
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
                     <div class="space-y-6">
-                        <div class="p-6 bg-slate-950 border border-slate-900 rounded-2xl">
-                            <span class="text-[8px] font-black uppercase tracking-widest text-[#f59e0b] block mb-1">Fundamental Unit</span>
-                            <h4 class="text-xs font-black text-slate-900 dark:text-slate-50 mb-2">Defining the Unit Cell</h4>
-                            <p class="text-xs sm:text-sm text-slate-350 leading-relaxed font-semibold">
-                                The <b class="text-indigo-400">Unit Cell</b> is defined as the smallest structural volume or building block of a crystal, which, when translated repeatedly in three directions, generates the complete crystal lattice macrostructure.
-                            </p>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Schrödinger Time-Independent Eq <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Derive the time independent Schrödinger wave equation.</p>
                         </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-                            <div class="md:col-span-7 space-y-3">
-                                <h4 class="text-xs font-black text-slate-900 dark:text-slate-50">Lattice Parameters (The 6 Configuration Constants):</h4>
-                                <p class="text-xs leading-relaxed text-slate-350">
-                                    The size, geometry, and spatial orientation of a unit cell are uniquely defined by six scalar variables:
-                                </p>
-                                <ul class="list-disc pl-5 text-xs space-y-2 text-slate-350 font-medium">
-                                    <li><b class="text-slate-100">Three axial lengths (interceptss):</b> $a, b, c$ along the $x, y, z$ crystallographic axes.</li>
-                                    <li><b class="text-slate-100">Three axial angles:</b> 
-                                        <ul class="list-none pl-3 space-y-1 text-[11px] mt-1 text-slate-400">
-                                            <li>• $\alpha$: angle between directions $b$ and $c$ (on y-z plane)</li>
-                                            <li>• $\beta$: angle between directions $a$ and $c$ (on x-z plane)</li>
-                                            <li>• $\gamma$: angle between directions $a$ and $b$ (on x-y plane)</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <!-- 3D Vector SVG of Lattice parameters -->
-                            <div class="md:col-span-5 p-4 bg-slate-950 border border-slate-900 rounded-xl flex flex-col items-center">
-                                <svg class="w-40 h-40 text-indigo-400" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <!-- Axes -->
-                                    <line x1="20" y1="100" x2="110" y2="100" stroke="#64748b" stroke-dasharray="2" /> <!-- x axis - a -->
-                                    <line x1="20" y1="100" x2="20" y2="10" stroke="#64748b" stroke-dasharray="2" />  <!-- z axis - c -->
-                                    <line x1="20" y1="100" x2="70" y2="50" stroke="#64748b" stroke-dasharray="2" />  <!-- y axis - b -->
-
-                                    <!-- Unit cell prism lines -->
-                                    <polygon points="20,100 80,100 110,70 50,70" stroke="#6366f1" stroke-width="2" fill="rgba(99,102,241,0.05)"/>
-                                    <polygon points="20,40 80,40 110,10 50,10" stroke="#6366f1" stroke-width="2" fill="rgba(99,102,241,0.1)"/>
-                                    <line x1="20" y1="100" x2="20" y2="40" stroke="#6366f1" stroke-width="2"/>
-                                    <line x1="80" y1="100" x2="80" y2="40" stroke="#6366f1" stroke-width="2"/>
-                                    <line x1="110" y1="70" x2="110" y2="10" stroke="#6366f1" stroke-width="2"/>
-                                    <line x1="50" y1="70" x2="50" y2="10" stroke="#6366f1" stroke-width="2"/>
-
-                                    <!-- Param Labels -->
-                                    <text x="50" y="112" font-size="8" fill="#a5b4fc" font-weight="bold">a</text>
-                                    <text x="12" y="70" font-size="8" fill="#a5b4fc" font-weight="bold">c</text>
-                                    <text x="45" y="88" font-size="8" fill="#a5b4fc" font-weight="bold">b</text>
-
-                                    <!-- Angles -->
-                                    <path d="M 20,93 A 7,7 0 0 1 25,95" stroke="#f43f5e" stroke-width="1.5" fill="none"/>
-                                    <text x="30" y="93" font-size="7" fill="#f43f5e">&beta;</text>
-                                    
-                                    <path d="M 23,100 A 7,7 0 0 1 20,95" stroke="#10b981" stroke-width="1.5" fill="none"/>
-                                    <text x="23" y="105" font-size="7" fill="#10b981">&alpha;</text>
-
-                                    <path d="M 23,97 A 10,10 0 0 0 25,100" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
-                                    <text x="14" y="92" font-size="7" fill="#3b82f6">&gamma;</text>
-                                </svg>
-                                <span class="text-[9px] text-slate-500 font-bold mt-1 uppercase dark:text-slate-400">Unit Cell Prism & Parameter Space</span>
-                            </div>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Fermi Dirac Distribution <span class="text-blue-500">(5 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Explain the effect of temperature on Fermi-Dirac distribution function.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- SECTION 3: Essential Definitions -->
-                <section id="definitions" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm col-span-1">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-indigo-400">03</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Essential Crystallography Definitions</h2>
-                    </div>
-
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
                     <div class="space-y-4">
-                        <p class="text-xs text-slate-400">Definitions you MUST write precisely in the JNTUK examination to fetch high marks:</p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
-                                <span class="text-indigo-400 font-bold text-xs">1. Space Lattice</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">An infinite, periodic three-dimensional arrangement of imaginary points in space where each point has an identical neighborhood.</p>
-                            </div>
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
-                                <span class="text-indigo-400 font-bold text-xs">2. Basis (Motif)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">A group of one or more atoms attached identically to each and every lattice point to manifest physical crystal structures.</p>
-                            </div>
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
-                                <span class="text-indigo-400 font-bold text-xs">3. Conventional vs Primitive Cell</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-semibold">
-                                    • <b class="text-white">Primitive Cell:</b> Smallest unit cell having lattice points ONLY at the corners (Effective atoms $N=1$).<br>
-                                    • <b class="text-white">Conventional Cell:</b> Crystal unit containing multiple lattice points representing complete symmetry (e.g. BCC, FCC).
-                                </p>
-                            </div>
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
-                                <span class="text-indigo-400 font-bold text-xs">4. Coordination Number (CN)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">The number of nearest-neighbor atomic spheres that directly touch any reference atomic sphere in the crystal structure.</p>
-                            </div>
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
-                                <span class="text-indigo-400 font-bold text-xs">5. Atomic Radius (r)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">Half of the nearest interatomic separation distance $d$ between two co-planar identical touching atoms in a stable lattice.</p>
-                            </div>
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 space-y-1">
-                                <span class="text-indigo-400 font-bold text-xs">6. Atomic Packing Fraction (APF)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-semibold">The ratio of total volumetric space occupied by hard atomic spheres inside a unit cell to the total geometric space volume of the unit cell itself.</p>
-                            </div>
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 col-span-1 md:col-span-2 space-y-1">
-                                <span class="text-indigo-400 font-bold text-xs">7. Miller Indices (h k l)</span>
-                                <p class="text-[11px] text-slate-350 leading-relaxed font-medium">The set of three smallest integers derived as inverses of intercepts of a crystallographic plane along axial coordinates, cleared of fractional multipliers.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 4: Core Board Derivations -->
-                <section id="derivations" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-950 pb-3">
-                        <span class="text-xl font-bold text-indigo-400">04</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Core Board Derivations (APF & Spacing)</h2>
-                    </div>
-
-                    <p class="text-xs sm:text-sm text-slate-350 leading-relaxed mb-6">
-                        For cubic crystals, we analyze three primary types of structures: Simple Cubic (SC), Body-Centered Cubic (BCC), and Face-Centered Cubic (FCC). Memorize these five specific key properties for each system:
-                    </p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- Simple Cubic System -->
-                        <div class="p-5 bg-slate-950 border border-slate-900 rounded-2xl flex flex-col justify-between space-y-4">
-                            <div>
-                                <span class="text-[8px] font-black bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 py-0.5 px-2 rounded uppercase block w-max mb-1">Simple Cubic (SC)</span>
-                                <h4 class="text-xs font-black text-slate-900 dark:text-slate-50">Single Corner Atoms</h4>
-                            </div>
-                            <ul class="text-[11px] text-slate-400 space-y-2 font-medium">
-                                <li>• <b class="text-slate-205 font-bold">Coordination Number (CN):</b> 6</li>
-                                <li>• <b class="text-slate-205 font-bold">Effective atoms per unit cell (N):</b> 1 <br> (8 corner atoms * 1/8 each)</li>
-                                <li>• <b class="text-slate-205 font-bold">Relation (Radius r vs Axis a):</b> <br> <span class="font-mono text-indigo-400">r = a / 2</span></li>
-                                <li>• <b class="text-slate-205 font-bold">Nearest Neighbor Distance (d):</b> a</li>
-                                <li>• <b class="text-slate-205 font-bold">Atomic Packing Factor (APF):</b> 0.52 (52.3%)</li>
-                            </ul>
-                            <div class="bg-[#10101e] p-2 rounded text-center text-[10px] text-slate-500 font-bold">Examples: Polonium (Po)</div>
-                        </div>
-
-                        <!-- Body Centered Cubic -->
-                        <div class="p-5 bg-slate-950 border border-slate-900 rounded-2xl flex flex-col justify-between space-y-4">
-                            <div>
-                                <span class="text-[8px] font-black bg-blue-500/10 border border-blue-500/20 text-blue-400 py-0.5 px-2 rounded uppercase block w-max mb-1">Body-Centered Cubic (BCC)</span>
-                                <h4 class="text-xs font-black text-slate-900 dark:text-slate-50">Central Core Atom Included</h4>
-                            </div>
-                            <ul class="text-[11px] text-slate-400 space-y-2 font-medium">
-                                <li>• <b class="text-slate-205 font-bold">Coordination Number (CN):</b> 8</li>
-                                <li>• <b class="text-slate-205 font-bold">Effective atoms per unit cell (N):</b> 2 <br> (8 corners * 1/8 + 1 inside center)</li>
-                                <li>• <b class="text-slate-205 font-bold">Relation (Radius r vs Axis a):</b> <br> <span class="font-mono text-blue-400">r = (R &radic;3) / 4</span></li>
-                                <li>• <b class="text-slate-205 font-bold">Nearest Neighbor Distance (d):</b> a&radic;3 / 2</li>
-                                <li>• <b class="text-slate-205 font-bold">Atomic Packing Factor (APF):</b> 0.68 (68%)</li>
-                            </ul>
-                            <div class="bg-[#10101e] p-2 rounded text-center text-[10px] text-slate-500 font-bold">Examples: Iron (Fe), Sodium (Na), W</div>
-                        </div>
-
-                        <!-- Face Centered Cubic -->
-                        <div class="p-5 bg-slate-950 border border-slate-900 rounded-2xl flex flex-col justify-between space-y-4">
-                            <div>
-                                <span class="text-[8px] font-black bg-purple-500/10 border border-purple-500/20 text-purple-400 py-0.5 px-2 rounded uppercase block w-max mb-1">Face-Centered Cubic (FCC)</span>
-                                <h4 class="text-xs font-black text-slate-900 dark:text-slate-50">Shared Facet Plates Atoms</h4>
-                            </div>
-                            <ul class="text-[11px] text-slate-400 space-y-2 font-medium">
-                                <li>• <b class="text-slate-255 font-bold">Coordination Number (CN):</b> 12</li>
-                                <li>• <b class="text-slate-255 font-bold">Effective atoms per unit cell (N):</b> 4 <br> (8 corners * 1/8 + 6 faces * 1/2 each)</li>
-                                <li>• <b class="text-slate-255 font-bold">Relation (Radius r vs Axis a):</b> <br> <span class="font-mono text-purple-400">r = a / (2&radic;2)</span></li>
-                                <li>• <b class="text-slate-255 font-bold">Nearest Neighbor Distance (d):</b> a / &radic;2</li>
-                                <li>• <b class="text-slate-255 font-bold">Atomic Packing Factor (APF):</b> 0.74 (74%) (Tightest)</li>
-                            </ul>
-                            <div class="bg-[#10101e] p-2 rounded text-center text-[10px] text-slate-500 font-bold">Examples: Copper (Cu), Gold (Au), Al</div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 5: High-Yield Formula Sheet -->
-                <section id="formula-sheet" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-orange-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-orange-400">05</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">High-Yield Formula Sheet</h2>
-                    </div>
-
-                    <div class="space-y-6">
-                        <p class="text-xs text-slate-400">The absolute quickest cheat-sheet to write during your 10-minute revision before entering the exam room. Memorize these relations:</p>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Lattice Math -->
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl space-y-2">
-                                <span class="text-orange-400 font-extrabold text-[11px] block">1. Crystal Lattice Relationship</span>
-                                <div class="p-2.5 bg-[#0f0f1c] text-center font-mono text-[11.5px] text-teal-400 rounded-lg">
-                                    Lattice Points + Basis = Crystal Structure
-                                </div>
-                                <span class="text-[10px] text-slate-500 block">No crystal sits in space without the basis motif attached to points.</span>
-                            </div>
-
-                            <!-- Inter-Planar Spacing formula -->
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl space-y-2">
-                                <span class="text-orange-400 font-extrabold text-[11px] block">2. Interplanar Spacing $d_{hkl}$ (Orthogonal)</span>
-                                <div class="p-2.5 bg-[#0f0f1c] text-center font-mono text-[11.5px] text-teal-400 rounded-lg">
-                                    $$d_{hkl} = \frac{a}{\sqrt{h^2 + k^2 + l^2}}$$
-                                </div>
-                                <span class="text-[10px] text-slate-500 block">Where h, k, l are Miller Indices and a is the lattice parameter.</span>
-                            </div>
-
-                            <!-- APF formulas bento card -->
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl md:col-span-2 space-y-3">
-                                <span class="text-orange-400 font-extrabold text-[11px] block">3. Metallic Cubic Key Constants Quick Table</span>
-                                <div class="overflow-x-auto font-sans">
-                                    <table class="w-full text-left border-collapse text-[11px] font-medium text-slate-300">
-                                        <thead>
-                                            <tr class="border-b border-slate-800 text-slate-400 font-black">
-                                                <th class="py-2">Structure Type</th>
-                                                <th class="py-2">Coordination No. (CN)</th>
-                                                <th class="py-2">Atomic Radius (r)</th>
-                                                <th class="py-2">Packing Fraction (APF)</th>
-                                                <th class="py-2">Volume ($V_{\text{cell}}$)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-slate-900">
-                                            <tr>
-                                                <td class="py-2.5 text-indigo-400 font-extrabold">Simple Cubic (SC)</td>
-                                                <td class="py-2.5 font-semibold">6</td>
-                                                <td class="py-2.5 font-mono">r = a / 2</td>
-                                                <td class="py-2.5 font-bold text-teal-405">0.52 (52.3%)</td>
-                                                <td class="py-2.5 font-mono">a³ = 8r³</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-2.5 text-blue-400 font-extrabold">Body-Centered (BCC)</td>
-                                                <td class="py-2.5 font-semibold">8</td>
-                                                <td class="py-2.5 font-mono">r = a√3 / 4</td>
-                                                <td class="py-2.5 font-bold text-teal-405">0.68 (68.0%)</td>
-                                                <td class="py-2.5 font-mono">a³ = (4r/&radic;3)³</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-2.5 text-purple-400 font-extrabold">Face-Centered (FCC)</td>
-                                                <td class="py-2.5 font-semibold">12</td>
-                                                <td class="py-2.5 font-mono">r = a / (2&radic;2)</td>
-                                                <td class="py-2.5 font-bold text-teal-405">0.74 (74.1%)</td>
-                                                <td class="py-2.5 font-mono">a³ = (2r&radic;2)³</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <!-- Crystal Density formula -->
-                            <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl md:col-span-2 space-y-2">
-                                <span class="text-orange-400 font-extrabold text-[11px] block">4. Volumetric Density of Crystal ($\rho$)</span>
-                                <div class="p-2.5 bg-[#0f0f1c] text-center font-mono text-[11.5px] text-teal-400 rounded-lg">
-                                    $$\rho = \frac{N \times M}{V_{\text{cell}} \times N_A} = \frac{N \times M}{a^3 \times N_A}$$
-                                </div>
-                                <span class="text-[10px] text-slate-500 block">Where N = effective atoms, M = atomic weight, a = cell edge key, $N_A = \text{Avogadro's Number} = 6.023 \times 10^{23}$.</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-
-
-                <!-- SECTION 6: Interactive Crystal Property Dynamic Sandbox Calculator -->
-                <section id="calculator" class="glass-card p-8 scroll-mt-24 relative bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-indigo-500">
-                    <div class="absolute right-0 top-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
-                    
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-indigo-400">06</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Interactive Sandbox: Crystallography Property Solver</h2>
-                    </div>
-
-                    <div class="p-6 bg-[#04040a]/90 rounded-2xl border border-slate-900 text-xs text-slate-300">
-                        <p class="text-slate-400 leading-relaxed mb-6 font-medium">Use these sandbox modules to solve numerical board queries or verify physics tutorial sheets. Adjust lattices and index coordinates dynamically:</p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 pb-8 border-b border-slate-900">
-                            <!-- Module A: Cubic Constant density and APF dynamic checker -->
-                            <div class="space-y-4">
-                                <h4 class="text-xs font-black uppercase text-indigo-400 tracking-wider flex items-center gap-1.5 border-b border-indigo-950 pb-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-550"></span>
-                                    1. Lattice properties & Density Solver
-                                </h4>
-                                
-                                <div>
-                                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Select Cubic Lattice Structure</label>
-                                    <select id="lattice-selector" class="w-full bg-[#181825] border border-slate-800 text-white px-3 py-2 rounded-xl focus:border-indigo-505 outline-none font-bold text-xs" onchange="updateLatticeConfig()">
-                                        <option value="sc">Simple Cubic (SC)</option>
-                                        <option value="bcc">Body-Centered Cubic (BCC)</option>
-                                        <option value="fcc">Face-Centered Cubic (FCC)</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1" for="lattice-a">Lattice Axis Constant (a in &Aring;ngstroms)</label>
-                                    <input type="number" id="lattice-a" value="4.0" step="0.01" class="w-full bg-[#181825] border border-slate-800 text-white px-3 py-2 rounded-xl focus:border-indigo-505 outline-none font-bold font-mono text-xs" oninput="solveLatticePhysics()">
-                                </div>
-
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-[10px] font-black uppercase text-slate-400 mb-1" for="molar-mass">Atomic Weight M (g/mol)</label>
-                                        <input type="number" id="molar-mass" value="55.85" step="0.01" class="w-full bg-[#181825] border border-slate-800 text-white px-3 py-2 rounded-xl focus:border-indigo-505 outline-none font-bold font-mono text-xs" oninput="solveLatticePhysics()">
-                                    </div>
-                                    <div class="bg-[#10101c] p-2.5 rounded-xl border border-slate-800 flex flex-col justify-center">
-                                        <span class="text-[8px] font-mono uppercase text-slate-500">APF (Factor)</span>
-                                        <p class="text-sm font-black text-emerald-400" id="stat-apf">52.3%</p>
-                                    </div>
-                                </div>
-
-                                <!-- Dynamic Results for density/radius -->
-                                <div class="bg-indigo-950/20 border border-indigo-900/30 rounded-xl p-3.5 space-y-2">
-                                    <span class="text-[8px] font-black uppercase text-indigo-400 tracking-wider">Lattice Metric Outputs:</span>
-                                    <div class="grid grid-cols-2 gap-3 text-[10.5px] font-mono leading-relaxed">
-                                        <div>
-                                            <span class="text-slate-500">Atomic Radius r:</span>
-                                            <p class="text-white font-bold text-xs" id="out-radius">2.000 &Aring;</p>
-                                        </div>
-                                        <div>
-                                            <span class="text-slate-500">Lattice Density &rho;:</span>
-                                            <p class="text-white font-bold text-xs" id="out-density">1.45 g/cm&sup3;</p>
-                                        </div>
-                                        <div>
-                                            <span class="text-slate-500">Coordination (CN):</span>
-                                            <p class="text-white font-bold text-xs" id="out-coordination">6</p>
-                                        </div>
-                                        <div>
-                                            <span class="text-slate-500">Effective Atoms N:</span>
-                                            <p class="text-white font-bold text-xs" id="out-eff-atoms">1</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Module B: Miller indices calculator with 2D axis grid projection -->
-                            <div class="space-y-4">
-                                <h4 class="text-xs font-black uppercase text-purple-400 tracking-wider flex items-center gap-1.5 border-b border-purple-950 pb-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-purple-550"></span>
-                                    2. Miller Indices d-Spacing Formula Solver
-                                </h4>
-
-                                <div class="grid grid-cols-3 gap-3">
-                                    <div>
-                                        <label class="block text-[10px] font-black uppercase text-slate-400 mb-1" for="miller-h">Index h</label>
-                                        <input type="number" id="miller-h" value="1" min="0" class="w-full bg-[#181825] border border-slate-800 text-white px-3 py-2 rounded-xl focus:border-purple-505 outline-none font-bold font-mono text-xs text-center" oninput="solveLatticePhysics()">
-                                    </div>
-                                    <div>
-                                        <label class="block text-[10px] font-black uppercase text-slate-400 mb-1" for="miller-k">Index k</label>
-                                        <input type="number" id="miller-k" value="1" min="0" class="w-full bg-[#181825] border border-slate-800 text-white px-3 py-2 rounded-xl focus:border-purple-505 outline-none font-bold font-mono text-xs text-center" oninput="solveLatticePhysics()">
-                                    </div>
-                                    <div>
-                                        <label class="block text-[10px] font-black uppercase text-slate-400 mb-1" for="miller-l">Index l</label>
-                                        <input type="number" id="miller-l" value="1" min="0" class="w-full bg-[#181825] border border-slate-800 text-white px-3 py-2 rounded-xl focus:border-purple-505 outline-none font-bold font-mono text-xs text-center" oninput="solveLatticePhysics()">
-                                    </div>
-                                </div>
-
-                                <!-- Dynamic SVG projection of crystal planes -->
-                                <div class="bg-purple-950/10 border border-purple-900/20 p-2 rounded-xl flex items-center justify-center gap-4 h-24">
-                                    <div class="relative w-16 h-16 flex items-center justify-center">
-                                        <!-- Mini dynamic SVG graphic reacting to hkl values -->
-                                        <svg id="svg-plane-vector" class="w-14 h-14 text-purple-400 transition-all duration-300" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <!-- Simple isometric box -->
-                                            <polygon points="20,80 80,80 90,40 30,40" stroke="#4a4a6a" />
-                                            <polygon points="20,30 80,30 90,-10 30,-10" stroke="#4a4a6a" opacity="0.3" transform="translate(0,20)"/>
-                                            <line x1="20" y1="80" x2="20" y2="40" stroke="#4a4a6a"/>
-                                            <line x1="80" y1="80" x2="80" y2="40" stroke="#4a4a6a"/>
-                                            <line x1="90" y1="40" x2="90" y2="0" stroke="#4a4a6a"/>
-                                            
-                                            <!-- Dynamic filled plane -->
-                                            <polygon id="svg-fill-plane" points="20,80 80,80 90,40" fill="rgba(168,85,247,0.3)" stroke="#a855f7" stroke-width="2"/>
-                                        </svg>
-                                    </div>
-                                    <div class="text-[10.5px] leading-relaxed">
-                                        <span class="text-slate-500 font-bold block">Interplanar Resolution:</span>
-                                        <span class="text-slate-350">Lattice constants: </span><b class="text-white" id="stat-val-a">4.00 &Aring;</b> <br>
-                                        <span class="text-slate-350">Miller Indices Plane: </span><b class="text-purple-400" id="stat-val-hkl">(1 1 1)</b>
-                                    </div>
-                                </div>
-
-                                <!-- spacing outputs -->
-                                <div class="bg-purple-950/20 border border-purple-900/30 rounded-xl p-3.5 space-y-2">
-                                    <span class="text-[8px] font-black uppercase text-purple-400 tracking-wider">Step-by-step math solver output:</span>
-                                    <p class="font-mono text-[10.5px] text-[#f59e0b] leading-relaxed" id="step-math-log">
-                                        d = a / &radic;(h&sup2; + k&sup2; + l&sup2;) <br>
-                                        d = 4.00 / &radic;(1&sup2; + 1&sup2; + 1&sup2;) = 4.00 / &radic;3 <br>
-                                        d = 2.309 &Aring; (0.231 nm)
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between">
-                            <span class="text-[9px] text-[#818cf8] font-bold">👉 Tip: Standard Avogadro's constant is taken as 6.022 &times; 10&sup2;&sup3; per mol.</span>
-                            <button onclick="simulateCrystallography()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md active:scale-95">Recompute Coordinates 🎯</button>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 7: Solved Board Numericals -->
-                <section id="numericals" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-teal-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-teal-400">07</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Standard Solved Board Numericals</h2>
-                    </div>
-
-                    <div class="space-y-6">
-                        
-                        <!-- Problem 1 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-2xl space-y-3">
-                            <div class="flex justify-between items-start">
-                                <span class="bg-indigo-550/15 border border-indigo-500/25 text-indigo-400 text-[8px] font-black uppercase rounded py-0.5 px-2">Problem 1: Interplanar spacing</span>
-                                <span class="text-[10px] font-bold text-[#f43f5e]">JNTUK Repeat 🎯</span>
-                            </div>
-                            <p class="text-xs text-white font-extrabold">
-                                Question: Calculate the interplanar d-spacing for planes represented as (1 0 0), (1 1 0), and (1 1 1) inside a simple cubic crystal cell carrying lattice parameter a = 4.2 Å.
-                            </p>
-                            <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900 font-medium text-[11px] leading-relaxed">
-                                <p class="text-teal-400 font-bold uppercase text-[9px] tracking-wider mb-1">Standard step-by-step solution:</p>
-                                <p>1. Formula: $d_{hkl} = a / \sqrt{h^2 + k^2 + l^2}$. Here $a = 4.2 \text{ \AA}$.</p>
-                                <p>2. For (1 0 0) plane: $d_{100} = 4.2 / \sqrt{1^2 + 0^2 + 0^2} = 4.2 / 1 = \mathbf{4.2 \text{ \AA}}$.</p>
-                                <p>3. For (1 1 0) plane: $d_{110} = 4.2 / \sqrt{1^2 + 1^2 + 0^2} = 4.2 / \sqrt{2} \approx \mathbf{2.97 \text{ \AA}}$.</p>
-                                <p>4. For (1 1 1) plane: $d_{111} = 4.2 / \sqrt{1^2 + 1^2 + 1^2} = 4.2 / \sqrt{3} \approx \mathbf{2.42 \text{ \AA}}$.</p>
-                            </div>
-                        </div>
-
-                        <!-- Problem 2 -->
-                        <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-2xl space-y-3">
-                            <div class="flex justify-between items-start">
-                                <span class="bg-indigo-550/15 border border-indigo-500/25 text-indigo-400 text-[8px] font-black uppercase rounded py-0.5 px-2">Problem 2: Density Computation</span>
-                                <span class="text-[10px] font-bold text-indigo-400">10-Marks Standard</span>
-                            </div>
-                            <p class="text-xs text-white font-bold">
-                                Question: A crystal solid has metallic BCC structure with atomic radius R = 1.24 Å. Find the theoretical density if its atomic weight M = 55.85 g/mol.
-                            </p>
-                            <div class="p-4 bg-slate-950/80 rounded-xl space-y-2 border border-slate-900 font-medium text-[11px] leading-relaxed">
-                                <p class="text-teal-400 font-bold uppercase text-[9px] tracking-wider mb-1">Standard step-by-step solution:</p>
-                                <p>1. Under BCC structure: Effective atoms per unit cell, $N = 2$.</p>
-                                <p>2. Find Lattice constantly a: $r = a\sqrt{3}/4 \Rightarrow a = 4r / \sqrt{3}$.</p>
-                                <p>&nbsp;&nbsp;&nbsp; $a = (4 \times 1.24 \times 10^{-8} \text{ cm}) / 1.732 = 2.863 \times 10^{-8} \text{ cm}$.</p>
-                                <p>3. Solve Unit cell Volume: $V_{cell} = a^3 = (2.863 \times 10^{-8})^3 = 2.347 \times 10^{-23} \text{ cm}^3$.</p>
-                                <p>4. Evaluate Density equation: $\rho = (N \times M) / (N_A \times V_{cell})$</p>
-                                <p>&nbsp;&nbsp;&nbsp; $\rho = (2 \times 55.85) / [6.022 \times 10^{23} \times 2.347 \times 10^{-23}]$</p>
-                                <p>&nbsp;&nbsp;&nbsp; $\rho = 111.7 / 14.133 \approx \mathbf{7.90 \text{ g/cm}^3}$</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 8: JNTUK Solved Papers -->
-                <section id="solved-papers" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-purple-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-purple-400">08</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">JNTUK Solved Papers (R23 / R20)</h2>
-                    </div>
-
-                    <div class="space-y-6">
-                        <p class="text-xs text-slate-400 leading-relaxed font-semibold">
-                            Direct archive of actual questions asked in recent JNTUK semester examinations. Study the official marking schemes and expert answers to maximize your score:
-                        </p>
-
-                        <!-- JNTUK Question 1 -->
-                        <div class="p-5 bg-slate-950/40 border border-slate-900 rounded-2xl space-y-3">
-                            <div class="flex flex-wrap items-center justify-between gap-2">
-                                <span class="bg-purple-950/60 border border-purple-800/30 text-purple-400 text-[8px] font-black uppercase rounded py-0.5 px-2">JNTUK R23 Apr/May 2024 Regular</span>
-                                <span class="text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-950/20 px-1.5 py-0.5 rounded border border-emerald-900/30">10 Marks Solved ✅</span>
-                            </div>
-                            <h4 class="text-xs font-extrabold text-slate-105">
-                                Question: Deduce the relation between plane spacing (d) and lattice parameter (a) for cubic lattice planes with Miller indices (h k l). Also, find the ratio of d₁₀₀ : d₁₁₀ : d₁₁₁ for a cubic structure.
-                            </h4>
-
-                            <div class="p-4 bg-slate-950/90 rounded-xl space-y-3 border border-slate-900 text-[11px] leading-relaxed font-medium">
-                                <div class="space-y-2 text-slate-355">
-                                    <p class="text-indigo-400 font-extrabold text-[10px] uppercase">Part A: Derivation of $d_{hkl}$ (7 Marks)</p>
-                                    <p>• Establish Cartesian axes with origin O. If the next parallel plane cuts intercepts on x, y, and z axes at $x_1, y_1, z_1$, then: <b class="text-white font-mono">x₁ = a/h, y₁ = a/k, z₁ = a/l</b>.</p>
-                                    <p>• Perpendicular distance $d = OP$. Let normal make angles $\alpha, \beta, \gamma$ with axes.</p>
-                                    <p>• Projections yield direction cosines: <b class="text-white font-mono">cos(&alpha;) = dh/a, cos(&beta;) = dk/a, cos(&gamma;) = dl/a</b>.</p>
-                                    <p>• Since $\cos^2\alpha + \cos^2\beta + \cos^2\gamma = 1$, substituting ratios gives: <br> <span class="font-mono text-emerald-400 text-xs block py-1 font-black text-center">(d² / a²) * (h² + k² + l²) = 1  ⟹  d = a / √(h² + k² + l²)</span></p>
-                                </div>
-                                <div class="space-y-2 text-slate-355 border-t border-slate-900 pt-3">
-                                    <p class="text-indigo-400 font-extrabold text-[10px] uppercase">Part B: Ratio Calculation (3 Marks)</p>
-                                    <p>• $d_{100} = a / \sqrt{1} = a$</p>
-                                    <p>• $d_{110} = a / \sqrt{2}$</p>
-                                    <p>• $d_{111} = a / \sqrt{3}$</p>
-                                    <p class="text-white font-black text-xs">Ratio: $d_{100} : d_{110} : d_{111} = a : \frac{a}{\sqrt{2}} : \frac{a}{\sqrt{3}} = 1 : \frac{1}{\sqrt{2}} : \frac{1}{\sqrt{3}} \approx \mathbf{1 : 0.707 : 0.577}$.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- JNTUK Question 2 -->
-                        <div class="p-5 bg-slate-950/40 border border-slate-900 rounded-2xl space-y-3">
-                            <div class="flex flex-wrap items-center justify-between gap-2">
-                                <span class="bg-purple-950/60 border border-purple-800/30 text-purple-400 text-[8px] font-black uppercase rounded py-0.5 px-2">JNTUK R20 Nov/Dec 2023 Regular</span>
-                                <span class="text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-950/20 px-1.5 py-0.5 rounded border border-emerald-900/30">10 Marks Solved ✅</span>
-                            </div>
-                            <h4 class="text-xs font-extrabold text-slate-105">
-                                Question: Distinguish between Space Lattice and Unit cell. Derive coordination number and atomic packing fraction of BCC and FCC crystal structures.
-                            </h4>
-
-                            <div class="p-4 bg-slate-950/90 rounded-xl space-y-3 border border-slate-900 text-[11px] leading-relaxed font-medium">
-                                <div class="space-y-2 text-slate-355">
-                                    <p class="text-indigo-400 font-extrabold text-[10px] uppercase">Part A: Distinctions (2 Marks)</p>
-                                    <p>• **Space Lattice**: Infinite, periodic spatial array of mathematical coordinate points in 3D space.</p>
-                                    <p>• **Unit Cell**: Smallest structural volume unit of the lattice which, when repeated in 3 directions, forms the entire block crystal.</p>
-                                </div>
-                                <div class="space-y-2 text-slate-355 border-t border-slate-900 pt-3">
-                                    <p class="text-indigo-400 font-extrabold text-[10px] uppercase">Part B: BCC Derivation (4 Marks)</p>
-                                    <p>• Effective number of atoms: $N = 2$. Coordination number: $CN = 8$.</p>
-                                    <p>• Relation: $\sqrt{3}a = 4r \Rightarrow r = a\sqrt{3}/4$.</p>
-                                    <p>• Processing packing equation: $\text{APF} = \frac{2 \times (4/3)\pi r^3}{a^3} = \frac{\sqrt{3}\pi}{8} \approx \mathbf{0.680 \ (68\%)}$.</p>
-                                </div>
-                                <div class="space-y-2 text-slate-355 border-t border-slate-900 pt-3">
-                                    <p class="text-indigo-400 font-extrabold text-[10px] uppercase">Part C: FCC Derivation (4 Marks)</p>
-                                    <p>• Effective number of atoms: $N = 4$. Coordination number: $CN = 12$.</p>
-                                    <p>• Relation: $\sqrt{2}a = 4r \Rightarrow r = a / 2\sqrt{2}$.</p>
-                                    <p>• Processing packing equation: $\text{APF} = \frac{4 \times (4/3)\pi r^3}{a^3} = \frac{\pi}{3\sqrt{2}} \approx \mathbf{0.741 \ (74\%)}$.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 9: Most Expected Predictor -->
-                <section id="predictor" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-rose-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-rose-450">09</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Most Expected Predictor (R23 Exams)</h2>
-                    </div>
-
-                    <div class="space-y-6">
-                        <p class="text-xs text-slate-400 leading-relaxed font-semibold">
-                            Based on historical analysis of the last 10 JNTUK question papers, here are the statistical probabilities for topics appearing in the upcoming R23 examination:
-                        </p>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <!-- Predict 1 -->
-                            <div class="p-5 bg-[#0a0505] border border-rose-950/50 rounded-2xl flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-center mb-2">
-                                        <span class="text-[8px] font-black uppercase text-rose-500 bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded">95% Probability</span>
-                                        <span class="text-[10px] font-black text-slate-400">#HighAlert</span>
-                                    </div>
-                                    <h4 class="text-xs font-black text-white">APF Derivation (SC, BCC or FCC)</h4>
-                                    <p class="text-[10.5px] leading-relaxed text-slate-400 mt-2 font-medium">Either FCC or BCC atomic packing fraction derivation is virtually guaranteed to appear under Question 3 or 4 of Part B (10 Marks).</p>
-                                </div>
-                                <div class="mt-4 pt-3 border-t border-rose-950/50 text-[10px] font-bold text-rose-400">👉 Mastery Focus: BCC body diagonal equations.</div>
-                            </div>
-
-                            <!-- Predict 2 -->
-                            <div class="p-5 bg-[#0a0505] border border-rose-950/50 rounded-2xl flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-center mb-2">
-                                        <span class="text-[8px] font-black uppercase text-rose-500 bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded">85% Probability</span>
-                                        <span class="text-[10px] font-black text-slate-400">#HighAlert</span>
-                                    </div>
-                                    <h4 class="text-xs font-black text-white">Interplanar Spacing $d_{hkl}$ spacing Proof</h4>
-                                    <p class="text-[10.5px] leading-relaxed text-slate-400 mt-2 font-medium">Standard direction cosine trigonometric derivation for separation between successive planes on cubic axes.</p>
-                                </div>
-                                <div class="mt-4 pt-3 border-t border-rose-950/50 text-[10px] font-bold text-rose-400">👉 Mastery Focus: $\cos^2\alpha + \cos^2\beta + \cos^2\gamma = 1$.</div>
-                            </div>
-
-                            <!-- Predict 3 -->
-                            <div class="p-5 bg-[#0a0505] border border-rose-950/50 rounded-2xl flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-center mb-2">
-                                        <span class="text-[8px] font-black uppercase text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">70% Probability</span>
-                                        <span class="text-[10px] font-black text-slate-400">#MediumAlert</span>
-                                    </div>
-                                    <h4 class="text-xs font-black text-white">Numerical on Lattice Density & Spacing</h4>
-                                    <p class="text-[10.5px] leading-relaxed text-slate-400 mt-2 font-medium">Computing separation spacing from indices or solving theoretical crystal density carrying $\rho = NM/a^3N_A$.</p>
-                                </div>
-                                <div class="mt-4 pt-3 border-t border-rose-950/50 text-[10px] font-bold text-amber-400">👉 Mastery Focus: Use Sandbox to solve sample sets quickly.</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 10: Lab Concept Viva Cards -->
-                <section id="viva" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-indigo-400">10</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Interactive Viva Flashcards (Lab prep)</h2>
-                    </div>
-
-                    <p class="text-xs text-slate-400 mb-6 font-semibold">Tweak cognitive layers by flipping card files to reveal expert board answers:</p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        
-                        <!-- Card 1 -->
-                        <div class="h-40 cursor-pointer [perspective:1000px] group" onclick="flipVivaCard(this)">
-                            <div class="w-full h-full relative viva-card-inner">
-                                <!-- FRONT -->
-                                <div class="absolute inset-0 bg-[#0d0718] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between viva-card-front">
-                                    <div>
-                                        <div class="flex items-center justify-between border-b border-slate-900 pb-2 mb-2">
-                                            <span class="text-[8px] uppercase tracking-wider font-extrabold text-indigo-450">01. Symmetry Parameters</span>
-                                            <span class="text-[9px] font-black text-indigo-400">FLIP 🧪</span>
-                                        </div>
-                                        <h4 class="text-xs font-extrabold text-white">Why is Triclinic system known as the least symmetric?</h4>
-                                    </div>
-                                    <span class="text-[8px] text-slate-500 font-bold uppercase tracking-wider">Tap to review answer</span>
-                                </div>
-                                <!-- BACK -->
-                                <div class="absolute inset-0 bg-[#120a22] border border-indigo-900 rounded-2xl p-5 flex flex-col justify-between viva-card-back text-[11px] leading-relaxed select-none">
-                                    <p class="font-medium text-slate-200">
-                                        Because in Triclinic lattices, none of the parameters align: $a \neq b \neq c$ and none of the angles match mutually ($\alpha \neq \beta \neq \gamma \neq 90^\circ$). This yields zero spatial coordinate symmetries.
-                                    </p>
-                                    <span class="text-[8px] font-black text-indigo-400 uppercase tracking-widest text-right">Awarded +10 XP</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="h-40 cursor-pointer [perspective:1000px] group" onclick="flipVivaCard(this)">
-                            <div class="w-full h-full relative viva-card-inner">
-                                <!-- FRONT -->
-                                <div class="absolute inset-0 bg-[#0d0718] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between viva-card-front">
-                                    <div>
-                                        <div class="flex items-center justify-between border-b border-slate-900 pb-2 mb-2">
-                                            <span class="text-[8px] uppercase tracking-wider font-extrabold text-[#f59e0b]">02. Lattice Constant</span>
-                                            <span class="text-[9px] font-black text-indigo-400">FLIP 🧪</span>
-                                        </div>
-                                        <h4 class="text-xs font-extrabold text-white">What does coordination number represent physically in packing?</h4>
-                                    </div>
-                                    <span class="text-[8px] text-slate-500 font-bold uppercase tracking-wider">Tap to review answer</span>
-                                </div>
-                                <!-- BACK -->
-                                <div class="absolute inset-0 bg-[#120a22] border border-[#f59e0b]/50 rounded-2xl p-5 flex flex-col justify-between viva-card-back text-[11px] leading-relaxed select-none">
-                                    <p class="font-medium text-slate-350">
-                                        It physically counts the total number of nearest neighbor atoms directly touching any reference atom inside the cubic grid system. It represents grid coordination density. (SC=6, BCC=8, FCC=12)
-                                    </p>
-                                    <span class="text-[8px] font-black text-[#f59e0b] uppercase tracking-widest text-right">Awarded +10 XP</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 11: Quick Revision Sheets -->
-                <section id="revision-sheets" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-cyan-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-cyan-400">11</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Quick Revision Sheets</h2>
-                    </div>
-
-                    <div class="space-y-6">
-                        <p class="text-xs text-slate-400 font-semibold leading-relaxed">
-                            Ultra-dense exam checklists summarizing everything you need to scan 1 hour before sitting for your JNTUK exam. Tap to review:
-                        </p>
-
-                        <div class="p-6 bg-slate-950/85 border border-slate-900 rounded-3xl space-y-4">
-                            <span class="text-[8px] font-black uppercase text-cyan-400 tracking-wider block mb-1">Crystalline vs Amorphous Quick Sheet</span>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-medium">
-                                <div class="bg-[#0b0b14] p-4 rounded-xl border border-slate-900 space-y-2">
-                                    <h4 class="font-black text-indigo-400">1. Crystalline Solids</h4>
-                                    <ul class="space-y-1.5 text-[11px] text-slate-400">
-                                        <li>• Regular, periodic 3D arrangement of atoms.</li>
-                                        <li>• True solids with sharp, definite melting points.</li>
-                                        <li>• Anisotropic (physical properties vary along axes).</li>
-                                        <li>• Long-range order of atoms is maintained.</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-[#0b0b14] p-4 rounded-xl border border-slate-900 space-y-2">
-                                    <h4 class="font-black text-rose-400">2. Amorphous Solids</h4>
-                                    <ul class="space-y-1.5 text-[11px] text-slate-400">
-                                        <li>• Random, disordered, non-periodic arrangement.</li>
-                                        <li>• Pseudo-solids (supercooled liquids) with melting range.</li>
-                                        <li>• Isotropic (identical properties in all directions).</li>
-                                        <li>• Short-range local order only.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 bg-slate-950/85 border border-slate-900 rounded-3xl space-y-3">
-                            <span class="text-[8px] font-black uppercase text-cyan-400 tracking-wider block mb-1">Key Coordination numbers & Packing constants</span>
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-left text-[11px] text-slate-350 font-medium">
-                                    <thead>
-                                        <tr class="border-b border-slate-800 text-slate-450 font-black">
-                                            <th class="py-1">System</th>
-                                            <th class="py-1">Effective Atoms (N)</th>
-                                            <th class="py-1">Relation Radius r</th>
-                                            <th class="py-1">Coordination (CN)</th>
-                                            <th class="py-1">APF Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-slate-900 text-slate-400">
-                                        <tr>
-                                            <td class="py-2 text-indigo-400 font-bold">SC</td>
-                                            <td class="py-2">1 atom</td>
-                                            <td class="py-2 font-mono text-[10px]">r = a / 2</td>
-                                            <td class="py-2">6 neighbors</td>
-                                            <td class="py-2 font-black text-emerald-400">52.3%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-2 text-blue-400 font-bold">BCC</td>
-                                            <td class="py-2">2 atoms</td>
-                                            <td class="py-2 font-mono text-[10px]">r = a√3 / 4</td>
-                                            <td class="py-2">8 neighbors</td>
-                                            <td class="py-2 font-black text-emerald-400">68%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-2 text-purple-400 font-bold">FCC</td>
-                                            <td class="py-2">4 atoms</td>
-                                            <td class="py-2 font-mono text-[10px]">r = a / 2√2</td>
-                                            <td class="py-2">12 neighbors</td>
-                                            <td class="py-2 font-black text-emerald-400">74.1%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 12: Memory Aids & Mnemonics -->
-                <section id="mnemonics" class="glass-card p-8 scroll-mt-24 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-l-yellow-500">
-                    <div class="flex items-center gap-3 mb-6 border-b border-slate-900 pb-3">
-                        <span class="text-xl font-bold text-yellow-405">12</span>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">Memory Aids & Mnemonics for Systems</h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="p-5 bg-slate-950 border border-slate-900 rounded-xl flex flex-col justify-between">
-                            <div>
-                                <span class="text-[8.1px] font-black text-indigo-400 uppercase tracking-widest block mb-1.5">7 Systems Order Mnemonic</span>
-                                <div class="p-4 bg-slate-950 text-emerald-400 font-mono text-xs uppercase tracking-wide text-center rounded-xl font-black">
-                                    "Cute Teens Play Orthorhombic Monoclinic Hexagonal Triclinic"
-                                </div>
-                            </div>
-                            <p class="text-[10.5px] leading-relaxed text-slate-400 mt-3 font-medium">Order of symmetry: <b>C</b>ubic, <b>T</b>etragona, <b>O</b>rthorhombic, <b>R</b>hombohedral, <b>M</b>onoclinic, <b>H</b>exagonal, <b>T</b>riclinic. Remember via: "<b>C</b>urly <b>T</b>om <b>O</b>ften <b>R</b>eads <b>M</b>any <b>H</b>eavy <b>T</b>extbooks".</p>
-                        </div>
-
-                        <div class="p-5 bg-slate-950 border border-slate-900 rounded-xl flex flex-col justify-between">
-                            <div>
-                                <span class="text-[8.1px] font-black text-purple-400 uppercase tracking-widest block mb-1.5">Packing fraction anchor factors</span>
-                                <div class="p-4 bg-slate-950 text-blue-400 font-mono text-center rounded-xl font-bold">
-                                    SC (52.3%) &lt; BCC (68.0%) &lt; FCC (74.1%)
-                                </div>
-                            </div>
-                            <p class="text-[10.5px] leading-relaxed text-slate-400 mt-3 font-medium">Notice the steady increase: Basic cubic occupies half, central body fills it to 2/3rds, and facial intersections pack tightly to claim ~3/4ths of available Space lattice.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION 13: 1-Day Prep Final Tips -->
-                <section id="survival-plan" class="p-8 bg-rose-50/10 dark:bg-red-950/10 border border-rose-500/20 rounded-[2rem] scroll-mt-24">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="text-xl font-bold text-rose-500">13</span>
                         <div>
-                            <h3 class="text-sm font-black text-[#e11d48] uppercase tracking-widest">1-Day Prep Final Tips (Board Exam emergency checklist)</h3>
-                            <p class="text-[10px] text-red-500 font-extrabold uppercase tracking-wider mt-0.5 animate-pulse">Save failing scores with 3 instant rules:</p>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                
+                            </ul>
                         </div>
-                    </div>
-
-                    <div class="text-xs text-slate-400 leading-relaxed font-semibold space-y-3">
-                        <div class="flex items-start gap-4">
-                            <span class="text-[#e11d48] font-black">Rule 1:</span>
-                            <p><b>Never skip APF derivations.</b> It represents 10 marks of solid physical attributes. Practice BCC geometry corner and face chords proof three times today.</p>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"N/A"</p>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <span class="text-[#e11d48] font-black">Rule 2:</span>
-                            <p><b>Draw coordinates systems axes when writing hkl intercepts on sheets.</b> Intercepts parallel to an axis go to &infin; so index is 0. Mention variables explicitly.</p>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <span class="text-[#e11d48] font-black">Rule 3:</span>
-                            <p><b>State axial constant rules clearly.</b> For instance, a basic Monoclinic axis relation is highly specific ($a \neq b \neq c$, $\beta \neq 90^\circ$). Paper assessors give instant marks for exact formulas.</p>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">N/A</p>
                         </div>
                     </div>
                 </section>
 
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card 1 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Matter Waves?</h4>
+                                </div>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">de Broglie proposed that moving particles have an associated wavelength λ = h/p.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Uncertainty?</h4>
+                                </div>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Heisenberg formulated that position and momentum cannot be simultaneously measured with arbitrary precision: Δx · Δp ≥ h/4π.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
-
-    <!-- Interactive scripts -->
     <script>
-        let scoreXP = 0;
-
-        function updateLatticeConfig() {
-            const lattice = document.getElementById('lattice-selector').value;
-            const statApf = document.getElementById('stat-apf');
-            const coordination = document.getElementById('out-coordination');
-            const effAtoms = document.getElementById('out-eff-atoms');
-
-            if (lattice === 'sc') {
-                statApf.innerText = '52.3%';
-                coordination.innerText = '6';
-                effAtoms.innerText = '1';
-            } else if (lattice === 'bcc') {
-                statApf.innerText = '68.0%';
-                coordination.innerText = '8';
-                effAtoms.innerText = '2';
-            } else if (lattice === 'fcc') {
-                statApf.innerText = '74.1%';
-                coordination.innerText = '12';
-                effAtoms.innerText = '4';
+        function flipVivaCard(card) {
+            const inner = card.querySelector('.viva-card-inner');
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
+            } else {
+                inner.style.transform = 'rotateY(180deg)';
             }
-            solveLatticePhysics();
-        }
-
-        function solveLatticePhysics() {
-            const lattice = document.getElementById('lattice-selector').value;
-            const aVal = parseFloat(document.getElementById('lattice-a').value);
-            const molarMass = parseFloat(document.getElementById('molar-mass').value);
-
-            const h = parseFloat(document.getElementById('miller-h').value);
-            const k = parseFloat(document.getElementById('miller-k').value);
-            const l = parseFloat(document.getElementById('miller-l').value);
-
-            if (isNaN(aVal) || isNaN(molarMass) || aVal <= 0 || molarMass <= 0) {
-                return;
-            }
-
-            // Radius Calculations
-            let radius = 0;
-            let effN = 1;
-            if (lattice === 'sc') {
-                radius = aVal / 2;
-                effN = 1;
-            } else if (lattice === 'bcc') {
-                radius = (aVal * Math.sqrt(3)) / 4;
-                effN = 2;
-            } else if (lattice === 'fcc') {
-                radius = aVal / (2 * Math.sqrt(2));
-                effN = 4;
-            }
-
-            document.getElementById('out-radius').innerText = radius.toFixed(3) + ' \u212B';
-
-            // Density calculation: rho = (N * M) / (Na * a^3)
-            // a is in Angstroms = 1e-8 cm. a^3 is in cm^3.
-            const volumeCm3 = Math.pow(aVal * 1e-8, 3);
-            const avogadro = 6.022e23;
-            const density = (effN * molarMass) / (avogadro * volumeCm3);
-
-            document.getElementById('out-density').innerText = density.toFixed(3) + ' g/cm\u00B3';
-
-            // Miller spacing d Calculation
-            if (!isNaN(h) && !isNaN(k) && !isNaN(l)) {
-                document.getElementById('stat-val-a').innerText = aVal.toFixed(2) + ' \u212B';
-                document.getElementById('stat-val-hkl').innerText = `(${h} ${k} ${l})`;
-
-                const sumSquares = (h*h) + (k*k) + (l*l);
-                if (sumSquares > 0) {
-                    const dSpacing = aVal / Math.sqrt(sumSquares);
-                    
-                    const stepText = `d = a / &radic;(h&sup2; + k&sup2; + l&sup2;) <br>
-                                      d = ${aVal.toFixed(2)} / &radic;(${h}&sup2; + ${k}&sup2; + ${l}&sup2;) = ${aVal.toFixed(2)} / &radic;${sumSquares} <br>
-                                      d = ${dSpacing.toFixed(3)} &Aring; (${(dSpacing * 0.1).toFixed(3)} nm)`;
-                    document.getElementById('step-math-log').innerHTML = stepText;
-
-                    // Update simple graphic coordinates
-                    const fillPoints = document.getElementById('svg-fill-plane');
-                    // Modify projections dynamically
-                    const p1_x = h > 0 ? 20 + (60 / h) : 20;
-                    const p2_x = k > 0 ? 80 - (20 / k) : 80;
-                    const p3_y = l > 0 ? 80 - (40 / l) : 80;
-                    fillPoints.setAttribute('points', `20,80 ${p2_x.toFixed(0)},80 90,${p3_y.toFixed(0)}`);
-                } else {
-                    document.getElementById('step-math-log').innerHTML = "Indices must contain at least one non-zero value.";
-                }
-            }
-        }
-
-        // Award and track XP
-        function awardDopamineXP(amount) {
-            scoreXP += amount;
-            const indicatorVal = Math.min(100, Math.floor(scoreXP / 2));
-            document.getElementById('percentage-indicator').innerText = indicatorVal + '%';
-            document.getElementById('progress-bar-indicator').style.width = indicatorVal + '%';
-
-            if (scoreXP > 10 && scoreXP < 30) {
-                document.getElementById('overall-status-text').innerText = 'EXPLORER';
-                document.getElementById('overall-status-text').className = 'text-[10px] font-black text-indigo-400';
-            } else if (scoreXP >= 30 && scoreXP < 70) {
-                document.getElementById('overall-status-text').innerText = 'BOARD TOPPER READY';
-                document.getElementById('overall-status-text').className = 'text-[10px] font-black text-[#f59e0b] animate-pulse';
-            } else if (scoreXP >= 70) {
-                document.getElementById('overall-status-text').innerText = 'JNTUK MASTER ELITE';
-                document.getElementById('overall-status-text').className = 'text-[10px] font-black text-emerald-400 animate-bounce';
-            }
-        }
-
-        function showToast(msg) {
-            let toastBox = document.getElementById('toast-box');
-            if (!toastBox) {
-                toastBox = document.createElement('div');
-                toastBox.id = 'toast-box';
-                toastBox.className = 'fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none';
-                document.body.appendChild(toastBox);
-            }
-
-            const toast = document.createElement('div');
-            toast.className = 'bg-slate-950 border border-slate-800 text-slate-100 px-5 py-3 rounded-2xl shadow-xl text-[10.5px] font-black uppercase tracking-wider flex items-center justify-between pointer-events-auto min-w-[280px] animate-fadeIn transition-all';
-            toast.innerHTML = `
-                <span>${msg}</span>
-                <span class="text-xs pl-2 cursor-pointer text-slate-500 hover:text-white" onclick="this.parentNode.remove()">✕</span>
-            `;
-            toastBox.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(-10px)';
-                setTimeout(() => toast.remove(), 400);
-            }, 3000);
-        }
-
-        function simulateCrystallography() {
-            solveLatticePhysics();
-            awardDopamineXP(15);
-            showToast(`Recomputed packing structures! +15 XP 🎰`);
-        }
-
-        // Table Content Navigation highlights
-        window.highlightNav = function(el) {
-            document.querySelectorAll('.nav-anchor-lnk').forEach(lnk => {
-                lnk.classList.remove('text-indigo-500', 'font-black', 'bg-indigo-950/20');
-                lnk.classList.add('text-slate-400');
-            });
-            el.classList.add('text-indigo-500', 'font-black', 'bg-indigo-950/20');
-            el.classList.remove('text-slate-400');
-        }
-
-        // Flip Cards Q&A
-        window.flipVivaCard = function(el) {
-            const inner = el.querySelector('.viva-card-inner');
-            inner.classList.toggle('viva-card-flipped');
-            awardDopamineXP(10);
-            showToast(`Symmetry Viva Practiced! +10 XP 🧪`);
-        }
-
-        window.resetInternalTracker = function() {
-            scoreXP = 0;
-            document.getElementById('percentage-indicator').innerText = '0%';
-            document.getElementById('progress-bar-indicator').style.width = '0%';
-            document.getElementById('overall-status-text').innerText = 'NOT STARTED';
-            document.getElementById('overall-status-text').className = 'text-[10px] font-black text-rose-500';
-            showToast(`Crystallography metrics refreshed successfully.`);
-        }
-
-        // Initialize values
-        window.onload = function() {
-            updateLatticeConfig();
         }
     </script>
 </body>
