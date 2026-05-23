@@ -161,6 +161,19 @@ function generateHTML(subjectSlug, unit) {
                         </div>
                     </div>
                 </section>
+
+                <section id="unit-quiz-wrapper" class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden">
+                    <div id="unit-quiz-mount">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50 italic uppercase">Interactive Practice <span class="text-blue-500">Unit Quiz</span></h3>
+                            <span class="text-[9px] font-black font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded">UNIT TEST</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-6">Test your mastery of this unit's concepts with flash feedback and explanations.</p>
+                        <button id="start-unit-quiz-btn" class="btn-primary w-full text-sm py-3.5">
+                            Start Unit Practice Quiz
+                        </button>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
@@ -174,6 +187,7 @@ function generateHTML(subjectSlug, unit) {
             }
         }
     </script>
+    <script type="module" src="/src/unit-quiz.js"></script>
 </body>
 </html>`;
     fs.writeFileSync(subjectSlug + '-' + unit.id + '.html', html);
