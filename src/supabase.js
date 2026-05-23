@@ -30,6 +30,8 @@ let sessionCheckPromise = null;
 
 // Helper: Check if user is logged in
 export const getCurrentUser = async () => {
+  if (!isSupabaseConfigured()) return null;
+
   if (currentUser) return currentUser;
   if (sessionCheckPromise) return sessionCheckPromise;
 
