@@ -8,35 +8,21 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('Supabase credentials missing! Please check Vercel environment variables (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY).')
 }
 
-let client = null;
-try {
-  let url = supabaseUrl && supabaseUrl.trim() !== '' ? supabaseUrl : 'https://placeholder-url.supabase.co';
-  if (!url.startsWith('http')) {
-      url = 'https://' + url;
-  }
-  let key = supabaseAnonKey && supabaseAnonKey.trim() !== '' ? supabaseAnonKey : 'placeholder-key';
-  if (key === 'undefined') key = 'placeholder-key';
-
-  client = createClient(
-    url, 
-    key,
-    {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-        storage: window.localStorage
-      }
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder-url.supabase.co', 
+  supabaseAnonKey || 'placeholder-key',
+  {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      storage: window.localStorage
     }
-  );
-} catch (e) {
-  console.warn("Supabase client failed to initialize:", e);
-}
-
-export const supabase = client;
+  }
+)
 
 export const isSupabaseConfigured = () => {
-  return !!(supabaseUrl && supabaseAnonKey && supabaseUrl !== 'undefined' && supabaseAnonKey !== 'undefined' && !supabaseUrl.includes('placeholder'))
+  return !!(supabaseUrl && supabaseAnonKey && !supabaseUrl.includes('placeholder'))
 }
 
 let currentUser = null;
@@ -44,8 +30,6 @@ let sessionCheckPromise = null;
 
 // Helper: Check if user is logged in
 export const getCurrentUser = async () => {
-  if (!isSupabaseConfigured()) return null;
-
   if (currentUser) return currentUser;
   if (sessionCheckPromise) return sessionCheckPromise;
 

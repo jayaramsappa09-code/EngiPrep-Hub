@@ -5,7 +5,6 @@
 
 import { supabase, getCurrentUser, getUserProfile } from './supabase'
 import { toggleBookmark } from './notes'
-import { initCookieBanner } from './cookie-banner'
 
 // Auto Apply Themes based on Subject URL or query slug
 (function() {
@@ -47,21 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initCopyButtons();
     initSmoothScroll();
     initStudyPlanner();
-    initCookieBanner();
-});
-
-window.addEventListener('load', () => {
     updateAuthUI();
     initGamification();
     initServiceWorker();
-    
-    // Performance: Optimize image loading
-    document.querySelectorAll('img').forEach(img => {
-        if (!img.getAttribute('loading')) {
-            img.setAttribute('loading', 'lazy');
-            img.setAttribute('decoding', 'async');
-        }
-    });
 });
 
 // Service Worker Registration

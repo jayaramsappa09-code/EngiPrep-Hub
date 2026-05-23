@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from './supabase.js';
+import { supabase } from './supabase.js';
 
 // Auto Apply Themes based on Subject URL or query slug
 (function() {
@@ -34,25 +34,12 @@ import { supabase, isSupabaseConfigured } from './supabase.js';
 
 export async function enforceAuthentication() {
     document.documentElement.style.display = 'none';
-
-    if (!isSupabaseConfigured()) {
-        console.warn("Supabase not configured, bypassing auth gatekeeper.");
-        document.documentElement.style.display = '';
-        return;
-    }
+    const { data: { session } } = await supabase.auth.getSession();
     
-    try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (error || !session) {
-            // Enforce the strict authentication barrier by redirecting to login page
-            window.location.href = '/auth.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
-        } else {
-            document.documentElement.style.display = '';
-        }
-    } catch (err) {
-        console.warn("Auth check failed:", err);
-        // Fallback: If auth check fails completely due to missing config, unhide so the page isn't permanently blank
+    if (!session) {
+        // Enforce the strict authentication barrier by redirecting to login page
+        window.location.href = '/auth.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
+    } else {
         document.documentElement.style.display = '';
     }
 }

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="JNTUK R23 engineering notes, PYQs, and study materials for engineering students.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Note – EngiPrep Hub</title>
@@ -74,7 +73,7 @@
     </style>
 
     <!-- Gatekeeper for Authentication -->
-    
+    <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 
     <meta property="og:title" content="Reading Note – EngiPrep Hub">
@@ -317,8 +316,6 @@
                     throwOnError: false
                 });
 
-                injectDiagrams(note);
-                
                 // Generate TOC
                 generateTOC()
 
@@ -470,34 +467,6 @@
                         Error loading note. Access denied or content missing.
                     </div>
                 `
-            }
-        }
-
-        function injectDiagrams(note) {
-            const content = document.getElementById('content');
-            const diagrams = {
-                'newtons_rings': '/diagrams/newtons_rings.png',
-                'rlc_circuit': '/diagrams/rlc_circuit.png',
-                'nernst_equation': '/diagrams/nernst_equation.png'
-            };
-
-            if (note.content.includes('Newton') && note.content.includes('Rings')) {
-                const diagramDiv = document.createElement('div');
-                diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
-                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Diagram: Newton's Rings Experiment</p><img src="${diagrams.newtons_rings}" alt="Newton's Rings Diagram" class="w-full h-auto rounded-lg">`;
-                content.appendChild(diagramDiv);
-            }
-            if (note.content.includes('RLC')) {
-                const diagramDiv = document.createElement('div');
-                diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
-                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Diagram: RLC Series Circuit</p><img src="${diagrams.rlc_circuit}" alt="RLC Circuit Diagram" class="w-full h-auto rounded-lg">`;
-                content.appendChild(diagramDiv);
-            }
-            if (note.content.includes('Nernst')) {
-                const diagramDiv = document.createElement('div');
-                diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
-                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Diagram: Nernst Equation Electrochemical Cell</p><img src="${diagrams.nernst_equation}" alt="Nernst Equation Cell Diagram" class="w-full h-auto rounded-lg">`;
-                content.appendChild(diagramDiv);
             }
         }
 
