@@ -772,5 +772,127 @@ module.exports = {
         examStrategy: "Focus on understanding the difference between file modes."
       }
     ]
+  },
+  "Basic Electrical Engineering": {
+    topicDesc: "Ultimate JNTUK R23 BEEE study guide. Complete coverage of DC/AC circuits, electrical machines, energy resources, core electronics, and digital circuits.",
+    units: [
+      {
+        id: "unit-1",
+        title: "DC & AC Circuits",
+        subtitle: "Unit I: Circuits Base",
+        weightage: "~20 Marks",
+        desc: "RLC elements, Ohm's law, Kirchhoff's Laws (KCL/KVL), Superposition theorem, AC waveforms, RMS & Average values, Phase diagrams, and power systems.",
+        introTitle: "Foundations of Electrical Networks",
+        introBody: "Understanding electrical networks is built on Ohm's law and Kirchhoff's laws. For alternating quantities, we master phase values, reactive power elements, and complex impedance systems.",
+        coreHighlight: "The Core Crux of R23: KCL/KVL loop equations, Superposition derivation, and RMS/Average value derivations for sine waves are highly repetitive.",
+        concept1: { title: "Kirchhoff's Laws", detail: "KCL states total current entering a node equals current leaving (conservation of charge). KVL states algebraic sum of voltages in any closed loop is zero." },
+        concept2: { title: "AC Quantities", detail: "RMS (Root Mean Square) represents equivalent heating power of AC. Impedance (Z) combines real resistance (R) and imaginary reactance (X)." },
+        formula1: { title: "Ohm's & Kirchhoff's", eq: "V = I * R ; Σ I_in = Σ I_out ; Σ V_loop = 0" },
+        formula2: { title: "RMS & Form Factor", eq: "I_rms = I_max / √2 = 0.707 * I_max ; FF = RMS / Average = 1.11" },
+        pyq1: { title: "Superposition Theorem", marks: "10 Marks", body: "State and explain Superposition Theorem with a neat circuit analysis example." },
+        pyq2: { title: "RMS & Average Derivation", marks: "10 Marks", body: "Derive the expressions for RMS value, Average value, and Form Factor of a sinusoidal alternating wave." },
+        revisionPoints: ["KCL is based on conservation of charge", "KVL is based on conservation of energy", "Form factor for sine wave is 1.11, peak factor is 1.414"],
+        memoryTricks: "KCL-Charge, KVL-Energy. Form Factor (FF) = 1.11",
+        examStrategy: "Always define the circuit diagrams clearly before applying nodal or mesh equations. Highlight final equations in rectangular boxes.",
+        definitions: [
+          { term: "Kirchhoff's Current Law (KCL)", desc: "The sum of currents entering a junction equals the sum of currents leaving the junction." },
+          { term: "Kirchhoff's Voltage Law (KVL)", desc: "The algebraic sum of voltage drops and EMFs around any closed loop is zero." },
+          { term: "Power Factor", desc: "The ratio of active power (W) to apparent power (VA). Equal to cos φ = R/Z." }
+        ]
+      },
+      {
+        id: "unit-2",
+        title: "Machines & Measuring Instruments",
+        subtitle: "Unit II: Electromechanics",
+        weightage: "~20 Marks",
+        desc: "DC Motor and Generator principles, Single Phase Transformers, Three Phase Induction Motors, Alternators, and moving coil/moving iron measuring instruments.",
+        introTitle: "Dynamic Electromechanical Systems",
+        introBody: "Master how energy is co-converted magnetically. This unit covers operational theory of DC motors, AC transformers, 3-Phase induction, and instruments like PMMC and MI coils.",
+        coreHighlight: "The Core Crux of R23: Transformer EMF equation derivation and the comparison of Moving Coil (PMMC) vs Moving Iron (MI) instruments.",
+        concept1: { title: "Transformer Operation", detail: "A static device that transfers electrical energy between circuits through electromagnetic induction, maintaining frequency." },
+        concept2: { title: "DC Machine EMF", detail: "Generators use Faraday's law of induction where rotating coils generate voltage. Motors utilize Lorentz force where current in magnetic field creates mechanical torque." },
+        formula1: { title: "EMF Equation of Transformer", eq: "E = 4.44 * f * N * Φ_max" },
+        formula2: { title: "DC Machine Back EMF", eq: "E_b = (Φ * Z * N * P) / (60 * A)" },
+        pyq1: { title: "Transformer EMF Derivation", marks: "10 Marks", body: "Derive the EMF equation of a single-phase transformer with standard nomenclature." },
+        pyq2: { title: "Measuring Instruments Comparison", marks: "10 Marks", body: "Compare the construction, scale features, and working principles of Moving Coil (PMMC) and Moving Iron (MI) instruments." },
+        revisionPoints: ["Transformers operate on mutual induction and cannot run on pure DC", "PMMC instruments have uniform scale and measure average/DC only", "MI instruments have cramped non-uniform scale and measure both AC/DC"],
+        memoryTricks: "PMMC = DC only & Uniform scale. MI = AC + DC & cramped scale.",
+        examStrategy: "Draw distinct separate columns when comparing PMMC and Moving Iron. Ensure transformer flux waveform is included in the EMF derivation.",
+        definitions: [
+          { term: "PMMC", desc: "Permanent Magnet Moving Coil meter. Deflection is directly proportional to average current. High accuracy but DC only." },
+          { term: "Mutual Induction", desc: "Production of electromotive force in one circuit by change in current of adjacent electromagnetically linked circuit." }
+        ]
+      },
+      {
+        id: "unit-3",
+        title: "Energy Resources & Safety",
+        subtitle: "Unit III: Generation & Protection",
+        weightage: "~15 Marks",
+        desc: "Power plant schemas (Hydel, Nuclear, Solar, Wind), domestic electricity bill calculation parameters, safety fuses, and shock prevention systems.",
+        introTitle: "Energy Auditing & Electrical Safety",
+        introBody: "Understand global power generation schemas and learn how engineering safety measures are applied. Learn fuse ratings, circuit breakers (MCBs), grounding, and two-part tariffs.",
+        coreHighlight: "The Core Crux of R23: Nuclear/Hydel plant block layout diagrams and numerical electricity bill estimations are highly tested.",
+        concept1: { title: "Power Plant Energy Costs", detail: "Traditional thermal/nuclear power generates high base loads. Renewables like wind/solar use PV arrays and wind currents to feed grids green power." },
+        concept2: { title: "Safety Protections", detail: "Grounding diverts dangerous leakage current to earth. MCBs (Miniature Circuit Breakers) automatically trip when load threshold exceeds safe rating limit." },
+        formula1: { title: "Electricity Unit Cost", eq: "Units (kWh) = [Power (Watts) * Time (hours)] / 1000" },
+        formula2: { title: "Total Monthly Bill", eq: "Total = Fixed Demand Charge + (Units consumed * Energy Unit Tariff)" },
+        pyq1: { title: "Electricity Bill Estimation", marks: "10 Marks", body: "An industry runs five 2kW heaters for 6 hours/day, twenty 100W lamps for 10 hours/day. Estimate monthly bill at ₹8 per unit." },
+        pyq2: { title: "Nuclear Power Plant", marks: "10 Marks", body: "Draw a neat block schematic diagram of a Nuclear Power Plant and explain the function of each subsystem." },
+        revisionPoints: ["1 unit of electricity equals 1 kWh (kilowatt-hour)", "Moderator in nuclear plants slows down fast neutrons (e.g., Heavy Water)", "Fuses are sacrificial safety elements with low melting point"],
+        memoryTricks: "1 Unit = 1 kWh = Power in kW * Hours. Trip MCB = Safe house.",
+        examStrategy: "Draw clean flowcharts for power plants. For bills, show step-by-step product multiplications clearly.",
+        definitions: [
+          { term: "Circuit Breaker (MCB)", desc: "Miniature Circuit Breaker. Automatic thermal-magnetic switch that opens the circuit under excess overcurrent." },
+          { term: "Two-Part Tariff", desc: "Tariff system consisting of a fixed customer demand charge and a variable consumption charge." }
+        ]
+      },
+      {
+        id: "unit-4",
+        title: "Semiconductor Devices",
+        subtitle: "Unit IV: Solid State Electronics",
+        weightage: "~20 Marks",
+        desc: "PN junction diodes, Zener effects, Bipolar Junction Transistor (BJT) operations, configurations (CB, CE, CC), and amplifier profiles.",
+        introTitle: "Introduction to Microelectronics",
+        introBody: "Diodes conduct in only one forward-biased direction. Transistors (BJTs) act as current controllers to enable massive amplification and switching.",
+        coreHighlight: "The Core Crux of R23: V-I diode characteristics, Zener reverse regulator, and CE configuration parameters dominate exam sets.",
+        concept1: { title: "PN Junction Diode", detail: "Formed by joining p-type and n-type silicon. Current flows easily during forward bias, blocked in reverse bias until breakdown." },
+        concept2: { title: "Transistor Amplification", detail: "A BJT controls a larger collector current via a weak base current stream. CE (Common Emitter) configuration offers both voltage and current gain." },
+        formula1: { title: "Diode Equation", eq: "I = I_0 * [e^(V / (η * V_T)) - 1]" },
+        formula2: { title: "CE Current Gains", eq: "β = α / (1 - α) ; I_C = β * I_B + I_CEO" },
+        pyq1: { title: "CE Amplifier Operating Profile", marks: "10 Marks", body: "Explain the block outline and working of a Common Emitter (CE) BJT amplifier with detailed input-output wave forms." },
+        pyq2: { title: "Zener Diode Voltage Regulator", marks: "10 Marks", body: "Explain with a neat circuit schematic how a Zener diode functions as a voltage regulator under variable load and line voltages." },
+        revisionPoints: ["Zener diodes operate in reverse breakdown region to regulate voltage", "Common Emitter (CE) amplifier provides 180° phase shift in output voltage", "Alpha (α) is always less than 1, Beta (β) is typically between 50 to 300"],
+        memoryTricks: "Zener = Reverse Breakdown. CE phase shift = 180 degrees.",
+        examStrategy: "Include complete forward and reverse bias characteristic plots for PN diode and Zener regulator. Label knee voltage of ~0.7V for Silicon.",
+        definitions: [
+          { term: "Zener Effect", desc: "Electric-field-induced quantum mechanical tunneling under high reverse bias, maintaining near-constant breakdown voltage." },
+          { term: "Transistor CE Mode", desc: "Common Emitter configuration where emitter is shared. High gain output, used mostly for amplification." }
+        ]
+      },
+      {
+        id: "unit-5",
+        title: "Circuits & Digital Electronics",
+        subtitle: "Unit V: Digital Systems",
+        weightage: "~15 Marks",
+        desc: "Full wave bridge rectifiers, LC filters, Number systems, Logic Gates, Boolean Algebra, Binary Adders, and Flip-Flops.",
+        introTitle: "Digital Logics & Voltage Rectification",
+        introBody: "Master how alternating power is rectified into clean DC using diode bridges, then delve into binary computer mathematics: boolean expressions, universal gates, and structural flip-flops.",
+        coreHighlight: "The Core Crux of R23: Full wave bridge rectifier derivation, universal logic gate operations (NAND/NOR), and Flip-Flops.",
+        concept1: { title: "Rectification & Filters", detail: "Rectifiers convert AC to pulsating DC. Full wave utilizes four diodes. Capacitors smooth waves by absorbing peak ripple voltage." },
+        concept2: { title: "Boolean & Logic Gates", detail: "NAND and NOR gates are universal gates because any combinational or sequential circuits can be built using them." },
+        formula1: { title: "Full Wave Rectifier Specs", eq: "η_max = 81.2% ; V_dc = 2 * V_m / π ; Ripple Factor = 0.48" },
+        formula2: { title: "DeMorgan's Theorems", eq: "(A + B)' = A' * B' ; (A * B)' = A' + B'" },
+        pyq1: { title: "Full Wave Rectifier Analysis", marks: "10 Marks", body: "Derive the efficiency, ripple factor, and transformer utilization factor (TUF) of a Full-Wave Bridge Rectifier." },
+        pyq2: { title: "Universal Logic Gates Realization", marks: "10 Marks", body: "Prove why NAND and NOR are called universal gates. Realize AND, OR, and NOT gates using only NAND gates." },
+        revisionPoints: ["Bridge rectifier reverse peak voltage (PIV) is Vm", "NAND & NOR are universal gates", "SR Flip flop has invalid state when S=1, R=1"],
+        memoryTricks: "FWR Efficiency = 81.2%, Ripple = 0.48. NAND + NOR are Universal.",
+        examStrategy: "Draw distinct diode conduction paths during positive and negative AC input half-cycles inside your Bridge Rectifier answer.",
+        definitions: [
+          { term: "Universal Gate", desc: "A logic gate which can implement any boolean function without needing any other gate types (NAND and NOR)." },
+          { term: "Ripple Factor", desc: "Measure of unwanted AC fluctuating components sitting on the output of rectified DC power." }
+        ]
+      }
+    ]
   }
 };
+

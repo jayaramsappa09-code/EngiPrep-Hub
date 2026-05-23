@@ -325,7 +325,7 @@ htmlFiles.forEach(file => {
             '<a href="/tasks.html" class="hidden md:block px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Tasks</a>\n                $1'
         );
         fs.writeFileSync(file, content);
-        console.log(\`Added Tasks link to \${file}\`);
+        console.log(`Added Tasks link to ${file}`);
     }
 });
 

@@ -3,1346 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 1: First-Order Differential Equations &amp; Applications | EngiPrep Hub</title>
-    <link rel="canonical" href="https://engiprephub.vercel.app/engineering-mathematics-unit-1">
-    <meta name="description" content="Premium JNTUK R23 Engineering Mathematics-1 Unit 1 prep portal. Master Linear, Bernoulli's, Exact, and Reducible DEs with Newton's cooling, growth, and electrical circuit applications.">
+    <title>JNTUK R23 Matrix Operations &amp; Linear Systems | EngiPrep Hub</title>
+    <meta name="description" content="Elite JNTUK R23 Matrix Operations &amp; Linear Systems. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
     <link rel="stylesheet" href="/src/style.css">
-    
-    <!-- KaTeX Math Rendering Integrations -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-    
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
-        
-        // Dynamic KaTeX activation on document load
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false},
-                    {left: "\\(", right: "\\)", display: false},
-                    {left: "\\[", right: "\\]", display: true}
-                ],
-                throwOnError: false
-            });
-            // Try initializing checklist of Unit 1
-            loadInternalTracker();
-            // Try running initial simulator computes
-            computeCooling();
-            computeCircuit();
-            computeAttendance();
-            computeSGPA();
-        });
     </script>
     <style>
-        .glass-card {
-            background-color: rgba(9, 9, 20, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            border-radius: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .light .glass-card {
-            background-color: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(59, 130, 246, 0.15);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.03);
-        }
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.35);
-            box-shadow: 0 12px 40px -10px rgba(59, 130, 246, 0.18);
-        }
-        .viva-card-inner {
-            transition: transform 0.5s;
-            transform-style: preserve-3d;
-        }
-        .viva-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .viva-card-front, .viva-card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .viva-card-back {
-            transform: rotateY(180deg);
-        }
+        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
+        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
+        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .viva-card-back { transform: rotateY(180deg); }
     </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
-
-    <meta property="og:title" content="JNTUK R23 Unit 1: First-Order Differential Equations &amp; Applications | EngiPrep Hub">
-    <meta property="og:description" content="Premium JNTUK R23 Engineering Mathematics-1 Unit 1 prep portal. Master Linear, Bernoulli's, Exact, and Reducible DEs with Newton's cooling, growth, and electrical circuit applications.">
-    <meta property="og:url" content="https://engiprephub.vercel.app/engineering-mathematics-unit-1">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="EngiPrep Hub">
-
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
-
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "JNTUK R23 Unit 1: First-Order Differential Equations &amp; Applications | EngiPrep Hub",
-      "description": "Premium JNTUK R23 Engineering Mathematics-1 Unit 1 prep portal. Master Linear, Bernoulli's, Exact, and Reducible DEs with Newton's cooling, growth, and electrical circuit applications.",
-      "provider": {
-        "@type": "Organization",
-        "name": "EngiPrep Hub",
-        "sameAs": "https://engiprephub.vercel.app"
-      }
-    }
-    </script>
-
 </head>
-<body class="bg-[#030308] dark:bg-[#030308] text-slate-300 dark:text-slate-300 bg-gradient-to-tr from-[#050512] via-[#030308] to-[#050918] min-h-screen font-sans antialiased selection:bg-blue-600 selection:text-white">\n
-    <!-- Reading Progress Bar -->
-    <div id="reading-progress-container" class="fixed top-0 left-0 w-full h-1 bg-transparent z-[100]">
-        <div id="reading-progress-bar" class="h-full bg-blue-600 transition-all duration-150 w-0"></div>
-    </div>
-
-
-    <!-- Premium Header Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-[#030308]/85 backdrop-blur-md border-b border-blue-950/45 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between font-semibold">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-800 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/10"></div>
-                    <span class="relative z-10 text-white font-black text-lg">EP</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none">EngiPrep <span class="text-blue-400">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-blue-400 mt-1">Prepare • Practice • Perform</span>
-                </div>
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4">
+                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            
-            
-            
-            <div id="nav-actions" class="flex items-center gap-4">
-                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                </button>
-                <a href="/maths-1.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase hover:bg-slate-800/40 text-slate-300 transition-all flex items-center gap-1.5 active:scale-95">
-                    Subject Hub
-                </a>
-                <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
-                <a href="/tasks.html" class="hidden md:block px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Tasks</a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-blue-500/10 text-white">Dashboard</a>
-            </div>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
-
-    <!-- Main Outer Container -->
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-        
-        <!-- Breadcrumb navigation -->
         <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
             <ol class="flex items-center gap-2">
-                <li><a href="/" class="hover:text-blue-400">Home</a></li>
+                <li><a href="/" class="hover:text-blue-500">Home</a></li>
                 <li>/</li>
-                <li><a href="/all-subjects.html" class="hover:text-blue-400">Subjects</a></li>
+                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
                 <li>/</li>
-                <li><a href="/maths-1.html" class="hover:text-blue-400">Engineering Mathematics-I</a></li>
+                <li><a href="/subject.html?slug=engineering-mathematics" class="hover:text-blue-500">engineering mathematics</a></li>
                 <li>/</li>
-                <li class="text-blue-400" aria-current="page">Unit I: First Order DEs</li>
+                <li class="text-blue-500" aria-current="page">Matrix Operations &amp; Linear Systems</li>
             </ol>
         </nav>
-
-        <!-- TOP BANNER HERO -->
-        <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#050912] border border-blue-900/45">
-            <div class="absolute right-0 top-0 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-            
-            <div class="space-y-4 relative z-10 max-w-3xl">
-                <div class="flex items-center gap-2.5 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-blue-500/15 border border-blue-500/25 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-full">JNTUK R23 Unit I Syllabus</span>
-                    <span class="px-2.5 py-0.5 bg-blue-500/15 border border-blue-500/25 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-full">Weightage: 14–16 Marks</span>
-                    <span class="px-2.5 py-0.5 bg-indigo-500/15 border border-indigo-500/25 text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-full">Repeat Probability: 98%</span>
-                </div>
-                <div>
-                    <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight">
-                        FIRST ORDER DIFFERENTIAL <br>
-                        <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">EQUATIONS &amp; APPLICATIONS</span>
-                    </h1>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        The definitive first-year B.Tech survival workspace. Learn to instantly classify and solve Linear, Bernoulli, and Exact differential equations, find integrating factors recursively, and model Newton's cooling states, population flows, and R-L and R-C transient circuits.
-                    </p>
-                </div>
-                <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <a href="#derivations" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all text-white">Go to Derivations ⚡</a>
-                    <a href="#viva" class="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg text-[10px] font-black uppercase tracking-widest hover:border-slate-700 transition-all">Test Your Viva 🧪</a>
-                    <a href="#calculator" class="px-4 py-2 bg-blue-950/50 border border-blue-900/50 text-blue-400 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-blue-900/50 transition-all font-bold">Simulator Sandbox 🧮</a>
-                </div>
-            </div>
-
-            <!-- Dashboard status tracker -->
-            <div class="w-full md:w-80 p-5 bg-[#050510] border border-blue-950/60 rounded-2xl flex flex-col justify-between h-48 relative z-10 shadow-inner">
-                <div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-[#f59e0b]">Student Status Portal</span>
-                        <span id="tracker-status" class="text-[10px] font-black text-[#f59e0b] bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/25">NOT STARTED</span>
-                    </div>
-                    <h4 class="text-xs font-black text-white mt-2">Syllabus Progress Tracker</h4>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-[10px] text-slate-400">
-                        <span>XP Progress</span>
-                        <span id="pct-indicator" class="font-bold">0%</span>
-                    </div>
-                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
-                        <div id="pb-indicator" class="h-full bg-gradient-to-r from-blue-500 to-[#10b981] rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between pt-1">
-                    <span id="rank-badge" class="text-[8.5px] text-blue-400 font-extrabold uppercase">Rank: Math Noob 🏹</span>
-                    <button onclick="resetInternalTracker()" class="text-[9px] text-rose-500 hover:underline font-extrabold uppercase bg-transparent border-0 cursor-pointer">Reset</button>
-                </div>
-            </div>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Matrix Operations &amp; Linear Systems <span class="text-blue-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4">Rank of matrix, Echelon form, Normal form. Solution of linear systems. Gauss elimination.</p>
         </header>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-9 space-y-16">
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-4">Linear Algebra Fundamentals</h2>
+                    <p>Matrices provide a compact way to represent and solve systems of linear equations.</p>
+                </section>
 
-        <!-- PORTAL WEB NAVIGATION TABS -->
-        <div class="flex border-b border-slate-800 gap-2 mb-8 overflow-x-auto text-xs font-black uppercase tracking-wider pb-1">
-            <button onclick="switchTab('unit-hub')" id="btn-tab-unit-hub" class="px-5 py-3 border-b-2 border-blue-500 text-blue-400 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                📚 Unit I Prep Hub
-            </button>
-            <button onclick="switchTab('subject-dash')" id="btn-tab-subject-dash" class="px-5 py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                🧠 Subject Planner Dashboard
-            </button>
-            <button onclick="switchTab('sandbox-tools')" id="btn-tab-sandbox-tools" class="px-5 py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 bg-transparent cursor-pointer font-black whitespace-nowrap transition-all">
-                🧪 Premium Toolbox &amp; Simulators
-            </button>
-        </div>
-
-        <!-- TAB-1: UNIT PREP HUB (Standard Content Blocks) -->
-        <div id="tabcont-unit-hub" class="tab-pane space-y-12">
-            
-            <!-- LAYOUT GRID -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
-                <!-- LEFT NAVIGATION MAP -->
-                <aside class="lg:col-span-3 lg:sticky lg:top-28 space-y-4 max-h-[85vh] overflow-y-auto pr-2">
-                    <div class="p-1.5 rounded-2xl bg-slate-950/60 border border-slate-900 space-y-1">
-                        <div class="p-3 text-[9px] font-black text-blue-400 uppercase tracking-widest border-b border-slate-900">Unit I Study Map</div>
+                <section id="definitions" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Key Definitions</h2>
+                    <div class="space-y-4">
                         
-                        <a href="#intro" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>1.</span> Unit Overview &amp; Strategy
-                        </a>
-                        <a href="#concepts" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>2.</span> Syllabus Core Concepts
-                        </a>
-                        <a href="#formulas" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>3.</span> Formula Sheet &amp; Aids
-                        </a>
-                        <a href="#derivations" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>4.</span> Academic Derivations
-                        </a>
-                        <a href="#numericals" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>5.</span> Solved Numerical Lab
-                        </a>
-                        <a href="#pyqs" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>6.</span> Board PYQ Collection
-                        </a>
-                        <a href="#predictions" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>7.</span> Expected &amp; Predictions 🎯
-                        </a>
-                        <a href="#viva" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>8.</span> Concept Viva Flashcards
-                        </a>
-                        <a href="#shortcuts" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>9.</span> Mnemonics &amp; Tricks
-                        </a>
-                        <a href="#revision" class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
-                            <span>10.</span> Exam-Night Playbook
-                        </a>
-                    </div>
-                </aside>
-
-                <!-- RIGHT CONTENT BLOCK -->
-                <div class="lg:col-span-9 space-y-16">
-                    
-                    <!-- PROGRESS CHECKLIST -->
-                    <section class="glass-card p-6 bg-slate-950/40 border border-slate-900">
-                        <h3 class="text-xs font-extrabold text-[#f59e0b] uppercase tracking-wider mb-3 flex items-center justify-between">
-                            <span>Syllabus Target Checklist</span>
-                            <span class="text-[9px] text-slate-500 capitalize">Tick when finished to gain XP</span>
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-                            <label class="flex items-center gap-2.5 p-2 bg-[#050510] rounded-lg border border-slate-900 cursor-pointer select-none">
-                                <input type="checkbox" id="chk-u1-1" onclick="toggleTask('u1-1', 16)" class="accent-blue-500">
-                                <span>Linear Differential Equations</span>
-                            </label>
-                            <label class="flex items-center gap-2.5 p-2 bg-[#050510] rounded-lg border border-slate-900 cursor-pointer select-none">
-                                <input type="checkbox" id="chk-u1-2" onclick="toggleTask('u1-2', 16)" class="accent-blue-500">
-                                <span>Bernoulli's Equations</span>
-                            </label>
-                            <label class="flex items-center gap-2.5 p-2 bg-[#050510] rounded-lg border border-slate-900 cursor-pointer select-none">
-                                <input type="checkbox" id="chk-u1-3" onclick="toggleTask('u1-3', 16)" class="accent-blue-500">
-                                <span>Exact Equations ($Mdx+Ndy=0$)</span>
-                            </label>
-                            <label class="flex items-center gap-2.5 p-2 bg-[#050510] rounded-lg border border-slate-900 cursor-pointer select-none">
-                                <input type="checkbox" id="chk-u1-4" onclick="toggleTask('u1-4', 16)" class="accent-blue-500">
-                                <span>Reducible to Exact Form</span>
-                            </label>
-                            <label class="flex items-center gap-2.5 p-2 bg-[#050510] rounded-lg border border-slate-900 cursor-pointer select-none">
-                                <input type="checkbox" id="chk-u1-5" onclick="toggleTask('u1-5', 16)" class="accent-blue-500">
-                                <span>Newton's Cooling &amp; Decay</span>
-                            </label>
-                            <label class="flex items-center gap-2.5 p-2 bg-[#050510] rounded-lg border border-slate-900 cursor-pointer select-none">
-                                <input type="checkbox" id="chk-u1-6" onclick="toggleTask('u1-6', 16)" class="accent-blue-500">
-                                <span>L-R &amp; R-C Electrical Circuits</span>
-                            </label>
-                        </div>
-                    </section>
-
-                    <!-- 1. OVERVIEW & STRATEGY -->
-                    <section id="intro" class="glass-card p-8 bg-slate-900/30 scroll-mt-24 space-y-4">
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> 1. Unit Overview &amp; Exam Strategy
-                        </h2>
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            Under the JNTUK R23 syllabus, <b>Unit I of Mathematics-I</b> covers ordinary differential equations of first order and first degree. This is a highly algorithmic unit – once you learn to properly identify the form of an equation, solving it is a guaranteed process. It establishes the mathematical basis for transient models inside physical, chemical, and electrical systems.
-                        </p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-semibold">
-                            <div class="p-4 bg-blue-950/20 rounded-xl border border-blue-900/25">
-                                <h4 class="text-blue-400 font-extrabold uppercase">Exam Blueprint Analysis</h4>
-                                <p class="text-slate-400 mt-1"> JNTUK typically asks two long questions from this unit: one pure mathematical system (usually Bernoulli's reduction or Exact/Reducible to Exact) and one practical modeling derivation (mostly a Newton's Law of Cooling cooling schedule or an LR Circuit transient current equation). Doing both perfectly guarantees 14-16 marks!</p>
+                            <div>
+                                <h4 class="font-bold text-slate-100">Rank</h4>
+                                <p class="text-sm text-slate-400">Number of non-zero rows in echelon form.</p>
                             </div>
-                            <div class="p-4 bg-indigo-950/20 rounded-xl border border-indigo-900/25">
-                                <h4 class="text-indigo-400 font-extrabold uppercase">Engineering Applications</h4>
-                                <p class="text-slate-400 mt-1">This math models current growth in inductors, voltage discharge dynamics inside capacitor filters, temperature leakage inside boiler systems, and nuclear fuel degradation tracking.</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- 2. CORE CONCEPTS -->
-                    <section id="concepts" class="glass-card p-8 scroll-mt-24 space-y-8">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-800 pb-3 gap-2">
-                            <h2 class="text-xl font-black text-white uppercase tracking-tight flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> 2. JNTUK Syllabus Core Concepts
-                            </h2>
-                            <span class="text-[9px] font-extrabold bg-blue-500/10 text-blue-400 px-3 py-1 rounded border border-blue-500/20 uppercase">Topper-curated Definitions</span>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed">
-                            
-                            <!-- Linear DE -->
-                            <div class="p-5 bg-slate-950/50 border border-slate-900 rounded-xl space-y-2 relative overflow-hidden">
-                                <div class="absolute right-0 top-0 text-[3rem] font-black text-slate-900/10 select-none font-mono">01</div>
-                                <span class="bg-blue-500/15 text-blue-400 px-2.5 py-0.5 rounded text-[8.5px] font-black uppercase tracking-wider">Type 1: Linear</span>
-                                <h3 class="text-sm font-bold text-white">Linear Differential Equations</h3>
-                                <p class="text-slate-400"><b>Definition:</b> A differential equation is linear if the dependent variable $y$ and its derivative $dy/dx$ appear only in the first degree and are not multiplied together.</p>
-                                <p class="text-blue-400 font-mono mt-1 bg-[#050512] p-1.5 rounded text-center text-[11px] font-bold">
-                                    $$\frac{dy}{dx} + P(x) y = Q(x)$$
-                                </p>
-                                <p class="text-slate-400">Where $P$ and $Q$ are continuous functions of $x$ only. Solution is achieved using an **Integrating Factor** $I.F. = e^{\int P dx}$.</p>
-                                <ul class="text-[10px] text-slate-500 space-y-0.5 list-disc pl-4 mt-2">
-                                    <li><b>Examiner Trap:</b> Ensure the coefficient of $dy/dx$ is exactly $1$ before identifying $P(x)$ and $Q(x)$. Divide through first!</li>
-                                    <li><b>Formula Variant:</b> If linear in $x$, the form is $\frac{dx}{dy} + P(y) x = Q(y)$, with $I.F. = e^{\int P(y) dy}$.</li>
-                                </ul>
-                            </div>
-
-                            <!-- Bernoulli Equation -->
-                            <div class="p-5 bg-slate-950/50 border border-slate-900 rounded-xl space-y-2 relative overflow-hidden">
-                                <div class="absolute right-0 top-0 text-[3rem] font-black text-slate-900/10 select-none font-mono">02</div>
-                                <span class="bg-blue-500/15 text-blue-400 px-2.5 py-0.5 rounded text-[8.5px] font-black uppercase tracking-wider">Type 2: Reducible to Linear</span>
-                                <h3 class="text-sm font-bold text-white">Bernoulli's Equations</h3>
-                                <p class="text-slate-400"><b>Definition:</b> An equation of the first order and first degree that is non-linear but can be readily reduced to linear form through a variable substitution.</p>
-                                <p class="text-blue-400 font-mono mt-1 bg-[#050512] p-1.5 rounded text-center text-[11px] font-bold">
-                                    $$\frac{dy}{dx} + P(x) y = Q(x) y^n \quad (n \neq 0, 1)$$
-                                </p>
-                                <p class="text-slate-400">Solved by dividing through by $y^n$, resulting in $y^{-n}\frac{dy}{dx} + Py^{1-n} = Q$. Substituting $v = y^{1-n}$ transforms it to a standard linear form in $v$.</p>
-                                <ul class="text-[10px] text-slate-500 space-y-0.5 list-disc pl-4 mt-2">
-                                    <li><b>Exam Tip:</b> Be careful with negative indices. If $n = -2$, write the substitution variable $v = y^{1 - (-2)} = y^3$.</li>
-                                </ul>
-                            </div>
-
-                            <!-- Exact Equations -->
-                            <div class="p-5 bg-slate-950/50 border border-slate-900 rounded-xl space-y-2 relative overflow-hidden">
-                                <div class="absolute right-0 top-0 text-[3rem] font-black text-slate-900/10 select-none font-mono">03</div>
-                                <span class="bg-blue-500/15 text-blue-400 px-2.5 py-0.5 rounded text-[8.5px] font-black uppercase tracking-wider">Type 3: Exactness</span>
-                                <h3 class="text-sm font-bold text-white">Exact Differential Equations</h3>
-                                <p class="text-slate-400"><b>Definition:</b> A differential equation of the form $M(x,y)dx + N(x,y)dy = 0$ is exact if its left-hand side matches the exact total differential $du$ of some function $u(x,y)$.</p>
-                                <p class="text-[#10b981] font-mono mt-1 bg-[#050512] p-1.5 rounded text-center text-[11px] font-bold">
-                                    $$\text{Necessary and Sufficient Condition: } \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$$
-                                </p>
-                                <p class="text-slate-400"><b>Solution Formula:</b> $\int M dx$ (keeping $y$ constant) $+ \int (\text{terms in } N \text{ free from } x) dy = C$.</p>
-                                <ul class="text-[10px] text-slate-500 space-y-0.5 list-disc pl-4 mt-2">
-                                    <li><b>Topper Tip:</b> "Free from $x$" means terms that do not contain $x$ at all. For example, in $N = \sin x + y^2$, the term free from $x$ is just $y^2$. If $N = xy$, there are no terms free from $x$!</li>
-                                </ul>
-                            </div>
-
-                            <!-- Reducible to Exact -->
-                            <div class="p-5 bg-slate-950/50 border border-slate-900 rounded-xl space-y-2 relative overflow-hidden">
-                                <div class="absolute right-0 top-0 text-[3rem] font-black text-slate-900/10 select-none font-mono">04</div>
-                                <span class="bg-blue-500/15 text-blue-400 px-2.5 py-0.5 rounded text-[8.5px] font-black uppercase tracking-wider">Type 4: Reducible to Exact</span>
-                                <h3 class="text-sm font-bold text-white">Equations Reducible to Exact</h3>
-                                <p class="text-slate-400"><b>Definition:</b> If $Mdx + Ndy = 0$ is not exact ($\frac{\partial M}{\partial y} \neq \frac{\partial N}{\partial x}$), we multiply by an Integrating Factor ($I.F.$) to make it exact.</p>
-                                <p class="text-slate-400"><b>Four Core JNTUK Rules:</b><br>
-                                1. **Homogeneous**: If $Mx+Ny \neq 0$, then $I.F. = \frac{1}{Mx+Ny}$.<br>
-                                2. **Form $y f(xy)dx + x g(xy)dy = 0$**: If $Mx-Ny \neq 0$, $I.F. = \frac{1}{Mx-Ny}$.<br>
-                                3. **Function of $x$**: If $\frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = f(x)$, then $I.F. = e^{\int f(x) dx}$.<br>
-                                4. **Function of $y$**: If $\frac{1}{M}\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right) = g(y)$, then $I.F. = e^{\int g(y) dy}$.</p>
-                            </div>
-
-                            <!-- Newton's Cooling & Decay -->
-                            <div class="p-5 bg-slate-950/50 border border-slate-900 rounded-xl space-y-2 relative overflow-hidden">
-                                <div class="absolute right-0 top-0 text-[3rem] font-black text-slate-900/10 select-none font-mono">05</div>
-                                <span class="bg-indigo-500/15 text-indigo-400 px-2.5 py-0.5 rounded text-[8.5px] font-black uppercase tracking-wider">Application Topic A</span>
-                                <h3 class="text-sm font-bold text-white">Newton's Cooling &amp; Growth-Decay</h3>
-                                <p class="text-slate-400"><b>Newton's Law of Cooling:</b> The time rate of change of temperature $T(t)$ of a body is proportional to the difference between its temperature and the ambient medium temperature $T_s$.</p>
-                                <p class="text-blue-400 font-mono mt-1 bg-[#050512] p-1 text-center text-[11px] font-bold">
-                                    $$\frac{dT}{dt} = -k(T - T_s) \implies T(t) = T_s + (T_0 - T_s)e^{-kt}$$
-                                </p>
-                                <p class="text-slate-400"><b>Natural Growth/Decay:</b> Rate of increase of a quantity $N$ is proportional to its current quantity: $\frac{dN}{dt} = \pm k N \implies N(t) = N_0 e^{\pm kt}$.</p>
-                            </div>
-
-                            <!-- Electrical Circuits -->
-                            <div class="p-5 bg-slate-950/50 border border-slate-900 rounded-xl space-y-2 relative overflow-hidden">
-                                <div class="absolute right-0 top-0 text-[3rem] font-black text-[#10b981]/5 select-none font-mono">06</div>
-                                <span class="bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded text-[8.5px] font-black uppercase tracking-wider">Application Topic B</span>
-                                <h3 class="text-sm font-bold text-white">Electrical LRC circuit dynamics</h3>
-                                <p class="text-slate-400"><b>L-R Series Circuit:</b> By Kirchhoff's Voltage Law, the sum of inductive voltage drop $L(di/dt)$ and resistive drop $Ri$ must equal applied source electromotive force $E(t)$. This models a linear first-order DE in transient current $i(t)$:</p>
-                                <p class="text-[#10b981] font-mono mt-1 bg-[#050512] p-1.5 rounded text-center text-[10.5px]">
-                                    $$L \frac{di}{dt} + R i = E(t) \implies \frac{di}{dt} + \frac{R}{L} i = \frac{E(t)}{L}$$
-                                </p>
-                                <p class="text-slate-400"><b>R-C Series Circuit:</b> Modeled in terms of capacitor charge accumulation $q(t)$:</p>
-                                <p class="text-[#10b981] font-mono mt-1 bg-[#050512] p-1.5 rounded text-center text-[10.5px]">
-                                    $$R \frac{dq}{dt} + \frac{q}{C} = E(t) \implies \frac{dq}{dt} + \frac{1}{RC} q = \frac{E(t)}{R}$$
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- 3. HIGH-YIELD FORMULA SHEET -->
-                    <section id="formulas" class="glass-card p-8 scroll-mt-24 bg-gradient-to-br from-slate-900 to-blue-950/40 border border-blue-900/20">
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight mb-6 flex items-center gap-2">
-                            <span>⚡</span> 3. High-Yield Formula Sheet &amp; Memory Aids
-                        </h2>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
-                            
-                            <!-- Formula 1 -->
-                            <div class="p-4 bg-slate-950/90 rounded-xl border border-slate-800 space-y-2">
-                                <h4 class="text-blue-400 font-extrabold uppercase">1. Linear DE Solution ($dy/dx + Py = Q$)</h4>
-                                <div class="p-2 bg-slate-900 text-cyan-400 text-center rounded text-[11px] font-bold">
-                                    $$I.F. = e^{\int P(x) dx}$$
-                                    $$y \cdot (I.F.) = \int Q(x) \cdot (I.F.) dx + C$$
-                                </div>
-                                <p class="text-[10px] text-slate-500 font-sans">
-                                    • $P(x)$ and $Q(x)$ must be functions of $x$ (or constants) only.<br>
-                                    • Tip: Remember $\int \tan x dx = \ln(\sec x)$, giving $e^{\int \tan x dx} = \sec x$.
-                                </p>
+                            <div>
+                                <h4 class="font-bold text-slate-100">Consistency</h4>
+                                <p class="text-sm text-slate-400">Condition for a solution to exist.</p>
                             </div>
-
-                            <!-- Formula 2 -->
-                            <div class="p-4 bg-slate-950/90 rounded-xl border border-slate-800 space-y-2">
-                                <h4 class="text-blue-400 font-extrabold uppercase">2. Bernoulli Transformation</h4>
-                                <div class="p-2 bg-slate-900 text-cyan-400 text-center rounded text-[11px] font-bold">
-                                    $$\frac{dy}{dx} + Py = Q y^n \implies \frac{dv}{dx} + (1-n)Pv = (1-n)Q$$
-                                </div>
-                                <p class="text-[10px] text-slate-500 font-sans">
-                                    • Made linear using substitution: $v = y^{1-n}$.<br>
-                                    • The linear integrating factor becomes $I.F. = e^{(1-n)\int P dx}$.
-                                </p>
-                            </div>
-
-                            <!-- Formula 3 -->
-                            <div class="p-4 bg-slate-950/90 rounded-xl border border-slate-800 space-y-2">
-                                <h4 class="text-blue-400 font-extrabold uppercase">3. Exact Equation Solver</h4>
-                                <div class="p-2 bg-slate-900 text-cyan-400 text-center rounded text-[11px] font-bold">
-                                    $$\int_{(y=\text{const})} M dx + \int_{\text{(terms free from } x\text{)}} N dy = C$$
-                                </div>
-                                <p class="text-[10px] text-slate-500 font-sans">
-                                    • Verify $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$ first.<br>
-                                    • Tip: Do NOT integrate terms of $N$ containing products of $x$, e.g., if $N = x^2 y + y^3$, only integrate $y^3$.
-                                </p>
-                            </div>
-
-                            <!-- Formula 4 -->
-                            <div class="p-4 bg-slate-950/90 rounded-xl border border-slate-800 space-y-2">
-                                <h4 class="text-blue-400 font-extrabold uppercase">4. Integrating Factors (Reducible Form)</h4>
-                                <div class="p-2 bg-slate-900 text-cyan-500 text-center rounded text-[10.5px] font-bold">
-                                    $$\text{If Homogeneous: } I.F. = \frac{1}{Mx+Ny}$$
-                                    $$\text{If } \frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = f(x) \implies I.F. = e^{\int f(x)dx}$$
-                                    $$\text{If } \frac{1}{M}\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right) = g(y) \implies I.F. = e^{\int g(y)dy}$$
-                                </div>
-                                <p class="text-[10px] text-slate-500 font-sans">
-                                    • Apply sequentially: check Homogeneity, then try function of $x$, then function of $y$.
-                                </p>
-                            </div>
-
-                            <!-- Formula 5 -->
-                            <div class="p-4 bg-slate-950/90 rounded-xl border border-slate-800 space-y-2">
-                                <h4 class="text-blue-400 font-extrabold uppercase">5. Newton's Cooling Formulation</h4>
-                                <div class="p-2 bg-slate-900 text-cyan-400 text-center rounded text-[11px] font-bold">
-                                    $$\ln(T - T_s) = -k t + \ln(T_0 - T_s)$$
-                                    $$k = \frac{1}{t} \ln\left(\frac{T_0 - T_s}{T_t - T_s}\right)$$
-                                </div>
-                                <p class="text-[10px] text-slate-500 font-sans">
-                                    • $T_0$: Initial body temperature (at $t = 0$).<br>
-                                    • $T_s$: Surrounding room temperature constant.<br>
-                                    • $T_t$: Body temperature at time $t$.
-                                </p>
-                            </div>
-
-                            <!-- Formula 6 -->
-                            <div class="p-4 bg-[#020206] rounded-xl border border-dashed border-blue-500/25 space-y-2 flex flex-col justify-between">
-                                <h4 class="text-blue-400 font-extrabold font-sans">Mnemonic: Integrating Factors</h4>
-                                <div class="p-2 bg-slate-900 text-blue-400 text-center rounded text-xs font-bold font-sans">
-                                    <b>"My Minus Nx divides through N!"</b>
-                                </div>
-                                <p class="text-[10.5px] text-slate-400 font-sans leading-relaxed">
-                                    Think of Rule 3: The numerator is always $\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}$ ("My minus Nx"). If we divide by $N$, we get a function of $x$ (so it matches $N$ having $x$ columns). If we divide by $-M$, we get a function of $y$!
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- 4. IMPORTANT DERIVATIONS -->
-                    <section id="derivations" class="glass-card p-8 scroll-mt-24 space-y-12">
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight border-b border-slate-800 pb-3 flex items-center gap-2">
-                            <span>📝</span> 4. Step-by-Step Academically Valid Derivations
-                        </h2>
-
-                        <!-- Derivation 1 -->
-                        <div class="p-6 bg-slate-950/70 border border-slate-900 rounded-2xl space-y-4">
-                            <span class="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-900/20 text-[9px] font-black rounded uppercase">JNTUK 10 Marks Derivation 01</span>
-                            <h3 class="text-base font-black text-white">How Integrating Factor (I.F.) Solves Linear First-Order Equations</h3>
-                            <p class="text-xs text-slate-400">Step-by-step rigorous development of why multiplying by $e^{\int P dx}$ resolves the linear derivative form into a standard product-rule differential.</p>
-                            
-                            <div class="text-xs text-slate-300 space-y-3 font-medium leading-relaxed font-sans">
-                                <p><b>Step 1: Write down the standard form</b><br>
-                                We are given the linear differential equation representation:<br>
-                                $$\frac{dy}{dx} + P(x) y = Q(x) \quad \text{--- (Eq. A)}$$</p>
-                                
-                                <p><b>Step 2: Introduce an unknown multiplier function $\mu(x)$</b><br>
-                                Multiply Eq. A on both sides by $\mu(x)$ hoping to form the derivative of a product on the left-hand side:<br>
-                                $$\mu(x) \frac{dy}{dx} + \mu(x) P(x) y = \mu(x) Q(x) \quad \text{--- (Eq. B)}$$</p>
-
-                                <p><b>Step 3: Force the LHS to match Product Rule derivative of $(\mu(x) \cdot y)$</b><br>
-                                We know that $\frac{d}{dx}[\mu(x) \cdot y] = \mu(x)\frac{dy}{dx} + y\frac{d\mu}{dx}$. Comparing this to Eq. B, we require:<br>
-                                $$y \frac{d\mu}{dx} = \mu(x) P(x) y \implies \frac{d\mu}{dx} = \mu(x) P(x)$$</p>
-
-                                <p><b>Step 4: Solve for $\mu(x)$ using Separation of Variables</b><br>
-                                Division by $\mu(x)$ and integration of both sides with respect to $x$ yields:<br>
-                                $$\int \frac{1}{\mu} d\mu = \int P(x) dx \implies \ln(\mu) = \int P(x) dx$$<br>
-                                Exponentiating both sides results in our definition of the Integrating Factor ($I.F.$):<br>
-                                <span class="text-blue-400 font-bold font-mono">$$\mu(x) = e^{\int P(x) dx}$$</span></p>
-
-                                <p><b>Step 5: Write the generalized complete solution</b><br>
-                                Once multiplied, Equation B can represent:<br>
-                                $$\frac{d}{dx}[y \cdot (I.F.)] = Q(x) \cdot (I.F.)$$<br>
-                                Simple integration of both sides with respect to $x$ delivers the final boxed answer structure:<br>
-                                <span class="text-[#10b981] font-mono font-bold text-center block bg-[#03030b] p-3 rounded-lg border border-dashed border-blue-900">
-                                    $$y \cdot (I.F.) = \int Q(x) \cdot (I.F.) dx + C$$
-                                </span></p>
-                            </div>
-                        </div>
-
-                        <!-- Derivation 2 -->
-                        <div class="p-6 bg-slate-950/70 border border-slate-900 rounded-2xl space-y-4">
-                            <span class="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-900/20 text-[9px] font-black rounded uppercase">JNTUK 8 Marks Derivation 02</span>
-                            <h3 class="text-base font-black text-white">Necessary and Sufficient Condition for Exactness ($Mdx + Ndy = 0$)</h3>
-                            <p class="text-xs text-slate-400">Proof that the partial derivatives matching $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$ is the sole mathematical requirement for exact differential solutions.</p>
-                            
-                            <div class="text-xs text-slate-300 space-y-3 font-medium leading-relaxed font-sans">
-                                <p><b>Part I: Proving Necessity (If the equation is exact, then partial derivatives are equal)</b><br>
-                                Suppose $Mdx + Ndy = 0$ is exact. This implies there exists a continuous function $u(x,y)$ such that:<br>
-                                $$du = M dx + N dy \quad \text{--- (Eq. C)}$$<br>
-                                But the definition of the mathematical total differential of $u(x,y)$ is:<br>
-                                $$du = \frac{\partial u}{\partial x} dx + \frac{\partial u}{\partial y} dy \quad \text{--- (Eq. D)}$$<br>
-                                Comparing the coefficients of $dx$ and $dy$ in Eq. C and Eq. D, we must have:<br>
-                                $$M = \frac{\partial u}{\partial x} \quad \text{and} \quad N = \frac{\partial u}{\partial y}$$</p>
-
-                                <p><b>Differentiate $M$ with respect to $y$, and $N$ with respect to $x$:</b><br>
-                                $$\frac{\partial M}{\partial y} = \frac{\partial^2 u}{\partial y \partial x} \quad \text{and} \quad \frac{\partial N}{\partial x} = \frac{\partial^2 u}{\partial x \partial y}$$</p>
-
-                                <p>By Clairaut's theorem on mixed partial derivatives, since $u$ and its partial indices are continuous:<br>
-                                $$\frac{\partial^2 u}{\partial y \partial x} = \frac{\partial^2 u}{\partial x \partial y} \implies \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$$<br>
-                                This completes the proof of **necessity**.</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- 5. SOLVED NUMERICAL LAB -->
-                    <section id="numericals" class="glass-card p-8 scroll-mt-24 space-y-8">
-                        <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
-                            <h2 class="text-xl font-black text-white uppercase tracking-tight">
-                                🧮 5. Worked JNTUK Numerical Lab
-                            </h2>
-                            <span class="text-xs font-mono text-blue-400">Step-by-step math solver models</span>
-                        </div>
-
-                        <!-- Numerical 1 -->
-                        <div class="p-5 bg-[#050510] border border-blue-900/20 rounded-xl space-y-3 font-sans">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-blue-500/10 text-blue-400 border border-blue-900/30 font-black px-2 py-0.5 rounded text-[9px] uppercase">Problem 1: Linear</span>
-                                <span class="text-xs text-slate-500 font-bold">10 Marks High-Probability Model</span>
-                            </div>
-                            <h4 class="text-xs sm:text-sm font-black text-white font-mono">Solve: $$(1+x^2)\frac{dy}{dx} + 2xy = \cos x$$</h4>
-                            <div class="text-xs text-slate-400 space-y-2 leading-relaxed">
-                                <p><b>Solution:</b><br>
-                                <b>Step 1: Convert to Standard Linear Form</b> by dividing both sides through by $(1+x^2)$:<br>
-                                $$\frac{dy}{dx} + \left( \frac{2x}{1+x^2} \right) y = \frac{\cos x}{1+x^2}$$<br>
-                                This matches the standard form $\frac{dy}{dx} + P y = Q$, where:<br>
-                                $$P(x) = \frac{2x}{1+x^2} \quad \text{and} \quad Q(x) = \frac{\cos x}{1+x^2}$$</p>
-
-                                <p><b>Step 2: Calculate the Integrating Factor (I.F.)</b><br>
-                                $$\int P dx = \int \frac{2x}{1+x^2} dx = \ln(1+x^2)$$<br>
-                                Therefore: $$I.F. = e^{\int P dx} = e^{\ln(1+x^2)} = 1+x^2$$</p>
-
-                                <p><b>Step 3: Write down and integrate General Solution</b><br>
-                                $$y \cdot (I.F.) = \int Q(x) \cdot (I.F.) dx + C$$<br>
-                                Substituting our values:<br>
-                                $$y \cdot (1+x^2) = \int \left(\frac{\cos x}{1+x^2}\right) \cdot (1+x^2) dx + C$$<br>
-                                $$y \cdot (1+x^2) = \int \cos x dx + C$$<br>
-                                <span class="text-blue-400 font-mono font-bold">$$y \cdot (1+x^2) = \sin x + C \implies y = \frac{\sin x + C}{1+x^2}$$</span></p>
-                            </div>
-                        </div>
-
-                        <!-- Numerical 2 -->
-                        <div class="p-5 bg-[#050510] border border-blue-900/20 rounded-xl space-y-3 font-sans">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-blue-500/10 text-blue-400 border border-blue-900/30 font-black px-2 py-0.5 rounded text-[9px] uppercase">Problem 2: Bernoulli</span>
-                                <span class="text-xs text-slate-500 font-bold">10 Marks Model</span>
-                            </div>
-                            <h4 class="text-xs sm:text-sm font-black text-white font-mono">Solve: $$\frac{dy}{dx} + y \tan x = y^3 \sec x$$</h4>
-                            <div class="text-xs text-slate-400 space-y-2 leading-relaxed">
-                                <p><b>Solution:</b><br>
-                                This equation matches the Bernoulli form $\frac{dy}{dx} + Py = Q y^n$ with $n = 3$.<br>
-                                <b>Step 1: Divide through by $y^3$</b><br>
-                                $$y^{-3} \frac{dy}{dx} + y^{-2} \tan x = \sec x \quad \text{--- (Eq. 1)}$$</p>
-
-                                <p><b>Step 2: Substitute $v = y^{1-n} = y^{-2}$</b><br>
-                                Differentiating both sides with respect to $x$:<br>
-                                $$\frac{dv}{dx} = -2 y^{-3} \frac{dy}{dx} \implies y^{-3} \frac{dy}{dx} = -\frac{1}{2} \frac{dv}{dx}$$</p>
-
-                                <p><b>Step 3: Convert Eq. 1 with substitutes</b><br>
-                                $$-\frac{1}{2} \frac{dv}{dx} + v \tan x = \sec x \implies \frac{dv}{dx} - 2v \tan x = -2 \sec x$$<br>
-                                This is now linear in $v$ with $P = -2\tan x$ and $Q = -2\sec x$.</p>
-
-                                <p><b>Step 4: Compute Integrating Factor (I.F.)</b><br>
-                                $$\int P dx = -2 \int \tan x dx = -2 \ln(\sec x) = \ln(\sec^{-2} x) = \ln(\cos^2 x)$$<br>
-                                $$I.F. = e^{\ln(\cos^2 x)} = \cos^2 x$$</p>
-
-                                <p><b>Step 5: General Solution</b><br>
-                                $$v \cdot I.F. = \int Q \cdot I.F. dx + C$$<br>
-                                $$v \cos^2 x = \int (-2 \sec x) \cos^2 x dx + C = -2 \int \cos x dx + C = -2\sin x + C$$<br>
-                                Replace $v = y^{-2}$:<br>
-                                <span class="text-blue-400 font-mono font-bold">$$\frac{1}{y^2} \cos^2 x = -2\sin x + C$$</span></p>
-                            </div>
-                        </div>
-
-                        <!-- Numerical 3 -->
-                        <div class="p-5 bg-[#050510] border border-blue-900/20 rounded-xl space-y-3 font-sans">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-blue-500/10 text-blue-400 border border-blue-900/30 font-black px-2 py-0.5 rounded text-[9px] uppercase">Problem 3: Reducible to Exact</span>
-                                <span class="text-xs text-slate-500 font-bold">10 Marks Model</span>
-                            </div>
-                            <h4 class="text-xs sm:text-sm font-black text-white font-mono">Solve: $$(x y^2 + 2x^2 y^3) dx + (x^2 y - x^3 y^2) dy = 0$$</h4>
-                            <div class="text-xs text-slate-400 space-y-2 leading-relaxed">
-                                <p><b>Solution:</b><br>
-                                Here $M = xy^2 + 2x^2y^3$, so $\frac{\partial M}{\partial y} = 2xy + 6x^2y^2$.<br>
-                                And $N = x^2y - x^3y^2$, so $\frac{\partial N}{\partial x} = 2xy - 3x^2y^2$.<br>
-                                Since $\frac{\partial M}{\partial y} \neq \frac{\partial N}{\partial x}$, the equation is **not exact**.</p>
-
-                                <p>Let's check if we can write $M = y(xy + 2x^2y^2)$ and $N = x(xy - x^2y^2)$. This fits the form $y f(xy)dx + x g(xy)dy = 0$.<br>
-                                Thus our Integrating Factor Rule 2 applies: $I.F. = \frac{1}{Mx - Ny}$.<br>
-                                Let's calculate the denominator:<br>
-                                $$Mx - Ny = x(xy^2 + 2x^2y^3) - y(x^2y - x^3y^2) = (x^2y^2 + 2x^3y^3) - (x^2y^2 - x^3y^3) = 3x^3y^3$$<br>
-                                So $I.F. = \frac{1}{3x^3y^3}$ (we can drop the factor $3$ and use $I.F. = \frac{1}{x^3y^3}$).</p>
-
-                                <p><b>Multiply the original equation by $\frac{1}{x^3y^3}$:</b><br>
-                                $$\left( \frac{xy^2}{x^3y^3} + \frac{2x^2y^3}{x^3y^3} \right) dx + \left( \frac{x^2y}{x^3y^3} - \frac{x^3y^2}{x^3y^3} \right) dy = 0$$<br>
-                                $$\left( \frac{1}{x^2 y} + \frac{2}{x} \right) dx + \left( \frac{1}{x y^2} - \frac{1}{y} \right) dy = 0$$<br>
-                                Let's verify new exactness: $M' = \frac{1}{x^2y} + \frac{2}{x} \implies \frac{\partial M'}{\partial y} = -\frac{1}{x^2y^2}$.<br>
-                                $N' = \frac{1}{xy^2} - \frac{1}{y} \implies \frac{\partial N'}{\partial x} = -\frac{1}{x^2y^2}$. It matches! It is exact.</p>
-
-                                <p><b>Complete Integration:</b><br>
-                                $$\int M' dx = \int \left( x^{-2}y^{-1} + \frac{2}{x} \right) dx = -\frac{1}{xy} + 2\ln|x|$$<br>
-                                $$\int (\text{terms of } N' \text{ independent of } x) dy = \int -\frac{1}{y} dy = -\ln|y|$$<br>
-                                <span class="text-blue-400 font-mono font-bold">$$\text{Solution: } -\frac{1}{xy} + 2\ln|x| - \ln|y| = C$$</span></p>
-                            </div>
-                        </div>
-
-                        <!-- Numerical 4 -->
-                        <div class="p-5 bg-[#050510] border border-blue-900/20 rounded-xl space-y-3 font-sans">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-blue-500/10 text-blue-400 border border-blue-900/30 font-black px-2 py-0.5 rounded text-[9px] uppercase">Problem 4: Newton's Cooling</span>
-                                <span class="text-xs text-slate-500 font-bold">10 Marks Application Model</span>
-                            </div>
-                            <h4 class="text-xs sm:text-sm font-black text-white font-mono">Solve: A copper ball is heated to $100^\circ\text{C}$. At $t = 0$ it is placed in water maintained at $30^\circ\text{C}$. After 3 minutes, the ball's temperature is $70^\circ\text{C}$. Find its temperature at $t = 15$ minutes.</h4>
-                            <div class="text-xs text-slate-400 space-y-2 leading-relaxed">
-                                <p><b>Solution:</b><br>
-                                Here surrounding constant temp $T_s = 30^\circ\text{C}$ and initial temp $T_0 = 100^\circ\text{C}$.<br>
-                                Standard Newton equation:<br>
-                                $$T(t) = T_s + (T_0 - T_s) e^{-kt} = 30 + (100 - 30)e^{-kt} = 30 + 70e^{-kt}$$</p>
-
-                                <p><b>Step 1: Calculate the damping constant $k$ using condition at $t = 3$ min ($T = 70^\circ\text{C}$)</b><br>
-                                $$70 = 30 + 70e^{-3k} \implies 40 = 70e^{-3k} \implies e^{-3k} = \frac{4}{7} \approx 0.5714$$<br>
-                                $$-3k = \ln(0.5714) = -0.5596 \implies k \approx 0.1865 \text{ min}^{-1}$$</p>
-
-                                <p><b>Step 2: Calculate temperature at $t = 15$ min</b><br>
-                                $$e^{-15k} = (e^{-3k})^5 = (4/7)^5 \approx 0.0612$$<br>
-                                Therefore:<br>
-                                $$T(15) = 30 + 70 e^{-15k} = 30 + 70(0.0612) = 30 + 4.28 = 34.28^\circ\text{C}$$<br>
-                                <span class="text-blue-400 font-mono font-bold">$$\text{Answer: The temperature after 15 minutes is } 34.28^\circ\text{C}$$</span></p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- 6. PYQ BANK -->
-                    <section id="pyqs" class="glass-card p-8 scroll-mt-24 space-y-6">
-                        <div class="border-b border-slate-800 pb-3">
-                            <h2 class="text-xl font-black text-white uppercase tracking-tight flex items-center justify-between">
-                                <span>📂 JNTUK Board PYQ bank</span>
-                            </h2>
-                        </div>
                         
-                        <div class="space-y-4 text-xs font-sans">
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 flex flex-col md:flex-row justify-between gap-4">
-                                <div class="space-y-1">
-                                    <h4 class="font-bold text-white">Solve: $\frac{dy}{dx} - y \tan x = y^2 \sec x$</h4>
-                                    <p class="text-slate-500">Repeated 4 times in JNTUK internal and semester exams.</p>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-[9px] px-2 py-0.5 bg-rose-500/10 border border-rose-500/25 text-rose-400 rounded font-black">10 MARKS</span>
-                                    <span class="text-[9px] px-2 py-0.5 bg-blue-500/10 border border-blue-500/25 text-blue-400 rounded font-black">HIGH FREQUENCY</span>
-                                </div>
-                            </div>
+                    </div>
+                </section>
 
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 flex flex-col md:flex-row justify-between gap-4">
-                                <div class="space-y-1">
-                                    <h4 class="font-bold text-white">Solve: $(1+y^2)dx = (\tan^{-1} y - x)dy$</h4>
-                                    <p class="text-slate-500">Linear form in $dx/dy$. A classic topper trap where students attempt to solve as linear in $dy/dx$.</p>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-[9px] px-2 py-0.5 bg-rose-500/10 border border-rose-500/25 text-rose-400 rounded font-black">10 MARKS</span>
-                                    <span class="text-[9px] px-2 py-0.5 bg-blue-500/10 border border-blue-500/25 text-blue-400 rounded font-black">FREQ: 95%</span>
-                                </div>
-                            </div>
+                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Consistency</h4>
+                            <p class="font-mono text-sm mt-2">Rank(A) = Rank(A|B) ≤ n</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="text-xs font-bold text-blue-400 uppercase">Infinite Solutions</h4>
+                            <p class="font-mono text-sm mt-2">Rank(A) = Rank(A|B) &lt; n</p>
+                        </div>
+                    </div>
+                </section>
 
-                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-900 flex flex-col md:flex-row justify-between gap-4">
-                                <div class="space-y-1">
-                                    <h4 class="font-bold text-white">Kirchhoff Transient Calculation</h4>
-                                    <p class="text-slate-500">An LR circuit contains Inductance $L=5\text{ H}$ and Resistance $R=15\ \Omega$. Find current $i(t)$ when connected to a $220\text{V}$ battery.</p>
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">Rank by Normal Form <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Reduce the matrix to Normal form and find its rank.</p>
+                        </div>
+                        <div class="border-l-2 border-blue-600 pl-4">
+                            <h4 class="font-bold text-slate-100">System Consistency <span class="text-blue-500">(10 Marks)</span></h4>
+                            <p class="text-sm mt-1 text-slate-400">Test for consistency and solve: 2x - y + 3z = 8, -x + 2y + z = 4, 3x + y - 4z = 0.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
+                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-slate-100">Revision Points</h4>
+                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
+                                <li>Echelon form rules</li><li>Consistency conditions</li><li>Gauss Jordan vs Elimination</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
+                            <p class="text-sm mt-2 text-slate-400 italic">"A|B Rank must match"</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
+                            <p class="text-sm mt-2 text-slate-400">Always check rank of augmented matrix first.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50">Interactive Viva Cards</h2>
+                        <button onclick="toggleSpeakViva(this)" class="flex items-center justify-center gap-2 text-xs font-bold px-4 py-2 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-600 dark:text-blue-400 rounded-xl transition-all shadow-sm cursor-pointer select-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                            </svg>
+                            <span>Listen to Viva</span>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card 1 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Rank of a Matrix?</h4>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-[9px] px-2 py-0.5 bg-rose-500/10 border border-rose-500/25 text-rose-400 rounded font-black">8 MARKS</span>
-                                    <span class="text-[9px] px-2 py-0.5 bg-indigo-500/10 border border-indigo-500/25 text-indigo-400 rounded font-black">SYSTEM APPS</span>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Number of non-zero rows in its row echelon form.</p>
                                 </div>
                             </div>
                         </div>
-                    </section>
-
-                    <!-- 7. EXPECTED & PREDICTIONS -->
-                    <section id="predictions" class="glass-card p-8 bg-blue-950/20 border border-blue-900/30">
-                        <div class="flex items-center gap-3">
-                            <span class="text-3xl">🎯</span>
-                            <div>
-                                <h3 class="text-base font-black text-white uppercase">98% Probability Board Predictions</h3>
-                                <p class="text-xs text-slate-400">JNTUK R23 Question Paper Prediction Engine Insights</p>
-                            </div>
-                        </div>
-                        <ul class="mt-4 text-xs text-slate-300 space-y-2 list-disc pl-5 font-sans leading-relaxed">
-                            <li><b>The Linear-vs-exact swap:</b> At least one equation of the exact reducible model will carry trig factors (e.g. $y(x^2y^2+2)dx + x(2-2x^2y^2)dy=0$ or homogeneous cases with logarithmic fractions).</li>
-                            <li><b>Newton Cool Heat Schedule:</b> Expect a problem where they don't explicitly give you $T(0)$ but state words like 'boiling point' ($100^\circ\text{C}$) or 'ice melting point' ($0^\circ\text{C}$).</li>
-                            <li><b>Warning:</b> Make sure you specify integrating limits and evaluate constants properly. Leaving constant "$C$" without substituting initial conditions loses 3 crucial marks!</li>
-                        </ul>
-                    </section>
-
-                    <!-- 8. FLAPPABLE VIVA CARDS -->
-                    <section id="viva" class="glass-card p-8 scroll-mt-24 space-y-6">
-                        <div class="border-b border-slate-800 pb-3">
-                            <h2 class="text-xl font-black text-white uppercase tracking-tight">🧪 Unit I Concept Viva Cards</h2>
-                            <p class="text-xs text-slate-400 mt-1">Tap/click any card to flip and verify examiner oral answers instantly.</p>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
-                            <!-- Card 1 -->
-                            <div onclick="flipCard(this)" class="min-h-40 relative select-none cursor-pointer group">
-                                <div class="viva-card-inner absolute inset-0 w-full h-full duration-500" style="perspective: 1000px;">
-                                    <div class="viva-card-front absolute inset-0 w-full h-full bg-[#050512] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                        <h4 class="text-xs text-slate-300 font-bold leading-relaxed">Q1. What is the fundamental difference between standard Linear and Bernoulli's ODEs?</h4>
-                                        <span class="text-[8px] uppercase tracking-widest text-blue-400 font-black">Tap to flip answer 🔄</span>
-                                    </div>
-                                    <div class="viva-card-back absolute inset-0 w-full h-full bg-blue-950/20 border border-blue-800/40 rounded-2xl p-5 flex flex-col justify-between hidden" style="transform: rotateY(180deg);">
-                                        <p class="text-[11px] text-slate-300">Linear DE has power $1$ on $y$ and $dy/dx$, and they are never multiplied. Bernoulli's DE has a factor $y^n$ multiplying the right hand function $Q(x)$, which breaks linearity.</p>
-                                        <span class="text-[8.5px] uppercase tracking-widest text-[#f59e0b] font-black">Matched Examiner Expectation ✅</span>
-                                    </div>
+                        <!-- Card 2 -->
+                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
+                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
+                                    <h4 class="text-xs font-black text-slate-100">Gauss Elimination?</h4>
                                 </div>
-                            </div>
-
-                            <!-- Card 2 -->
-                            <div onclick="flipCard(this)" class="min-h-40 relative select-none cursor-pointer group">
-                                <div class="viva-card-inner absolute inset-0 w-full h-full duration-500" style="perspective: 1000px;">
-                                    <div class="viva-card-front absolute inset-0 w-full h-full bg-[#050512] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                                        <h4 class="text-xs text-slate-300 font-bold leading-relaxed">Q2. How is a non-exact equation transformed into an exact differential equation?</h4>
-                                        <span class="text-[8px] uppercase tracking-widest text-blue-400 font-black">Tap to flip answer 🔄</span>
-                                    </div>
-                                    <div class="viva-card-back absolute inset-0 w-full h-full bg-blue-950/20 border border-blue-800/40 rounded-2xl p-5 flex flex-col justify-between hidden" style="transform: rotateY(180deg);">
-                                        <p class="text-[11px] text-slate-300">By multiplying the entire equation by a scale factor called the Integrating Factor (I.F.), which satisfies the condition $\partial(M \cdot I.F.)/\partial y = \partial(N \cdot I.F.)/\partial x$.</p>
-                                        <span class="text-[8.5px] uppercase tracking-widest text-[#f59e0b] font-black">Matched Examiner Expectation ✅</span>
-                                    </div>
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-[10.5px] text-slate-300">Reducing a system to upper triangular form to solve via back substitution.</p>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                </section>
 
-                    <!-- 9. MNEMONICS & TRICKS -->
-                    <section id="shortcuts" class="glass-card p-6 border-l-4 border-blue-500 bg-slate-900/10">
-                        <h4 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest">Topper Shortcuts: Integrating Factor Checks</h4>
-                        <div class="mt-2 text-xs text-slate-400 space-y-1 leading-relaxed">
-                            <p><b>Always evaluate coordinates before integrating:</b></p>
-                            <p>• Homogeneous equations mean the sum of powers of variables in every term is identical. Keep eyes on exponents!</p>
-                            <p>• If $M = y e^x y \cos y$, homogeneous checks yield false. Instantly proceed to rule 3 or rule 4.</p>
+                <section id="unit-quiz-wrapper" class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden">
+                    <div id="unit-quiz-mount">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50 italic uppercase">Interactive Practice <span class="text-blue-500">Unit Quiz</span></h3>
+                            <span class="text-[9px] font-black font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded">UNIT TEST</span>
                         </div>
-                    </section>
-
-                    <!-- 10. EXAM NIGHT SURVIVAL PLAYBOOK -->
-                    <section id="revision" class="p-8 bg-[#050510] border border-red-950/40 rounded-3xl space-y-4">
-                        <div class="flex items-center gap-2">
-                            <span class="text-rose-500">⚠️</span>
-                            <h3 class="text-sm font-black text-rose-400 uppercase">1-Day / 3-Hour Exam Night survival playbook</h3>
-                        </div>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            If you are studying with only hours left before entering the examinations:
-                        </p>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-[11px] text-slate-300">
-                            <div class="p-3 bg-rose-950/15 border border-rose-900/15 rounded-xl">
-                                <h5 class="text-rose-400 font-extrabold">HOUR 1</h5>
-                                <p class="text-slate-400 mt-1">Master Integrating Factors. Rule 3 and 4 equations occur in 90% of exam sets. Memorize their respective quotients.</p>
-                            </div>
-                            <div class="p-3 bg-rose-950/15 border border-rose-900/15 rounded-xl">
-                                <h5 class="text-rose-400 font-extrabold">HOUR 2</h5>
-                                <p class="text-slate-400 mt-1">Practice Newton's Law of Cooling cooling schedule values. Be confident with algebraic log conversions.</p>
-                            </div>
-                            <div class="p-3 bg-teal-950/15 border border-teal-900/15 rounded-xl">
-                                <h5 class="text-teal-400 font-extrabold">FINAL HOUR</h5>
-                                <p class="text-slate-400 mt-1">Memorize the exactness proof $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$ layout. Examiners love checking this exact text!</p>
-                            </div>
-                        </div>
-                    </section>
-
-                </div>
+                        <p class="text-sm text-slate-400 mb-6">Test your mastery of this unit's concepts with flash feedback and explanations.</p>
+                        <button id="start-unit-quiz-btn" class="btn-primary w-full text-sm py-3.5">
+                            Start Unit Practice Quiz
+                        </button>
+                    </div>
+                </section>
             </div>
-
         </div>
-
-        <!-- TAB-2: SUBJECT PORTAL / PLANNER -->
-        <div id="tabcont-subject-dash" class="tab-pane hidden space-y-12">
-            
-            <!-- Subject Stats -->
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
-                <div class="p-6 glass-card bg-slate-900/20 text-center space-y-1 border border-slate-900">
-                    <span class="text-slate-500 font-extrabold uppercase text-[9px] tracking-widest block">Subject</span>
-                    <span class="text-xl font-bold text-white uppercase">Maths-1 (R23)</span>
-                </div>
-                <div class="p-6 glass-card bg-slate-900/20 text-center space-y-1 border border-slate-900">
-                    <span class="text-slate-500 font-extrabold uppercase text-[9px] tracking-widest block">Course Credits</span>
-                    <span class="text-xl font-bold text-emerald-400">3.0 Credits</span>
-                </div>
-                <div class="p-6 glass-card bg-slate-900/20 text-center space-y-1 border border-slate-900">
-                    <span class="text-slate-500 font-extrabold uppercase text-[9px] tracking-widest block">Syllabus Difficulty</span>
-                    <span class="text-xl font-bold text-red-500">M1: HARD 🔥</span>
-                </div>
-                <div class="p-6 glass-card bg-slate-900/20 text-center space-y-1 border border-slate-900">
-                    <span class="text-slate-500 font-extrabold uppercase text-[9px] tracking-widest block">Topper Strategy</span>
-                    <span class="text-xl font-bold text-blue-400">Step-by-step logic</span>
-                </div>
-            </div>
-
-            <!-- Bento Matrix Grid of Units -->
-            <div class="space-y-4">
-                <h3 class="text-base font-black text-white uppercase tracking-tight flex items-center gap-2">
-                    <span>🗺️</span> R23 Engineering Mathematics-I Syllabus Map &amp; Navigation
-                </h3>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-xs text-slate-400 font-sans">
-                    <!-- Unit 1 -->
-                    <div class="p-5 bg-blue-950/20 border border-blue-900/40 rounded-2xl flex flex-col justify-between h-44">
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <span class="bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded font-black text-[9px]">UNIT I</span>
-                                <span class="text-emerald-400 font-black">Weight: 14M</span>
-                            </div>
-                            <h4 class="text-sm font-bold text-white mt-2">First Order ODEs &amp; Systems</h4>
-                            <p class="text-[11px] text-slate-500 mt-1 lines-clamp-2">Linear, Bernoulli's, Exact, Reducible form. Newton's cooling, growth/decay, circuits.</p>
-                        </div>
-                        <a href="#intro" onclick="switchTab('unit-hub')" class="text-blue-400 hover:underline font-extrabold uppercase tracking-wider text-[10px] mt-2 block">Active prep module &rarr;</a>
-                    </div>
-
-                    <!-- Unit 2 -->
-                    <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-2xl flex flex-col justify-between h-44">
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <span class="bg-slate-900 text-slate-400 px-2 py-0.5 rounded font-black text-[9px]">UNIT II</span>
-                                <span class="text-amber-500 font-black">Weight: 14M</span>
-                            </div>
-                            <h4 class="text-sm font-bold text-white mt-2">Higher Order Linear ODEs</h4>
-                            <p class="text-[11px] text-slate-500 mt-1 lines-clamp-2">Complementary functions, particular integral, Cauchy-Euler, variation of parameters.</p>
-                        </div>
-                        <span class="text-slate-500 font-extrabold uppercase tracking-wider text-[10px] mt-2 block">Available inside Notes Library</span>
-                    </div>
-
-                    <!-- Unit 3 -->
-                    <div class="p-5 bg-slate-950/60 border border-slate-900 rounded-2xl flex flex-col justify-between h-44">
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <span class="bg-slate-900 text-slate-400 px-2 py-0.5 rounded font-black text-[9px]">UNIT III</span>
-                                <span class="text-emerald-400 font-black">Weight: 14M</span>
-                            </div>
-                            <h4 class="text-sm font-bold text-white mt-2">Multi-Variable Calculus</h4>
-                            <p class="text-[11px] text-slate-500 mt-1 lines-clamp-2">Partial derivatives, Euler's homogeneous theorem, Taylor's series, Maxima and Minima.</p>
-                        </div>
-                        <span class="text-slate-500 font-extrabold uppercase tracking-wider text-[10px] mt-2 block">Available inside Notes Library</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Subject Strategic Planner -->
-            <div class="glass-card p-6 bg-slate-900/10 space-y-4">
-                <h4 class="text-sm font-extrabold text-blue-400 uppercase tracking-widest">EngiPrep Hub Topper Plan: scorecard blueprint</h4>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                    Mathematics-1 can seem overwhelming due to its computational breadth. Out of 5 Units in R23 B.Tech:
-                    <br><br>
-                    1. **The Core Anchor: Unit I and Unit III** (30 Marks total). Extremely systematic. Maxima/Minima and Linear/Bernoulli derivations are heavily repetitive with small changes in coefficient integers. Practice these first.
-                    <br><br>
-                    2. **The Secondary Barrier: Unit II and Unit V**. Complementary Function roots computation is direct, but Particular Integrals require careful exponential checks. Carry your scientific calculators to speed up computations!
-                </p>
-            </div>
-            
-        </div>
-
-        <!-- TAB-3: INTERACTIVE PLATFORM SANDBOX TOOLS -->
-        <div id="tabcont-sandbox-tools" class="tab-pane hidden space-y-12">
-            
-            <!-- TOOLBOX INTRO -->
-            <div class="p-6 border border-blue-900/30 bg-blue-950/10 rounded-3xl space-y-2">
-                <h3 class="text-sm font-black text-blue-400 uppercase">Premium Interactive Toolbox &amp; Laboratory</h3>
-                <p class="text-xs text-slate-400">Verify your mathematical derivations, examine transient curves, calculate your mandatory JNTUK attendance margins, or trace your expected SGPA GPA instantly.</p>
-            </div>
-
-            <!-- Interactive numerical solvers -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                
-                <!-- Coolings Simulator -->
-                <div id="calculator" class="p-6 bg-slate-950 border border-slate-900 rounded-3xl space-y-4">
-                    <span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded text-[9px] font-black uppercase tracking-wider">Newton's Cooling Simulator</span>
-                    <h4 class="text-xs font-black text-white">Input heat parameters to track physical cooling schedule</h4>
-                    
-                    <div class="space-y-3 text-xs text-slate-400">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-slate-500 mb-1">Room Environment Temp ($T_s\ {}^\circ\text{C}$)</label>
-                                <input type="number" id="cool-ts" value="30" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeCooling()">
-                            </div>
-                            <div>
-                                <label class="block text-slate-500 mb-1">Initial Temperature ($T_0\ {}^\circ\text{C}$)</label>
-                                <input type="number" id="cool-t0" value="100" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeCooling()">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-slate-500 mb-1">Temp after $t_1$ minutes ($T_1\ {}^\circ\text{C}$)</label>
-                                <input type="number" id="cool-t1" value="70" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeCooling()">
-                            </div>
-                            <div>
-                                <label class="block text-slate-500 mb-1">Passed Minutes ($t_1$ min)</label>
-                                <input type="number" id="cool-time1" value="3" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeCooling()">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-slate-500 mb-1">Target Minutes ($t_2$ min)</label>
-                            <input type="number" id="cool-time2" value="15" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeCooling()">
-                        </div>
-
-                        <div class="p-4 bg-slate-900/80 rounded-xl space-y-2 border border-slate-800">
-                            <span class="text-[9px] font-black uppercase text-blue-400 tracking-wider">Dynamic Solutions Calculations:</span>
-                            <div class="font-mono text-[11px] leading-relaxed">
-                                <div>Damping Constant $k \approx$ <span id="cool-val-k" class="text-emerald-400 font-bold">--</span> min<sup>-1</sup></div>
-                                <div>Expected Temperature after <span id="cool-val-t2" class="text-white">--</span> mins is:</div>
-                                <div class="text-base font-black text-cyan-400 font-sans mt-1"><span id="cool-val-ans">--</span> &deg;C</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Circuit Rise Simulator -->
-                <div class="p-6 bg-slate-950 border border-slate-900 rounded-3xl space-y-4">
-                    <span class="bg-[#10b981]/10 text-[#10b981] px-3 py-1 rounded text-[9px] font-black uppercase tracking-wider">R-L Circuit Transient Solver</span>
-                    <h4 class="text-xs font-black text-white">Generate L-R circuit charge curves &amp; saturation rates</h4>
-                    
-                    <div class="space-y-3 text-xs text-slate-400">
-                        <div class="grid grid-cols-3 gap-2">
-                            <div>
-                                <label class="block text-slate-500 mb-1">Resistance $R\ (\Omega)$</label>
-                                <input type="number" id="rl-r" value="10" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeCircuit()">
-                            </div>
-                            <div>
-                                <label class="block text-slate-500 mb-1">Inductance $L$ (H)</label>
-                                <input type="number" id="rl-l" value="2" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeCircuit()">
-                            </div>
-                            <div>
-                                <label class="block text-slate-500 mb-1">DC Source $V$ (Volts)</label>
-                                <input type="number" id="rl-v" value="100" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeCircuit()">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-slate-500 mb-1">Evaluate Transient Current at $t$ seconds</label>
-                            <input type="number" id="rl-t" value="0.2" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" step="0.05" oninput="computeCircuit()">
-                        </div>
-
-                        <div class="p-4 bg-slate-900/80 rounded-xl space-y-2 border border-slate-800">
-                            <span class="text-[9px] font-black uppercase text-[#10b981] tracking-wider">Dynamic circuit outputs:</span>
-                            <div class="font-mono text-[11px] leading-relaxed">
-                                <div>Time Constant $\tau = L/R \approx$ <span id="rl-val-tau" class="text-emerald-400 font-bold">--</span> sec</div>
-                                <div>Max Steady-State current $I_0 \approx$ <span id="rl-val-i0" class="text-white">--</span> Amp</div>
-                                <div>Transient current $i(t) = I_0(1 - e^{-(R/L)t})$:</div>
-                                <div class="text-base font-black text-[#10b981] font-sans mt-1"><span id="rl-val-ans">--</span> Amp</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Attendance Calculator & SGPA Calculator -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                
-                <!-- B.Tech SGPA Tracker -->
-                <div class="p-6 bg-slate-950 border border-slate-900 rounded-3xl space-y-4">
-                    <span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded text-[9px] font-black uppercase tracking-wider">SGPA Interactive Calculator</span>
-                    <h4 class="text-xs font-black text-white">Select expected course grade indexes to compute SGPA</h4>
-                    
-                    <div class="space-y-4 text-xs font-sans">
-                        <!-- Course Rows -->
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between text-[#8a99ad] text-[10px] uppercase font-bold border-b border-slate-900 pb-1">
-                                <span>Subject &amp; Credits</span>
-                                <span>Expected Letter Grade</span>
-                            </div>
-                            
-                            <!-- Course 1 -->
-                            <div class="flex items-center justify-between gap-3">
-                                <span class="font-medium text-slate-300">Engineering Mathematics-I (4 Cr)</span>
-                                <select id="sgpa-gr-m1" class="bg-[#030308] text-slate-300 border border-slate-800 rounded p-1 font-mono text-xs cursor-pointer" onchange="computeSGPA()">
-                                    <option value="10">O (10 GP)</option>
-                                    <option value="9" selected>A+ (9 GP)</option>
-                                    <option value="8">A (8 GP)</option>
-                                    <option value="7">B (7 GP)</option>
-                                    <option value="6">C (6 GP)</option>
-                                    <option value="5">D (5 GP)</option>
-                                    <option value="0">F (0 GP)</option>
-                                </select>
-                            </div>
-                            <!-- Course 2 -->
-                            <div class="flex items-center justify-between gap-3">
-                                <span class="font-medium text-slate-300">Engineering Physics (3 Cr)</span>
-                                <select id="sgpa-gr-ep" class="bg-[#030308] text-slate-300 border border-slate-800 rounded p-1 font-mono text-xs cursor-pointer" onchange="computeSGPA()">
-                                    <option value="10" selected>O (10 GP)</option>
-                                    <option value="9">A+ (9 GP)</option>
-                                    <option value="8">A (8 GP)</option>
-                                    <option value="7">B (7 GP)</option>
-                                    <option value="6">C (6 GP)</option>
-                                    <option value="5">D (5 GP)</option>
-                                    <option value="0">F (0 GP)</option>
-                                </select>
-                            </div>
-                            <!-- Course 3 -->
-                            <div class="flex items-center justify-between gap-3">
-                                <span class="font-medium text-slate-300">Basic Civil &amp; Mechanical (3 Cr)</span>
-                                <select id="sgpa-gr-bcm" class="bg-[#030308] text-slate-300 border border-slate-800 rounded p-1 font-mono text-xs cursor-pointer" onchange="computeSGPA()">
-                                    <option value="10">O (10 GP)</option>
-                                    <option value="9">A+ (9 GP)</option>
-                                    <option value="8" selected>A (8 GP)</option>
-                                    <option value="7">B (7 GP)</option>
-                                    <option value="6">C (6 GP)</option>
-                                    <option value="5">D (5 GP)</option>
-                                    <option value="0">F (0 GP)</option>
-                                </select>
-                            </div>
-                            <!-- Course 4 -->
-                            <div class="flex items-center justify-between gap-3">
-                                <span class="font-medium text-slate-300">Communicative English (3 Cr)</span>
-                                <select id="sgpa-gr-ce" class="bg-[#030308] text-slate-300 border border-slate-800 rounded p-1 font-mono text-xs cursor-pointer" onchange="computeSGPA()">
-                                    <option value="10">O (10 GP)</option>
-                                    <option value="9">A+ (9 GP)</option>
-                                    <option value="8">A (8 GP)</option>
-                                    <option value="7" selected>B (7 GP)</option>
-                                    <option value="6">C (6 GP)</option>
-                                    <option value="5">D (5 GP)</option>
-                                    <option value="0">F (0 GP)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="p-4 bg-slate-900 rounded-xl flex items-center justify-between border border-slate-800">
-                            <div>
-                                <span class="text-[9.5px] uppercase font-bold text-slate-500 block">Predicted SGPA:</span>
-                                <span class="text-sm text-slate-400">Scale of 10.00</span>
-                            </div>
-                            <span id="sgpa-val-ans" class="text-2xl font-black text-cyan-400">--</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- JNTUK Safe Margin Attendance Calculator -->
-                <div class="p-6 bg-slate-950 border border-slate-900 rounded-3xl space-y-4">
-                    <span class="bg-amber-500/10 text-amber-500 px-3 py-1 rounded text-[9px] font-black uppercase tracking-wider">JNTUK Attendance Safeguard</span>
-                    <h4 class="text-xs font-black text-white">Find if you satisfy JNTUK's mandatory 75% attendance threshold</h4>
-                    
-                    <div class="space-y-4 text-xs font-sans">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-slate-500 mb-1">Total Classes Attended</label>
-                                <input type="number" id="att-con" value="48" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeAttendance()">
-                            </div>
-                            <div>
-                                <label class="block text-slate-500 mb-1">Total Classes Conducted</label>
-                                <input type="number" id="att-tot" value="60" class="w-full bg-[#030308] border border-slate-800 rounded-lg p-2 text-white font-mono" oninput="computeAttendance()">
-                            </div>
-                        </div>
-
-                        <div class="p-4 bg-slate-900 rounded-xl space-y-2 border border-slate-800 text-[11.5px] font-mono leading-relaxed">
-                            <div class="flex justify-between items-center">
-                                <span>Current Attendance Percentage:</span>
-                                <span id="att-val-pct" class="font-bold">--%</span>
-                            </div>
-                            <div class="flex justify-between items-center text-xs mt-1">
-                                <span>Classroom Status:</span>
-                                <span id="att-val-status" class="px-2 py-0.5 rounded font-black">--</span>
-                            </div>
-                            <div id="att-val-advice" class="text-slate-500 text-[10.5px] font-sans mt-2 italic leading-tight">
-                                Evaluate coefficients to determine margin status.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    
-            <!-- Gamification & Progress Marker -->
-            <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
-                <button class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 mx-auto complete-topic-btn">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                    Mark as Complete <span class="bg-emerald-700/50 px-2 py-0.5 rounded text-xs ml-2">+10 XP</span>
-                </button>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-4 font-bold max-w-sm mx-auto">Login via Dashboard to save your progress, secure your streak, and unlock AI features.</p>
-            </div>
-\n
-            <!-- Internal Links Section for SEO -->
-            <section class="related-links-section mt-12 py-8 border-t border-slate-200 dark:border-slate-800">
-                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4">Related Study Material</h3>
-                <div class="flex flex-wrap gap-4">
-                    <a href="/unit-1-c-fundamentals.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">PPS Checklists</a><a href="/maths-1.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Mathematics Notes</a><a href="/pyqs.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">PYQs Predictor</a>
-                </div>
-            </section>
-            
-</main>
-
-    <!-- Interactive script triggers -->
+    </main>
     <script>
-        // Tab routing helper
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
-            document.getElementById('tabcont-' + tabId).classList.remove('hidden');
-            
-            // Highlight toggles
-            const buttons = ['unit-hub', 'subject-dash', 'sandbox-tools'];
-            buttons.forEach(b => {
-                const btn = document.getElementById('btn-tab-' + b);
-                if (b === tabId) {
-                    btn.classList.add('border-blue-500', 'text-blue-400');
-                    btn.classList.remove('border-transparent', 'text-slate-400');
-                } else {
-                    btn.classList.add('border-transparent', 'text-slate-400');
-                    btn.classList.remove('border-blue-500', 'text-blue-400');
-                }
-            });
-        }
-
-        // Flappable Cards
-        function flipCard(card) {
+        function flipVivaCard(card) {
             const inner = card.querySelector('.viva-card-inner');
-            const front = card.querySelector('.viva-card-front');
-            const back = card.querySelector('.viva-card-back');
-            
-            if (inner.classList.contains('viva-card-flipped')) {
-                inner.classList.remove('viva-card-flipped');
-                setTimeout(() => {
-                    back.classList.add('hidden');
-                    front.classList.remove('hidden');
-                }, 150);
+            if (inner.style.transform === 'rotateY(180deg)') {
+                inner.style.transform = 'rotateY(0deg)';
             } else {
-                inner.classList.add('viva-card-flipped');
-                setTimeout(() => {
-                    front.classList.add('hidden');
-                    back.classList.remove('hidden');
-                }, 150);
+                inner.style.transform = 'rotateY(180deg)';
             }
         }
 
-        // Checklists tracking engine
-        function toggleTask(id, stepVal) {
-            const isChecked = document.getElementById('chk-' + id).checked;
-            localStorage.setItem('engiprep_m1_u1_' + id, isChecked ? 'true' : 'false');
-            loadInternalTracker();
-        }
+        let currentUtterance = null;
+        let currentBtn = null;
 
-        function loadInternalTracker() {
-            const keys = ['u1-1', 'u1-2', 'u1-3', 'u1-4', 'u1-5', 'u1-6'];
-            let checkedCount = 0;
-            
-            keys.forEach(k => {
-                const isSaved = localStorage.getItem('engiprep_m1_u1_' + k) === 'true';
-                const el = document.getElementById('chk-' + k);
-                if (el) {
-                    el.checked = isSaved;
+        function toggleSpeakViva(btn, isNotesPage = false) {
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                    resetSpeechState();
+                    return;
                 }
-                if (isSaved) checkedCount++;
-            });
 
-            const pct = Math.round((checkedCount / keys.length) * 100);
-            document.getElementById('pct-indicator').innerText = pct + '%';
-            document.getElementById('pb-indicator').style.width = pct + '%';
+                let textToRead = [];
+                if (isNotesPage) {
+                    const frontPs = document.querySelectorAll('.backface-hidden p.font-bold');
+                    const backPs = document.querySelectorAll('.backface-hidden p.text-sm, .backface-hidden p.text-slate-300');
+                    for (let i = 0; i < frontPs.length; i++) {
+                        const q = frontPs[i]?.innerText || '';
+                        const a = backPs[i]?.innerText || '';
+                        if (q && a) {
+                            textToRead.push({ q, a });
+                        }
+                    }
+                } else {
+                    const fronts = document.querySelectorAll('.viva-card-front h4');
+                    const backs = document.querySelectorAll('.viva-card-back p');
+                    for (let i = 0; i < fronts.length; i++) {
+                        const q = fronts[i]?.innerText || '';
+                        const a = backs[i]?.innerText || '';
+                        if (q && a) {
+                            textToRead.push({ q, a });
+                        }
+                    }
+                }
 
-            // Determine XP level rank
-            const statusPortal = document.getElementById('tracker-status');
-            const rankBadge = document.getElementById('rank-badge');
+                if (textToRead.length === 0) return;
 
-            if (pct === 0) {
-                statusPortal.innerText = 'NOT STARTED';
-                statusPortal.className = 'text-[10px] font-black text-[#f59e0b] bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/25';
-                rankBadge.innerText = 'Rank: Math Noob 🏹';
-            } else if (pct < 100) {
-                statusPortal.innerText = 'IN PROGRESS';
-                statusPortal.className = 'text-[10px] font-black text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/25';
-                rankBadge.innerText = 'Rank: Equation Slayer ⚔️';
+                currentBtn = btn;
+                btn.innerHTML = `
+                    <svg class="h-3.5 w-3.5 text-red-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                    </svg>
+                    <span>Stop Speaking</span>
+                `;
+                btn.classList.add('bg-red-500/10', 'border-red-500/35', 'text-red-500', 'hover:bg-red-500/20');
+
+                let currentIndex = 0;
+                
+                function readNext() {
+                    if (currentIndex >= textToRead.length) {
+                        resetSpeechState();
+                        return;
+                    }
+
+                    const item = textToRead[currentIndex];
+                    const fullText = "Question " + (currentIndex + 1) + ": " + item.q + ". Answer: " + item.a;
+                    
+                    const utterance = new SpeechSynthesisUtterance(fullText);
+                    const voices = window.speechSynthesis.getVoices();
+                    const englishVoice = voices.find(voice => voice.lang.startsWith('en'));
+                    if (englishVoice) {
+                        utterance.voice = englishVoice;
+                    }
+                    utterance.rate = 0.95;
+                    utterance.pitch = 1.0;
+
+                    utterance.onend = () => {
+                        currentIndex++;
+                        readNext();
+                    };
+
+                    utterance.onerror = (e) => {
+                        console.error('Speech synthesis error:', e);
+                        resetSpeechState();
+                    };
+
+                    currentUtterance = utterance;
+                    window.speechSynthesis.speak(utterance);
+                }
+
+                readNext();
             } else {
-                statusPortal.innerText = 'COMPLETED';
-                statusPortal.className = 'text-[10px] font-black text-[#10b981] bg-[#10b981]/10 px-2 py-0.5 rounded border border-[#10b981]/25';
-                rankBadge.innerText = 'Rank: Calculus God 👑';
+                alert('Your browser does not support the Speech Synthesis API.');
             }
         }
 
-        function resetInternalTracker() {
-            const keys = ['u1-1', 'u1-2', 'u1-3', 'u1-4', 'u1-5', 'u1-6'];
-            keys.forEach(k => {
-                localStorage.setItem('engiprep_m1_u1_' + k, 'false');
-            });
-            loadInternalTracker();
-        }
-
-        // Coolings calculator computations
-        function computeCooling() {
-            const Ts = parseFloat(document.getElementById('cool-ts').value);
-            const T0 = parseFloat(document.getElementById('cool-t0').value);
-            const T1 = parseFloat(document.getElementById('cool-t1').value);
-            const t1 = parseFloat(document.getElementById('cool-time1').value);
-            const t2 = parseFloat(document.getElementById('cool-time2').value);
-
-            if (isNaN(Ts) || isNaN(T0) || isNaN(T1) || isNaN(t1) || isNaN(t2)) return;
-
-            // Form: T1 = Ts + (T0 - Ts)*e^(-k*t1)
-            // e^(-kt1) = (T1 - Ts)/(T0 - Ts)
-            // -k*t1 = ln((T1 - Ts)/(T0 - Ts))
-            if (T1 <= Ts || T0 <= Ts) {
-                document.getElementById('cool-val-ans').innerText = "NaN (Invalid Boundary)";
-                return;
+        function resetSpeechState() {
+            if (currentBtn) {
+                currentBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                    </svg>
+                    <span>Listen to Viva</span>
+                `;
+                currentBtn.classList.remove('bg-red-500/10', 'border-red-500/35', 'text-red-500', 'hover:bg-red-500/20');
             }
-
-            const scale = (T1 - Ts) / (T0 - Ts);
-            if (scale <= 0) return;
-            const k = -Math.log(scale) / t1;
-
-            document.getElementById('cool-val-k').innerText = k.toFixed(4);
-            document.getElementById('cool-val-t2').innerText = t2.toFixed(1);
-
-            const ans = Ts + (T0 - Ts) * Math.exp(-k * t2);
-            document.getElementById('cool-val-ans').innerText = ans.toFixed(2);
+            currentUtterance = null;
+            currentBtn = null;
         }
 
-        // Circuit Rise transient calculations
-        function computeCircuit() {
-            const R = parseFloat(document.getElementById('rl-r').value);
-            const L = parseFloat(document.getElementById('rl-l').value);
-            const V = parseFloat(document.getElementById('rl-v').value);
-            const t = parseFloat(document.getElementById('rl-t').value);
-
-            if (isNaN(R) || isNaN(L) || isNaN(V) || isNaN(t) || R <= 0 || L <= 0) return;
-
-            const tau = L / R;
-            const i0 = V / R;
-            const ans = i0 * (1 - Math.exp(-t / tau));
-
-            document.getElementById('rl-val-tau').innerText = tau.toFixed(4);
-            document.getElementById('rl-val-i0').innerText = i0.toFixed(2);
-            document.getElementById('rl-val-ans').innerText = ans.toFixed(4);
-        }
-
-        // Attendance Safeguards
-        function computeAttendance() {
-            const con = parseFloat(document.getElementById('att-con').value);
-            const tot = parseFloat(document.getElementById('att-tot').value);
-
-            if (isNaN(con) || isNaN(tot) || tot <= 0 || con > tot) return;
-
-            const pct = (con / tot) * 100;
-            document.getElementById('att-val-pct').innerText = pct.toFixed(1) + '%';
-            
-            const statusEl = document.getElementById('att-val-status');
-            const adviceEl = document.getElementById('att-val-advice');
-
-            if (pct >= 75) {
-                statusEl.innerText = 'SAFE';
-                statusEl.className = 'px-2 py-0.5 rounded font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/25';
-                adviceEl.innerHTML = 'You are currently satisfying JNTUK mandate. Keep it up to avoid RC fines!';
-            } else if (pct >= 65) {
-                statusEl.innerText = 'CONDONATION MIGRATION';
-                statusEl.className = 'px-2 py-0.5 rounded font-black bg-yellow-500/10 text-yellow-400 border border-yellow-500/25';
-                const need = Math.ceil((0.75 * tot - con) / 0.25);
-                adviceEl.innerHTML = 'You are in the condonation penalty bracket. Attend the next <b>' + (need > 0 ? need : 0) + '</b> lectures to hit safe 75%.';
-            } else {
-                statusEl.innerText = 'DETAINED RISK';
-                statusEl.className = 'px-2 py-0.5 rounded font-black bg-rose-500/15 text-rose-400 border border-rose-500/25';
-                const need = Math.ceil((0.75 * tot - con) / 0.25);
-                adviceEl.innerHTML = 'At high risk of JNTUK Year Detainment. You strictly need to attend <b>' + (need > 0 ? need : 0) + '</b> consecutive slots immediately!';
+        window.addEventListener('beforeunload', () => {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
             }
-        }
-
-        // SGPA Calculator GP conversion
-        function computeSGPA() {
-            const m1_gp = parseFloat(document.getElementById('sgpa-gr-m1').value);
-            const ep_gp = parseFloat(document.getElementById('sgpa-gr-ep').value);
-            const bcm_gp = parseFloat(document.getElementById('sgpa-gr-bcm').value);
-            const ce_gp = parseFloat(document.getElementById('sgpa-gr-ce').value);
-
-            // Grade limits
-            const m1_cr = 4;
-            const ep_cr = 3;
-            const bcm_cr = 3;
-            const ce_cr = 3;
-
-            const totalCredits = m1_cr + ep_cr + bcm_cr + ce_cr;
-            const sgpa = ((m1_gp * m1_cr) + (ep_gp * ep_cr) + (bcm_gp * bcm_cr) + (ce_gp * ce_cr)) / totalCredits;
-
-            document.getElementById('sgpa-val-ans').innerText = sgpa.toFixed(2);
-        }
+        });
     </script>
-
-    <script type="module" src="/src/ai-widget.ts"></script>
+    <script type="module" src="/src/unit-quiz.js"></script>
 </body>
 </html>

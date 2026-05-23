@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JNTUK R23 Functions, Arrays &amp; Strings | EngiPrep Hub</title>
-    <link rel="canonical" href="https://engiprephub.vercel.app/c-programming-unit-3">
     <meta name="description" content="Elite JNTUK R23 Functions, Arrays &amp; Strings. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
     <link rel="stylesheet" href="/src/style.css">
     <script>
@@ -24,47 +23,14 @@
     </style>
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
-
-    <meta property="og:title" content="JNTUK R23 Functions, Arrays &amp; Strings | EngiPrep Hub">
-    <meta property="og:description" content="Elite JNTUK R23 Functions, Arrays &amp; Strings. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
-    <meta property="og:url" content="https://engiprephub.vercel.app/c-programming-unit-3">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="EngiPrep Hub">
-
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
-
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "JNTUK R23 Functions, Arrays &amp; Strings | EngiPrep Hub",
-      "description": "Elite JNTUK R23 Functions, Arrays &amp; Strings. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.",
-      "provider": {
-        "@type": "Organization",
-        "name": "EngiPrep Hub",
-        "sameAs": "https://engiprephub.vercel.app"
-      }
-    }
-    </script>
-
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-300 dark:text-slate-300 min-h-screen font-sans antialiased">\n
-    <!-- Reading Progress Bar -->
-    <div id="reading-progress-container" class="fixed top-0 left-0 w-full h-1 bg-transparent z-[100]">
-        <div id="reading-progress-bar" class="h-full bg-blue-600 transition-all duration-150 w-0"></div>
-    </div>
-
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4">
                 <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
-                <a href="/tasks.html" class="hidden md:block px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Tasks</a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
+            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
         </div>
     </nav>
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
@@ -157,7 +123,17 @@
                 </section>
 
                 <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Interactive Viva Cards</h2>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50">Interactive Viva Cards</h2>
+                        <button onclick="toggleSpeakViva(this)" class="flex items-center justify-center gap-2 text-xs font-bold px-4 py-2 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-600 dark:text-blue-400 rounded-xl transition-all shadow-sm cursor-pointer select-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                            </svg>
+                            <span>Listen to Viva</span>
+                        </button>
+                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Card 1 -->
                         <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
@@ -183,27 +159,22 @@
                         </div>
                     </div>
                 </section>
+
+                <section id="unit-quiz-wrapper" class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden">
+                    <div id="unit-quiz-mount">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50 italic uppercase">Interactive Practice <span class="text-blue-500">Unit Quiz</span></h3>
+                            <span class="text-[9px] font-black font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded">UNIT TEST</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-6">Test your mastery of this unit's concepts with flash feedback and explanations.</p>
+                        <button id="start-unit-quiz-btn" class="btn-primary w-full text-sm py-3.5">
+                            Start Unit Practice Quiz
+                        </button>
+                    </div>
+                </section>
             </div>
         </div>
-    
-            <!-- Gamification & Progress Marker -->
-            <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
-                <button class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 mx-auto complete-topic-btn">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                    Mark as Complete <span class="bg-emerald-700/50 px-2 py-0.5 rounded text-xs ml-2">+10 XP</span>
-                </button>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-4 font-bold max-w-sm mx-auto">Login via Dashboard to save your progress, secure your streak, and unlock AI features.</p>
-            </div>
-\n
-            <!-- Internal Links Section for SEO -->
-            <section class="related-links-section mt-12 py-8 border-t border-slate-200 dark:border-slate-800">
-                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4">Related Study Material</h3>
-                <div class="flex flex-wrap gap-4">
-                    <a href="/chemistry-topper-notes.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Chemistry Topper Notes</a><a href="/maths-1.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Mathematics Notes</a><a href="/engineering-physics-unit-2" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Physics Unit 2</a>
-                </div>
-            </section>
-            
-</main>
+    </main>
     <script>
         function flipVivaCard(card) {
             const inner = card.querySelector('.viva-card-inner');
@@ -213,7 +184,114 @@
                 inner.style.transform = 'rotateY(180deg)';
             }
         }
+
+        let currentUtterance = null;
+        let currentBtn = null;
+
+        function toggleSpeakViva(btn, isNotesPage = false) {
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                    resetSpeechState();
+                    return;
+                }
+
+                let textToRead = [];
+                if (isNotesPage) {
+                    const frontPs = document.querySelectorAll('.backface-hidden p.font-bold');
+                    const backPs = document.querySelectorAll('.backface-hidden p.text-sm, .backface-hidden p.text-slate-300');
+                    for (let i = 0; i < frontPs.length; i++) {
+                        const q = frontPs[i]?.innerText || '';
+                        const a = backPs[i]?.innerText || '';
+                        if (q && a) {
+                            textToRead.push({ q, a });
+                        }
+                    }
+                } else {
+                    const fronts = document.querySelectorAll('.viva-card-front h4');
+                    const backs = document.querySelectorAll('.viva-card-back p');
+                    for (let i = 0; i < fronts.length; i++) {
+                        const q = fronts[i]?.innerText || '';
+                        const a = backs[i]?.innerText || '';
+                        if (q && a) {
+                            textToRead.push({ q, a });
+                        }
+                    }
+                }
+
+                if (textToRead.length === 0) return;
+
+                currentBtn = btn;
+                btn.innerHTML = `
+                    <svg class="h-3.5 w-3.5 text-red-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                    </svg>
+                    <span>Stop Speaking</span>
+                `;
+                btn.classList.add('bg-red-500/10', 'border-red-500/35', 'text-red-500', 'hover:bg-red-500/20');
+
+                let currentIndex = 0;
+                
+                function readNext() {
+                    if (currentIndex >= textToRead.length) {
+                        resetSpeechState();
+                        return;
+                    }
+
+                    const item = textToRead[currentIndex];
+                    const fullText = "Question " + (currentIndex + 1) + ": " + item.q + ". Answer: " + item.a;
+                    
+                    const utterance = new SpeechSynthesisUtterance(fullText);
+                    const voices = window.speechSynthesis.getVoices();
+                    const englishVoice = voices.find(voice => voice.lang.startsWith('en'));
+                    if (englishVoice) {
+                        utterance.voice = englishVoice;
+                    }
+                    utterance.rate = 0.95;
+                    utterance.pitch = 1.0;
+
+                    utterance.onend = () => {
+                        currentIndex++;
+                        readNext();
+                    };
+
+                    utterance.onerror = (e) => {
+                        console.error('Speech synthesis error:', e);
+                        resetSpeechState();
+                    };
+
+                    currentUtterance = utterance;
+                    window.speechSynthesis.speak(utterance);
+                }
+
+                readNext();
+            } else {
+                alert('Your browser does not support the Speech Synthesis API.');
+            }
+        }
+
+        function resetSpeechState() {
+            if (currentBtn) {
+                currentBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                    </svg>
+                    <span>Listen to Viva</span>
+                `;
+                currentBtn.classList.remove('bg-red-500/10', 'border-red-500/35', 'text-red-500', 'hover:bg-red-500/20');
+            }
+            currentUtterance = null;
+            currentBtn = null;
+        }
+
+        window.addEventListener('beforeunload', () => {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        });
     </script>
-    <script type="module" src="/src/ai-widget.ts"></script>
+    <script type="module" src="/src/unit-quiz.js"></script>
 </body>
 </html>
