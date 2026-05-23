@@ -297,6 +297,27 @@ app.post('/api/ai/quiz', async (req, res) => {
   }
 });
 
+app.post('/api/search/jntuk', async (req, res) => {
+  const { query } = req.body;
+  console.log('JNTUK Search request:', query);
+  if (!query) return res.status(400).json({ error: 'Query required' });
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-3.5-flash",
+      contents: `Latest JNTUK R23 exam notifications and circulars regarding: ${query}`,
+      config: {
+        tools: [{ googleSearch: {} }],
+        systemInstruction: "You are a helpful assistant providing the latest JNTUK exam notifications and official circulars for engineering students."
+      },
+    });
+    const groundingMetadata = response.candidates?.[0]?.groundingMetadata;
+    res.json({ explanation: response.text, groundingMetadata });
+  } catch (e: any) {
+    console.error('Search grounding error:', e);
+    res.status(500).json({ error: e.message || 'Search failed' });
+  }
+});
+
 app.post('/api/ai/summary', async (req, res) => {
   const { content } = req.body;
   if (!content) return res.status(400).json({ error: 'Content is required' });
