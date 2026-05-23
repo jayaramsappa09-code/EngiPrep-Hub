@@ -54,6 +54,14 @@ window.addEventListener('load', () => {
     updateAuthUI();
     initGamification();
     initServiceWorker();
+    
+    // Performance: Optimize image loading
+    document.querySelectorAll('img').forEach(img => {
+        if (!img.getAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+            img.setAttribute('decoding', 'async');
+        }
+    });
 });
 
 // Service Worker Registration

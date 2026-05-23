@@ -164,7 +164,11 @@
                         </span>
                     </div>
                     <h1 id="main-title" class="text-5xl md:text-6xl font-black tracking-tight mb-8 leading-[1.1] text-slate-900 dark:text-slate-50">...</h1>
-                    <div class="flex items-center gap-6 text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">
+                        <div class="flex items-center gap-6 text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            <span>Engi Prep Hub Editorial</span>
+                        </div>
                         <div class="flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4v4m-8 4v4m8-8V3"/></svg>
                             <span id="pub-date">...</span>
@@ -317,6 +321,8 @@
                     throwOnError: false
                 });
 
+                injectDiagrams(note);
+                
                 // Generate TOC
                 generateTOC()
 
@@ -468,6 +474,34 @@
                         Error loading note. Access denied or content missing.
                     </div>
                 `
+            }
+        }
+
+        function injectDiagrams(note) {
+            const content = document.getElementById('content');
+            const diagrams = {
+                'newtons_rings': '/diagrams/newtons_rings.png',
+                'rlc_circuit': '/diagrams/rlc_circuit.png',
+                'nernst_equation': '/diagrams/nernst_equation.png'
+            };
+
+            if (note.content.includes('Newton') && note.content.includes('Rings')) {
+                const diagramDiv = document.createElement('div');
+                diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
+                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Diagram: Newton's Rings Experiment</p><img src="${diagrams.newtons_rings}" alt="Newton's Rings Diagram" class="w-full h-auto rounded-lg">`;
+                content.appendChild(diagramDiv);
+            }
+            if (note.content.includes('RLC')) {
+                const diagramDiv = document.createElement('div');
+                diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
+                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Diagram: RLC Series Circuit</p><img src="${diagrams.rlc_circuit}" alt="RLC Circuit Diagram" class="w-full h-auto rounded-lg">`;
+                content.appendChild(diagramDiv);
+            }
+            if (note.content.includes('Nernst')) {
+                const diagramDiv = document.createElement('div');
+                diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
+                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Diagram: Nernst Equation Electrochemical Cell</p><img src="${diagrams.nernst_equation}" alt="Nernst Equation Cell Diagram" class="w-full h-auto rounded-lg">`;
+                content.appendChild(diagramDiv);
             }
         }
 
