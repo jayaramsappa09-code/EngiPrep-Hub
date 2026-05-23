@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Initialize comments
     blogs.forEach(blog => {
-        (window as any).loadComments(blog.id);
+        window.loadComments(blog.id);
     });
 });
 

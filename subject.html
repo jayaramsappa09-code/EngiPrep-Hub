@@ -109,9 +109,6 @@
             </button>
         </div>
 
-        <!-- Premium Laboratoy/CAD Workbench Banner -->
-        <div id="premium-workbench-container" class="mb-12 animate-fade-up hidden"></div>
-
         <!-- Master Content Layout -->
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <!-- Resource Grid -->
@@ -189,14 +186,8 @@
             window.location.replace('/chemistry-topper-notes.html');
         } else if (subjLower.includes('mathematics i') || subjLower === 'm1') {
             window.location.replace('/maths-1.html');
-        } else if (subjLower.includes('graphics') || subjLower === 'eg' || subjLower.includes('engineering graphics')) {
-            window.location.replace('/engineering-graphics-notes.html');
-        } else if (subjLower.includes('programming for problem solving') || subjLower === 'pps') {
-            window.location.replace('/subject.html?sub=C%20Programming');
-        } else if (subjLower.includes('english') || subjLower.includes('communicative')) {
-            window.location.replace('/communicative-english.html');
-        } else if (subjLower.includes('electrical') || subjLower === 'beee' || subjLower.includes('basic electrical')) {
-            window.location.replace('/beee-notes.html');
+        } else if (subjLower.includes('basic civil') || subjLower.includes('mechanical')) {
+            // we don't have a specific custom overview page for basic civil, but we have units.
         }
         let currentNotes = []
         let currentFilter = 'all'
@@ -205,39 +196,6 @@
         document.getElementById('subject-title').innerText = subject
         document.getElementById('breadcrumb-subject').innerText = subject
         document.title = `${subject} JNTUK R23 Notes PDF, PYQs & Questions – EngiPrep Hub`
-
-        const workbenchContainer = document.getElementById('premium-workbench-container')
-        if (subjLower === 'c programming') {
-            workbenchContainer.innerHTML = `
-                <div class="glass-card bg-gradient-to-br from-emerald-950/40 via-slate-900 to-slate-950 p-8 rounded-3xl border border-emerald-500/20 shadow-xl overflow-hidden relative group">
-                    <div class="absolute -right-24 -top-24 w-56 h-56 bg-emerald-500/10 rounded-full blur-3xl group-hover:scale-150 transition-all duration-1000"></div>
-                    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                        <div class="max-w-xl">
-                            <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-[9px] font-black uppercase tracking-widest rounded-md mb-4 border border-emerald-500/30">Premium Lab Simulator</span>
-                            <h3 class="text-2xl font-black text-white leading-tight mb-2">🖥️ PPS Code Sandbox & Interactive Terminal</h3>
-                            <p class="text-slate-300 text-xs font-semibold leading-relaxed">Step into our futuristic C compiler terminal playground. Trace program execution steps in memory, master <b>Structures vs Unions</b> memory layout bytes, resolve unit viva sets, and run pre-compiled test cycles.</p>
-                        </div>
-                        <a href="/c-programming-notes.html" class="px-6 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 shrink-0">Launch C Sandbox 🚀</a>
-                    </div>
-                </div>
-            `;
-            workbenchContainer.classList.remove('hidden');
-        } else if (subjLower.includes('electrical') || subjLower === 'beee') {
-            workbenchContainer.innerHTML = `
-                <div class="glass-card bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-950 p-8 rounded-3xl border border-amber-500/20 shadow-xl overflow-hidden relative group">
-                    <div class="absolute -right-24 -top-24 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl group-hover:scale-150 transition-all duration-1000"></div>
-                    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                        <div class="max-w-xl">
-                            <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-[9px] font-black uppercase tracking-widest rounded-md mb-4 border border-amber-500/30">Premium Workstation Lab</span>
-                            <h3 class="text-2xl font-black text-white leading-tight mb-2">⚡ BEEE Circuit Simulator & Logic Gates Workbench</h3>
-                            <p class="text-slate-300 text-xs font-semibold leading-relaxed">Enter our premium dark-glass BEEE interactive simulator. Toggle components in KCL/KVL loop diagrams, view generated waveforms on custom oscilloscope simulators, and study logic gates inside active gate modules.</p>
-                        </div>
-                        <a href="/beee-notes.html" class="px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-amber-500/20 transition-all hover:scale-105 active:scale-95 shrink-0">Launch BEEE Lab 🚀</a>
-                    </div>
-                </div>
-            `;
-            workbenchContainer.classList.remove('hidden');
-        }
 
         async function loadContent() {
             try {

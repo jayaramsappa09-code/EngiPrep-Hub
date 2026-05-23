@@ -506,10 +506,9 @@ export const fetchSubjectsBySemester = async (semester) => {
       .eq('semester', semester)
       .order('created_at', { ascending: true })
     
-    let subjectsList = data || []
     if (error || !data || data.length === 0) {
       if (semester === 1) {
-        subjectsList = [
+        return [
           { title: 'Engineering Mathematics I', code: 'M1', semester: 1, description: 'Matrices, Sequences, and Calculus.', color: 'blue' },
           { title: 'Engineering Physics', code: 'PH', semester: 1, description: 'Optics, Semiconductors, and Lasers.', color: 'purple' },
           { title: 'C Programming', code: 'C', semester: 1, description: 'Problem solving and logic in C.', color: 'emerald' },
@@ -517,7 +516,7 @@ export const fetchSubjectsBySemester = async (semester) => {
           { title: 'Communicative English', code: 'EN', semester: 1, description: 'Foundations of reading, writing, and professional speaking.', color: 'rose' }
         ]
       } else {
-        subjectsList = [
+        return [
           { title: 'Engineering Mathematics II', code: 'M2', semester: 2, description: 'ODEs and Integral Calculus.', color: 'blue' },
           { title: 'Engineering Chemistry', code: 'CH', semester: 2, description: 'Materials and Water technology.', color: 'amber' },
           { title: 'Data Structures', code: 'DS', semester: 2, description: 'Advanced arrays, stacks, and queues.', color: 'indigo' },
@@ -526,34 +525,10 @@ export const fetchSubjectsBySemester = async (semester) => {
         ]
       }
     }
-
-    if (semester === 1) {
-      // Ensure Engineering Graphics is always in Semester 1 for ease of access
-      if (!subjectsList.some(s => s.title.toLowerCase().includes('graphics'))) {
-        subjectsList.push({
-          title: 'Engineering Graphics',
-          code: 'EG',
-          semester: 1,
-          description: 'Interactive CAD, orthographic projection, and isometric view guides.',
-          color: 'cyan'
-        })
-      }
-      // Ensure Basic Electrical Engineering is always in Semester 1
-      if (!subjectsList.some(s => s.title.toLowerCase().includes('electrical') || s.code === 'BEEE')) {
-        subjectsList.push({
-          title: 'Basic Electrical Engineering',
-          code: 'BEEE',
-          semester: 1,
-          description: 'Fundamentals of circuits and machines.',
-          color: 'amber'
-        })
-      }
-    }
-    return subjectsList
+    return data
   } catch (err) {
-    let subjectsList = []
     if (semester === 1) {
-      subjectsList = [
+      return [
         { title: 'Engineering Mathematics I', code: 'M1', semester: 1, description: 'Matrices, Sequences, and Calculus.', color: 'blue' },
         { title: 'Engineering Physics', code: 'PH', semester: 1, description: 'Optics, Semiconductors, and Lasers.', color: 'purple' },
         { title: 'C Programming', code: 'C', semester: 1, description: 'Problem solving and logic in C.', color: 'emerald' },
@@ -561,7 +536,7 @@ export const fetchSubjectsBySemester = async (semester) => {
         { title: 'Communicative English', code: 'EN', semester: 1, description: 'Foundations of reading, writing, and professional speaking.', color: 'rose' }
       ]
     } else {
-      subjectsList = [
+      return [
         { title: 'Engineering Mathematics II', code: 'M2', semester: 2, description: 'ODEs and Integral Calculus.', color: 'blue' },
         { title: 'Engineering Chemistry', code: 'CH', semester: 2, description: 'Materials and Water technology.', color: 'amber' },
         { title: 'Data Structures', code: 'DS', semester: 2, description: 'Advanced arrays, stacks, and queues.', color: 'indigo' },
@@ -569,28 +544,6 @@ export const fetchSubjectsBySemester = async (semester) => {
         { title: 'Environmental Science', code: 'ES', semester: 2, description: 'Eco studies and social issues.', color: 'rose' }
       ]
     }
-
-    if (semester === 1) {
-      if (!subjectsList.some(s => s.title.toLowerCase().includes('graphics'))) {
-        subjectsList.push({
-          title: 'Engineering Graphics',
-          code: 'EG',
-          semester: 1,
-          description: 'Interactive CAD, orthographic projection, and isometric view guides.',
-          color: 'cyan'
-        })
-      }
-      if (!subjectsList.some(s => s.title.toLowerCase().includes('electrical') || s.code === 'BEEE')) {
-        subjectsList.push({
-          title: 'Basic Electrical Engineering',
-          code: 'BEEE',
-          semester: 1,
-          description: 'Fundamentals of circuits and machines.',
-          color: 'amber'
-        })
-      }
-    }
-    return subjectsList
   }
 }
 

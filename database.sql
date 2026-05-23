@@ -396,7 +396,6 @@ VALUES
 ('C Programming', 'C', 1, 'Problem solving and logic in C.', 'emerald'),
 ('Basic Electrical Engineering', 'BEEE', 1, 'Fundamentals of circuits and machines.', 'amber'),
 ('English Communication Skills', 'EN', 1, 'Professional technical English.', 'rose'),
-('Engineering Graphics', 'EG', 1, 'Interactive CAD, orthographic projection, and isometric view guides.', 'cyan'),
 ('Engineering Mathematics II', 'M2', 2, 'ODEs and Integral Calculus.', 'blue'),
 ('Engineering Chemistry', 'CH', 2, 'Materials and Water technology.', 'amber'),
 ('Data Structures', 'DS', 2, 'Advanced arrays, stacks, and queues.', 'indigo'),
