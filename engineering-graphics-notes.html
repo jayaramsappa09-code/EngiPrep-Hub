@@ -309,17 +309,36 @@
                     </div>
                 </section>
 
-                <section id="viva-sec" class="tab-content hidden animate-fadeIn">
-                    <h2 class="text-xl font-extrabold text-indigo-500 mb-6 font-mono">🃏 VIVA_FLIP_CARDS //</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl cursor-pointer" onclick="this.querySelector('.viva-ans').classList.toggle('hidden')">
-                            <h4 class="font-bold text-slate-200">Difference between View and Projection?</h4>
-                            <p class="viva-ans hidden mt-4 border-t border-slate-800 pt-4 text-indigo-400 text-sm italic">Isometric View uses true dimensions. Isometric Projection uses reduced scale (0.815 of true length).</p>
+                <section id="viva-sec" class="tab-content hidden animate-fadeIn font-sans">
+                    <h2 class="text-xl font-extrabold text-indigo-500 mb-6 font-mono">🃏 ORAL CONCEPT VIVA CARDS //</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl cursor-pointer hover:border-indigo-500/30 transition-all flex flex-col justify-between h-40" onclick="this.querySelector('.viva-ans').classList.toggle('hidden')">
+                            <div>
+                                <div class="flex justify-between items-center mb-2.5">
+                                    <span class="text-[9px] font-black text-indigo-400 tracking-wider font-mono">VIVA CARD 01</span>
+                                    <button onclick="event.stopPropagation(); window.speakNotesViva(this, 'Difference between View and Projection?', 'Isometric View uses true dimensions. Isometric Projection uses reduced scale, zero point eight one five of true length.')" class="viva-speak-btn px-2.5 py-1 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/20 text-[10px] font-bold rounded-lg transition-all cursor-pointer">🔊 LISTEN</button>
+                                </div>
+                                <h4 class="font-bold text-slate-200 text-sm leading-relaxed">Difference between View and Projection?</h4>
+                            </div>
+                            <p class="viva-ans hidden mt-4 border-t border-slate-800 pt-4 text-indigo-300 text-[11.5px] italic leading-normal font-sans">
+                                Isometric View uses true dimensions. Isometric Projection uses reduced scale (0.815 of true length).
+                            </p>
                         </div>
-                        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl cursor-pointer" onclick="this.querySelector('.viva-ans').classList.toggle('hidden')">
-                            <h4 class="font-bold text-slate-200">Define 'Representative Fraction'.</h4>
-                            <p class="viva-ans hidden mt-4 border-t border-slate-800 pt-4 text-indigo-400 text-sm italic">Ratio of drawing length to actual physical length. R.F = L_draw / L_actual.</p>
+
+                        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl cursor-pointer hover:border-indigo-500/30 transition-all flex flex-col justify-between h-40" onclick="this.querySelector('.viva-ans').classList.toggle('hidden')">
+                            <div>
+                                <div class="flex justify-between items-center mb-2.5">
+                                    <span class="text-[9px] font-black text-indigo-400 tracking-wider font-mono">VIVA CARD 02</span>
+                                    <button onclick="event.stopPropagation(); window.speakNotesViva(this, 'Define Representative Fraction.', 'Ratio of drawing length to actual physical length. R F = L draw over L actual.')" class="viva-speak-btn px-2.5 py-1 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/20 text-[10px] font-bold rounded-lg transition-all cursor-pointer">🔊 LISTEN</button>
+                                </div>
+                                <h4 class="font-bold text-slate-200 text-sm leading-relaxed">Define 'Representative Fraction'.</h4>
+                            </div>
+                            <p class="viva-ans hidden mt-4 border-t border-slate-800 pt-4 text-indigo-300 text-[11.5px] italic leading-normal font-sans">
+                                Ratio of drawing length to actual physical length. R.F = L_draw / L_actual.
+                            </p>
                         </div>
+
                     </div>
                 </section>
 
@@ -370,6 +389,41 @@
         let state = {
             xp: parseInt(localStorage.getItem('eg_xp') || '0'),
             units: JSON.parse(localStorage.getItem('eg_units') || '[]')
+        };
+
+        window.speakNotesViva = function(btn, question, answer) {
+            if (!('speechSynthesis' in window)) {
+                alert("Speech synthesis is unsupported in this browser.");
+                return;
+            }
+
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                document.querySelectorAll('.viva-speak-btn').forEach(b => {
+                    b.innerHTML = '🔊 LISTEN';
+                    b.className = "viva-speak-btn px-2.5 py-1 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-505/20 border border-indigo-500/20 text-[10px] font-bold rounded-lg transition-all cursor-pointer";
+                });
+                return;
+            }
+
+            // Mark this button as reading
+            btn.innerHTML = '⏹️ STOP';
+            btn.className = "viva-speak-btn px-2.5 py-1 bg-red-500/20 text-red-400 hover:bg-red-505/30 border border-red-500/30 text-[10px] font-bold rounded-lg transition-all cursor-pointer animate-pulse";
+
+            const cleanText = `Question: ${question}. ... Answer: ${answer}.`;
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.rate = 0.95;
+            utterance.pitch = 1.0;
+
+            const resetBtn = () => {
+                btn.innerHTML = '🔊 LISTEN';
+                btn.className = "viva-speak-btn px-2.5 py-1 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-505/20 border border-indigo-500/20 text-[10px] font-bold rounded-lg transition-all cursor-pointer";
+            };
+
+            utterance.onend = resetBtn;
+            utterance.onerror = resetBtn;
+
+            window.speechSynthesis.speak(utterance);
         };
 
         function switchTab(tabId) {
