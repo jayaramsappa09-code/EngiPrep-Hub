@@ -165,30 +165,54 @@ h4, h5, h6 {
 /* Premium Contrast & Reading Overrides on Dark mode */
 .dark body {
   background-color: #030306;
-  color: #CBD5E1; /* Secondary text - soft gray for maximum eye safety */
+  color: #F1F5F9; /* High contrast slate-200/300 equivalent */
   background-image: 
     radial-gradient(circle at top, rgba(var(--theme-primary-rgb), 0.08) 0%, transparent 65%),
     radial-gradient(circle at 10% 30%, rgba(255, 255, 255, 0.01) 0%, transparent 40%);
 }
 
 .dark p, .dark li {
-  color: #CBD5E1 !important; /* Secondary text */
+  color: #E2E8F0 !important; /* Perfect high contrast reading Slate-200 */
 }
 
 .dark h1, .dark h2, .dark h3 {
-  color: #F8FAFC !important; /* High-intensity white */
+  color: #FFFFFF !important; /* Pure radiant white */
 }
 
 .dark h4, .dark h5, .dark h6 {
-  color: #F8FAFC !important;
+  color: #FFFFFF !important;
 }
 
-.dark .text-slate-400, .dark .text-slate-405, .dark .text-slate-350 {
-  color: #CBD5E1 !important; /* Elevate unreadable intermediate slates */
+.dark .text-slate-405, .dark .text-slate-350, .dark .text-slate-300, .dark .text-slate-200 {
+  color: #F1F5F9 !important; /* Brighten unreadable text colors */
+}
+
+.dark .text-slate-405, .dark .text-slate-400 {
+  color: #E2E8F0 !important;
 }
 
 .dark .text-slate-500 {
-  color: #94A3B8 !important; /* Muted descriptor text with perfect contrast */
+  color: #CBD5E1 !important; /* Upgraded muted slates for comfortable contrast */
+}
+
+/* Force pure white text on high-contrast primary background utilities (blue-600, indigo-600, etc.) */
+.bg-blue-600, .bg-indigo-600, .bg-blue-700, .bg-indigo-700, .bg-blue-500, .bg-indigo-500 {
+  color: #ffffff !important;
+}
+
+.bg-blue-600 a, .bg-indigo-600 a, 
+.bg-blue-600 p, .bg-indigo-600 p, 
+.bg-blue-600 h1, .bg-indigo-600 h1, 
+.bg-blue-600 h2, .bg-indigo-600 h2, 
+.bg-blue-600 h3, .bg-indigo-600 h3, 
+.bg-blue-600 h4, .bg-indigo-600 h4, 
+.bg-blue-600 span, .bg-indigo-600 span, 
+.bg-blue-600 div:not(.ignore-contrast), .bg-indigo-600 div:not(.ignore-contrast) {
+  color: #ffffff !important;
+}
+
+.bg-blue-600 svg, .bg-indigo-600 svg {
+  stroke: #ffffff !important;
 }
 
 /* Unified Theme Glow & Glassmorphism Card System */
