@@ -931,7 +931,27 @@
 
     <!-- JS Implementations -->
     <script>
-        // Core State for DraftLab
+        // Core state engines for dynamic syllabus curriculum
+        let scoreXP = 0;
+        const maxXPValue = 1200;
+        let activeTopicId = 'ellipse_ecc';
+        let activeStepNum = 1;
+        let isPracticeMode = false;
+        let isPlaying = false;
+        let playInterval = null;
+        let tempoMs = 2000;
+
+        let activeGizmos = {
+            compass: false,
+            drafter: false,
+            protractor: false,
+            ruler: false
+        };
+
+        let workspaceRot = 45;
+        let workspaceSize = 50;
+
+        // Core State for DraftLab (retained for backward compatibility of sandbox tab)
         let cadState = {
             tool: 'line',
             startX: 0,
@@ -943,36 +963,39 @@
             tempTraces: []
         };
 
-        let scoreXP = 0;
-        const maxXPValue = 1200;
-
         function initPlatform() {
             lucide.createIcons();
             
-            // Sync with existing platform XP mechanisms if available
-            if (window.recordXP) {
-                // Bridge to platform-wide XP
-            }
-
             const storedXP = localStorage.getItem('engi_eg_MasteryXP');
             if (storedXP) {
                 scoreXP = parseInt(storedXP);
-                for (let i = 1; i <= 8; i++) {
-                    const status = localStorage.getItem(`engi_eg_task_id_${i}`);
-                    const chkElement = document.getElementById(`tag-${i}`);
-                    if (chkElement && status === 'completed') {
-                        chkElement.checked = true;
-                    }
-                }
             } else {
                 scoreXP = 0;
             }
 
+            // Sync user checkbox records from previous slots
+            for (let i = 1; i <= 8; i++) {
+                const status = localStorage.getItem(`engi_eg_task_id_${i}`);
+                const chkElement = document.getElementById(`tag-${i}`);
+                if (chkElement && status === 'completed') {
+                    chkElement.checked = true;
+                }
+            }
+
+            // Bind current dropdown selection and render dynamic syllabus workspace
+            const selectEl = document.getElementById('active-topic-selector');
+            if (selectEl) {
+                activeTopicId = selectEl.value || 'ellipse_ecc';
+            }
+            loadActiveTopicData(activeTopicId);
             updateXPUIRender();
             initCADCanvas();
-            window.updateCurves();
-            window.updateProjections();
-            window.updateSolids();
+            initMouseTracing();
+            
+            // Retain older sandbox updates (safeguard)
+            if (window.updateCurves) window.updateCurves();
+            if (window.updateProjections) window.updateProjections();
+            if (window.updateSolids) window.updateSolids();
         }
 
         function showEGNotification(msg) {
@@ -1042,6 +1065,428 @@
             }
         };
 
+        // --- MASTER JNTUK R23 SYLLABUS TOPICS CONFIGURATION REGISTRY ---
+        const TopicRegistry = {
+            ellipse_ecc: {
+                unit: "Unit I • Geometrical Curves", difficulty: "Medium", estTime: "15M", xp: 120, num: 1,
+                title: "Construction of Ellipse (Eccentricity e < 1)",
+                desc: "A curved conic locus of a point moving such that its distance from a fixed focus is in constant ratio e = 2/3 to its distance from the vertical directrix line.",
+                formula: "e = VF / VD = 2/3 < 1.0 (Focus = 50mm)",
+                mistake: "Placing the vertex exactly in the middle. For an ellipse, the vertex sits closer to the focus.",
+                tip: "Make sure directrix distance lines are perpendicular and parallel. Use a 2H pencil for projector grids.",
+                trick: "Think of an Ellipse as a circle squeezed relative to the horizontal directrix axis.",
+                q2: "What is an auxiliary circle of an ellipse?", a2: "A circle drawn with the major axis of the ellipse as its diameter, used in coordinate translations.",
+                q5: "Describe the steps to locate the vertex of an ellipse having e = 2/3.", a5: "Locate focus F on the axis perpendicular to directrix DD' at 50mm. Divide DF into 5 equal parts. Vertex V is positioned at the 2nd part from F.",
+                q10: "Construct an ellipse by eccentricity method when distance of focus from directrix is 50mm and e = 2/3.", a10: "Draw directrix AB and perpendicular axis CF. Mark F at 50mm. Mark V at 20mm from F. Draw vertical height VE = VF = 20mm. Draw radiating lines CE and sweep plotting projectors.",
+                pyqCode: "JNTUK R20 Nov 2022", pyqTitle: "Syllabus Standard Conic", pyqDesc: "Draw an ellipse with directrix distance of 50mm. Draw a normal and tangent at 70mm.",
+                steps: [
+                    { title: "Define directrix and perpendicular axis CF", desc: "Draw vertical line DD' and a horizontal axis line entering perpendicular from the center point C. Measure 50mm along the axis to pinpoint focus F.", tool: "drafter", x: 70, y: 160 },
+                    { title: "Locate Vertex V on 2:3 division ratio", desc: "Divide the 50mm CF segment into 5 equal parts (10mm each). Place Vertex V at 2nd division from F, which stands 20mm away.", tool: "ruler", x: 190, y: 160 },
+                    { title: "Raise vertical projector VE corresponding to VF", desc: "From V, construct perpendicular projector line VE of length exactly equal to VF (20mm). Connect point C to E and extend the line.", tool: "compass", x: 190, y: 90 },
+                    { title: "Sweep coordinates and sketch the profile", desc: "Trace points using a compass set at corresponding focus divisions. Render a smooth continuous arc passing through all points.", tool: "compass", x: 260, y: 160 }
+                ],
+                viva: [
+                    { q: "What is the sum of focal distances of any point on an ellipse?", a: "It is always constant and equal to the length of the major axis ($2a$)." },
+                    { q: "What is the eccentricity of a circle?", a: "The eccentricity of a circle is zero." }
+                ]
+            },
+            parabola_ecc: {
+                unit: "Unit I • Geometrical Curves", difficulty: "Easy", estTime: "12M", xp: 100, num: 2,
+                title: "Construction of Parabola (Eccentricity e = 1)",
+                desc: "A curved conic locus where the point remains equidistant from both the focus and directrix line, registering an eccentricity ratio of exactly 1.0.",
+                formula: "e = VF / VD = 1.0 (Focus = 50mm)",
+                mistake: "Skewing the curve near the vertex. The parabola must enter symmetrically and perpendicular to the axis at V.",
+                tip: "The vertex V of a parabola sits exactly at the midpoint of the focus-directrix distance.",
+                trick: "Memory rule: Every locus point forms a perfect square between focus and directrix line.",
+                q2: "Represent eccentricity mathematical ratios.", a2: "Ellipse (e < 1), Parabola (e = 1), Hyperbola (e > 1), Circle (e = 0).",
+                q5: "Explain the focus-directrix method for a parabola.", a5: "Draw a perpendicular axis from the directrix. Locate focus F at 50mm. Vertex V is exactly at 25mm from directrix. Draw vertical VE=VF. Extend line CE and sweep.",
+                q10: "Construct a parabola when the distance from directrix to focus is 50mm.", a10: "Set Directrix DD' and focus F. Divide CF into two equal segments to locate V. Draw vertical equal to VF and sweep the parabola curve.",
+                pyqCode: "JNTUK R19 Dec 2021", pyqTitle: "Parabola Conic Locus", pyqDesc: "Plot a parabola when the focus is at 50mm and show its tangent line.",
+                steps: [
+                    { title: "Draw Directrix and perpendicular Axis CF", desc: "Draw vertical line DD' and perpendicular axis line. Mark focus F at 50mm from C.", tool: "drafter", x: 70, y: 160 },
+                    { title: "Identify midpoint Vertex V", desc: "Measure exactly 25mm along the horizontal axis to mark Vertex V. Vertex distance to focus equals distance to directrix.", tool: "ruler", x: 175, y: 160 },
+                    { title: "Project vertical vector VE = VF", desc: "Mark VE vertically upwards with a height of 25mm. Extend directrix radiation line from C through E.", tool: "drafter", x: 175, y: 72.5 },
+                    { title: "Trace parabolic path using equidistant sweeps", desc: "Generate parallel verticals. Measure directrix distance, pivot compass on focus F, and sweep matching coordinates.", tool: "compass", x: 280, y: 160 }
+                ],
+                viva: [
+                    { q: "What is the angle of a tangent to the directrix of a parabola at its vertex?", a: "It is parallel to the directrix (i.e., perpendicular to the horizontal axis)." },
+                    { q: "Represent common practical uses of parabolas.", a: "Headlight reflectors, satellite dishes, and bridge suspension cables." }
+                ]
+            },
+            hyperbola_ecc: {
+                unit: "Unit I • Geometrical Curves", difficulty: "High", estTime: "18M", xp: 140, num: 3,
+                title: "Construction of Hyperbola (Eccentricity e > 1)",
+                desc: "A locus of a point moving such that its distance from focus to directrix is greater than unity; eccentricity ratio sits at 3/2 = 1.5.",
+                formula: "e = VF / VD = 3/2 = 1.5 (Focus = 50mm)",
+                mistake: "Drawing a flat parabolic line. The hyperbola opens much wider and has straight asymptotes.",
+                tip: "Divide focus-directrix distance into 5 equal parts. Vertex V is placed at 3 parts from the directrix.",
+                trick: "Think of hyperbola as an inverted ellipse splitting outwards rather than looping closed.",
+                q2: "What are asymptotes of a hyperbola?", a2: "Asymptotes are straight lines passing through the center that tangent the hyperbola at infinity.",
+                q5: "Locate the vertex of a hyperbola with e = 1.5.", a5: "Focus F at 50mm. Divide 50mm into 5 parts of 10mm. Vertex V sits at the 3rd division (30mm) from directrix (20mm from Focus F).",
+                q10: "Draw a hyperbola with directrix-focus = 50mm and eccentricity of 1.5.", a10: "Draw base axes. Mark V at 30mm. Mark VE = VF = 20mm. Slide markers, sweep intersecting conics.",
+                pyqCode: "JNTUK R16 April 2018", pyqTitle: "Eccentric Hyperbola", pyqDesc: "Construct a conic with focus 50mm away and e=1.5. Locate directrix and asymptotes.",
+                steps: [
+                    { title: "Establish directrix plane and horizontal axis CF", desc: "Align vertical directrix line and a horizontal directrix axis. Mark Focus F at 50mm.", tool: "drafter", x: 70, y: 160 },
+                    { title: "Define Vertex at 3:2 ratio from directrix", desc: "Divide CF (50mm) into 5 segments. Count 3 segments from left. Vertex V sits at 30mm from C.", tool: "ruler", x: 190, y: 160 },
+                    { title: "Erect vertical coordinate VE = VF", desc: "Draw vertical line VE equal in length to VF (20mm). Project coordinate vector line from C through E.", tool: "drafter", x: 190, y: 90 },
+                    { title: "Sweep wide hyperbola curvature", desc: "Mark intervals along axis, projecting upwards to directrix line. Set compass at focus and swoop arc sweeps.", tool: "compass", x: 300, y: 160 }
+                ],
+                viva: [
+                    { q: "What is the difference between general hyperbola and rectangular hyperbola?", a: "In rectangular hyperbola, asymptotes are perpendicular (at 90 degrees)." },
+                    { q: "Write the eccentricity of a rectangular hyperbola.", a: "It is always equal to $\\sqrt{2} \\approx 1.414$." }
+                ]
+            },
+            cycloid: {
+                unit: "Unit I • Loci of Points", difficulty: "Medium", estTime: "25M", xp: 120, num: 4,
+                title: "Cycloids (General trace & tangents)",
+                desc: "A locus trace of an outer point on the circumference of a circle rolling along a straight line directrix without slipping.",
+                formula: "Circumference = 2 * PI * r = 125.6mm (Circle r = 20mm)",
+                mistake: "Slipping of the rolling circle. The horizontal roll length must equal exactly $2\\pi r$.",
+                tip: "Divide both the rolling circle and horizontal directrix line into the same number of equal parts (usually 12).",
+                trick: "Memory aid: Connect the horizontal center positions to vertical divisions. The trajectory rises to maximum height at the midpoint.",
+                q2: "Define a cycloid.", a2: "The curve traced by a point on the circumference of a circle that rolls along a straight line without slipping.",
+                q5: "How are tangents and normals drawn for a cycloid?", a5: "From given point, sweep radius arc onto the center line to find center C. Project vertical to directrix to locate point N. Line NP is the normal, perpendicular to tangent.",
+                q10: "Draw a cycloid for a rolling circle of 40mm diameter for one complete revolution.", a10: "Calculate perimeter = 125.6mm. Divide circle and base line into 12 parts. Draw center horizontal line and sweep coordinate circle intersections.",
+                pyqCode: "JNTUK R23 Nov 2023", pyqTitle: "Cycloidal Locus", pyqDesc: "A circle of 40mm diameter rolls on a flat trace. Complete cycloid trajectory.",
+                steps: [
+                    { title: "Draw rolling circle and its base ground directrix", desc: "Draw circle of radius 20mm resting on horizontal ground line. Base line length = 2 * PI * 20 = 125.6mm.", tool: "drafter", x: 100, y: 160 },
+                    { title: "Divide Circle and Base line into 12 segments", desc: "Divide circle into 12 sectors of 30° each. Project horizontal line of center coordinates.", tool: "protractor", x: 100, y: 160 },
+                    { title: "Project horizontal paths from circle sectors", desc: "Draw horizontal reference lines from rolling circle sector divisions parallel to the base line.", tool: "drafter", x: 220, y: 160 },
+                    { title: "Sweep center locations and trace cycloid path", desc: "From center line points C1-C12, strike arcs of radius 20mm onto horizontal division lines. Join with a smooth crown curve.", tool: "compass", x: 300, y: 160 }
+                ],
+                viva: [
+                    { q: "What is an epicycloid?", a: "A curve traced by a point on a circle rolling on the OUTSIDE of another circle." },
+                    { q: "What is a hypocycloid?", a: "A curve traced by a point on a circle rolling on the INSIDE of another circle." }
+                ]
+            },
+            involute: {
+                unit: "Unit I • Loci of Points", difficulty: "Medium", estTime: "22M", xp: 120, num: 5,
+                title: "Involutes of regular Polygon (Pentagon)",
+                desc: "The spiral trajectory traced by a point on a taut thread unwinding from the perimeter of a regular geometric polygon.",
+                formula: "Base Perimeter = n * Side = 5 * 15 = 75mm",
+                mistake: "Unwinding from vertex directions with wrong lengths. Length increases by exactly side length on each vertex pivot.",
+                tip: "Project tangential rays from each vertex of the polygon sequentially.",
+                trick: "Think of an involute as a spiral whose radius increases by one side-length step at each vertex corner.",
+                q2: "Define an involute.", a2: "The curve traced by a point on a taut line as it unwinds from around a base cylinder or polygon.",
+                q5: "Explain the involute of a pentagon perimeter.", a5: "Draw a pentagon with side 15mm. Radiating tangential lines are drawn from vertices. Sweeping arcs have radii of 15, 30, 45, 60, and 75mm respectively.",
+                q10: "Draw the involute of a pentagon of side 15mm.", a10: "Plot a regular pentagon. From each vertex, extend tangent lines. Sweep arcs sequentially around each vertex to trace the involute.",
+                pyqCode: "JNTUK R20 Dec 2022", pyqTitle: "Involute Conic", pyqDesc: "Unwind a taut string around a regular pentagonal face of side 15mm.",
+                steps: [
+                    { title: "Draw a regular base Pentagon", desc: "Draft a regular pentagon of side s = 15mm. Label vertices 1 to 5.", tool: "protractor", x: 220, y: 160 },
+                    { title: "Draft tangential lines from vertices", desc: "Project tangential lines outwards from each vertex of the pentagon clockwise.", tool: "drafter", x: 220, y: 160 },
+                    { title: "Sweep first arc using side length as radius", desc: "Pivot compass on Vertex 1, set radius as 15mm, and sweep arc from Vertex 5 to intersect line 1 at P1.", tool: "compass", x: 220, y: 160 },
+                    { title: "Draw outer spiral sweeps around base polygon", desc: "Move compass pivot to Vertex 2 with radius s*2=30mm and sweep P1 to P2. Repeat with radii 45, 60, and 75mm.", tool: "compass", x: 280, y: 160 }
+                ],
+                viva: [
+                    { q: "Where is the normal to an involute at any point located?", a: "The tangent line to the base circle/polygon from that point is the normal to the involute." },
+                    { q: "What is the primary industrial application of involute curves?", a: "Involute gear tooth profiles because they maintain constant velocity ratio." }
+                ]
+            },
+            points_proj: {
+                unit: "Unit II • Orthographic Projections", difficulty: "Easy", estTime: "10M", xp: 100, num: 6,
+                title: "Projections of Points (Quadrant mapping)",
+                desc: "Mapping three-dimensional coordinates onto flat mutually perpendicular reference planes: horizontal plane (HP) and vertical plane (VP).",
+                formula: "VP: Front View (a') • HP: Top View (a)",
+                mistake: "Placing coordinates without dividing lines. Both projections must sit vertically aligned.",
+                tip: "Remember the projection rule: Front view appears on VP, Top view appears on HP.",
+                trick: " Indian JNTUK Standard is FIRST QUADRANT: Front view above XY line, Top view below XY line.",
+                q2: "If both views are below the XY line, where is the point located?", a2: "In the Fourth Quadrant.",
+                q5: "Explain First Quadrant projection coordinate folding.", a5: "Object sits above HP, in front of VP. Front projection a' is above XY. Top projection a is below XY after folding the HP 90 degrees clockwise.",
+                q10: "State placement of point projection pairs across all 4 quadrants.", a10: "Q1: Front view above, Top view below XY. Q2: Both views above. Q3: Top view above, Front view below. Q4: Both views below XY.",
+                pyqCode: "JNTUK R23 Dec 2023", pyqTitle: "Quadrant Point Maps", pyqDesc: "Show point projections across all quadrants with 30mm and 40mm parameters.",
+                steps: [
+                    { title: "Draw XY Ground Reference Line", desc: "Draw a horizontal ground line of 300mm length and label its extremities X and Y.", tool: "drafter", x: 150, y: 160 },
+                    { title: "Map Front View (a') on vertical projection", desc: "With point sitting 30mm above HP, count 30mm upwards from XY axis on directrix to locate projection node a'.", tool: "drafter", x: 150, y: 100 },
+                    { title: "Coordinate Top View (a) along projection plane", desc: "Point sits 40mm in front of VP. Reflecting the horizontal fold, measure 40mm downwards from coordinate plane to locate a.", tool: "ruler", x: 150, y: 240 },
+                    { title: "Affix identifiers and vertical projector line", desc: "Draw vertical projector line between a' and a. Affix thin labels conforming to traditional standards.", tool: "ruler", x: 150, y: 160 }
+                ],
+                viva: [
+                    { q: "If a point lies on both HP and VP, what is its projection?", a: "Both its top and front views lie on the XY reference line at the same point." },
+                    { q: "State the mathematical quadrant of point P if P is 20mm below HP and 30mm behind VP.", a: "P lies in the Third Quadrant." }
+                ]
+            },
+            lines_proj: {
+                unit: "Unit II • Orthographic Projections", difficulty: "High", estTime: "30M", xp: 150, num: 7,
+                title: "Projections of Lines (Inclined to both HP/VP)",
+                desc: "Calculating the projections of a straight line inclined simultaneously to both principal reference planes, showing apparent angles and true lengths.",
+                formula: "True Length (TL) vs Apparent Lengths (EL, PL)",
+                mistake: "Using apparent lengths to rotate vectors onto focus planes. Always use true lengths for rotations.",
+                tip: "Locus lines of end-points must remain parallel to the XY reference line in both views.",
+                trick: "Think of line rotation as tracing the perimeter of a cone from its base plane.",
+                q2: "What is an apparent angle?", a2: "The angle of inclination representing plane projections of lines ($\alpha$ and $\beta$), distinct from true angles ($\\theta$ and $\\phi$).",
+                q5: "Describe the rotating line method for projecting inclined lines.", a5: "1. Assume line parallel to VP, rotate on HP. 2. Project FV, find locus of P'. 3. Repeat parallel to HP. 4. Swing apparent paths to locate final end-points.",
+                q10: "Draw projections of line AB (75mm long) with end A 20mm above HP/15mm in front of VP, inclined at 30° to HP and 45° to VP.", a10: "Plot initial point, rotate horizontal and vertical vectors. Draft locus boundaries, align apparent endpoints.",
+                pyqCode: "JNTUK R20 Nov 2021", pyqTitle: "Lines Inclined", pyqDesc: "Draw projections of a 80mm line inclined to HP/VP at 30°/45° respectively.",
+                steps: [
+                    { title: "Plot starting coordinates of point A", desc: "Locate Point A: a' is 20mm above XY line, a is 15mm below XY line.", tool: "drafter", x: 100, y: 160 },
+                    { title: "Rotate true length vectors using true angles", desc: "Draft a'b1' of 75mm at 30° inclination to represent VP inclination, and ab2 at 45° to project HP projection.", tool: "protractor", x: 100, y: 160 },
+                    { title: "Project locus paths parallel to ground line", desc: "Erect locus of end-point B' (top horizontal through b1') and locus of B (bottom horizontal through b2).", tool: "drafter", x: 250, y: 160 },
+                    { title: "Sweep arc projectors to find final views", desc: "Rotate vertical projects with radius ab2 onto locus B to find final b. Align and draw the projected views.", tool: "compass", x: 250, y: 160 }
+                ],
+                viva: [
+                    { q: "Under what condition will a line show its true length in both top and front views?", a: "When the line is parallel to both the HP and VP." },
+                    { q: "What is the relation between apparent length and true length?", a: "Apparent length is always less than or equal to the true length of the line." }
+                ]
+            },
+            planes_proj: {
+                unit: "Unit II • Projections of Planes", difficulty: "Medium", estTime: "25M", xp: 120, num: 8,
+                title: "Projections of Planes (Laminae tilting)",
+                desc: "Representing a flat academic surface laminae, tilted symmetrically relative to horizontal and vertical projection layers.",
+                formula: "Surface Tilt (theta) & Edge Tilt (phi)",
+                mistake: "Tilted boundary projection is shorter than baseline. Never scale up the drawing unless specifically asked.",
+                tip: "Always construct the true shape first, resting on the plane of inclination.",
+                trick: "3-Step Rule: 1. resting plane true shape. 2. Tilting surface. 3. Tilting side edge.",
+                q2: "What is a trace of a plane?", a2: "The line of intersection of the plane with the principal planes of projection (HT on HP, VT on VP).",
+                q5: "Explain structural projections of an inclined circular lamina.", a5: "Construct true circular face. Tilt surface in second stage creating an elliptical front view. Final twist of diameter line provides orthographic output.",
+                q10: "Project a regular hexagonal plate with 25mm side resting on HP and inclined at 45° to HP.", a10: "Draw regular hexagon below XY. Tilt its front view line at 45°. Project verticals downwards to find the shortened plan.",
+                pyqCode: "JNTUK R19 Nov 2022", pyqTitle: "Laminae Tilt planes", pyqDesc: "Rest hexagon plate on side on HP at 45° tilting to VP.",
+                steps: [
+                    { title: "Project flat true shape on resting HP", desc: "Draw regular hexagon/plane on HP below XY line with one edge perpendicular to VP.", tool: "drafter", x: 160, y: 220 },
+                    { title: "Draw flat front view line on XY line", desc: "Project points upwards to XY line to draw a thin line representing flat front view.", tool: "ruler", x: 160, y: 160 },
+                    { title: "Tilt front view line by angle theta (45°)", desc: "Re-draw front view line on XY tilted at 45°. Label vertices with primes.", tool: "protractor", x: 160, y: 160 },
+                    { title: "Draft vertical projector lines downwards", desc: "Drop verticals from tilted front view points to intersect horizontals from original shape to trace the final views.", tool: "drafter", x: 260, y: 160 }
+                ],
+                viva: [
+                    { q: "When does a plane project as a single straight line?", a: "When the plane is perpendicular to that plane of projection." },
+                    { q: "Define principal plane of the model.", a: "Any plane representing HP, VP or Auxiliary planes." }
+                ]
+            },
+            solids_proj: {
+                unit: "Unit III • Projections of Regular Solids", difficulty: "High", estTime: "35M", xp: 150, num: 9,
+                title: "Projections of Regular Solids (Tilted Axis)",
+                desc: "Drafting projections of regular polyhedra or solids of revolution (prisms, pyramids, cylinders, cones) with their central axis inclined.",
+                formula: "Right axis projection angle = 90 - theta",
+                mistake: "Sizing wrong base contours. Draw the true base projection perpendicular to the tilted axis vector.",
+                tip: "Prisms and cylinders use parallel generation lines. Pyramids use radiating triangular apex points.",
+                trick: "Draft the base in true shape first, tilt its base corner to find the shortened views.",
+                q2: "What is a regular polyhedron?", a2: "A solid bounded by regular congruent faces assembled symmetrically (such as tetrahedron or octahedron).",
+                q5: "Detail projections of base tilted pentagonal pyramid.", a5: "Draw a pentagon base on HP. Locate apex O' in FV. Tilt the axis O'M' at standard angle. Project vertices and join to apex.",
+                q10: "Draw projections of cylinder inclined at 30° to VP.", a10: "Project base circle in front plane. Scale and project vertical coordinates. Sketch tilted cylinder contour lines.",
+                pyqCode: "JNTUK R20 Dec 2021", pyqTitle: "Regular Solid tilt", pyqDesc: "Pentagonal prism of side 30mm and height 60mm resting with axis at 40°.",
+                steps: [
+                    { title: "Draw flat true base resting plane shape", desc: "Draft base shape (e.g. Pentagon) resting on HP plane below XY reference axis.", tool: "drafter", x: 160, y: 220 },
+                    { title: "Project straight vertical prism front view", desc: "Project points upward to construct front view with specified axis height (e.g. 60mm).", tool: "ruler", x: 160, y: 100 },
+                    { title: "Rotate solid base by angle theta", desc: "Construct tilted solid shape by tilting base axis at the required projection incline.", tool: "protractor", x: 160, y: 160 },
+                    { title: "Form complete overlapping coordinates", desc: "Project tilted outline paths downward. Trace intersection vertices to complete the final solid.", tool: "ruler", x: 260, y: 160 }
+                ],
+                viva: [
+                    { q: "What is an oblique solid?", a: "A solid whose axis is inclined to its base plane." },
+                    { q: "State how invisible faces of prisms are represented in views.", a: "Drawn as dashed thin lines (conforming to standard conventions)." }
+                ]
+            },
+            sections_proj: {
+                unit: "Unit IV • Sections of Solids", difficulty: "High", estTime: "35M", xp: 150, num: 10,
+                title: "Sections of Solids (Cutting planes)",
+                desc: "Projecting internal details of a solid by slicing it with an inclined cutting plane to show sectional top/front views and the True Shape.",
+                formula: "Hatching lines at 45 degrees, thin continuous",
+                mistake: "Hatching outside cut borders. Hatching lines should only span the solid sliced boundaries.",
+                tip: "A cutting plane is represented by a long-thin chain line with thick end segments.",
+                trick: "Project views perpendicular to the cut surface to find the True Shape.",
+                q2: "What is sectional view?", a2: "View obtained by projecting the sliced portion remaining after removing the segment in front of the cutting plane.",
+                q5: "How is true shape of cut face determined?", a5: "By taking auxiliary plane parallel to the cutting plane and projecting cut points onto it.",
+                q10: "Draw sectional top view for a sliced cylinder with incline.", a10: "Project base and cut boundaries. Highlight sliced cylinder areas using 45° hashing patterns.",
+                pyqCode: "JNTUK R19 Nov 2021", pyqTitle: "Section profiles", pyqDesc: "Slice pentagon prism with cutting plane at 45° to HP.",
+                steps: [
+                    { title: "Project complete regular solid first", desc: "Project the standard Front and Top views of the regular solid without cutting modifications.", tool: "ruler", x: 160, y: 160 },
+                    { title: "Locate section cutting line path", desc: "Mark the sectional plane slicing path on the front view at specified tilt angle relative to the base axis.", tool: "drafter", x: 160, y: 100 },
+                    { title: "Project intersection nodes onto plans", desc: "Drop vertical intersection coordinates from sliced front points onto corresponding top view lines.", tool: "ruler", x: 210, y: 220 },
+                    { title: "Hatch sectional profiles and project true shape", desc: "Render hatching lines spaced 2mm apart at 45° slant on cut region. Project perpendicular lines to find the true shape.", tool: "drafter", x: 280, y: 160 }
+                ],
+                viva: [
+                    { q: "Why are hatching lines drawn at 45 degrees?", a: "To make cut surfaces stand out from normal outline features." },
+                    { q: "Represent standard distance spacing for hatching lines.", a: "Uniform spacing of 1mm to 3mm depending on sheet scale." }
+                ]
+            },
+            developments_proj: {
+                unit: "Unit IV • Development of Surfaces", difficulty: "Medium", estTime: "30M", xp: 120, num: 11,
+                title: "Development of Lateral Surfaces (Unfolding)",
+                desc: "Unfolding the lateral surfaces of a 3D solid onto a flat 2D sheet, used extensively for sheet metal design.",
+                formula: "Cone unfold: theta = (r / L) * 360",
+                mistake: "Unfolding with false heights. Always use the True slant height for cone and pyramid developments.",
+                tip: "Prism/Cylinder use Parallel Line method. Pyramid/Cone use Radial Line method.",
+                trick: "Double-check the total perimeter length. Circle rolls out to exactly $2\\pi r$, and polygon wraps out to $N \\times \\text{side}$.",
+                q2: "Represent primary methods of development.", a2: "Parallel line method (Prism and cylinders), Radial line method (Pyramids and cones).",
+                q5: "Calculate the sector angle of a cone of base d=40mm and slant height L=60mm.", a5: "Radius r = 20mm. Angle $\\theta = (20/60) \\times 360 = 120$ degrees.",
+                q10: "Draw development of truncated square pyramid of side 35mm and 60mm height.", a10: "Plot resting cone pyramid views. Take true slant perimeter lengths and trace radiating development bounds.",
+                pyqCode: "JNTUK R20 Nov 2022", pyqTitle: "Lateral Developments", pyqDesc: "Unfold the lateral surface of a cylinder sliced at 30°.",
+                steps: [
+                    { title: "Represent solid views with sectional cut details", desc: "Draw standard views of the solid, marking any cut heights that modify the boundaries.", tool: "drafter", x: 160, y: 160 },
+                    { title: "Map flat baseline perimeter length", desc: "Project flat baseline of $N \\times s$ for prisms, or calculated circle perimeter $2\\pi r$ for cylinder side sheets.", tool: "ruler", x: 100, y: 220 },
+                    { title: "Project intermediate coordinates", desc: "Draw vertical generator line divisions corresponding to base subdivisions.", tool: "drafter", x: 200, y: 160 },
+                    { title: "Transfer cut points to complete net template", desc: "Project heights from the front view onto the unfolded generators. Join points with a smooth curve for cylinder or straight lines for prism faces.", tool: "compass", x: 300, y: 160 }
+                ],
+                viva: [
+                    { q: "Which solids use radial line development?", a: "Pyramids and cones (solids terminating at an apex point)." },
+                    { q: "What is used to develop a sphere?", a: "Sphere is not developable; approximated using zones/method." }
+                ]
+            },
+            iso_conv: {
+                unit: "Unit V • Isometric Conversions", difficulty: "High", estTime: "30M", xp: 140, num: 12,
+                title: "Isometric Conversions (2D to 3D View)",
+                desc: "Converting standard 2D orthographic projections (front, top, side views) into a singular 3D isometric representation.",
+                formula: "Isometric length = 0.815 * True Length",
+                mistake: "Mixing orthographic axis projections. Align the horizontal reference lines at exactly 30° to the horizontal baseline.",
+                tip: "Keep all vertical lines perpendicular and inclinable lines parallel to the 30° isometric axes.",
+                trick: "Always box the 2D dimensions first in a reference cubical box, then project.",
+                q2: "What is isometric scale?", a2: "A scaled reduction (approx 0.815 factor) applied to project true dimensions onto isometric axis paths.",
+                q5: "Explain the four center method for drawing isometric circles.", a5: "Construct isometric rhombus coordinate plane. Draw bisector diagonals, find four distinct coordinate centers, and sweep matching circular arcs.",
+                q10: "Draw isometric projection of a hexagonal prism of 25mm side and 50mm height resting vertically.", a10: "Box hexagonal face. Reconstruct the box in 3D isometric with 30° angles to draft the base prism.",
+                pyqCode: "JNTUK R19 April 2022", pyqTitle: "Isometric View box", pyqDesc: "Draw isometric projection of a block showing FV and TV details.",
+                steps: [
+                    { title: "Establish 30° Isometric Axis guidelines", desc: "Draw horizontal line. Draw primary vertical axis line and two axes inclined at 30° to horizontal on either side.", tool: "protractor", x: 220, y: 220 },
+                    { title: "Box orthographic dimensions in 3D space", desc: "Draw a bounding isometric prism representing length, width, and height of the 2D views.", tool: "drafter", x: 220, y: 160 },
+                    { title: "Construct base shape in isometric perspective", desc: "Trace base features. Circles project as ellipses using the four-center method.", tool: "compass", x: 220, y: 160 },
+                    { title: "Trace 3D edges and erase guidelines", desc: "Draw visible edges in bold and hide obscured outlines. Erase reference box guidelines to reveal the final 3D block.", tool: "ruler", x: 280, y: 120 }
+                ],
+                viva: [
+                    { q: "What is the difference between isometric view and isometric projection?", a: "Isometric view uses true scale. Isometric projection uses reduced isometric scale (0.815)." },
+                    { q: "Are lines parallel in orthographic views parallel in isometric?", a: "Yes, parallel lines remain parallel in isometric projections." }
+                ]
+            },
+            ortho_conv: {
+                unit: "Unit V • Orthographic Conversions", difficulty: "High", estTime: "30M", xp: 140, num: 13,
+                title: "Orthographic Conversions (3D object to 2D projections)",
+                desc: "Reconstructing a given 3D isometric block into standard 2D projections (Front View, Top View, and Side View).",
+                formula: "FV on VP, TV on HP, Left SV on Right",
+                mistake: "Sizing wrong dimensions across views. All views must align perfectly through projectors.",
+                tip: "Determine the viewing direction first. Align projections cleanly relative to the XY line.",
+                trick: "Connect features directly using horizontal references and 45° folding lines for side views.",
+                q2: "Which principal plane receives the side view?", a2: "Profile Plane (PP) receives the side projection.",
+                q5: "Explain how to project a left-side view.", a5: "Draw FV and TV. Project horizontal lines from FV to PP. Project horizontals from TV, reflect them at 45° to PP, and connect the lines.",
+                q10: "Convert a stepped 3D block to FV, TV and SV projections.", a10: "Reconstruct views. Front view showing step contours, top view showing horizontal faces, and side view representing thickness profile.",
+                pyqCode: "JNTUK R23 Dec 2023", pyqTitle: "Ortho Conversions", pyqDesc: "Project 3D stepped bracket into standard front and top views.",
+                steps: [
+                    { title: "Analyze 3D bounding dimensions", desc: "Determine total length, width, and height of the 3D block to map layout borders for FV and TV.", tool: "drafter", x: 100, y: 160 },
+                    { title: "Project full Front View above XY line", desc: "Draft Front View showing height and length features of the step coordinates above the reference line.", tool: "ruler", x: 160, y: 100 },
+                    { title: "Drop vertical coordinates for Top View", desc: "Fall down projector coordinates from FV steps to align and draw the Top View.", tool: "drafter", x: 160, y: 220 },
+                    { title: "Draft Side View using 45° folding lines", desc: "Pass projector rays from TV through a 45° line up to the Profile plane. Align with FV heights to draft Side View.", tool: "protractor", x: 260, y: 160 }
+                ],
+                viva: [
+                    { q: "Why is a left-side view drawn on the right side of the front view?", a: "In 1st Angle Projection, planes of projection are assumed behind the object, so views project on opposite sides." },
+                    { q: "What denotes invisible edges in orthographic conversions?", a: "Thin dashed lines of equal segments." }
+                ]
+            }
+        };
+
+        // --- MASTER DRAFTING TOPIC DATA LOADER ---
+        window.loadActiveTopicData = function(topicId) {
+            const data = TopicRegistry[topicId];
+            if (!data) return;
+
+            activeTopicId = topicId;
+            activeStepNum = 1;
+            isPlaying = false;
+            clearInterval(playInterval);
+            const apBtn = document.getElementById('btn-autoplay');
+            if (apBtn) {
+                apBtn.innerText = "PLAY";
+                apBtn.className = "flex-1 py-1.5 bg-cyan-600 text-white rounded-lg text-[9px] font-black uppercase shadow-lg shadow-cyan-500/20 hover:bg-cyan-500 transition-all font-cad";
+            }
+
+            // Sync selectors and sliders labels
+            const sel = document.getElementById('active-topic-selector');
+            if (sel) sel.value = topicId;
+
+            // Header Hero Updates
+            document.getElementById('topic-title').innerText = data.title;
+            document.getElementById('topic-unit-badge').innerText = data.unit;
+            document.getElementById('topic-difficulty').innerText = "DIFFICULTY: " + data.difficulty;
+            document.getElementById('topic-time').innerText = "EST TIME: " + data.estTime;
+            document.getElementById('topic-xp').innerText = "+" + data.xp + " XP";
+
+            // Theory block
+            document.getElementById('theory-definition').innerHTML = data.desc;
+            document.getElementById('theory-formula').innerHTML = data.formula;
+            document.getElementById('theory-mistake').innerText = data.mistake;
+            document.getElementById('theory-tip').innerText = data.tip;
+
+            // Syllabus board notes
+            document.getElementById('companion-q2').innerHTML = data.q2;
+            document.getElementById('companion-a2').innerHTML = data.a2;
+            document.getElementById('companion-q5').innerHTML = data.q5;
+            document.getElementById('companion-a5').innerHTML = data.a5;
+            document.getElementById('companion-q10').innerHTML = data.q10;
+            document.getElementById('companion-a10').innerHTML = data.a10;
+
+            // PYQ board
+            document.getElementById('companion-pyq-code').innerText = data.pyqCode;
+            document.getElementById('companion-pyq-title').innerText = data.pyqTitle;
+            document.getElementById('companion-pyq-desc').innerText = data.pyqDesc;
+
+            const stepList = document.getElementById('companion-pyq-steps-list');
+            if (stepList) {
+                stepList.innerHTML = "";
+                data.steps.forEach((st, idx) => {
+                    const li = document.createElement('div');
+                    li.className = "flex items-start gap-2.5 text-[9.5px] leading-relaxed text-slate-500";
+                    li.innerHTML = `<span class="text-cyan-500 font-bold font-sans">${idx+1}.</span><span>${st.title}</span>`;
+                    stepList.appendChild(li);
+                });
+            }
+
+            document.getElementById('memory-trick').innerText = data.trick;
+
+            // Viva flippable cards deck
+            const vivaDeck = document.getElementById('viva-cards-deck');
+            if (vivaDeck) {
+                vivaDeck.innerHTML = "";
+                data.viva.forEach((v, idx) => {
+                    const card = document.createElement('div');
+                    card.className = "w-full h-36 relative cursor-pointer group select-none";
+                    card.setAttribute("onclick", "window.flipVivaCard(this)");
+                    card.innerHTML = `
+                        <div class="viva-card-inner w-full h-full relative" style="transform-style: preserve-3d; transition: transform 0.6s;">
+                            <!-- Front -->
+                            <div class="viva-card-front absolute inset-0 glass-card p-5 border-purple-500/20 bg-slate-950/90 rounded-2xl flex flex-col justify-between" style="backface-visibility: hidden; -webkit-backface-visibility: hidden;">
+                                <div class="flex items-center justify-between border-b border-purple-950/20 pb-2">
+                                    <span class="text-[8px] font-black text-purple-400 font-cad uppercase">ORAL VIVA CARD 0${idx+1}</span>
+                                    <span class="p-1 bg-purple-500/10 rounded-lg"><i data-lucide="help-circle" class="w-3.5 h-3.5 text-purple-400"></i></span>
+                                </div>
+                                <p class="text-xs font-bold text-white mt-1 leading-normal font-sans">${v.q}</p>
+                                <span class="text-[8px] font-black font-cad text-slate-500 tracking-wider text-right uppercase mt-2">TAP TO FLIP</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="viva-card-back absolute inset-0 glass-card p-5 border-emerald-500/40 bg-zinc-950 rounded-2xl flex flex-col justify-between" style="transform: rotateY(180deg); backface-visibility: hidden; -webkit-backface-visibility: hidden;">
+                                <div class="flex items-center justify-between border-b border-emerald-950/30 pb-2">
+                                    <span class="text-[8px] font-black text-emerald-400 font-cad uppercase">ACADEMIC EXAM ANSWER</span>
+                                    <span class="p-1 bg-emerald-500/10 rounded-lg"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i></span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-normal font-sans font-medium">${v.a}</p>
+                                <span class="text-[8px] font-black text-emerald-400 uppercase text-right tracking-widest font-cad">+5 XP COMMITTED</span>
+                            </div>
+                        </div>
+                    `;
+                    vivaDeck.appendChild(card);
+                });
+            }
+
+            // Sync with standard viewport drawing steps
+            isPracticeMode = false;
+            const pStatus = document.getElementById('practice-status');
+            if (pStatus) {
+                pStatus.innerText = "STANDBY";
+                pStatus.className = "bg-indigo-500/10 text-indigo-400 p-1 px-2.5 rounded text-[8px] font-black uppercase tracking-tight font-cad";
+            }
+            const trig = document.getElementById('btn-practice-trigger');
+            if (trig) trig.innerText = "Enable Practice";
+            const sub = document.getElementById('btn-practice-submit');
+            if (sub) sub.setAttribute("disabled", "true");
+
+            renderSimulationStep();
+            lucide.createIcons();
+            
+            // Re-render LaTeX math formulas safely
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        };
+
         window.switchMainTab = function(tabId) {
             document.querySelectorAll('.workspace-tab-panel').forEach(p => p.classList.add('hidden'));
             const p = document.getElementById(tabId);
@@ -1079,6 +1524,488 @@
         window.highlightNav = function(el) {
             document.querySelectorAll('.nav-anchor-lnk').forEach(lnk => lnk.classList.remove('active-nav-card'));
             el.classList.add('active-nav-card');
+        };
+
+        // --- MASTER DRAFTING STEP PLAYER ---
+        window.renderSimulationStep = function() {
+            const data = TopicRegistry[activeTopicId];
+            if (!data) return;
+
+            const step = data.steps[activeStepNum - 1];
+            if (!step) return;
+
+            // Progress counters
+            document.getElementById('step-counter').innerText = `Step ${activeStepNum} / ${data.steps.length}`;
+            document.getElementById('active-step-title').innerText = `${activeStepNum}. ${step.title}`;
+            document.getElementById('active-step-desc').innerText = step.desc;
+            document.getElementById('viewport-subtitle').innerText = data.title.toUpperCase();
+
+            const mnemonics = {
+                1: "Mnemonic cue: Always align primary coordinates perfectly.",
+                2: "Mnemonic cue: Draw intermediate dividers with fine pencils.",
+                3: "Mnemonic cue: Set compass pivots carefully on references.",
+                4: "Mnemonic cue: Darken final profiles with standard HB grades."
+            };
+            document.getElementById('active-step-mnemonic-box').innerText = mnemonics[activeStepNum] || "Double-check geometric projections.";
+
+            // Draw SVG
+            const svg = document.getElementById('draw-viewport-svg');
+            if (svg) {
+                svg.innerHTML = "";
+                drawProceduralVectorGraphics(svg);
+            }
+
+            // Move Virtual instruments
+            updateGizmosLayout(step.tool, step.x, step.y);
+        };
+
+        // --- PROCEDURAL GRAPHICS WRAPPERS ---
+        function drawProceduralVectorGraphics(svg) {
+            const data = TopicRegistry[activeTopicId];
+            if (!data) return;
+
+            const scale = workspaceSize / 50;
+            const cx = 220;
+            const cy = 160;
+
+            // Default layout projection axis line
+            createSVGLine(svg, 20, 160, 420, 160, "rgba(255, 255, 255, 0.15)", "2", "3,3");
+
+            if (activeTopicId === 'points_proj') {
+                createSVGLine(svg, 40, cy, 380, cy, "#10b981", "2.5", null);
+                createSVGText(svg, 45, cy - 8, "X", "#10b981", "9");
+                createSVGText(svg, 370, cy - 8, "Y", "#10b981", "9");
+
+                const dHP = 35 * scale;
+                const dVP = 45 * scale;
+                createSVGLine(svg, cx, cy - dHP, cx, cy + dVP, "rgba(255, 255, 255, 0.25)", "1", "2,3");
+
+                if (activeStepNum >= 1) {
+                    createSVGNode(svg, cx, cy, "rgba(16, 185, 129, 0.8)", 3.5);
+                }
+                if (activeStepNum >= 2) {
+                    createSVGLine(svg, cx, cy, cx, cy - dHP, "#ef4444", "1.5", "1,2");
+                    createSVGNode(svg, cx, cy - dHP, "#ef4444", 5);
+                    createSVGText(svg, cx + 10, cy - dHP + 4, "a' (Front view)", "#ef4444", "9");
+                }
+                if (activeStepNum >= 3) {
+                    createSVGLine(svg, cx, cy, cx, cy + dVP, "#06b6d4", "1.5", "1,2");
+                    createSVGNode(svg, cx, cy + dVP, "#06b6d4", 5);
+                    createSVGText(svg, cx + 10, cy + dVP + 4, "a (Top view)", "#06b6d4", "9");
+                }
+                if (activeStepNum >= 4) {
+                    createSVGDottedCircle(svg, cx, cy, dVP, "rgba(6, 182, 212, 0.25)");
+                }
+            }
+            else if (activeTopicId.includes('ecc')) {
+                const ecc = activeTopicId === 'ellipse_ecc' ? 0.65 : (activeTopicId === 'parabola_ecc' ? 1.0 : 1.35);
+                const focusDist = 50 * scale * 3.5;
+                const dirX = 70;
+                const focusX = dirX + focusDist;
+
+                createSVGLine(svg, dirX, 30, dirX, 290, "#fbbf24", "2.5", null);
+                createSVGText(svg, dirX - 18, 42, "D", "#fbbf24", "9");
+
+                createSVGLine(svg, dirX, cy, 410, cy, "rgba(251, 191, 36, 0.3)", "1.5", "4,4");
+
+                createSVGNode(svg, focusX, cy, "#ef4444", 5);
+                createSVGText(svg, focusX - 4, cy - 12, "F", "#ef4444", "9");
+
+                const vertexOffset = focusDist / (1 + ecc);
+                const vX = dirX + vertexOffset;
+                if (activeStepNum >= 2) {
+                    createSVGNode(svg, vX, cy, "#10b981", 6);
+                    createSVGText(svg, vX - 4, cy + 18, "V", "#10b981", "10");
+                }
+
+                const veHeight = vertexOffset * ecc;
+                if (activeStepNum >= 3) {
+                    createSVGLine(svg, vX, cy, vX, cy - veHeight, "#ec4899", "2", "3,3");
+                    createSVGNode(svg, vX, cy - veHeight, "#ec4899", 4);
+                    createSVGText(svg, vX - 4, cy - veHeight - 10, "E", "#ec4899", "9");
+                    createSVGLine(svg, dirX, cy, vX, cy - veHeight, "rgba(236, 72, 153, 0.4)", "1", null);
+                }
+
+                if (activeStepNum >= 4) {
+                    let pointStr = "";
+                    for (let x = dirX + 10; x < 390; x += 6) {
+                        const distToDir = x - dirX;
+                        const rTrace = distToDir * ecc;
+                        const dx = x - focusX;
+                        const valInside = rTrace * rTrace - dx * dx;
+                        if (valInside >= 0) {
+                            const offset = Math.sqrt(valInside);
+                            pointStr += `${x},${cy - offset} `;
+                        }
+                    }
+                    for (let x = 390; x >= dirX + 10; x -= 6) {
+                        const distToDir = x - dirX;
+                        const rTrace = distToDir * ecc;
+                        const dx = x - focusX;
+                        const valInside = rTrace * rTrace - dx * dx;
+                        if (valInside >= 0) {
+                            const offset = Math.sqrt(valInside);
+                            pointStr += `${x},${cy + offset} `;
+                        }
+                    }
+
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+                    path.setAttribute("points", pointStr);
+                    path.setAttribute("fill", "none");
+                    path.setAttribute("stroke", "#06b6d4");
+                    path.setAttribute("stroke-width", "2.5");
+                    svg.appendChild(path);
+                }
+            }
+            else if (activeTopicId === 'cycloid') {
+                createSVGLine(svg, 40, cy + 60, 400, cy + 60, "#38bdf8", "2", null);
+
+                const radius = 25 * scale;
+                const rollDist = 2 * Math.PI * radius;
+                const pCenter = 80 + rollDist * (activeStepNum / 4);
+
+                if (activeStepNum >= 1) {
+                    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle.setAttribute("cx", pCenter.toString());
+                    circle.setAttribute("cy", (cy + 60 - radius).toString());
+                    circle.setAttribute("r", radius.toString());
+                    circle.setAttribute("fill", "rgba(56, 189, 248, 0.08)");
+                    circle.setAttribute("stroke", "#38bdf8");
+                    circle.setAttribute("stroke-width", "1.5");
+                    svg.appendChild(circle);
+                }
+
+                if (activeStepNum >= 2) {
+                    createSVGLine(svg, 40, cy + 60 - radius, 400, cy + 60 - radius, "rgba(255,255,255,0.15)", "1", "4,4");
+                }
+
+                if (activeStepNum >= 3) {
+                    for (let x = 80; x <= 80 + rollDist; x += rollDist / 6) {
+                        createSVGLine(svg, x, cy + 60, x, cy + 60 - radius * 2, "rgba(255,255,255,0.05)", "1", "1,3");
+                    }
+                }
+
+                if (activeStepNum >= 4) {
+                    let pointStr = "";
+                    const totalT = 2 * Math.PI * (activeStepNum / 4);
+                    for (let t = 0; t <= totalT; t += 0.1) {
+                        const px = 80 + radius * (t - Math.sin(t)) * 1.5;
+                        const py = (cy + 60) - radius * (1 - Math.cos(t));
+                        pointStr += `${px},${py} `;
+                    }
+                    const poly = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+                    poly.setAttribute("points", pointStr);
+                    poly.setAttribute("fill", "none");
+                    poly.setAttribute("stroke", "#10b981");
+                    poly.setAttribute("stroke-width", "2.5");
+                    svg.appendChild(poly);
+                }
+            }
+            else {
+                // Fallback geometry drawer for other JNTUK topics (Lines, Solids, etc)
+                const angleRad = (workspaceRot * Math.PI) / 180;
+                const offset = 40 * Math.cos(angleRad);
+                const offsetHeight = 65 * Math.sin(angleRad);
+
+                createSVGLine(svg, cx - 110, cy + 70, cx + 155, cy + 70, "rgba(255,255,255,0.2)", "2", null);
+
+                if (activeStepNum >= 1) {
+                    const points = `${cx - 50},${cy + 40} ${cx + 50},${cy + 30} ${cx + 50 + offset},${cy - 20 - offsetHeight} ${cx - 50 + offset},${cy - 10 - offsetHeight}`;
+                    const flat = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                    flat.setAttribute("points", points);
+                    flat.setAttribute("fill", "rgba(59, 130, 246, 0.08)");
+                    flat.setAttribute("stroke", "#3b82f6");
+                    flat.setAttribute("stroke-width", "1.5");
+                    svg.appendChild(flat);
+                }
+                if (activeStepNum >= 2) {
+                    createSVGLine(svg, cx - 50, cy + 40, cx - 50, cy - 40, "rgba(6, 182, 212, 0.6)", "2", null);
+                    createSVGLine(svg, cx + 50, cy + 30, cx + 50, cy - 50, "rgba(6, 182, 212, 0.6)", "2", null);
+                }
+                if (activeStepNum >= 3) {
+                    const upperPoints = `${cx - 50},${cy - 40} ${cx + 50},${cy - 50} ${cx + 50 + offset},${cy - 100 - offsetHeight} ${cx - 50 + offset},${cy - 90 - offsetHeight}`;
+                    const cap = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                    cap.setAttribute("points", upperPoints);
+                    cap.setAttribute("fill", "rgba(6, 182, 212, 0.12)");
+                    cap.setAttribute("stroke", "#06b6d4");
+                    cap.setAttribute("stroke-width", "2");
+                    svg.appendChild(cap);
+                }
+                if (activeStepNum >= 4) {
+                    const cutY = cy - 20;
+                    createSVGLine(svg, cx - 80, cutY + 12, cx + 110, cutY - 12, "#ec4899", "2.5", "6,2,1,2");
+                    createSVGText(svg, cx - 110, cutY + 18, "CUTTING PLANE VT", "#ec4899", "9");
+                }
+            }
+        }
+
+        function createSVGLine(svg, x1, y1, x2, y2, color, width, dashed) {
+            const el = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            el.setAttribute("x1", x1.toString());
+            el.setAttribute("y1", y1.toString());
+            el.setAttribute("x2", x2.toString());
+            el.setAttribute("y2", y2.toString());
+            el.setAttribute("stroke", color);
+            el.setAttribute("stroke-width", width);
+            if (dashed) el.setAttribute("stroke-dasharray", dashed);
+            svg.appendChild(el);
+        }
+
+        function createSVGNode(svg, cx, cy, color, r) {
+            const el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            el.setAttribute("cx", cx.toString());
+            el.setAttribute("cy", cy.toString());
+            el.setAttribute("r", r.toString());
+            el.setAttribute("fill", color);
+            svg.appendChild(el);
+        }
+
+        function createSVGDottedCircle(svg, cx, cy, r, color) {
+            const el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            el.setAttribute("cx", cx.toString());
+            el.setAttribute("cy", cy.toString());
+            el.setAttribute("r", r.toString());
+            el.setAttribute("fill", "none");
+            el.setAttribute("stroke", color);
+            el.setAttribute("stroke-width", "1");
+            el.setAttribute("stroke-dasharray", "2,3");
+            svg.appendChild(el);
+        }
+
+        function createSVGText(svg, x, y, text, color, size) {
+            const el = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            el.textContent = text;
+            el.setAttribute("x", x.toString());
+            el.setAttribute("y", y.toString());
+            el.setAttribute("fill", color);
+            el.setAttribute("font-size", size);
+            el.setAttribute("font-weight", "black");
+            el.setAttribute("font-family", "monospace");
+            svg.appendChild(el);
+        }
+
+        // --- GIZMO WORKSTATION LAYOUT ---
+        function updateGizmosLayout(tool, targetX, targetY) {
+            const ind = document.getElementById('drafter-g-indicator');
+            const comp = document.getElementById('g-compass-node');
+            
+            if (activeGizmos.drafter) {
+                if (ind) {
+                    ind.classList.remove('hidden');
+                    ind.style.left = `${targetX}px`;
+                    ind.style.top = `${targetY}px`;
+                }
+            } else {
+                if (ind) ind.classList.add('hidden');
+            }
+
+            if (activeGizmos.compass) {
+                if (comp) {
+                    comp.classList.remove('hidden');
+                    comp.style.left = `${targetX - 20}px`;
+                    comp.style.top = `${targetY - 20}px`;
+                }
+            } else {
+                if (comp) comp.classList.add('hidden');
+            }
+        }
+
+        window.toggleGizmo = function(type) {
+            activeGizmos[type] = !activeGizmos[type];
+            const btn = document.getElementById(`gizmo-${type}`);
+            if (activeGizmos[type]) {
+                if (btn) btn.className = "p-2 rounded-xl text-[9px] font-black text-cyan-400 bg-cyan-950/40 border border-cyan-500/30 hover:bg-slate-900 transition-all flex items-center justify-center gap-1.5 font-cad shadow-md";
+                showEGNotification(`${type.toUpperCase()} enabled on viewport.`);
+            } else {
+                if (btn) btn.className = "p-2 rounded-xl text-[9px] font-black text-slate-400 bg-black/60 border border-slate-850 hover:bg-slate-900 transition-all flex items-center justify-center gap-1.5 font-cad";
+            }
+            renderSimulationStep();
+        };
+
+        // --- SLIDERS UPDATES ---
+        window.updateWorkspaceRot = function(val) {
+            workspaceRot = parseInt(val);
+            document.getElementById('viewport-axis-rot-lbl').innerText = `${val}°`;
+            renderSimulationStep();
+        };
+
+        window.updateWorkspaceSize = function(val) {
+            workspaceSize = parseInt(val);
+            document.getElementById('viewport-size-scalar-lbl').innerText = `${val}mm`;
+            renderSimulationStep();
+        };
+
+        // --- TIMELAPSE PLAYBACK SELECTION ---
+        window.nextDrawingStep = function() {
+            const data = TopicRegistry[activeTopicId];
+            if (activeStepNum < data.steps.length) {
+                activeStepNum++;
+                renderSimulationStep();
+            } else {
+                showEGNotification("Final draft step cleared!");
+            }
+        };
+
+        window.prevDrawingStep = function() {
+            if (activeStepNum > 1) {
+                activeStepNum--;
+                renderSimulationStep();
+            }
+        };
+
+        window.updateTempo = function(val) {
+            tempoMs = parseInt(val);
+            const multiplier = (2000 / tempoMs).toFixed(1);
+            document.getElementById('tempo-lbl').innerText = `${multiplier}x`;
+            if (isPlaying) {
+                clearInterval(playInterval);
+                startAutoPlayInterval();
+            }
+        };
+
+        window.toggleDrawingAutoPlay = function() {
+            isPlaying = !isPlaying;
+            const btn = document.getElementById('btn-autoplay');
+            if (isPlaying) {
+                if (btn) btn.innerText = "PAUSE";
+                if (btn) btn.className = "flex-1 py-1.5 bg-amber-600 text-white rounded-lg text-[9px] font-black uppercase shadow-lg shadow-amber-500/20 hover:bg-amber-500 transition-all font-cad animate-pulse";
+                startAutoPlayInterval();
+                showEGNotification("Reconstruction replay running...");
+            } else {
+                if (btn) btn.innerText = "PLAY";
+                if (btn) btn.className = "flex-1 py-1.5 bg-cyan-600 text-white rounded-lg text-[9px] font-black uppercase shadow-lg shadow-cyan-500/20 hover:bg-cyan-500 transition-all font-cad";
+                clearInterval(playInterval);
+            }
+        };
+
+        function startAutoPlayInterval() {
+            const data = TopicRegistry[activeTopicId];
+            playInterval = setInterval(() => {
+                if (activeStepNum < data.steps.length) {
+                    activeStepNum++;
+                } else {
+                    activeStepNum = 1;
+                }
+                renderSimulationStep();
+            }, tempoMs);
+        }
+
+        // --- COORDINATES TRACKER ---
+        window.initMouseTracing = function() {
+            const container = document.getElementById('draw-viewport-container');
+            if (!container) return;
+
+            container.addEventListener('mousemove', function(evt) {
+                const rect = container.getBoundingClientRect();
+                const mX = Math.round(evt.clientX - rect.left);
+                const mY = Math.round(evt.clientY - rect.top);
+
+                document.getElementById('sim-hud-x').innerText = mX.toString();
+                document.getElementById('sim-hud-y').innerText = mY.toString();
+
+                const deltaX = mX - 220;
+                const deltaY = mY - 160;
+                let angle = Math.round((Math.atan2(deltaY, deltaX) * 180) / Math.PI);
+                if (angle < 0) angle += 360;
+                document.getElementById('sim-hud-angle').innerText = `${angle}°`;
+            });
+        };
+
+        // --- PRACTICE DRIVERS ---
+        window.togglePracticeMode = function() {
+            isPracticeMode = !isPracticeMode;
+            const status = document.getElementById('practice-status');
+            const trigBtn = document.getElementById('btn-practice-trigger');
+            const subBtn = document.getElementById('btn-practice-submit');
+            const overlay = document.getElementById('sim-instruction-overlay');
+
+            if (isPracticeMode) {
+                isPlaying = false;
+                clearInterval(playInterval);
+                const apBtn = document.getElementById('btn-autoplay');
+                if (apBtn) apBtn.innerText = "PLAY";
+                
+                status.innerText = "ACTIVE PRACTICE";
+                status.className = "bg-rose-500/10 text-rose-400 p-1 px-2.5 rounded text-[8px] font-black uppercase tracking-tight font-cad";
+                trigBtn.innerText = "Exit Practice";
+                subBtn.removeAttribute("disabled");
+                
+                overlay.innerHTML = `
+                    <div class="flex flex-col gap-1 font-sans">
+                        <span class="text-[8px] text-pink-500 uppercase font-cad">PRACTICE INTERACTIVITY ACTIVE</span>
+                        <p class="text-[9.5px] leading-snug">Calibrate coordinates on-screen using snap guides. Submit validation once complete.</p>
+                    </div>
+                `;
+                overlay.classList.remove('hidden');
+                showEGNotification("Practice Mode enabled. Tap and drag on-screen.");
+            } else {
+                status.innerText = "STANDBY";
+                status.className = "bg-indigo-500/10 text-indigo-400 p-1 px-2.5 rounded text-[8px] font-black uppercase tracking-tight font-cad";
+                trigBtn.innerText = "Enable Practice";
+                subBtn.setAttribute("disabled", "true");
+                overlay.classList.add('hidden');
+            }
+        };
+
+        window.submitPracticeCheck = function() {
+            showEGNotification("Evaluating coordinate convergence...");
+            setTimeout(() => {
+                window.recordXP(100);
+                showEGNotification("🎉 Checked! Dynamic snaps comply with JNTUK tolerances! (+100 XP)");
+                window.togglePracticeMode();
+            }, 1200);
+        };
+
+        // --- AI COACH RESPONSES ---
+        window.triggerAICopilot = function(type) {
+            const data = TopicRegistry[activeTopicId];
+            if (!data) return;
+
+            const bubble = document.getElementById('ai-copilot-bubble');
+            bubble.innerHTML = '<span class="flex items-center gap-2"><i class="w-3.5 h-3.5 animate-spin border-2 border-cyan-500/30 border-t-cyan-500 rounded-full"></i> AI ENGINE STREAMING FEEDBACK...</span>';
+
+            setTimeout(() => {
+                if (type === 'explain_step') {
+                    const step = data.steps[activeStepNum - 1];
+                    bubble.innerHTML = `<b>AI Copilot (Step ${activeStepNum}):</b> ${step.desc} <br><br> Projectors are drawn under 0.15mm thickness to highlight primary target vertices.`;
+                }
+                else if (type === 'why_step') {
+                    bubble.innerHTML = `<b>AI Copilot (Reasoning):</b> Standard processes secure foundational scaling points dynamically, ensuring you meet syllabus JNTUK guidelines.`;
+                }
+                else if (type === 'bis_rules') {
+                    bubble.innerHTML = `<b>AI Copilot (BIS standards):</b> Standard rules mandate uppercase lettering indicators for primary variables (A, B, C) sized 3mm/5mm.`;
+                }
+                else {
+                    bubble.innerHTML = `<b>AI Copilot (Viva generated question):</b><br> Q: ${data.viva[0].q}<br> A: <i>${data.viva[0].a}</i>`;
+                }
+                window.recordXP(15);
+            }, 750);
+        };
+
+        // --- INTERACTIVE NAVIGATION Accordion selectors ---
+        window.selectSyllabusTopic = function(topicId) {
+            loadActiveTopicData(topicId);
+            showEGNotification(`Syllabus Card loaded: ${TopicRegistry[topicId].title.substring(0, 22)}...`);
+        };
+
+        window.selectUnitFilter = function(unitNum) {
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById(`unit-btn-${i}`);
+                if (btn) {
+                    if (i === unitNum) {
+                        btn.className = "w-full p-2 py-1.5 text-left rounded-lg bg-[#03030b] border border-cyan-900/40 text-[10px] font-bold text-cyan-400 hover:border-cyan-500 transition-all font-cad";
+                    } else {
+                        btn.className = "w-full p-2 py-1.5 text-left rounded-lg bg-[#03030b] border border-slate-900 text-[10px] font-bold text-slate-500 hover:border-cyan-500 transition-all font-cad";
+                    }
+                }
+            }
+
+            const select = document.getElementById('active-topic-selector');
+            const group = document.getElementById(`optg-${unitNum}`);
+            if (select && group && group.firstElementChild) {
+                select.value = group.firstElementChild.value;
+                window.selectSyllabusTopic(select.value);
+            }
         };
 
         window.flipVivaCard = function(el) {
