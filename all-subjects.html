@@ -1,124 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syllabus Master Operating System - EngiPrep Hub</title>
+    <title>All Subjects Master Class - EngiPrep Hub</title>
     <link rel="canonical" href="https://engiprephub.vercel.app/all-subjects">
-    
-    <!-- Fonts Import with spacious and editorial accents -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="/src/style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
-    
-    <!-- Tailwind Configuration matching global style variables -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                        cad: ['Space Grotesk', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Interactive CSS style definitions and overlay grids -->
     <style>
-        /* Smooth transitioned custom thematic background grids */
-        .grid-blueprint {
-            background-color: #0c1a30;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .grid-coordinate {
-            background-color: #020617;
-            background-image: 
-                linear-gradient(rgba(6, 182, 212, 0.04) 1.5px, transparent 1.5px),
-                linear-gradient(90deg, rgba(6, 182, 212, 0.04) 1.5px, transparent 1.5px);
-            background-size: 40px 40px;
-        }
-
-        .grid-oscilloscope {
-            background-color: #11140f;
-            background-image: 
-                linear-gradient(rgba(234, 179, 8, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(234, 179, 8, 0.03) 1px, transparent 1px);
-            background-size: 15px 15px;
-        }
-
-        .grid-pcb {
-            background-color: #020e06;
-            background-image: 
-                radial-gradient(rgba(34, 197, 94, 0.07) 1.5px, transparent 1.5px);
-            background-size: 24px 24px;
-        }
-
-        .grid-english {
-            background-color: #fbfaf7;
-            background-image: 
-                linear-gradient(#f1ecd8 1px, transparent 1px);
-            background-size: 100% 32px;
-        }
-
-        /* Light mode overlays */
-        .light .grid-coordinate { background-color: #f8fafc; background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1.5px, transparent 1.5px); }
-        .light .grid-blueprint { background-color: #f0f7ff; background-image: linear-gradient(rgba(59, 130, 246, 0.06) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(59, 130, 246, 0.06) 1.5px, transparent 1.5px); }
-        .light .grid-oscilloscope { background-color: #fafaf9; background-image: linear-gradient(rgba(202, 138, 4, 0.04) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(202, 138, 4, 0.04) 1.5px, transparent 1.5px); }
-        .light .grid-pcb { background-color: #f0fdf4; background-image: radial-gradient(rgba(22, 163, 74, 0.05) 1.5px, transparent 1.5px); }
-        .light .grid-english { background-color: #fcfbfa; background-image: linear-gradient(#f3efe0 1px, transparent 1px); }
-
-        /* Card styles under different study modes */
-        .focus-active-overlay {
-            background: rgba(2, 6, 17, 0.95);
-        }
-        .light .focus-active-overlay {
-            background: rgba(248, 250, 252, 0.95);
-        }
-
-        /* 3D Filp-card transitions */
-        .viva-card-inner {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        .flip-card-inner {
+            transition: transform 0.6s;
             transform-style: preserve-3d;
         }
-        .viva-card-flipped .viva-card-inner {
+        .flip-card.flipped .flip-card-inner {
             transform: rotateY(180deg);
         }
-        .viva-card-front, .viva-card-back {
+        .flip-card-front, .flip-card-back {
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
         }
-        .viva-card-back {
+        .flip-card-back {
             transform: rotateY(180deg);
         }
-
-        /* Premium scroll tracking indicator */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
-            width: 0%;
-            z-index: 1000;
+        
+        .panic-active .normal-content {
+            display: none !important;
         }
-
-        /* Ambient Glow Transitions */
-        .theme-glow-math { box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.15); }
-        .theme-glow-drawing { box-shadow: 0 0 25px -5px rgba(249, 115, 22, 0.15); }
-        .theme-glow-beee { box-shadow: 0 0 25px -5px rgba(234, 179, 8, 0.15); }
-        .theme-glow-electronics { box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.15); }
-        .theme-glow-english { box-shadow: 0 0 15px -5px rgba(99, 102, 241, 0.08); }
+        .panic-active .panic-content {
+            display: block !important;
+        }
+        .panic-content {
+            display: none;
+        }
     </style>
 
     <!-- Gatekeeper for Authentication -->
@@ -130,1290 +45,598 @@
     <meta property="og:url" content="https://engiprephub.vercel.app/all-subjects">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="EngiPrep Hub">
+
 </head>
-<body id="dynamic-body" class="bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500/30 font-sans min-h-screen transition-all duration-500 ease-in-out grid-coordinate leading-relaxed">
-    
-    <!-- Scroll Progress Indicator -->
-    <div id="scroll-bar-indicator" class="scroll-progress"></div>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 antialiased selection:bg-blue-500/30 font-sans min-h-screen flex flex-col">
 
-    <!-- Navigation Header -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            
-            <!-- Brand Logo -->
-            <a href="/" class="flex items-center gap-3 group">
-                <div class="relative w-9 h-9 bg-cyan-600 rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform shadow-lg shadow-cyan-500/20">
-                    <i data-lucide="graduation-cap" class="text-white w-5 h-5"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-black text-lg tracking-tight text-slate-900 dark:text-white">Engi<span id="logo-accent" class="text-cyan-600 dark:text-cyan-400">Prep</span> Hub</span>
-                    <span class="text-[5.5px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 leading-none">THE COGNITIVE OPERATING SYSTEM</span>
-                </div>
-            </a>
-
-            <!-- Mode Controls & Accessibility Action Group -->
-            <div class="flex items-center gap-3">
-                
-                <!-- Streak Badge -->
-                <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full text-xs font-bold text-amber-500">
-                    <i data-lucide="flame" class="w-4 h-4 text-amber-500 animate-pulse"></i>
-                    <span><span id="streak-counter-bubble">5</span> Day Streak</span>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <a href="/index.html" class="flex items-center gap-2 group">
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform shadow-lg shadow-blue-500/20">
+                            <i data-lucide="book-open-check" class="text-white w-5 h-5 md:w-6 md:h-6"></i>
+                        </div>
+                        <span class="font-black text-xl md:text-2xl tracking-tight text-slate-900 dark:text-slate-50">Engi<span class="text-blue-600 dark:text-blue-400">Prep</span> Hub</span>
+                    </a>
                 </div>
 
-                <!-- XP Mastery Badge -->
-                <div class="flex items-center gap-1.5 px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-xs font-bold text-cyan-500 dark:text-cyan-300">
-                    <i data-lucide="zap" class="w-4 h-4 text-cyan-500 dark:text-cyan-400"></i>
-                    <span>Level <span id="user-level">2</span> • <span id="user-xp">480</span>/1200 XP</span>
+                <div class="flex items-center gap-4">
+                    <button id="panic-mode-btn" class="flex items-center gap-2 px-4 py-2 bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 rounded-full font-bold text-sm tracking-wide hover:bg-rose-500 hover:text-white transition-all">
+                        <i data-lucide="siren" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">PANIC MODE</span>
+                    </button>
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    </button>
                 </div>
-
-                <!-- Accessibility Trigger -->
-                <button onclick="toggleAccessibilityMenu()" class="p-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-600 dark:text-slate-300 rounded-xl" title="Accessibility Dashboard">
-                    <i data-lucide="accessibility" class="w-4 h-4"></i>
-                </button>
-
-                <!-- Color Theme Toggle -->
-                <button id="nav-theme-toggle" class="p-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-600 dark:text-slate-300 rounded-xl">
-                    <i data-lucide="sun" class="w-4 h-4"></i>
-                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Floating Accessibility Panel (Controlled dynamically) -->
-    <div id="accessibility-panel" class="hidden fixed top-20 right-6 z-50 w-72 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl animate-fade-in">
-        <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 font-mono">Cognitive Accessibility Hub</h4>
-        
-        <div class="space-y-4">
-            <!-- Text Size Controller -->
-            <div>
-                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Adjustment of Text Size</span>
-                <div class="flex gap-2 mt-1.5">
-                    <button onclick="adjustTextScale('small')" class="flex-1 py-1.5 bg-slate-950 hover:bg-slate-800 rounded-lg text-xs font-semibold text-slate-300 border border-slate-800">Standard</button>
-                    <button onclick="adjustTextScale('medium')" class="flex-1 py-1.5 bg-slate-950 hover:bg-slate-800 rounded-lg text-xs font-semibold text-slate-300 border border-slate-800">Larger</button>
-                    <button onclick="adjustTextScale('large')" class="flex-1 py-1.5 bg-slate-950 hover:bg-slate-800 rounded-lg text-xs font-semibold text-slate-300 border border-slate-800">Comfort</button>
-                </div>
+    <!-- Main Subject Header -->
+    <header class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 opacity-10 pointer-events-none">
+                <i data-lucide="cpu" class="w-96 h-96 text-blue-500"></i>
             </div>
-
-            <!-- Reading Width Controller -->
-            <div>
-                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Reading Width Containment</span>
-                <div class="flex gap-2 mt-1.5">
-                    <button onclick="setReadingWidth('narrow')" class="flex-1 py-1.5 bg-slate-950 hover:bg-slate-800 rounded-lg text-xs font-semibold text-slate-300 border border-slate-800">Narrow Reading Focus</button>
-                    <button onclick="setReadingWidth('wide')" class="flex-1 py-1.5 bg-slate-950 hover:bg-slate-800 rounded-lg text-xs font-semibold text-slate-300 border border-slate-800">Expanded Layout</button>
-                </div>
-            </div>
-
-            <!-- Transition Speeds Toggle -->
-            <div>
-                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Animation Motion Profile</span>
-                <div class="flex gap-2 mt-1.5">
-                    <button onclick="setAnimationMode(true)" class="flex-1 py-1.5 bg-slate-950 hover:bg-slate-800 rounded-lg text-xs font-semibold text-slate-300 border border-slate-800">Subtle Transitions</button>
-                    <button onclick="setAnimationMode(false)" class="flex-1 py-1.5 bg-slate-950 hover:bg-slate-800 rounded-lg text-xs font-semibold text-slate-300 border border-slate-800">Interactive Flows</button>
-                </div>
-            </div>
-
-            <!-- Keyboard Guide Toggle -->
-            <div>
-                <button onclick="toggleKeyboardGuide()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
-                    <i data-lucide="keyboard" class="w-4 h-4"></i> View Keyboard Shortcuts
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Keyboard Shortcuts Dialog Overlay -->
-    <div id="keyboard-guide-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md">
-        <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl relative">
-            <button onclick="toggleKeyboardGuide()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-            <h3 class="text-lg font-black text-white mb-6 flex items-center gap-2">
-                <i data-lucide="keyboard" class="text-cyan-500"></i> Keyboard Operations Guide
-            </h3>
-            <div class="space-y-4">
-                <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-800">
-                    <span class="text-xs text-slate-300">Switch Theme Subject Index</span>
-                    <kbd class="px-2 py-1 bg-slate-800 border border-slate-700 text-white font-mono text-[10px] rounded shadow-sm">1 - 5 Keys</kbd>
-                </div>
-                <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-800">
-                    <span class="text-xs text-slate-300">Activate Focus Mode toggle</span>
-                    <kbd class="px-2 py-1 bg-slate-800 border border-slate-700 text-white font-mono text-[10px] rounded shadow-sm">"F" Key</kbd>
-                </div>
-                <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-800">
-                    <span class="text-xs text-slate-300">Activate Exam Mode toggle</span>
-                    <kbd class="px-2 py-1 bg-slate-800 border border-slate-700 text-white font-mono text-[10px] rounded shadow-sm">"E" Key</kbd>
-                </div>
-                <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-800">
-                    <span class="text-xs text-slate-300">Activate Visual Mode toggle</span>
-                    <kbd class="px-2 py-1 bg-slate-800 border border-slate-700 text-white font-mono text-[10px] rounded shadow-sm">"V" Key</kbd>
-                </div>
-                <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-800">
-                    <span class="text-xs text-slate-300">Activate AI Tutor Copilot prompt</span>
-                    <kbd class="px-2 py-1 bg-slate-800 border border-slate-700 text-white font-mono text-[10px] rounded shadow-sm">"A" Key</kbd>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Active Subject Selective Tab Panel (Slightly floating header carousel space) -->
-    <div class="pt-24 pb-4 px-6 max-w-7xl mx-auto">
-        <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 p-2 rounded-2xl flex flex-wrap gap-2 justify-between items-center shadow-lg">
-            <span class="text-[10px] font-black uppercase tracking-wider text-slate-400 pl-4">CURRICULUM MODULES:</span>
             
-            <!-- Sliding Navigation Bar -->
-            <div class="flex flex-wrap gap-1.5">
-                <button onclick="switchToSubject('math')" id="tab-math" class="px-4 py-2 rounded-xl text-xs font-black tracking-tight transition-all duration-300 flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-cad">
-                    <i data-lucide="function-square" class="w-4 h-4"></i> Engineering Mathematics
-                </button>
-                <button onclick="switchToSubject('drawing')" id="tab-drawing" class="px-4 py-2 rounded-xl text-xs font-black tracking-tight transition-all duration-300 flex items-center gap-2 text-slate-400 hover:text-slate-200 font-cad">
-                    <i data-lucide="compass" class="w-4 h-4"></i> Engineering Drawing (CAD)
-                </button>
-                <button onclick="switchToSubject('beee')" id="tab-beee" class="px-4 py-2 rounded-xl text-xs font-black tracking-tight transition-all duration-300 flex items-center gap-2 text-slate-400 hover:text-slate-200 font-cad">
-                    <i data-lucide="activity" class="w-4 h-4"></i> BEEE Circuits
-                </button>
-                <button onclick="switchToSubject('electronics')" id="tab-electronics" class="px-4 py-2 rounded-xl text-xs font-black tracking-tight transition-all duration-300 flex items-center gap-2 text-slate-400 hover:text-slate-200 font-cad">
-                    <i data-lucide="cpu" class="w-4 h-4"></i> Electronics &amp; PCB
-                </button>
-                <button onclick="switchToSubject('english')" id="tab-english" class="px-4 py-2 rounded-xl text-xs font-black tracking-tight transition-all duration-300 flex items-center gap-2 text-slate-400 hover:text-slate-200 font-cad">
-                    <i data-lucide="book-open" class="w-4 h-4"></i> Communicative English
-                </button>
+            <div class="z-10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="px-3 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded-full text-xs font-bold tracking-wider rounded font-mono border border-blue-600/20 uppercase">JNTUK R23 Core</span>
+                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-bold tracking-wider rounded font-mono border border-emerald-500/20 uppercase">3 Credits</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight">Data Structures &amp; Algorithms</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl leading-relaxed">
+                    Master standard data structures, algorithmic complexity, and essential computing theory directly optimized for JNTUK evaluations.
+                </p>
+            </div>
+            
+            <!-- Progress Meter -->
+            <div class="z-10 bg-slate-50 dark:bg-slate-950 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-inner min-w-[250px]">
+                <div class="flex justify-between items-end mb-2">
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono">Syllabus Completion</span>
+                    <span class="text-2xl font-black text-blue-600 dark:text-blue-400" id="progress-text">0%</span>
+                </div>
+                <div class="h-3 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-blue-600 dark:bg-blue-500 transition-all duration-500 ease-out" style="width: 0%"></div>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <!-- MAIN COGNITIVE LAYOUT GRID -->
-    <div id="layout-view-container" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 pb-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col lg:flex-row gap-8 pb-32">
         
-        <!-- LEFT SIDEBAR: Syllabus map & Gamification metrics -->
-        <aside class="lg:col-span-3 space-y-6">
-            
-            <!-- Completion Card -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm">
-                <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 font-mono">Module Progress</h3>
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-xs text-slate-400" id="curriculum-percentage-label">Completion Status</span>
-                    <span id="progress-percentage-bubble" class="text-lg font-black text-cyan-400 font-cad">20%</span>
-                </div>
-                <div class="h-2 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-850">
-                    <div id="subject-progress-fill" class="h-full bg-gradient-to-r from-cyan-500 to-indigo-500 transition-all duration-500" style="width: 20%;"></div>
-                </div>
+        <!-- Left Sidebar Index (Desktop) -->
+        <aside class="hidden lg:block w-64 flex-shrink-0">
+            <div class="sticky top-24 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+                <h3 class="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-6 font-mono">Quick Navigate</h3>
+                <nav class="space-y-1">
+                    <a href="#unit-1" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-bold">
+                        <span class="w-6 h-6 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px]">U1</span> Arrays & Logic
+                    </a>
+                    <a href="#unit-2" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-bold">
+                        <span class="w-6 h-6 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px]">U2</span> Stacks/Queues
+                    </a>
+                    <a href="#unit-3" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-bold">
+                        <span class="w-6 h-6 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px]">U3</span> Linked Lists
+                    </a>
+                    <a href="#unit-4" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-bold">
+                        <span class="w-6 h-6 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px]">U4</span> Tree Structures
+                    </a>
+                    <a href="#unit-5" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-bold">
+                        <span class="w-6 h-6 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px]">U5</span> Graph Algorithms
+                    </a>
+                    <div class="h-px w-full bg-slate-200 dark:bg-slate-800 my-4"></div>
+                    <a href="#pyqs" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-bold">
+                        <i data-lucide="file-check-2" class="w-4 h-4"></i> Solved PYQs
+                    </a>
+                    <a href="#flashcards" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-bold">
+                        <i data-lucide="copy" class="w-4 h-4"></i> Flashcards
+                    </a>
+                </nav>
             </div>
-
-            <!-- Checklist Mapping Units -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest font-mono">Curriculum Units</h3>
-                    <span id="active-units-count" class="text-[9px] font-black font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-2 py-0.5 rounded">R23 Core</span>
-                </div>
-
-                <div id="unit-nav-checklist" class="space-y-2">
-                    <!-- Dynamic Checklist Inserted Here -->
-                </div>
-            </div>
-
-            <!-- Gamification Completion Achievements -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm">
-                <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 font-mono">Mastery Badges</h3>
-                <div class="grid grid-cols-3 gap-3">
-                    <div class="flex flex-col items-center p-3 bg-slate-950 border border-slate-800 rounded-2xl text-center group cursor-pointer hover:border-cyan-500/30 transition-all" title="Gain 300 XP in Mathematics">
-                        <i data-lucide="infinity" class="w-6 h-6 text-cyan-500 mb-1 animate-pulse"></i>
-                        <span class="text-[8px] font-bold text-slate-400 uppercase mt-1">Eigen Mage</span>
-                    </div>
-                    <div class="flex flex-col items-center p-3 bg-slate-950 border border-slate-800 rounded-2xl text-center group cursor-pointer hover:border-orange-500/30 transition-all" title="Construct conics correctly in Drawing">
-                        <i data-lucide="drafting-compass" class="w-6 h-6 text-orange-500 mb-1"></i>
-                        <span class="text-[8px] font-bold text-slate-400 uppercase mt-1">CAD Master</span>
-                    </div>
-                    <div class="flex flex-col items-center p-3 bg-slate-950 border border-slate-800 rounded-2xl text-center group cursor-pointer hover:border-yellow-500/30 transition-all" title="Complete Wave Generator parameters">
-                        <i data-lucide="waves" class="w-6 h-6 text-yellow-500 mb-1"></i>
-                        <span class="text-[8px] font-bold text-slate-400 uppercase mt-1">Amp Wizard</span>
-                    </div>
-                </div>
-            </div>
-
         </aside>
 
-        <!-- CENTER: MAIN LESSON CARD WITH STUDY MODES INCLUDED -->
-        <main id="center-main-area" class="lg:col-span-6 space-y-6">
+        <!-- Main Content Area -->
+        <main class="flex-1 space-y-8 min-w-0 normal-content">
+
+            <!-- Unit 1 -->
+            <section id="unit-1" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono">Unit 1</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black">Arrays, Searching & Sorting</h2>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-1">
+                        <div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-bold text-slate-500 dark:text-slate-400">Mark Complete</span>
+                    </label>
+                </div>
+
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <h3 class="text-lg font-bold">Core Axioms & Theories</h3>
+                    <p>Arrays provide contiguous memory allocation ensuring $O(1)$ time complexity for index-based access, but insertion/deletion requires $O(n)$ shifting overhead.</p>
+                    
+                    <div class="bg-amber-500/10 border-l-4 border-amber-500 p-4 rounded-r-xl my-6">
+                        <h4 class="text-sm font-black text-amber-700 dark:text-amber-400 uppercase tracking-widest font-mono m-0 mb-2">Exam Callout: Time Complexity</h4>
+                        <p class="text-amber-900 dark:text-amber-200 text-sm m-0">Examiners frequently test Binary Search complexity derivation. Always mention that the search space halves each iteration causing $T(n) = T(n/2) + O(1)$, deriving to $O(\log n)$.</p>
+                    </div>
+
+                    <h3 class="text-lg font-bold">Mathematical Notation & Code Constraints</h3>
+                    <div class="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 font-mono text-sm overflow-x-auto text-slate-900 dark:text-slate-50">
+                        <span class="text-slate-500">// Binary Search Iterative Template</span><br>
+                        <span class="text-purple-600 dark:text-purple-400">int</span> binarySearch(<span class="text-purple-600 dark:text-purple-400">int</span> arr[], <span class="text-purple-600 dark:text-purple-400">int</span> l, <span class="text-purple-600 dark:text-purple-400">int</span> r, <span class="text-purple-600 dark:text-purple-400">int</span> x) {<br>
+                        &nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">while</span> (l &lt;= r) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-600 dark:text-purple-400">int</span> m = l + (r - l) / 2; <span class="text-slate-500">// Prevents overflow</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">if</span> (arr[m] == x) <span class="text-emerald-600 dark:text-emerald-400">return</span> m;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">if</span> (arr[m] &lt; x) l = m + 1;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">else</span> r = m - 1;<br>
+                        &nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;<span class="text-emerald-600 dark:text-emerald-400">return</span> -1;<br>
+                        }
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 2 -->
+            <section id="unit-2" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono">Unit 2</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black">Stacks & Queues (Linear DS)</h2>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-2">
+                        <div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <p>Stacks enforce LIFO (Last-In-First-Out) operations while Queues enforce FIFO (First-In-First-Out). Both structures map naturally to algorithmic states (e.g., DFS vs BFS).</p>
+                    <div class="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 font-mono text-sm overflow-x-auto text-slate-900 dark:text-slate-50 mt-4">
+                        Push Operation (Array): <br>
+                        if (top === MAX_SIZE - 1) return OVERFLOW;<br>
+                        stack[++top] = value;
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 3 -->
+            <section id="unit-3" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono mb-2 block w-max">Unit 3</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black">Linked Lists (SLL, DLL, CLL)</h2>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-3">
+                        <div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-bold text-slate-500 dark:text-slate-400">Mark Complete</span>
+                    </label>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <p>Dynamic memory allocation eliminates resizing overhead by maintaining non-contiguous structural nodes coupled via pointers. Master the variations of Singly, Doubly, and Circular Linked Lists.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                        <div class="bg-indigo-500/10 border-indigo-500/20 border p-5 rounded-2xl">
+                            <h4 class="text-sm font-black text-indigo-700 dark:text-indigo-400 tracking-widest uppercase mb-2">Singly Linked List</h4>
+                            <p class="text-sm text-indigo-900 dark:text-indigo-200 leading-relaxed mb-0">Contains a data field and a next pointer. Best for simple stacks/queues implementation where reverse traversal is unnecessary.</p>
+                        </div>
+                        <div class="bg-blue-500/10 border-blue-500/20 border p-5 rounded-2xl">
+                            <h4 class="text-sm font-black text-blue-700 dark:text-blue-400 tracking-widest uppercase mb-2">Doubly Linked List</h4>
+                            <p class="text-sm text-blue-900 dark:text-blue-200 leading-relaxed mb-0">Contains prev, data, and next pointers. Ideal for complex applications like browser history or caching mechanisms (LRU).</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-bold">Node Insertion Logic (SLL)</h3>
+                    <div class="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 font-mono text-sm overflow-x-auto text-slate-900 dark:text-slate-50 mt-4">
+                        <span class="text-slate-500">// Inserting at the beginning of a Singly Linked List</span><br>
+                        <span class="text-purple-600 dark:text-purple-400">void</span> insertAtHead(Node** head_ref, <span class="text-purple-600 dark:text-purple-400">int</span> new_data) {<br>
+                        &nbsp;&nbsp;Node* new_node = (Node*) malloc(<span class="text-blue-600 dark:text-blue-400">sizeof</span>(Node));<br>
+                        &nbsp;&nbsp;new_node->data = new_data;<br>
+                        &nbsp;&nbsp;new_node->next = (*head_ref);<br>
+                        &nbsp;&nbsp;(*head_ref) = new_node;<br>
+                        }
+                    </div>
+                </div>
+            </section>
             
-            <!-- STUDY MODE CONTROLLER (Premium Apple-styled pill selector) -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-2 flex justify-between items-center shadow-lg">
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest pl-3">STUDY VIEWPORT MODE:</span>
-                <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-850">
-                    <button onclick="toggleStudyMode('focus')" id="mode-focus" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 transition-all flex items-center gap-1.5">
-                        <i data-lucide="eye-off" class="w-3.5 h-3.5"></i> Focus
-                    </button>
-                    <button onclick="toggleStudyMode('exam')" id="mode-exam" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 transition-all flex items-center gap-1.5">
-                        <i data-lucide="scroll" class="w-3.5 h-3.5"></i> Exam Prep
-                    </button>
-                    <button onclick="toggleStudyMode('visual')" id="mode-visual" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 transition-all flex items-center gap-1.5">
-                        <i data-lucide="tv-2" class="w-3.5 h-3.5"></i> Visual Lab
-                    </button>
+            <!-- Unit 4 -->
+            <section id="unit-4" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono mb-2 block w-max">Unit 4</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black">Trees & Hashing</h2>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-4">
+                        <div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-bold text-slate-500 dark:text-slate-400">Mark Complete</span>
+                    </label>
                 </div>
-            </div>
-
-            <!-- MASTER HERO DISPLAY CARD (DYNAMIC) -->
-            <div id="subject-main-hero" class="bg-slate-900 border border-slate-800 rounded-3xl p-8 relative overflow-hidden transition-all duration-300">
-                <div class="flex justify-between items-center mb-4">
-                    <span id="hero-unit-badge" class="px-3 py-1 bg-cyan-600/10 text-cyan-400 rounded-full text-[10px] font-bold tracking-wider font-mono border border-cyan-600/20 uppercase">UNIT 1 • MATRICES</span>
-                    <span id="hero-credits-badge" class="px-3 py-1 bg-indigo-500/10 text-indigo-400 rounded-full text-[10px] font-bold tracking-wider font-mono border border-indigo-500/20 uppercase">3 CREDITS REGULATION</span>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <p>Binary Search Trees (BST) provide structural bounds guaranteeing $O(\log n)$ search space geometry under balanced configurations. Understand AVL rotations and Hashing collision resolution (Linear vs Quadratic Probing).</p>
+                    
+                    <div class="bg-rose-500/10 border-l-4 border-rose-500 p-4 rounded-r-xl my-6">
+                        <h4 class="text-sm font-black text-rose-700 dark:text-rose-400 uppercase tracking-widest font-mono m-0 mb-2">Crucial Exam Theory</h4>
+                        <p class="text-rose-900 dark:text-rose-200 text-sm m-0">Tree traversals (Inorder, Preorder, Postorder) are repeatedly asked for 5 marks. Remember: Inorder traversal of a BST always yields a sorted sequence.</p>
+                    </div>
+                    
+                    <h3 class="text-lg font-bold">Standard Inorder Traversal</h3>
+                    <div class="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 font-mono text-sm overflow-x-auto text-slate-900 dark:text-slate-50 mt-4">
+                        <span class="text-slate-500">// Left -> Root -> Right</span><br>
+                        <span class="text-purple-600 dark:text-purple-400">void</span> inorder(Node* root) {<br>
+                        &nbsp;&nbsp;<span class="text-blue-600 dark:text-blue-400">if</span> (root != <span class="text-emerald-600 dark:text-emerald-400">NULL</span>) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;inorder(root->left);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="text-emerald-600 dark:text-emerald-400">"%d "</span>, root->data);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;inorder(root->right);<br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
                 </div>
-                <h1 id="hero-subject-title" class="text-3xl font-black tracking-tight mb-2 text-white">Advanced Matrix Calculations</h1>
-                <p id="hero-subject-desc" class="text-slate-450 text-sm leading-relaxed mb-0 font-medium">Simplify complex JNTUK transformations with our geometric and matrices linear solvers engine.</p>
-            </div>
+            </section>
 
-            <!-- MODULAR SYLLABUS CARDS AREA -->
-            <div id="modular-cards-stack" class="space-y-6">
+            <!-- Unit 5 -->
+            <section id="unit-5" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded text-[10px] font-black tracking-widest uppercase font-mono mb-2 block w-max">Unit 5</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black">Graph Algorithms</h2>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer unit-checkbox" data-unit="unit-5">
+                        <div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-bold text-slate-500 dark:text-slate-400">Mark Complete</span>
+                    </label>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <p>Graphs map interconnected systems using vertices and edges. Focus entirely on Dijkstra's shortest path resolution, Minimum Spanning Tree (Prim's & Kruskal's), and BFS/DFS graph traversals.</p>
+                    
+                    <h3 class="text-lg font-bold">Graph Representation Methods</h3>
+                    <ul class="list-disc ml-4 space-y-2 text-slate-600 dark:text-slate-400">
+                        <li><strong>Adjacency Matrix:</strong> A 2D array $V \times V$ where $A_{ij} = 1$ if edge exists. High space complexity $O(V^2)$, but $O(1)$ edge query.</li>
+                        <li><strong>Adjacency List:</strong> Array of linked lists storing neighbors. Lower space complexity $O(V + E)$, but slower $O(V)$ edge querying. Preferred for sparse networks.</li>
+                    </ul>
+                </div>
+            </section>
+
+
+            <!-- PYQ Matrix -->
+            <section id="pyqs" class="mt-12">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 bg-amber-500/10 text-amber-500 rounded-xl flex items-center justify-center">
+                        <i data-lucide="award" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-3xl font-black">University Solved PYQ Matrix</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Q1 -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start gap-4 mb-4">
+                                <span class="bg-rose-500/10 text-rose-600 dark:text-rose-400 px-3 py-1 rounded-md text-xs font-bold font-mono border border-rose-500/20">10 Marks</span>
+                                <span class="text-xs font-bold text-slate-500 dark:text-slate-400">June 2023 Reg/Supply</span>
+                            </div>
+                            <h4 class="text-lg font-bold mb-4">Explain the concept of Binary Search Tree (BST) along with its structural operations (Insertion & Deletion) with code logic and examples.</h4>
+                            
+                            <button class="answer-toggle flex items-center justify-between w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl font-bold text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                <span>Reveal Model Answer Key & Marking Scheme</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+
+                            <div class="answer-content hidden mt-4 pl-4 border-l-2 border-blue-600">
+                                <div class="bg-blue-600/5 p-4 rounded-xl mb-4 border border-blue-600/10">
+                                    <h5 class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest font-mono mb-2">Examiner Deduction Points (2 Marks lost if missing:)</h5>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 list-disc ml-4">
+                                        <li>Failing to mention the core property: Left Subtree &lt; Root &lt; Right Subtree.</li>
+                                        <li>Not drawing a valid visual tree trace along with the code logic.</li>
+                                    </ul>
+                                </div>
+                                <div class="prose prose-sm prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
+                                    <p><strong>Step 1 (2 Marks): Definition</strong><br>
+                                    A binary tree where left child nodes contain values smaller than the parent, and right child nodes contain values strictly greater.</p>
+                                    <p><strong>Step 2 (4 Marks): Insertion Routine</strong><br>
+                                    Recurse until null. If smaller, go left. If larger, go right. Insert as leaf node.</p>
+                                    <p><strong>Step 3 (4 Marks): Deletion Routine (3 Cases)</strong><br>
+                                    Case A: No children (Delete directly). Case B: One child (Bypass). Case C: Two children (Find Inorder Successor, swap context, delete leaf).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Q1 -->
+
+                    <!-- Q2 -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start gap-4 mb-4">
+                                <span class="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-md text-xs font-bold font-mono border border-emerald-500/20">2 Marks</span>
+                                <span class="text-xs font-bold text-slate-500 dark:text-slate-400">Nov 2022</span>
+                            </div>
+                            <h4 class="text-lg font-bold mb-4">Differentiate between Linear Probing and Quadratic Probing in Hashing collision resolution.</h4>
+                            
+                            <button class="answer-toggle flex items-center justify-between w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl font-bold text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                <span>Reveal Model Answer Key</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                            <div class="answer-content hidden mt-4 pl-4 border-l-2 border-emerald-600 prose prose-sm prose-slate dark:prose-invert">
+                                <p><strong>Linear Probing:</strong> Looks for the next immediate empty slot sequentially $(h(k)+i) \bmod N$. Prone to primary clustering.<br>
+                                <strong>Quadratic Probing:</strong> Uses polynomial variance $(h(k)+i^2) \bmod N$ to space out probes and avoid primary clustering.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Recall & Viva -->
+            <section id="flashcards" class="mt-12">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 bg-indigo-500/10 text-indigo-500 rounded-xl flex items-center justify-center">
+                        <i data-lucide="brain" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-3xl font-black">Active Recall & Lab Viva</h2>
+                </div>
+
+                <!-- Flashcard Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+                    <!-- Card 1 -->
+                    <div class="flip-card h-48 cursor-pointer perspective-[1000px]" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner relative w-full h-full duration-500">
+                            <!-- Front -->
+                            <div class="flip-card-front absolute w-full h-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 flex flex-col items-center justify-center text-center shadow-sm rounded-3xl">
+                                <i data-lucide="mouse-pointer-click" class="w-5 h-5 text-indigo-500 absolute top-4 right-4 animate-pulse"></i>
+                                <h3 class="font-bold text-lg">What is a Dangling Pointer?</h3>
+                                <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono mt-4">Tap to Flip</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back absolute w-full h-full bg-indigo-600 dark:bg-indigo-700 text-white p-6 flex flex-col items-center justify-center text-center shadow-xl rounded-3xl border border-indigo-500/30">
+                                <p class="font-bold text-sm">A pointer pointing to a memory location that has been deleted (freed), causing undefined spatial access behavior.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="flip-card h-48 cursor-pointer perspective-[1000px]" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner relative w-full h-full duration-500">
+                            <!-- Front -->
+                            <div class="flip-card-front absolute w-full h-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 flex flex-col items-center justify-center text-center shadow-sm rounded-3xl">
+                                <h3 class="font-bold text-lg">Time Complexity of Merge Sort</h3>
+                                <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono mt-4">Tap to Flip</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back absolute w-full h-full bg-emerald-600 dark:bg-emerald-700 text-white p-6 flex flex-col items-center justify-center text-center shadow-xl rounded-3xl border border-emerald-500/30">
+                                <p class="font-bold text-sm">$O(n \log n)$</p>
+                                <p class="text-xs mt-2 text-emerald-100 opacity-80">Guaranteed across Best, Average, and Worst Cases.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Card 3 -->
+                     <div class="flip-card h-48 cursor-pointer perspective-[1000px]" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner relative w-full h-full duration-500">
+                            <!-- Front -->
+                            <div class="flip-card-front absolute w-full h-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 flex flex-col items-center justify-center text-center shadow-sm rounded-3xl">
+                                <h3 class="font-bold text-lg">Difference: BFS vs DFS structure</h3>
+                                <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono mt-4">Tap to Flip</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back absolute w-full h-full bg-amber-600 dark:bg-amber-700 text-white p-6 flex flex-col items-center justify-center text-center shadow-xl rounded-3xl border border-amber-500/30">
+                                <p class="font-bold text-sm">BFS uses a Queue (Level-order).<br>DFS uses a Stack (Depth extraction).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Viva Manual Checklist -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-10 shadow-sm">
+                    <h3 class="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-6 font-mono border-b border-slate-200 dark:border-slate-800 pb-4">External Examiner High-Frequency Checklist</h3>
+                    
+                    <div class="space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden">
+                            <summary class="flex justify-between items-center cursor-pointer font-bold text-sm">
+                                "Why do we use Circular Queues instead of normal Queues?"
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-400">
+                                Normal arrays suffer from spatial wastage when dequeuing elements (front pointer shifts and space behind it is permanently lost). Circular queues wrap the bounds using modulo offsets preventing memory exhaustion.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden">
+                            <summary class="flex justify-between items-center cursor-pointer font-bold text-sm">
+                                "What exactly is an Adjacency Matrix vs Adjacency List?"
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-400">
+                                Matrix is a 2D array representation providing $O(1)$ edge checking but costing $O(V^2)$ memory space (bad for sparse graphs). List is dynamic LinkedList pointers per vertex, saving massive memory boundaries for dense topologies.
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Emergency Panic Mode Section (Hidden by Default) -->
+        <main class="flex-1 space-y-8 min-w-0 panic-content">
+            <div class="bg-rose-600 dark:bg-rose-900 text-white rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden border border-rose-500/50">
+                <div class="absolute -right-20 -bottom-20 opacity-20 pointer-events-none mix-blend-overlay">
+                    <i data-lucide="alert-triangle" class="w-96 h-96"></i>
+                </div>
                 
-                <!-- Card A: Theory Card -->
-                <div id="card-theory" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-sm">
-                    <div class="flex items-center gap-2.5 mb-4 border-b border-slate-850 pb-3">
-                        <span class="p-1.5 bg-cyan-500/10 rounded-lg text-cyan-400"><i data-lucide="book-marked" class="w-4 h-4"></i></span>
-                        <h3 class="text-sm font-black uppercase tracking-wider text-slate-200">Theoretic Foundations</h3>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-3 py-1 bg-white/20 rounded-full text-[10px] font-black uppercase tracking-widest font-mono backdrop-blur-md border border-white/20 animate-pulse">Critical Strike Plan Active</span>
                     </div>
-                    <div id="theory-card-markdown" class="text-sm text-slate-300 space-y-3 leading-relaxed font-sans">
-                        <!-- Dynamic Markdown -->
-                    </div>
-                </div>
+                    <h2 class="text-4xl md:text-6xl font-black mb-4 tracking-tighter shadow-sm">1-Day Recovery Recipe</h2>
+                    <p class="text-rose-100 text-lg max-w-2xl font-medium mb-8">
+                        The exam is tomorrow. Ignore everything else. Memorize these exact structures to secure out of 35 minimum passing marks.
+                    </p>
 
-                <!-- Card B: Formula / Rules Card -->
-                <div id="card-formula" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-sm">
-                    <div class="flex items-center gap-2.5 mb-4 border-b border-slate-850 pb-3">
-                        <span class="p-1.5 bg-indigo-500/10 rounded-lg text-indigo-400"><i data-lucide="variable" class="w-4 h-4"></i></span>
-                        <h3 class="text-sm font-black uppercase tracking-wider text-slate-200">Academic Formula Block</h3>
-                    </div>
-                    <div id="formula-card-content" class="bg-slate-950 border border-indigo-950/40 p-4 rounded-2xl flex items-center justify-center font-mono text-base text-cyan-300">
-                        AX = λX ⇒ |A - λI| = 0
-                    </div>
-                    <p id="formula-card-sub" class="text-[11px] text-slate-400 mt-3 font-medium">Standard algebraic solver expression for calculating eigenvalues of a square array structure.</p>
-                </div>
-
-                <!-- Card C: Interactive Simulation Card -->
-                <div id="card-simulation" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-sm">
-                    <div class="flex items-center justify-between mb-4 border-b border-slate-850 pb-3">
-                        <div class="flex items-center gap-2.5">
-                            <span class="p-1.5 bg-amber-500/10 rounded-lg text-amber-500"><i data-lucide="terminal" class="w-4 h-4"></i></span>
-                            <h3 class="text-sm font-black uppercase tracking-wider text-slate-200">Micro-Lab Interactive Simulator</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- High Yield Topic -->
+                        <div class="bg-black/20 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-black/30 transition-colors">
+                            <div class="flex justify-between">
+                                <h3 class="font-bold text-lg">BST Insertion & Deletion</h3>
+                                <span class="bg-emerald-500/80 text-[10px] font-bold px-2 py-1 rounded">++10 Marks</span>
+                            </div>
+                            <p class="text-sm mt-2 text-rose-100/80">98% probability instance. Do not skip.</p>
+                            <div class="mt-4 text-xs font-mono bg-black/40 p-3 rounded">
+                                Mnemonic: <span class="text-amber-300">LR-NoChild, OneChild, InorderSwap</span>
+                            </div>
                         </div>
-                        <span class="text-[8px] font-mono bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded tracking-widest font-black">ACTIVE JS RUNTIME</span>
+
+                         <!-- High Yield Topic -->
+                         <div class="bg-black/20 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-black/30 transition-colors">
+                            <div class="flex justify-between">
+                                <h3 class="font-bold text-lg">Infix to Postfix Conversion</h3>
+                                <span class="bg-emerald-500/80 text-[10px] font-bold px-2 py-1 rounded">++10 Marks</span>
+                            </div>
+                            <p class="text-sm mt-2 text-rose-100/80">Guaranteed Stack Application table tracing question.</p>
+                            <div class="mt-4 text-xs font-mono bg-black/40 p-3 rounded">
+                                Rule: <span class="text-amber-300">Push Op, Pop high precedence.</span>
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- DYNAMIC SIMULATOR HOST CONTAINER -->
-                    <div id="simulator-workbench" class="bg-slate-950 border border-slate-850 rounded-2xl p-5 min-h-[220px]">
-                        <!-- Subject specific canvas or panel loaded here by JS -->
+                    <div class="mt-8 pt-8 border-t border-white/20 text-center">
+                        <p class="font-mono text-sm opacity-90"><i data-lucide="shield-check" class="w-4 h-4 inline mb-1"></i> Stick to the syllabus. Draw block diagrams. Box final equations. You survive this.</p>
+                        <button id="exit-panic-btn" class="mt-6 px-6 py-3 bg-white text-rose-600 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-lg">Deactivate Panic Mode</button>
                     </div>
                 </div>
-
-                <!-- Card D: Interactive Practice Card (Gamified Snap Evaluation) -->
-                <div id="card-practice" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-sm">
-                    <div class="flex items-center justify-between mb-4 border-b border-slate-850 pb-3">
-                        <div class="flex items-center gap-2.5">
-                            <span class="p-1.5 bg-pink-500/10 rounded-lg text-pink-400"><i data-lucide="gamepad-2" class="w-4 h-4"></i></span>
-                            <h3 class="text-sm font-black uppercase tracking-wider text-slate-200">Interactive Practice Challenge</h3>
-                        </div>
-                        <span class="text-[8px] font-mono bg-pink-500/20 text-pink-400 px-2.5 py-0.5 rounded tracking-widest font-black uppercase">+50 XP ACCREDITED</span>
-                    </div>
-                    
-                    <div id="practice-challenge-box" class="bg-slate-950 border border-slate-850 rounded-2xl p-5">
-                        <!-- Dynamic Practice Question and check buttons -->
-                    </div>
-                </div>
-
-                <!-- Card E: Memory Trick / Mnemonic Card -->
-                <div id="card-memory" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-sm">
-                    <div class="flex items-center gap-2.5 mb-4 border-b border-slate-850 pb-3">
-                        <span class="p-1.5 bg-yellow-500/10 rounded-lg text-yellow-500"><i data-lucide="key-round" class="w-4 h-4"></i></span>
-                        <h3 class="text-sm font-black uppercase tracking-wider text-slate-200">Cognitive Mnemonic Cue</h3>
-                    </div>
-                    <div class="bg-yellow-500/5 border-l-4 border-yellow-500 p-4 rounded-xl">
-                        <span class="text-[9px] font-bold text-yellow-500 uppercase tracking-widest font-mono">Exam Survival Hack</span>
-                        <p id="memory-trick-desc" class="text-xs text-yellow-200 mt-1 mb-0 leading-relaxed font-sans">"Eigen-Mage: Trace gives sum, Determinant yields product. Double check calculations with these parameters to secure full marks easily."</p>
-                    </div>
-                </div>
-
-                <!-- Card F: Solved PYQ Matrix with Answer toggle reveals -->
-                <div id="card-pyq" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-sm">
-                    <div class="flex items-center justify-between mb-4 border-b border-slate-850 pb-3">
-                        <div class="flex items-center gap-2.5">
-                            <span class="p-1.5 bg-rose-500/10 rounded-lg text-rose-500"><i data-lucide="file-check" class="w-4 h-4"></i></span>
-                            <h3 class="text-sm font-black uppercase tracking-wider text-slate-200">JNTUK Solved Exams (R20/R23 PYQs)</h3>
-                        </div>
-                        <span class="text-[8px] font-mono bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded tracking-widest font-black uppercase">Official Marks Key</span>
-                    </div>
-
-                    <div id="solved-pyq-space" class="space-y-4">
-                        <!-- Dynamic PYQ list with toggles -->
-                    </div>
-                </div>
-
-                <!-- Card G: Active Recall Viva Cards (Flip-to-reveal mechanisms) -->
-                <div id="card-viva" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-sm">
-                    <div class="flex items-center gap-2.5 mb-4 border-b border-slate-850 pb-3">
-                        <span class="p-1.5 bg-purple-500/10 rounded-lg text-purple-400"><i data-lucide="brain-circuit" class="w-4 h-4"></i></span>
-                        <h3 class="text-sm font-black uppercase tracking-wider text-slate-200">Dynamic Oral Labs Viva Prep</h3>
-                    </div>
-                    
-                    <div id="viva-cards-deck-space" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Dynamic Viva Flashcards inserted here -->
-                    </div>
-                </div>
-
             </div>
-
         </main>
 
-        <!-- RIGHT SIDEBAR: AI Professor Co-Pilot Panel -->
-        <aside class="lg:col-span-3 space-y-6">
-            
-            <!-- AI TUTOR ENGINE CO-PILOT -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm sticky top-20">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-9 h-9 rounded-full bg-cyan-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
-                        <i data-lucide="cpu" class="w-4 h-4"></i>
+        <!-- Right Sidebars: AI Smart Advisor -->
+        <aside class="hidden xl:block w-72 flex-shrink-0">
+            <div class="sticky top-24">
+                <div class="bg-gradient-to-b from-blue-50 to-white dark:from-slate-800 dark:to-slate-900 border border-blue-100 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/30">
+                            <i data-lucide="bot" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 dark:text-slate-50 text-sm">AI Professor</h3>
+                            <p class="text-[10px] text-blue-600 dark:text-blue-400 font-mono uppercase tracking-widest">Active Monitoring</p>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="font-black text-white text-xs font-cad">AI Cognitive Tutor</h3>
-                        <p id="ai-status-pulse" class="text-[8px] text-cyan-400 font-bold uppercase tracking-widest flex items-center gap-1.5 mt-0.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping"></span> Online Feedback Engine
-                        </p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-xl text-sm text-slate-700 dark:text-slate-300 relative before:content-[''] before:absolute before:-left-2 before:top-6 before:border-r-8 before:border-r-slate-200 dark:before:border-r-slate-700 before:border-y-8 before:border-y-transparent">
+                            <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500 inline mb-1"></i> I notice you are revising Unit 1. Remember to write the precise Big-O definitions. Evaluators often penalize loose terminology.
+                        </div>
+                        
+                        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-xl text-sm text-slate-700 dark:text-slate-300">
+                            <strong class="block text-slate-900 dark:text-slate-100 mb-1 font-mono text-[10px] uppercase">Tip from Previous Evaluator Logs:</strong>
+                            When drawing trees, visually encircle standard subtree components to prove traversal awareness.
+                        </div>
                     </div>
-                </div>
-
-                <!-- Prompts Command Row -->
-                <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-2 gap-2 mb-4">
-                    <button onclick="triggerAICopilot('explain')" class="p-2 bg-slate-950 hover:bg-slate-850 border border-slate-850 text-[10px] font-bold rounded-xl text-slate-300 text-left transition-all flex items-center gap-1.5">
-                        <i data-lucide="help-circle" class="w-3.5 h-3.5 text-cyan-400"></i> Explain Concept
-                    </button>
-                    <button onclick="triggerAICopilot('simplify')" class="p-2 bg-slate-950 hover:bg-slate-850 border border-slate-850 text-[10px] font-bold rounded-xl text-slate-300 text-left transition-all flex items-center gap-1.5">
-                        <i data-lucide="smile" class="w-3.5 h-3.5 text-green-400"></i> Simplify Details
-                    </button>
-                    <button onclick="triggerAICopilot('viva')" class="p-2 bg-slate-950 hover:bg-slate-850 border border-slate-850 text-[10px] font-bold rounded-xl text-slate-300 text-left transition-all flex items-center gap-1.5">
-                        <i data-lucide="message-square" class="w-3.5 h-3.5 text-purple-400"></i> Generate Viva Answer
-                    </button>
-                    <button onclick="triggerAICopilot('exam')" class="p-2 bg-slate-950 hover:bg-slate-850 border border-slate-850 text-[10px] font-bold rounded-xl text-slate-300 text-left transition-all flex items-center gap-1.5">
-                        <i data-lucide="file-text" class="w-3.5 h-3.5 text-rose-400"></i> Generate Exam Key
-                    </button>
-                    <button onclick="triggerAICopilot('revision')" class="p-2 bg-slate-950 hover:bg-slate-850 border border-slate-850 text-[10px] font-bold rounded-xl text-slate-300 text-left transition-all flex items-center gap-1.5 col-span-2 sm:col-span-1 lg:col-span-2">
-                        <i data-lucide="bookmark" class="w-3.5 h-3.5 text-indigo-400"></i> Revision Notes
-                    </button>
-                </div>
-
-                <!-- AI Response Panel -->
-                <div class="bg-slate-950 border border-slate-850 rounded-2xl p-4">
-                    <span class="text-[8px] text-slate-500 font-black uppercase tracking-widest block mb-2 font-mono">Stream Response Terminal</span>
-                    <div id="ai-response-stream" class="text-xs text-slate-350 max-h-[180px] overflow-y-auto space-y-2 leading-relaxed font-sans scrollbar-thin">
-                        <p class="text-slate-400 italic">Tap any trigger chip above to request contextual assistance from the AI Professor.</p>
-                    </div>
-                </div>
-
-                <!-- Custom Prompt input box -->
-                <div class="relative mt-4">
-                    <input type="text" id="ai-custom-prompt" class="w-full pl-3 pr-10 py-2.5 bg-slate-950 border border-slate-850 rounded-xl focus:ring-1 focus:ring-cyan-500 focus:outline-none text-xs text-white placeholder-slate-500" placeholder="Ask custom query (e.g. Solve $x^2 + 5x = 0$)">
-                    <button onclick="triggerCustomAIQuery()" class="absolute right-1.5 top-1.5 p-1.5 bg-cyan-600 rounded-lg text-white hover:bg-cyan-500"><i data-lucide="send" class="w-3.5 h-3.5"></i></button>
                 </div>
             </div>
-
-            <!-- Side Quick References & Revision Shortcuts -->
-            <div id="quick-links-side-bar" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm">
-                <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 font-mono">Academic Shortcuts</h3>
-                <div class="space-y-2">
-                    <A href="/pyqs.html" class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl border border-slate-850 hover:border-cyan-500/20 transition-all text-xs text-slate-300">
-                        <span>Master PYQs PDF Repository</span>
-                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
-                    </A>
-                    <A href="/cheat-sheets.html" class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl border border-slate-850 hover:border-indigo-500/20 transition-all text-xs text-slate-300">
-                        <span>Laminated Cheat Formula Sheets</span>
-                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
-                    </A>
-                    <A href="/tools.html" class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl border border-slate-850 hover:border-indigo-500/20 transition-all text-xs text-slate-300">
-                        <span>GPA &amp; Credits Calculator</span>
-                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
-                    </A>
-                </div>
-            </div>
-
         </aside>
-
     </div>
 
-    <!-- NOTIFICATION SYSTEM -->
-    <div id="ai-toast-message" class="hidden fixed bottom-6 right-6 z-50 bg-slate-900 border border-cyan-500 text-white rounded-2xl p-4 shadow-2xl flex items-center gap-3 animate-slide-up">
-        <div class="p-1.5 bg-cyan-600 text-white rounded-lg"><i data-lucide="bell" class="w-4 h-4"></i></div>
-        <span id="toast-text" class="text-xs font-bold leading-none"></span>
+    <!-- Mobile Quick Navigation Bar -->
+    <div class="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 p-3 rounded-full shadow-2xl flex justify-around items-center z-50">
+        <a href="#unit-1" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400">
+            <span class="text-xs font-black font-mono">U1</span>
+        </a>
+        <a href="#unit-2" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400">
+            <span class="text-xs font-black font-mono">U2</span>
+        </a>
+        <div class="w-px h-6 bg-slate-200 dark:bg-slate-700"></div>
+        <a href="#pyqs" class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 hover:bg-blue-100 transition-colors">
+            <i data-lucide="award" class="w-5 h-5"></i>
+        </a>
+        <a href="#flashcards" class="w-10 h-10 flex items-center justify-center rounded-full bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors">
+            <i data-lucide="copy" class="w-5 h-5"></i>
+        </a>
     </div>
 
-    <!-- CORE SYLLABUS DATASET & APP LOGIC -->
     <script>
-        // GLOBAL ACADEMIC STATE SYSTEM
-        let currentSubject = "math";
-        let activeUnitIndex = 1;
-        let studyMode = "normal"; // normal, focus, exam, visual
-        let masteryXP = localStorage.getItem("engi_eg_MasteryXP") ? parseInt(localStorage.getItem("engi_eg_MasteryXP")) : 480;
-        let userStreak = 5;
+        // Init Lucide
+        lucide.createIcons();
 
-        // --- ACADEMIC SYLLABUS REGISTRY ---
-        const SyllabusDatabase = {
-            math: {
-                title: "Engineering Mathematics",
-                unitBadge: "Unit I • Matrices & Analysis",
-                credits: "3 Credits Course",
-                desc: "Solve linear equations array parameters, test matrices transforms, calculate eigenvalues, and trace diagnostic eigenvectors dynamically.",
-                grid: "grid-coordinate",
-                primaryColor: "#06b6d4",
-                formula: "AX = \\lambda X \\implies |A - \\lambda I| = 0",
-                formulaSub: "Fundamental linear equation mapping for calculating the eigenvalues of matrices.",
-                mnemonic: "Mnemonic: Trace computes sum, Determinant computes product.",
-                theory: "Cayley-Hamilton Theorem: Any square matrix satisfies its own characteristic equation. If $A$ is a 2x2 matrix, finding the characteristic equation $|A - \\lambda I| = 0$ yields eigenvalues $\\lambda_1, \\lambda_2$ that represent the stretching factor in eigenvector coordinates. Evaluators test the Cayley-Hamilton inverse matrix proof regularly in JNTUK examinations.",
-                practiceQ: "Can you select the correct eigenvalues for the matrix $A = \\begin{pmatrix} 4 & 2 \\\\ 3 & 3 \\end{pmatrix}$?",
-                practiceOptions: ["1 and 6", "2 and 5", "3 and 4", "1 and 5"],
-                correctAnswerIndex: 0,
-                pyqCode: "JNTUK Nov 2023 Reg/Supply (8 Marks)",
-                pyqTitle: "State Cayley-Hamilton Theorem & find eigenvalues of 2x2 Array.",
-                pyqAns: "1. State Theorem: $P(A) = 0$.\n2. Solve $|A-\\lambda I|=0 \\implies \\lambda^2 - 7\\lambda + 6 = 0 \\implies \\lambda = 1, 6$.\n3. Verify inverse matrix equations.",
-                viva: [
-                    { q: "What is an orthogonal matrix?", a: "A square matrix whose transpose is equal to its inverse ($A^T A = I$)." },
-                    { q: "Explain the dimension of null space.", a: "Also called nullity, representing the number of linearly independent solutions to the coordinate system $AX = 0$." }
-                ],
-                checklist: ["Eigen Values & Vector Trace", "Cayley-Hamilton Proof", "Linear Differential Equations", "Partial Jacobians", "Multiple Integrals Beta/Gamma"]
-            },
-            drawing: {
-                title: "Engineering Drawing (CAD)",
-                unitBadge: "Unit I • Geometric Conics",
-                credits: "3 Credits Drawing Course",
-                desc: "Draft projections of points, trace conic curves generic eccentricity, unfold lateral surfaces of solids, and sketch isometric views.",
-                grid: "grid-blueprint",
-                primaryColor: "#f97316",
-                formula: "e = \\frac{\\text{Distance VF}}{\\text{Distance VD}} < 1.0",
-                formulaSub: "Conic curve eccentricity criterion: Ellipse e < 1, Parabola e = 1, Hyperbola e > 1.",
-                mnemonic: "Mnemonic: Vertex sits closer to Focus for an Ellipse.",
-                theory: "Syllabus Standard Conic Sections: When distance from directrix to focus is 50mm and eccentricity $e = 2/3$, we divide the directrix-focus distance into 5 sections. Place vertex V at 20mm from Focus (2 units). Ensure horizontal and vertical lines adhere to first quadrant norms to prevent evaluation deduces.",
-                practiceQ: "If $e=1.0$ and focus is 50mm away, what is the exact distance of the vertex from the directrix?",
-                practiceOptions: ["25mm", "20mm", "15mm", "30mm"],
-                correctAnswerIndex: 0,
-                pyqCode: "JNTUK Dec 2022 R20 (10 Marks)",
-                pyqTitle: "Construct Ellipse by Eccentricity method with focus 50mm, e=2/3.",
-                pyqAns: "1. Directrix vertical line DD' & CF.\n2. Divide CF (50mm) into 5 parts. Vertex sits at 20mm.\n3. Draw vertical VE=VF. Extend radiation line and trace smooth curve.",
-                viva: [
-                    { q: "Under what condition will tangent are orthogonal?", a: "For an ellipse, tangents are perpendicular at the director circle locus coordinates." },
-                    { q: "What does BIS SP 46 regulate?", a: "Mandates metric templates, lettering sizes (3mm / 5mm for titles), and projection arrow specs." }
-                ],
-                checklist: ["Construction of Ellipse & Parabola", "Projections of Points & Lines", "Laminae Surface Tilts", "Prisms & Pyramids Axis Tilted", "Section Plans & Lateral Developments", "Isometric to Orthographic 3D Block Conversions"]
-            },
-            beee: {
-                title: "Basic Electrical Engineering (BEEE)",
-                unitBadge: "Unit II • AC & DC Networks Grid",
-                credits: "4 Credits Big Block",
-                desc: "Solve DC currents using KVL/KCL, model series RLC waveforms parameters, calculate transformer efficiency, and analyze motors.",
-                grid: "grid-oscilloscope",
-                primaryColor: "#eab308",
-                formula: "Z = \\sqrt{R^2 + (X_L - X_C)^2}",
-                formulaSub: "Total alternating impedance vector combining resistance, indictive, and capacitive reactances.",
-                mnemonic: "Mnemonic: Inductor leads by 90 deg, Capacitor lags.",
-                theory: "RLC Serials Network Dynamics: Alternating voltage generates phase angle differences based on inductance $L$ and capacitance $C$. Resonance coordinates map to $X_L = X_C$, maximizing system current inputs. Mastery of phasor diagrams avoids mistakes on final paper calculations.",
-                practiceQ: "In a resonant series RLC circuit, what is the relation between $X_L$ and $X_C$?",
-                practiceOptions: ["X_L = X_C", "X_L > X_C", "X_C > X_L", "X_L + X_C = 0"],
-                correctAnswerIndex: 0,
-                pyqCode: "JNTUK June 2022 Supply (12 Marks)",
-                pyqTitle: "Derive resonance frequency of Series RLC circuit and explain Phasor diagram.",
-                pyqAns: "1. Set $X_L=X_C \\implies 2\\pi f L = 1 / (2\\pi f C)$.\n2. Derive frequency $f_r = 1 / (2\\pi \\sqrt{LC})$.\n3. Mark current/voltage vectors as parallel collinear phasor lines.",
-                viva: [
-                    { q: "State Kirchhoff's Voltage Law.", a: "The algebraic sum of all potential differences in any closed circuit loop is exactly zero." },
-                    { q: "What is Active Power?", a: "The real power dissipated in resistive loads, measured in Watts ($P = V I \\cos \\phi$)." }
-                ],
-                checklist: ["Mesh & Nodal DC analysis", "RLC AC circuits & Phasors", "Transformer losses & Regulation", "DC Machine principles", "Three-Phase Power Grids Distribution"]
-            },
-            electronics: {
-                title: "Electronics & Logic Systems",
-                unitBadge: "Unit IV • Binary Logic Analysis",
-                credits: "3 Credits Core Course",
-                desc: "Analyse semiconductor diodes, model common emitter transistors, minimize boolean equations, and simulate combinatorial logic gates.",
-                grid: "grid-pcb",
-                primaryColor: "#22c55e",
-                formula: "Y = A \\cdot B + \\overline{C}",
-                formulaSub: "Boolean SOP algebra expression mapping to standard boolean chips.",
-                mnemonic: "Mnemonic: XOR output is high only if inputs differ.",
-                theory: "Digital Logic Gate Foundations: Combinational logic maps input parameters to direct electric output pins with zero latching cycles. Boolean mapping minimizes complex equations using Karnaugh Maps (K-Maps) ensuring you optimize total chip propagation delay metrics.",
-                practiceQ: "Which logic gate outputs 1 ONLY if inputs A and B possess distinct logic values?",
-                practiceOptions: ["XOR Gate", "AND Gate", "OR Gate", "NAND Gate"],
-                correctAnswerIndex: 0,
-                pyqCode: "JNTUK Nov 2021 (8 Marks)",
-                pyqTitle: "Minimize the function $Y = \\sum m(0,1,2,5)$ using K-Map.",
-                pyqAns: "1. Set coordinate binary groups.\n2. Ring contiguous couples.\n3. Write the simplified outputs: $Y = \\overline{A} \\cdot \\overline{B} + C \\cdot A$.",
-                viva: [
-                    { q: "What is an intrinsic semiconductor?", a: "Pure crystal structure without added dopants (e.g. pure silicon matrix)." },
-                    { q: "What is Zener dynamic breakdown?", a: "Static voltage regulation under reverse bias using high dopant field gradients." }
-                ],
-                checklist: ["Diode Junctions Rectifier", "BJT CE Amplifiers", "Op-Amp feed feedback calculations", "KMaps Boolean minimization", "Combinational Adders Decoder Logic"]
-            },
-            english: {
-                title: "Communicative English",
-                unitBadge: "Unit I • Reading & Writing Skills",
-                credits: "2 Credits Human Skills",
-                desc: "Compose formal academic essays, master complex English syntax, expand vocabulary root bounds, and practice neutral verbal interviews.",
-                grid: "grid-english",
-                primaryColor: "#6366f1",
-                formula: "Subject + Verb agreement rules",
-                formulaSub: "Third-person singular nouns require singular verb suffixes (e.g., He writes, They write).",
-                mnemonic: "Mnemonic: Active verbs make writing punchier.",
-                theory: "Analytical Research Writing: Structuring formal essays requires a primary thesis statement placed inside the introductory paragraph space, followed by three unified body paragraphs possessing clear topic sentences, wrapping up with a concise synthesis of concepts. Maintain professional objective syntax and avoid casual slang expressions.",
-                practiceQ: "Identify the grammatically correct sentence structure below:",
-                practiceOptions: ["The professor doesn't like tardiness.", "The professor don't like tardiness.", "The professor do not likes tardiness.", "The professor doesn't likes tardiness."],
-                correctAnswerIndex: 0,
-                pyqCode: "JNTUK May 2023 (10 Marks)",
-                pyqTitle: "Write a 150-word formal letter requesting academic leave.",
-                pyqAns: "1. Formal address blocks.\n2. Subject: Request for academic leave.\n3. Content with formal tone, precise dates, and polite closure.",
-                viva: [
-                    { q: "What is skimming?", a: "Brief scanning of a reading piece to isolate general concepts without analyzing syntax details." },
-                    { q: "Differentiate Homonyms and Homophones.", a: "Homophones have identical sounds but distinct spellings. Homonyms have identical spellings but distinct meanings." }
-                ],
-                checklist: ["Vocabulary & Prefixes", "Reading Comprehensions Skim", "Formal Writing Rules", "Verbal Accents speaking cards", "Grammar Mechanics Check"]
-            }
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            root.classList.add('dark');
+        } else {
+            root.classList.remove('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            root.classList.toggle('dark');
+            const isDark = root.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // PYQ Togglers
+        document.querySelectorAll('.answer-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                content.classList.toggle('hidden');
+                icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+        });
+
+        // Panic Mode
+        const panicBtn = document.getElementById('panic-mode-btn');
+        const exitPanicBtn = document.getElementById('exit-panic-btn');
+        const bodyTag = document.body;
+
+        panicBtn.addEventListener('click', () => {
+            bodyTag.classList.add('panic-active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+        
+        exitPanicBtn.addEventListener('click', () => {
+            bodyTag.classList.remove('panic-active');
+        });
+
+        // Syllabus Progress Logic
+        const checkboxes = document.querySelectorAll('.unit-checkbox');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        
+        const updateProgress = () => {
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('.unit-checkbox:checked').length;
+            const percentage = Math.round((checked / total) * 100);
+            
+            progressBar.style.width = percentage + '%';
+            progressText.innerText = percentage + '%';
+            
+            // Save state to local browser engine
+            const state = Array.from(checkboxes).map(cb => cb.checked);
+            localStorage.setItem('dsa-syllabus-progress', JSON.stringify(state));
         };
 
-        // --- SUBJECT SWITCH CHANGER ENGINE ---
-        function switchToSubject(subjectId) {
-            const data = SyllabusDatabase[subjectId];
-            if (!data) return;
-
-            currentSubject = subjectId;
-            activeUnitIndex = 1;
-
-            // Update UI tabs
-            document.querySelectorAll("[id^='tab-']").forEach(btn => {
-                btn.className = "px-4 py-2 rounded-xl text-xs font-black tracking-tight transition-all duration-300 flex items-center gap-2 text-slate-400 hover:text-slate-250 font-cad";
-            });
-            const activeTab = document.getElementById(`tab-${subjectId}`);
-            if (activeTab) {
-                activeTab.className = `px-4 py-2 rounded-xl text-xs font-black tracking-tight transition-all duration-300 flex items-center gap-2 bg-slate-900 border border-[${data.primaryColor}] text-[${data.primaryColor}] bg-[${data.primaryColor}]/10 font-cad`;
-                activeTab.style.borderColor = data.primaryColor;
-                activeTab.style.color = data.primaryColor;
-            }
-
-            // Body subject theme class toggler
-            const body = document.getElementById('dynamic-body');
-            body.className = `antialiased selection:bg-cyan-500/30 font-sans min-h-screen transition-all duration-500 ease-in-out dark:text-slate-100 ${data.grid} leading-relaxed`;
-            // Light/Dark preservation
-            if (localStorage.getItem('color-theme') === 'light') {
-                body.classList.add('light');
-            }
-
-            // Hero space modifications
-            document.getElementById('hero-subject-title').innerText = data.title;
-            document.getElementById('hero-subject-desc').innerText = data.desc;
-            document.getElementById('hero-unit-badge').innerText = data.unitBadge;
-            document.getElementById('hero-credits-badge').innerText = data.credits;
-
-            // Coloring overlays
-            const badgeUnit = document.getElementById('hero-unit-badge');
-            const logoAccent = document.getElementById('logo-accent');
-            if (badgeUnit) {
-                badgeUnit.style.color = data.primaryColor;
-                badgeUnit.style.backgroundColor = `${data.primaryColor}15`;
-                badgeUnit.style.borderColor = `${data.primaryColor}30`;
-            }
-            if (logoAccent) logoAccent.style.color = data.primaryColor;
-
-            // Left Sidebar unit checklists update
-            const navChecklist = document.getElementById('unit-nav-checklist');
-            navChecklist.innerHTML = "";
-            data.checklist.forEach((ch, idx) => {
-                const label = document.createElement('label');
-                label.className = "flex items-center gap-3 p-3 bg-slate-950/60 border border-slate-850 hover:border-slate-700/50 rounded-2xl cursor-pointer select-none text-xs transition-all";
-                label.innerHTML = `
-                    <input type="checkbox" onchange="clickCheckbox()" class="subject-cb italic-text-prevention text-cyan-500 focus:ring-transparent h-4 w-4 bg-slate-900 border-slate-800 rounded" ${idx === 0 ? 'checked' : ''}>
-                    <div class="flex flex-col">
-                        <span class="font-bold text-slate-300">Unit ${idx+1}</span>
-                        <span class="text-[10px] text-slate-500 leading-tight">${ch}</span>
-                    </div>
-                `;
-                navChecklist.appendChild(label);
-            });
-
-            // Card content updates
-            document.getElementById('theory-card-markdown').innerHTML = `<p class="leading-relaxed text-sm">${data.theory}</p>`;
-            document.getElementById('formula-card-content').innerHTML = `$$${data.formula}$$`;
-            if (window.MathJax) {
-                MathJax.typesetPromise();
-            } else {
-                document.getElementById('formula-card-content').innerHTML = data.formula;
-            }
-            document.getElementById('formula-card-sub').innerText = data.formulaSub;
-            document.getElementById('memory-trick-desc').innerText = data.mnemonic;
-
-            // Load PYQ Question Card
-            const pyqSpace = document.getElementById('solved-pyq-space');
-            pyqSpace.innerHTML = `
-                <div class="bg-slate-950 border border-slate-850 rounded-2xl p-5">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-[9px] font-mono text-slate-400 font-bold uppercase tracking-widest">${data.pyqCode}</span>
-                        <span class="px-2 py-0.5 bg-rose-500/10 text-rose-400 text-[8px] font-black uppercase rounded border border-rose-500/25">June EXAM TIER</span>
-                    </div>
-                    <h4 class="text-sm font-bold text-slate-205 mb-4 leading-normal">${data.pyqTitle}</h4>
-                    
-                    <button onclick="togglePyqReveal()" class="w-full py-2.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-xl text-xs font-black tracking-wide text-slate-400 flex items-center justify-center gap-2">
-                        <i data-lucide="eye" class="w-4 h-4"></i> <span id="pyq-btn-text">REVEAL COMPILATION ANSWER KEY</span>
-                    </button>
-                    
-                    <div id="pyq-reveal-text" class="hidden mt-4 pt-4 border-t border-slate-850 text-xs text-slate-300 leading-loose white-space-pre-line font-mono">
-                        ${data.pyqAns.replace(/\n/g, '<br>')}
-                    </div>
-                </div>
-            `;
-
-            // Read the Viva card
-            const vivaSpace = document.getElementById('viva-cards-deck-space');
-            vivaSpace.innerHTML = "";
-            data.viva.forEach((vi, vidx) => {
-                const flipCard = document.createElement('div');
-                flipCard.className = "viva-card group h-36 relative cursor-pointer select-none perspective-[1000px]";
-                flipCard.setAttribute("onclick", "this.classList.toggle('viva-card-flipped'); masteryAccreditEvent(10);");
-                flipCard.innerHTML = `
-                    <div class="viva-card-inner w-full h-full relative">
-                        <!-- Front -->
-                        <div class="viva-card-front absolute inset-0 bg-slate-950 border border-purple-500/25 bg-radial-v p-4 rounded-2xl flex flex-col justify-between">
-                            <div class="flex justify-between items-center">
-                                <span class="text-[8px] font-bold text-purple-400 font-mono tracking-widest uppercase">LAB ORAL VIVA ${vidx+1}</span>
-                                <i data-lucide="help-circle" class="w-3.5 h-3.5 text-purple-400"></i>
-                            </div>
-                            <p class="text-xs font-bold text-white leading-snug mt-1">${vi.q}</p>
-                            <span class="text-[8px] text-slate-500 font-extrabold font-mono text-right block uppercase tracking-wider">TAP TO FLIP SYSTEM</span>
-                        </div>
-                        <!-- Back -->
-                        <div class="viva-card-back absolute inset-0 bg-slate-900 border border-emerald-500/30 p-4 rounded-2xl flex flex-col justify-between">
-                            <div class="flex justify-between items-center">
-                                <span class="text-[8px] font-bold text-emerald-400 font-mono tracking-widest uppercase">CORRECT MODEL RESPONSE</span>
-                                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-                            </div>
-                            <p class="text-xs text-slate-300 leading-snug font-medium mt-1">${vi.a}</p>
-                            <span class="text-[8px] text-emerald-400 font-extrabold font-mono text-right block uppercase tracking-wider">+10 XP COMMITTED</span>
-                        </div>
-                    </div>
-                `;
-                vivaSpace.appendChild(flipCard);
-            });
-
-            // Fire Simulator construction
-            buildInteractiveSimulator(subjectId);
-
-            // Fire Practice challenge module
-            buildPracticeChallenge(subjectId);
-
-            // Re-render items
-            lucide.createIcons();
-            clickCheckbox();
-            showToast(`Subject switched: ${data.title}`);
-        }
-
-        // --- INTERACTIVE SIMULATIONS BUILDER ---
-        function buildInteractiveSimulator(subjectId) {
-            const container = document.getElementById('simulator-workbench');
-            container.innerHTML = "";
-
-            if (subjectId === "math") {
-                // Interactive eigens values matrix tweaking
-                container.innerHTML = `
-                    <div class="space-y-4">
-                        <span class="text-[10px] text-cyan-400 font-mono font-bold block">Eigen-Space Interactive Array Dynamic Plotter</span>
-                        <div class="grid grid-cols-4 gap-4 items-center">
-                            <div class="text-xs text-slate-400 text-center font-mono">Matrix [A]:</div>
-                            <input oninput="calcDynamicEigen()" type="number" id="mat00" class="p-2 bg-slate-900 border border-slate-850 rounded-lg text-center text-xs font-mono text-white" value="4">
-                            <input oninput="calcDynamicEigen()" type="number" id="mat01" class="p-2 bg-slate-900 border border-slate-850 rounded-lg text-center text-xs font-mono text-white" value="2">
-                            <div></div>
-                            <div></div>
-                            <input oninput="calcDynamicEigen()" type="number" id="mat10" class="p-2 bg-slate-900 border border-slate-850 rounded-lg text-center text-xs font-mono text-white" value="3">
-                            <input oninput="calcDynamicEigen()" type="number" id="mat11" class="p-2 bg-slate-900 border border-slate-850 rounded-lg text-center text-xs font-mono text-white" value="3">
-                            <div class="text-[10px] text-slate-400 col-span-2 leading-tight">Modify index integers above.</div>
-                        </div>
-
-                        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-850 flex justify-between items-center">
-                            <div>
-                                <span class="text-[9px] text-slate-500 font-black uppercase font-mono block">Calculated Spectrum Properties:</span>
-                                <div id="math-eigen-output" class="text-sm font-mono text-cyan-400 font-bold mt-1">Eigenvalues: λ1 = 6.00, λ2 = 1.00</div>
-                            </div>
-                            <div class="w-12 h-12 bg-cyan-500/10 border border-cyan-500/20 rounded-xl flex items-center justify-center text-cyan-400 font-mono text-xs font-bold" id="math-trace-out">Tr = 7</div>
-                        </div>
-                    </div>
-                `;
-            }
-            else if (subjectId === "drawing") {
-                // Conic curve sweeping drawing coordinates snap
-                container.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <span class="text-[10px] text-orange-400 font-mono font-bold select-none">Generic Eccentric Vector Conic Tracing</span>
-                            <span class="text-[9px] bg-orange-500/20 text-orange-400 px-2 rounded font-mono" id="drawing-scale-val">Scale: 50mm focus</span>
-                        </div>
-                        
-                        <div class="bg-slate-900/50 p-4 border border-slate-850 rounded-xl">
-                            <div class="flex justify-between text-[10px] text-slate-400 mb-1">
-                                <span>Modify eccentricity vertex vector ratio:</span>
-                                <span class="text-orange-400 font-bold font-mono" id="ecc-fraction-lbl">e = 2/3 (Ellipse)</span>
-                            </div>
-                            <input oninput="updateDrawingEcc(this.value)" type="range" class="w-full accent-orange-500 mt-2 h-1.5 bg-slate-950 rounded-lg appearance-none cursor-pointer" min="1" max="15" value="6" step="1">
-                        </div>
-
-                        <!-- Mini CAD Canvas Simulator -->
-                        <div class="relative w-full h-32 bg-slate-950 border border-orange-950/20 rounded-xl flex items-center justify-center overflow-hidden">
-                            <svg class="absolute inset-0 w-full h-full" id="conic-drawing-viewport">
-                                <!-- Axes vectors -->
-                                <line x1="10" y1="64" x2="320" y2="64" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="2,3"/>
-                                <line x1="70" y1="10" x2="70" y2="120" stroke="#f97316" stroke-width="2"/>
-                                <!-- Directrix -->
-                                <text x="50" y="24" fill="#f97316" font-size="8" font-family="monospace">DD'</text>
-                                <!-- Curve -->
-                                <path id="cad-conic-path" d="M 120 10 Q 180 64 120 118" fill="none" stroke="#22c55e" stroke-width="2"/>
-                                <circle id="focus-dot" cx="210" cy="64" r="4" fill="#ef4444"/>
-                                <text x="210" y="55" fill="#ef4444" font-size="8" font-family="monospace">Focus</text>
-                            </svg>
-                        </div>
-                    </div>
-                `;
-                updateDrawingEcc(6);
-            }
-            else if (subjectId === "beee") {
-                // Alternating Current wave oscilloscope parameter tuner
-                container.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center text-[10px] text-yellow-500 font-mono">
-                            <span>RLC Oscilloscope phasor wave trace</span>
-                            <span class="bg-yellow-500/20 text-yellow-400 px-2 rounded" id="oscilloscope-phase-lbl">Phase: 0°</span>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-850">
-                                <span class="text-[9px] text-slate-400 block mb-1">Grid Frequency (Hz):</span>
-                                <input id="osc-freq" oninput="drawOscilloscope()" type="range" class="w-full accent-yellow-500 h-1 bg-slate-950 rounded-lg appearance-none cursor-pointer" min="1" max="50" value="25">
-                            </div>
-                            <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-850">
-                                <span class="text-[9px] text-slate-400 block mb-1">Amperage Peak:</span>
-                                <input id="osc-amp" oninput="drawOscilloscope()" type="range" class="w-full accent-yellow-500 h-1 bg-slate-950 rounded-lg appearance-none cursor-pointer" min="5" max="45" value="25">
-                            </div>
-                        </div>
-
-                        <div class="relative w-full h-24 bg-[#090b07] border border-yellow-950/20 rounded-xl grid-oscilloscope overflow-hidden">
-                            <canvas id="osc-wave-canvas" class="w-full h-full opacity-90"></canvas>
-                        </div>
-                    </div>
-                `;
-                drawOscilloscope();
-            }
-            else if (subjectId === "electronics") {
-                // Gate Boolean minimizing LED simulator
-                container.innerHTML = `
-                    <div class="space-y-4">
-                        <span class="text-[10px] text-green-500 font-mono font-bold block">Dynamic logic gate coordinate playground</span>
-                        
-                        <div class="flex gap-2 justify-between bg-slate-900/60 p-3 rounded-xl border border-slate-850">
-                            <div>
-                                <span class="text-[8px] text-slate-400 uppercase tracking-widest font-mono">Input A</span>
-                                <button onclick="togglePinLogic('pinA')" id="btn-pinA" class="mt-1 px-3 py-1 bg-slate-950 border border-slate-800 text-xs font-mono font-semibold rounded-lg text-rose-500 hover:bg-slate-850 block">LOW (0)</button>
-                            </div>
-                            <div class="flex items-center justify-center pt-2">
-                                <select onchange="updateElectronicsGate()" id="logic-gate-select" class="p-1.5 bg-slate-950 border border-slate-800 text-xs text-green-400 font-mono rounded">
-                                    <option value="AND">AND GATE</option>
-                                    <option value="OR">OR GATE</option>
-                                    <option value="XOR">XOR GATE</option>
-                                    <option value="NAND">NAND GATE</option>
-                                </select>
-                            </div>
-                            <div>
-                                <span class="text-[8px] text-slate-400 uppercase tracking-widest font-mono">Input B</span>
-                                <button onclick="togglePinLogic('pinB')" id="btn-pinB" class="mt-1 px-3 py-1 bg-slate-950 border border-slate-800 text-xs font-mono font-semibold rounded-lg text-rose-500 hover:bg-slate-850 block">LOW (0)</button>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-900/60 p-4 border border-slate-850 rounded-xl flex items-center justify-between">
-                            <div>
-                                <span class="text-[9px] text-slate-500 font-mono uppercase">Boolean minimized Result:</span>
-                                <div id="logic-formula-view" class="text-xs font-mono text-green-400 mt-1 font-bold">A · B = 0</div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-[9px] text-slate-400 font-mono">LED:</span>
-                                <div id="led-indicator" class="h-6 w-6 rounded-full bg-rose-600 border border-rose-500 shadow-md shadow-rose-600/10"></div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-            else {
-                // Communicative English essay spelling builder
-                container.innerHTML = `
-                    <div class="space-y-4">
-                        <span class="text-[10px] text-indigo-400 font-serif italic block font-semibold text-slate-300">English Grammar Matcher & essay builder</span>
-                        
-                        <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-850">
-                            <span class="text-[9px] text-slate-400 block mb-1">Input speech or essay clause below:</span>
-                            <textarea id="english-draft-area" class="w-full h-16 p-2 bg-slate-950 border border-slate-850 text-slate-205 text-xs rounded-xl focus:ring-1 focus:ring-indigo-500 focus:outline-none" placeholder="Type sentence... (e.g., He don't know the rules)"></textarea>
-                        </div>
-                        
-                        <button onclick="evaluateEnglishSpelling()" class="w-full py-2 bg-indigo-650 hover:bg-indigo-600 text-white rounded-xl text-xs font-bold transition-all">Evaluate Syntactic Compliance</button>
-                        
-                        <div id="english-eval-result" class="hidden p-3 bg-indigo-500/5 rounded-xl border border-indigo-500/10 text-[11px] leading-relaxed text-indigo-200">
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        // --- MATH SIMULATOR MATHS ALGEBRA ---
-        function calcDynamicEigen() {
-            const m00 = parseFloat(document.getElementById('mat00').value) || 0;
-            const m01 = parseFloat(document.getElementById('mat01').value) || 0;
-            const m10 = parseFloat(document.getElementById('mat10').value) || 0;
-            const m11 = parseFloat(document.getElementById('mat11').value) || 0;
-
-            const trace = m00 + m11;
-            const det = (m00 * m11) - (m01 * m10);
-
-            // λ^2 - trace*λ + det = 0
-            const discriminant = trace * trace - 4 * det;
-            let outputText = "";
-
-            if (discriminant >= 0) {
-                const lambda1 = (trace + Math.sqrt(discriminant)) / 2;
-                const lambda2 = (trace - Math.sqrt(discriminant)) / 2;
-                outputText = `Eigenvalues: λ1 = ${lambda1.toFixed(2)}, λ2 = ${lambda2.toFixed(2)}`;
-            } else {
-                const realPart = trace / 2;
-                const complexPart = Math.sqrt(-discriminant) / 2;
-                outputText = `Eigenvalues: λ = ${realPart.toFixed(2)} ± ${complexPart.toFixed(2)}i`;
-            }
-
-            document.getElementById('math-eigen-output').innerText = outputText;
-            document.getElementById('math-trace-out').innerText = `Tr = ${trace}`;
-            masteryAccreditEvent(1);
-        }
-
-        // --- DRAWING CONIC VECTOR SWEEPER ---
-        function updateDrawingEcc(val) {
-            const eccVal = parseFloat(val) / 10;
-            const lbl = document.getElementById('ecc-fraction-lbl');
-            const path = document.getElementById('cad-conic-path');
-
-            if (!lbl || !path) return;
-
-            let curveType = "Ellipse";
-            if (eccVal < 0.9) {
-                curveType = "Ellipse";
-                path.setAttribute("d", "M 130 18 Q 192 64 130 110");
-                path.setAttribute("stroke", "#06b6d4");
-            } else if (eccVal >= 0.9 && eccVal <= 1.1) {
-                curveType = "Parabola";
-                path.setAttribute("d", "M 100 10 Q 185 64 100 118");
-                path.setAttribute("stroke", "#fbbf24");
-            } else {
-                curveType = "Hyperbola";
-                path.setAttribute("d", "M 80 5 Q 160 64 80 123");
-                path.setAttribute("stroke", "#ef4444");
-            }
-
-            lbl.innerText = `e = ${eccVal.toFixed(1)} (${curveType})`;
-            masteryAccreditEvent(1);
-        }
-
-        // --- BEEE OSCILLOSCOPE GRAPH PLOTTER ---
-        function drawOscilloscope() {
-            const canvas = document.getElementById('osc-wave-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const freqVal = parseFloat(document.getElementById('osc-freq').value) || 20;
-            const ampVal = parseFloat(document.getElementById('osc-amp').value) || 20;
-
-            const width = canvas.width = canvas.offsetWidth;
-            const height = canvas.height = canvas.offsetHeight;
-
-            ctx.clearRect(0,0,width,height);
-            ctx.beginPath();
-            ctx.strokeStyle = "#eab308";
-            ctx.lineWidth = 1.8;
-
-            for (let x = 0; x < width; x++) {
-                const t = x / width;
-                const waveY = height/2 + ampVal * Math.sin(t * freqVal * Math.PI * 2);
-                if (x === 0) {
-                    ctx.moveTo(x, waveY);
-                } else {
-                    ctx.lineTo(x, waveY);
-                }
-            }
-            ctx.stroke();
-            masteryAccreditEvent(1);
-        }
-
-        // --- ELECTRONICS LOGIC PIN TOGGLERS ---
-        function togglePinLogic(pin) {
-            const btn = document.getElementById(`btn-${pin}`);
-            if (!btn) return;
-            const val = btn.innerText.includes("1") ? 0 : 1;
-            btn.innerText = val === 1 ? "HIGH (1)" : "LOW (0)";
-            btn.className = val === 1 
-                ? "mt-1 px-3 py-1 bg-green-950/20 border border-green-500/20 text-xs font-mono font-semibold rounded-lg text-green-400 block"
-                : "mt-1 px-3 py-1 bg-slate-950 border border-slate-800 text-xs font-mono font-semibold rounded-lg text-rose-500 block";
-            
-            updateElectronicsGate();
-        }
-
-        function updateElectronicsGate() {
-            const gate = document.getElementById('logic-gate-select').value;
-            const aVal = document.getElementById('btn-pinA').innerText.includes("1") ? 1 : 0;
-            const bVal = document.getElementById('btn-pinB').innerText.includes("1") ? 1 : 0;
-            const formula = document.getElementById('logic-formula-view');
-            const led = document.getElementById('led-indicator');
-
-            let result = 0;
-            if (gate === "AND") {
-                result = aVal & bVal;
-                formula.innerText = `A · B = ${result}`;
-            } else if (gate === "OR") {
-                result = aVal | bVal;
-                formula.innerText = `A + B = ${result}`;
-            } else if (gate === "XOR") {
-                result = aVal ^ bVal;
-                formula.innerText = `A ⊕ B = ${result}`;
-            } else {
-                result = (aVal & bVal) === 1 ? 0 : 1;
-                formula.innerText = `A · B = ${result}`;
-            }
-
-            if (result === 1) {
-                led.className = "h-6 w-6 rounded-full bg-green-500 border border-green-400 shadow-lg shadow-green-500/50 animate-pulse";
-            } else {
-                led.className = "h-6 w-6 rounded-full bg-rose-600 border border-rose-500 shadow-md shadow-rose-600/10";
-            }
-            masteryAccreditEvent(5);
-        }
-
-        // --- ENGLISH COMMUNICATIVE SPELLING ENGINE ---
-        function evaluateEnglishSpelling() {
-            const text = document.getElementById('english-draft-area').value;
-            const banner = document.getElementById('english-eval-result');
-            banner.classList.remove('hidden');
-
-            if (text.toLowerCase().includes("don't know") && text.toLowerCase().includes("he")) {
-                banner.innerHTML = `
-                    <div class="flex items-start gap-2">
-                        <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500"></i>
-                        <div>
-                            <span class="font-bold text-amber-500">Syntax Mistake Found:</span>
-                            <p class="mt-0.5">"He don't know..." violates standard subject-verb parameters. For third-person singular pronoun variables (He, She, It), adopt the auxiliary form <b>"doesn't"</b>.</p>
-                            <span class="text-green-400 mt-1 block"><b>Correction:</b> "He doesn't know the rules."</span>
-                        </div>
-                    </div>
-                `;
-            } else {
-                banner.innerHTML = `
-                    <div class="flex items-start gap-2">
-                        <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i>
-                        <div>
-                            <span class="font-bold text-green-400">Syntactic Compliance:</span>
-                            <p class="mt-0.5">Written paragraphs and clauses demonstrate normal academic compliance. Slang signals are absent.</p>
-                        </div>
-                    </div>
-                `;
-            }
-            lucide.createIcons();
-            masteryAccreditEvent(20);
-        }
-
-        // --- DYNAMIC PRACTICE CARDS BUILDER ---
-        function buildPracticeChallenge(subjectId) {
-            const data = SyllabusDatabase[subjectId];
-            const pbox = document.getElementById('practice-challenge-box');
-            pbox.innerHTML = `
-                <span class="text-xs font-bold text-slate-300 leading-normal block mb-3">${data.practiceQ}</span>
-                <div class="grid grid-cols-2 gap-2" id="practice-choices"></div>
-            `;
-            const choices = document.getElementById('practice-choices');
-            data.practiceOptions.forEach((opt, oidx) => {
-                const btn = document.createElement('button');
-                btn.className = "p-3 bg-slate-900 hover:bg-slate-850 border border-slate-850 rounded-xl text-left text-xs font-semibold text-slate-300 transition-all flex justify-between items-center";
-                btn.setAttribute("onclick", `evaluateChallengeChoice(${oidx}, ${data.correctAnswerIndex})`);
-                btn.innerHTML = `
-                    <span>${opt}</span>
-                    <i data-lucide="circle" class="w-3.5 h-3.5 text-slate-600"></i>
-                `;
-                choices.appendChild(btn);
-            });
-            lucide.createIcons();
-        }
-
-        function evaluateChallengeChoice(selected, correct) {
-            const buttons = document.getElementById('practice-choices').children;
-            for (let i = 0; i < buttons.length; i++) {
-                buttons[i].setAttribute("disabled", "true");
-                const icon = buttons[i].querySelector('i');
-                if (i === correct) {
-                    buttons[i].className = "p-3 bg-green-950/20 border border-green-500/30 rounded-xl text-left text-xs font-semibold text-green-400 transition-all flex justify-between items-center";
-                    icon.outerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i>`;
-                } else if (i === selected) {
-                    buttons[i].className = "p-3 bg-rose-950/20 border border-rose-500/30 rounded-xl text-left text-xs font-semibold text-rose-450 transition-all flex justify-between items-center";
-                    icon.outerHTML = `<i data-lucide="x-circle" class="w-4 h-4 text-rose-400"></i>`;
-                }
-            }
-            if (selected === correct) {
-                showToast("Correct choice selected! (+50 XP)");
-                masteryAccreditEvent(50);
-            } else {
-                showToast("Incorrect choice. Try recalculating.");
-            }
-            lucide.createIcons();
-        }
-
-        // --- STUDY VIEWPORT MODES DRIVER ---
-        function toggleStudyMode(mode) {
-            studyMode = studyMode === mode ? "normal" : mode;
-            
-            // Sync buttons
-            document.querySelectorAll("[id^='mode-']").forEach(btn => {
-                btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 transition-all flex items-center gap-1.5";
-            });
-
-            const body = document.getElementById('dynamic-body');
-            const headerNav = document.querySelector('nav');
-            const leftAside = document.querySelector('aside');
-            const rightAside = document.querySelector('aside:last-of-type');
-
-            if (studyMode === "focus") {
-                // Dim backgrounds, larger font, hide sidebars
-                const activeBtn = document.getElementById('mode-focus');
-                activeBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-600 text-white transition-all flex items-center gap-1.5";
-                
-                showToast("Focus Mode: Distractions diminished. Cozy reading spacing on.");
-                body.classList.add('focus-active-overlay');
-                
-                // Hide sidebars with smooth classes
-                if (leftAside) leftAside.classList.add('lg:hidden');
-                if (rightAside) rightAside.classList.add('xl:hidden');
-                document.getElementById('center-main-area').className = "lg:col-span-12 max-w-3xl mx-auto space-y-6";
-            }
-            else if (studyMode === "exam") {
-                const activeBtn = document.getElementById('mode-exam');
-                activeBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-rose-600 text-white transition-all flex items-center gap-1.5";
-                
-                showToast("Exam Mode activated: Formula cards in focus.");
-                body.classList.remove('focus-active-overlay');
-
-                // Shift Formula & PYQ cards to top
-                const stack = document.getElementById('modular-cards-stack');
-                const pyq = document.getElementById('card-pyq');
-                const formula = document.getElementById('card-formula');
-                if (pyq && formula && stack) {
-                    stack.prepend(pyq);
-                    stack.prepend(formula);
-                }
-            }
-            else if (studyMode === "visual") {
-                const activeBtn = document.getElementById('mode-visual');
-                activeBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-600 text-white transition-all flex items-center gap-1.5";
-                
-                showToast("Visual Mode: Immersive simulations maximized.");
-                body.classList.remove('focus-active-overlay');
-
-                // Push Simulation & Interactive cards to top
-                const stack = document.getElementById('modular-cards-stack');
-                const sim = document.getElementById('card-simulation');
-                const prac = document.getElementById('card-practice');
-                if (sim && prac && stack) {
-                    stack.prepend(prac);
-                    stack.prepend(sim);
-                }
-            }
-            else {
-                // Restore regular single layout
-                body.classList.remove('focus-active-overlay');
-                if (leftAside) leftAside.classList.remove('lg:hidden');
-                if (rightAside) rightAside.classList.remove('xl:hidden');
-                document.getElementById('center-main-area').className = "lg:col-span-6 space-y-6";
-                
-                const stack = document.getElementById('modular-cards-stack');
-                const theory = document.getElementById('card-theory');
-                if (theory && stack) {
-                    stack.prepend(theory);
-                }
-            }
-        }
-
-        // --- ACCESSIBILITY HELPER UTILITIES ---
-        function toggleAccessibilityMenu() {
-            const panel = document.getElementById('accessibility-panel');
-            panel.classList.toggle('hidden');
-        }
-
-        function toggleKeyboardGuide() {
-            const modal = document.getElementById('keyboard-guide-modal');
-            modal.classList.toggle('hidden');
-        }
-
-        function adjustTextScale(scale) {
-            const body = document.getElementById('dynamic-body');
-            body.classList.remove('text-sm', 'text-base', 'text-lg');
-            if (scale === 'small') {
-                body.classList.add('text-sm');
-                showToast("Typography scale: Standard (13px/14px)");
-            } else if (scale === 'medium') {
-                body.classList.add('text-base');
-                showToast("Typography scale: Larger Comfort (16px)");
-            } else {
-                body.classList.add('text-lg');
-                showToast("Typography scale: Accessible (18px for long study)");
-            }
-        }
-
-        function setReadingWidth(width) {
-            const main = document.getElementById('layout-view-container');
-            if (width === 'narrow') {
-                main.style.maxWidth = "960px";
-                showToast("Optimal focus column set (No rapid eye sweeping).");
-            } else {
-                main.style.maxWidth = "1280px";
-                showToast("Symmetric multi-column spacing restored.");
-            }
-        }
-
-        function setAnimationMode(reduced) {
-            const body = document.getElementById('dynamic-body');
-            if (reduced) {
-                body.classList.remove('transition-all', 'duration-500');
-                showToast("Reduced animations mode. CPU cycle spikes saved.");
-            } else {
-                body.classList.add('transition-all', 'duration-500');
-                showToast("Interactive micro animations restored.");
-            }
-        }
-
-        // --- KEYBOARD DIRECT LISTENER ---
-        document.addEventListener('keydown', (evt) => {
-            if (evt.target.tagName === 'INPUT' || evt.target.tagName === 'TEXTAREA') return;
-
-            const key = evt.key.toLowerCase();
-            if (key === '1') switchToSubject('math');
-            if (key === '2') switchToSubject('drawing');
-            if (key === '3') switchToSubject('beee');
-            if (key === '4') switchToSubject('electronics');
-            if (key === '5') switchToSubject('english');
-            if (key === 'f') toggleStudyMode('focus');
-            if (key === 'e') toggleStudyMode('exam');
-            if (key === 'v') toggleStudyMode('visual');
-            if (key === 'a') triggerAICopilot('explain');
+        // Load existing state
+        const savedState = JSON.parse(localStorage.getItem('dsa-syllabus-progress') || '[]');
+        checkboxes.forEach((cb, index) => {
+            if (savedState[index]) cb.checked = true;
+            cb.addEventListener('change', updateProgress);
         });
-
-        // --- AI TUTOR ENGINE SIMULATION ---
-        function triggerAICopilot(type) {
-            const data = SyllabusDatabase[currentSubject];
-            const terminal = document.getElementById('ai-response-stream');
-            terminal.innerHTML = `<span class="flex items-center gap-2"><i class="w-3.5 h-3.5 animate-spin border-2 border-cyan-500/30 border-t-cyan-500 rounded-full"></i> Computations streaming analysis...</span>`;
-
-            setTimeout(() => {
-                if (type === 'explain') {
-                    terminal.innerHTML = `<b>AI Professor Response:</b><br> The selected concept in ${data.title} addresses standard curriculum problems. To ensure maximum exam score, avoid skipping derivations and always bound final solution indices.`;
-                } else if (type === 'simplify') {
-                    terminal.innerHTML = `<b>Simplified Context:</b><br> Think of this parameter as proportional ratios. When variables shift, correct scaling coordinates maintain symmetric equilibrium.`;
-                } else if (type === 'viva') {
-                    terminal.innerHTML = `<b>Model Viva Prompt:</b><br> Q: ${data.viva[0].q}<br> A: <i>${data.viva[0].a}</i>`;
-                } else if (type === 'exam') {
-                    terminal.innerHTML = `<b>June Exam Blueprint:</b><br> ${data.pyqTitle} carries 10 marks total. 4 marks are allotted for drawing correctly, 6 marks for detailed formula evaluations.`;
-                } else {
-                    terminal.innerHTML = `<b>Condensed Revision Note:</b><br> Recapitulate ${data.mnemonic}. Under standard stress cycles, write out the formulas first dynamically.`;
-                }
-                masteryAccreditEvent(15);
-            }, 800);
-        }
-
-        function triggerCustomAIQuery() {
-            const promptInput = document.getElementById('ai-custom-prompt');
-            const prompt = promptInput.value;
-            if (!prompt) return;
-
-            const terminal = document.getElementById('ai-response-stream');
-            terminal.innerHTML = `<span class="flex items-center gap-2"><i class="w-3.5 h-3.5 animate-spin border-2 border-cyan-500/30 border-t-cyan-500 rounded-full"></i> Resolving query vectors...</span>`;
-            
-            setTimeout(() => {
-                terminal.innerHTML = `<b>AI Professor Analysis:</b><br> Question: "<i>${prompt}</i>"<br><br> Evaluation successfully complied. In First-Year R23 standards, we isolate real components and solve sequentially. Try checking against the checklist vectors!`;
-                promptInput.value = "";
-                masteryAccreditEvent(25);
-            }, 1000);
-        }
-
-        // --- SYLLABUS CHECKLIST CONTROLLER ---
-        function clickCheckbox() {
-            const total = document.querySelectorAll('.subject-cb').length;
-            const checked = document.querySelectorAll('.subject-cb:checked').length;
-            const pct = Math.round((checked / total) * 100) || 0;
-
-            document.getElementById('progress-percentage-bubble').innerText = `${pct}%`;
-            document.getElementById('subject-progress-fill').style.width = `${pct}%`;
-        }
-
-        // --- PYQ BOARD INSERTER ---
-        function togglePyqReveal() {
-            const text = document.getElementById('pyq-reveal-text');
-            const btn = document.getElementById('pyq-btn-text');
-            if (text.classList.contains('hidden')) {
-                text.classList.remove('hidden');
-                btn.innerText = "COLLAPSE MODEL SOLUTION";
-            } else {
-                text.classList.add('hidden');
-                btn.innerText = "REVEAL COMPILATION ANSWER KEY";
-            }
-        }
-
-        // --- TOAST AND GAMIFICATION XP ACCUMULATOR ---
-        function showToast(msg) {
-            const toast = document.getElementById('ai-toast-message');
-            document.getElementById('toast-text').innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 2500);
-        }
-
-        function masteryAccreditEvent(amount) {
-            masteryXP += amount;
-            if (masteryXP >= 1200) {
-                masteryXP = masteryXP - 1200;
-                userLevelChange(1);
-            }
-            document.getElementById('user-xp').innerText = masteryXP;
-            localStorage.setItem("engi_eg_MasteryXP", masteryXP);
-        }
-
-        function userLevelChange(diff) {
-            let lvl = parseInt(document.getElementById('user-level').innerText);
-            lvl += diff;
-            document.getElementById('user-level').innerText = lvl;
-            showToast(`🔥 LEVEL UP! Unlocked Grade level ${lvl}!`);
-        }
-
-        // --- INITIAL STATE LOADER ---
-        window.addEventListener('DOMContentLoaded', () => {
-            // Restore color template if persisted
-            const theme = localStorage.getItem('theme') || 'dark';
-            if (theme === 'light') {
-                document.getElementById('dynamic-body').classList.add('light');
-                document.getElementById('nav-theme-toggle').innerHTML = `<i data-lucide="moon" class="w-4 h-4"></i>`;
-            }
-
-            switchToSubject('math');
-
-            // Scroll indicator implementation
-            window.addEventListener('scroll', () => {
-                const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-                const pct = (window.scrollY / scrollable) * 100;
-                document.getElementById('scroll-bar-indicator').style.width = `${pct}%`;
-            });
-
-            // Sync with existing platform structures
-            document.getElementById('nav-theme-toggle').addEventListener('click', () => {
-                const body = document.getElementById('dynamic-body');
-                body.classList.toggle('light');
-                const isLight = body.classList.contains('light');
-                localStorage.setItem('theme', isLight ? 'light' : 'dark');
-                document.getElementById('nav-theme-toggle').innerHTML = isLight 
-                    ? `<i data-lucide="moon" class="w-4 h-4"></i>`
-                    : `<i data-lucide="sun" class="w-4 h-4"></i>`;
-                lucide.createIcons();
-            });
-        });
+        
+        // Initial call
+        updateProgress();
     </script>
-
+    <script type="module" src="/src/ai-widget.ts"></script>
 </body>
 </html>
