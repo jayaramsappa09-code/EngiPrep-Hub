@@ -418,8 +418,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                        <!-- SUITE 1: CAD Drawing & AutoCAD Sandbox -->
                         <div id="scales-solver" class="solver-sec hidden space-y-6 animate-fadeIn">
                             <!-- Gorgeous Split Screen Layout! -->
                             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -540,28 +538,21 @@
 
                                             <!-- Toggle snap rules -->
                                             <div class="flex items-center gap-3">
-                                                <label class="flex items-center gap-1 cursor-pointer group">
+                                                <label class="flex items-center gap-1 cursor-pointer">
                                                     <input type="checkbox" id="cad-adv-snap" checked onchange="window.redrawCADCanvas()" class="accent-cyan-500 h-3.5 w-3.5">
-                                                    <span class="text-[9px] text-slate-400 group-hover:text-white font-bold uppercase select-none transition-colors">Snap Grid</span>
+                                                    <span class="text-[9px] text-slate-400 font-bold uppercase select-none">Snap Grid</span>
                                                 </label>
                                                 
-                                                <label class="flex items-center gap-1 cursor-pointer group">
+                                                <label class="flex items-center gap-1 cursor-pointer">
                                                     <input type="checkbox" id="cad-show-ortho-guides" checked onchange="window.redrawCADCanvas()" class="accent-cyan-500 h-3.5 w-3.5">
-                                                    <span class="text-[9px] text-slate-450 group-hover:text-white font-bold uppercase select-none transition-colors">Ortho Track</span>
+                                                    <span class="text-[9px] text-slate-450 font-bold uppercase select-none">Ortho Track</span>
                                                 </label>
                                             </div>
                                         </div>
 
-                                        <!-- Canvas Workspace Viewport (Placeholder Redesign) -->
-                                        <div class="bg-black/90 border border-slate-850 rounded-2xl relative overflow-hidden shadow-2xl h-[400px]">
-                                            <div class="absolute inset-0 blueprint-grid opacity-20 pointer-events-none"></div>
-                                            <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
-                                                <div class="w-full h-px bg-cyan-400 absolute"></div>
-                                                <div class="h-full w-px bg-cyan-400 absolute"></div>
-                                            </div>
-                                            
-                                            <canvas id="cad-canvas" class="w-full h-full cursor-crosshair absolute inset-0 z-10"></canvas>
-
+                                        <!-- Canvas Workspace Viewport -->
+                                        <div class="bg-black border border-slate-900 rounded-2xl relative overflow-hidden shadow-2xl h-[400px]">
+                                            <canvas id="cad-canvas" class="w-full h-full cursor-crosshair absolute inset-0"></canvas>
                                             
                                             <!-- Simulated Cursor Crawler indicator overlay -->
                                             <div id="cad-cur-crawler" class="absolute pointer-events-none w-8 h-8 border border-cyan-500/30 rounded-full flex items-center justify-center transition-all duration-75 ease-out" style="left: -999px; top: -999px; transform: translate(-50%, -50%);">
@@ -606,13 +597,9 @@
                                                 <div class="text-[#10b981]/80 font-mono font-bold">> AutoCAD Command Terminal (R23 Interface Server) v4.95 online.</div>
                                                 <div class="text-slate-550 font-mono">> Ready for direct CLI vector injections. Try helper controls or type below.</div>
                                             </div>
-                                            <div class="flex items-center gap-2 border-t border-slate-850 pt-2 p-1 rounded relative group">
+                                            <div class="flex items-center gap-2 border-t border-slate-850 pt-2 p-1 rounded">
                                                 <span class="text-cyan-400 font-mono font-black select-none text-[10px]">AUTO_CAD>></span>
-                                                <input type="text" id="cad-cli" onkeydown="window.processCADCommand(event)" placeholder="Awaiting command... (e.g. LINE, CIRCLE, TRIM)" class="flex-1 bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-cyan-900/50 focus:placeholder:text-transparent text-[11px] font-mono select-all transition-all">
-                                                <!-- Custom glowing cursor effect for placeholder -->
-                                                <div class="absolute right-2 opacity-0 group-focus-within:opacity-100 transition-opacity flex items-center justify-center">
-                                                    <div class="w-1.5 h-3 bg-cyan-400 animate-pulse"></div>
-                                                </div>
+                                                <input type="text" id="cad-cli" onkeydown="window.processCADCommand(event)" placeholder="Type LINE, CIRCLE, POLYGON, TRIM, OFFSET, HELP or HATCH..." class="flex-1 bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-700 text-[11px] font-mono select-all">
                                             </div>
                                         </div>
                                         
@@ -789,34 +776,22 @@
 
                         <!-- SUITE 5: AI Evaluation -->
                         <div id="ai-evaluation-panel" class="solver-sec hidden space-y-6 animate-fadeIn">
-                             <div class="p-10 border-2 border-dashed border-cyan-500/40 rounded-[2rem] text-center bg-gradient-to-b from-cyan-950/20 to-[#03030b] space-y-8 relative overflow-hidden group hover:border-cyan-400/60 transition-all duration-500 cursor-pointer shadow-[inset_0_0_100px_rgba(6,182,212,0.02)]">
-                                <!-- Background scanning effects -->
-                                <div class="absolute inset-0 blueprint-grid opacity-10 pointer-events-none group-hover:opacity-20 transition-opacity"></div>
-                                <div class="absolute top-0 left-0 w-full h-1 bg-cyan-400/50 blur-sm transform -translate-y-px group-hover:translate-y-[400px] transition-transform duration-[3s] ease-in-out"></div>
-                                
-                                <div class="w-20 h-20 rounded-3xl bg-cyan-950/40 flex items-center justify-center mx-auto text-cyan-400 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.15)] group-hover:shadow-[0_0_50px_rgba(6,182,212,0.3)] transition-all relative z-10">
-                                    <div class="absolute inset-0 border border-cyan-400/20 rounded-3xl animate-ping opacity-20"></div>
-                                    <i data-lucide="scan-line" class="w-10 h-10 animate-pulse"></i>
+                             <div class="p-10 border-2 border-dashed border-emerald-500/30 rounded-3xl text-center bg-emerald-500/5 space-y-6">
+                                <div class="w-16 h-16 rounded-3xl bg-emerald-500/10 flex items-center justify-center mx-auto text-emerald-400 border border-emerald-500/40 animate-pulse">
+                                    <i data-lucide="scan" class="w-8 h-8"></i>
                                 </div>
-                                
-                                <div class="space-y-3 relative z-10">
-                                    <h3 class="text-3xl font-black text-white uppercase tracking-tight font-sans">AI Vision Draft Critic</h3>
-                                    <p class="text-xs text-slate-400 font-bold uppercase tracking-widest font-mono select-none">Drop your drafting sheet or schematic here for instant AI diagnostic evaluation.</p>
+                                <div class="space-y-2">
+                                    <h3 class="text-2xl font-black text-white uppercase tracking-tight">AI Vision Draft Critic</h3>
+                                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-widest">Upload your sheet photo or screenshot for instant diagnostic feedback.</p>
                                 </div>
-                                
-                                <div class="flex flex-col items-center gap-5 relative z-10">
-                                    <button class="px-12 py-4 bg-cyan-600/10 hover:bg-cyan-500 hover:text-white text-cyan-400 border border-cyan-500/50 rounded-2xl text-xs font-black uppercase tracking-widest shadow-xl transition-all font-cad">Browse Schematics / Upload Sheet</button>
-                                    
-                                    <div class="flex gap-6 mt-4 opacity-60">
-                                        <div class="flex items-center gap-2 text-[9px] text-cyan-500 uppercase font-mono font-bold tracking-widest">
-                                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Line Discipline
-                                        </div>
-                                        <div class="flex items-center gap-2 text-[9px] text-cyan-500 uppercase font-mono font-bold tracking-widest">
-                                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Geometric Accuracy
-                                        </div>
-                                        <div class="flex items-center gap-2 text-[9px] text-cyan-500 uppercase font-mono font-bold tracking-widest">
-                                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Intersection Angles
-                                        </div>
+                                <div class="flex flex-col items-center gap-4">
+                                    <button class="px-10 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl text-xs font-black uppercase tracking-widest shadow-xl shadow-emerald-500/20 transition-all border-none">Analyze Drafting sheet</button>
+                                    <div class="text-[9px] text-slate-500 uppercase flex gap-4 font-mono">
+                                        <span>Accuracy Check</span>
+                                        <span>•</span>
+                                        <span>Line Discipline</span>
+                                        <span>•</span>
+                                        <span>Projection Alignment</span>
                                     </div>
                                 </div>
                             </div>
@@ -1270,11 +1245,6 @@
             updateXPUIRender();
             initCADCanvas();
             initMouseTracing();
-            
-            // Init CAD Tutor
-            if(document.getElementById('cad-tutorial-selector')) {
-                window.selectCADTutorial(document.getElementById('cad-tutorial-selector').value || 'ellipse_tutorial');
-            }
             
             // Retain older sandbox updates (safeguard)
             if (window.updateCurves) window.updateCurves();
@@ -2966,38 +2936,24 @@
         }
 
         function drawCADGrid(canvas, ctx) {
-            if (cadState.gridMode === 'iso-left' || cadState.gridMode === 'iso-right') {
-                ctx.strokeStyle = 'rgba(16,185,129,0.08)';
-                ctx.lineWidth = 0.5;
-                const gs = 20, dx = gs * Math.cos(Math.PI/6), dy = gs * Math.sin(Math.PI/6);
-                for (let x = 0; x <= canvas.width * 2; x += dx) {
-                    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - canvas.width, 0); ctx.lineTo(x - canvas.width, canvas.height); ctx.stroke();
-                }
-                for (let y = -canvas.height * 2; y <= canvas.height * 2; y += dy * 2) {
-                    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y + canvas.width * Math.tan(Math.PI/6)); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y - canvas.width * Math.tan(Math.PI/6)); ctx.stroke();
-                }
-            } else {
-                ctx.strokeStyle = 'rgba(6,182,212,0.05)';
-                ctx.lineWidth = 0.5;
-                for (let x = 0; x <= canvas.width; x += 20) {
-                    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-                }
-                for (let y = 0; y <= canvas.height; y += 20) {
-                    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-                }
-                // Draw central axis cross-lines
-                ctx.strokeStyle = 'rgba(6,182,212,0.15)';
-                ctx.beginPath();
-                ctx.moveTo(0, canvas.height / 2); ctx.lineTo(canvas.width, canvas.height / 2);
-                ctx.moveTo(canvas.width / 2, 0); ctx.lineTo(canvas.width / 2, canvas.height);
-                ctx.stroke();
-                ctx.fillStyle = 'rgba(6,182,212,0.4)';
-                ctx.font = '8px monospace';
-                ctx.fillText('X', 10, canvas.height / 2 - 6);
-                ctx.fillText('Y', canvas.width - 25, canvas.height / 2 - 6);
+            ctx.strokeStyle = 'rgba(6,182,212,0.05)';
+            ctx.lineWidth = 0.5;
+            for (let x = 0; x <= canvas.width; x += 20) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
             }
+            for (let y = 0; y <= canvas.height; y += 20) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+            }
+            // Draw central axis cross-lines
+            ctx.strokeStyle = 'rgba(6,182,212,0.15)';
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height / 2); ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.moveTo(canvas.width / 2, 0); ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.stroke();
+            ctx.fillStyle = 'rgba(6,182,212,0.4)';
+            ctx.font = '8px monospace';
+            ctx.fillText('X', 10, canvas.height / 2 - 6);
+            ctx.fillText('Y', canvas.width - 25, canvas.height / 2 - 6);
         }
 
         function getDistanceToSegment(p, a, b) {
@@ -3114,8 +3070,7 @@
                 if (vertex) drawProjectionTrace(vertex);
                 if (cadState.tool === 'trim') { performTrimAt(pt); return; }
                 cadState.startX = pt.x; cadState.startY = pt.y;
-                const snapCheckbox = document.getElementById('cad-adv-snap') || document.getElementById('cad-snap');
-                if (snapCheckbox && snapCheckbox.checked) {
+                if (document.getElementById('cad-snap').checked) {
                     cadState.startX = Math.round(cadState.startX / 20) * 20; cadState.startY = Math.round(cadState.startY / 20) * 20;
                 }
                 cadState.isDrawing = true;
@@ -3127,8 +3082,7 @@
 
             canvas.addEventListener('mousemove', function(e) {
                 const pt = getCanvasMousePos(canvas, e); let x = pt.x, y = pt.y;
-                const snapCheckbox = document.getElementById('cad-adv-snap') || document.getElementById('cad-snap');
-                if (snapCheckbox && snapCheckbox.checked) { x = Math.round(x / 20) * 20; y = Math.round(y / 20) * 20; }
+                if (document.getElementById('cad-snap').checked) { x = Math.round(x / 20) * 20; y = Math.round(y / 20) * 20; }
                 cadState.currentX = x; cadState.currentY = y;
                 
                 // Update Static HUD
@@ -3255,7 +3209,7 @@
             } else if (el.type === 'circle') {
                 ctx.beginPath(); ctx.arc(el.startX, el.startY, el.r || 5, 0, 2*Math.PI); ctx.stroke();
             } else if (el.type === 'polygon') {
-                const sides = el.sides || 5, r = el.r || 10; ctx.beginPath();
+                const sides = 5, r = el.r || 10; ctx.beginPath();
                 for (let i = 0; i < sides; i++) {
                     const angle = (i * 2 * Math.PI / sides) - Math.PI / 2;
                     const px = el.startX + r * Math.cos(angle), py = el.startY + r * Math.sin(angle);
@@ -3303,229 +3257,13 @@
         window.processCADCommand = function(e) {
             if (e.key !== 'Enter') return; const arg = e.target.value.trim(); if (!arg) return; e.target.value = ""; addTerminalLine(arg);
             const tokens = arg.split(/\s+/); const cmd = tokens[0].toUpperCase();
-            document.getElementById('hud-last-cmd').innerText = cmd;
-            
-            if (cmd === 'L' || cmd === 'LINE') {
-                if (tokens.length >= 5) {
-                    cadState.elements.push({ type: 'line', startX: parseFloat(tokens[1]), startY: parseFloat(tokens[2]), endX: parseFloat(tokens[3]), endY: parseFloat(tokens[4]) }); redrawCADCanvas();
-                    addTerminalLine("> Success: Line created via CLI.");
-                } else {
-                    addTerminalLine("! Err: LINE requires 4 parameters: X1 Y1 X2 Y2.");
-                }
-            } else if (cmd === 'C' || cmd === 'CIRCLE') {
-                if (tokens.length >= 4) {
-                    const cx = parseFloat(tokens[1]), cy = parseFloat(tokens[2]), r = parseFloat(tokens[3]);
-                    cadState.elements.push({ type: 'circle', startX: cx, startY: cy, r: r, endX: cx + r, endY: cy }); redrawCADCanvas();
-                    addTerminalLine("> Success: Circle extruded.");
-                } else {
-                    addTerminalLine("! Err: CIRCLE req. 3 params: CX CY R.");
-                }
-            } else if (cmd === 'POLYGON' || cmd === 'POL') {
-                if (tokens.length >= 5) {
-                    const sides = parseInt(tokens[1]), cx = parseFloat(tokens[2]), cy = parseFloat(tokens[3]), r = parseFloat(tokens[4]);
-                    cadState.elements.push({ type: 'polygon', startX: cx, startY: cy, r: r, endX: cx+r, endY: cy, sides: sides }); redrawCADCanvas();
-                    addTerminalLine(`> Polygon configured with ${sides} sides.`);
-                } else {
-                    addTerminalLine("! Err: POLYGON needs: SIDES CX CY RADIUS");
-                }
-            } else if (cmd === 'ISOPLANE') {
-                const dir = tokens[1] ? tokens[1].toUpperCase() : 'LEFT';
-                if (dir === 'LEFT' || dir === 'RIGHT') {
-                    window.toggleCADGrid('iso-' + dir.toLowerCase());
-                    addTerminalLine(`> ISOPLANE grid aligned to ${dir}`);
-                } else {
-                    window.toggleCADGrid('standard');
-                    addTerminalLine(`> ISOPLANE standard mode.`);
-                }
-            } else if (cmd === 'HATCH') {
-                addTerminalLine("> HATCH region filled virtually.");
-            } else if (cmd === 'CLS' || cmd === 'CLEAR') {
-                window.clearCADCanvas();
-            } else if (cmd === 'HELP') {
-                addTerminalLine("==== AUTOCAD HELPER ====");
-                addTerminalLine("LINE <x1> <y1> <x2> <y2>");
-                addTerminalLine("CIRCLE <cx> <cy> <r>");
-                addTerminalLine("POLYGON <sides> <cx> <cy> <r>");
-                addTerminalLine("ISOPLANE <LEFT|RIGHT>");
-                addTerminalLine("HATCH");
-            } else {
-                addTerminalLine(`Command ${cmd} not recognized. Type HELP for syntax.`);
-            }
+            if (cmd === 'L' && tokens.length >= 5) {
+                cadState.elements.push({ type: 'line', startX: parseFloat(tokens[1]), startY: parseFloat(tokens[2]), endX: parseFloat(tokens[3]), endY: parseFloat(tokens[4]) }); redrawCADCanvas();
+            } else if (cmd === 'C' && tokens.length >= 4) {
+                 const cx = parseFloat(tokens[1]), cy = parseFloat(tokens[2]), r = parseFloat(tokens[3]);
+                 cadState.elements.push({ type: 'circle', startX: cx, startY: cy, r: r, endX: cx + r, endY: cy }); redrawCADCanvas();
+            } else if (cmd === 'CLS') window.clearCADCanvas();
             window.recordXP(10);
-            updateCADMissionGrader();
-        };
-
-        window.injectCADTerminal = function(cmdStr) {
-            const input = document.getElementById('cad-cli');
-            if (input) {
-                input.value = cmdStr;
-                input.focus();
-            }
-        };
-
-        // CAD Grid toggles
-        window.toggleCADGrid = function(mode) {
-            cadState.gridMode = mode || 'standard';
-            const stdBtn = document.getElementById('btn-grid-std');
-            const lBtn = document.getElementById('btn-grid-isoleft');
-            const rBtn = document.getElementById('btn-grid-isoright');
-            if(stdBtn) stdBtn.className = "px-2 py-0.5 rounded text-[8.5px] font-black bg-slate-950 text-slate-500 border border-slate-900";
-            if(lBtn) lBtn.className = "px-2 py-0.5 rounded text-[8.5px] font-black bg-slate-950 text-slate-500 border border-slate-900";
-            if(rBtn) rBtn.className = "px-2 py-0.5 rounded text-[8.5px] font-black bg-slate-950 text-slate-500 border border-slate-900";
-
-            if (mode === 'standard' && stdBtn) stdBtn.className = "px-2 py-0.5 rounded text-[8.5px] font-black bg-cyan-600 text-white border border-cyan-500/30";
-            if (mode === 'iso-left' && lBtn) lBtn.className = "px-2 py-0.5 rounded text-[8.5px] font-black bg-cyan-600 text-white border border-cyan-500/30";
-            if (mode === 'iso-right' && rBtn) rBtn.className = "px-2 py-0.5 rounded text-[8.5px] font-black bg-cyan-600 text-white border border-cyan-500/30";
-            
-            const lbl = document.getElementById('cad-grid-mode-lbl');
-            if (lbl) lbl.innerText = mode.toUpperCase();
-            
-            redrawCADCanvas();
-        };
-
-        // Tutorial Logic
-        const cadTutorialData = {
-            'ellipse_tutorial': {
-                title: 'Unit I: Drawing Ellipse (ELLIPSE)',
-                missionDesc: 'Construct an Ellipse outline representing major and minor axes.',
-                steps: [
-                    { t: 'Define axes', desc: 'Type LINE or use cursor to draw Major Axis AB.', cmd: 'LINE 100 200 300 200', draw: () => injectCADTerminal('LINE 100 200 300 200') },
-                    { t: 'Define minor', desc: 'Draw intersecting Minor Axis CD.', cmd: 'LINE 200 150 200 250', draw: () => injectCADTerminal('LINE 200 150 200 250') },
-                    { t: 'Ellipse arc', desc: 'Use ELLIPSE or plot concentric circles.', cmd: 'CIRCLE 200 200 100', draw: () => injectCADTerminal('CIRCLE 200 200 100') }
-                ]
-            },
-            'polygon_tutorial': {
-                title: 'Unit I: Hexagon (POLYGON)',
-                missionDesc: 'Draw a Hexagon via Polygon command setting sides = 6.',
-                steps: [
-                    { t: 'Init Polygon', desc: 'Invoke POLYGON command, 6 sides.', cmd: 'POLYGON 6 200 200 80', draw: () => injectCADTerminal('POLYGON 6 200 200 80') },
-                    { t: 'Inscribed mode', desc: 'Select inscribed or circumscribed (AI defaults inscribed here).', cmd: '', draw: () => {} },
-                    { t: 'Set Radius', desc: 'Specify geometric radius 80mm.', cmd: 'CIRCLE 200 200 80', draw: () => injectCADTerminal('CIRCLE 200 200 80') }
-                ]
-            },
-            'projection_tutorial': {
-                title: 'Unit II: Projections (LINE)',
-                missionDesc: 'Draw simple Top/Front Views below and above XY line.',
-                steps: [
-                    { t: 'XY Reference', desc: 'Draw standard XY plane reference.', cmd: 'LINE 50 200 350 200', draw: () => injectCADTerminal('LINE 50 200 350 200') },
-                    { t: 'Front View', desc: 'Draw a rectangle representing Front view above.', cmd: 'LINE 150 150 250 150', draw: () => injectCADTerminal('LINE 150 150 250 150') },
-                    { t: 'Top View', desc: 'Project lines downwards to Top View.', cmd: 'LINE 150 250 250 250', draw: () => injectCADTerminal('LINE 150 250 250 250') }
-                ]
-            },
-            'section_tutorial': {
-                title: 'Unit III: Sections (HATCH)',
-                missionDesc: 'Apply Section Hatching to a sliced area.',
-                steps: [
-                    { t: 'Base contour', desc: 'Draw cross section base.', cmd: 'CIRCLE 200 200 60', draw: () => injectCADTerminal('CIRCLE 200 200 60') },
-                    { t: 'Cutting Plane', desc: 'Intersect shape with a slanted line.', cmd: 'LINE 100 150 300 250', draw: () => injectCADTerminal('LINE 100 150 300 250') },
-                    { t: 'Hatch Filling', desc: 'Invoke HATCH command on the cut area.', cmd: 'HATCH', draw: () => injectCADTerminal('HATCH') }
-                ]
-            },
-            'iso_tutorial': {
-                title: 'Unit V: Isometric Stepped Block',
-                missionDesc: 'Switch ISOPLANE and plot isometric segments.',
-                steps: [
-                    { t: 'Set ISOPLANE', desc: 'Align axes to ISO-LEFT.', cmd: 'ISOPLANE LEFT', draw: () => injectCADTerminal('ISOPLANE LEFT') },
-                    { t: 'Base lines', desc: 'Draw bottom 30-deg receding edges.', cmd: 'LINE 200 300 300 250', draw: () => injectCADTerminal('LINE 200 300 300 250') },
-                    { t: 'Vertical drops', desc: 'Add 90-degree lines.', cmd: 'LINE 200 300 200 200', draw: () => injectCADTerminal('LINE 200 300 200 200') }
-                ]
-            }
-        };
-
-        let currentCADTutorial = 'ellipse_tutorial';
-        let currentCADStep = 0;
-
-        window.selectCADTutorial = function(tutId) {
-            currentCADTutorial = tutId;
-            currentCADStep = 0;
-            updateCADTutorialUI();
-            addTerminalLine(`> Loaded Module: ${cadTutorialData[tutId].title}`);
-        };
-
-        window.nextCADTutorialStep = function() {
-            const data = cadTutorialData[currentCADTutorial];
-            if (currentCADStep < data.steps.length - 1) {
-                currentCADStep++;
-                updateCADTutorialUI();
-            }
-        };
-
-        window.prevCADTutorialStep = function() {
-            if (currentCADStep > 0) {
-                currentCADStep--;
-                updateCADTutorialUI();
-            }
-        };
-
-        function updateCADTutorialUI() {
-            const data = cadTutorialData[currentCADTutorial];
-            const step = data.steps[currentCADStep];
-            
-            document.getElementById('cad-step-indicator').innerText = `Step ${currentCADStep + 1} of ${data.steps.length}`;
-            document.getElementById('cad-step-title').innerText = step.t;
-            document.getElementById('cad-step-desc').innerText = step.desc;
-            document.getElementById('cad-step-hint-code').innerText = step.cmd;
-            document.getElementById('cad-target-desc').innerText = data.missionDesc;
-            
-            // Generate conceptual explanation via pseudo-logic
-            document.getElementById('cad-concept-explanation').innerText = `Theoretical Rule: ${step.desc} The internal rendering vectors align according to structural geometries requested.`;
-            
-            if(window.cadAutoSimulating) {
-                step.draw();
-                setTimeout(() => {
-                    const evt = new KeyboardEvent('keydown', { key: 'Enter' });
-                    document.getElementById('cad-cli').dispatchEvent(evt);
-                }, 500);
-            }
-        }
-
-        window.cadAutoSimulating = false;
-        window.startAutoCADAnimation = function() {
-            window.cadAutoSimulating = true;
-            window.clearCADCanvas();
-            currentCADStep = 0;
-            updateCADTutorialUI();
-            
-            let tIdx = setInterval(() => {
-                const data = cadTutorialData[currentCADTutorial];
-                if (currentCADStep >= data.steps.length - 1) {
-                    clearInterval(tIdx);
-                    window.cadAutoSimulating = false;
-                    addTerminalLine(`> AUTO-SIMULATION COMPLETE.`);
-                } else {
-                    window.nextCADTutorialStep();
-                }
-            }, 3000); // 3 sec per step
-        };
-
-        window.setCADInteractiveMode = function(mode) {
-            const badge = document.getElementById('cad-mode-badge-practice');
-            if(badge) {
-                if(mode === 'free') {
-                    badge.innerText = 'FREE MODE';
-                    badge.className = 'px-1.5 py-0.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-[8px] font-bold rounded font-mono uppercase';
-                } else {
-                    badge.innerText = 'PRACTICE MODE';
-                    badge.className = 'px-1.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[8px] font-bold rounded font-mono uppercase';
-                }
-            }
-        };
-
-        function updateCADMissionGrader() {
-            const qty = document.getElementById('cad-elements-qty');
-            if(qty) qty.innerText = cadState.elements.length;
-        }
-
-        window.gradeCADAccuracy = function() {
-            const elements = cadState.elements.length;
-            if(elements === 0) {
-                alert("Militant AI Grader: 0% Match. Canvas is empty.");
-            } else if (elements < 3) {
-                alert(`Militant AI Grader: 45% Match. You are missing components for ${cadTutorialData[currentCADTutorial].title}. Try using more geometry.`);
-            } else {
-                alert(`Militant AI Grader: 95% Match. Excellent drafting! Structural vectors closely approximate the theoretical model.`);
-                window.recordXP(150);
-            }
         };
 
         // Other update functions (Curves, Solids, Projections) are identical to the current working logic
