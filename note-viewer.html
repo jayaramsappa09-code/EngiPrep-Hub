@@ -482,7 +482,9 @@
             const diagrams = {
                 'newtons_rings': '/diagrams/newtons_rings.png',
                 'rlc_circuit': '/diagrams/rlc_circuit.png',
-                'nernst_equation': '/diagrams/nernst_equation.png'
+                'nernst_equation': '/diagrams/nernst_equation.png',
+                'isometric': '/diagrams/isometric_projection.png',
+                'orthographic': '/diagrams/orthographic_projection.png'
             };
 
             if (note.content.includes('Newton') && note.content.includes('Rings')) {
@@ -494,13 +496,25 @@
             if (note.content.includes('RLC')) {
                 const diagramDiv = document.createElement('div');
                 diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
-                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Diagram: RLC Series Circuit</p><img src="${diagrams.rlc_circuit}" alt="RLC Circuit Diagram" class="w-full h-auto rounded-lg">`;
+                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-wider text-primary mb-4">Diagram: RLC Series Circuit</p><img src="${diagrams.rlc_circuit}" alt="RLC Circuit Diagram" class="w-full h-auto rounded-lg">`;
                 content.appendChild(diagramDiv);
             }
             if (note.content.includes('Nernst')) {
                 const diagramDiv = document.createElement('div');
                 diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
-                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Diagram: Nernst Equation Electrochemical Cell</p><img src="${diagrams.nernst_equation}" alt="Nernst Equation Cell Diagram" class="w-full h-auto rounded-lg">`;
+                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-wider text-primary mb-4">Diagram: Nernst Equation Electrochemical Cell</p><img src="${diagrams.nernst_equation}" alt="Nernst Equation Cell Diagram" class="w-full h-auto rounded-lg">`;
+                content.appendChild(diagramDiv);
+            }
+            if (note.content.includes('Isometric')) {
+                const diagramDiv = document.createElement('div');
+                diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
+                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-wider text-primary mb-4">Diagram: Isometric Projection</p><img src="${diagrams.isometric}" alt="Isometric Projection Diagram" class="w-full h-auto rounded-lg">`;
+                content.appendChild(diagramDiv);
+            }
+            if (note.content.includes('Orthographic')) {
+                const diagramDiv = document.createElement('div');
+                diagramDiv.className = 'my-8 p-4 bg-slate-200 dark:bg-slate-700 rounded-2xl';
+                diagramDiv.innerHTML = `<p class="text-xs font-bold uppercase tracking-wider text-primary mb-4">Diagram: Orthographic Projection</p><img src="${diagrams.orthographic}" alt="Orthographic Projection Diagram" class="w-full h-auto rounded-lg">`;
                 content.appendChild(diagramDiv);
             }
         }
