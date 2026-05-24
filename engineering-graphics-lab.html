@@ -280,26 +280,31 @@
                                     <div>
                                         <label class="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">Select Topic</label>
                                         <select id="active-topic-selector" onchange="window.selectSyllabusTopic(this.value)" class="w-full bg-[#03030b] border border-slate-800 p-2.5 rounded text-[10.5px] font-bold font-sans text-cyan-400">
-                                            <optgroup label="Unit 1: Geometrical Curves" id="optg-1">
+                                            <optgroup label="Unit I: Scales & Conic Sections" id="optg-1">
+                                                <option value="plain_scales">Plain Scales (Linear R.F. = 1/50)</option>
+                                                <option value="diagonal_scales">Diagonal Scales (Triangular R.F. = 1/40)</option>
                                                 <option value="ellipse_ecc">Ellipse by Eccentricity (e=2/3)</option>
                                                 <option value="parabola_ecc">Parabola by Eccentricity (e=1.0)</option>
                                                 <option value="hyperbola_ecc">Hyperbola by Eccentricity (e=1.5)</option>
-                                                <option value="cycloid">Cycloid Trajectory Tracker</option>
-                                                <option value="involute">Involute of a Pentagon</option>
                                             </optgroup>
-                                            <optgroup label="Unit 2: Projections of Points/Lines/Planes" id="optg-2">
+                                            <optgroup label="Unit II: Engineering Curves & Points" id="optg-2">
+                                                <option value="cycloid">Cycloid Trajectory Tracker</option>
+                                                <option value="epicycloid">Epicycloid Curve (Outside Roll)</option>
+                                                <option value="involute">Involute of a Pentagon</option>
+                                                <option value="spiral_arch">Archimedean Spiral (Pole Locus)</option>
                                                 <option value="points_proj">Projections of Points (HP/VP Space)</option>
                                                 <option value="lines_proj">Projections of Lines (Tilted ends)</option>
+                                            </optgroup>
+                                            <optgroup label="Unit III: Projections of Planes & Solids" id="optg-3">
                                                 <option value="planes_proj">Projections of Planes (Laminae tilting)</option>
-                                            </optgroup>
-                                            <optgroup label="Unit 3: Projections of Solids" id="optg-3">
                                                 <option value="solids_proj">Projections of Regular Solids</option>
+                                                <option value="cone_proj">Projections of a Tilted Cone</option>
                                             </optgroup>
-                                            <optgroup label="Unit 4: Sections & developments" id="optg-4">
+                                            <optgroup label="Unit IV: Sections & developments" id="optg-4">
                                                 <option value="sections_proj">Sections of Solids (Hatched Slicing)</option>
                                                 <option value="developments_proj">Lateral Developments (Net unfolding)</option>
                                             </optgroup>
-                                            <optgroup label="Unit 5: Isometric & Ortho Conversions" id="optg-5">
+                                            <optgroup label="Unit V: Isometric & Ortho Conversions" id="optg-5">
                                                 <option value="iso_conv">Isometric 3D Box Conversion</option>
                                                 <option value="ortho_conv">Orthographic 2D Projections Mapping</option>
                                             </optgroup>
@@ -1398,6 +1403,46 @@
                 layer: "PROJ_PALE (0.15mm) / PROFILE_VIS (0.40mm)",
                 pen: "0.40mm visible profiles, 0.15mm projection guides",
                 script: "XL; H; (Construct ground baseline datum lines XL)\nL; (Draft Front Elevation view in top-left quadrant VP)\nXL; V; (Project drop alignment lines downwards)\nL; (Draft Top Plan view; project sideways to Auxiliary Plane for side profile)"
+            },
+            plain_scales: {
+                command: "RECTANG / DIVIDE / LINE",
+                prompt: "Create base scale box: 'REC [Enter]'. Segment baseline using DIVIDE.",
+                shortcut: "REC + Enter",
+                layer: "SCALE_BOX (0.35mm)",
+                pen: "0.35mm scale box outlines, 0.15mm ticks",
+                script: "REC; 80,140; @280,25; (Draw standard scale box)\nDIVIDE; (Select baseline, enter parts = 5)\nL; (Draw vertical divisions for primary meters segments)\nDIVIDE; (Divide left division into 10 decimeters subticks)"
+            },
+            diagonal_scales: {
+                command: "RECTANG / DIVIDE / LINE",
+                prompt: "Define diagonal box: 'REC [Enter]'. Divide height vertically in 10 parts.",
+                shortcut: "REC + Enter",
+                layer: "SCALE_BOX (0.35mm)",
+                pen: "0.35mm scale box, 0.15mm diagonal generators",
+                script: "REC; 70,130; @300,60; (Draw diagonal scale bounding box)\nDIVIDE; (Segment baseline into 6 parts)\nO; 6; (Offset horizontal grid ticks for centimeters lines)\nL; (Draw diagonal slopes on the first column for centimeter offset intersections)"
+            },
+            epicycloid: {
+                command: "ARC / ROTATE / PLINE",
+                prompt: "Erect directing arc: 'ARC [Enter]'. Swing rolling circle with ROTATE.",
+                shortcut: "ARC [Enter] / RO [Enter]",
+                layer: "PROFILE_VIS (0.40mm)",
+                pen: "0.40mm Crown curve, 0.15mm construction trackers",
+                script: "ARC; C; 220,320; @120<30; @120<150; (Draw base directing path arc)\nC; 220,165; 35; (Generate rolling perimeter circle)\nRO; (Rotate generating plane incrementally to map loci coordinates)\nPLINE; (Trace outer epicycloidal curve points)"
+            },
+            spiral_arch: {
+                command: "CIRCLE / DIVIDE / PLINE",
+                prompt: "Establish bounding circle: 'C [Enter]'. Plot radial segment intersections.",
+                shortcut: "C [Enter] + DIV [Enter]",
+                layer: "PROFILE_VIS (0.40mm)",
+                pen: "0.40mm Spiral locus path",
+                script: "C; 220,160; 75; (Draft bounding reach boundary)\nDIV; (Divide polar workspace into 12 rays)\nO; 6.25; (Mark linear steps along radial line)\nPLINE; (Spline sweep points sequentially winding into pole O)"
+            },
+            cone_proj: {
+                command: "CIRCLE / POLYGON / ROTATE",
+                prompt: "Draw circular base: 'C [Enter]'. Tilt FV projection: 'RO [Enter]'.",
+                shortcut: "C [Enter] / POL [Enter] / RO [Enter]",
+                layer: "PROFILE_VIS (0.40mm)",
+                pen: "0.40mm solid boundaries, 0.15mm projection guides",
+                script: "C; 220,215; 30; (Top view circular footprint)\nPOLYGON; 3; (Draft front view triangle base)\nRO; (Rotate front view triangle by theta = 30 degrees angle)\nELLIPSE; (Draft apparent foreshortened base ellipse in top view HP)"
             }
         };
 
@@ -1961,6 +2006,121 @@
                 viva: [
                     { q: "Why is a left-side view drawn on the right side of the front view?", a: "In 1st Angle Projection, planes of projection are assumed behind the object, so views project on opposite sides." },
                     { q: "What denotes invisible edges in orthographic conversions?", a: "Thin dashed lines of equal segments." }
+                ]
+            },
+            plain_scales: {
+                unit: "Unit I • Scales & Conics", difficulty: "Easy", estTime: "15M", xp: 100, num: 14,
+                title: "Construction of Plain Scale (Linear R.F. = 1/50)",
+                desc: "A plain scale is used to represent two consecutive dimensions (e.g., meters and decimeters). Here we construct a scale of R.F.=1/50 to measure up to 5 meters.",
+                formula: "R.F. = 1/50. LOS = RF * Max Distance = 1/50 * 5m = 100mm = 10cm.",
+                mistake: "Dividing the first unit with wrong values. The first unit is always divided into 10 subdivisions from right-to-left starting with 0 at the first partition.",
+                tip: "Label 'METERS' on the right of 0 and 'DECIMETERS' on the left of 0. Write R.F. prominently.",
+                trick: "0 is at the first major division, making it a dual-segmented baseline layout.",
+                q2: "What is Representative Fraction (R.F.)?", a2: "The ratio of the size of the drawing of an object to its actual size ($RF = \\frac{\\text{Drawing size}}{\\text{Actual size}}$).",
+                q5: "Explain why plain scale has 0 placed at the first division.", a5: "To allow reading fractional parts (e.g., decimeters) to the left of zero, while major units (e.g., meters) are read to the right.",
+                q10: "Construct a plain scale of RF=1/50 to show meters and decimeters. Mark a distance of 3.6m on it.", a10: "Determine LOS = 100mm. Draw a 100mm x 10mm rectangle. Divide into 5 equal blocks (each 1m). Divide first block into 10 sub-blocks. Highlight 3.6m (3 major + 6 minor divisions).",
+                pyqCode: "JNTUK R23 Dec 2023", pyqTitle: "Plain Scale Drawing", pyqDesc: "Construct a scale of 1:50 to read up to 5m. Show 3.6m.",
+                steps: [
+                    { title: "Draw scale bounding box", desc: "Construct a rectangle of length = 100mm and height = 10mm. Use thin projector lines.", tool: "ruler", x: 80, y: 160 },
+                    { title: "Divide into 5 major divisions", desc: "Divide scale length into 5 equal segments of 20mm each. Mark 0 at the first division, and project vertical separation lines.", tool: "drafter", x: 100, y: 160 },
+                    { title: "Subdivide the left-most segment", desc: "Divide the first 20mm segment into 10 equal parts representing decimeters. Number them 0 to 10 from right-to-left.", tool: "protractor", x: 80, y: 160 },
+                    { title: "Mark 3.6 meters dimension", desc: "Measure 3 major parts to the right of 0, and 6 minor parts to the left of 0. Draw a dimension line and label it 3.6m.", tool: "compass", x: 220, y: 160 }
+                ],
+                viva: [
+                    { q: "What is the unit of Representative Fraction (R.F.)?", a: "R.F. is a pure ratio, so it has no unit of measurement." },
+                    { q: "What is the minimum scale height recommended by BIS standards?", a: "Normally kept between 5mm to 15mm depending on drawing sheet scales." }
+                ]
+            },
+            diagonal_scales: {
+                unit: "Unit I • Scales & Conics", difficulty: "Medium", estTime: "20M", xp: 120, num: 15,
+                title: "Construction of Diagonal Scale (Three Units R.F. = 1/40)",
+                desc: "A diagonal scale is used to represent three consecutive dimensions (e.g., meters, decimeters, centimeters) or extremely fine subdivisions by leveraging diagonal divisions of similar triangles.",
+                formula: "R.F. = 1/40. LOS = RF * Max Distance = 1/40 * 6m = 150mm = 15cm.",
+                mistake: "Drawing horizontal lines unevenly. All 10 horizontal divisions must have exactly equal widths.",
+                tip: "Slope the diagonal lines from (subdivision n - 1, bottom) to (subdivision n, top) to maintain the rise rule.",
+                trick: "Each vertical level represents exactly 1/10th of a decimeter (1 centimeter).",
+                q2: "Under what conditions do we prefer a diagonal scale over a plain scale?", a2: "When we need to represent three consecutive units or measure with high precision up to three decimal places.",
+                q5: "Explain the geometric principle of a diagonal scale.", a5: "It uses similar triangles: the diagonal splits a segment such that horizontal offsets grow proportionally with height divisions.",
+                q10: "Construct a diagonal scale of RF=1/40 to read meters, decimeters and centimeters up to 6m. Mark a length of 4.56m.", a10: "Determine LOS = 150mm. Draw 150mm x 50mm box. Split into 6 base divisions. Height has 10 parallels. Diagonals on first segment. Spot 4.56m boundary.",
+                pyqCode: "JNTUK R20 Nov 2021", pyqTitle: "Diagonal precision", pyqDesc: "Draft a diagonal scale of R.F. 1/40 to read up to 6m. Show 4.56m.",
+                steps: [
+                    { title: "Construct the primary scale box", desc: "Draw a rectangle of width = 150mm and height = 50mm. Draw thin parallel reference borders.", tool: "ruler", x: 75, y: 160 },
+                    { title: "Create 6 primary segments", desc: "Divide base into 6 equal sections of 25mm each. Mark 0 at first division, verticals up.", tool: "drafter", x: 100, y: 160 },
+                    { title: "Generate horizontal and diagonal grid", desc: "Divide height into 10 parallel rows. Split left unit into 10 subdivisions. Roll diagonals connecting bottom nodes to top shifted nodes.", tool: "protractor", x: 75, y: 160 },
+                    { title: "Pinpoint 4.56 meters reading", desc: "Locate 4 major parts, 5 sub-units (DM) left of 0, and project 6 parallel lines up to locate the diagonal intersection. Mark 4.56m.", tool: "compass", x: 220, y: 160 }
+                ],
+                viva: [
+                    { q: "What is the length of scale if RF is 1:250 and max distance is 50 meters?", a: "LOS = $\\frac{1}{250} \\times 50000\\text{ mm} = 200\\text{ mm}$." },
+                    { q: "Why are diagonals drawn instead of simple vertical dividers for fine units?", a: "To subdivide the minor division into 1/10th of its value, which would otherwise be too small to draw vertically." }
+                ]
+            },
+            epicycloid: {
+                unit: "Unit II • Engineering Curves", difficulty: "High", estTime: "25M", xp: 140, num: 16,
+                title: "Epicycloid Curve (Outside rolling circle)",
+                desc: "The path traced by a point on the perimeter of a generating circle rolling without slipping along the OUTSIDE of a directing circle.",
+                formula: "theta = (r / R) * 360 = (35 / 120) * 360 = 105 degrees.",
+                mistake: "Swaying the rolling radius. The generating circle center tracks a precise concentric concentric arc of radius R + r.",
+                tip: "Generating circle center path is at a radial distance of R + r from directing arc center.",
+                trick: "Think of it as drawing a cycloid wrapped over a circular hill.",
+                q2: "What is the difference between epicycloid and hypocycloid?", a2: "In epicycloid, the circle rolls on the OUTSIDE of the base circle; in hypocycloid, it rolls on the INSIDE.",
+                q5: "How do you calculate directing angle theta?", a5: "Use formula: $\\theta = \\frac{r}{R} \\times 360^{\\circ}$, where $r$ is generating radius and $R$ is directing radius.",
+                q10: "A generating circle of 35mm rolls outside a directing circle of 120mm. Plot the epicycloid path.", a10: "Draw directing arc with radius 120mm and theta 105°. Draw concentric center path. Roll circle and plot swept nodes.",
+                pyqCode: "JNTUK R19 Nov 2022", pyqTitle: "Syllabus Cyclics", pyqDesc: "Plot outside epicycloid track with d=50mm and R=100mm.",
+                steps: [
+                    { title: "Draw Directing Arc of radius R", desc: "Draw a reference arc of radius R = 120mm with center angle theta = 105 degrees using light constructor lines.", tool: "protractor", x: 220, y: 280 },
+                    { title: "Draw generating circle tangent outside", desc: "Draw circle of radius r = 35mm touching the outer edge of base arc. Project concentric center arc path of radius R+r.", tool: "compass", x: 220, y: 165 },
+                    { title: "Coordinate divisions and center track", desc: "Divide generating circle into 12 parts and transfer dividing heights concentrically parallel to directing surface.", tool: "ruler", x: 220, y: 165 },
+                    { title: "Trace epicycloid curve trajectory", desc: "Pivot compass on center track positions. Rotate radius and mark intersection points. Connect with smooth curve.", tool: "compass", x: 280, y: 160 }
+                ],
+                viva: [
+                    { q: "What curve is generated if rolling radius equals directing radius in epicycloid?", a: "A cardiod (heart-shaped curve)." },
+                    { q: "What is the tangent to an epicycloid at any point?", a: "The line connecting that point to the instantaneous point of contact between generating and directing circles." }
+                ]
+            },
+            spiral_arch: {
+                unit: "Unit II • Engineering Curves", difficulty: "Medium", estTime: "22M", xp: 120, num: 17,
+                title: "Archimedean Spiral (Pole Loci Tracking)",
+                desc: "A spiral curve representing the locus of a point moving uniformly along a straight line which is rotating uniformly about a fixed pole center O.",
+                formula: "r = a + b * theta. Max Radius = 75mm.",
+                mistake: "Uneven radial segment intervals. Linear segments and angular sectors must be divided into the same number of parts.",
+                tip: "Make sure you index division lines in the same winding direction to avoid mirroring paths.",
+                trick: "Winds outwards by the exact same radial step on each angular slice.",
+                q2: "Define Archimedean Spiral.", a2: "A curve traced by a point moving uniformly along a straight line which is rotating uniformly about a fixed pole.",
+                q5: "How is a normal to a spiral constructed?", a5: "Draw line perpendicular to radial vector through pole. Offset tangent line by Archimedean constant $b = \\frac{\\text{radial step}}{\\text{radian}}$.",
+                q10: "Draw Archimedean spiral of one convolution with max radius = 75mm.", a10: "Construct pole O. Divide workspace into 12 rays of 30°. Divide 75mm segment into 12 parts. Map spiral swept intersections.",
+                pyqCode: "JNTUK R23 Dec 2023", pyqTitle: "Archimedean spiral", pyqDesc: "Construct Archimedean spiral of one convolution with maximum reach of 75mm.",
+                steps: [
+                    { title: "Mark fixed pole and max radius circle", desc: "Plot Center Pole O. Draw reference circle of maximum radius R = 75mm using thin drafts.", tool: "compass", x: 180, y: 160 },
+                    { title: "Divide circle into 12 radial rays", desc: "Draw 12 radial lines from center Pole O spaced 30 degrees apart around perimeter.", tool: "protractor", x: 180, y: 160 },
+                    { title: "Subdivide main radius line into 12 parts", desc: "Subdivide horizontal radius OP (75mm) into 12 equal divisions. Mark division index points 1 to 12.", tool: "ruler", x: 180, y: 160 },
+                    { title: "Plot and join spiral nodes", desc: "For ray n, sweep arc from radius division point n. Connect intersections with a continuous spiral curve.", tool: "compass", x: 260, y: 160 }
+                ],
+                viva: [
+                    { q: "State the practical applications of Archimedean spirals.", a: "Scroll compressors, cam design, and coiled springs." },
+                    { q: "What is the distance between consecutive coils in Archimedean spiral?", a: "It is constant and equal to $2\\pi b$, known as the pitch of the spiral." }
+                ]
+            },
+            cone_proj: {
+                unit: "Unit III • Projections of Solids", difficulty: "High", estTime: "30M", xp: 140, num: 18,
+                title: "Projections of Tilted Cone (Axis inclined to HP)",
+                desc: "Calculating and mapping the orthographic projections of a cone of revolution when its central axis is inclined to HP and parallel to VP.",
+                formula: "Base Diameter = 40mm, Altitude = 65mm. Axis tilted at 30°.",
+                mistake: "Mapping circular base in Top View. The base projects as an ellipse when the axis is tilted.",
+                tip: "Draft the circular top view and triangular front view in resting stage. Tilt FV triangle, project down.",
+                trick: "The foreshortened minor axis of the base ellipse is a function of the tilt angle: $d \\times \\cos(\\theta)$.",
+                q2: "How does a cylinder project when its axis is parallel to both HP and VP?", a2: "Front and top views display rectangles, side views display circles.",
+                q5: "State the projection behaviour of a cone when its axis is inclined to HP.", a5: "Apparent front view is a tilted triangle. Apparent top view displays an ellipse representing base circles connected to apex.",
+                q10: "Draw projections of cone of base 40mm and axis 65mm resting on HP, axis inclined at 30° to HP.", a10: "Plot base circle and resting triangle. Re-draw triangle with base inclined at 60° (axis at 30°). Drop projector lines downwards.",
+                pyqCode: "JNTUK R20 Nov 2022", pyqTitle: "Tilted Cone Axis", pyqDesc: "Draw projections of base 40mm cone resting with axis inclined at 30° to HP.",
+                steps: [
+                    { title: "Draw resting cone projections", desc: "Draw circle of radius 20mm in HP (below XY line) representing top view, and triangle of height 65mm in VP representing front view.", tool: "drafter", x: 160, y: 160 },
+                    { title: "Erect reference axis and label generators", desc: "Draw thin vertical centerline. Label base divisions 1 to 8 on circular projection and project to base line on XY.", tool: "ruler", x: 160, y: 160 },
+                    { title: "Reconstruct tilted front view triangle", desc: "Draw FV triangle resting on a base corner, with axis inclined at 30 degrees to the horizontal. Highlight boundaries.", tool: "protractor", x: 220, y: 160 },
+                    { title: "Project of apparent top view in HP", desc: "Drop verticals down from tilted base, intersect with horizontal generators. Sketch base ellipse and connect apex O.", tool: "compass", x: 260, y: 160 }
+                ],
+                viva: [
+                    { q: "What is the generator of a cone?", a: "An imaginary straight line connecting any point on the base perimeter to the apex." },
+                    { q: "Under what condition will a cone show its true apex height in the front view?", a: "When its axis is parallel to the Vertical Plane (VP)." }
                 ]
             }
         };
@@ -2850,6 +3010,333 @@
                     svg.appendChild(sv);
                     // Step separator horizontal line inside profile side view
                     createSVGLine(svg, 260, 100, 320, 100, "#fbbf24", "1.5", null);
+                }
+            }
+            else if (activeTopicId === 'plain_scales') {
+                const scaleWidth = 280;
+                const scaleHeight = 25;
+                const sx = cx - scaleWidth / 2;
+                const sy = cy - scaleHeight / 2 + 10;
+
+                const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                rect.setAttribute("x", sx.toString());
+                rect.setAttribute("y", sy.toString());
+                rect.setAttribute("width", scaleWidth.toString());
+                rect.setAttribute("height", scaleHeight.toString());
+                rect.setAttribute("fill", "rgba(16, 185, 129, 0.04)");
+                rect.setAttribute("stroke", "#10b981");
+                rect.setAttribute("stroke-width", "2");
+                svg.appendChild(rect);
+
+                const partWidth = scaleWidth / 5;
+                if (activeStepNum >= 2) {
+                    for (let i = 1; i < 5; i++) {
+                        const px = sx + i * partWidth;
+                        createSVGLine(svg, px, sy, px, sy + scaleHeight, "rgba(16, 185, 129, 0.6)", "1.5", null);
+                        createSVGText(svg, px - 3, sy + scaleHeight + 15, (i - 1).toString(), "#ffffff", "9");
+                    }
+                    createSVGText(svg, sx - 3, sy + scaleHeight + 15, "0 (DM)", "#06b6d4", "7.5");
+                    createSVGText(svg, sx + scaleWidth - 5, sy + scaleHeight + 15, "4 (M)", "#ffffff", "9");
+                }
+
+                if (activeStepNum >= 3) {
+                    const subWidth = partWidth / 10;
+                    for (let j = 1; j < 10; j++) {
+                        const px = sx + j * subWidth;
+                        const h = j === 5 ? scaleHeight : scaleHeight * 0.5;
+                        createSVGLine(svg, px, sy + scaleHeight - h, px, sy + scaleHeight, "rgba(56, 189, 248, 0.45)", "1", null);
+                    }
+                    createSVGText(svg, sx + partWidth - 5, sy + scaleHeight + 15, "0", "#ffffff", "9");
+                }
+
+                if (activeStepNum >= 4) {
+                    const subWidth = partWidth / 10;
+                    const targetX1 = sx + (10 - 6) * subWidth;
+                    const targetX2 = sx + partWidth + 3 * partWidth; 
+                    
+                    const dimY = sy - 25;
+                    createSVGLine(svg, targetX1, dimY, targetX2, dimY, "#fbbf24", "1.5", null);
+                    createSVGLine(svg, targetX1, dimY - 4, targetX1, sy + 3, "#fbbf24", "1", "2,2");
+                    createSVGLine(svg, targetX2, dimY - 4, targetX2, sy + 3, "#fbbf24", "1", "2,2");
+                    
+                    createSVGText(svg, targetX1 - 2, dimY + 3, "◀", "#fbbf24", "9");
+                    createSVGText(svg, targetX2 - 8, dimY + 3, "▶", "#fbbf24", "9");
+                    createSVGText(svg, (targetX1 + targetX2) / 2 - 45, dimY - 6, "3.6 METERS (RF = 1/50)", "#fbbf24", "9.5");
+                    createSVGNode(svg, targetX1, sy + scaleHeight / 2, "#ef4444", 4);
+                    createSVGNode(svg, targetX2, sy + scaleHeight / 2, "#ef4444", 4);
+                }
+            }
+            else if (activeTopicId === 'diagonal_scales') {
+                const scaleWidth = 300;
+                const scaleHeight = 60;
+                const sx = cx - scaleWidth / 2;
+                const sy = cy - scaleHeight / 2;
+
+                const outerRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                outerRect.setAttribute("x", sx.toString());
+                outerRect.setAttribute("y", sy.toString());
+                outerRect.setAttribute("width", scaleWidth.toString());
+                outerRect.setAttribute("height", scaleHeight.toString());
+                outerRect.setAttribute("fill", "rgba(16, 185, 129, 0.04)");
+                outerRect.setAttribute("stroke", "#10b981");
+                outerRect.setAttribute("stroke-width", "2");
+                svg.appendChild(outerRect);
+
+                const segmentWidth = scaleWidth / 6;
+                if (activeStepNum >= 2) {
+                    for (let i = 1; i < 6; i++) {
+                        const px = sx + i * segmentWidth;
+                        createSVGLine(svg, px, sy, px, sy + scaleHeight, "rgba(16, 185, 129, 0.6)", "1.5", null);
+                        createSVGText(svg, px - 3, sy + scaleHeight + 14, (i - 1).toString(), "#ffffff", "9");
+                    }
+                    createSVGText(svg, sx - 3, sy + scaleHeight + 14, "DM", "#06b6d4", "8");
+                    createSVGText(svg, sx + scaleWidth - 5, sy + scaleHeight + 14, "5m", "#ffffff", "9");
+                }
+
+                if (activeStepNum >= 3) {
+                    const dY = scaleHeight / 10;
+                    for (let h = 1; h < 10; h++) {
+                        createSVGLine(svg, sx, sy + h * dY, sx + scaleWidth, sy + h * dY, "rgba(56, 189, 248, 0.25)", "1", null);
+                    }
+                    
+                    const subW = segmentWidth / 10;
+                    for (let j = 0; j <= 10; j++) {
+                        createSVGLine(svg, sx + j * subW, sy, sx + j * subW, sy + scaleHeight, "rgba(255,255,255,0.06)", "1", null);
+                    }
+                    for (let j = 1; j <= 10; j++) {
+                        createSVGLine(svg, sx + (j - 1) * subW, sy + scaleHeight, sx + j * subW, sy, "rgba(236, 72, 153, 0.45)", "1", null);
+                    }
+                }
+
+                if (activeStepNum >= 4) {
+                    const subW = segmentWidth / 10;
+                    const dY = scaleHeight / 10;
+                    const targetY = sy + (10 - 6) * dY;
+                    const targetX1 = sx + (5 + 0.6) * subW;
+                    const targetX2 = sx + segmentWidth + 4 * segmentWidth;
+
+                    createSVGLine(svg, targetX1, targetY, targetX2, targetY, "#fbbf24", "3", null);
+                    createSVGNode(svg, targetX1, targetY, "#ef4444", 4);
+                    createSVGNode(svg, targetX2, targetY, "#ef4444", 4);
+                    createSVGText(svg, (targetX1 + targetX2) / 2 - 50, targetY - 10, "4.56m (4m + 5dm + 6cm)", "#fbbf24", "9.5");
+                }
+            }
+            else if (activeTopicId === 'epicycloid') {
+                const dirX = cx;
+                const dirY = cy + 130;
+                const R_directing = 110 * scale;
+                const r_generating = 30 * scale;
+
+                const pathDirecting = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                const xS = dirX - R_directing * Math.sin(Math.PI / 4);
+                const yS = dirY - R_directing * Math.cos(Math.PI / 4);
+                const xE = dirX + R_directing * Math.sin(Math.PI / 4);
+                const yE = dirY - R_directing * Math.cos(Math.PI / 4);
+                pathDirecting.setAttribute("d", `M ${xS} ${yS} A ${R_directing} ${R_directing} 0 0 1 ${xE} ${yE}`);
+                pathDirecting.setAttribute("fill", "none");
+                pathDirecting.setAttribute("stroke", "#fbbf24");
+                pathDirecting.setAttribute("stroke-width", "2.5");
+                svg.appendChild(pathDirecting);
+
+                const angleRoll = (activeStepNum / 4 - 0.5) * (Math.PI / 4);
+                const cRollX = dirX + (R_directing + r_generating) * Math.sin(angleRoll);
+                const cRollY = dirY - (R_directing + r_generating) * Math.cos(angleRoll);
+
+                if (activeStepNum >= 2) {
+                    const rollingCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    rollingCircle.setAttribute("cx", cRollX.toString());
+                    rollingCircle.setAttribute("cy", cRollY.toString());
+                    rollingCircle.setAttribute("r", r_generating.toString());
+                    rollingCircle.setAttribute("fill", "rgba(6,182,212,0.06)");
+                    rollingCircle.setAttribute("stroke", "#06b6d4");
+                    rollingCircle.setAttribute("stroke-width", "1.5");
+                    svg.appendChild(rollingCircle);
+
+                    const pathCenterTrack = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    const cR = R_directing + r_generating;
+                    const cXS = dirX - cR * Math.sin(Math.PI / 4);
+                    const cYS = dirY - cR * Math.cos(Math.PI / 4);
+                    const cXE = dirX + cR * Math.sin(Math.PI / 4);
+                    const cYE = dirY - cR * Math.cos(Math.PI / 4);
+                    pathCenterTrack.setAttribute("d", `M ${cXS} ${cYS} A ${cR} ${cR} 0 0 1 ${cXE} ${cYE}`);
+                    pathCenterTrack.setAttribute("fill", "none");
+                    pathCenterTrack.setAttribute("stroke", "rgba(6,182,212,0.25)");
+                    pathCenterTrack.setAttribute("stroke-width", "1");
+                    pathCenterTrack.setAttribute("stroke-dasharray", "3,3");
+                    svg.appendChild(pathCenterTrack);
+                }
+
+                if (activeStepNum >= 3) {
+                    for (let i = -4; i <= 4; i++) {
+                        const ang = i * (Math.PI / 16);
+                        const tX1 = dirX + R_directing * Math.sin(ang);
+                        const tY1 = dirY - R_directing * Math.cos(ang);
+                        const tX2 = dirX + (R_directing + 2 * r_generating) * Math.sin(ang);
+                        const tY2 = dirY - (R_directing + 2 * r_generating) * Math.cos(ang);
+                        createSVGLine(svg, tX1, tY1, tX2, tY2, "rgba(255,255,255,0.08)", "1", "2,3");
+                    }
+                }
+
+                if (activeStepNum >= 4) {
+                    let epicycloidPoints = "";
+                    const rollMaxAngle = (activeStepNum / 4) * (Math.PI / 4);
+                    const sectorSteps = 40;
+                    
+                    for (let step = 0; step <= sectorSteps; step++) {
+                        const theta = (step / sectorSteps) * (Math.PI / 2) - (Math.PI / 4);
+                        if (theta > rollMaxAngle) continue;
+                        const alpha = (R_directing / r_generating) * theta;
+                        
+                        const ex = dirX + (R_directing + r_generating) * Math.sin(theta) - r_generating * Math.sin(theta + alpha);
+                        const ey = dirY - (R_directing + r_generating) * Math.cos(theta) + r_generating * Math.cos(theta + alpha);
+                        
+                        epicycloidPoints += `${ex},${ey} `;
+                    }
+
+                    const epPath = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+                    epPath.setAttribute("points", epicycloidPoints);
+                    epPath.setAttribute("fill", "none");
+                    epPath.setAttribute("stroke", "#ec4899");
+                    epPath.setAttribute("stroke-width", "2.5");
+                    svg.appendChild(epPath);
+                }
+            }
+            else if (activeTopicId === 'spiral_arch') {
+                const maxRadius = 75 * scale;
+                createSVGNode(svg, cx, cy, "#10b981", 4);
+                createSVGText(svg, cx - 12, cy + 12, "O", "#10b981", "9");
+
+                if (activeStepNum >= 1) {
+                    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle.setAttribute("cx", cx.toString());
+                    circle.setAttribute("cy", cy.toString());
+                    circle.setAttribute("r", maxRadius.toString());
+                    circle.setAttribute("fill", "none");
+                    circle.setAttribute("stroke", "rgba(56, 189, 248, 0.2)");
+                    circle.setAttribute("stroke-width", "1");
+                    svg.appendChild(circle);
+                }
+
+                if (activeStepNum >= 2) {
+                    for (let i = 0; i < 12; i++) {
+                        const angle = (i * 30) * Math.PI / 180;
+                        const rx = cx + maxRadius * Math.cos(angle);
+                        const ry = cy + maxRadius * Math.sin(angle);
+                        createSVGLine(svg, cx, cy, rx, ry, "rgba(255,255,255,0.06)", "1", "3,3");
+                    }
+                }
+
+                if (activeStepNum >= 3) {
+                    for (let j = 1; j <= 12; j++) {
+                        const r = maxRadius * (j / 12);
+                        createSVGNode(svg, cx + r, cy, "#38bdf8", 2.5);
+                    }
+                }
+
+                if (activeStepNum >= 4) {
+                    let spiralPoints = "";
+                    const divisions = 60;
+                    const activeLimit = (activeStepNum / 4) * divisions;
+                    for (let k = 0; k <= activeLimit; k++) {
+                        const theta = (k / divisions) * 2 * Math.PI;
+                        const r = maxRadius * (k / divisions);
+                        const sx = cx + r * Math.cos(theta);
+                        const sy = cy + r * Math.sin(theta);
+                        spiralPoints += `${sx},${sy} `;
+                        
+                        if (k > 0 && k % 5 === 0) {
+                            createSVGNode(svg, sx, sy, "rgba(236,72,153,0.5)", 1.5);
+                        }
+                    }
+                    const poly = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+                    poly.setAttribute("points", spiralPoints);
+                    poly.setAttribute("fill", "none");
+                    poly.setAttribute("stroke", "#ec4899");
+                    poly.setAttribute("stroke-width", "2.5");
+                    svg.appendChild(poly);
+                }
+            }
+            else if (activeTopicId === 'cone_proj') {
+                const baseRadius = 30 * scale;
+                const altitude = 65 * scale;
+                const hpY = cy + 55;
+                const vpY = cy - 50;
+
+                if (activeStepNum >= 1) {
+                    const tvCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    tvCircle.setAttribute("cx", cx.toString());
+                    tvCircle.setAttribute("cy", hpY.toString());
+                    tvCircle.setAttribute("r", baseRadius.toString());
+                    tvCircle.setAttribute("fill", "rgba(6,182,212,0.05)");
+                    tvCircle.setAttribute("stroke", "#06b6d4");
+                    tvCircle.setAttribute("stroke-width", "1.5");
+                    svg.appendChild(tvCircle);
+
+                    const fvTriangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                    const p1x = cx - baseRadius, p1y = vpY;
+                    const p2x = cx + baseRadius, p2y = vpY;
+                    const apexX = cx, apexY = vpY - altitude;
+                    fvTriangle.setAttribute("points", `${p1x},${p1y} ${p2x},${p2y} ${apexX},${apexY}`);
+                    fvTriangle.setAttribute("fill", "rgba(56, 189, 248, 0.05)");
+                    fvTriangle.setAttribute("stroke", "rgba(56, 189, 248, 0.4)");
+                    fvTriangle.setAttribute("stroke-width", "1.5");
+                    svg.appendChild(fvTriangle);
+                }
+
+                if (activeStepNum >= 2) {
+                    createSVGLine(svg, cx, hpY - baseRadius, cx, vpY - altitude, "rgba(255, 255, 255, 0.15)", "1", "4,3");
+                    createSVGText(svg, cx + 5, vpY - altitude + 12, "h'=65", "#fbbf24", "8");
+                }
+
+                const tiltAngleRad = 30 * Math.PI / 180;
+                const midPointBaseX = cx + 80;
+                const midPointBaseY = vpY;
+                
+                const b1x = midPointBaseX - baseRadius * Math.cos(tiltAngleRad);
+                const b1y = midPointBaseY - baseRadius * Math.sin(tiltAngleRad);
+                const b2x = midPointBaseX + baseRadius * Math.cos(tiltAngleRad);
+                const b2y = midPointBaseY + baseRadius * Math.sin(tiltAngleRad);
+
+                const apexTiltedX = midPointBaseX - altitude * Math.sin(tiltAngleRad);
+                const apexTiltedY = midPointBaseY - altitude * Math.cos(tiltAngleRad);
+
+                if (activeStepNum >= 3) {
+                    const tiltedTriangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                    tiltedTriangle.setAttribute("points", `${b1x},${b1y} ${b2x},${b2y} ${apexTiltedX},${apexTiltedY}`);
+                    tiltedTriangle.setAttribute("fill", "rgba(236, 72, 153, 0.06)");
+                    tiltedTriangle.setAttribute("stroke", "#ec4899");
+                    tiltedTriangle.setAttribute("stroke-width", "2");
+                    svg.appendChild(tiltedTriangle);
+                }
+
+                if (activeStepNum >= 4) {
+                    const projHP_BaseY = hpY;
+                    const projHP_CenterX = midPointBaseX;
+                    const rx = baseRadius;
+                    const ry = baseRadius * Math.cos(tiltAngleRad);
+
+                    const tvEllipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+                    tvEllipse.setAttribute("cx", projHP_CenterX.toString());
+                    tvEllipse.setAttribute("cy", projHP_BaseY.toString());
+                    tvEllipse.setAttribute("rx", rx.toString());
+                    tvEllipse.setAttribute("ry", ry.toString());
+                    tvEllipse.setAttribute("fill", "rgba(16, 185, 129, 0.08)");
+                    tvEllipse.setAttribute("stroke", "#10b981");
+                    tvEllipse.setAttribute("stroke-dasharray", "2,2");
+                    tvEllipse.setAttribute("stroke-width", "2");
+                    svg.appendChild(tvEllipse);
+
+                    createSVGLine(svg, b1x, b1y, b1x, projHP_BaseY, "rgba(255, 255, 255, 0.1)", "1", "2,2");
+                    createSVGLine(svg, b2x, b2y, b2x, projHP_BaseY, "rgba(255, 255, 255, 0.1)", "1", "2,2");
+                    createSVGLine(svg, apexTiltedX, apexTiltedY, apexTiltedX, projHP_BaseY + baseRadius, "rgba(255, 255, 255, 0.1)", "1", "2,2");
+
+                    const apexHPX = apexTiltedX;
+                    const apexHPY = projHP_BaseY + baseRadius * 1.5;
+
+                    createSVGLine(svg, apexHPX, apexHPY, projHP_CenterX - rx, projHP_BaseY, "#10b981", "2", null);
+                    createSVGLine(svg, apexHPX, apexHPY, projHP_CenterX + rx, projHP_BaseY, "#10b981", "2", null);
+                    createSVGNode(svg, apexHPX, apexHPY, "#10b981", 5);
+                    createSVGText(svg, apexHPX + 8, apexHPY + 4, "o (apex)", "#10b981", "9");
                 }
             }
             else {
