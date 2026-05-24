@@ -248,8 +248,8 @@ function showToast(msg: string, type: 'success' | 'warn') {
     const container = document.getElementById('toast-container');
     if(!container) return;
     const toast = document.createElement('div');
-    toast.className = \`px-4 py-3 rounded-xl shadow-xl text-sm font-bold text-white transform transition-all duration-300 translate-y-10 opacity-0 flex items-center gap-2 \${type === 'success' ? 'bg-emerald-600' : 'bg-rose-600'}\`;
-    toast.innerHTML = \`<span>\${type === 'success' ? '✓' : '⚠️'}</span> \${msg}\`;
+    toast.className = `px-4 py-3 rounded-xl shadow-xl text-sm font-bold text-white transform transition-all duration-300 translate-y-10 opacity-0 flex items-center gap-2 ${type === 'success' ? 'bg-emerald-600' : 'bg-rose-600'}`;
+    toast.innerHTML = `<span>${type === 'success' ? '✓' : '⚠️'}</span> ${msg}`;
     container.appendChild(toast);
     
     requestAnimationFrame(() => {

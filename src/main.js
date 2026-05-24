@@ -5,6 +5,13 @@
 
 import { supabase, getCurrentUser, getUserProfile } from './supabase'
 import { toggleBookmark } from './notes'
+import { toast, showEncouragingToast, showSuccessToast, showAchievementToast } from './utils/toast'
+
+// Make toast globally available to inline scripts and other HTML pages
+window.showToast = toast.show.bind(toast);
+window.showEncouragingToast = showEncouragingToast;
+window.showSuccessToast = showSuccessToast;
+window.showAchievementToast = showAchievementToast;
 
 // Auto Apply Themes based on Subject URL or query slug
 (function() {
@@ -257,16 +264,7 @@ async function initStudyPlanner() {
 }
 
 function showNotification(msg) {
-    const toast = document.createElement('div');
-    toast.className = 'fixed bottom-8 right-8 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-2xl z-50 animate-fade-up text-[10px] font-bold uppercase tracking-widest ring-1 ring-white/10';
-    toast.innerText = msg;
-    document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(10px)';
-        toast.style.transition = 'all 0.5s ease';
-        setTimeout(() => toast.remove(), 500);
-    }, 3000);
+    showSuccessToast('Success', msg);
 }
 
 function initMobileMenu() {
@@ -528,7 +526,16 @@ function initGamification() {
             } else {
                 btn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Completed & XP Earned!`;
                 btn.className = 'px-8 py-4 bg-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/20 transition-all flex items-center justify-center gap-3 mx-auto complete-topic-btn cursor-default';
-                showNotification('Awesome! 10 XP added to your profile.');
+                
+                const encouragements = [
+                    "You're crushing it! Keep the momentum going.",
+                    "Awesome work! Every step counts.",
+                    "Brilliant! Another topic mastered.",
+                    "Great dedication! Your future self will thank you."
+                ];
+                const text = encouragements[Math.floor(Math.random() * encouragements.length)];
+                
+                showAchievementToast('+10 Mastery XP', text);
                 
                 try {
                     // This is where you would increment user XP in Supabase
