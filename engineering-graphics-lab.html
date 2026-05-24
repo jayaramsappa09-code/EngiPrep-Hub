@@ -94,7 +94,7 @@
             initPlatform();
         });
     </script>
-    <script>document.documentElement.style.display = 'none';</script>
+    <!-- Inline blocker removed for SEO/AdSense Crawlability -->
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
 <body class="bg-[#020208] text-slate-300 min-h-screen font-sans antialiased selection:bg-cyan-500/30 selection:text-white">
@@ -389,6 +389,90 @@
                                             <button id="btn-autoplay" onclick="window.toggleDrawingAutoPlay()" class="flex-1 max-w-[120px] py-1.5 bg-cyan-600 text-white rounded-lg text-[9px] font-black uppercase shadow-lg shadow-cyan-500/20 hover:bg-cyan-500 transition-all font-cad">PLAY</button>
                                             <button id="btn-practice-trigger" onclick="window.togglePracticeMode()" class="px-4 py-1.5 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-lg text-[9px] font-black uppercase hover:bg-indigo-600/30 transition-all font-cad">Enable Practice</button>
                                             <button id="btn-practice-submit" onclick="window.submitPracticeCheck()" disabled class="px-4 py-1.5 bg-emerald-600/20 disabled:opacity-40 text-emerald-400 border border-emerald-500/30 rounded-lg text-[9px] font-black uppercase hover:bg-emerald-600/30 transition-all font-cad">Verify Design</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Immersive HUD: Audio / Layers Blueprint Dashboard -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <!-- Sound / Voice guided Tutor Panel -->
+                                        <div class="p-4 bg-[#090e24]/90 border border-cyan-500/25 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl relative overflow-hidden">
+                                            <div class="absolute inset-0 bg-cyan-600/[0.02] pointer-events-none"></div>
+                                            <div class="space-y-1 text-left w-full sm:flex-1">
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="flex h-1.5 w-1.5 relative">
+                                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-500"></span>
+                                                    </span>
+                                                    <span class="text-[8.5px] font-black text-cyan-400 uppercase tracking-widest font-cad">Voice-Guided Assist</span>
+                                                </div>
+                                                <h4 class="text-[9.5px] text-slate-450 leading-tight">Narrate step-by-step CAD guidelines.</h4>
+                                            </div>
+                                            <div class="flex items-center gap-1.5 w-full sm:w-auto justify-end shrink-0">
+                                                <button id="btn-read-step" onclick="window.narrateActiveStep()" class="p-2 py-1.5 px-3 bg-cyan-950/40 hover:bg-cyan-950/80 text-cyan-400 hover:text-white border border-cyan-500/20 rounded-xl text-[8px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer" title="Speak active step instruction out loud">
+                                                    <i data-lucide="volume-2" class="w-3 h-3"></i> NARRATE
+                                                </button>
+                                                <button id="btn-toggle-auto_voice" onclick="window.toggleAutoVoice()" class="p-2 py-1.5 px-3 bg-[#03030b] border border-slate-900 text-slate-550 hover:text-white rounded-xl text-[8px] font-black uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer" title="Enable/Disable voice autoplay during playback">
+                                                    <i data-lucide="mic" class="w-3 h-3 text-slate-500 animate-pulse"></i> AUTO: <span class="text-rose-500 font-bold" id="auto-voice-state">OFF</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Blueprint CAD layers Controller -->
+                                        <div class="p-4 bg-slate-950/90 border border-slate-905 rounded-2xl flex items-center justify-between gap-4 shadow-lg">
+                                            <div class="space-y-1 text-left">
+                                                <span class="text-[8.5px] font-black text-slate-500 uppercase tracking-widest font-cad">Blueprint Visibility Layers</span>
+                                                <h4 class="text-[9.5px] text-slate-450 leading-tight block">Toggle construction curves or labels.</h4>
+                                            </div>
+                                            <div class="flex items-center gap-1.5 shrink-0">
+                                                <button id="btn-toggle-construction" onclick="window.toggleConstructionLines()" class="p-2 py-1.5 px-3 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 rounded-xl text-[8.5px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer" title="Hide/Show 2H Construction Lines">
+                                                    <i data-lucide="eye" class="w-3 h-3 text-cyan-400" id="construction-lines-icon"></i> 2H LINES
+                                                </button>
+                                                <button id="btn-toggle-dimensions" onclick="window.toggleDimensionsVisibility()" class="p-2 py-1.5 px-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl text-[8.5px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer" title="Hide/Show Annotations & Dimensioning">
+                                                    <i data-lucide="eye" class="w-3 h-3 text-emerald-400" id="dimensions-icon"></i> DIMENSIONS
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- AutoCAD Equivalent Interactive Terminal -->
+                                    <div class="p-4 bg-black/95 border border-slate-900 rounded-2xl space-y-3 font-mono shadow-xl relative overflow-hidden">
+                                        <div class="absolute top-0 right-0 p-3.5 text-[7px] font-black tracking-widest text-[#06b6d4]/40 uppercase font-sans">AutoCAD Engine CLI</div>
+                                        <div class="flex items-center gap-1.5 border-b border-slate-925 pb-2">
+                                            <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                                            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                            <span class="text-[8.5px] font-bold text-slate-500 uppercase tracking-widest ml-1 font-sans">AutoCAD R2026 Core Command equivalent</span>
+                                        </div>
+                                        
+                                        <div class="space-y-2.5">
+                                            <!-- Command history simulation -->
+                                            <div class="text-[9px] text-slate-400 leading-relaxed space-y-1">
+                                                <div><span class="text-slate-600 font-bold uppercase font-sans select-none">Command:</span> <span class="text-cyan-400 font-bold" id="acad-cli-cmd">ELLIPSE</span></div>
+                                                <div><span class="text-slate-600 font-bold uppercase font-sans select-none">Prompt:</span> <span class="text-emerald-400 font-medium" id="acad-cli-prompt">Specify axis endpoint of ellipse or [Arc/Center/Isocircle]:</span></div>
+                                                <div><span class="text-slate-600 font-bold uppercase font-sans select-none">Shortcut keys:</span> <code class="px-1.5 py-0.5 bg-[#1e293b]/50 text-amber-400 rounded text-[7.5px]" id="acad-cli-shortcut">EL [Enter]</code></div>
+                                            </div>
+                                            
+                                            <!-- Sequential workflow block -->
+                                            <div class="p-3 bg-[#020205] border border-slate-925 rounded-xl space-y-1.5 text-[8.5px]">
+                                                <div class="text-[7.5px] font-black text-slate-550 uppercase tracking-wider font-sans select-none">Command Execution Sequence Script:</div>
+                                                <pre id="acad-cli-script" class="text-cyan-500/90 font-bold leading-relaxed whitespace-pre font-mono uppercase bg-transparent p-0 overflow-x-auto select-all">L; 70,160; @350,0; (Draw Baseline CF)\nO; 20; (Offset Directrix for Vertex V)...</pre>
+                                            </div>
+
+                                            <!-- Layer profiles -->
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[8px] font-sans">
+                                                <div class="p-2 bg-[#05050e] border border-slate-925 rounded-xl space-y-0.5">
+                                                    <span class="text-[7px] font-black text-slate-550 uppercase tracking-widest font-sans">Active CAD Drawing Layer</span>
+                                                    <div class="flex items-center gap-1.5 text-white font-bold" id="acad-layer-active">
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> CONSTR_PALE_LAY
+                                                    </div>
+                                                </div>
+                                                <div class="p-2 bg-[#05050e] border border-slate-925 rounded-xl space-y-0.5">
+                                                    <span class="text-[7px] font-black text-slate-550 uppercase tracking-widest font-sans">Target Layer Drafting Thickness</span>
+                                                    <div class="text-amber-400 font-bold" id="acad-pen-thickness">
+                                                        0.15mm (Cyan Fine Projector Line)
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -1205,6 +1289,265 @@
         let workspaceRot = 45;
         let workspaceSize = 50;
 
+        // --- MASTER IMMERSIVE LAYERS & SPEECH CONFIGS ---
+        let isVoiceOn = false;
+        let showConstructionLines = true;
+        let showDimensions = true;
+
+        const AutoCADWorkflows = {
+            ellipse_ecc: {
+                command: "ELLIPSE",
+                prompt: "Specify axis endpoint: 'EL [Enter] C [Enter]' followed by major radius & focal offsets.",
+                shortcut: "EL + Enter",
+                layer: "PROFILE_VIS (0.40mm)",
+                pen: "0.40mm Primary Profile Pen (0.15mm for projection grids)",
+                script: "L; 70,160; @350,0; (Draw horizontal axis CF line)\nL; 70,20; 70,300; (Draw vertical directrix baseline DD')\nO; 50; 70,160; (Offset Focus F at 50mm distance)\nEL; C; 190,160; @70,0; @40,0 (Draw center ellipse using major/minor axes equivalents)"
+            },
+            parabola_ecc: {
+                command: "PLINE",
+                prompt: "Specify next point (curvature vector): 'PL [Enter]'. Map vertices on parabolic profile.",
+                shortcut: "PL + Enter",
+                layer: "PROFILE_VIS (White, 0.40mm)",
+                pen: "0.40mm Curve continuous pen",
+                script: "L; 70,160; @350,0; (Baseline CF)\nO; 50; (Offset Focus F)\nPL; 120,60; 130,100; 150,160... (Stitch tangent trajectory points of parabolic locus)\nPLINE [Enter] (Stitch upper symmetry vertices to complete dynamic curve shape)"
+            },
+            hyperbola_ecc: {
+                command: "PLINE",
+                prompt: "Specify curve start vector: 'PL [Enter]'. Curve rises asymptotically to directrix angles.",
+                shortcut: "PL + Enter",
+                layer: "PROFILE_VIS (White, 0.40mm)",
+                pen: "0.40mm continuous curve",
+                script: "L; 70,160; @350,0; (Baseline axis CF)\nL; 60,60; 400,320; (Asymptotic focus vector line)\nPL; 120,100; 130,120; 150,170... (Plot hyperbola locus coordinate vertices)\nPLINE [Enter] (Trace secondary mirror focus branches symmetric to asymptote axis)"
+            },
+            cycloid: {
+                command: "DIVIDE / PLINE",
+                prompt: "Select horizontal path length: 2 * PI * R. Divide generating circle to plot trajectory.",
+                shortcut: "DIV [Enter] / PL [Enter]",
+                layer: "CON_PALE (Cyan) / PROFILE_VIS (0.40mm)",
+                pen: "0.15mm construction / 0.40mm curve continuous",
+                script: "C; 70,110; 30; (Create generating circle of radius 30)\nDIV; (Select circle; Enter count = 12)\nL; 70,140; @188.5,0; (Draft linear road baseline path of 2*PI*R)\nPL; (Trace center offsets to map dynamic trochoidal curve path)"
+            },
+            involute: {
+                command: "POLYGON / ARC",
+                prompt: "Draw base polygon: 'POLYGON [Enter]'. Unwind thread tangents sequentially.",
+                shortcut: "POL + Enter",
+                layer: "CON_PALE (Cyan) / PROFILE_VIS (0.40mm)",
+                pen: "0.40mm Curve profile pen",
+                script: "POLYGON; 3; C; 180,160; 40; (Draw base equilateral triangle)\nL; (Draw side tangential extensions 120mm, 240mm)\nA; (Draw spiral connecting arcs with radii equal to perimeter segments)\nPLINE; (Trace continuous curve wrapping polygon vertices perfectly)"
+            },
+            points_proj: {
+                command: "LINE / TEXT",
+                prompt: "Specify vertical projector offsets relative to ground axis: 'L [Enter]'.",
+                shortcut: "L + Enter",
+                layer: "PROJ_PALE (0.15mm) / XY_GROUND (0.30mm)",
+                pen: "0.15mm Fine Projector pen",
+                script: "L; 20,160; 420,160; (XY baseline axis line)\nL; 120,60; 120,220; (Vertical projector line perpendicular to XY)\nT; 110,50; a'; (Render front view in vertical plane VP)\nT; 110,240; a; (Render top view in horizontal plane HP)"
+            },
+            lines_proj: {
+                command: "LINE / ROTATE",
+                prompt: "Rotate line profile by theta degrees: 'RO [Enter]' or 'L [Enter]'.",
+                shortcut: "L [Enter] / RO [Enter]",
+                layer: "PROFILE_LINE (0.40mm) / CON_PALE",
+                pen: "0.40mm continuous (Main line), 0.15mm dashed (Projector)",
+                script: "L; 120,160; @120,0; (Ground axis reference XY)\nL; 120,160; @180<30; (True length vector projection ab)\nRO; (Rotate plane relative to HP/VP inclinations)\nL; (Trace apparent vertices and connect to construct a'b')"
+            },
+            planes_proj: {
+                command: "POLYGON / ROTATE",
+                prompt: "Draw primary lamina block: 'POL [Enter]'. Angle projections using ROTATE.",
+                shortcut: "POL [Enter] / RO [Enter]",
+                layer: "PROFILE_LINE (0.40mm) / CON_PALE",
+                pen: "0.40mm Continuous (Lamina boundaries)",
+                script: "POLYGON; 5; C; 120,100; 50; (Draw base regular pentagonal plane)\nL; (Drop projection lines downwards to XY horizon line)\nRO; (Rotate baseline segment representation by theta = 45 degrees)\nPL; (Draw projected apparent shape on HP and VP)"
+            },
+            solids_proj: {
+                command: "POLYGON / LINE",
+                prompt: "Draw solid base: 'POL [Enter]' then tilt axis coordinates: 'RO [Enter]'.",
+                shortcut: "POL [Enter] / L [Enter] / RO [Enter]",
+                layer: "PROFILE_VIS (0.40mm) / HIDDEN_DASH (0.25mm)",
+                pen: "0.40mm Solid profile boundaries, 0.25mm dashed for hidden segments",
+                script: "POLYGON; 5; C; 120,100; 45; (True pentagonal base in VP)\nL; (Project vertices upwards to outline solid cylinder/prism height)\nRO; (Tilt primary solid projection axis by theta = 60 degrees)\nPL; (Draft visible/invisible generators and edge lines of tilted solid)"
+            },
+            sections_proj: {
+                command: "LINE / HATCH",
+                prompt: "Specify section cutting plane: 'L [Enter]'. Apply sectional hatching: 'H [Enter]'.",
+                shortcut: "L [Enter] / H [Enter]",
+                layer: "PROFILE_VIS (0.40mm) / SECT_HATCH (0.13mm)",
+                pen: "0.35mm profile continuous, 0.13mm fine line for section hatching",
+                script: "POLYGON; (Draft projected main body shapes)\nL; 50,130; 390,110; (Cutting plane vector representation VT)\nTR; (Trim cut upper segments)\nH; ANSI31; 12; (Render sectional hatching lines inside cut boundary at 45°)"
+            },
+            developments_proj: {
+                command: "LINE / OFFSET / TRIM",
+                prompt: "Layout unfolded sheet boundary: 'L [Enter]'. Offset side segments: 'O [Enter]'.",
+                shortcut: "L [Enter] / O [Enter] / TR [Enter]",
+                layer: "PROFILE_VIS (0.35mm) / CR_CREASE (0.15mm)",
+                pen: "0.35mm unfolded profile boundaries, 0.15mm for inner folds",
+                script: "L; 80,180; @280,0; (Draw unfolded bottom baseline width)\nO; 70; (Offset vertical segments corresponding to individual panels width)\nL; (Trace cutting profile points along boundaries)\nTR; (Prune scrap margins to construct net unfolded layout envelope)"
+            },
+            iso_conv: {
+                command: "ISOPLANE / SNAP / LINE",
+                prompt: "Toggle isometric snap grid and draw on 30/150 degree axes: 'ISOPLANE [Enter]'.",
+                shortcut: "SNAP [Enter] Style [Enter] I [Enter]",
+                layer: "PROFILE_VIS (0.40mm) / AXES_GRID_30 (0.15mm)",
+                pen: "0.40mm Continuous (High-contrast 3D outline)",
+                script: "SNAP; S; I; (Configure drawing grid to 2D Isometric snap planes)\nISOPLANE; T; (Select top standard drawing plane)\nL; 220,240; @80<30; @80<150; (Draw right/left isometric axes lines)\nL; (Form 3D steps and block walls by aligning heights along 90° vertically)"
+            },
+            ortho_conv: {
+                command: "XLINE / LINE / HATCH",
+                prompt: "Establish multi-view ortho layout: 'XL [Enter]'. Trace Front, Top, and Side projections.",
+                shortcut: "XL + Enter",
+                layer: "PROJ_PALE (0.15mm) / PROFILE_VIS (0.40mm)",
+                pen: "0.40mm visible profiles, 0.15mm projection guides",
+                script: "XL; H; (Construct ground baseline datum lines XL)\nL; (Draft Front Elevation view in top-left quadrant VP)\nXL; V; (Project drop alignment lines downwards)\nL; (Draft Top Plan view; project sideways to Auxiliary Plane for side profile)"
+            }
+        };
+
+        window.toggleAutoVoice = function() {
+            isVoiceOn = !isVoiceOn;
+            const btn = document.getElementById('btn-toggle-auto_voice');
+            const lbl = document.getElementById('auto-voice-state');
+            if (isVoiceOn) {
+                if (btn) btn.className = "p-2 px-3 bg-cyan-500/15 border border-cyan-500/40 text-cyan-400 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer animate-pulse shadow-md shadow-cyan-500/10";
+                if (lbl) {
+                    lbl.innerText = "ON";
+                    lbl.className = "text-cyan-400 font-bold";
+                }
+                showEGNotification("Voice-guided autoplay activated! Steps will narrate automatically.");
+                window.narrateActiveStep();
+            } else {
+                if (btn) btn.className = "p-2 px-3 bg-slate-900 border border-slate-800 text-slate-450 hover:text-white rounded-xl text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer";
+                if (lbl) {
+                    lbl.innerText = "OFF";
+                    lbl.className = "text-rose-500 font-bold";
+                }
+                showEGNotification("Voice-guided autoplay deactivated.");
+                if (window.speechSynthesis) {
+                    window.speechSynthesis.cancel();
+                }
+            }
+        };
+
+        window.narrateActiveStep = function() {
+            if (!('speechSynthesis' in window)) {
+                showEGNotification("Speech Synthesis is not supported in your browser.");
+                return;
+            }
+            const data = TopicRegistry[activeTopicId];
+            if (!data) return;
+            const step = data.steps[activeStepNum - 1];
+            if (!step) return;
+
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
+
+            const cleanDesc = step.desc
+                .replace(/2H/gi, "two H")
+                .replace(/HB/gi, "H B")
+                .replace(/XY/gi, "X Y")
+                .replace(/VF/gi, "V F")
+                .replace(/VE/gi, "V E")
+                .replace(/CF/gi, "C F")
+                .replace(/mm/gi, "millimeters");
+            const speakText = `Step ${activeStepNum}. ${step.title}. ... ${cleanDesc}`;
+            const utterance = new SpeechSynthesisUtterance(speakText);
+            
+            utterance.rate = 1.0;
+            utterance.pitch = 1.05;
+
+            // Optional: apply premium clean voices if supported by the client OS
+            const voices = window.speechSynthesis.getVoices();
+            const engVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Microsoft')));
+            if (engVoice) utterance.voice = engVoice;
+
+            window.speechSynthesis.speak(utterance);
+        };
+
+        window.toggleConstructionLines = function() {
+            showConstructionLines = !showConstructionLines;
+            const button = document.getElementById('btn-toggle-construction');
+            const icon = document.getElementById('construction-lines-icon');
+            if (showConstructionLines) {
+                if (button) button.className = "p-2 px-3 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer";
+                if (icon) {
+                    icon.classList.remove('text-slate-500');
+                    icon.classList.add('text-cyan-400');
+                }
+                showEGNotification("Construction lines are now VISIBLE.");
+            } else {
+                if (button) button.className = "p-2 px-3 bg-slate-950 border border-slate-900 text-slate-500 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer";
+                if (icon) {
+                    icon.classList.remove('text-cyan-400');
+                    icon.classList.add('text-slate-500');
+                }
+                showEGNotification("Construction lines are now HIDDEN.");
+            }
+            renderSimulationStep();
+        };
+
+        window.toggleDimensionsVisibility = function() {
+            showDimensions = !showDimensions;
+            const button = document.getElementById('btn-toggle-dimensions');
+            const icon = document.getElementById('dimensions-icon');
+            if (showDimensions) {
+                if (button) button.className = "p-2 px-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer";
+                if (icon) {
+                    icon.classList.remove('text-slate-500');
+                    icon.classList.add('text-emerald-400');
+                }
+                showEGNotification("Dimensions & annotations are now VISIBLE.");
+            } else {
+                if (button) button.className = "p-2 px-3 bg-slate-950 border border-slate-900 text-slate-500 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer";
+                if (icon) {
+                    icon.classList.remove('text-emerald-400');
+                    icon.classList.add('text-slate-500');
+                }
+                showEGNotification("Dimensions & annotations are now HIDDEN.");
+            }
+            renderSimulationStep();
+        };
+
+        window.updateAutoCADTerminal = function(topicId, stepNum) {
+            const data = AutoCADWorkflows[topicId];
+            if (!data) return;
+
+            const cmdEl = document.getElementById('acad-cli-cmd');
+            const promptEl = document.getElementById('acad-cli-prompt');
+            const shortcutEl = document.getElementById('acad-cli-shortcut');
+            const scriptEl = document.getElementById('acad-cli-script');
+            const activeLayerEl = document.getElementById('acad-layer-active');
+            const thicknessEl = document.getElementById('acad-pen-thickness');
+
+            if (cmdEl) cmdEl.innerText = data.command;
+            if (promptEl) promptEl.innerText = data.prompt;
+            if (shortcutEl) shortcutEl.innerText = data.shortcut;
+            
+            if (scriptEl) {
+                const lines = data.script.split('\n');
+                let formattedScript = "";
+                lines.forEach((line, index) => {
+                    if (index === stepNum - 1) {
+                        formattedScript += `⚡ [ACTIVE STEP 0${index+1}] > ${line}\n`;
+                    } else {
+                        formattedScript += `   [STEP 0${index+1}]   > ${line}\n`;
+                    }
+                });
+                scriptEl.innerText = formattedScript;
+            }
+
+            if (activeLayerEl) {
+                if (stepNum <= 2) {
+                    activeLayerEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> CONSTR_PALE_LAY`;
+                    if (thicknessEl) thicknessEl.innerText = "0.15mm (Cyan Fine Projector Line)";
+                } else if (stepNum === 3) {
+                    activeLayerEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-yellow-400"></span> AXIS_GRID_LAY`;
+                    if (thicknessEl) thicknessEl.innerText = "0.25mm (Yellow Center Dash Axis)";
+                } else {
+                    activeLayerEl.innerHTML = `<span class="w-2 h-2 bg-white border border-slate-700 inline-block"></span> PROFILE_VIS_LAY`;
+                    if (thicknessEl) thicknessEl.innerText = "0.40mm (Continuous Profile Line, Standard HB)";
+                }
+            }
+        };
+
         // Core State for DraftLab (retained for backward compatibility of sandbox tab)
         let cadState = {
             tool: 'line',
@@ -1827,6 +2170,14 @@
 
             // Move Virtual instruments
             updateGizmosLayout(step.tool, step.x, step.y);
+
+            // Dynamically sync and compile AutoCAD Equivalent CLI command feed
+            window.updateAutoCADTerminal(activeTopicId, activeStepNum);
+
+            // Hook Voice-guided auto play speech readout
+            if (isVoiceOn) {
+                window.narrateActiveStep();
+            }
         };
 
         // --- PROCEDURAL GRAPHICS WRAPPERS ---
@@ -2551,8 +2902,12 @@
             node.setAttribute("cx", cx.toString()); node.setAttribute("cy", cy.toString()); node.setAttribute("r", r.toString());
             node.setAttribute("fill", color);
             svg.appendChild(node);
+        }
 
-        function createSVGLine(svg, x1, y1, x2, y2, color, width, dashed) {
+        function createSVGLine(svg, x1, y1, x2, y2, color, width, dashed, isConstruction = false) {
+            if (isConstruction && !showConstructionLines) {
+                return;
+            }
             const el = document.createElementNS("http://www.w3.org/2000/svg", "line");
             el.setAttribute("x1", x1.toString());
             el.setAttribute("y1", y1.toString());
@@ -2585,7 +2940,10 @@
             svg.appendChild(el);
         }
 
-        function createSVGText(svg, x, y, text, color, size) {
+        function createSVGText(svg, x, y, text, color, size, isDimension = false) {
+            if (isDimension && !showDimensions) {
+                return;
+            }
             const el = document.createElementNS("http://www.w3.org/2000/svg", "text");
             el.textContent = text;
             el.setAttribute("x", x.toString());

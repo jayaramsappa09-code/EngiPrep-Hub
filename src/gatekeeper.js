@@ -33,10 +33,25 @@ import { supabase } from './supabase.js';
 })();
 
 export async function enforceAuthentication() {
-    document.documentElement.style.display = 'none';
+    const pathname = window.location.pathname;
+    const filename = pathname.substring(pathname.lastIndexOf('/') + 1) || 'index.html';
+    
+    // Define exact protected pages
+    const protectedPages = [
+        'dashboard.html',
+        'profile.html',
+        'bookmarks.html',
+        'tasks.html',
+        'admin.html',
+        'notifications.html',
+        'ai-professor.html'
+    ];
+    
+    const isProtected = protectedPages.some(page => filename === page);
+    
     const { data: { session } } = await supabase.auth.getSession();
     
-    if (!session) {
+    if (isProtected && !session) {
         // Enforce the strict authentication barrier by redirecting to login page
         window.location.href = '/auth.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
     } else {

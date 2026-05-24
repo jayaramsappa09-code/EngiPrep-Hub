@@ -20,7 +20,7 @@
     </style>
 
     <!-- Gatekeeper for Authentication -->
-    <script>document.documentElement.style.display = 'none';</script>
+    <!-- Inline blocker removed for SEO/AdSense Crawlability -->
     <script type="module" src="/src/gatekeeper.js"></script>
 
     <meta property="og:title" content="JNTUK R23 PYQs & Exam Paper Analyzer | EngiPrep Hub">
@@ -214,6 +214,8 @@
 
     <script type="module">
         import { fetchNotesByType, fetchPYQAnalytics } from './src/notes.js'
+        import { getCurrentUser } from './src/supabase.js'
+        import { showAuthModal } from './src/auth-modal.js'
         
         let allPYQs = [];
         let activeSubj = "Engineering Mathematics I";
@@ -360,7 +362,12 @@
             }
         };
 
-        window.runAIPrediction = function() {
+        window.runAIPrediction = async function() {
+            const user = await getCurrentUser();
+            if (!user) {
+                showAuthModal("Log in to run deep AI predictive patterns, identify high-frequency final questions, and view examiner favoritism curves.", "🤖 Unlock AI Question Predictor");
+                return;
+            }
             const btn = document.getElementById('btn-run-ai');
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<span class="animate-spin w-3 h-3 border-2 border-current border-t-transparent rounded-full inline-block"></span> ANALYZING...';

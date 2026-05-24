@@ -87,7 +87,7 @@
     </style>
 
     <!-- Gatekeeper for Authentication -->
-    <script>document.documentElement.style.display = 'none';</script>
+    <!-- Inline blocker removed for SEO/AdSense Crawlability -->
     <script type="module" src="/src/gatekeeper.js"></script>
 
     <meta property="og:title" content="Reading Note – EngiPrep Hub">
@@ -264,6 +264,7 @@
         import { fetchNoteBySlug, updateProgress, toggleBookmark, createGoal, fetchRelatedNotes } from './src/notes.js'
         import { getCurrentUser, supabase } from './src/supabase.js'
         import { logActivity } from './src/utils/analytics.js'
+        import { showAuthModal } from './src/auth-modal.js'
 
         const params = new URLSearchParams(window.location.search)
         const slug = params.get('slug')
@@ -317,7 +318,74 @@
                 const contentEl = document.getElementById('content')
                 
                 // Configure marked to handle LaTeX delimiters or just use marked and then auto-render
-                contentEl.innerHTML = marked.parse(note.content)
+                let htmlOutput = marked.parse(note.content)
+                
+                // If this is a PYQ and user is a guest, progressively gate the solution
+                if (note.type === 'PYQ' && !user) {
+                    const tempDiv = document.createElement('div')
+                    tempDiv.innerHTML = htmlOutput
+                    
+                    const headings = Array.from(tempDiv.querySelectorAll('h1, h2, h3, h4, h5, h6, strong, p'))
+                    let solutionElement = null
+                    for (const h of headings) {
+                        const txt = h.innerText.toLowerCase()
+                        if (txt.includes('solution') || txt.includes('detailed answer') || txt.includes('explanation') || txt.includes('proof:')) {
+                            solutionElement = h
+                            break
+                        }
+                    }
+                    
+                    if (solutionElement) {
+                        const gatedWrapper = document.createElement('div')
+                        gatedWrapper.className = 'relative mt-8 select-none pointer-events-none p-1 rounded-3xl overflow-hidden'
+                        
+                        const blurContainer = document.createElement('div')
+                        blurContainer.className = 'filter blur-md md:blur-[8px] opacity-20 space-y-4'
+                        
+                        // Insert gated wrapper before the solution start
+                        solutionElement.parentNode.insertBefore(gatedWrapper, solutionElement)
+                        
+                        // Migrate solution and everything that follows into blur container
+                        let current = solutionElement
+                        while (current) {
+                            const next = current.nextSibling
+                            blurContainer.appendChild(current)
+                            current = next
+                        }
+                        
+                        gatedWrapper.appendChild(blurContainer)
+                        
+                        // Beautiful dynamic login conversion card
+                        const currentRef = encodeURIComponent(window.location.pathname + window.location.search)
+                        const ctaOverlay = document.createElement('div')
+                        ctaOverlay.className = 'absolute inset-0 flex items-center justify-center bg-gradient-to-t from-slate-50/95 via-slate-50/80 dark:from-[#0B1020]/95 dark:via-[#0B1020]/80 to-transparent p-6 text-center z-10'
+                        ctaOverlay.innerHTML = `
+                            <div class="glass-card max-w-sm p-8 bg-white dark:bg-slate-900 border border-blue-500/30 rounded-3xl shadow-2xl relative animate-fade-up">
+                                <div class="w-12 h-12 bg-blue-600/10 text-blue-500 dark:text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-500/20">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-black tracking-tight text-slate-900 dark:text-white mb-2 font-sans flex items-center justify-center gap-2">Detailed Solution Gated</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-300 leading-relaxed font-semibold mb-6">
+                                    Step-by-step mathematical derivations and verified examiner answer layouts are available for registered users on EngiPrep Hub.
+                                </p>
+                                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                                    <a href="/auth.html?redirect=${currentRef}" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] uppercase font-black tracking-widest rounded-xl transition-all shadow-md">
+                                        Login to Unlock
+                                    </a>
+                                    <a href="/auth.html?signup=true&redirect=${currentRef}" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-755 text-slate-800 dark:text-slate-200 text-[10px] uppercase font-black tracking-widest rounded-xl transition-all border border-slate-200 dark:border-slate-700">
+                                        Join Hub Free
+                                    </a>
+                                </div>
+                            </div>
+                        `
+                        gatedWrapper.appendChild(ctaOverlay)
+                    }
+                    htmlOutput = tempDiv.innerHTML
+                }
+                
+                contentEl.innerHTML = htmlOutput
                 
                 // Render Math
                 renderMathInElement(contentEl, {
@@ -332,6 +400,20 @@
 
                 // Generate TOC
                 generateTOC()
+
+                // Increment public reading count for progressive trigger
+                if (!user) {
+                    try {
+                        let count = parseInt(localStorage.getItem('freemium_reads_count') || '0')
+                        count++
+                        localStorage.setItem('freemium_reads_count', count.toString())
+                        if (count >= 2) {
+                            showStickyCTA()
+                        }
+                    } catch (readErr) {
+                        console.warn(readErr)
+                    }
+                }
 
                 // Related Content Logic
                 loadRelated(note)
@@ -367,7 +449,7 @@
 
                 // Handle completion
                 document.getElementById('complete-btn').addEventListener('click', async (e) => {
-                    if (!user) return alert('Login to save progress!')
+                    if (!user) return showAuthModal("Sign in to track your mastery progress, build your daily study streaks, and unlock study records.", "🔥 Track Study Progress")
                     const btn = e.currentTarget
                     try {
                         await updateProgress(user.id, note.id, true)
@@ -380,7 +462,7 @@
                 // Handle bookmark
                 const bookmarkBtn = document.getElementById('bookmark-btn')
                 bookmarkBtn.addEventListener('click', async () => {
-                    if (!user) return alert('Login to bookmark!')
+                    if (!user) return showAuthModal("Sign in to save this topic to your revision bookshelf for easy offline lookup.", "🔖 Bookmark Study Materials")
                     try {
                         const result = await toggleBookmark(user.id, note.id)
                         if (result.status === 'added') {
@@ -396,7 +478,7 @@
                 // Handle Goal
                 const setGoalBtn = document.getElementById('set-goal-btn')
                 setGoalBtn.addEventListener('click', async () => {
-                    if (!user) return alert('Login to set goals!')
+                    if (!user) return showAuthModal("Sign in to set target study timescales, schedule custom exam trackers, and log milestones.", "🎯 Set Active Study Goal")
                     try {
                         await createGoal({
                             title: `Master Exam: ${note.title}`,
@@ -409,6 +491,51 @@
                     } catch (err) { alert(err.message) }
                 })
 
+                // Dynamic Sticky CTA for Freemium Growth
+                window.showStickyCTA = function() {
+                    if (document.getElementById('freemium-sticky-cta')) return;
+                    
+                    const cta = document.createElement('div');
+                    cta.id = 'freemium-sticky-cta';
+                    cta.className = 'fixed bottom-0 left-0 right-0 z-[150] p-4 md:p-6 bg-slate-900/90 dark:bg-[#0B1020]/95 backdrop-blur-lg border-t border-blue-500/20 text-[#CBD5E1] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4 animate-fade-in-up';
+                    
+                    // CSS fadeInUp animation
+                    const style = document.createElement('style');
+                    style.innerHTML = `
+                        @keyframes fadeInUp {
+                            from { transform: translateY(100%); opacity: 0; }
+                            to { transform: translateY(0); opacity: 1; }
+                        }
+                        .animate-fade-in-up { animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    const currentPath = encodeURIComponent(window.location.pathname + window.location.search);
+                    
+                    cta.innerHTML = `
+                        <div class="flex items-center gap-4 text-center md:text-left">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shrink-0 hidden md:flex shadow-md shadow-blue-500/20">
+                                <svg class="w-5 h-5 text-white animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h5 class="text-xs md:text-sm font-black text-white tracking-wide">Ready to make progress details count?</h5>
+                                <p class="text-[10px] md:text-xs text-[#94A3B8] font-semibold mt-1">Create a free student account. Join 10,000+ engineers cataloging their JNTUK semester streak!</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 w-full md:w-auto shrink-0 justify-center">
+                            <a href="/auth.html?redirect=${currentPath}" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-blue-500/20 whitespace-nowrap">
+                                Sync My Progress
+                            </a>
+                            <button onclick="document.getElementById('freemium-sticky-cta').remove()" class="px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-[#94A3B8] hover:text-white transition-colors whitespace-nowrap">
+                                Dismiss
+                            </button>
+                        </div>
+                    `;
+                    document.body.appendChild(cta);
+                }
+
                 // AI Logic
                 const aiPanel = document.getElementById('ai-chat')
                 const aiToggle = document.getElementById('toggle-ai')
@@ -416,9 +543,19 @@
                 const aiResponse = document.getElementById('ai-response')
                 const aiSend = document.getElementById('ai-send')
 
-                aiToggle.addEventListener('click', () => aiPanel.classList.toggle('hidden'))
+                aiToggle.addEventListener('click', () => {
+                    if (!user) {
+                        showAuthModal("Log in to request custom explanations, summarization tables, and university prep answers from the AI Professor.", "🤖 AI Assistant Locked");
+                        return;
+                    }
+                    aiPanel.classList.toggle('hidden');
+                })
 
                 async function askAI(concept, type = 'explain') {
+                    if (!user) {
+                        showAuthModal("Log in to prompt the AI Professor and expand complex notes layouts step-by-step.", "🤖 AI Assistant Locked");
+                        return;
+                    }
                     aiPanel.classList.remove('hidden')
                     aiResponse.innerHTML = '<div class="flex gap-1 py-4"><div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"></div><div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce delay-75"></div><div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce delay-150"></div></div>'
                     
