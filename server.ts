@@ -36,6 +36,10 @@ const getFilePath = (filename: string) => {
 };
 
 // SEO Clean URLs mapping for elite searchindexing
+app.get('/pyqs', (req, res) => {
+  res.sendFile(getFilePath('pyqs.html'));
+});
+
 app.get('/engineering-physics-pyqs', (req, res) => {
   res.sendFile(getFilePath('pyqs.html'));
 });
