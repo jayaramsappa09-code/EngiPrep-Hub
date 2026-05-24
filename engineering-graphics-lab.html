@@ -101,8 +101,8 @@
 <body class="bg-[#020208] text-slate-300 min-h-screen font-sans antialiased selection:bg-cyan-500/30 selection:text-white">
 
     <!-- Toast message system -->
-    <div id="toast-notif" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 bg-[#090b1e]/90 border border-cyan-500/30 text-cyan-400 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none">
-        <span class="p-1 bg-cyan-500/10 rounded-lg"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i></span>
+    <div id="toast-notif" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none border bg-[#090b1e]/90 border-cyan-500/30 text-cyan-400">
+        <span id="toast-icon-wrapper" class="p-1 rounded-lg bg-cyan-500/10"><i data-lucide="check" class="w-4 h-4 text-cyan-400" id="toast-icon"></i></span>
         <span id="toast-message">Draft Saved!</span>
     </div>
 
@@ -1619,8 +1619,31 @@
             if (window.updateSolids) window.updateSolids();
         }
 
-        function showEGNotification(msg) {
+        function showEGNotification(msg, type = 'info') {
             const toast = document.getElementById('toast-notif');
+            const iconWrapper = document.getElementById('toast-icon-wrapper');
+            const icon = document.getElementById('toast-icon');
+            
+            toast.className = 'fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none border bg-[#090b1e]/90';
+            
+            if (type === 'encouraging') {
+                toast.classList.add('border-amber-500/50', 'text-amber-400');
+                iconWrapper.className = 'p-1 rounded-lg bg-amber-500/20';
+                icon.className = 'w-4 h-4 text-amber-400';
+                icon.setAttribute('data-lucide', 'star');
+            } else if (type === 'success') {
+                toast.classList.add('border-emerald-500/50', 'text-emerald-400');
+                iconWrapper.className = 'p-1 rounded-lg bg-emerald-500/20';
+                icon.className = 'w-4 h-4 text-emerald-400';
+                icon.setAttribute('data-lucide', 'check-circle-2');
+            } else {
+                toast.classList.add('border-cyan-500/30', 'text-cyan-400');
+                iconWrapper.className = 'p-1 rounded-lg bg-cyan-500/10';
+                icon.className = 'w-4 h-4 text-cyan-400';
+                icon.setAttribute('data-lucide', 'info');
+            }
+            if (lucide && lucide.createIcons) lucide.createIcons();
+            
             document.getElementById('toast-message').innerText = msg;
             toast.style.opacity = '1';
             toast.style.transform = 'translateY(0px)';
@@ -1630,7 +1653,7 @@
                 toast.style.opacity = '0';
                 toast.style.transform = 'translateY(20px)';
                 toast.style.pointerEvents = 'none';
-            }, 3000);
+            }, 4000);
         }
 
         function updateXPUIRender() {
@@ -1699,7 +1722,7 @@
             if (el.checked) {
                 localStorage.setItem(`engi_eg_task_id_${index}`, 'completed');
                 scoreXP += 100;
-                showEGNotification("Milestone Secured! +100 XP 🚀");
+                showEGNotification("Milestone Secured! +100 XP 🚀", "success");
             } else {
                 localStorage.setItem(`engi_eg_task_id_${index}`, 'incomplete');
                 scoreXP -= 100;
@@ -1709,7 +1732,7 @@
             const taskCounts = [0, 0, 0, 0, 0, 0, 0, 0].map((_, i) => localStorage.getItem(`engi_eg_task_id_${i+1}`) === 'completed' ? 1 : 0).reduce((a, b) => a + b, 0);
             if (taskCounts === 8 && el.checked) {
                 if (window.triggerConfettiCelebration) window.triggerConfettiCelebration();
-                showEGNotification("Subject Mastery Achieved! 🎉");
+                showEGNotification("Subject Mastery Achieved! 🎉", "success");
             }
         };
 
@@ -1766,7 +1789,7 @@
                 if (status8 !== 'completed') {
                     localStorage.setItem('engi_eg_task_id_8', 'completed');
                     scoreXP += 500;
-                    showEGNotification("Clutch Performer Badge Unlocked! +500 XP");
+                    showEGNotification("Clutch Performer Badge Unlocked! +500 XP", "success");
                     updateXPUIRender();
                 }
 
@@ -3687,7 +3710,7 @@
             showEGNotification("Evaluating coordinate convergence...");
             setTimeout(() => {
                 window.recordXP(100);
-                showEGNotification("🎉 Checked! Dynamic snaps comply with JNTUK tolerances! (+100 XP)");
+                showEGNotification("🎉 Checked! Dynamic snaps comply with JNTUK tolerances! (+100 XP)", "success");
                 window.togglePracticeMode();
             }, 1200);
         };
@@ -4162,7 +4185,7 @@
 
         window.verifyCADMission = function() {
             let passed = cadState.elements.some(el => el.type === 'line' && Math.abs(el.endX - el.startX) < 10 && Math.abs(el.endY - el.startY) > 60);
-            if (passed) { window.recordXP(50); showEGNotification("🎉 Mission Cleared! 90° Plane alignment verified! (+50 XP)"); }
+            if (passed) { window.recordXP(50); showEGNotification("🎉 Mission Cleared! 90° Plane alignment verified! (+50 XP)", "success"); }
             else showEGNotification("⚠️ Error: Requires a vertical projector line height > 60mm");
         };
 
@@ -4524,11 +4547,27 @@
                         if (pomoMode === 'focus') {
                             pomoCompletedSessions++;
                             localStorage.setItem('engi_eg_pomo_sessions', pomoCompletedSessions.toString());
-                            showEGNotification("★ Brilliant focus! Study session complete. Go take a break!");
+                            
+                            // Encouraging daily goal logic
+                            if (pomoCompletedSessions === 1) {
+                                showEGNotification("★ First study session of the day mastered! Keep the momentum going!", "encouraging");
+                            } else if (pomoCompletedSessions === 2) {
+                                showEGNotification("★★ Double completion! You're making serious progress today!", "encouraging");
+                            } else if (pomoCompletedSessions === 3) {
+                                showEGNotification("★★★ Hat trick! Just one more to hit the daily goal!", "encouraging");
+                            } else if (pomoCompletedSessions === 4) {
+                                showEGNotification("🏆 Daily Goal Reached! 4 study sessions completed! Incredible focus!", "success");
+                                if (window.triggerConfettiCelebration) window.triggerConfettiCelebration();
+                            } else if (pomoCompletedSessions > 4) {
+                                showEGNotification(`🔥 Unstoppable! ${pomoCompletedSessions} sessions completed today!`, "encouraging");
+                            } else {
+                                showEGNotification("★ Brilliant focus! Study session complete. Go take a break!", "success");
+                            }
+                            
                             // Automatically switch to break mode
                             window.setPomoMode('break');
                         } else {
-                            showEGNotification("Break is over! Time to focus on drafting.");
+                            showEGNotification("Break is over! Time to focus on drafting.", "info");
                             window.setPomoMode('focus');
                         }
                     }
