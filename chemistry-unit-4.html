@@ -22,177 +22,954 @@
         .viva-card-back { transform: rotateY(180deg); }
         
         .monomer { animation: float 3s ease-in-out infinite; }
-        .prop-chain { stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw-chain 2s linear forwards; }
-        @keyframes draw-chain { to { stroke-dashoffset: 0; } }
         @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-5px) rotate(5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
     </style>
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
-<body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
+<body class="bg-[#050508] dark:bg-[#050508] text-slate-300 dark:text-slate-350 min-h-screen font-sans antialiased">
     <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-4">
                 <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
             </a>
-            <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white">Dashboard</a>
+            <div class="flex items-center gap-4">
+                <a href="/chemistry-topper-notes.html" class="px-4 py-2 hover:bg-slate-800/50 rounded-xl text-xs font-bold text-slate-300 transition-colors">Topper Notes</a>
+                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white shadow-lg shadow-blue-500/25">Dashboard</a>
+            </div>
         </div>
     </nav>
+    
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
+        <!-- Breadcrumb -->
         <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
             <ol class="flex items-center gap-2">
                 <li><a href="/" class="hover:text-purple-500">Home</a></li>
                 <li>/</li>
                 <li><a href="/all-subjects.html" class="hover:text-purple-500">Subjects</a></li>
                 <li>/</li>
-                <li><a href="/subject.html?slug=chemistry" class="hover:text-purple-500">chemistry</a></li>
+                <li><a href="/subject.html?slug=chemistry" class="hover:text-purple-500">Chemistry</a></li>
                 <li>/</li>
                 <li class="text-purple-500" aria-current="page">Polymer Chemistry</li>
             </ol>
         </nav>
+
+        <!-- Header -->
         <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden">
             <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-purple-500/10 to-transparent pointer-events-none"></div>
-            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Polymer Chemistry <span class="text-purple-500">Survival Kit</span></h1>
-            <p class="text-slate-400 mt-4 text-lg max-w-2xl">Master Free Radical mechanisms, conducting polymers (Polyacetylene, Polyaniline), and Biodegradable Polymers.</p>
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Polymer Chemistry <span class="text-purple-500">Master Workbench</span></h1>
+            <p class="text-slate-400 mt-4 text-lg max-w-2xl">Elite JNTUK R23 Syllabus: Fully interactive reaction mechanisms, synthesis pathways, preparation parameters, and live simulators for board exam perfection.</p>
             <div class="mt-6 flex flex-wrap gap-2">
-                <span class="px-3 py-1 bg-purple-500/10 text-purple-500 border border-purple-500/20 text-[10px] font-black uppercase tracking-widest rounded-md">Scoring Subject</span>
-                <span class="px-3 py-1 bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-black uppercase tracking-widest rounded-md">Theory Heavy</span>
+                <span class="px-3 py-1 bg-purple-500/10 text-purple-500 border border-purple-500/20 text-[10px] font-black uppercase tracking-widest rounded-md">Scoring 24 Marks guaranteed</span>
+                <span class="px-3 py-1 bg-blue-500/10 text-blue-500 border border-blue-500/20 text-[10px] font-black uppercase tracking-widest rounded-md">Mechanisms Active</span>
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[10px] font-black uppercase tracking-widest rounded-md">0.1% Notes Series</span>
             </div>
         </header>
 
+        <!-- Interactive Module Selector -->
+        <div class="mb-10 flex flex-wrap gap-2 p-1 bg-slate-950/80 border border-slate-800/80 rounded-2xl max-w-4xl">
+            <button onclick="switchTab('tab-mechanism')" id="btn-tab-mechanism" class="tab-btn flex-1 min-w-[150px] px-4 py-3 bg-indigo-600 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all">
+                ⛓ 1. Radical Mechanism
+            </button>
+            <button onclick="switchTab('tab-plastics')" id="btn-tab-plastics" class="tab-btn flex-1 min-w-[150px] px-4 py-3 text-slate-400 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all">
+                ⚗ 2. Synthetics (Bakelite/PVC)
+            </button>
+            <button onclick="switchTab('tab-elastomers')" id="btn-tab-elastomers" class="tab-btn flex-1 min-w-[150px] px-4 py-3 text-slate-400 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all">
+                🏎 3. Buna-S & Vulcanization
+            </button>
+            <button onclick="switchTab('tab-conducting')" id="btn-tab-conducting" class="tab-btn flex-1 min-w-[150px] px-4 py-3 text-slate-400 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all">
+                ⚡ 4. Conducting Systems
+            </button>
+            <button onclick="switchTab('tab-biodegradable')" id="btn-tab-biodegradable" class="tab-btn flex-1 min-w-[150px] px-4 py-3 text-slate-400 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all">
+                🌱 5. Biodegradables (PLA/PGA)
+            </button>
+        </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div class="lg:col-span-9 space-y-16">
+            <!-- Left Side main tabbed container -->
+            <div class="lg:col-span-9 space-y-12">
                 
-                <!-- Core 1: Radical Mechanism -->
-                <section id="mechanism" class="glass-card overflow-hidden">
-                    <div class="p-8 pb-0">
-                        <div class="flex items-center gap-2 text-purple-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
-                            <span class="w-8 h-px bg-purple-500"></span> Polymerization
+                <!-- Tab 1: Free Radical Mechanism -->
+                <div id="tab-mechanism" class="tab-content block space-y-10">
+                    <section class="glass-card overflow-hidden">
+                        <div class="p-8">
+                            <div class="flex items-center gap-2 text-purple-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                                <span class="w-8 h-px bg-purple-500"></span> Addition Polymerization
+                            </div>
+                            <h2 class="text-3xl font-black mb-4">Free Radical Addition Mechanism</h2>
+                            <p class="text-slate-400 text-base max-w-3xl leading-relaxed mb-8">
+                                Free radical polymerization of ethylene ($CH_2=CH_2$) to polyethylene is catalyzed by organic peroxides like benzoyl peroxide or hydrogen peroxide. Learn all three essential phases with precise intermediate structures.
+                            </p>
+
+                            <!-- Interactive Stage Selector for mechanism -->
+                            <div class="grid grid-cols-3 gap-2 mb-8 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                                <button onclick="setRadicalStage(1)" id="rad-btn-1" class="rad-stage-btn py-2.5 px-3 rounded-lg text-xs font-black bg-purple-500 text-white transition-all uppercase">
+                                    Stage 1: Initiation
+                                </button>
+                                <button onclick="setRadicalStage(2)" id="rad-btn-2" class="rad-stage-btn py-2.5 px-3 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200 transition-all uppercase">
+                                    Stage 2: Propagation
+                                </button>
+                                <button onclick="setRadicalStage(3)" id="rad-btn-3" class="rad-stage-btn py-2.5 px-3 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200 transition-all uppercase">
+                                    Stage 3: Termination
+                                </button>
+                            </div>
+
+                            <!-- Interactive Stage Display Box -->
+                            <div id="mechanism-stage-box" class="p-6 bg-[#030308] border border-slate-800 rounded-2xl min-h-[300px] flex flex-col justify-between">
+                                <div id="radical-stage-desc">
+                                    <!-- Dynamic Description -->
+                                </div>
+                                <div id="radical-stage-viz" class="my-6 p-4 bg-slate-900/50 rounded-xl border border-slate-800/80 font-mono text-center overflow-x-auto select-none">
+                                    <!-- Dynamic Equation -->
+                                </div>
+                                <div class="p-4 bg-purple-500/5 border border-purple-500/10 rounded-xl flex items-start gap-3">
+                                    <span class="text-purple-400 font-bold text-sm">💡 Exam Insight:</span>
+                                    <p id="radical-stage-tip" class="text-xs text-slate-400 leading-relaxed">
+                                        <!-- Dynamic Tip -->
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <h2 class="text-3xl font-black mb-4">Free Radical Mechanism (Addition)</h2>
-                        <p class="text-slate-500 dark:text-slate-400 text-lg max-w-3xl mb-8 leading-relaxed">
-                            The backbone of addition polymers (like PVC, Polyethylene). Occurs in three distinct phases powered by highly reactive radicals.
+                    </section>
+                </div>
+
+                <!-- Tab 2: Plastics Synthesis & Bakelite condensation pathway -->
+                <div id="tab-plastics" class="tab-content hidden space-y-10">
+                    <section class="glass-card p-8">
+                        <div class="flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-indigo-500"></span> Synthetic Resins
+                        </div>
+                        <h2 class="text-3xl font-black mb-4">Plastics Synthesis: PVC, Teflon & Bakelite</h2>
+                        <p class="text-slate-400 text-base leading-relaxed mb-8">
+                            Plastics are prepared via addition or step-growth condensation polymerization. Below are the precise preparation reactions and parameters required under JNTUK R23 curriculum.
                         </p>
-                    </div>
-                    
-                    <div class="bg-[#050510] border-y border-slate-800 p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- Step 1 -->
-                        <div class="border border-slate-700 bg-slate-900/50 p-6 rounded-2xl relative overflow-hidden text-center group hover:border-purple-500/50 transition-colors">
-                            <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/30 transition-colors"></div>
-                            <h3 class="font-black text-white text-xl">1. Initiation</h3>
-                            <p class="text-[10px] font-mono text-purple-400 mt-2 mb-6">Create the Spark</p>
-                            
-                            <div class="flex items-center justify-center gap-2 font-mono text-white mb-4">
-                                <span>R-O-O-R</span> <span class="text-purple-500 text-xs mt-1">→</span> <span>2R-O<span class="text-rose-500 text-lg font-black leading-none relative top-1">•</span></span>
-                            </div>
-                            <p class="text-sm text-slate-400">Initiator breaks (homolytic cleavage) to form a free radical with an unpaired electron.</p>
-                        </div>
-                        
-                        <!-- Step 2 -->
-                        <div class="border border-slate-700 bg-slate-900/50 p-6 rounded-2xl relative overflow-hidden text-center group hover:border-purple-500/50 transition-colors">
-                            <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/30 transition-colors"></div>
-                            <h3 class="font-black text-white text-xl">2. Propagation</h3>
-                            <p class="text-[10px] font-mono text-purple-400 mt-2 mb-6">Grow the Chain</p>
-                            
-                            <div class="flex items-center justify-center gap-2 font-mono text-white mb-4">
-                                <span>R<span class="text-rose-500 font-black">•</span> + CH₂=CH₂</span> <span class="text-purple-500 text-xs mt-1">→</span> <span>R-CH₂-CH₂<span class="text-rose-500 font-black">•</span></span>
-                            </div>
-                            <p class="text-sm text-slate-400">Radical attacks a monomer double bond, adding to it and moving the radical to the chain end.</p>
-                        </div>
-                        
-                        <!-- Step 3 -->
-                        <div class="border border-slate-700 bg-slate-900/50 p-6 rounded-2xl relative overflow-hidden text-center group hover:border-purple-500/50 transition-colors">
-                            <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/30 transition-colors"></div>
-                            <h3 class="font-black text-white text-xl">3. Termination</h3>
-                            <p class="text-[10px] font-mono text-purple-400 mt-2 mb-6">Kill the Radical</p>
-                            
-                            <div class="flex items-center justify-center gap-2 font-mono text-white mb-4">
-                                <span>R~<span class="text-rose-500 font-black">•</span> + <span class="text-rose-500 font-black">•</span>~R</span> <span class="text-purple-500 text-xs mt-1">→</span> <span>R~~R</span>
-                            </div>
-                            <p class="text-sm text-slate-400">Two growing radicals collide and bond, consuming the unpaired electrons (Coupling or Disproportionation).</p>
-                        </div>
-                    </div>
-                </section>
 
-                <section id="conducting" class="glass-card overflow-hidden">
-                    <div class="p-8 pb-0">
-                        <div class="flex items-center gap-2 text-blue-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
-                            <span class="w-8 h-px bg-blue-500"></span> Advanced Plastics
+                        <!-- Plastics selector buttons -->
+                        <div class="flex gap-2 mb-8 border-b border-slate-800">
+                            <button onclick="setPlastic('bakelite')" id="plastic-btn-bakelite" class="plastic-tab-btn pb-3 px-4 text-xs font-black border-b-2 border-indigo-500 text-white uppercase tracking-wider">
+                                Bakelite (Thermohard)
+                            </button>
+                            <button onclick="setPlastic('pvc')" id="plastic-btn-pvc" class="plastic-tab-btn pb-3 px-4 text-xs font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent uppercase tracking-wider">
+                                PVC (Addition)
+                            </button>
+                            <button onclick="setPlastic('teflon')" id="plastic-btn-teflon" class="plastic-tab-btn pb-3 px-4 text-xs font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent uppercase tracking-wider">
+                                Teflon (PTFE)
+                            </button>
                         </div>
-                        <h2 class="text-3xl font-black mb-4 flex items-center gap-3">Conducting Polymers <svg class="w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></h2>
-                        <p class="text-slate-500 dark:text-slate-400 text-lg max-w-3xl mb-8 leading-relaxed">
-                            Most polymers are insulators. But polymers with <strong>Conjugated Double Bonds</strong> (alternating single and double bonds) can conduct electricity when doped!
+
+                        <!-- Dynamic display -->
+                        <div id="plastic-display-container" class="space-y-6">
+                            <!-- Populated by JS -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Tab 3: Elastomers, Buna-S and Vulcanization Simulator -->
+                <div id="tab-elastomers" class="tab-content hidden space-y-10">
+                    <section class="glass-card p-8">
+                        <div class="flex items-center gap-2 text-rose-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-rose-500"></span> Rubbers & Elastomers
+                        </div>
+                        <h2 class="text-3xl font-black mb-4">Elastomers preparation & Vulcanization</h2>
+                        <p class="text-slate-400 text-base leading-relaxed mb-6">
+                            Co-polymerization maps out monomers like 1,3-Butadiene and Styrene. Natural rubber holds poor mechanical characteristics, which are corrected using <strong>vulcanization</strong> (heating with sulfur to cross-link chains).
                         </p>
-                    </div>
-                    
-                    <!-- Visual Representation -->
-                    <div class="px-8 pb-8 pt-4">
-                        <div class="border border-blue-500/30 bg-blue-900/10 rounded-2xl p-6 relative overflow-hidden flex flex-col md:flex-row items-center gap-8">
-                            <div class="flex-1">
-                                <h3 class="text-white font-bold mb-4 flex items-center gap-2">Polyacetylene (The Benchmark)</h3>
-                                <div class="font-mono text-center text-sm text-slate-300 tracking-[0.3em] font-bold py-4 bg-black rounded-lg border border-slate-800">
-                                    -CH=CH-CH=CH-CH=CH-
-                                </div>
-                                <div class="mt-4 text-sm text-slate-400">
-                                    <p>The alternating π (pi) bonds overlap, creating a delocalized electron cloud along the chain.</p>
+
+                        <!-- Elastomer cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl">
+                                <span class="px-2 py-0.5 bg-rose-500/15 text-rose-500 rounded text-[9px] font-black uppercase tracking-widest">Copolymer</span>
+                                <h3 class="font-bold text-white mt-2 text-lg">Buna-S prep</h3>
+                                <p class="text-[11px] text-slate-400 mt-2 mb-4 leading-relaxed">
+                                    Emulsion copolymerization of 1,3-Butadiene ($CH_2=CH-CH=CH_2$) and Styrene ($C_6H_5-CH=CH_2$) in a <strong>3:1 ratio</strong> with free radical catalyst and sodium metal.
+                                </p>
+                                <div class="bg-black/60 p-2 rounded border border-slate-800 font-mono text-[10px] text-rose-400 select-all overflow-x-auto">
+                                    3 n CH₂=CH-CH=CH₂ + n C₆H₅-CH=CH₂ → -[(-CH₂-CH=CH-CH₂-)₃-CH(C₆H₅)-CH₂-]-n
                                 </div>
                             </div>
-                            <!-- Doping visual -->
-                            <div class="flex-1 w-full bg-slate-900 p-4 rounded-xl border border-slate-700">
-                                <h4 class="text-xs uppercase tracking-widest text-slate-500 font-black mb-3">Doping Process</h4>
-                                <div class="space-y-3">
-                                    <div class="flex justify-between items-center text-sm border-b border-slate-800 pb-2">
-                                        <span class="text-slate-300">p-doping (Oxidation)</span>
-                                        <span class="text-rose-400 text-xs font-mono">Remove e⁻ (Creates hole)</span>
+
+                            <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl">
+                                <span class="px-2 py-0.5 bg-emerald-500/15 text-emerald-500 rounded text-[9px] font-black uppercase tracking-widest">Homopolymer</span>
+                                <h3 class="font-bold text-white mt-2 text-lg">Neoprene prep</h3>
+                                <p class="text-[11px] text-slate-400 mt-2 mb-4 leading-relaxed">
+                                    Synthesized by addition free radical polymerization of Chloroprene (2-chloro-1,3-butadiene) under potassium persulfate catalyst.
+                                </p>
+                                <div class="bg-black/60 p-2 rounded border border-slate-800 font-mono text-[10px] text-emerald-400 select-all overflow-x-auto">
+                                    n CH₂=C(Cl)-CH=CH₂ → -[-CH₂-C(Cl)=CH-CH₂-]-n  (Chloroprene to Neoprene)
+                                </div>
+                            </div>
+
+                            <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl">
+                                <span class="px-2 py-0.5 bg-yellow-500/15 text-yellow-500 rounded text-[9px] font-black uppercase tracking-widest">Inorganic Rubber</span>
+                                <h3 class="font-bold text-white mt-2 text-lg">Thiokol rubber</h3>
+                                <p class="text-[11px] text-slate-400 mt-2 mb-4 leading-relaxed">
+                                    Prepared by condensation of 1,2-dichloroethane ($Cl-CH_2-CH_2-Cl$) and sodium tetrasulfide ($Na_2S_4$), forming disulfide cross bonds.
+                                </p>
+                                <div class="bg-black/60 p-2 rounded border border-slate-800 font-mono text-[10px] text-yellow-400 select-all overflow-x-auto">
+                                    n Cl-CH₂-CH₂-Cl + n Na₂S₄ → -[-CH₂-CH₂-S-S(=S)(=S)-]-n + 2n NaCl
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vulcanization Interactive Simulator Sandbox -->
+                        <div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+                            <h3 class="font-black text-white text-lg mb-2 flex items-center gap-2">⛓ Interactive Vulcanization Sandbox</h3>
+                            <p class="text-xs text-slate-400 mb-6">Compare chain deformation under stress. Add sulfur linkages and pull the slider to test springback elasticity!</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                                <div class="md:col-span-4 space-y-4">
+                                    <div>
+                                        <label class="text-xs text-slate-400 uppercase font-bold tracking-wider">Sulfur Crosslink Count</label>
+                                        <input id="sulfur-slider" type="range" min="0" max="100" value="0" oninput="runVulcanizationSim()" class="w-full mt-2 accent-rose-500">
+                                        <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                                            <span>0% (Raw Rubber)</span>
+                                            <span>50%</span>
+                                            <span>100% (High Vulcanized)</span>
+                                        </div>
                                     </div>
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-slate-300">n-doping (Reduction)</span>
-                                        <span class="text-emerald-400 text-xs font-mono">Add e⁻</span>
+                                    <div>
+                                        <label class="text-xs text-slate-400 uppercase font-bold tracking-wider">Mechanical Tensile Pull</label>
+                                        <input id="pull-slider" type="range" min="0" max="100" value="0" oninput="runVulcanizationSim()" class="w-full mt-2 accent-rose-500">
+                                        <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                                            <span>Relaxed</span>
+                                            <span>Maximum Stress</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-3 bg-rose-500/5 border border-rose-500/10 rounded-xl text-[10px] text-slate-400 leading-relaxed">
+                                        <strong class="text-rose-400">Physics:</strong> Without sulfur, chains slip permanently (plastic creep / flow). Disulfide bonds act as anchor springs, recalling alignment on release!
+                                    </div>
+                                </div>
+                                <div class="md:col-span-8">
+                                    <div class="relative h-48 bg-black rounded-xl border border-slate-800 flex items-center justify-center overflow-hidden">
+                                        <svg id="vulcan-svg" class="w-full h-full" viewBox="0 0 400 200">
+                                            <!-- Dynamic canvas drawn by JS -->
+                                        </svg>
+                                        <div id="creep-alert" class="absolute bottom-3 left-3 px-2 py-1 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 rounded text-[9px] font-black uppercase tracking-wider hidden">
+                                            ⚠️ Permanent Creep (No Springback)
+                                        </div>
+                                        <span id="elastic-indicator" class="absolute top-3 right-3 text-[10px] font-mono text-slate-500 bg-slate-900 border border-slate-800 px-2 py-0.5 rounded">
+                                            Energy State: 0%
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </section>
+                </div>
+
+                <!-- Tab 4: Conducting Polymers -->
+                <div id="tab-conducting" class="tab-content hidden space-y-10">
+                    <section class="glass-card p-8">
+                        <div class="flex items-center gap-2 text-yellow-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-yellow-500"></span> Smart Materials
+                        </div>
+                        <h2 class="text-3xl font-black mb-4 flex items-center gap-3">Conduction Mechanisms of Conjugated Chains</h2>
+                        <p class="text-slate-400 text-base leading-relaxed mb-8">
+                            Polymers like **Polyacetylene** (by reacting acetylene with Ziegler-Natta Catalyst) and **Polyaniline** hold alternating double bonds that delocalize electron clouds. Doping reduces the high energy forbidden band gap, triggering electrical transmission.
+                        </p>
+
+                        <!-- Doping Interactive Sandbox -->
+                        <div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                                <div>
+                                    <h3 class="font-black text-white text-lg flex items-center gap-1.5">⚡ Polyacetylene Doping workbench</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Add oxidizing (p-doping) or reducing (n-doping) agents to boost conductivity!</p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button onclick="addDopant('p')" class="px-4 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 text-xs font-black uppercase tracking-wider border border-rose-500/30 rounded-xl transition-all">
+                                        + p-dopant (I₂ Chemical)
+                                    </button>
+                                    <button onclick="addDopant('n')" class="px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 text-xs font-black uppercase tracking-wider border border-emerald-500/30 rounded-xl transition-all">
+                                        + n-dopant (Na Metal)
+                                    </button>
+                                    <button onclick="resetDopingSim()" class="px-3 py-2 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-white text-xs font-bold rounded-xl transition-all">
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                                <div class="md:col-span-8 bg-black/80 rounded-xl p-4 border border-slate-850 h-36 relative flex flex-col justify-between">
+                                    <!-- Conjugant Visual -->
+                                    <div class="flex justify-center items-center h-full select-none gap-1 overflow-x-auto text-xs py-3 font-mono">
+                                        <div id="conducting-chain-display" class="flex items-center tracking-widest gap-2">
+                                            <!-- Rendered by JS -->
+                                        </div>
+                                    </div>
+                                    <div class="text-[9px] text-slate-500 font-mono text-center">
+                                        Alternating p-orbital overlap system (Conjugation structure)
+                                    </div>
+                                </div>
+
+                                <div class="md:col-span-4 bg-[#030308] border border-slate-850 rounded-xl p-4 flex flex-col justify-between h-36">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest">Conductivity σ</span>
+                                        <span id="cond-status-badge" class="px-2 py-0.5 bg-red-500/15 text-red-500 rounded text-[9px] font-black uppercase">Insulator</span>
+                                    </div>
+                                    <div id="conductivity-readout" class="text-xl font-bold font-mono text-yellow-400 text-center my-2">
+                                        10⁻⁹ S/cm
+                                    </div>
+                                    <!-- LED display -->
+                                    <div class="flex items-center justify-center gap-3 border-t border-slate-850 pt-2">
+                                        <span class="text-xs text-slate-400 font-bold">Virtual LED:</span>
+                                        <div id="led-indicator" class="w-4 h-4 rounded-full bg-slate-800 shadow-[0_0_0_rgba(234,179,8,0)] transition-all duration-300"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Polyaniline forms -->
+                            <div class="mt-8 pt-6 border-t border-slate-850 grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-slate-900/30 border border-slate-800 p-4 rounded-xl">
+                                    <h4 class="font-bold text-slate-300 text-sm">Leucoemeraldine (Fully Reduced)</h4>
+                                    <p class="text-[11px] text-slate-500 mt-1 mb-2">Composed entirely of benzenoid rings connected by amine (-NH-) nitrogen units. Highly insulating.</p>
+                                    <div class="font-mono text-[9px] bg-black p-1 text-slate-400 rounded text-center">Insulating (State 0)</div>
+                                </div>
+                                <div class="bg-indigo-950/10 border border-indigo-500/20 p-4 rounded-xl">
+                                    <h4 class="font-bold text-indigo-450 text-sm">Emeraldine Salt (Partially Oxidized)</h4>
+                                    <p class="text-[11px] text-slate-500 mt-1 mb-2">Protonated state with conductive radical cations. Represents the highly conductive polyaniline state.</p>
+                                    <div class="font-mono text-[9px] bg-indigo-500/10 p-1 text-indigo-400 rounded text-center">Conductive (State 1)</div>
+                                </div>
+                                <div class="bg-slate-900/30 border border-slate-800 p-4 rounded-xl">
+                                    <h4 class="font-bold text-slate-300 text-sm">Pernigraniline (Fully Oxidized)</h4>
+                                    <p class="text-[11px] text-slate-500 mt-1 mb-2">Alternating benzenoid & quinoid rings with imine (=N-) ties. Highly insulating.</p>
+                                    <div class="font-mono text-[9px] bg-black p-1 text-slate-400 rounded text-center">Insulating (State 2)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Tab 5: Biodegradable Systems -->
+                <div id="tab-biodegradable" class="tab-content hidden space-y-10">
+                    <section class="glass-card p-8">
+                        <div class="flex items-center gap-2 text-emerald-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-emerald-500"></span> Ecological Materials
+                        </div>
+                        <h2 class="text-3xl font-black mb-4">Biodegradable Polymers (PLA & PGA)</h2>
+                        <p class="text-slate-400 text-base leading-relaxed mb-8">
+                            Modern synthetic plastics remain intact for centuries. Biodegradable macromolecules like <strong>Polylactic Acid (PLA)</strong> and <strong>Polyglycolic Acid (PGA)</strong> possess ester linkages that break down easily under microbial or soil compost water actions.
+                        </p>
+
+                        <!-- Synthesis path visual card -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl relative overflow-hidden">
+                                <div class="absolute top-2 right-2 px-2 py-0.5 bg-emerald-500/10 text-emerald-500 rounded text-[9px] uppercase font-bold border border-emerald-500/20">Corn Derived</div>
+                                <h3 class="font-bold text-white text-lg">Polylactic Acid (PLA) synthesis</h3>
+                                <p class="text-[11px] text-slate-400 mt-2 mb-4 leading-relaxed">
+                                    Lactic acid ($CH_3-CH(OH)-COOH$) undergoes dehydration to form highly stable cyclic dimer Lactide. Ring-Opening Polymerization (ROP) catalyzed by **Tin(II) Octoate** yields PLA chains.
+                                </p>
+                                <div class="p-3 bg-black/60 rounded border border-slate-850 font-mono text-[10px] text-emerald-400 overflow-x-auto select-all">
+                                    Lactic Acid → Lactide (Cyclic) → -[-O-CH(CH₃)-CO-]-n
+                                </div>
+                            </div>
+
+                            <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl relative overflow-hidden">
+                                <div class="absolute top-2 right-2 px-2 py-0.5 bg-blue-500/10 text-blue-500 rounded text-[9px] uppercase font-bold border border-blue-500/20">Medical Sutures</div>
+                                <h3 class="font-bold text-white text-lg">Polyglycolic Acid (PGA) synthesis</h3>
+                                <p class="text-[11px] text-slate-400 mt-2 mb-4 leading-relaxed">
+                                    Glycolic acid ($CH_2(OH)-COOH$) is dehydrated to Glycolide (cyclic dimer), followed by ring-opening under coordination catalysts to yield medical-grade absorbable PGA sutures.
+                                </p>
+                                <div class="p-3 bg-black/60 rounded border border-slate-850 font-mono text-[10px] text-blue-400 overflow-x-auto select-all">
+                                    Glycolic Acid → Glycolide (Cyclic) → -[-O-CH₂-CO-]-n
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Biodegradable Decay Simulator -->
+                        <div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+                            <h3 class="font-black text-white text-lg mb-2">🍂 Microb Soil Compost Decay Simulator</h3>
+                            <p class="text-xs text-slate-400 mb-6 font-medium">Compare the biological decay lifetime of standard commercial plastics (PVC) vs Polylactic Acid (PLA) under standard agricultural soil parameters.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                                <div class="md:col-span-4 space-y-4">
+                                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                                        <span class="text-xs text-slate-500 uppercase font-black">Simulation Time</span>
+                                        <div id="compost-timer" class="text-3xl font-black font-mono text-emerald-400 mt-1">Day 0</div>
+                                        <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">Microbial enzymes secrete hydrolases that cleave modern ester links.</p>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button onclick="startDecaySim()" class="flex-1 py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black uppercase transition-all">
+                                            ▶ Start Decay
+                                        </button>
+                                        <button onclick="resetDecaySim()" class="py-2 px-3 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-400 text-xs font-bold rounded-xl transition-all">
+                                            Reset
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="md:col-span-8">
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="bg-[#030306] rounded-xl border border-slate-850 p-4 text-center">
+                                            <h4 class="text-xs uppercase font-black text-slate-500">Commercial PVC Bottle</h4>
+                                            <div class="h-28 flex items-center justify-center relative">
+                                                <svg id="pvc-bottle-svg" class="w-16 h-24" viewBox="0 0 100 150">
+                                                    <path d="M40,20 h20 v10 h20 v80 h-60 v-80 h20 z" fill="#3b82f6" fill-opacity="0.8"/>
+                                                </svg>
+                                                <div id="pvc-percent" class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-500">100% Intact</div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-[#030306] rounded-xl border border-slate-850 p-4 text-center">
+                                            <h4 class="text-xs uppercase font-black text-emerald-400">Green PLA Compostable</h4>
+                                            <div class="h-28 flex items-center justify-center relative">
+                                                <svg id="pla-bottle-svg" class="w-16 h-24" viewBox="0 0 100 150">
+                                                    <path d="M40,20 h20 v10 h20 v80 h-60 v-80 h20 z" fill="#10b981" fill-opacity="0.8"/>
+                                                </svg>
+                                                <div id="pla-percent" class="absolute bottom-2 right-2 text-[10px] font-mono text-emerald-400">100% Intact</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Copolymer, plastics chemical parameters cheatsheet -->
+                <section class="glass-card p-8">
+                    <h2 class="text-2xl font-black text-white mb-4">Interactive Reaction Quick-Reference Board</h2>
+                    <p class="text-slate-400 text-xs mb-6">Review exact chemical formulas, catalysts, and JNTUK exam guidelines in one click.</p>
+                    
+                    <div class="overflow-x-auto border border-slate-800 rounded-2xl bg-slate-950/40">
+                        <table class="w-full text-left text-xs text-slate-400">
+                            <thead class="bg-slate-900 text-slate-300 font-bold border-b border-slate-800">
+                                <tr>
+                                    <th class="p-4">Material Mode</th>
+                                    <th class="p-4">Primary Monomer</th>
+                                    <th class="p-4">Typical Catalyst</th>
+                                    <th class="p-4">Reaction Linkages</th>
+                                    <th class="p-4">Key Characteristics</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-850">
+                                <tr>
+                                    <td class="p-4 font-black text-white">PVC</td>
+                                    <td class="p-4 font-mono">Vinyl Chloride</td>
+                                    <td class="p-4">Benzoyl Peroxide</td>
+                                    <td class="p-4 font-mono">-[CH₂-CHCl]-n</td>
+                                    <td class="p-4 text-[11px] text-slate-500">Rigid conduit piping, fire resistant</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-black text-white">Teflon (PTFE)</td>
+                                    <td class="p-4 font-mono">Tetrafluoroethylene</td>
+                                    <td class="p-4">Ammonium Persulfate</td>
+                                    <td class="p-4 font-mono">-[CF₂-CF₂]-n</td>
+                                    <td class="p-4 text-[11px] text-slate-500">Extremely low friction coefficient</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-black text-white">Bakelite</td>
+                                    <td class="p-4 font-mono">Phenol + Formaldehyde</td>
+                                    <td class="p-4">HCl (Acidic) or NaOH (Base)</td>
+                                    <td class="p-4 font-mono">3D Cross-linked methylene</td>
+                                    <td class="p-4 text-[11px] text-slate-500">Brittle, high electrical insulator</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-black text-white">Buna-S</td>
+                                    <td class="p-4 font-mono">1,3-Butadiene + Styrene</td>
+                                    <td class="p-4">Sodium Catalyst</td>
+                                    <td class="p-4 font-mono">Copolymer link</td>
+                                    <td class="p-4 text-[11px] text-slate-500">Highly structural wear resistant</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
 
+            </div>
 
-                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-amber-500">
-                    <div class="flex justify-between items-end mb-6">
-                        <div>
-                            <div class="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-[0.2em] mb-2">
-                                <span class="w-8 h-px bg-amber-500"></span> Exam Strategy
-                            </div>
-                            <h2 class="text-2xl font-black">Board Exam PYQs</h2>
-                        </div>
-                        <span class="bg-amber-500/10 text-amber-500 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider hidden sm:block">Important Theory</span>
+            <!-- Right Sidebar: Interactive Board Exam Viva Coach -->
+            <div class="lg:col-span-3 space-y-8">
+                <!-- Viva Card Sandbox -->
+                <div class="p-6 bg-slate-950 border border-slate-800 rounded-3xl relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-all"></div>
+                    <div class="flex items-center gap-2 text-purple-400 font-bold text-[10px] uppercase tracking-widest mb-3">
+                        <span>🎓</span>
+                        <span>Interactive Board Viva Coach</span>
                     </div>
+                    <h3 class="text-white font-black text-base mb-4">Board Exam Oral Cards</h3>
                     
-                    <div class="space-y-4">
-                        <div class="group p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-amber-500/50 transition-colors">
-                            <div class="flex justify-between items-start">
-                                <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm">Addition vs Condensation <span class="text-amber-500">(10M)</span></h4>
-                                <span class="text-[9px] font-mono bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Asked 5 Times</span>
+                    <div class="relative h-48 w-full select-none" style="perspective: 1000px;">
+                        <div id="viva-flipper" onclick="flipVivaCard()" class="viva-card-inner w-full h-full relative cursor-pointer">
+                            <!-- Card Front -->
+                            <div class="viva-card-front absolute w-full h-full p-4 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-between shadow-lg">
+                                <span class="text-[9px] font-mono text-slate-500 uppercase font-bold tracking-widest">Question #1</span>
+                                <p id="viva-question-text" class="text-xs text-slate-200 mt-2 font-bold leading-relaxed">
+                                    "Why does heating raw natural rubber with sulfur increase its elasticity property?"
+                                </p>
+                                <span class="text-[9px] text-slate-500 italic text-right">Click card to reveal standard answer</span>
                             </div>
-                            <p class="text-sm mt-3 text-slate-600 dark:text-slate-400">Distinguish between Addition (Chain growth) and Condensation (Step growth) polymerization with suitable examples.</p>
-                            <div class="mt-4 hidden group-hover:block text-xs text-amber-600 dark:text-amber-400 border-t border-slate-200 dark:border-slate-800 pt-3">
-                                <strong>Hack:</strong> Tabular column! Addition = fast, double bonds break, no byproducts (e.g. Polyethylene). Condensation = slow, functional groups react, byproducts like H2O/HCl released (e.g. Nylon 6,6).
-                            </div>
-                        </div>
-                        
-                        <div class="group p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-amber-500/50 transition-colors">
-                            <div class="flex justify-between items-start">
-                                <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm">Conducting Polymers <span class="text-amber-500">(5M)</span></h4>
-                                <span class="text-[9px] font-mono bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Asked 4 Times</span>
-                            </div>
-                            <p class="text-sm mt-3 text-slate-600 dark:text-slate-400">What are conducting polymers? Give the mechanism of conduction in Polyacetylene / Polyaniline.</p>
-                            <div class="mt-4 hidden group-hover:block text-xs text-amber-600 dark:text-amber-400 border-t border-slate-200 dark:border-slate-800 pt-3">
-                                <strong>Hack:</strong> Mention "Conjugation of pi bonds" and "Doping (p-doping or n-doping)". Draw the alternating single/double bond carbon chain of polyacetylene to secure marks.
+                            <!-- Card Back -->
+                            <div class="viva-card-back absolute w-full h-full p-4 bg-purple-950/20 border border-purple-500/20 rounded-2xl flex flex-col justify-between shadow-lg">
+                                <span class="text-[9px] font-mono text-purple-450 uppercase font-black tracking-widest">Model Answer</span>
+                                <p id="viva-answer-text" class="text-xs text-slate-350 mt-2 leading-relaxed font-semibold">
+                                    "Sulfur inserts strong, covalent disulfide (-S-S-) bridges crossing linear rubber chains, preventing chain slippage and prompting springback recovery."
+                                </p>
+                                <span class="text-[9px] text-purple-450 italic text-right">Click card to flip back</span>
                             </div>
                         </div>
                     </div>
-                </section>
-                
+
+                    <div class="flex gap-2 mt-4">
+                        <button onclick="readTextToSpeech()" class="flex-1 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] uppercase font-black rounded-lg transition-all flex items-center justify-center gap-1">
+                            <span>🔊 Read Aloud</span>
+                        </button>
+                        <button onclick="nextVivaCard()" class="flex-1 py-1.5 bg-indigo-650 hover:bg-indigo-700 text-white text-[10px] uppercase font-black rounded-lg transition-all flex items-center justify-center gap-1">
+                            <span>Next Card ➔</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Gamification Card with triggerXP -->
+                <div class="p-6 bg-slate-950 border border-slate-800 rounded-3xl text-center">
+                    <span class="text-3xl">🏆</span>
+                    <h4 class="font-black text-white mt-2 text-base">Mastered Polymerization?</h4>
+                    <p class="text-[11px] text-slate-400 mt-1 mb-4 leading-relaxed">Complete all interactive tab segments to claim your Engineering Chemistry survival badge and XP!</p>
+                    <button onclick="claimPolymerXp()" class="w-full py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl text-xs font-black uppercase shadow-lg shadow-green-500/10 transition-all">
+                        Claim 150 XP Badge
+                    </button>
+                </div>
             </div>
         </div>
     </main>
+
+    <!-- Custom Script Logic for Polymer Workbench interactive modules -->
+    <script>
+        // Tab switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(element => {
+                element.classList.add('hidden');
+            });
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+            event.target.classList.add('bg-indigo-600', 'text-white');
+            event.target.classList.remove('text-slate-400');
+
+            if (tabId === 'tab-elastomers') {
+                runVulcanizationSim();
+            }
+            if (tabId === 'tab-conducting') {
+                updateDopingVisuals();
+            }
+        }
+
+        // --- SUBMODULE 1: RADICAL MECHANISM ---
+        const radicalStages = {
+            1: {
+                title: "Homolytic Cleavage & Initiation Step",
+                desc: `Modern chain polymerization sparks from homolytic cleavage of peroxides to form reactive radicals:<br/><br/>
+                       1. Solid **Dibenzoyl Peroxide** breaks under heat to yield two benzoyloxy radicals which promptly release carbon dioxide to form **phenyl radicals** (C₆H₅•).<br/>
+                       2. The phenyl radical attacks the carbon-carbon double bond of the ethylene monomer, breaking the pi bond and generating a new carbon radical.`,
+                eq: "Dibenzoyl Peroxide (C₆H₅COO)₂  →  2 C₆H₅COO•  →  2 C₆H₅• + 2 CO₂<br/>C₆H₅• + CH₂=CH₂  →  C₆H₅-CH₂-CH₂•",
+                tip: "Make sure to illustrate the single electronic movement using fish-hook single arrows (↷) instead of full normal arrows to secure full marks."
+            },
+            2: {
+                title: "Chain propagation loop",
+                desc: `The active carbon radical undergoes swift continuous addition of ethylene monomers, propagating the chain:<br/><br/>
+                       1. Phenyl-ethyl radical attacks the next ethylene molecule's pi bond, passing the active radical unpaired electron directly to the new terminus.<br/>
+                       2. This step loops hundreds of thousands of times in microseconds, growing highly dense molecular chains without termination.`,
+                eq: "C₆H₅-CH₂-CH₂• + n CH₂=CH₂  →  C₆H₅-(CH₂-CH₂)_n-CH₂-CH₂•",
+                tip: "List that the radical species remains present exclusively at the outer extremity of the growing chain loop."
+            },
+            3: {
+                title: "Chain Terminating Pathways",
+                desc: `The highly active growing polymer chain terminates via two distinct radical collisons:<br/><br/>
+                       1. **Combination / Coupling:** Two active growing macromolecule radicals collide head-on, sharing their single electrons to form a stable covalent single bond.<br/>
+                       2. **Disproportionation:** An active radical abstracts a hydrogen atom from the other colliding chain, creating one saturated hydrocarbon segment and one unsaturated chain ending.`,
+                eq: "Coupling: 2 R-CH₂-CH₂•  →  R-CH₂-CH₂-CH₂-CH₂-R<br/>Disproportionation: 2 R-CH₂-CH₂•  →  R-CH=CH₂ + R-CH₂-CH₃",
+                tip: "Always detail both paths. Combination is typical for polystyrene, while disproportionation occurs in methyl methacrylate."
+            }
+        };
+
+        function setRadicalStage(stageNum) {
+            document.querySelectorAll('.rad-stage-btn').forEach((btn, index) => {
+                if (index + 1 === stageNum) {
+                    btn.classList.add('bg-purple-500', 'text-white');
+                    btn.classList.remove('text-slate-400');
+                } else {
+                    btn.classList.remove('bg-purple-500', 'text-white');
+                    btn.classList.add('text-slate-400');
+                }
+            });
+
+            const data = radicalStages[stageNum];
+            document.getElementById('radical-stage-desc').innerHTML = `
+                <h4 class="font-black text-white text-lg mb-2">${data.title}</h4>
+                <p class="text-xs text-slate-450 leading-relaxed">${data.desc}</p>
+            `;
+            document.getElementById('radical-stage-viz').innerHTML = data.eq;
+            document.getElementById('radical-stage-tip').innerText = data.tip;
+        }
+        setRadicalStage(1);
+
+        // --- SUBMODULE 2: PLASTICS PREP & BAKELITE CONDENSATION ---
+        const plasticData = {
+            bakelite: `
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    <div class="md:col-span-8 space-y-4">
+                        <h4 class="text-white text-lg font-black">Bakelite synthesis (Phenol + Formaldehyde Condensation)</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Bakelite is a highly cross-linked thermosetting plastic. Its synthesis moves through precise, controllable steps:
+                        </p>
+                        <ol class="text-xs text-slate-400 list-decimal list-inside space-y-2 pl-2">
+                            <li>Phenol reacts with Formaldehyde (HCHO) in acidic (HCl) or basic (NaOH) catalyst to produce o-methylolphenol and p-methylolphenol intermediates.</li>
+                            <li>Condensation polymerization of o-methylolphenol forms linear chain units called **Novolac** (used in wood varnishes).</li>
+                            <li>Novolac heated with Formaldehyde or Hexamethylenetetramine (HMTA) causes cross-linking of chains, forming dense, heat-resistant **Bakelite** net frameworks.</li>
+                        </ol>
+                        
+                        <div class="bg-black/40 border border-slate-850 p-4 rounded-xl font-mono text-center text-xs">
+                            <span class="text-indigo-400">Phenol + HCHO → Methylolphenols → Novolac (Linear) → Bakelite (3D network)</span>
+                        </div>
+                    </div>
+                    <div class="md:col-span-4 bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[9px] uppercase font-bold text-slate-500">Synthesis Parameter</span>
+                            <div class="text-2xl font-black text-rose-500 mt-1">HMTA Heat</div>
+                            <p class="text-[10px] text-slate-400 mt-1">Cross-linking requires temperatures between 150-180°C and solid pressures.</p>
+                        </div>
+                        <div class="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-xs text-indigo-400 font-bold text-center select-none cursor-pointer hover:bg-indigo-500/20" onclick="triggerIntermediateXp()">
+                            ⚙ Trigger intermediate check
+                        </div>
+                    </div>
+                </div>
+            `,
+            pvc: `
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    <div class="md:col-span-8 space-y-4">
+                        <h4 class="text-white text-lg font-black font-sans">Polyvinyl Chloride (PVC) addition prep</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            PVC is synthesized by addition suspension polymerization of Vinyl Chloride monomer under pressure. Alternating chlorine atoms on carbon chains provide flame resistance.
+                        </p>
+                        <div class="p-4 bg-black/60 rounded-xl border border-slate-850 text-center font-mono text-xs text-indigo-450 select-all">
+                            n CH₂=CH-Cl (Vinyl Chloride)  →  -[CH₂-CHCl]-n (Polyvinyl Chloride)
+                        </div>
+                        <ul class="text-xs text-slate-500 list-disc list-inside space-y-1">
+                            <li>Monomer = Vinyl Chloride (from chloroethane)</li>
+                            <li>Catalyst = Hydrogen peroxide or Benzoyl peroxide init</li>
+                            <li>Uses = Rigid electrical conduits, drainage pipes, cable insulation</li>
+                        </ul>
+                    </div>
+                    <div class="md:col-span-4 bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[9px] uppercase font-bold text-slate-500">Typical Catalyst</span>
+                            <div class="text-2xl font-black text-blue-500 mt-1">Peroxide</div>
+                            <p class="text-[10px] text-slate-400 mt-1">Requires an organic initiator to trigger free radical conversion mechanism.</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            teflon: `
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    <div class="md:col-span-8 space-y-4">
+                        <h4 class="text-white text-lg font-black font-sans">Teflon (Polytetrafluoroethylene | PTFE) prep</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            PTFE is polymerized under extreme high pressure environment by heat addition. The strong carbon-fluorine bonds yield extremely low friction coefficient and high thermal stability.
+                        </p>
+                        <div class="p-4 bg-black/60 rounded-xl border border-slate-850 text-center font-mono text-xs text-indigo-450 select-all">
+                            n CF₂=CF₂ (Tetrafluoroethylene)  →  -[CF₂-CF₂]-n (Teflon / PTFE)
+                        </div>
+                        <ul class="text-xs text-slate-500 list-disc list-inside space-y-1">
+                            <li>Monomer = Tetrafluoroethylene (toxic gas)</li>
+                            <li>Catalyst = Ammonium Persulfate initiator</li>
+                            <li>Uses = Non-stick cookware lining, chemical valves, aerospace gaskets</li>
+                        </ul>
+                    </div>
+                    <div class="md:col-span-4 bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[9px] uppercase font-bold text-slate-500">Special Factor</span>
+                            <div class="text-2xl font-black text-emerald-500 mt-1">C-F Strength</div>
+                            <p class="text-[10px] text-slate-400 mt-1">C-F bond energy is extremely high (485 kJ/mol), resisting chemical attacks.</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        function setPlastic(plasticKey) {
+            document.querySelectorAll('.plastic-tab-btn').forEach(btn => {
+                btn.classList.remove('border-indigo-500', 'text-white');
+                btn.classList.add('border-transparent', 'text-slate-400');
+            });
+            event.target.classList.add('border-indigo-500', 'text-white');
+            event.target.classList.remove('border-transparent', 'text-slate-400');
+
+            document.getElementById('plastic-display-container').innerHTML = plasticData[plasticKey];
+        }
+        setPlastic('bakelite');
+
+        // --- SUBMODULE 3: ELASTOMERS & VULCANIZATION SIMULATOR ---
+        function runVulcanizationSim() {
+            const sulfurPercent = parseInt(document.getElementById('sulfur-slider').value);
+            const pullPercent = parseInt(document.getElementById('pull-slider').value);
+            
+            const svg = document.getElementById('vulcan-svg');
+            const energyBadge = document.getElementById('elastic-indicator');
+            const creepAlert = document.getElementById('creep-alert');
+            
+            // Draw polymer chains
+            let htmlContent = '';
+            
+            // Draw background grid
+            htmlContent += `<rect width="400" height="200" fill="#020204"/>`;
+            
+            const amplitude = 15;
+            const lambda = 40;
+            const chainCount = 4;
+            
+            // Calculate actual stretch
+            // If sulfur is 0, chains slide under stretch (offset changes permanently)
+            // If sulfur is high, chains stretch symmetrically
+            const plasticDeform = (sulfurPercent === 0) ? (pullPercent * 0.8) : 0;
+            const elasticStretch = pullPercent * (1 - (sulfurPercent / 120)) * 0.7;
+            
+            const colors = ['#f43f5e', '#ec4899', '#db2777', '#f472b6'];
+            
+            for (let i = 0; i < chainCount; i++) {
+                const baseY = 40 + i * 40;
+                let pathD = `M 20 ${baseY}`;
+                
+                for (let x = 20; x <= 380; x += 10) {
+                    // Apply sinusoidal waviness which flattens under stretch
+                    const waveFactor = Math.max(0.1, 1 - (pullPercent / 110));
+                    const yOffset = basesinus(x, baseY) * waveFactor;
+                    
+                    // Apply displacement
+                    const slideX = x + (i * plasticDeform * 0.2) + (elasticStretch * 0.3);
+                    const plotY = baseY + yOffset;
+                    
+                    if (x === 20) pathD = `M ${slideX} ${plotY}`;
+                    else pathD += ` L ${slideX} ${plotY}`;
+                }
+                
+                htmlContent += `<path d="${pathD}" stroke="${colors[i]}" stroke-width="2.5" fill="none" opacity="0.8"/>`;
+            }
+            
+            // Draw sulfur cross-links
+            // They connect chains at intersections
+            const crossLinkOpacity = sulfurPercent / 100;
+            if (sulfurPercent > 0) {
+                const count = Math.ceil(sulfurPercent / 12);
+                for (let l = 0; l < count; l++) {
+                    const stepX = 50 + l * 40;
+                    // Draw lines between chains
+                    for (let c = 0; c < chainCount - 1; c++) {
+                        const y1 = 40 + c * 40;
+                        const y2 = 40 + (c + 1) * 40;
+                        
+                        const slideX = stepX + (c * plasticDeform * 0.2) + (elasticStretch * 0.3);
+                        htmlContent += `<line x1="${slideX}" y1="${y1}" x2="${slideX}" y2="${y2}" stroke="#fbbf24" stroke-width="2.5" opacity="${crossLinkOpacity}" stroke-dasharray="2,2"/>`;
+                        
+                        // Sulfur labels
+                        if (l % 2 === 0 && c === 1) {
+                            htmlContent += `<text x="${slideX + 3}" y="${y1 + 20}" fill="#fbbf24" font-size="8" font-family="monospace" font-weight="bold" opacity="${crossLinkOpacity}">-S-S-</text>`;
+                        }
+                    }
+                }
+            }
+            
+            svg.innerHTML = htmlContent;
+            
+            energyBadge.innerText = `Elastic Recovery: ${sulfurPercent}%`;
+            
+            if (sulfurPercent === 0 && pullPercent > 30) {
+                creepAlert.classList.remove('hidden');
+            } else {
+                creepAlert.classList.add('hidden');
+            }
+        }
+        
+        function basesinus(x, baseY) {
+            return Math.sin(x * 0.08) * 12;
+        }
+
+        // --- SUBMODULE 4: CONDUCTING POLYMERS SILICON BENCHMARK ---
+        let currentDopants = [];
+        
+        function updateDopingVisuals() {
+            const chainBox = document.getElementById('conducting-chain-display');
+            const condReadout = document.getElementById('conductivity-readout');
+            const condBadge = document.getElementById('cond-status-badge');
+            const led = document.getElementById('led-indicator');
+            
+            // Base polyacetylene chain
+            let chainHtml = '';
+            const baseMonomers = ['CH', 'CH', 'CH', 'CH', 'CH', 'CH', 'CH', 'CH'];
+            
+            baseMonomers.forEach((m, idx) => {
+                const isDouble = (idx % 2 === 0);
+                const link = isDouble ? '<span class="text-slate-600 font-bold">=</span>' : '<span class="text-slate-800 font-bold">-</span>';
+                
+                // Color code if doped at this index
+                let css = 'text-slate-300 font-bold';
+                let dot = '';
+                currentDopants.forEach(d => {
+                    if (d.pos === idx) {
+                        if (d.type === 'p') {
+                            css = 'text-rose-400 font-black scale-110';
+                            dot = '<span class="absolute -top-3 text-[8px] font-mono text-rose-500 font-bold">h⁺</span>';
+                        } else {
+                            css = 'text-emerald-400 font-black scale-110';
+                            dot = '<span class="absolute -top-3 text-[8px] font-mono text-emerald-500 font-bold">e⁻</span>';
+                        }
+                    }
+                });
+                
+                chainHtml += `
+                    <div class="relative flex flex-col items-center select-none ${css}">
+                        ${dot}
+                        <span>${m}</span>
+                    </div>
+                `;
+                if (idx < baseMonomers.length - 1) {
+                    chainHtml += `<div>${link}</div>`;
+                }
+            });
+            
+            chainBox.innerHTML = chainHtml;
+            
+            // Map conductivity scale based on dopants count
+            const dopantCount = currentDopants.length;
+            if (dopantCount === 0) {
+                condReadout.innerText = "10⁻⁹ S/cm";
+                condBadge.className = "px-2 py-0.5 bg-red-500/15 text-red-500 rounded text-[9px] font-black uppercase";
+                condBadge.innerText = "Insulator";
+                led.className = "w-4 h-4 rounded-full bg-slate-800 transition-all duration-300";
+            } else if (dopantCount === 1) {
+                condReadout.innerText = "10⁻³ S/cm";
+                condBadge.className = "px-2 py-0.5 bg-yellow-500/15 text-yellow-500 rounded text-[9px] font-black uppercase";
+                condBadge.innerText = "Semiconductor";
+                led.className = "w-4 h-4 rounded-full bg-yellow-500/50 shadow-[0_0_8px_rgba(234,179,8,0.5)] transition-all duration-300";
+            } else {
+                condReadout.innerText = "10⁴ S/cm";
+                condBadge.className = "px-2 py-0.5 bg-emerald-500/15 text-emerald-500 rounded text-[9px] font-black uppercase";
+                condBadge.innerText = "Solid Metal";
+                led.className = "w-4 h-4 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)] transition-all duration-300";
+            }
+        }
+        
+        function addDopant(type) {
+            if (currentDopants.length >= 3) return; // limit viz
+            const pos = Math.floor(Math.random() * 8);
+            currentDopants.push({ type, pos });
+            updateDopingVisuals();
+        }
+        
+        function resetDopingSim() {
+            currentDopants = [];
+            updateDopingVisuals();
+        }
+        updateDopingVisuals();
+
+        // --- SUBMODULE 5: BIODEGRADABLE TIME DECAY SIMULATOR ---
+        let compostInterval = null;
+        let compostDay = 0;
+        
+        function startDecaySim() {
+            if (compostInterval) return;
+            compostInterval = setInterval(() => {
+                compostDay += 5;
+                if (compostDay > 180) {
+                    clearInterval(compostInterval);
+                    compostInterval = null;
+                    return;
+                }
+                
+                document.getElementById('compost-timer').innerText = `Day ${compostDay}`;
+                
+                // standard PVC remains intact (100%)
+                // PLA degrades exponentially
+                const plaIntact = Math.max(0, 100 - (compostDay * 0.56));
+                document.getElementById('pla-percent').innerText = `${Math.ceil(plaIntact)}% Intact`;
+                
+                // Animate SVG path opacity/destruction
+                const plaBottle = document.getElementById('pla-bottle-svg');
+                plaBottle.style.opacity = `${plaIntact / 100}`;
+                plaBottle.style.transform = `scale(${0.7 + (plaIntact/100)*0.3}) rotate(${(100-plaIntact)*0.1}deg)`;
+                
+            }, 80);
+        }
+        
+        function resetDecaySim() {
+            clearInterval(compostInterval);
+            compostInterval = null;
+            compostDay = 0;
+            document.getElementById('compost-timer').innerText = "Day 0";
+            document.getElementById('pla-percent').innerText = "100% Intact";
+            const plaBottle = document.getElementById('pla-bottle-svg');
+            plaBottle.style.opacity = 1;
+            plaBottle.style.transform = "scale(1) rotate(0deg)";
+        }
+
+        // --- SUBMODULE 6: ORAL VIVA COCH CARDS ---
+        const vivaCards = [
+            {
+                q: "What is the primary difference in step growth vs chain-growth polymerization mechanism?",
+                a: "Chain growth requires active initiating radicals to trigger fast continuous monomers link, while step growth involves bi-functional functional groups reacting slowly with elimination of small byproducts like water."
+            },
+            {
+                q: "Why is polyacetylene insulating before chemical doping occurs?",
+                a: "While conjugated double bonds exist, the energy gap between valence and conduction band remains too high. Doping places acceptor/donor energy levels in the gap to trigger flow."
+            },
+            {
+                q: "Identify the monomer chemical components of Bakelite resin.",
+                a: "Phenol ($C₆H₅OH$) and Formaldehyde ($HCHO$) reacted together in a 3-dimensional network cross-linked with methylene bridges."
+            }
+        ];
+        
+        let currentVivaIndex = 0;
+        let isCardFlipped = false;
+        
+        function flipVivaCard() {
+            const flipper = document.getElementById('viva-flipper');
+            isCardFlipped = !isCardFlipped;
+            if (isCardFlipped) {
+                flipper.style.transform = "rotateY(180deg)";
+            } else {
+                flipper.style.transform = "rotateY(0deg)";
+            }
+        }
+        
+        function nextVivaCard() {
+            // Reset flipping
+            const flipper = document.getElementById('viva-flipper');
+            flipper.style.transform = "rotateY(0deg)";
+            isCardFlipped = false;
+            
+            setTimeout(() => {
+                currentVivaIndex = (currentVivaIndex + 1) % vivaCards.length;
+                document.getElementById('viva-question-text').innerText = `"${vivaCards[currentVivaIndex].q}"`;
+                document.getElementById('viva-answer-text').innerText = `"${vivaCards[currentVivaIndex].a}"`;
+            }, 300);
+        }
+        
+        function readTextToSpeech() {
+            if ('speechSynthesis' in window) {
+                const speech = new SpeechSynthesisUtterance();
+                speech.text = isCardFlipped ? vivaCards[currentVivaIndex].a : vivaCards[currentVivaIndex].q;
+                speech.rate = 1.0;
+                speech.pitch = 1.1;
+                window.speechSynthesis.speak(speech);
+            } else {
+                alert("Text-to-speech option not fully supported inside this preview.");
+            }
+        }
+
+        // --- GAMIFICATION TRIGGERS ---
+        function triggerIntermediateXp() {
+            if (window.triggerXP) {
+                window.triggerXP(15, 'Analyzed Bakelite intermediate pathways');
+            } else {
+                console.log("Triggered XP level: +15 XP 'Analyzed Bakelite intermediate pathways'");
+            }
+        }
+        
+        function claimPolymerXp() {
+            if (window.triggerXP) {
+                window.triggerXP(150, 'Mastered entire polymer preparation & mechanism series!');
+            } else {
+                alert("Congratulations! Mastered entire polymer preparation and mechanism series! +150 XP awarded!");
+            }
+        }
+    </script>
 </body>
 </html>
