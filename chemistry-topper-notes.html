@@ -2406,6 +2406,31 @@
               window.speechSynthesis.cancel();
           }
       });
+      
+      // Auto-fallback navigation for missing sidebar links
+      document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('a[href^="#u"]').forEach(link => {
+              link.addEventListener('click', function(e) {
+                  const targetId = this.getAttribute('href').substring(1);
+                  let targetEl = document.getElementById(targetId);
+                  
+                  if (!targetEl) {
+                      const unitMatch = targetId.match(/^u(\d+)/);
+                      if (unitMatch) {
+                          targetEl = document.getElementById('unit' + unitMatch[1]);
+                      }
+                  }
+                  
+                  if (targetEl) {
+                      e.preventDefault();
+                      window.scrollTo({
+                          top: targetEl.offsetTop - 100,
+                          behavior: 'smooth'
+                      });
+                  }
+              });
+          });
+      });
     </script>
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/config-check.js"></script>
