@@ -1067,7 +1067,6 @@
             </div>
           </div>
         
-          <!-- Concept: Schrodinger Wave Eq. -->
           <div id="u1-02" class="mb-12 p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-300 hover:border-indigo-400 group relative">
             <div class="flex items-center justify-between mb-4">
               <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">Core Mathematical Logic</span>
@@ -1075,30 +1074,99 @@
             </div>
             <h3 class="text-xl font-black mb-4 text-slate-900 dark:text-slate-50">Schrödinger Wave Equation Derivation</h3>
             
-            <div class="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
-              
-      <p class="text-sm text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
-        The Schrödinger wave equation describes the behavior of a particle in a potential field. Starting from the classical wave equation for a 1D wave:
-        <span class="font-mono text-xs block my-2 p-2 bg-slate-100 dark:bg-black/40 rounded border border-slate-200 dark:border-slate-800">Ψ(x) = A sin(2πx/λ)</span>
-      </p>
-      <p class="text-sm text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
-        Differentiating twice and substituting de Broglie relationship (λ = h / p) and the conservation of total energy (E = K + V = p²/(2m) + V), we arrive at the famous <strong>Schrödinger Time-Independent Wave Equation:</strong>
-      </p>
-      <div class="bg-indigo-500/5 border border-indigo-500/20 rounded-2xl p-4 mb-4 text-center font-mono font-bold text-sm text-indigo-600 dark:text-indigo-400">
-        ∂²Ψ/∂x² + ∂²Ψ/∂y² + ∂²Ψ/∂z² + (8π²m/h²)(E - V)Ψ = 0  ⇒  ĤΨ = EΨ
-      </div>
-      <p class="text-[11px] text-slate-500 leading-relaxed">
-        <strong>Physical Significance of Ψ & Ψ²:</strong><br />
-        • <strong>Ψ (Wavefunction):</strong> Represents the amplitude of the electron wave. It has no direct physical significance and can be positive, negative, or complex.<br />
-        • <strong>Ψ² (Probability Density):</strong> According to Max Born, Ψ² represents the probability of finding the electron at a given point in space around the nucleus. If Ψ² is zero, it represents a node.
-      </p>
-    
+            <div class="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 space-y-4">
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                The Schrödinger wave equation is the core equation of quantum mechanics. It describes how the wave-like state of a physical system (like an electron) evolves over space. Here is the step-by-step derivation for the <strong>Time-Independent Schrödinger Equation (TISE)</strong>:
+              </p>
+
+              <div class="my-4 p-5 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-2xl">
+                <h4 class="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3">Step 1: The Classical Standing Wave Equation</h4>
+                <p class="text-xs text-slate-500 mb-2">Let us consider a simple harmonic wave like a standing wave in a stretched string, moving along the x-direction. The wave equation representing the displacement $\Psi$ with coordinate $x$ is:</p>
+                <div class="font-mono text-sm text-center py-2 bg-black/60 rounded-xl text-emerald-400">
+                  &Psi;(x) = A &middot; sin(2&pi;x / &lambda;)  &mdash;&mdash; (Equation 1)
+                </div>
+                <p class="text-xs text-slate-400 mt-2">Where $A$ is the maximum amplitude and $\lambda$ is the wavelength.</p>
+              </div>
+
+              <div class="my-4 p-5 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-2xl">
+                <h4 class="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3">Step 2: Double Differentiation with respect to Coordinate x</h4>
+                <p class="text-xs text-slate-500 mb-2">First-order differentiation of Equation 1 with respect to $x$ yields:</p>
+                <div class="font-mono text-xs text-center py-1.5 bg-black/40 rounded border border-slate-800 text-slate-355 mb-2">
+                  d&Psi;/dx = A &middot; (2&pi; / &lambda;) &middot; cos(2&pi;x / &lambda;)
+                </div>
+                <p class="text-xs text-slate-500 mb-2">Differentiating once more produces the second-order derivative:</p>
+                <div class="font-mono text-sm text-center py-2.5 bg-black/60 rounded-xl text-emerald-400 mb-2">
+                  d²&Psi;/dx² = -A &middot; (4&pi;² / &lambda;²) &middot; sin(2&pi;x / &lambda;)
+                </div>
+                <p class="text-xs text-slate-500 mb-2">Since $\Psi(x) = A \sin(2\pi x/\lambda)$, substitute this back in:</p>
+                <div class="font-mono text-sm text-center py-2 bg-black/60 rounded-xl text-indigo-400">
+                  d²&Psi;/dx² = -(4&pi;² / &lambda;²) &middot; &Psi;  &mdash;&mdash; (Equation 2)
+                </div>
+              </div>
+
+              <div class="my-4 p-5 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-2xl">
+                <h4 class="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3">Step 3: Introducing de Broglie's Wave Duality Theory</h4>
+                <p class="text-xs text-slate-500 mb-2">According to de Broglie, the momentum of a particle is linked to its wavelength by $\lambda = h / p = h / (m v)$. Squaring both sides yields $\lambda^2 = h^2 / (m^2 v^2)$. Substituting the value of $1/\lambda^2$ in Equation 2:</p>
+                <div class="font-mono text-sm text-center py-2.5 bg-black/60 rounded-xl text-emerald-400 mb-1">
+                  d²&Psi;/dx² = -[4&pi;² m² v² / h²] &middot; &Psi;  &mdash;&mdash; (Equation 3)
+                </div>
+              </div>
+
+              <div class="my-4 p-5 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-2xl">
+                <h4 class="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3">Step 4: Incorporating Conservation of Total Energy</h4>
+                <p class="text-xs text-slate-500 mb-2">The total energy ($E$) of a particle is the sum of its Kinetic Energy (K.E.) and Potential Energy ($V$):</p>
+                <div class="font-mono text-[11px] bg-black/40 p-2 rounded mb-2 text-slate-300">
+                  E = K.E. + V &nbsp;&rArr;&nbsp; E = &frac12; m v² + V &nbsp;&rArr;&nbsp; E - V = &frac12; m v²
+                </div>
+                <p class="text-xs text-slate-500 mb-2">Multiply both sides by $m$, and manipulate the algebra:</p>
+                <div class="font-mono text-[11px] bg-black/40 p-2 rounded mb-2 text-slate-300">
+                  m(E - V) = &frac12; m² v² &nbsp;&rArr;&nbsp; m² v² = 2m(E - V) &mdash;&mdash; (Equation 4)
+                </div>
+                <p class="text-xs text-slate-500 mb-2">Substitute Equation 4 ($m^2 v^2$) into our main wave expression (Equation 3):</p>
+                <div class="font-mono text-sm text-center py-2.5 bg-black/60 rounded-xl text-amber-400">
+                  d²&Psi;/dx² = -[8&pi;² m (E - V) / h²] &middot; &Psi;
+                </div>
+                <p class="text-xs text-slate-500 mt-2 mb-2">Rearranging and grouping terms to one side yields the <strong>1D Schrödinger Time-Independent Wave Equation</strong>:</p>
+                <div class="font-mono text-sm text-center py-3 bg-black/60 rounded-xl text-indigo-400 font-extrabold">
+                  d²&Psi;/dx² + (8&pi;² m / h²)(E - V)&Psi; = 0  &mdash;&mdash; (Equation 5)
+                </div>
+              </div>
+
+              <div class="my-4 p-5 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-xl">
+                <h4 class="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">Step 5: Extension to 3D Space (The Laplacian Operator)</h4>
+                <p class="text-xs text-slate-550 mb-3">For a particle moving in three dimensions $(x, y, z)$, the partial differential wave equations apply along all three axes simultaneously:</p>
+                <div class="font-mono text-xs bg-black/60 p-3 rounded-xl text-rose-455 text-center whitespace-pre-wrap leading-relaxed">
+&part;²&Psi;/&part;x² + &part;²&Psi;/&part;y² + &part;²&Psi;/&part;z² + (8&pi;²m / h²)(E - V)&Psi; = 0
+                </div>
+                <p class="text-xs text-slate-500 mt-3 mb-2">We define the <strong>Laplacian Operator</strong> (&nabla;²) as: <span class="font-mono text-xs bg-black/40 px-1.5 py-0.5 rounded text-indigo-400">&nabla;² = &part;²/&part;x² + &part;²/&part;y² + &part;²/&part;z²</span>. Substituting $\nabla^2$ gives:</p>
+                <div class="font-mono text-sm text-center py-3 bg-indigo-500/10 border border-indigo-500/30 rounded-xl text-indigo-400 font-bold">
+                  &nabla;²&Psi; + (8&pi;² m / h²)(E - V)&Psi; = 0
+                </div>
+              </div>
+
+              <div class="my-4 p-5 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-xl">
+                <h4 class="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">Step 6: Hamiltonian Operator Form</h4>
+                <p class="text-xs text-slate-500 mb-2">Rearranging the 3D equation to isolate the Energy Eigenvalue ($E$):</p>
+                <div class="font-mono text-xs text-center p-2.5 bg-black/60 rounded-lg text-slate-300 leading-relaxed">
+                  &nabla;²&Psi; = -(8&pi;² m / h²)(E - V)&Psi;<br />
+                  -[h² / (8&pi;² m)] &nabla;²&Psi; + V&Psi; = E&Psi;<br />
+                  [-H_bar² / (2m) &nabla;² + V]&Psi; = E&Psi;
+                </div>
+                <p class="text-xs text-slate-500 mt-2 mb-2">Thus: <span class="font-bold text-slate-800 dark:text-slate-100 font-mono">Ĥ&Psi; = E&Psi;</span></p>
+                <p class="text-xs text-slate-400">Where <span class="font-mono text-xs text-emerald-400">Ĥ = -[h² / (8&pi;² m)] &nabla;² + V</span> is the <strong>Hamiltonian Operator</strong> (the total energy operator).</p>
+              </div>
+
+              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-bold bg-amber-500/5 p-4 rounded-xl border border-amber-500/20">
+                <strong>Physical Significance of &Psi; (Psi) and &Psi;&sup2; (Psi squared):</strong><br />
+                • <strong class="text-indigo-600 dark:text-indigo-400 font-mono">&Psi; (Wavefunction):</strong> Represents the amplitude of the electron wave. It has no physical significance since it can take up imaginary, positive, or negative value vectors.<br />
+                • <strong class="text-emerald-600 dark:text-emerald-400 font-mono">&Psi;&sup2; (Probability Density):</strong> Proposed by Max Born, &Psi;&sup2; represents the actual probability density of finding the electron at a given coordinates in 3D around the nucleus space. If &Psi;&sup2; is high, the probability of finding the electron is high (forming an orbital). If &Psi;&sup2; = 0, it represents a node.
+              </p>
             </div>
             
             <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div class="flex items-center gap-2 text-amber-500 text-xs font-bold">
                 <span>🏮</span>
-                <span>Exam Hack: <span class="text-slate-500 dark:text-slate-400 font-medium">Draw the classical wave equation and substitute lambda as the boundary condition.</span></span>
+                <span>Exam Hack: <span class="text-slate-500 dark:text-slate-400 font-medium">To score full 10 marks, write out classical equation first, solve the double derivative, plug in lambda from de Broglie, use energy equations, and express the Laplacian operator.</span></span>
               </div>
               <div class="flex items-center gap-2">
                 <button onclick="triggerTopicXp('u1-02', 10)" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-500/10 hover:bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/20 rounded-xl text-xs font-bold transition-all shadow-sm">
@@ -2520,28 +2588,17 @@
                 <button onclick="triggerTopicXp('u3-01', 10)" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-500/10 hover:bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/20 rounded-xl text-xs font-bold transition-all shadow-sm">
                   <span>✔ Complete Topic</span>
                 </button>
-                <a href="/chemistry-unit-3.html" class="inline-flex items-center gap-1 px-3.5 py-1.5 bg-indigo-50 dark:bg-indigo-900/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 font-bold text-[11px] uppercase rounded-xl transition-all shadow-sm">
-                  <span>Interactive Portal</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        
-
-          <div id="u3-02" class="mb-12">
+                        <div id="u3-02" class="mb-12">
             <div class="flex items-center gap-3 mb-4">
               <span
                 class="text-xs font-black text-blue-500 tracking-widest uppercase"
                 >DERIVATION TRACK</span
-              >
+                >
               <div class="h-[1px] flex-1 bg-slate-200 dark:bg-slate-800"></div>
               <span
                 class="text-[10px] uppercase px-2 py-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 rounded-md font-bold"
                 >🔥 99% Repeat</span
-              >
+                >
             </div>
             <h3
               class="text-xl font-black mb-4 text-slate-900 dark:text-slate-50"
@@ -2549,64 +2606,131 @@
               Nernst Equation Derivation
             </h3>
             <p
-              class="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed"
+              class="text-sm text-slate-505 dark:text-slate-400 mb-6 leading-relaxed"
             >
-              The Nernst equation connects the standard cell potential (E°) to
-              the concentration of reactants and products (Q) and temperature,
-              allowing calculation of emf in non-standard states.
+              The Nernst equation quantitatively represents the relationship between the electrode potential (or cell EMF) of an electrochemical cell, the standard electrode potential ($E^\circ$), the temperature of the system ($T$), and the activities (or concentrations) of the ionic species involved in the reaction.
             </p>
 
             <div
-              class="p-6 md:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden text-sm"
+              class="p-6 md:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden text-sm space-y-6"
             >
+              <div class="mb-4">
+                <span class="text-xs font-black text-indigo-500 uppercase tracking-widest block mb-2">Theoretical Base Reactant Model</span>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Consider a generalized reversible metal reduction reaction occurring at the cathode of an electrochemical cell:
+                </p>
+                <div class="font-mono text-xs text-center py-2 bg-black/60 rounded-xl text-emerald-400 my-2">
+                  Mⁿ⁺(aq) + n e⁻ &nbsp;&rArr;&nbsp; M(s)
+                </div>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Where $M$ represents the metal, $n$ represents the number of moles of electrons transferred, and $M^{n+}$ represents the hydrated metal cation.
+                </p>
+              </div>
+
               <div
-                class="mb-6 pb-6 border-b border-slate-100 dark:border-slate-800"
+                class="pb-6 border-b border-slate-100 dark:border-slate-800"
               >
                 <span
                   class="text-[10px] font-bold uppercase tracking-widest text-blue-500 block mb-2"
-                  >Step 1: Gibbs Free Energy Relation</span
+                  >Step 1: Thermodynamic Gibbs Free Energy Relation</span
                 >
+                <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+                  From chemical thermodynamics, the change in Gibbs Free Energy ($\Delta G$) under non-standard state parameters is related to the standard Gibbs free energy change ($\Delta G^\circ$) and the reaction quotient ($Q$) by:
+                </p>
                 <p
-                  class="font-mono text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-black p-3 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800 break-words overflow-x-auto no-scrollbar whitespace-nowrap"
+                  class="font-mono text-center text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-black p-3.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800 break-words overflow-x-auto no-scrollbar whitespace-nowrap text-sm font-semibold"
                 >
-                  ΔG = ΔG° + RT ln(Q)
+                  &Delta;G = &Delta;G&deg; + R &middot; T &middot; ln(Q) &mdash;&mdash; (Equation 1)
                 </p>
-                <p class="mt-2 text-slate-500 dark:text-slate-400 text-xs">
-                  Where ΔG is free energy, R is universal gas const., T is
-                  temperature, Q is reaction quotient.
-                </p>
+                <div class="mt-2 text-slate-500 dark:text-slate-400 text-xs space-y-1 pl-2">
+                  <p>• <span class="font-mono">&Delta;G</span> = Change in Gibbs free energy (representing max useful electrical work available).</p>
+                  <p>• <span class="font-mono">&Delta;G&deg;</span> = Gibbs free energy change under standard state conditions (298 K, 1 atm, 1 M concentrations).</p>
+                  <p>• <span class="font-mono">R</span> = Universal gas constant ($8.314 \text{ J K}^{-1} \text{ mol}^{-1}$).</p>
+                  <p>• <span class="font-mono">T</span> = Absolute temperature in Kelvin.</p>
+                  <p>• <span class="font-mono">ln</span> = Natural logarithm (base $e$).</p>
+                  <p>• <span class="font-mono">Q</span> = Reaction Quotient. For our reduction reaction: <span class="font-mono text-indigo-400">Q = [M] / [Mⁿ⁺]</span>. Since the concentration/activity of any pure solid is unity ($[M] = 1$), <span class="font-mono text-indigo-400">Q = 1 / [Mⁿ⁺]</span>.</p>
+                </div>
               </div>
+
               <div
-                class="mb-6 pb-6 border-b border-slate-100 dark:border-slate-800"
+                class="pb-6 border-b border-slate-100 dark:border-slate-800"
               >
                 <span
                   class="text-[10px] font-bold uppercase tracking-widest text-blue-500 block mb-2"
-                  >Step 2: Substitute Electrical Work</span
+                  >Step 2: Linking Thermodynamic Work to Electrical Potentials</span
                 >
-                <p
-                  class="font-mono text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-black p-3 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800 break-words overflow-x-auto no-scrollbar whitespace-nowrap"
-                >
-                  -nFE = -nFE° + RT ln(Q)
+                <p class="text-xs text-slate-550 mb-3 leading-relaxed">
+                  The maximum electrical work ($w_{elec}$) that can be completed by a spontaneous galvanic cell is mathematically equal to the decrease in Gibbs Free Energy of the cell.
                 </p>
-                <p class="mt-2 text-slate-500 dark:text-slate-400 text-xs">
-                  Electrical work by cell: ΔG = -nFE (n = moles of electrons, F
-                  = Faraday's constant 96485 C/mol).
+                <div class="font-mono text-xs bg-slate-50 dark:bg-black/40 p-2.5 rounded-lg border border-slate-150 dark:border-slate-800/60 text-slate-400 leading-relaxed mb-3">
+                  Electrical Work = Charge &times; Potential Difference (EMF)<br />
+                  Charge of 1 mole of electrons = 1 Faraday (F) &asymp; 96485 Coulombs<br />
+                  Total Charge for 'n' moles of electrons transferred = n &middot; F
+                </div>
+                <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+                  Therefore, the electrical energy produced under standard and non-standard conditions is:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center my-2">
+                  <div class="p-3 bg-black/60 rounded-xl border border-slate-800">
+                    <span class="text-[10px] text-slate-500 uppercase tracking-widest block mb-1">Non-Standard</span>
+                    <span class="font-mono text-sm text-emerald-400 font-bold">&Delta;G = -n &middot; F &middot; E</span>
+                  </div>
+                  <div class="p-3 bg-black/60 rounded-xl border border-slate-800">
+                    <span class="text-[10px] text-slate-500 uppercase tracking-widest block mb-1">Standard State</span>
+                    <span class="font-mono text-sm text-indigo-400 font-bold">&Delta;G&deg; = -n &middot; F &middot; E&deg;</span>
+                  </div>
+                </div>
+                <p class="text-xs text-slate-500 leading-relaxed mt-3">
+                  Where $E$ represents cell EMF (electrode potential) and $E^\circ$ represents the standard cell EMF (potentials). Substituting these relationships into Equation 1:
+                </p>
+                <p
+                  class="font-mono text-center text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-black p-3.5 md:p-4 rounded-xl border border-slate-100 dark:border-slate-800 break-words overflow-x-auto no-scrollbar whitespace-nowrap text-sm font-semibold my-2"
+                >
+                  -n &middot; F &middot; E = -n &middot; F &middot; E&deg; + R &middot; T &middot; ln(Q) &mdash;&mdash; (Equation 2)
                 </p>
               </div>
+
               <div>
                 <span
                   class="text-[10px] font-bold uppercase tracking-widest text-blue-500 block mb-2"
-                  >Step 3: Final Nernst Formula</span
+                  >Step 3: Deriving the Final Cell Potential Relationship</span
                 >
-                <p
-                  class="font-mono font-bold text-center text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/10 p-4 md:p-6 rounded-xl border border-blue-200 dark:border-blue-900/30 break-words"
-                >
-                  E = E° - (RT/nF) ln(Q)
+                <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+                  Divide both sides of Equation 2 by the term <span class="font-bold font-mono">-nF</span> to isolate $E$:
+                </p>
+                <div class="font-mono text-xs text-center p-3.5 bg-black/60 rounded-xl text-slate-300 leading-relaxed mb-3">
+                  E = E&deg; - (R &middot; T / n &middot; F) &middot; ln(Q) &mdash;&mdash; (Equation 3)
+                </div>
+                <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+                  To transition from the natural logarithm ($ln$) to the base-10 common logarithm ($log_{10}$), we multiply the term by $2.303$:
                 </p>
                 <p
-                  class="font-mono text-center text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-black p-2 mt-2 rounded border border-slate-100 dark:border-slate-800 text-xs"
+                  class="font-mono font-bold text-center text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/10 p-4 md:p-6 rounded-xl border border-blue-200 dark:border-blue-900/30 break-words text-sm cursor-help"
+                  title="General Nernst Potential Equation"
                 >
-                  At 298K: E = E° - (0.0591/n) log(Q)
+                  E = E&deg; - (2.303 &middot; R &middot; T / n &middot; F) &middot; log₁₀(Q)
+                </p>
+              </div>
+
+              <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-500 block mb-2">Step 4: Standard Temperature Application (298 K / 25°C)</span>
+                <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+                  In a majority of standard electrochemistry exams and laboratory conditions, the cell runs at a steady room temperature of $298.15 \text{ K}$. Substituting the values of the constant variables:
+                </p>
+                <div class="font-mono text-[11px] bg-slate-50 dark:bg-black/60 p-4 rounded-xl border border-slate-205 dark:border-slate-800 text-slate-400 space-y-1 mb-3">
+                  <p>• R = 8.314 J K⁻¹ mol⁻¹</p>
+                  <p>• T = 298.15 K</p>
+                  <p>• F = 96485.3 C mol⁻¹</p>
+                  <p class="font-bold text-slate-700 dark:text-slate-300 mt-2">Numerator Constant calculation: (2.303 &times; 8.314 &times; 298.15) / 96485.3 = 0.05916 V</p>
+                </div>
+                <p class="text-xs text-slate-500 mb-3">Substituting this consolidated constant value into our main equation gives the famous standard Nernst Relationship:</p>
+                <p
+                  class="font-mono font-black text-center text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/20 p-4 rounded-xl border border-emerald-250 dark:border-emerald-900/40 text-sm"
+                >
+                  E_cell = E&deg;_cell - (0.0592 / n) &middot; log₁₀([Products] / [Reactants])
+                </p>
+                <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                  For our singular metal reduction cathode: <span class="font-mono font-bold text-slate-800 dark:text-slate-200">E = E&deg; - (0.0592 / n) &middot; log₁₀(1 / [Mⁿ⁺]) = E&deg; + (0.0592 / n) &middot; log₁₀([Mⁿ⁺])</span>. This proves that electrode potential increases as analyte concentration rises!
                 </p>
               </div>
             </div>
@@ -3615,12 +3739,94 @@ C₆H₅-CH₂-CH₂• + n (CH₂=CH₂)  →  C₆H₅-(CH₂-CH₂)n-CH₂-CH
             <h3
               class="text-xl font-black mb-4 text-slate-900 dark:text-slate-50 flex items-center gap-2"
             >
-              <span class="text-2xl">🧮</span> Beer-Lambert Law Calculator
+              <span class="text-2xl">🧮</span> Beer-Lambert Law: Derivation & Calculator
             </h3>
-            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">
-              Beer-Lambert states that absorbance is directly proportional to
-              concentration and path length: A = εcl.
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
+              The Beer-Lambert Law (or Beer's Law) governs the quantitative relations in absorption spectroscopy. It establishes a direct linear proportion between the absorbance of a solution and its concentration/path length under monochromatic light.
             </p>
+
+            <!-- Detailed Derivation Card -->
+            <div
+              class="mb-8 p-6 md:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-sm space-y-6"
+            >
+              <span class="text-xs font-black text-amber-500 uppercase tracking-widest block mb-2">Theoretical Foundations & Statements</span>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-slate-100 dark:border-slate-800">
+                <div>
+                  <h4 class="text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">1. Lambert's Law of Medium Thickness</h4>
+                  <p class="text-xs text-slate-500 leading-relaxed">
+                    When a monochromatic light beam traverses a homogeneous absorbing medium, the rate of decrease in light intensity with respect to the medium's thickness is directly proportional to the intensity of the incident radiation.
+                  </p>
+                  <p class="font-mono text-xs my-2 text-indigo-400 bg-slate-50 dark:bg-black/40 p-2 rounded text-center">
+                    -dI / dx &prop; I &nbsp;&rArr;&nbsp; -dI / dx = k' &middot; I
+                  </p>
+                </div>
+                <div>
+                  <h4 class="text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">2. Beer's Law of Concentration</h4>
+                  <p class="text-xs text-slate-500 leading-relaxed">
+                    When a monochromatic light beam passes through an absorbing solute in solution, the rate of change of intensity with respect to the solution's thickness is directly proportional to both intensity and solute concentration.
+                  </p>
+                  <p class="font-mono text-xs my-2 text-indigo-400 bg-slate-50 dark:bg-black/40 p-2 rounded text-center">
+                    -dI / dx &prop; I &middot; c &nbsp;&rArr;&nbsp; -dI / dx = k &middot; I &middot; c
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-amber-500 block mb-2">Step-by-Step Mathematical Derivation</span>
+                
+                <div class="space-y-4">
+                  <div class="p-4 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-xl">
+                    <h5 class="text-xs font-black text-slate-700 dark:text-slate-300 mb-1.5">Step A: Rearranging the Combined Differential Expression</h5>
+                    <p class="text-xs text-slate-500 mb-2 leading-relaxed">We gather the light intensity terms ($I$) on one side, and path length ($x$) and concentration ($c$) on the right:</p>
+                    <div class="font-mono text-xs text-center py-2 bg-black/60 rounded-xl text-emerald-400">
+                      dI / I = -k &middot; c &middot; dx &mdash;&mdash; (Equation 1)
+                    </div>
+                  </div>
+
+                  <div class="p-4 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-xl">
+                    <h5 class="text-xs font-black text-slate-700 dark:text-slate-300 mb-1.5">Step B: Integration within Boundaries</h5>
+                    <p class="text-xs text-slate-500 mb-2 leading-relaxed">Let the incident intense light beam be $I_0$ at thickness $x=0$. After traveling through path length $b$, let the remaining transmitted light intensity be $I_t$:</p>
+                    <div class="font-mono text-xs bg-black/40 p-3 rounded border border-slate-850 text-slate-300 leading-relaxed space-y-1.5">
+                      <p class="text-center">&int; (from I_0 to I_t) dI / I = -k &middot; c &middot; &int; (from 0 to b) dx</p>
+                      <p class="text-center">ln(I_t) - ln(I_0) = -k &middot; c &middot; b</p>
+                      <p class="text-center">ln(I_t / I_0) = -k &middot; c &middot; b &mdash;&mdash; (Equation 2)</p>
+                    </div>
+                  </div>
+
+                  <div class="p-4 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-xl">
+                    <h5 class="text-xs font-black text-slate-700 dark:text-slate-300 mb-1.5">Step C: Change-of-Base to Base-10 Common Logarithm</h5>
+                    <p class="text-xs text-slate-500 mb-2 leading-relaxed">We convert natural log ($ln$) to standard logarithm ($log_{10}$) using the relation $ln(z) \approx 2.303 \log_{10}(z)$. Multiplying inside logs by $-1$ to invert the transmission ratio gives:</p>
+                    <div class="font-mono text-xs bg-black/40 p-3 rounded border border-slate-850 text-slate-300 leading-relaxed space-y-1.5 text-center">
+                      2.303 &middot; log₁₀(I_t / I_0) = -k &middot; c &middot; b <br />
+                      log₁₀(I_0 / I_t) = [k / 2.303] &middot; c &middot; b &mdash;&mdash; (Equation 3)
+                    </div>
+                  </div>
+
+                  <div class="p-4 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-slate-800 rounded-xl">
+                    <h5 class="text-xs font-black text-slate-700 dark:text-slate-300 mb-1.5">Step D: Defining Absorbance (A) & Molar Absorptivity (&epsilon;)</h5>
+                    <p class="text-xs text-slate-500 mb-2 leading-relaxed">We consolidate physical constants: Molar Absorptivity (or Molar Extinction Coefficient) $\varepsilon = k / 2.303$. The logarithmic absorption ratio is called Absorbance ($A$) or Optical Density ($O.D.$):</p>
+                    <div class="font-mono text-sm text-center py-3 bg-black/60 rounded-xl text-amber-400 font-extrabold my-2">
+                      A = log₁₀(I_0 / I_t) = &epsilon; &middot; c &middot; b
+                    </div>
+                    <p class="text-[10px] text-slate-400 leading-relaxed mt-2 pl-1">
+                      Where $A$ is the dimensionless absorbance, $\varepsilon$ represents molar absorptivity ($\text{L mol}^{-1}\text{ cm}^{-1}$), $c$ is the analyte concentration ($\text{mol L}^{-1}$), and $b$ is the path length ($\text{cm}$).
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-500 block mb-2">Physicochemical Limits & Deviations</span>
+                <ul class="text-xs text-slate-500 space-y-2 leading-relaxed pl-2 list-disc list-inside">
+                  <li><strong class="text-slate-700 dark:text-slate-300">Concentration Limits:</strong> Restrictive to analytical solutions below $0.01\text{ M}$. Higher concentrations trigger electrostatic molecular interactions that alter standard molar absorptivity values.</li>
+                  <li><strong class="text-slate-700 dark:text-slate-300">Chemical Deviations:</strong> Active association, dissociation, or ionization reactions of the absorbing analyte inside the solvent invalidates linear behavior.</li>
+                  <li><strong class="text-slate-700 dark:text-slate-300">Spectral Linearity:</strong> Absolutely requires highly monochromatic light beams; otherwise, differing absorption coefficients for varying wave profiles skew measurements.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Inter-active Core Calculator -->
             <div
               class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm"
             >
