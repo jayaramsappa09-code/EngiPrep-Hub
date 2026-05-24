@@ -1,6 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 import {defineConfig, loadEnv} from 'vite';
+import react from '@vitejs/plugin-react';
 import fs from 'fs';
 
 const htmlFiles = fs.readdirSync(__dirname).filter(file => file.endsWith('.html'));
@@ -13,7 +14,7 @@ const inputMap = htmlFiles.reduce((acc, file) => {
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), react()],
     build: {
       rollupOptions: {
         input: inputMap,

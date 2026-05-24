@@ -563,207 +563,9 @@
                                     </div>
                                 </div>
                             </div>
-                        <div id="scales-solver" class="solver-sec hidden space-y-6 animate-fadeIn">
-                            <!-- Gorgeous Split Screen Layout! -->
-                            <div class="space-y-6">
-                                
-                                <!-- LEFT PANEL: Syllabus CAD Tutor & Stepper (md:col-span-4) -->
-                                <div class="space-y-4">
-                                    <div class="p-4 bg-slate-950/90 border border-slate-850 rounded-2xl space-y-4 shadow-xl">
-                                        <div class="flex items-center justify-between border-b border-slate-900 pb-2.5">
-                                            <h4 class="text-[10.5px] font-black text-cyan-400 uppercase tracking-widest flex items-center gap-1.5 font-sans">
-                                                <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i> AutoCAD Trainer
-                                            </h4>
-                                            <span class="px-2 py-0.5 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[8px] font-bold rounded font-mono uppercase animate-pulse" id="cad-rank-badge">CAD BEGINNER</span>
-                                        </div>
-
-                                        <!-- Tutorial Selector drop group -->
-                                        <div>
-                                            <label class="text-[8px] font-black text-slate-500 tracking-widest block mb-1 uppercase">Select Syllabus Topic</label>
-                                            <select id="cad-tutorial-selector" onchange="window.selectCADTutorial(this.value)" class="w-full bg-[#03030b] border border-slate-800 p-2.5 rounded text-[11px] font-bold text-cyan-400 font-sans cursor-pointer focus:border-cyan-500 transition-all select-none">
-                                                <option value="ellipse_tutorial">Unit I: Drawing Ellipse (ELLIPSE Command)</option>
-                                                <option value="polygon_tutorial">Unit I: Hexagon construction (POLYGON Command)</option>
-                                                <option value="projection_tutorial">Unit II: Multi-View Projections (LINE/XLINE)</option>
-                                                <option value="section_tutorial">Unit III/IV: Slicing solids (HATCH & SECTION)</option>
-                                                <option value="iso_tutorial">Unit V: Isometric Stepped Block (ISOPLANE & SNAP)</option>
-                                            </select>
-                                        </div>
-
-                                        <!-- Command Stepper Progress -->
-                                        <div class="bg-[#03030b]/85 border border-slate-850 p-4 rounded-xl space-y-3 relative overflow-hidden">
-                                            <div class="absolute inset-0 blueprint-grid opacity-5 pointer-events-none"></div>
-                                            <div class="flex items-center justify-between z-10 relative">
-                                                <span class="text-[8px] font-black text-slate-500 uppercase tracking-widest">Tutorial Steps</span>
-                                                <span id="cad-step-indicator" class="text-[9px] font-black text-cyan-400 font-mono">Step 1 of 4</span>
-                                            </div>
-                                            <!-- Step Descriptors -->
-                                            <div class="space-y-1.5 z-10 relative">
-                                                <h5 id="cad-step-title" class="text-[11.5px] font-extrabold text-white uppercase font-sans tracking-tight">Initialize major axis baseline</h5>
-                                                <p id="cad-step-desc" class="text-[10px] text-slate-400 leading-relaxed font-sans font-medium">Type L or LINE command in terminal below, or click 'Simulate Auto-Draw' to watch.</p>
-                                            </div>
-                                            
-                                            <div class="p-2.5 bg-cyan-950/20 border border-cyan-800/20 rounded-lg flex items-center justify-between text-[8px] font-mono z-10 relative">
-                                                <span class="text-slate-400 uppercase font-sans">Command to enter:</span>
-                                                <code id="cad-step-hint-code" class="text-cyan-400 font-bold tracking-wider">L 50 180 350 180</code>
-                                            </div>
-
-                                            <div class="flex gap-2 z-10 relative">
-                                                <button onclick="window.prevCADTutorialStep()" class="flex-1 py-1.5 bg-slate-900 hover:bg-slate-850 text-slate-400 rounded-lg text-[9px] font-black uppercase transition-all font-mono border border-slate-800 cursor-pointer">PREV</button>
-                                                <button onclick="window.nextCADTutorialStep()" class="flex-1 py-1.5 bg-slate-900 hover:bg-slate-850 text-slate-400 rounded-lg text-[9px] font-black uppercase transition-all font-mono border border-slate-800 cursor-pointer">NEXT</button>
-                                            </div>
-                                            
-                                            <button onclick="window.startAutoCADAnimation()" class="w-full py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg text-[9.5px] font-black uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-lg shadow-cyan-500/10 z-10 relative">
-                                                <i data-lucide="play" class="w-3.5 h-3.5"></i> Simulate Auto-Draw Course
-                                            </button>
-                                        </div>
-
-                                        <!-- Concept explanation widget -->
-                                        <div class="bg-slate-950/50 p-3 border border-slate-850 rounded-xl space-y-1.5">
-                                            <h5 class="text-[8.5px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> Technical CAD Explanation
-                                            </h5>
-                                            <p id="cad-concept-explanation" class="text-[9.5px] text-slate-400 leading-normal font-sans">
-                                                In digital drawings, standard vector equations translate relative or absolute points with 100% precision. The L (LINE) command aligns axes effortlessly.
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <!-- PRACTICE MODE GRADERS -->
-                                    <div class="p-4 bg-slate-950/90 border border-slate-800 rounded-2xl space-y-3 shadow-md">
-                                        <div class="flex items-center justify-between">
-                                            <h4 class="text-[9px] font-black text-cyan-400 uppercase tracking-widest">Self Practice & Evaluation</h4>
-                                            <span class="px-1.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[8px] font-bold rounded font-mono uppercase" id="cad-mode-badge-practice">PRACTICE MODE</span>
-                                        </div>
-                                        <p class="text-[9.5px] text-slate-400 leading-normal font-sans">
-                                            Recreate the drawing or complete missions by typing coordinates in the command bar! Click grade to verify.
-                                        </p>
-                                        
-                                        <!-- Practice grader info -->
-                                        <div class="grid grid-cols-2 gap-2 bg-black/60 p-2.5 rounded-lg border border-slate-900 font-mono text-[9px]">
-                                            <div class="text-slate-500">Elements: <span id="cad-elements-qty" class="text-white font-bold">0</span></div>
-                                            <div class="text-slate-500">Isogrid: <span id="cad-grid-mode-lbl" class="text-white font-bold">Standard</span></div>
-                                            <div class="text-slate-450 col-span-2 border-t border-slate-900 pt-1.5 mt-1.5 flex justify-between uppercase">
-                                                <span>Mission target:</span>
-                                                <span class="text-cyan-400 font-bold text-right" id="cad-target-desc">Draw major axis 300px</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <button onclick="window.gradeCADAccuracy()" class="py-2 bg-cyan-500/10 border border-cyan-500/25 hover:bg-cyan-500/20 text-cyan-450 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer">Grade Accuracy (%)</button>
-                                            <button onclick="window.clearCADCanvas()" class="py-2 bg-red-500/10 border border-red-500/25 hover:bg-red-500/20 text-red-500 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer">Wipe Canvas</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- RIGHT PANEL: Master CAD Viewport & Terminal CLI -->
-                                <div class="space-y-4">
-                                    
-                                    <!-- CAD Canvas Container with Controls -->
-                                    <div class="p-4 bg-[#020208] border border-cyan-950/40 rounded-2xl space-y-3 shadow-2xl relative">
-                                        
-                                        <!-- Interactive Options bar -->
-                                        <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-950/95 p-2.5 rounded-xl border border-slate-850">
-                                            <div class="flex items-center gap-1.5">
-                                                <span class="text-[8.5px] font-black text-cyan-400 uppercase tracking-widest font-mono">Mode:</span>
-                                                <select id="cad-interactive-mode-sel" onchange="window.setCADInteractiveMode(this.value)" class="bg-[#03030b] border border-slate-800 px-2 py-0.5 rounded text-[9.5px] font-black text-white cursor-pointer select-none">
-                                                    <option value="tutorial">Guided Tutorial</option>
-                                                    <option value="free">Free Practice Mode</option>
-                                                </select>
-                                            </div>
-                                            
-                                            <!-- ISOPLANE helper settings -->
-                                            <div class="flex items-center gap-1.5">
-                                                <span class="text-[8.5px] font-black text-cyan-400 uppercase tracking-widest font-mono">Isoplane Grid:</span>
-                                                <div class="flex gap-1">
-                                                    <button onclick="window.toggleCADGrid('standard')" id="btn-grid-std" class="px-2 py-0.5 rounded text-[8.5px] font-black bg-cyan-600 text-white border border-cyan-500/30">Standard</button>
-                                                    <button onclick="window.toggleCADGrid('iso-left')" id="btn-grid-isoleft" class="px-2 py-0.5 rounded text-[8.5px] font-black bg-slate-950 text-slate-500 border border-slate-900 hover:text-white transition-all">Iso-30° (Left)</button>
-                                                    <button onclick="window.toggleCADGrid('iso-right')" id="btn-grid-isoright" class="px-2 py-0.5 rounded text-[8.5px] font-black bg-slate-950 text-slate-500 border border-slate-900 hover:text-white transition-all">Iso-150° (Right)</button>
-                                                </div>
-                                            </div>
-
-                                            <!-- Toggle snap rules -->
-                                            <div class="flex items-center gap-3">
-                                                <label class="flex items-center gap-1 cursor-pointer">
-                                                    <input type="checkbox" id="cad-adv-snap" checked onchange="window.redrawCADCanvas()" class="accent-cyan-500 h-3.5 w-3.5">
-                                                    <span class="text-[9px] text-slate-400 font-bold uppercase select-none">Snap Grid</span>
-                                                </label>
-                                                
-                                                <label class="flex items-center gap-1 cursor-pointer">
-                                                    <input type="checkbox" id="cad-show-ortho-guides" checked onchange="window.redrawCADCanvas()" class="accent-cyan-500 h-3.5 w-3.5">
-                                                    <span class="text-[9px] text-slate-450 font-bold uppercase select-none">Ortho Track</span>
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <!-- Canvas Workspace Viewport -->
-                                        <div class="bg-black border border-slate-900 rounded-2xl relative overflow-hidden shadow-2xl h-[400px]">
-                                            <canvas id="cad-canvas" class="w-full h-full cursor-crosshair absolute inset-0"></canvas>
-                                            
-                                            <!-- Simulated Cursor Crawler indicator overlay -->
-                                            <div id="cad-cur-crawler" class="absolute pointer-events-none w-8 h-8 border border-cyan-500/30 rounded-full flex items-center justify-center transition-all duration-75 ease-out" style="left: -999px; top: -999px; transform: translate(-50%, -50%);">
-                                                <div class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-ping"></div>
-                                                <div class="absolute w-10 h-px bg-cyan-500/20"></div>
-                                                <div class="absolute h-10 w-px bg-cyan-500/20"></div>
-                                            </div>
-
-                                            <!-- Real-time Floating HUD -->
-                                            <div id="cad-floating-hud" class="pointer-events-none absolute hidden bg-[#03030b]/95 border border-cyan-500/30 rounded-lg p-2 px-2.5 text-[9.5px] font-mono text-cyan-400 shadow-2xl z-20 backdrop-blur-sm">
-                                                <div class="flex flex-col gap-1">
-                                                    <div id="floating-coords" class="flex justify-between gap-4">
-                                                        <span>POS <span id="f-hud-x" class="text-white font-bold">0</span>, <span id="f-hud-y" class="text-white font-bold font-mono">0</span></span>
-                                                        <span class="text-cyan-600 font-bold font-mono" id="f-hud-mode-lbl font-mono">SNAP LOCKED</span>
-                                                    </div>
-                                                    <div id="floating-metrics" class="flex gap-4 border-t border-cyan-900/30 pt-1 mt-1">
-                                                        <span id="f-hud-dist" class="text-emerald-400 font-bold">L: 0px</span>
-                                                        <span id="f-hud-angle" class="text-yellow-400 font-bold font-mono">∠ 0°</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Bottom Left Dynamic Coordinate Panel -->
-                                            <div class="absolute bottom-4 left-4 bg-black/85 p-2 px-3 rounded-lg border border-slate-800 font-mono text-[9px] text-cyan-400 flex items-center gap-4 shadow-xl select-none">
-                                                <span>X: <b id="hud-x" class="text-white font-bold">0</b></span>
-                                                <span>Y: <b id="hud-y" class="text-white font-bold font-mono">0</b></span>
-                                                <span>ANG: <b id="hud-angle" class="text-white font-bold font-mono">0°</b></span>
-                                                <span class="text-slate-600">|</span>
-                                                <span>LAST: <span id="hud-last-cmd" class="text-pink-400 font-bold">READY</span></span>
-                                            </div>
-                                            
-                                            <!-- Top Right Status indicators -->
-                                            <div class="absolute top-4 right-4 flex gap-2">
-                                                <span class="px-2 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[8px] font-bold uppercase font-mono rounded select-none">GRID: 20px</span>
-                                                <span class="px-2 py-1 bg-[#10b981]/15 border border-[#10b981]/25 text-[#10b981] text-[8px] font-bold uppercase font-mono rounded select-none shadow animate-pulse">SNAP LOCK</span>
-                                            </div>
-                                        </div>
-
-                                        <!-- Realistic AutoCAD CLI Terminal Console -->
-                                        <div class="bg-[#03030b] border border-slate-900 rounded-xl p-3 font-mono text-[11px] h-36 flex flex-col shadow-inner">
-                                            <div id="cad-cli-scroll" class="flex-1 overflow-y-auto space-y-1 text-slate-500 text-[9.5px] mb-2 font-mono scroll-smooth no-scrollbar">
-                                                <div class="text-[#10b981]/80 font-mono font-bold">> AutoCAD Command Terminal (R23 Interface Server) v4.95 online.</div>
-                                                <div class="text-slate-550 font-mono">> Ready for direct CLI vector injections. Try helper controls or type below.</div>
-                                            </div>
-                                            <div class="flex items-center gap-2 border-t border-slate-850 pt-2 p-1 rounded">
-                                                <span class="text-cyan-400 font-mono font-black select-none text-[10px]">AUTO_CAD>></span>
-                                                <input type="text" id="cad-cli" onkeydown="window.processCADCommand(event)" placeholder="Type LINE, CIRCLE, POLYGON, TRIM, OFFSET, HELP or HATCH..." class="flex-1 bg-transparent border-none outline-none text-white focus:ring-0 placeholder:text-slate-700 text-[11px] font-mono select-all">
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Command suggestions guide shortcuts -->
-                                        <div class="flex flex-wrap gap-1.5 pt-1">
-                                            <span class="text-[8px] font-black text-slate-500 uppercase flex items-center pr-1.5">Shortcuts:</span>
-                                            <button onclick="window.injectCADTerminal('HELP')" class="px-2 py-0.5 font-mono text-[8.5px] bg-[#050810] border border-slate-850 rounded hover:border-cyan-500/55 transition text-cyan-400 cursor-pointer">HELP</button>
-                                            <button onclick="window.injectCADTerminal('LINE 50 180 350 180')" class="px-2 py-0.5 font-mono text-[8.5px] bg-[#050810] border border-slate-850 rounded hover:border-cyan-500/55 transition text-slate-400 cursor-pointer">LINE</button>
-                                            <button onclick="window.injectCADTerminal('CIRCLE 200 180 80')" class="px-2 py-0.5 font-mono text-[8.5px] bg-[#050810] border border-slate-850 rounded hover:border-cyan-500/55 transition text-slate-400 cursor-pointer">CIRCLE</button>
-                                            <button onclick="window.injectCADTerminal('POLYGON 6 200 200 60')" class="px-2 py-0.5 font-mono text-[8.5px] bg-[#050810] border border-slate-850 rounded hover:border-cyan-500/55 transition text-slate-400 cursor-pointer">POLYGON</button>
-                                            <button onclick="window.injectCADTerminal('HATCH')" class="px-2 py-0.5 font-mono text-[8.5px] bg-[#050810] border border-slate-850 rounded hover:border-cyan-500/55 transition text-slate-400 cursor-pointer">HATCH</button>
-                                            <button onclick="window.injectCADTerminal('ISOPLANE LEFT')" class="px-2 py-0.5 font-mono text-[8.5px] bg-[#050810] border border-slate-850 rounded hover:border-cyan-500/55 transition text-slate-400 cursor-pointer">ISOPLANE</button>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>     </div>
-                        </div>
+                        <div id="scales-solver" class="solver-sec hidden animate-fadeIn w-full">
+    <div id="react-cad-tutor-root"></div>
+</div>
 
                         <!-- SUITE 2: Projections Visualizer -->
                         <div id="quad-solver" class="solver-sec hidden space-y-6 animate-fadeIn h-[500px]">
@@ -1260,47 +1062,168 @@
                 </section>
 
                 <!-- SURVIVAL PLAN SECTION -->
-                <section id="crash-plan" class="p-10 bg-slate-950 border border-rose-500/20 rounded-[3rem] scroll-mt-24 font-sans select-none relative overflow-hidden group">
-                    <div class="absolute inset-0 blueprint-grid opacity-5 pointer-events-none group-hover:opacity-10 transition-opacity"></div>
-                    <div class="flex flex-col md:flex-row items-center gap-8 relative z-10">
-                        <div class="flex-1 space-y-6">
-                            <div class="space-y-2">
-                                <span class="text-[10px] font-black text-rose-500 uppercase tracking-[0.3em]">EXAM SURVIVAL PROTOCOL</span>
-                                <h2 class="text-3xl font-black text-white uppercase tracking-tighter leading-none italic">Scoring 90+ <br><span class="text-rose-500 italic block mt-2 text-4xl">One Night Stand Plan</span></h2>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium leading-relaxed">
-                                <div class="space-y-4">
-                                     <div class="flex gap-4">
-                                        <div class="w-10 h-10 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 text-cyan-500 group-hover:border-cyan-500/50 transition-all"><i data-lucide="zap" class="w-5 h-5"></i></div>
-                                        <p class="text-slate-400"><b>Focus on Units 1 & 2:</b> General Ellipse method and Projections of points/lines generate 50% of repeatable marks. Master them first.</p>
-                                    </div>
-                                    <div class="flex gap-4">
-                                        <div class="w-10 h-10 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 text-rose-500 group-hover:border-rose-500/50 transition-all"><i data-lucide="box" class="w-5 h-5"></i></div>
-                                        <p class="text-slate-400"><b>Solids Hidden Edges:</b> Use dotted 2H lines for invisible edges. JNTUK evaluators deduct 5-7 marks for missing conventions.</p>
-                                    </div>
+                <section id="crash-plan" class="glass-card p-8 md:p-12 scroll-mt-24 border-t-8 border-rose-600 relative overflow-hidden group space-y-12">
+                    <!-- COACH'S BRIEFING -->
+                    <div class="space-y-4 max-w-3xl relative z-10">
+                        <span class="inline-block px-3 py-1 bg-rose-500/10 text-rose-500 text-[10px] font-black uppercase tracking-[0.3em] rounded-full border border-rose-500/20">EXAM SURVIVAL PROTOCOL</span>
+                        <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none italic block">
+                            The 48-Hour Exam <br><span class="text-rose-500">Crash Course</span>
+                        </h2>
+                        <div class="px-6 py-4 bg-slate-900 border-l-4 border-rose-500 text-slate-300 text-sm font-medium leading-relaxed italic rounded-r-2xl">
+                            "Panic is not a strategy; execution is. You only need ~26 marks to clear the paper. We are abandoning the entire syllabus and focusing strictly on the Three Pillars that appear in 95% of past papers. If you master these three constructions, you walk away with 42 potential marks. Lock in. Here is your survival blueprint."
+                        </div>
+                    </div>
+
+                    <!-- CRASH COURSE TRACKER WIDGET -->
+                    <div id="eg-crash-course-tracker" class="bg-slate-950 border border-slate-800 rounded-[2rem] p-8 shadow-2xl relative z-10">
+                        <div class="text-center space-y-2 mb-8">
+                            <h3 class="text-xl font-black text-white uppercase tracking-wider">Emergency Exam Tracker</h3>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Time Remaining Until Zero Hour</p>
+                            <!-- Countdown -->
+                            <div class="flex justify-center items-center gap-4 mt-4 font-mono text-cyan-400">
+                                <div class="bg-black border border-cyan-900/50 p-4 rounded-xl min-w-[80px]">
+                                    <div class="text-4xl font-black leading-none" id="countdown-hours">48</div>
+                                    <div class="text-[8px] text-slate-500 tracking-widest uppercase mt-2">Hours</div>
                                 </div>
-                                <div class="space-y-4">
-                                    <div class="flex gap-4">
-                                        <div class="w-10 h-10 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 text-amber-500 group-hover:border-amber-500/50 transition-all"><i data-lucide="scissors" class="w-5 h-5"></i></div>
-                                        <p class="text-slate-400"><b>Development Method:</b> Radial for Cone/Pyramid, Parallel for Prism/Cylinder. Do not mix construction procedures.</p>
-                                    </div>
-                                    <div class="flex gap-4">
-                                        <div class="w-10 h-10 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 text-emerald-500 group-hover:border-emerald-500/50 transition-all"><i data-lucide="check" class="w-5 h-5"></i></div>
-                                        <p class="text-slate-400"><b>CAD Commands:</b> Memorize L, C, TR, RO, MI (Mirror), O (Offset). Scores 2-4 marks in theory vivas.</p>
-                                    </div>
+                                <div class="text-xl text-cyan-900">:</div>
+                                <div class="bg-black border border-cyan-900/50 p-4 rounded-xl min-w-[80px]">
+                                    <div class="text-4xl font-black leading-none" id="countdown-minutes">00</div>
+                                    <div class="text-[8px] text-slate-500 tracking-widest uppercase mt-2">Mins</div>
+                                </div>
+                                <div class="text-xl text-cyan-900">:</div>
+                                <div class="bg-black border border-cyan-900/50 p-4 rounded-xl min-w-[80px]">
+                                    <div class="text-4xl font-black leading-none" id="countdown-seconds">00</div>
+                                    <div class="text-[8px] text-slate-500 tracking-widest uppercase mt-2">Secs</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full md:w-72 p-6 bg-slate-900 border border-slate-800 rounded-[2rem] text-center space-y-4 shadow-2xl relative">
-                            <div class="absolute -top-3 -right-3 w-10 h-10 bg-rose-600 text-white rounded-full flex items-center justify-center font-black text-xs shadow-lg animate-bounce">TOP!</div>
-                            <div class="flex justify-center text-rose-500 mb-4 animate-pulse"><i data-lucide="crown" class="w-12 h-12"></i></div>
-                            <h5 class="text-sm font-black text-white uppercase italic">Protocol Read?</h5>
-                            <p class="text-[10px] text-slate-500 leading-normal font-sans font-medium uppercase tracking-widest">Execute final mastery sequence and verify your terminal mastery status.</p>
-                            <label class="flex justify-center items-center gap-2.5 p-3 rounded-2xl bg-black/40 border border-slate-850 cursor-pointer text-xs font-bold text-slate-400 transition-all hover:border-emerald-500/50">
+
+                        <!-- Checkboxes -->
+                        <div class="max-w-md mx-auto space-y-3 relative z-10">
+                            <label class="flex items-center gap-4 p-4 rounded-2xl bg-black border border-slate-800 cursor-pointer transition-all hover:border-emerald-500/50 group">
+                                <input type="checkbox" id="crash-chk-1" onclick="checkCrashCourseProgress()" class="w-6 h-6 accent-emerald-500 rounded border-slate-700 bg-slate-950">
+                                <span class="group-hover:text-amber-400 text-slate-300 font-black uppercase text-sm selection:bg-none">Involute Mastered</span>
+                            </label>
+                            <label class="flex items-center gap-4 p-4 rounded-2xl bg-black border border-slate-800 cursor-pointer transition-all hover:border-emerald-500/50 group">
+                                <input type="checkbox" id="crash-chk-2" onclick="checkCrashCourseProgress()" class="w-6 h-6 accent-emerald-500 rounded border-slate-700 bg-slate-950">
+                                <span class="group-hover:text-amber-400 text-slate-300 font-black uppercase text-sm selection:bg-none">Dual-Line Mastered</span>
+                            </label>
+                            <label class="flex items-center gap-4 p-4 rounded-2xl bg-black border border-slate-800 cursor-pointer transition-all hover:border-emerald-500/50 group">
+                                <input type="checkbox" id="crash-chk-3" onclick="checkCrashCourseProgress()" class="w-6 h-6 accent-emerald-500 rounded border-slate-700 bg-slate-950">
+                                <span class="group-hover:text-amber-400 text-slate-300 font-black uppercase text-sm selection:bg-none">Isometric Mastered</span>
+                            </label>
+                            <label class="hidden flex justify-center items-center gap-2.5 p-3 rounded-2xl bg-black/40 border border-slate-850 cursor-pointer text-xs font-bold text-slate-400 transition-all hover:border-emerald-500/50">
                                 <input type="checkbox" id="tag-8" onclick="toggleScoreTask('tag-8')" class="w-5 h-5 accent-emerald-500 rounded border-slate-700 bg-slate-950">
                                 <span>I AM EXAM READY (+20 XP)</span>
                             </label>
                         </div>
+
+                        <!-- Unlockable State -->
+                        <div id="crash-unlock" class="max-w-md mx-auto mt-6 hidden transition-all duration-700 opacity-0 transform translate-y-4">
+                            <a href="#" class="block text-center p-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white shadow-xl shadow-emerald-500/20 transition-all">
+                                <span class="block text-xl font-black uppercase tracking-wider flex items-center justify-center gap-2">
+                                    <i data-lucide="download" class="w-5 h-5"></i> JNTUK-R23 MINIMUM VIABLE CHEAT SHEET
+                                </span>
+                                <span class="text-[9px] uppercase tracking-widest font-bold opacity-80 mt-1 block">DOWNLOAD PDF • 1.2 MB</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- PILLARS -->
+                    <div class="space-y-12 relative z-10">
+                        <!-- PILLAR 1 -->
+                        <div class="space-y-6">
+                            <h3 class="text-2xl font-black text-cyan-400 uppercase tracking-tighter border-b border-slate-800 pb-2">PILLAR 1: Involute of a Circle (Unit 1)</h3>
+                            <p class="text-sm text-slate-400 font-medium italic">If you draw one curve, make it this one.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-medium">
+                                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
+                                    <h4 class="text-[10px] font-black text-white uppercase tracking-widest border-l-2 border-cyan-500 pl-2">The Academic Anchor</h4>
+                                    <p class="text-slate-300"><b>[Core Concept]:</b> An involute is the path traced by the end of a taut string as it unwinds from a circular drum.</p>
+                                    <p class="text-slate-300"><b>[80/20 Weightage]:</b> Absolute Priority. Guaranteed 14-mark question. Easiest curve to memorize in under an hour.</p>
+                                    <div class="p-3 bg-black/40 rounded-xl space-y-2 text-xs border border-slate-800">
+                                        <div class="font-black text-[9px] uppercase tracking-widest text-slate-500 border-b border-slate-800 pb-1">Pencil & Instrument Manifesto</div>
+                                        <p><span class="text-cyan-400 font-bold">2H Pencil:</span> For the directing circle, tangent lines, and division markings.</p>
+                                        <p><span class="text-emerald-400 font-bold">HB Pencil:</span> For the final involute curve only.</p>
+                                        <p><span class="text-amber-400 font-bold">Instruments:</span> Compass and Mini-drafter (critical for drawing perfect $90^\circ$ tangents).</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
+                                    <h4 class="text-[10px] font-black text-white uppercase tracking-widest border-l-2 border-blue-500 pl-2">The Step-by-Step Live Drawing Engine</h4>
+                                    <ul class="space-y-3 text-slate-300 text-xs leading-relaxed">
+                                        <li><b>1. Draw Base & Circumference Line:</b> Use 2H pencil. Draw the given circle (center $C$, radius $R$). From the bottom-most point $P$, draw a horizontal line $PQ$ equal to the circumference ($2\pi R$).</li>
+                                        <li><b>2. Divide the Circle:</b> Use 2H pencil & protractor. Divide the circle into 12 equal parts ($30^\circ$ each). Number them $1, 2, 3... 12$ in a counter-clockwise direction. Divide line $PQ$ into 12 equal parts.</li>
+                                        <li><b>3. Draw Tangents:</b> Lock mini-drafter to 90 degrees. From points $1, 2, 3... 12$ on the circle, draw lines perfectly tangent to the circle (perpendicular to the radius at that point).</li>
+                                        <li><b>4. Mark Unwinding Lengths:</b> Use compass. On the tangent from point 1, mark a length equal to 1 division of $PQ$ to get $P_1$. On the tangent from point 2, mark a length equal to 2 divisions to get $P_2$. Repeat until $P_{12}$ (which equals the full length $PQ$).</li>
+                                        <li><b>5. Finalize the Curve:</b> Use HB pencil. Use a French curve to smoothly join $P, P_1, P_2... P_{12}$. The curve must be continuous and dark.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PILLAR 2 -->
+                        <div class="space-y-6">
+                            <h3 class="text-2xl font-black text-emerald-400 uppercase tracking-tighter border-b border-slate-800 pb-2">PILLAR 2: Line Inclined to Both Planes (Unit 2)</h3>
+                            <p class="text-sm text-slate-400 font-medium italic">The Locus Method is the cheat code for Unit 2.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-medium">
+                                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
+                                    <h4 class="text-[10px] font-black text-white uppercase tracking-widest border-l-2 border-emerald-500 pl-2">The Academic Anchor</h4>
+                                    <p class="text-slate-300"><b>[Core Concept]:</b> To find the apparent views of a line inclined to both HP ($\theta$) and VP ($\phi$), you must draw the True Lengths first, find their vertical/horizontal reach, and rotate them into position using loci.</p>
+                                    <p class="text-slate-300"><b>[80/20 Weightage]:</b> 14 marks. If you understand this, you automatically understand Unit 3 (Solids).</p>
+                                    <div class="p-3 bg-black/40 rounded-xl space-y-2 text-xs border border-slate-800">
+                                        <div class="font-black text-[9px] uppercase tracking-widest text-slate-500 border-b border-slate-800 pb-1">Pencil & Instrument Manifesto</div>
+                                        <p><span class="text-cyan-400 font-bold">2H Pencil:</span> For $XY$, True Length (TL) lines, and horizontal locus lines.</p>
+                                        <p><span class="text-emerald-400 font-bold">HB Pencil:</span> For the final $a'b'$ and $ab$ views.</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
+                                    <h4 class="text-[10px] font-black text-white uppercase tracking-widest border-l-2 border-blue-500 pl-2">The Step-by-Step Live Drawing Engine</h4>
+                                    <ul class="space-y-3 text-slate-300 text-xs leading-relaxed">
+                                        <li><b>1. Set the Anchor (Point A):</b> Use 2H pencil. Draw $XY$. Plot $a'$ (Front View) above $XY$ and $a$ (Top View) below $XY$. Draw horizontal locus lines through both.</li>
+                                        <li><b>2. Draw True Lengths:</b> Use 2H pencil. From $a'$, draw TL at angle $\theta$ to get $b_1'$. From $a$, draw TL at angle $\phi$ to get $b_2$.</li>
+                                        <li><b>3. Establish Loci of B:</b> Use 2H pencil. Draw a horizontal locus line through $b_1'$ (Locus of $b'$). Draw a horizontal locus line through $b_2$ (Locus of $b$).</li>
+                                        <li><b>4. Project & Rotate:</b> Use compass. Project $b_1'$ straight down to the locus of $a$ to get $b_1$. Rotate $ab_1$ onto the Locus of $b$ to find the final $b$. Project $b_2$ straight up to the locus of $a'$ to get $b_2'$. Rotate $a'b_2'$ onto the Locus of $b'$ to find final $b'$.</li>
+                                        <li><b>5. The Vertical Test:</b> Critical check. Join $a'b'$ (HB) and $ab$ (HB). Draw a line connecting $b'$ and $b$. If this line is not perfectly vertical (perpendicular to $XY$), your drawing is wrong.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PILLAR 3 -->
+                        <div class="space-y-6">
+                            <h3 class="text-2xl font-black text-amber-400 uppercase tracking-tighter border-b border-slate-800 pb-2">PILLAR 3: Isometric to Orthographic (Unit 5)</h3>
+                            <p class="text-sm text-slate-400 font-medium italic">Zero formulas. Pure visualization. Free step marks.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-medium">
+                                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
+                                    <h4 class="text-[10px] font-black text-white uppercase tracking-widest border-l-2 border-amber-500 pl-2">The Academic Anchor</h4>
+                                    <p class="text-slate-300"><b>[Core Concept]:</b> Flattening a 3D block into 2D Front, Top, and Side views while keeping them perfectly aligned.</p>
+                                    <p class="text-slate-300"><b>[80/20 Weightage]:</b> 14 marks. Easiest section to score partial marks even if you make a mistake on a hidden line.</p>
+                                    <div class="p-3 bg-black/40 rounded-xl space-y-2 text-xs border border-slate-800">
+                                        <div class="font-black text-[9px] uppercase tracking-widest text-slate-500 border-b border-slate-800 pb-1">Pencil & Instrument Manifesto</div>
+                                        <p><span class="text-cyan-400 font-bold">2H Pencil:</span> For light projection lines connecting the views.</p>
+                                        <p><span class="text-emerald-400 font-bold">HB Pencil:</span> For all visible boundaries.</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
+                                    <h4 class="text-[10px] font-black text-white uppercase tracking-widest border-l-2 border-blue-500 pl-2">The Step-by-Step Live Drawing Engine</h4>
+                                    <ul class="space-y-3 text-slate-300 text-xs leading-relaxed">
+                                        <li><b>1. Calculate Bounding Boxes:</b> Look at the 3D figure. Find the absolute Maximum Length ($L$), Height ($H$), and Depth ($D$).</li>
+                                        <li><b>2. Set Up the Grid:</b> Use 2H pencil. Draw an $XY$ (horizontal) and $X_1Y_1$ (vertical) reference cross. Leave a $10\text{ mm}$ gap from the axes and draw three light rectangular boxes:<br>
+                                        - Front View Box: $L \times H$ (Top left/right depending on viewing arrow)<br>
+                                        - Top View Box: $L \times D$ (Directly below Front View)<br>
+                                        - Side View Box: $D \times H$ (Next to Front View)</li>
+                                        <li><b>3. Draw Visible Faces:</b> Use HB pencil. Look purely in the direction of the arrow. Draw what you see inside the Front View box. Repeat looking from the top for the Top View.</li>
+                                        <li><b>4. Add Hidden Details:</b> HB dashed lines. Identify any holes, slots, or cutouts that exist in the 3D block but cannot be seen from the specific viewing angle. Represent these with medium-thick dashed lines.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
 
@@ -1796,6 +1719,71 @@
                 window.location.reload();
             }
         };
+
+        // --- CRASH COURSE TRACKER ---
+        function updateCrashCountdown() {
+            let targetDate = localStorage.getItem('engi_eg_exam_target');
+            if (!targetDate) {
+                targetDate = new Date().getTime() + (48 * 60 * 60 * 1000);
+                localStorage.setItem('engi_eg_exam_target', targetDate);
+            }
+            
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                if (document.getElementById("countdown-hours")) {
+                    document.getElementById("countdown-hours").innerHTML = "00";
+                    document.getElementById("countdown-minutes").innerHTML = "00";
+                    document.getElementById("countdown-seconds").innerHTML = "00";
+                }
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hoursPart = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const totalHours = String((days * 24) + hoursPart).padStart(2, '0');
+            const minutes = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            const seconds = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+
+            if (document.getElementById("countdown-hours")) {
+                document.getElementById("countdown-hours").innerHTML = totalHours;
+                document.getElementById("countdown-minutes").innerHTML = minutes;
+                document.getElementById("countdown-seconds").innerHTML = seconds;
+            }
+        }
+
+        window.checkCrashCourseProgress = function() {
+            const c1 = document.getElementById('crash-chk-1').checked;
+            const c2 = document.getElementById('crash-chk-2').checked;
+            const c3 = document.getElementById('crash-chk-3').checked;
+
+            if (c1 && c2 && c3) {
+                const tag8 = document.getElementById('tag-8');
+                if (tag8) tag8.checked = true;
+                
+                let status8 = localStorage.getItem('engi_eg_task_id_8');
+                if (status8 !== 'completed') {
+                    localStorage.setItem('engi_eg_task_id_8', 'completed');
+                    scoreXP += 500;
+                    showEGNotification("Clutch Performer Badge Unlocked! +500 XP");
+                    updateXPUIRender();
+                }
+
+                const unlockEl = document.getElementById('crash-unlock');
+                if (unlockEl) {
+                    unlockEl.classList.remove('hidden');
+                    setTimeout(() => {
+                        unlockEl.classList.remove('opacity-0', 'translate-y-4');
+                    }, 50);
+                }
+
+                if (window.triggerConfettiCelebration) window.triggerConfettiCelebration();
+            }
+        };
+
+        setInterval(updateCrashCountdown, 1000);
+        updateCrashCountdown();
 
         // --- MASTER JNTUK R23 SYLLABUS TOPICS CONFIGURATION REGISTRY ---
         const TopicRegistry = {
@@ -4656,5 +4644,6 @@
             updatePomoUI();
         }, 300);
     </script>
+    <script type="module" src="/src/cad-entry.tsx"></script>
 </body>
 </html>
