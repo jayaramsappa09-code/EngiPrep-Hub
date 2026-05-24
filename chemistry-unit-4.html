@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JNTUK R23 Polymer Chemistry | EngiPrep Hub</title>
-    <meta name="description" content="Elite JNTUK R23 Polymer Chemistry. Simple exam tomorrow explanations, step derivations, board solved PYQs, and interactive viva cards.">
+    <meta name="description" content="Elite JNTUK R23 Polymer Chemistry notes. Free radical mechanism animations, conducting polymers, and interactive PYQs.">
     <link rel="stylesheet" href="/src/style.css">
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -20,8 +20,12 @@
         .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
         .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
         .viva-card-back { transform: rotateY(180deg); }
+        
+        .monomer { animation: float 3s ease-in-out infinite; }
+        .prop-chain { stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw-chain 2s linear forwards; }
+        @keyframes draw-chain { to { stroke-dashoffset: 0; } }
+        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-5px) rotate(5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
     </style>
-    <!-- Inline blocker removed for SEO/AdSense Crawlability -->
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
 <body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
@@ -36,262 +40,159 @@
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
         <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
             <ol class="flex items-center gap-2">
-                <li><a href="/" class="hover:text-blue-500">Home</a></li>
+                <li><a href="/" class="hover:text-purple-500">Home</a></li>
                 <li>/</li>
-                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
+                <li><a href="/all-subjects.html" class="hover:text-purple-500">Subjects</a></li>
                 <li>/</li>
-                <li><a href="/subject.html?slug=chemistry" class="hover:text-blue-500">chemistry</a></li>
+                <li><a href="/subject.html?slug=chemistry" class="hover:text-purple-500">chemistry</a></li>
                 <li>/</li>
-                <li class="text-blue-500" aria-current="page">Polymer Chemistry</li>
+                <li class="text-purple-500" aria-current="page">Polymer Chemistry</li>
             </ol>
         </nav>
-        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
-            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Polymer Chemistry <span class="text-blue-500">Survival Kit</span></h1>
-            <p class="text-slate-400 mt-4">Polymerization mechanisms, Plastics (PVC, Teflon, Bakelite), Elastomers (Buna-S), Conducting and Biodegradable polymers.</p>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-purple-500/10 to-transparent pointer-events-none"></div>
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Polymer Chemistry <span class="text-purple-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4 text-lg max-w-2xl">Master Free Radical mechanisms, conducting polymers (Polyacetylene, Polyaniline), and Biodegradable Polymers.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-purple-500/10 text-purple-500 border border-purple-500/20 text-[10px] font-black uppercase tracking-widest rounded-md">Scoring Subject</span>
+                <span class="px-3 py-1 bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-black uppercase tracking-widest rounded-md">Theory Heavy</span>
+            </div>
         </header>
+
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
-                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-4">Polymer Science</h2>
-                    <p>Large molecules from repeating units.</p>
-                </section>
-
                 
-                <section id="definitions" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Key Definitions</h2>
+                <!-- Core 1: Radical Mechanism -->
+                <section id="mechanism" class="glass-card overflow-hidden">
+                    <div class="p-8 pb-0">
+                        <div class="flex items-center gap-2 text-purple-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-purple-500"></span> Polymerization
+                        </div>
+                        <h2 class="text-3xl font-black mb-4">Free Radical Mechanism (Addition)</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-lg max-w-3xl mb-8 leading-relaxed">
+                            The backbone of addition polymers (like PVC, Polyethylene). Occurs in three distinct phases powered by highly reactive radicals.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-[#050510] border-y border-slate-800 p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Step 1 -->
+                        <div class="border border-slate-700 bg-slate-900/50 p-6 rounded-2xl relative overflow-hidden text-center group hover:border-purple-500/50 transition-colors">
+                            <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/30 transition-colors"></div>
+                            <h3 class="font-black text-white text-xl">1. Initiation</h3>
+                            <p class="text-[10px] font-mono text-purple-400 mt-2 mb-6">Create the Spark</p>
+                            
+                            <div class="flex items-center justify-center gap-2 font-mono text-white mb-4">
+                                <span>R-O-O-R</span> <span class="text-purple-500 text-xs mt-1">→</span> <span>2R-O<span class="text-rose-500 text-lg font-black leading-none relative top-1">•</span></span>
+                            </div>
+                            <p class="text-sm text-slate-400">Initiator breaks (homolytic cleavage) to form a free radical with an unpaired electron.</p>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div class="border border-slate-700 bg-slate-900/50 p-6 rounded-2xl relative overflow-hidden text-center group hover:border-purple-500/50 transition-colors">
+                            <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/30 transition-colors"></div>
+                            <h3 class="font-black text-white text-xl">2. Propagation</h3>
+                            <p class="text-[10px] font-mono text-purple-400 mt-2 mb-6">Grow the Chain</p>
+                            
+                            <div class="flex items-center justify-center gap-2 font-mono text-white mb-4">
+                                <span>R<span class="text-rose-500 font-black">•</span> + CH₂=CH₂</span> <span class="text-purple-500 text-xs mt-1">→</span> <span>R-CH₂-CH₂<span class="text-rose-500 font-black">•</span></span>
+                            </div>
+                            <p class="text-sm text-slate-400">Radical attacks a monomer double bond, adding to it and moving the radical to the chain end.</p>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div class="border border-slate-700 bg-slate-900/50 p-6 rounded-2xl relative overflow-hidden text-center group hover:border-purple-500/50 transition-colors">
+                            <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/30 transition-colors"></div>
+                            <h3 class="font-black text-white text-xl">3. Termination</h3>
+                            <p class="text-[10px] font-mono text-purple-400 mt-2 mb-6">Kill the Radical</p>
+                            
+                            <div class="flex items-center justify-center gap-2 font-mono text-white mb-4">
+                                <span>R~<span class="text-rose-500 font-black">•</span> + <span class="text-rose-500 font-black">•</span>~R</span> <span class="text-purple-500 text-xs mt-1">→</span> <span>R~~R</span>
+                            </div>
+                            <p class="text-sm text-slate-400">Two growing radicals collide and bond, consuming the unpaired electrons (Coupling or Disproportionation).</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="conducting" class="glass-card overflow-hidden">
+                    <div class="p-8 pb-0">
+                        <div class="flex items-center gap-2 text-blue-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-blue-500"></span> Advanced Plastics
+                        </div>
+                        <h2 class="text-3xl font-black mb-4 flex items-center gap-3">Conducting Polymers <svg class="w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-lg max-w-3xl mb-8 leading-relaxed">
+                            Most polymers are insulators. But polymers with <strong>Conjugated Double Bonds</strong> (alternating single and double bonds) can conduct electricity when doped!
+                        </p>
+                    </div>
+                    
+                    <!-- Visual Representation -->
+                    <div class="px-8 pb-8 pt-4">
+                        <div class="border border-blue-500/30 bg-blue-900/10 rounded-2xl p-6 relative overflow-hidden flex flex-col md:flex-row items-center gap-8">
+                            <div class="flex-1">
+                                <h3 class="text-white font-bold mb-4 flex items-center gap-2">Polyacetylene (The Benchmark)</h3>
+                                <div class="font-mono text-center text-sm text-slate-300 tracking-[0.3em] font-bold py-4 bg-black rounded-lg border border-slate-800">
+                                    -CH=CH-CH=CH-CH=CH-
+                                </div>
+                                <div class="mt-4 text-sm text-slate-400">
+                                    <p>The alternating π (pi) bonds overlap, creating a delocalized electron cloud along the chain.</p>
+                                </div>
+                            </div>
+                            <!-- Doping visual -->
+                            <div class="flex-1 w-full bg-slate-900 p-4 rounded-xl border border-slate-700">
+                                <h4 class="text-xs uppercase tracking-widest text-slate-500 font-black mb-3">Doping Process</h4>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center text-sm border-b border-slate-800 pb-2">
+                                        <span class="text-slate-300">p-doping (Oxidation)</span>
+                                        <span class="text-rose-400 text-xs font-mono">Remove e⁻ (Creates hole)</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-300">n-doping (Reduction)</span>
+                                        <span class="text-emerald-400 text-xs font-mono">Add e⁻</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-amber-500">
+                    <div class="flex justify-between items-end mb-6">
+                        <div>
+                            <div class="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-[0.2em] mb-2">
+                                <span class="w-8 h-px bg-amber-500"></span> Exam Strategy
+                            </div>
+                            <h2 class="text-2xl font-black">Board Exam PYQs</h2>
+                        </div>
+                        <span class="bg-amber-500/10 text-amber-500 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider hidden sm:block">Important Theory</span>
+                    </div>
+                    
                     <div class="space-y-4">
+                        <div class="group p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-amber-500/50 transition-colors">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm">Addition vs Condensation <span class="text-amber-500">(10M)</span></h4>
+                                <span class="text-[9px] font-mono bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Asked 5 Times</span>
+                            </div>
+                            <p class="text-sm mt-3 text-slate-600 dark:text-slate-400">Distinguish between Addition (Chain growth) and Condensation (Step growth) polymerization with suitable examples.</p>
+                            <div class="mt-4 hidden group-hover:block text-xs text-amber-600 dark:text-amber-400 border-t border-slate-200 dark:border-slate-800 pt-3">
+                                <strong>Hack:</strong> Tabular column! Addition = fast, double bonds break, no byproducts (e.g. Polyethylene). Condensation = slow, functional groups react, byproducts like H2O/HCl released (e.g. Nylon 6,6).
+                            </div>
+                        </div>
                         
-                            <div>
-                                <h4 class="font-bold text-slate-100">Polymerization</h4>
-                                <p class="text-sm text-slate-400">Monomers forming large molecules.</p>
+                        <div class="group p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-amber-500/50 transition-colors">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm">Conducting Polymers <span class="text-amber-500">(5M)</span></h4>
+                                <span class="text-[9px] font-mono bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Asked 4 Times</span>
                             </div>
-                        
-                            <div>
-                                <h4 class="font-bold text-slate-100">Conducting Polymers</h4>
-                                <p class="text-sm text-slate-400">Organic polymers that conduct electricity.</p>
-                            </div>
-                        
-                    </div>
-                </section>
-
-                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">Deg. Polymerization</h4>
-                            <p class="font-mono text-sm mt-2">DP = M_p / M_m</p>
-                        </div>
-                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">Num Avg Mol Wt</h4>
-                            <p class="font-mono text-sm mt-2">M_n = Σ(N_i M_i) / Σ(N_i)</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
-                    <div class="space-y-6">
-                        <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">Bakelite &amp; Teflon <span class="text-blue-500">(10 Marks)</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">Preparation of Bakelite and Teflon.</p>
-                        </div>
-                        <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">Conducting Polymers <span class="text-blue-500">(10 Marks)</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">Explain conduction in Polyacetylene.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
-                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-bold text-slate-100">Revision Points</h4>
-                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
-                                <li>Bakelite synthesis</li><li>Conduction mechanism</li><li>Addition vs Condensation</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
-                            <p class="text-sm mt-2 text-slate-400 italic">"Addition = Double bond breakage"</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
-                            <p class="text-sm mt-2 text-slate-400">Focus on reaction conditions.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50">Interactive Viva Cards</h2>
-                        <button onclick="toggleSpeakViva(this)" class="flex items-center justify-center gap-2 text-xs font-bold px-4 py-2 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-600 dark:text-blue-400 rounded-xl transition-all shadow-sm cursor-pointer select-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-                            </svg>
-                            <span>Listen to Viva</span>
-                        </button>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Card 1 -->
-                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
-                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs font-black text-slate-100">Addition Polymerization?</h4>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">Monomers add directly.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card 2 -->
-                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
-                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs font-black text-slate-100">Conducting Polymers?</h4>
-                                </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">Polymers that conduct implicitly.</p>
-                                </div>
+                            <p class="text-sm mt-3 text-slate-600 dark:text-slate-400">What are conducting polymers? Give the mechanism of conduction in Polyacetylene / Polyaniline.</p>
+                            <div class="mt-4 hidden group-hover:block text-xs text-amber-600 dark:text-amber-400 border-t border-slate-200 dark:border-slate-800 pt-3">
+                                <strong>Hack:</strong> Mention "Conjugation of pi bonds" and "Doping (p-doping or n-doping)". Draw the alternating single/double bond carbon chain of polyacetylene to secure marks.
                             </div>
                         </div>
                     </div>
                 </section>
-
-                <section id="unit-quiz-wrapper" class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden">
-                    <div id="unit-quiz-mount">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50 italic uppercase">Interactive Practice <span class="text-blue-500">Unit Quiz</span></h3>
-                            <span class="text-[9px] font-black font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded">UNIT TEST</span>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-6">Test your mastery of this unit's concepts with flash feedback and explanations.</p>
-                        <button id="start-unit-quiz-btn" class="btn-primary w-full text-sm py-3.5">
-                            Start Unit Practice Quiz
-                        </button>
-                    </div>
-                </section>
+                
             </div>
         </div>
     </main>
-    <script>
-        function flipVivaCard(card) {
-            const inner = card.querySelector('.viva-card-inner');
-            if (inner.style.transform === 'rotateY(180deg)') {
-                inner.style.transform = 'rotateY(0deg)';
-            } else {
-                inner.style.transform = 'rotateY(180deg)';
-            }
-        }
-
-        let currentUtterance = null;
-        let currentBtn = null;
-
-        function toggleSpeakViva(btn, isNotesPage = false) {
-            if ('speechSynthesis' in window) {
-                if (window.speechSynthesis.speaking) {
-                    window.speechSynthesis.cancel();
-                    resetSpeechState();
-                    return;
-                }
-
-                let textToRead = [];
-                if (isNotesPage) {
-                    const frontPs = document.querySelectorAll('.backface-hidden p.font-bold');
-                    const backPs = document.querySelectorAll('.backface-hidden p.text-sm, .backface-hidden p.text-slate-300');
-                    for (let i = 0; i < frontPs.length; i++) {
-                        const q = frontPs[i]?.innerText || '';
-                        const a = backPs[i]?.innerText || '';
-                        if (q && a) {
-                            textToRead.push({ q, a });
-                        }
-                    }
-                } else {
-                    const fronts = document.querySelectorAll('.viva-card-front h4');
-                    const backs = document.querySelectorAll('.viva-card-back p');
-                    for (let i = 0; i < fronts.length; i++) {
-                        const q = fronts[i]?.innerText || '';
-                        const a = backs[i]?.innerText || '';
-                        if (q && a) {
-                            textToRead.push({ q, a });
-                        }
-                    }
-                }
-
-                if (textToRead.length === 0) return;
-
-                currentBtn = btn;
-                btn.innerHTML = `
-                    <svg class="h-3.5 w-3.5 text-red-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
-                        <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-                    </svg>
-                    <span>Stop Speaking</span>
-                `;
-                btn.classList.add('bg-red-500/10', 'border-red-500/35', 'text-red-500', 'hover:bg-red-500/20');
-
-                let currentIndex = 0;
-                
-                function readNext() {
-                    if (currentIndex >= textToRead.length) {
-                        resetSpeechState();
-                        return;
-                    }
-
-                    const item = textToRead[currentIndex];
-                    const fullText = "Question " + (currentIndex + 1) + ": " + item.q + ". Answer: " + item.a;
-                    
-                    const utterance = new SpeechSynthesisUtterance(fullText);
-                    const voices = window.speechSynthesis.getVoices();
-                    const englishVoice = voices.find(voice => voice.lang.startsWith('en'));
-                    if (englishVoice) {
-                        utterance.voice = englishVoice;
-                    }
-                    utterance.rate = 0.95;
-                    utterance.pitch = 1.0;
-
-                    utterance.onend = () => {
-                        currentIndex++;
-                        readNext();
-                    };
-
-                    utterance.onerror = (e) => {
-                        console.error('Speech synthesis error:', e);
-                        resetSpeechState();
-                    };
-
-                    currentUtterance = utterance;
-                    window.speechSynthesis.speak(utterance);
-                }
-
-                readNext();
-            } else {
-                alert('Your browser does not support the Speech Synthesis API.');
-            }
-        }
-
-        function resetSpeechState() {
-            if (currentBtn) {
-                currentBtn.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2">
-                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-                    </svg>
-                    <span>Listen to Viva</span>
-                `;
-                currentBtn.classList.remove('bg-red-500/10', 'border-red-500/35', 'text-red-500', 'hover:bg-red-500/20');
-            }
-            currentUtterance = null;
-            currentBtn = null;
-        }
-
-        window.addEventListener('beforeunload', () => {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-        });
-    </script>
-    <script type="module" src="/src/unit-quiz.js"></script>
 </body>
 </html>

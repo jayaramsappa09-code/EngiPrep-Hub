@@ -51,73 +51,222 @@
         </header>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
-                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-4">Quantum Chemistry Fundamentals</h2>
-                    <p>Quantum mechanics provides the foundation for understanding atomic and molecular behavior through wave functions.</p>
+                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-indigo-500 relative overflow-hidden">
+                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500/10 blur-3xl rounded-full pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-2 text-indigo-500 font-bold text-xs uppercase tracking-[0.2em] mb-3">
+                            <span class="w-8 h-px bg-indigo-500"></span> Core Principle
+                        </div>
+                        <h2 class="text-3xl font-black mb-4 tracking-tight">Quantum Mechanics & Wave Forms</h2>
+                        <p class="text-slate-500 dark:text-slate-400 leading-relaxed max-w-3xl text-lg">
+                            Classical physics fails at the atomic scale. Electrons don't orbit like planets; they exist as 
+                            <strong>probability waves</strong>. Quantum Mechanics provides the mathematical foundation to predict 
+                            <em>where</em> an electron is likely to be found, determining how atoms bond and react.
+                        </p>
+                    </div>
                 </section>
 
-                
-                <section id="definitions" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Key Definitions</h2>
-                    <div class="space-y-4">
-                        
-                            <div>
-                                <h4 class="font-bold text-slate-100">Schrödinger Equation</h4>
-                                <p class="text-sm text-slate-400">Equation describing quantum system state changes.</p>
+                <section id="schrodinger" class="glass-card overflow-hidden">
+                    <div class="p-8 pb-0">
+                        <div class="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-amber-500"></span> The Core Equation
+                        </div>
+                        <h2 class="text-2xl font-black mb-6">Schrödinger Wave Equation</h2>
+                    </div>
+                    
+                    <!-- Visual Explorer -->
+                    <div class="bg-slate-950 p-8 border-y border-slate-800 flex flex-col md:flex-row gap-8 items-center" id="schrodinger-interactive">
+                        <div class="flex-1 space-y-6">
+                            <div class="bg-black/50 p-6 rounded-2xl border border-slate-800 shadow-2xl relative group">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                                <h3 class="relative text-center font-mono font-black text-2xl lg:text-4xl text-white tracking-widest drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                                    <span class="text-blue-400 group-hover:text-amber-400 transition-colors cursor-help" title="Hamiltonian Operator (Total Energy)">Ĥ</span><span class="text-purple-400 group-hover:text-pink-400 transition-colors cursor-help" title="Wave Function (Electron state)">Ψ</span> = <span class="text-emerald-400 group-hover:text-green-400 transition-colors cursor-help" title="Energy Eigenvalue">E</span><span class="text-purple-400 group-hover:text-pink-400 transition-colors cursor-help" title="Wave Function (Electron state)">Ψ</span>
+                                </h3>
                             </div>
-                        
-                            <div>
-                                <h4 class="font-bold text-slate-100">Molecular Orbital Theory</h4>
-                                <p class="text-sm text-slate-400">Electronic structure via atomic orbital combinations.</p>
+                            <div class="space-y-4">
+                                <div class="flex gap-4 items-start p-4 bg-blue-900/10 border border-blue-500/20 rounded-xl hover:bg-blue-900/20 transition-colors">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center font-black text-blue-400 shrink-0">Ψ</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-100 text-sm">Wave Function (Psi)</h4>
+                                        <p class="text-xs text-slate-400 mt-1">Has no physical meaning itself. Represents the amplitude of the electron wave.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4 items-start p-4 bg-purple-900/10 border border-purple-500/20 rounded-xl hover:bg-purple-900/20 transition-colors">
+                                    <div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center font-black text-purple-400 shrink-0">Ψ²</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-100 text-sm">Probability Density</h4>
+                                        <p class="text-xs text-slate-400 mt-1">The probability of finding an electron in a specific volume. This gives us orbital shapes (s, p, d, f).</p>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
                         
+                        <div class="flex-1 w-full bg-[#0a0a10] rounded-2xl border border-slate-800 p-6 flex flex-col items-center relative h-[300px]">
+                            <span class="absolute top-4 left-4 text-[10px] font-mono text-slate-500 uppercase">Live Probability Viewer</span>
+                            
+                            <!-- Animated Electron Cloud SVG -->
+                            <div class="relative w-full h-full flex items-center justify-center">
+                                <svg width="200" height="200" viewBox="0 0 200 200" class="absolute">
+                                    <defs>
+                                        <radialGradient id="electronCloud" cx="50%" cy="50%" r="50%">
+                                            <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.8">
+                                                <animate attributeName="stop-opacity" values="0.8;0.4;0.8" dur="4s" repeatCount="indefinite" />
+                                            </stop>
+                                            <stop offset="40%" stop-color="#8b5cf6" stop-opacity="0.3">
+                                                <animate attributeName="stop-opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite" />
+                                            </stop>
+                                            <stop offset="100%" stop-color="#020617" stop-opacity="0" />
+                                        </radialGradient>
+                                    </defs>
+                                    <circle cx="100" cy="100" r="80" fill="url(#electronCloud)">
+                                        <animateTransform attributeName="transform" type="scale" values="1;1.05;1" dur="2s" repeatCount="indefinite" additive="sum" />
+                                    </circle>
+                                    <circle cx="100" cy="100" r="4" fill="#ffffff" class="animate-pulse" />
+                                </svg>
+                                
+                                <!-- Simulating scanning electron points -->
+                                <div id="electron-dots" class="absolute inset-0"></div>
+                            </div>
+                            
+                            <div class="flex gap-2 mt-auto w-full z-10">
+                                <button onclick="simulateCloud('s')" class="flex-1 py-2 bg-slate-800 hover:bg-blue-600 text-[10px] font-black uppercase text-white rounded-lg transition-colors">s-Orbital (Spherical)</button>
+                                <button onclick="simulateCloud('p')" class="flex-1 py-2 bg-slate-800 hover:bg-purple-600 text-[10px] font-black uppercase text-white rounded-lg transition-colors">p-Orbital (Dumbbell)</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-8 bg-slate-50 dark:bg-slate-900/50">
+                        <h4 class="font-bold text-sm tracking-widest uppercase text-slate-400 mb-4">Exam Derivation Checklist</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-xs">1</div>
+                                <span class="text-sm font-semibold">Classical Wave Eq.</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-xs">2</div>
+                                <span class="text-sm font-semibold">De Broglie (λ = h/mv)</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-xs">3</div>
+                                <span class="text-sm font-semibold">Total Energy (KE + PE)</span>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">Bond Order</h4>
-                            <p class="font-mono text-sm mt-2">BO = (N_b - N_a) / 2</p>
+                <section id="mot" class="glass-card overflow-hidden bg-white dark:bg-slate-900">
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 text-rose-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-rose-500"></span> Core Theory
                         </div>
-                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">Schrödinger Eq</h4>
-                            <p class="font-mono text-sm mt-2">HΨ = EΨ</p>
+                        <h2 class="text-3xl font-black mb-4 tracking-tight">Molecular Orbital Theory (MOT)</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm max-w-2xl mb-8 leading-relaxed">
+                            When atomic orbitals overlap, they merge to form new molecular orbitals. The number of new orbitals formed equals the number of combining atomic orbitals. They divide into low-energy <strong>Bonding MOs</strong> and high-energy <strong>Antibonding MOs</strong>.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                            <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-6 bg-slate-50 dark:bg-black/20">
+                                <h3 class="font-black text-rose-500 mb-4 flex items-center gap-2"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Interactive Bond Order Calculator</h3>
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label class="block text-[10px] font-black uppercase text-slate-500 mb-2">Bonding e⁻ (N_b)</label>
+                                        <input type="number" id="nb-input" value="10" min="0" max="20" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 font-mono font-bold text-slate-900 dark:text-white focus:outline-none focus:border-rose-500 transition-colors" oninput="calculateBO()">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-black uppercase text-slate-500 mb-2">Antibonding e⁻ (N_a)</label>
+                                        <input type="number" id="na-input" value="6" min="0" max="20" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 font-mono font-bold text-slate-900 dark:text-white focus:outline-none focus:border-rose-500 transition-colors" oninput="calculateBO()">
+                                    </div>
+                                </div>
+                                <div class="p-6 rounded-xl bg-slate-900 relative overflow-hidden group">
+                                    <div class="absolute right-0 top-0 w-32 h-32 bg-rose-500/20 blur-3xl opacity-50"></div>
+                                    <p class="text-[10px] font-bold uppercase text-slate-400 mb-1 z-10 relative">Resulting Bond Order</p>
+                                    <div class="flex items-end gap-4 z-10 relative">
+                                        <span id="bo-result" class="text-4xl font-black text-white font-mono">2.0</span>
+                                        <span id="bo-status" class="text-emerald-400 font-bold text-xs bg-emerald-500/10 px-2 py-1 rounded-md mb-2">Stable Double Bond</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg flex gap-3 text-xs text-rose-700 dark:text-rose-300">
+                                    <span class="font-black text-lg">!</span>
+                                    <p><strong>Memory Trick:</strong> If BO > 0, the molecule exists. If BO = 0, the molecule does not exist (e.g., He₂). Unpaired electrons mean <em>paramagnetic</em>.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Static representation of O2 Energy Level diagram -->
+                            <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-6 relative bg-slate-50 dark:bg-[#020205] flex flex-col items-center justify-center">
+                                <h3 class="absolute top-6 left-6 font-black text-slate-900 dark:text-white text-sm">O₂ Energy Level Diagram</h3>
+                                <span class="absolute top-6 right-6 text-[10px] font-mono bg-blue-500/20 text-blue-400 px-2 py-1 rounded uppercase tracking-widest font-black">16 Electrons</span>
+
+                                <div class="flex w-full mt-10 max-w-sm relative">
+                                    <!-- Energy Arrow -->
+                                    <div class="absolute -left-6 bottom-0 top-0 flex flex-col items-center justify-end text-slate-500 opacity-50">
+                                        <span class="text-[8px] uppercase font-black transform -rotate-90 origin-bottom mb-8 whitespace-nowrap">Energy (E)</span>
+                                        <svg width="2" height="100%" class="my-2"><line x1="1" y1="100%" x2="1" y2="0" stroke="currentColor" stroke-dasharray="4" /></svg>
+                                        <svg class="w-3 h-3 absolute top-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                                    </div>
+                                    
+                                    <!-- Simplified visual diagram -->
+                                    <div class="w-full h-64 flex flex-col justify-between font-mono text-[10px] font-bold">
+                                        <!-- Antibonding 2p -->
+                                        <div class="flex justify-center gap-12 text-rose-500">
+                                            <span class="px-2 py-1 border-b-2 border-rose-500 relative"><div class="absolute -top-3 w-full text-center">↑</div>π*2py</span>
+                                            <span class="px-2 py-1 border-b-2 border-rose-500 relative"><div class="absolute -top-3 w-full text-center">↑</div>π*2pz</span>
+                                        </div>
+                                        <!-- Bonding 2p pi -->
+                                        <div class="flex justify-center gap-12 text-blue-400">
+                                            <span class="px-2 py-1 border-b-2 border-blue-500 relative"><div class="absolute -top-3 w-full text-center">↑↓</div>π2py</span>
+                                            <span class="px-2 py-1 border-b-2 border-blue-500 relative"><div class="absolute -top-3 w-full text-center">↑↓</div>π2pz</span>
+                                        </div>
+                                        <!-- Bonding 2p sigma -->
+                                        <div class="flex justify-center text-blue-400">
+                                            <span class="px-2 py-1 border-b-2 border-blue-500 relative"><div class="absolute -top-3 w-full text-center">↑↓</div>σ2px</span>
+                                        </div>
+                                        <!-- Antibonding 2s -->
+                                        <div class="flex justify-center text-rose-500 mt-6">
+                                            <span class="px-2 py-1 border-b-2 border-rose-500 relative"><div class="absolute -top-3 w-full text-center">↑↓</div>σ*2s</span>
+                                        </div>
+                                        <!-- Bonding 2s -->
+                                        <div class="flex justify-center text-blue-400">
+                                            <span class="px-2 py-1 border-b-2 border-blue-500 relative"><div class="absolute -top-3 w-full text-center">↑↓</div>σ2s</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-center text-slate-500 mt-6">Note the two unpaired electrons in the π* orbitals, explaining liquid oxygen's magnetism!</p>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
-                    <div class="space-y-6">
-                        <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">MOT of O2 <span class="text-blue-500">(10 Marks)</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">Draw the Molecular Orbital energy level diagram of O2 molecule and explain its magnetic behavior.</p>
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-emerald-500">
+                    <div class="flex justify-between items-end mb-6">
+                        <div>
+                            <div class="flex items-center gap-2 text-emerald-500 font-bold text-xs uppercase tracking-[0.2em] mb-2">
+                                <span class="w-8 h-px bg-emerald-500"></span> Exam Strategy
+                            </div>
+                            <h2 class="text-2xl font-black">Board Exam PYQs</h2>
                         </div>
-                        <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">Schrödinger Equation <span class="text-blue-500">(10 Marks)</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">Derive the Schrodinger wave equation and explain the physical significance of Ψ and Ψ².</p>
-                        </div>
+                        <span class="bg-emerald-500/10 text-emerald-500 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider hidden sm:block">High Weightage</span>
                     </div>
-                </section>
-
-                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
-                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
+                    
                     <div class="space-y-4">
-                        <div>
-                            <h4 class="font-bold text-slate-100">Revision Points</h4>
-                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
-                                <li>MOT rules</li><li>bonding orbitals lower energy</li><li>antibonding orbitals higher energy</li>
-                            </ul>
+                        <div class="group p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-emerald-500/50 transition-colors">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm">MOT of O2 & Magnetic Behavior <span class="text-emerald-500">(10M)</span></h4>
+                                <span class="text-[9px] font-mono bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Asked 5 Times</span>
+                            </div>
+                            <p class="text-sm mt-3 text-slate-600 dark:text-slate-400">Draw the Molecular Orbital energy level diagram of O2 molecule and explain why liquid oxygen is attracted to a magnet.</p>
+                            <div class="mt-4 hidden group-hover:block text-xs text-emerald-600 dark:text-emerald-400 border-t border-slate-200 dark:border-slate-800 pt-3">
+                                <strong>Hack:</strong> The key to the marks is showing the two unpaired electrons (↑) in the π*2py and π*2pz degenerate orbitals!
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
-                            <p class="text-sm mt-2 text-slate-400 italic">"Bonding is lower energy than Antibonding"</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
-                            <p class="text-sm mt-2 text-slate-400">Practice MOT diagrams daily.</p>
+                        <div class="group p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-emerald-500/50 transition-colors">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm">Schrödinger Equation Derivation <span class="text-emerald-500">(10M)</span></h4>
+                                <span class="text-[9px] font-mono bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Asked 3 Times</span>
+                            </div>
+                            <p class="text-sm mt-3 text-slate-600 dark:text-slate-400">Derive the time-independent Schrodinger wave equation and explain the physical significance of Ψ and Ψ².</p>
+                            <div class="mt-4 hidden group-hover:block text-xs text-emerald-600 dark:text-emerald-400 border-t border-slate-200 dark:border-slate-800 pt-3">
+                                <strong>Hack:</strong> If you forget the math, write the final 3D equation and explicitly define Ψ² as probability density to secure 4/10 marks instantly.
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -291,6 +440,88 @@
                 window.speechSynthesis.cancel();
             }
         });
+
+        // Add interactive simulation logic for Unit 1
+        function calculateBO() {
+            const nb = parseFloat(document.getElementById('nb-input').value) || 0;
+            const na = parseFloat(document.getElementById('na-input').value) || 0;
+            
+            const bo = (nb - na) / 2;
+            const resEl = document.getElementById('bo-result');
+            const statusEl = document.getElementById('bo-status');
+            
+            resEl.innerText = bo.toFixed(1);
+            
+            if (bo <= 0) {
+                statusEl.innerText = 'Unstable / Does Not Exist';
+                statusEl.className = 'text-red-400 font-bold text-xs bg-red-500/10 px-2 py-1 rounded-md mb-2';
+            } else if (bo === 1) {
+                statusEl.innerText = 'Stable Single Bond';
+                statusEl.className = 'text-blue-400 font-bold text-xs bg-blue-500/10 px-2 py-1 rounded-md mb-2';
+            } else if (bo === 2) {
+                statusEl.innerText = 'Stable Double Bond';
+                statusEl.className = 'text-emerald-400 font-bold text-xs bg-emerald-500/10 px-2 py-1 rounded-md mb-2';
+            } else if (bo === 3) {
+                statusEl.innerText = 'Stable Triple Bond';
+                statusEl.className = 'text-purple-400 font-bold text-xs bg-purple-500/10 px-2 py-1 rounded-md mb-2';
+            } else {
+                statusEl.innerText = 'Fractional Bond (Resonance/Radical)';
+                statusEl.className = 'text-amber-400 font-bold text-xs bg-amber-500/10 px-2 py-1 rounded-md mb-2';
+            }
+        }
+
+        let animationFrame;
+        function simulateCloud(type) {
+            const container = document.getElementById('electron-dots');
+            container.innerHTML = '';
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+            
+            const dotCount = type === 's' ? 400 : 300;
+            const dots = [];
+            
+            for(let i=0; i<dotCount; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'absolute w-0.5 h-0.5 bg-white rounded-full opacity-0';
+                container.appendChild(dot);
+                
+                let r, theta;
+                if (type === 's') {
+                    // Spherical distribution (gaussian-like probability)
+                    r = Math.abs(Math.random() - Math.random()) * 80;
+                    theta = Math.random() * 2 * Math.PI;
+                } else if (type === 'p') {
+                    // P-orbital distribution (dumbbell along y-axis)
+                    r = Math.abs(Math.random() - Math.random()) * 80;
+                    // Bias towards poles
+                    theta = Math.random() > 0.5 ? 
+                        (Math.random() * 0.8 - 0.4) : // Top lobe
+                        (Math.random() * 0.8 - 0.4 + Math.PI); // Bottom lobe
+                }
+                
+                const x = 100 + r * Math.cos(theta);
+                const y = 100 + r * Math.sin(theta);
+                
+                dots.push({ el: dot, x, y, active: false, life: Math.random() * 100 });
+            }
+            
+            function animate() {
+                dots.forEach(d => {
+                    d.life--;
+                    if (d.life <= 0) {
+                        d.active = true;
+                        d.life = 20 + Math.random() * 50;
+                        d.el.style.left = d.x + '%';
+                        d.el.style.top = d.y + '%';
+                        
+                        // Jitter x,y slightly for electron motion
+                        d.el.style.transform = `translate(${(Math.random()-0.5)*10}px, ${(Math.random()-0.5)*10}px)`;
+                        d.el.style.opacity = Math.random() > 0.5 ? '0.8' : '0.2';
+                    }
+                });
+                animationFrame = requestAnimationFrame(animate);
+            }
+            animate();
+        }
     </script>
     <script type="module" src="/src/unit-quiz.js"></script>
 </body>

@@ -20,8 +20,13 @@
         .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
         .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
         .viva-card-back { transform: rotateY(180deg); }
+        
+        .meissner-field { stroke-dasharray: 10; animation: field-flow 2s linear infinite; }
+        @keyframes field-flow { to { stroke-dashoffset: -20; } }
+        
+        .bucky-bond { animation: bucky-pulse 3s infinite alternate; }
+        @keyframes bucky-pulse { from { stroke-opacity: 0.3; } to { stroke-opacity: 0.8; } }
     </style>
-    <!-- Inline blocker removed for SEO/AdSense Crawlability -->
     <script type="module" src="/src/gatekeeper.js"></script>
 </head>
 <body class="bg-[#050508] dark:bg-[#050508] text-slate-350 dark:text-slate-350 min-h-screen font-sans antialiased">
@@ -36,96 +41,198 @@
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
         <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
             <ol class="flex items-center gap-2">
-                <li><a href="/" class="hover:text-blue-500">Home</a></li>
+                <li><a href="/" class="hover:text-amber-500">Home</a></li>
                 <li>/</li>
-                <li><a href="/all-subjects.html" class="hover:text-blue-500">Subjects</a></li>
+                <li><a href="/all-subjects.html" class="hover:text-amber-500">Subjects</a></li>
                 <li>/</li>
-                <li><a href="/subject.html?slug=chemistry" class="hover:text-blue-500">chemistry</a></li>
+                <li><a href="/subject.html?slug=chemistry" class="hover:text-amber-500">chemistry</a></li>
                 <li>/</li>
-                <li class="text-blue-500" aria-current="page">Modern Engineering Materials</li>
+                <li class="text-amber-500" aria-current="page">Modern Materials</li>
             </ol>
         </nav>
-        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm">
-            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Modern Engineering Materials <span class="text-blue-500">Survival Kit</span></h1>
-            <p class="text-slate-400 mt-4">Semiconductors, Super Conductors, Super capacitors, and Nanomaterials (Fullerenes, Carbon Nanotubes, Graphenes).</p>
+        <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-amber-500/10 to-transparent pointer-events-none"></div>
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-slate-50">Modern Engineering Materials <span class="text-amber-500">Survival Kit</span></h1>
+            <p class="text-slate-400 mt-4 text-lg max-w-2xl">Master Semiconductors, Superconductors, Supercapacitors, and Nanomaterials (Fullerenes, CNTs, Graphene) using interactive visual synthesizers and exam hacks.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-amber-500/10 text-amber-500 border border-amber-500/20 text-[10px] font-black uppercase tracking-widest rounded-md">High Weightage</span>
+                <span class="px-3 py-1 bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-black uppercase tracking-widest rounded-md">8-10 Marks Target</span>
+            </div>
         </header>
+
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-9 space-y-16">
-                <section id="intro" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-4">Advanced Engineering Materials</h2>
-                    <p>Modern engineering heavily relies on advanced materials like nanomaterials and superconductors.</p>
-                </section>
-
                 
-                <section id="definitions" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Key Definitions</h2>
-                    <div class="space-y-4">
-                        
-                            <div>
-                                <h4 class="font-bold text-slate-100">Superconductors</h4>
-                                <p class="text-sm text-slate-400">Zero resistivity below critical temperature.</p>
+                <!-- Core 1: Superconductors -->
+                <section id="superconductors" class="glass-card overflow-hidden">
+                    <div class="p-8 pb-0">
+                        <div class="flex items-center gap-2 text-blue-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-blue-500"></span> Zero Resistance
+                        </div>
+                        <h2 class="text-3xl font-black mb-4">Superconductors & Meissner Effect</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-lg max-w-3xl mb-8 leading-relaxed">
+                            Materials that lose absolutely <strong>all electrical resistance</strong> below a certain critical temperature (T<sub>C</sub>). Because electrons encounter zero friction, a current can flow infinitely without a power source.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-[#050510] border-y border-slate-800 flex flex-col md:flex-row p-8 gap-8 items-center">
+                        <div class="flex-1 space-y-6">
+                            <div class="p-4 bg-blue-900/10 border border-blue-500/30 rounded-xl">
+                                <h3 class="font-black text-white mb-2 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div> Critical Temperature (T<sub>C</sub>)</h3>
+                                <p class="text-sm text-slate-400">The exact temperature at which the material transitions from a normal conductor to a superconductor. Above T<sub>C</sub>: normal. Below T<sub>C</sub>: zero resistance.</p>
                             </div>
-                        
-                            <div>
-                                <h4 class="font-bold text-slate-100">Carbon Nanotubes</h4>
-                                <p class="text-sm text-slate-400">Cylindrical carbon molecules.</p>
+                            <div class="p-4 bg-emerald-900/10 border border-emerald-500/30 rounded-xl relative overflow-hidden group">
+                                <div class="absolute inset-0 bg-emerald-500/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                                <h3 class="font-black text-white mb-2 flex items-center gap-2 tracking-tight">The Meissner Effect</h3>
+                                <p class="text-sm text-slate-400 relative z-10">The complete expulsion of magnetic flux from the interior of a superconductor as it transitions below T<sub>C</sub>. This causes <strong>Magnetic Levitation</strong>.</p>
                             </div>
+                        </div>
                         
-                    </div>
-                </section>
-
-                <section id="formulas" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Core Formulas & Logic</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">Capacitance</h4>
-                            <p class="font-mono text-sm mt-2">C = Q / V</p>
-                        </div>
-                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                            <h4 class="text-xs font-bold text-blue-400 uppercase">Energy Stored</h4>
-                            <p class="font-mono text-sm mt-2">E = 1/2 CV²</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <h2 class="text-xl font-black mb-6">Board Exam PYQs</h2>
-                    <div class="space-y-6">
-                        <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">Carbon Nanotubes <span class="text-blue-500">(10 Marks)</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">Explain synthesis of Carbon Nanotubes.</p>
-                        </div>
-                        <div class="border-l-2 border-blue-600 pl-4">
-                            <h4 class="font-bold text-slate-100">Supercapacitors <span class="text-blue-500">(5 Marks)</span></h4>
-                            <p class="text-sm mt-1 text-slate-400">What are supercapacitors? Discuss their applications.</p>
+                        <!-- Interactive Meissner Visaul -->
+                        <div class="flex-1 w-full max-w-sm rounded-2xl bg-black border border-slate-800 p-6 flex flex-col items-center justify-center relative h-[280px]">
+                            <span class="absolute top-4 left-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">Magnetic Flux Viewer</span>
+                            
+                            <svg width="200" height="150" viewBox="0 0 200 150" class="mt-4">
+                                <!-- Magnets/Field Lines -->
+                                <g id="magnetic-field-lines" stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.6">
+                                    <path d="M 40,0 L 40,150" class="field-line-straight"/>
+                                    <path d="M 70,0 L 70,150" class="field-line-straight"/>
+                                    <path d="M 100,0 L 100,150" class="field-line-straight"/>
+                                    <path d="M 130,0 L 130,150" class="field-line-straight"/>
+                                    <path d="M 160,0 L 160,150" class="field-line-straight"/>
+                                    
+                                    <!-- Meissner Expulsion Paths -->
+                                    <path d="M 40,0 Q 40,75 10,75 Q 40,75 40,150" class="field-line-expelled meissner-field hidden" />
+                                    <path d="M 70,0 Q 100,20 190,75" class="field-line-expelled meissner-field hidden" />
+                                    <!-- Simplified visually -->
+                                </g>
+                                
+                                <circle cx="100" cy="75" r="40" fill="#1e293b" stroke="#475569" stroke-width="3" id="conductor-core" />
+                                <text x="100" y="80" text-anchor="middle" fill="white" font-bold="true" font-size="14" font-family="monospace" id="temp-display">T > Tc</text>
+                            </svg>
+                            
+                            <button onclick="toggleMeissner()" id="meissner-btn" class="mt-8 px-6 py-2 bg-slate-800 hover:bg-emerald-600 text-[10px] font-black uppercase text-white rounded-lg transition-colors border border-slate-700">Cool Below Tc (Enable Meissner)</button>
                         </div>
                     </div>
                 </section>
 
-                <section id="quick-prep" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-yellow-500">
-                    <h2 class="text-xl font-black mb-4">1-Day Prep Strategies</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-bold text-slate-100">Revision Points</h4>
-                            <ul class="list-disc list-inside text-sm mt-2 text-slate-400">
-                                <li>CNT types</li><li>Meissner effect</li><li>Supercapacitor types</li>
+                <!-- Core 2: Nanomaterials -->
+                <section id="nanomaterials" class="glass-card overflow-hidden">
+                    <div class="p-8 pb-0">
+                        <div class="flex items-center gap-2 text-rose-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                            <span class="w-8 h-px bg-rose-500"></span> 10⁻⁹ Scale
+                        </div>
+                        <h2 class="text-3xl font-black mb-4">Nanomaterials (C₆₀, CNTs, Graphene)</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-y border-slate-800 mt-8 divide-y md:divide-y-0 md:divide-x divide-slate-800 bg-[#050510]">
+                        
+                        <!-- Graphene -->
+                        <div class="p-8 hover:bg-slate-900/50 transition-colors group">
+                            <div class="h-24 w-full flex items-center justify-center mb-6">
+                                <svg width="80" height="80" viewBox="0 0 100 100">
+                                    <g stroke="#f43f5e" stroke-width="2" fill="none" class="bucky-bond">
+                                        <polygon points="50,10 85,30 85,70 50,90 15,70 15,30" />
+                                        <polygon points="50,10 50,40 25,55 15,30" />
+                                        <polygon points="50,40 85,30 75,55" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <h3 class="font-black text-white text-xl mb-3 text-center">Graphene</h3>
+                            <p class="text-sm text-slate-400 text-center">A single 2D layer of carbon atoms arranged in a hexagonal lattice. It is the basic structural element for all other graphitic materials.</p>
+                            <ul class="text-xs text-slate-500 mt-4 space-y-1 list-disc list-inside">
+                                <li><strong>200x</strong> stronger than steel</li>
+                                <li>Exceptional conductor</li>
+                                <li>Zero bandgap semiconductor</li>
                             </ul>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-slate-100">Memory Trick</h4>
-                            <p class="text-sm mt-2 text-slate-400 italic">"CNTs = Rolled sheets"</p>
+                        
+                        <!-- Carbon Nanotubes -->
+                        <div class="p-8 hover:bg-slate-900/50 transition-colors group">
+                            <div class="h-24 w-full flex items-center justify-center mb-6 relative">
+                                <div class="w-16 h-20 border-2 border-rose-500 rounded-lg absolute opacity-50 transform rotate-12 group-hover:-rotate-12 transition-transform duration-700"></div>
+                                <div class="w-16 h-20 border-2 border-rose-400 rounded-lg absolute rotate-0"></div>
+                                <div class="text-[10px] font-mono mt-16 text-rose-500 font-bold uppercase tracking-widest">Rolled Cylinder</div>
+                            </div>
+                            <h3 class="font-black text-white text-xl mb-3 text-center">Carbon Nanotubes (CNTs)</h3>
+                            <p class="text-sm text-slate-400 text-center">Graphene sheets rolled into seamless cylinders. Types: SWCNT (Single-Wall) and MWCNT (Multi-Wall).</p>
+                             <ul class="text-xs text-slate-500 mt-4 space-y-1 list-disc list-inside">
+                                <li>Arc-discharge synthesis</li>
+                                <li>Laser ablation method</li>
+                                <li>CVD (Chemical Vapor Deposition)</li>
+                            </ul>
                         </div>
+                        
+                        <!-- Fullerenes -->
+                        <div class="p-8 hover:bg-slate-900/50 transition-colors group">
+                            <div class="h-24 w-full flex items-center justify-center mb-6 relative">
+                                <!-- simple soccer ball svg -->
+                                <svg width="60" height="60" viewBox="0 0 100 100" class="animate-spin" style="animation-duration: 8s;">
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#f43f5e" stroke-width="2"/>
+                                    <polygon points="50,20 70,35 60,60 40,60 30,35" fill="none" stroke="#f43f5e" stroke-width="2"/>
+                                    <line x1="50" y1="20" x2="50" y2="5" stroke="#f43f5e" stroke-width="2"/>
+                                    <line x1="70" y1="35" x2="85" y2="30" stroke="#f43f5e" stroke-width="2"/>
+                                    <line x1="60" y1="60" x2="70" y2="80" stroke="#f43f5e" stroke-width="2"/>
+                                    <line x1="40" y1="60" x2="30" y2="80" stroke="#f43f5e" stroke-width="2"/>
+                                    <line x1="30" y1="35" x2="15" y2="30" stroke="#f43f5e" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-black text-white text-xl mb-3 text-center">Fullerenes (C₆₀)</h3>
+                            <p class="text-sm text-slate-400 text-center">Buckyballs! Hollow cages of 60 carbon atoms shaped like a soccer ball (12 pentagons, 20 hexagons).</p>
+                             <ul class="text-xs text-slate-500 mt-4 space-y-1 list-disc list-inside">
+                                <li>Drug delivery carriers</li>
+                                <li>Superconductors (when doped)</li>
+                                <li>Lubricants</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <section id="pyqs" class="glass-card p-8 bg-white dark:bg-slate-900 border-l-4 border-amber-500">
+                    <div class="flex justify-between items-end mb-6">
                         <div>
-                            <h4 class="font-bold text-slate-100">Exam-Time Strategy</h4>
-                            <p class="text-sm mt-2 text-slate-400">Draw CNT structures clearly.</p>
+                            <div class="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-[0.2em] mb-2">
+                                <span class="w-8 h-px bg-amber-500"></span> Exam Strategy
+                            </div>
+                            <h2 class="text-2xl font-black">Board Exam PYQs</h2>
+                        </div>
+                        <span class="bg-amber-500/10 text-amber-500 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider hidden sm:block">Important Set</span>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="group p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-amber-500/50 transition-colors">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm">Carbon Nanotubes Synthesis <span class="text-amber-500">(10M)</span></h4>
+                                <span class="text-[9px] font-mono bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Asked 4 Times</span>
+                            </div>
+                            <p class="text-sm mt-3 text-slate-600 dark:text-slate-400">Explain the preparation of Carbon Nanotubes (CNTs) using the CVD (Chemical Vapor Deposition) method with a neat diagram.</p>
+                            <div class="mt-4 hidden group-hover:block text-xs text-amber-600 dark:text-amber-400 border-t border-slate-200 dark:border-slate-800 pt-3">
+                                <strong>Hack:</strong> The CVD diagram is very simple: draw a horizontal tube furnace, a quartz boat inside containing catalyst (Ni/Co/Fe), and gas inlets (Hydrocarbon + Argon flow). Bullet your steps.
+                            </div>
+                        </div>
+                        
+                        <div class="group p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-amber-500/50 transition-colors">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm">Supercapacitors vs Batteries <span class="text-amber-500">(5M)</span></h4>
+                                <span class="text-[9px] font-mono bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Asked 3 Times</span>
+                            </div>
+                            <p class="text-sm mt-3 text-slate-600 dark:text-slate-400">Define Supercapacitors. Write the mechanism and differences between a supercapacitor and a conventional battery.</p>
+                            <div class="mt-4 hidden group-hover:block text-xs text-amber-600 dark:text-amber-400 border-t border-slate-200 dark:border-slate-800 pt-3">
+                                <strong>Hack:</strong> Always draw a comparison table. Batteries = High Energy Density (run long time), slow charge. Supercapacitors = High Power Density (fast burst), fast charge. 
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 <section id="viva" class="glass-card p-8 bg-white dark:bg-slate-900">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                        <h2 class="text-xl font-black text-slate-900 dark:text-slate-50">Interactive Viva Cards</h2>
-                        <button onclick="toggleSpeakViva(this)" class="flex items-center justify-center gap-2 text-xs font-bold px-4 py-2 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-600 dark:text-blue-400 rounded-xl transition-all shadow-sm cursor-pointer select-none">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 border-b border-slate-800 pb-6">
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-900 dark:text-slate-50">Interactive Viva Cards</h2>
+                            <p class="text-sm text-slate-500 mt-2">Tap cards to flip. Use the Listen button for hands-free audio review.</p>
+                        </div>
+                        <button onclick="toggleSpeakViva(this)" class="flex items-center justify-center gap-2 text-xs font-bold px-4 py-2 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-600 dark:text-blue-400 rounded-xl transition-all shadow-sm cursor-pointer select-none whitespace-nowrap">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
                                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
@@ -136,46 +243,104 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Card 1 -->
-                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
-                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs font-black text-slate-100">Superconductors?</h4>
+                        <div class="relative w-full h-40 cursor-pointer group perspective-1000" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner relative w-full h-full duration-500 border border-slate-800 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 shadow-xl">
+                                <div class="viva-card-front absolute inset-0 p-6 flex flex-col justify-center items-center text-center">
+                                    <div class="w-10 h-10 mb-3 rounded-full bg-blue-500/20 flex items-center justify-center font-black text-blue-500">?</div>
+                                    <h4 class="text-sm font-black text-slate-100">What is the Meissner Effect?</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">Materials that exhibit zero electrical resistance and expel magnetic fields perfectly below a critical temperature.</p>
+                                <div class="viva-card-back absolute inset-0 p-6 flex items-center text-center bg-blue-900/10 border border-blue-500/30 rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-xs text-blue-100 font-medium leading-relaxed">It is the explusion of magnetic fields from the interior of a superconductor when it is cooled below its critical temperature (T<sub class="text-[9px]">C</sub>).</p>
                                 </div>
                             </div>
                         </div>
                         <!-- Card 2 -->
-                        <div class="relative w-full h-36 cursor-pointer group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full duration-500 border border-slate-800 rounded-2xl bg-slate-950/80">
-                                <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
-                                    <h4 class="text-xs font-black text-slate-100">Carbon Nanotubes?</h4>
+                        <div class="relative w-full h-40 cursor-pointer group perspective-1000" onclick="flipVivaCard(this)">
+                            <div class="viva-card-inner relative w-full h-full duration-500 border border-slate-800 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 shadow-xl">
+                                <div class="viva-card-front absolute inset-0 p-6 flex flex-col justify-center items-center text-center">
+                                    <div class="w-10 h-10 mb-3 rounded-full bg-rose-500/20 flex items-center justify-center font-black text-rose-500">?</div>
+                                    <h4 class="text-sm font-black text-slate-100">Differentiate SWCNTs and MWCNTs</h4>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#11111e] rounded-2xl" style="transform: rotateY(180deg);">
-                                    <p class="text-[10.5px] text-slate-300">Cylindrical carbon molecules with unique properties.</p>
+                                <div class="viva-card-back absolute inset-0 p-6 flex items-center text-center bg-rose-900/10 border border-rose-500/30 rounded-2xl" style="transform: rotateY(180deg);">
+                                    <p class="text-xs text-rose-100 font-medium leading-relaxed">SWCNT = One single layer of rolled graphene (thinner, more flexible). MWCNT = Multiple concentric tubes of rolled graphene (like Russian dolls).</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section id="unit-quiz-wrapper" class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden">
-                    <div id="unit-quiz-mount">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50 italic uppercase">Interactive Practice <span class="text-blue-500">Unit Quiz</span></h3>
-                            <span class="text-[9px] font-black font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded">UNIT TEST</span>
+                <section id="unit-quiz-wrapper" class="glass-card p-8 bg-slate-900/50 border border-slate-800 shadow-xl relative overflow-hidden ring-1 ring-white/10">
+                    <div id="unit-quiz-mount" class="relative z-10">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-2xl font-black text-white italic tracking-tight">Interactive <span class="text-amber-500 border-b-2 border-amber-500">Validation</span></h3>
+                            <span class="text-[10px] font-black font-mono bg-amber-500 text-slate-900 px-3 py-1 rounded-sm shadow-md">UNIT 2 EXAM PREP</span>
                         </div>
-                        <p class="text-sm text-slate-400 mb-6">Test your mastery of this unit's concepts with flash feedback and explanations.</p>
-                        <button id="start-unit-quiz-btn" class="btn-primary w-full text-sm py-3.5">
-                            Start Unit Practice Quiz
+                        <p class="text-slate-400 mb-8 max-w-2xl text-sm leading-loose">Deploy the AI-Assisted knowledge checker. Tap below to launch active-recall questions across Superconductors and Nanomaterials.</p>
+                        <button id="start-unit-quiz-btn" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-slate-900 font-black text-sm px-8 py-4 rounded-xl transition-all shadow-lg hover:shadow-amber-500/20 transform hover:-translate-y-0.5">
+                            Launch Unit Practice Protocol →
                         </button>
                     </div>
+                    <div class="absolute bottom-0 right-0 w-64 h-64 bg-amber-500/5 blur-3xl rounded-full pointer-events-none"></div>
                 </section>
             </div>
+            
+            <!-- Minimal sidebar placeholder if needed -->
+            <div class="hidden lg:block lg:col-span-3"></div>
         </div>
     </main>
     <script>
+        function toggleMeissner() {
+            const btn = document.getElementById('meissner-btn');
+            const straightLines = document.querySelectorAll('.field-line-straight');
+            const meissnerLines = document.querySelectorAll('.meissner-field');
+            const core = document.getElementById('conductor-core');
+            const temp = document.getElementById('temp-display');
+            
+            if (temp.innerText === 'T > Tc') {
+                // Activate
+                straightLines.forEach(l => l.style.opacity = '0');
+                meissnerLines.forEach(l => {
+                    l.classList.remove('hidden');
+                    l.setAttribute('d', `M ${Math.random()*40},0 Q -30,50 30,150`); // Pseudo animation path
+                    l.style.opacity = '1';
+                });
+                // Hacky quick field visual substitution using the background color difference
+                core.setAttribute('fill', '#dbeafe'); // Light blue glow
+                core.setAttribute('stroke', '#3b82f6');
+                temp.innerText = 'T < Tc';
+                temp.setAttribute('fill', '#1e3a8a');
+                btn.innerText = 'Warm Above Tc (Disable)';
+                btn.classList.replace('bg-slate-800', 'bg-blue-600');
+                btn.classList.replace('hover:bg-emerald-600', 'hover:bg-red-600');
+                
+                // Add animated lines dynamically
+                const svg = document.getElementById('magnetic-field-lines');
+                svg.innerHTML = `
+                   <path d="M 40,0 Q -10,75 40,150" class="meissner-field" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                   <path d="M 160,0 Q 210,75 160,150" class="meissner-field" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                   <path d="M 70,0 C 70,20 -40,75 70,150" class="meissner-field" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.6"/>
+                   <path d="M 130,0 C 130,20 240,75 130,150" class="meissner-field" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.6"/>
+                `;
+            } else {
+                // Deactivate
+                const svg = document.getElementById('magnetic-field-lines');
+                svg.innerHTML = `
+                    <path d="M 40,0 L 40,150" class="field-line-straight"/>
+                    <path d="M 70,0 L 70,150" class="field-line-straight"/>
+                    <path d="M 100,0 L 100,150" class="field-line-straight"/>
+                    <path d="M 130,0 L 130,150" class="field-line-straight"/>
+                    <path d="M 160,0 L 160,150" class="field-line-straight"/>
+                `;
+                core.setAttribute('fill', '#1e293b');
+                core.setAttribute('stroke', '#475569');
+                temp.innerText = 'T > Tc';
+                temp.setAttribute('fill', 'white');
+                btn.innerText = 'Cool Below Tc (Enable Meissner)';
+                btn.classList.replace('bg-blue-600', 'bg-slate-800');
+                btn.classList.replace('hover:bg-red-600', 'hover:bg-emerald-600');
+            }
+        }
+        
         function flipVivaCard(card) {
             const inner = card.querySelector('.viva-card-inner');
             if (inner.style.transform === 'rotateY(180deg)') {
@@ -188,7 +353,7 @@
         let currentUtterance = null;
         let currentBtn = null;
 
-        function toggleSpeakViva(btn, isNotesPage = false) {
+        function toggleSpeakViva(btn) {
             if ('speechSynthesis' in window) {
                 if (window.speechSynthesis.speaking) {
                     window.speechSynthesis.cancel();
@@ -197,25 +362,13 @@
                 }
 
                 let textToRead = [];
-                if (isNotesPage) {
-                    const frontPs = document.querySelectorAll('.backface-hidden p.font-bold');
-                    const backPs = document.querySelectorAll('.backface-hidden p.text-sm, .backface-hidden p.text-slate-300');
-                    for (let i = 0; i < frontPs.length; i++) {
-                        const q = frontPs[i]?.innerText || '';
-                        const a = backPs[i]?.innerText || '';
-                        if (q && a) {
-                            textToRead.push({ q, a });
-                        }
-                    }
-                } else {
-                    const fronts = document.querySelectorAll('.viva-card-front h4');
-                    const backs = document.querySelectorAll('.viva-card-back p');
-                    for (let i = 0; i < fronts.length; i++) {
-                        const q = fronts[i]?.innerText || '';
-                        const a = backs[i]?.innerText || '';
-                        if (q && a) {
-                            textToRead.push({ q, a });
-                        }
+                const fronts = document.querySelectorAll('.viva-card-front h4');
+                const backs = document.querySelectorAll('.viva-card-back p');
+                for (let i = 0; i < fronts.length; i++) {
+                    const q = fronts[i]?.innerText || '';
+                    const a = backs[i]?.innerText || '';
+                    if (q && a) {
+                        textToRead.push({ q, a });
                     }
                 }
 
@@ -273,7 +426,7 @@
         function resetSpeechState() {
             if (currentBtn) {
                 currentBtn.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
                         <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
                         <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
