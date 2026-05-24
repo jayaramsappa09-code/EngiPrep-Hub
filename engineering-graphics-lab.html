@@ -13,6 +13,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
     <!-- Lucide icons -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -1741,6 +1742,34 @@
             }
         }
 
+        window.triggerConfettiCelebration = function() {
+            if (typeof confetti !== 'undefined') {
+                var duration = 3 * 1000;
+                var animationEnd = Date.now() + duration;
+                var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+
+                function randomInRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                var interval = setInterval(function() {
+                    var timeLeft = animationEnd - Date.now();
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+                    var particleCount = 50 * (timeLeft / duration);
+                    confetti({
+                        ...defaults, particleCount,
+                        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                    });
+                    confetti({
+                        ...defaults, particleCount,
+                        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                    });
+                }, 250);
+            }
+        };
+
         window.toggleScoreTask = function(id) {
             const el = document.getElementById(id);
             const index = id.split('-')[1];
@@ -1753,6 +1782,12 @@
                 scoreXP -= 100;
             }
             updateXPUIRender();
+
+            const taskCounts = [0, 0, 0, 0, 0, 0, 0, 0].map((_, i) => localStorage.getItem(`engi_eg_task_id_${i+1}`) === 'completed' ? 1 : 0).reduce((a, b) => a + b, 0);
+            if (taskCounts === 8 && el.checked) {
+                if (window.triggerConfettiCelebration) window.triggerConfettiCelebration();
+                showEGNotification("Subject Mastery Achieved! 🎉");
+            }
         };
 
         window.resetInternalTracker = function() {
