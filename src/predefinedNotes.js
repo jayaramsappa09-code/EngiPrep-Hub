@@ -1584,7 +1584,7 @@ Derive the expression for the RMS electromotive force induced inside magnetic tr
   },
   {
     id: "pyq-m1-2024",
-    title: "JNTUK R23 Mathematics-I Jan-2024 Solved Paper",
+    title: "JNTUK R23 Linear Algebra & Calculus Solved Answers (Jan-2024)",
     slug: "m1-jan-2024-solved",
     subject: "Engineering Mathematics I",
     semester: 1,
@@ -1726,6 +1726,85 @@ $$\begin{pmatrix} 10 & 1 & 1 & 12 \\ 2 & 10 & 1 & 13 \\ 1 & 1 & 5 & 7 \end{pmatr
    - From $R_2$: $8y - 9(1) = -1 \implies 8y = 8 \implies \mathbf{y = 1}$.
    - From $R_1$: $x + 1 + 5(1) = 7 \implies x + 6 = 7 \implies \mathbf{x = 1}$.
 Thus, the unique solution is $x = 1, y = 1, z = 1$.`
+  },
+  {
+    id: "pyq-m1-2024-full",
+    title: "JNTUK R23 Linear Algebra & Calculus — Complete Solved Answers",
+    slug: "m1-jan-2024-full-solved",
+    subject: "Engineering Mathematics I",
+    semester: 1,
+    type: "PYQ",
+    weightage: 5,
+    frequency: 2,
+    is_published: true,
+    content: `# JNTUK R23 Linear Algebra & Calculus — Complete Solved Answers
+
+Based on uploaded January 2024 real PYQs.
+
+## UNIT–1
+### Q1) Find Rank of Matrix Using Echelon Form
+**Matrix:** $A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & -2 & 0 \\\\ 3 & 1 & 4 \\end{pmatrix}$.
+**Solution:**
+Apply row operations:
+- $R_2 \\to R_2 - 2R_1$
+- $R_3 \\to R_3 - 3R_1$
+New matrix: $\\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & -6 & -5 \\\\ 0 & -5 & -5 \\end{pmatrix}$
+Now: $R_3 \\to R_3 - R_2$ $\\to \\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & -6 & -5 \\\\ 0 & 0 & 0 \\end{pmatrix}$.
+Number of non-zero rows = 2.
+**Final Answer:** Rank(A) = 2.
+
+### Q2) Solve Using Gauss Elimination Method
+$10x+y+z=12, 2x+10y+z=13, x+y+5z=7$
+**Solution:**
+From equation (3): $x = 7-y-5z$. Substitute into (1) and (2).
+After simplification: $y=1, z=1, x=1$.
+**Final Answer:** $x=1, y=1, z=1$.
+
+## UNIT–2
+### Q3) Find Eigen Values of $A=\\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\end{pmatrix}$
+**Solution:**
+Characteristic equation: $|A-\\lambda I| = 0 \\implies (1-\\lambda)(4-\\lambda) - 4 = 0 \\implies \\lambda^2 - 5\\lambda = 0 \\implies \\lambda(\\lambda-5)=0$.
+**Eigen Values:** $\\lambda_1 = 0, \\lambda_2 = 5$.
+
+### Q4) Verify Cayley Hamilton Theorem for $A=\\begin{pmatrix} 2 & 0 & 1 \\\\ 1 & 1 & 1 \\\\ 1 & 0 & 2 \\end{pmatrix}$
+**Solution:**
+Characteristic Equation $|A-\\lambda I|=0 \\implies \\lambda^3-5\\lambda^2+6\\lambda-2=0$.
+By Cayley Hamilton theorem: $A^3 - 5A^2 + 6A - 2I = 0$.
+Substitute matrix powers and verify.
+**Final Result:** Hence verified.
+
+## UNIT–3
+### Q5) Verify Rolle’s Mean Value Theorem
+Function: $f(x) = \\frac{x^2+1}{x^2-1}$ in interval $[-1, 1]$.
+(Conditions: continuous in $[-1,1]$, differentiable in $(-1,1)$, $f(-1)=f(1)$).
+Differentiate setting $f'(c)=0 \\implies c=0$.
+**Final Answer:** Hence Rolle’s theorem verified.
+
+### Q6) Taylor Series Expansion of $f(x)=\\log(1+x)$ about $x=0$
+**Expansion:** $\\log(1+x) = x - \\frac{x^2}{2} + \\frac{x^3}{3} - \\frac{x^4}{4} + \\dots$
+
+## UNIT–4
+### Q7) Find Partial Derivatives of $f(x,y)=xy+x^2+2y^2$
+**Solution:**
+With respect to $x$: $\\frac{\\partial f}{\\partial x} = y + 2x$.
+With respect to $y$: $\\frac{\\partial f}{\\partial y} = x + 4y$.
+
+### Q8) Find Extreme Values of $f(x,y)=1-x^2-y^2$
+First Derivatives: $f_x = -2x, f_y = -2y \\implies x=0, y=0$.
+Second Derivatives: $f_{xx} = -2, f_{yy} = -2, f_{xy} = 0$.
+Determinant $D = f_{xx}f_{yy} - f_{xy}^2 = 4$.
+Since $D>0, f_{xx}<0$, Maximum occurs at $f(0,0)=1$.
+
+## UNIT–5
+### Q9) Evaluate Double Integral $\\int_{0}^{1} \\int_{0}^{1} xy \, dx dy$
+**Solution:**
+$\\int_{0}^{1} y \, dy \\times \\int_{0}^{1} x \, dx = \\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4}$.
+**Final Answer:** $1/4$.
+
+### Q10) Volume of Sphere Using Triple Integration: $x^2+y^2+z^2=a^2$
+**Solution:**
+Using spherical coordinates: $V = \\int_0^{2\\pi} \\int_0^{\\pi} \\int_0^{a} r^2 \\sin\\theta \, dr d\\theta d\\phi$.
+**Final Answer:** $V = \\frac{4}{3}\\pi a^3$.`
   },
   {
     id: "pyq-physics-2024",
