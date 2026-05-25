@@ -111,11 +111,14 @@
 
             <!-- Subject selections -->
             <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-6 mb-8 animate-fade-up" id="subject-selector-toolbar">
-                <label class="block text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-3 pl-1">Choose Curriculum Focus</label>
+                <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 pl-1">Choose Curriculum Focus</label>
                 <div class="flex flex-wrap gap-2">
                     <button onclick="loadFormulasBySubject('PPS')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-blue-600 text-white" id="btn-fs-PPS">PPS (C Programming)</button>
                     <button onclick="loadFormulasBySubject('M1')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-M1">Mathematics I</button>
+                    <button onclick="loadFormulasBySubject('M2')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-M2">Mathematics II</button>
                     <button onclick="loadFormulasBySubject('Physics')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-Physics">Applied Physics</button>
+                    <button onclick="loadFormulasBySubject('Chemistry')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-Chemistry">Engineering Chemistry</button>
+                    <button onclick="loadFormulasBySubject('BEEE')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-BEEE">BEEE</button>
                 </div>
             </div>
 
@@ -139,14 +142,49 @@
                     </div>
                 </div>
 
-                <!-- Guidance sidebar -->
+                <!-- Guidance sidebar (Now Interactive Sandbox Solver) -->
                 <div class="lg:col-span-4 space-y-8 animate-fade-up" style="animation-delay: 0.2s">
-                    <div class="bg-slate-900 text-slate-900 dark:text-slate-50 rounded-[2.5rem] p-8 overflow-hidden relative">
-                        <div class="absolute -right-16 -top-16 w-32 h-32 bg-blue-600/15 rounded-full blur-2xl"></div>
-                        <div class="relative z-10 space-y-4">
-                            <span class="text-[8px] font-black uppercase text-blue-400">Survival Study Desk</span>
-                            <h3 class="text-xl font-bold leading-snug">"Interactive derivation matrices avoid spelling errors in crucial exam diagrams."</h3>
-                            <p class="text-[10px] text-slate-400 leading-relaxed">Save standard formulas dynamically by clicking the bookmark star to pile them up inside your custom collection deck.</p>
+                    <div class="bg-slate-900 dark:bg-slate-900 text-white rounded-[2.5rem] p-8 overflow-hidden relative border border-slate-800 dark:border-slate-800">
+                        <div class="absolute -right-16 -top-16 w-32 h-32 bg-blue-600/10 rounded-full blur-2xl"></div>
+                        <div class="relative z-10 space-y-6">
+                            <span class="text-[8px] font-black uppercase text-blue-400 tracking-widest flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-ping"></span>
+                                R23 Interactive Solver
+                            </span>
+                            
+                            <div>
+                                <h3 class="text-xl font-black leading-snug">Formula Sandbox</h3>
+                                <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Instantly calculate and verify parameters for key JNTUK equations to bolster laboratory and theory learning.</p>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-[9px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Active Equation</label>
+                                    <select id="calc-formula-select" onchange="switchCalculatorEquation(this.value)" class="w-full bg-slate-800 border border-slate-750 rounded-xl px-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-blue-500">
+                                        <option value="nernst">Nernst Electrode Potential</option>
+                                        <option value="newton-rings">Newton's Rings Dark Diameter</option>
+                                        <option value="optical-na">Optical Fiber Numerical Aperture</option>
+                                        <option value="res-freq">RLC Circuit Resonance Frequency</option>
+                                        <option value="water-hardness">Hardness of Water CaCO3 eq</option>
+                                    </select>
+                                </div>
+
+                                <div id="calc-inputs-container" class="space-y-3">
+                                    <!-- Dynamic Inputs populated by JS -->
+                                </div>
+
+                                <button onclick="solveActiveFormula()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-xs font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer">
+                                    Compute Result Value
+                                </button>
+
+                                <div class="bg-slate-950 p-4 border border-slate-850 rounded-2xl">
+                                    <div class="text-[8px] uppercase tracking-widest text-slate-500 font-extrabold flex items-center justify-between">
+                                        <span>Output State</span>
+                                        <span class="font-mono text-[9px] text-blue-500" id="calc-formula-eq">E = E° - (0.0591/n) log(Q)</span>
+                                    </div>
+                                    <div id="calc-result-value" class="text-lg font-black text-emerald-400 mt-2 font-mono">--</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -173,7 +211,10 @@
                 <nav class="space-y-4">
                      <span class="text-[8px] font-mono tracking-widest text-[#64748b] uppercase block">Unit Map Index</span>
                      <div class="space-y-2 text-xs font-mono">
-                         <a href="#rev-sec-1" class="block py-1 hover:text-slate-900 dark:text-slate-50 border-b border-zinc-900/40 text-emerald-400">● 1. C-Programming Strings</a>
+                         <a href="#rev-sec-1" class="block py-1 hover:text-slate-100 border-b border-zinc-900/40 text-emerald-400">● 1. C-Programming Strings</a>
+                          <a href="#rev-sec-5" class="block py-1 hover:text-white border-b border-zinc-900/40">● 5. Mathematics-II ODEs</a>
+                          <a href="#rev-sec-6" class="block py-1 hover:text-white border-b border-zinc-900/40">● 6. Chemistry Nernst</a>
+                          <a href="#rev-sec-7" class="block py-1 hover:text-white border-b border-zinc-900/40">● 7. BEEE Resonant AC Circuits</a>
                          <a href="#rev-sec-2" class="block py-1 hover:text-slate-900 dark:text-slate-50 border-b border-zinc-900/40">● 2. Linear Algebra Matrices</a>
                          <a href="#rev-sec-3" class="block py-1 hover:text-slate-900 dark:text-slate-50 border-b border-zinc-900/40">● 3. Partial Derivatives</a>
                          <a href="#rev-sec-4" class="block py-1 hover:text-slate-900 dark:text-slate-50 border-b border-zinc-900/40">● 4. Optics & Diffraction</a>
@@ -244,7 +285,7 @@
             <section id="rev-sec-4" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
                 <div class="flex items-center gap-3">
                     <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 4</span>
-                    <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Applied Physics: Optics & Grating Diffraction</h3>
+                    <h3 class="text-base font-black text-slate-100">Applied Physics: Optics & Grating Diffraction</h3>
                 </div>
                 <p class="leading-relaxed text-slate-400">Calculates diffraction grating slit displacement limits mathematically:</p>
                 <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
@@ -254,6 +295,64 @@
                     <li><b>(e + d)</b>: Slit width constant.</li>
                     <li><b>θ</b>: Direct angle of diffraction.</li>
                     <li><b>λ</b>: Incident light wavelength.</li>
+                </ul>
+            </section>
+
+            <!-- 5. Maths II Ordinary Differential Equations -->
+            <section id="rev-sec-5" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
+                <div class="flex items-center gap-3">
+                    <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 5</span>
+                    <h3 class="text-base font-black text-slate-100">Mathematics-II: First-Order Ordinary Differential Equations</h3>
+                </div>
+                <p class="leading-relaxed text-slate-400">Calculates integrating factors for non-exact linear differential equations of format dy/dx + P(x)y = Q(x):</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
+                     I.F. = e^(∫ P(x) dx)
+                </div>
+                <p class="leading-relaxed text-slate-400">The composite solution reduces to:</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
+                     y * (I.F.) = ∫ [Q(x) * (I.F.)] dx + C
+                </div>
+            </section>
+
+            <!-- 6. Engineering Chemistry: Nernst Potential -->
+            <section id="rev-sec-6" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
+                <div class="flex items-center gap-3">
+                    <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 6</span>
+                    <h3 class="text-base font-black text-slate-100">Engineering Chemistry: Electrochemistry & Nernst Equation</h3>
+                </div>
+                <p class="leading-relaxed text-slate-400">Determine dynamic cell voltages or single electrode potentials across temperature and concentration gradients:</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
+                     E = E° - (2.303 * R * T / n * F) * log10([Products] / [Reactants])
+                </div>
+                <p class="leading-relaxed text-slate-400">Under standard environmental fields (T = 298 K), the equation condenses elegantly to:</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
+                     E = E° - (0.0591 / n) * log10(Q)
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-slate-400">
+                    <li><b>E°</b>: Electrode potential at standard state parameters.</li>
+                    <li><b>n</b>: Quantized transferable electron stoichiometry.</li>
+                    <li><b>Q</b>: Thermodynamic concentration reaction quotient.</li>
+                </ul>
+            </section>
+
+            <!-- 7. BEEE: AC Resonant Circuits -->
+            <section id="rev-sec-7" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
+                <div class="flex items-center gap-3">
+                    <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 7</span>
+                    <h3 class="text-base font-black text-slate-100">BEEE: Series RLC Circuit Resonance</h3>
+                </div>
+                <p class="leading-relaxed text-slate-400">Establishes precise conditions where inductive reactances and capacitive reactances neutralize:</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
+                     X_L = X_C  ==>  ω_r * L = 1 / (ω_r * C)
+                </div>
+                <p class="leading-relaxed text-slate-400">Solving for standard resonant frequency yields:</p>
+                <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
+                     f_r = 1 / (2 * π * √(L * C))
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-slate-400">
+                    <li><b>f_r</b>: Frequency of resonance (Hertz).</li>
+                    <li><b>L</b>: Series inductance parameter (Henrys).</li>
+                    <li><b>C</b>: Capacitance parameter (Farads).</li>
                 </ul>
             </section>
         </div>
@@ -327,17 +426,36 @@
             PPS: [
                 { id: "pps-f1", title: "Pointer dereferencing syntax", desc: "Computes direct data values where memory tags coordinate.", formula: "int x = 10; int *p = &x; val = *p;" },
                 { id: "pps-f2", title: "Struct allocation offsets", desc: "Declares modular user defined containers standard byte rules.", formula: "struct User { int id; char code[10]; } u;" },
-                { id: "pps-f3", title: "Formatted file write prints", desc: "Forwards characters to standard file streams.", formula: "fprintf(fptr, \"%d %s\", u.id, u.code);" }
+                { id: "pps-f3", title: "Formatted file write prints", desc: "Forwards characters to standard file streams.", formula: "fprintf(fptr, \"%d %s\", u.id, u.code);" },
+                { id: "pps-f4", title: "Dynamic Memory Allocation", desc: "Allocates blocks on the heap dynamically preserving layout constraints.", formula: "int *arr = (int*)malloc(n * sizeof(int));" },
+                { id: "pps-f5", title: "Recursive Null string lookup", desc: "Iterates characters continuously until termination byte is reached.", formula: "while(*str != '\\0') { len++; str++; }" }
             ],
             M1: [
-                { id: "m1-f1", title: "Cayley-Hamilton Identity", desc: "Substituting original matrix inside its characteristic equation rules.", formula: "a_n * A^n + a_n-1 * A^n-1 + ... + a_0 * I = 0" },
-                { id: "m1-f2", title: "Multivariable Jacobian conversion", desc: "Row/Col differentiation determinants for cartesian swaps.", formula: "J = (∂u/∂x * ∂v/∂y) - (∂u/∂y * ∂v/∂x)" },
-                { id: "m1-f3", title: "Beta-Gamma Symm relationship", desc: "Integral values mapping symmetrical relationships.", formula: "B(m, n) = [Γ(m) * Γ(n)] / Γ(m + n)" }
+                { id: "m1-f1", title: "Cayley-Hamilton Identity", desc: "Substituting original matrix inside its characteristic equation rules.", formula: "a_n * A^n + a_n-1 * A^n-1 + ... + a_0 * I = [0]" },
+                { id: "m1-f2", title: "Multivariable Jacobian conversion", desc: "Row/Col differentiation determinants for cartesian swaps.", formula: "J = ∂(u,v)/∂(x,y) = (∂u/∂x * ∂v/∂y) - (∂u/∂y * ∂v/∂x)" },
+                { id: "m1-f3", title: "Beta-Gamma Symm relationship", desc: "Integral values mapping symmetrical relationships.", formula: "B(m, n) = [Γ(m) * Γ(n)] / Γ(m + n)" },
+                { id: "m1-f4", title: "Taylor Series Expansion 2D", desc: "Formulates approximation profiles of functions around specific coords.", formula: "f(x,y) = f(a,b) + [f_x(a,b)(x-a) + f_y(a,b)(y-b)] + o(h^2)" }
+            ],
+            M2: [
+                { id: "m2-f1", title: "Newton-Raphson Iterative Root Finder", desc: "Rapidly converges to real roots of algebraic or transcendental functions.", formula: "x_n+1 = x_n - [f(x_n) / f'(x_n)]" },
+                { id: "m2-f2", title: "Runge-Kutta 4th Order Vector Equations", desc: "Solves standard ordinary differential equations with higher accuracy bounds.", formula: "y_n+1 = y_n + (1/6)*(k1 + 2*k2 + 2*k3 + k4)" },
+                { id: "m2-f3", title: "Integrating Factor (Linear 1st Order ODE)", desc: "Simplifies non-exact linear differential equations of format dy/dx + Py = Q.", formula: "I.F. = e^(∫ P dx)" }
             ],
             Physics: [
-                { id: "phy-f1", title: "Newton's dark ring diameter", desc: "Calculates ring boundary ratios under plano lens planes.", formula: "D^2 = 4 * n * R * λ" },
+                { id: "phy-f1", title: "Newton's dark ring diameter", desc: "Calculates ring boundary ratios under plano lens planes.", formula: "D_n^2 = 4 * n * R * λ" },
                 { id: "phy-f2", title: "Optical fibers acceptance angle", desc: "Max light acceptance angle under refractive indexes.", formula: "sin θ = √(n1^2 - n2^2) / n0" },
-                { id: "phy-f3", title: "Schrodinger wave equations", desc: "Determines coordinates probability wave models.", formula: "[-h^2 / 2m] * ∇^2Ψ + VΨ = EΨ" }
+                { id: "phy-f3", title: "Schrodinger wave equations", desc: "Determines coordinates probability wave models.", formula: "[-h^2 / 2m] * ∇^2Ψ + VΨ = EΨ" },
+                { id: "phy-f4", title: "Bragg's Law of Diffraction", desc: "Specifies constructive interference angles under crystal spacing lattice lines.", formula: "2d * sin θ = n * λ" }
+            ],
+            Chemistry: [
+                { id: "chem-f1", title: "Nernst Equation for Electrode Potential", desc: "Calculates cell potentials under varying non-standard state concentration factors.", formula: "E = E° - (0.0591 / n) * log10([Products] / [Reactants])" },
+                { id: "chem-f2", title: "Equivalent Water Hardness Conversion in mg/L", desc: "Normalizes dissolved calcium and magnesium contents into solid CaCO3 equivalents.", formula: "CaCO3 eq (mg/L) = Mass of salts * (50 / Eq. wt. of salts)" },
+                { id: "chem-f3", title: "Fox Mixture Equation (Polymer Glass Tg)", desc: "Traces dynamic glass transition temperatures across physical copolymer compositions.", formula: "1 / Tg = w1 / Tg1 + w2 / Tg2" }
+            ],
+            BEEE: [
+                { id: "beee-f1", title: "Series RLC resonant frequency", desc: "Locates state coordinates where reactive impedance values cancel out entirely.", formula: "f_r = 1 / (2 * π * √(L * C))" },
+                { id: "beee-f2", title: "RMS Voltage of AC Sinewave", desc: "Determines DC equivalent heating potentials of a standard alternating waveform.", formula: "V_rms = V_peak / √2 ≈ 0.707 * V_peak" },
+                { id: "beee-f3", title: "DC Voltage Dividers rule", desc: "Apportions relative electrical potential across connected resistor channels.", formula: "V_x = V_total * (R_x / R_total)" }
             ]
         };
 
@@ -359,7 +477,7 @@
         window.loadFormulasBySubject = function(subName) {
             window.activeSubject = subName;
             document.querySelectorAll('.form-subj-btn').forEach(b => {
-                b.className = "form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100";
+                b.className = "form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400";
             });
             const btn = document.getElementById(`btn-fs-${subName}`);
             if(btn) btn.className = "form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-blue-600 text-white";
@@ -394,8 +512,11 @@
         }
 
         window.bookmarkFormula = function(id) {
-            const data = formulasDatabase[window.activeSubject] || [];
-            const found = data.find(f => f.id === id);
+            let found = null;
+            for (const key in formulasDatabase) {
+                const item = formulasDatabase[key].find(f => f.id === id);
+                if (item) { found = item; break; }
+            }
             if(!found) return;
 
             let savedArr = JSON.parse(localStorage.getItem('prep-saved-formulas')) || [];
@@ -445,7 +566,136 @@
             });
         }
 
-        // 2. REVISION MODE ACTIVATE LOGIC
+        // 3. REAL-TIME MULTI-FORMULA SANDBOX SOLVABILITY DECK
+        window.switchCalculatorEquation = function(eqId) {
+            const container = document.getElementById('calc-inputs-container');
+            const formulaEq = document.getElementById('calc-formula-eq');
+            if (!container) return;
+
+            let html = '';
+            if (eqId === 'nernst') {
+                formulaEq.innerText = "E = E° - (0.0591 / n) * log10(Q)";
+                html = `
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">E° (Standard Potential in V)</label>
+                        <input type="number" id="inp-nernst-e0" value="0.76" step="0.01" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Transferred Electrons (n)</label>
+                        <input type="number" id="inp-nernst-n" value="2" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Quotient Q ([Prod] / [React])</label>
+                        <input type="number" id="inp-nernst-q" value="0.01" step="0.001" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                `;
+            } else if (eqId === 'newton-rings') {
+                formulaEq.innerText = "D_n² = 4 * n * R * λ";
+                html = `
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Dark Ring Order (n)</label>
+                        <input type="number" id="inp-nr-n" value="5" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Radius Curvature R (cm)</label>
+                        <input type="number" id="inp-nr-r" value="100" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Wavelength λ (nm)</label>
+                        <input type="number" id="inp-nr-lam" value="589" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                `;
+            } else if (eqId === 'optical-na') {
+                formulaEq.innerText = "N.A. = √(n1² - n2²)";
+                html = `
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Core Refraction Index n1</label>
+                        <input type="number" id="inp-na-n1" value="1.54" step="0.01" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Clad Refraction Index n2</label>
+                        <input type="number" id="inp-na-n2" value="1.50" step="0.01" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                `;
+            } else if (eqId === 'res-freq') {
+                formulaEq.innerText = "fr = 1 / (2 * π * √(L * C))";
+                html = `
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Inductance L (mH)</label>
+                        <input type="number" id="inp-rf-l" value="10" step="0.1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Capacitance C (μF)</label>
+                        <input type="number" id="inp-rf-c" value="4.7" step="0.1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                `;
+            } else if (eqId === 'water-hardness') {
+                formulaEq.innerText = "Hardness = Mass * (50 / EqWt)";
+                html = `
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Concentration of Salts (mg/L)</label>
+                        <input type="number" id="inp-wh-mass" value="12" step="0.5" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Salt Equivalent Weight (e.g. MgSO4=60)</label>
+                        <input type="number" id="inp-wh-eq" value="60" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        window.solveActiveFormula = function() {
+            const eqId = document.getElementById('calc-formula-select').value;
+            const resVal = document.getElementById('calc-result-value');
+            if(!resVal) return;
+
+            let result = 0;
+
+            try {
+                if (eqId === 'nernst') {
+                    const e0 = parseFloat(document.getElementById('inp-nernst-e0').value) || 0;
+                    const n = parseFloat(document.getElementById('inp-nernst-n').value) || 1;
+                    const q = parseFloat(document.getElementById('inp-nernst-q').value) || 1;
+                    if(q <= 0) throw new Error("Quotient Q must be > 0");
+                    const e = e0 - (0.0591 / n) * Math.log10(q);
+                    result = e.toFixed(4) + " V";
+                } else if (eqId === 'newton-rings') {
+                    const n = parseFloat(document.getElementById('inp-nr-n').value) || 1;
+                    const r = parseFloat(document.getElementById('inp-nr-r').value) || 1;
+                    const lam = parseFloat(document.getElementById('inp-nr-lam').value) || 589;
+                    const dSq = 4 * n * r * (lam * 1e-7);
+                    const d = Math.sqrt(dSq);
+                    result = d.toFixed(4) + " cm (D²: " + dSq.toExponential(3) + " cm²)";
+                } else if (eqId === 'optical-na') {
+                    const n1 = parseFloat(document.getElementById('inp-na-n1').value) || 1.5;
+                    const n2 = parseFloat(document.getElementById('inp-na-n2').value) || 1.4;
+                    if (n1 < n2) throw new Error("n1 must be > cladding index n2");
+                    const diff = n1*n1 - n2*n2;
+                    const na = Math.sqrt(diff);
+                    const theta = Math.asin(na) * (180 / Math.PI);
+                    result = na.toFixed(4) + " (Acceptance Angle α: " + theta.toFixed(2) + "°)";
+                } else if (eqId === 'res-freq') {
+                    const l = parseFloat(document.getElementById('inp-rf-l').value) || 1;
+                    const c = parseFloat(document.getElementById('inp-rf-c').value) || 1;
+                    if(l <= 0 || c <= 0) throw new Error("LC params must be non-zero");
+                    const res = 1 / (2 * Math.PI * Math.sqrt((l * 1e-3) * (c * 1e-6)));
+                    result = (res / 1000).toFixed(3) + " kHz (" + res.toFixed(1) + " Hz)";
+                } else if (eqId === 'water-hardness') {
+                    const mass = parseFloat(document.getElementById('inp-wh-mass').value) || 0;
+                    const eqwt = parseFloat(document.getElementById('inp-wh-eq').value) || 1;
+                    if(eqwt <= 0) throw new Error("Eq. weight must be positive number");
+                    const hardness = mass * (50 / eqwt);
+                    result = hardness.toFixed(2) + " mg/L as CaCO3 equivalent";
+                }
+            } catch (err) {
+                result = "Error: " + err.message;
+            }
+
+            resVal.innerText = result;
+        }
+
+        // 4. REVISION MODE ACTIVATE LOGIC
         window.toggleRevisionMode = function() {
             const normal = document.getElementById('normal-mode-content');
             const dist = document.getElementById('distraction-free-panel');
@@ -484,8 +734,11 @@
 
         // Initialize lists
         renderFormulasList();
+        switchCalculatorEquation('nernst');
 
     </script>
     <script type="module" src="/src/ai-widget.ts"></script>
+    <!-- Universal Academic Navigator & Active Live Alerts -->
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>
