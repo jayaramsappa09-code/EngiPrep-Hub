@@ -114,7 +114,7 @@
             const user = await getCurrentUser()
             if (user) {
                 const urlParams = new URLSearchParams(window.location.search);
-                const redirect = urlParams.get('redirect') || '/dashboard.html';
+                const redirect = urlParams.get('redirect') || '/index.html';
                 window.location.replace(redirect);
             }
         }
@@ -124,7 +124,7 @@
         supabase.auth.onAuthStateChange((event, session) => {
             if (event === 'SIGNED_IN' && session) {
                 const urlParams = new URLSearchParams(window.location.search);
-                const redirect = urlParams.get('redirect') || '/dashboard.html';
+                const redirect = urlParams.get('redirect') || '/index.html';
                 window.location.replace(redirect);
             }
         })
@@ -210,13 +210,13 @@
                         errorDiv.classList.add('bg-emerald-50', 'text-emerald-600');
                     } else if (data?.session) { 
                         const urlParams = new URLSearchParams(window.location.search);
-                        const redirect = urlParams.get('redirect') || '/dashboard.html';
+                        const redirect = urlParams.get('redirect') || '/index.html';
                         window.location.href = redirect; 
                     }
                 } else {
                     await signIn(email, password);
                     const urlParams = new URLSearchParams(window.location.search);
-                    const redirect = urlParams.get('redirect') || '/dashboard.html';
+                    const redirect = urlParams.get('redirect') || '/index.html';
                     window.location.href = redirect;
                 }
             } catch (err) {

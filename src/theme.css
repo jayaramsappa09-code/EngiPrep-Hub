@@ -1,318 +1,95 @@
 /* ==========================================================================
    ENGIPREPHUB PROFESSIONAL EDUCATIONAL COLOR ARCHITECTURE
-   Designed for High-Focus Study Sessions, Readability, and Eye Comfort
-   ========================================================================== */
-
-/* ==========================================================================
-   1️⃣ COLOR DESIGN TOKENS (LIGHT & DARK MODES)
+   Standardized - High-Focus, Content-First, Eye-Safe
    ========================================================================== */
 
 :root {
-  /* LIGHT MODE - Crisp, Pristine, and Clear (Stripe & Vercel Inspired) */
-  --background-color: #FAFAFA;          /* Crisp canvas background */
-  --background-secondary: #F8FAFC;      /* Extremely soft off-white secondary canvas */
-  --surface-color: #FFFFFF;             /* Pure white main content container */
-  --surface-secondary: #F1F5F9;         /* Off-white secondary surfaces */
-  --surface-elevated: #E2E8F0;          /* Subtle hover surfaces */
-  --soft-card: #F1F5F9;                 /* Soft highlights */
+  /* PRISTINE LIGHT MODE (Neutral/Professional) */
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #F1F5F9;
+  --surface-primary: #FFFFFF;
+  --surface-secondary: #F8FAFC;
+  --surface-soft: #E2E8F0;
 
-  /* Light Typography (Highest Legibility & Sharpness) */
-  --text-main-color: #0F172A;           /* Slate 900 - Headings */
-  --text-secondary: #334155;            /* Slate 700 - Body & Prose text */
-  --text-muted-color: #64748B;          /* Slate 500 - Captions and subtle text */
-  --text-disabled-color: #94A3B8;       /* Slate 400 - Overlays & disabled state */
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --text-disabled: #94A3B8;
 
-  /* Neutral Border & Dividers */
-  --border-color: #E2E8F0;              /* Calm borders */
-  --divider-color: #F1F5F9;
+  --accent-primary: #3B82F6;
+  --accent-secondary: #06B6D4;
 
-  /* Accent Color System (Soft & Purposeful) */
-  --theme-primary: #2563EB;             /* Vercel Professional Blue */
-  --theme-primary-rgb: 37, 99, 235;
-  --theme-accent: #0891B2;              /* Soft Teal Accent */
-  --theme-accent-rgb: 8, 145, 178;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
 
-  --success-color: #059669;             /* Calm green */
-  --warning-color: #D97706;             /* Calm amber */
-  --error-color: #DC2626;               /* Calm red */
+  --border-soft: rgba(0,0,0,0.08);
+  --border-medium: rgba(0,0,0,0.12);
 
-  /* Light Formula Block */
-  --formula-bg: #F8FAFC;
-  --formula-border: #E2E8F0;
-  --formula-text: #0F172A;
+  --shadow-soft: 0 4px 12px rgba(0,0,0,0.05);
 
-  /* Sidebar/TOC Active States */
-  --sidebar-active-bg: #EFF6FF;
-  --sidebar-active-border: #2563EB;
-  --sidebar-active-text: #1D4ED8;
-
-  /* Typography Variables */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
-/* 🌙 THE PERFECT DARK MODE - Calm Midnight, Eye-Safe, High Contrast */
-html.dark, html.theme-dark, .dark, .theme-dark {
-  --background-color: #0B1020;        /* Mid-night Navy Base */
-  --background-secondary: #111827;    /* Slate-midnight secondary background */
-  --surface-color: #1F2937;           /* Card Base (Gray 800) */
-  --surface-secondary: #273449;       /* Gray 700-navy mid-tones */
-  --surface-elevated: #334155;        /* Interactive focused elements */
-  --soft-card: #334155;               /* Informational cards */
+/* 🌙 THE PROFESSIONAL DARK MODE */
+html.dark, .dark {
+  --bg-primary: #0B1020;
+  --bg-secondary: #111827;
+  --surface-primary: #1F2937;
+  --surface-secondary: #273449;
+  --surface-soft: #334155;
 
-  /* Dark Typography (Perfect high-yield contrast ratio, non-glaring) */
-  --text-main-color: #F8FAFC;         /* Crisp near-white display headers */
-  --text-secondary: #CBD5E1;          /* Comfortable reading slate-gray paragraphs */
-  --text-muted-color: #94A3B8;        /* Soft readability slate */
-  --text-disabled-color: #64748B;     /* Subdued captioning slate */
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-disabled: #64748B;
 
-  /* Neutral Border & Dividers */
-  --border-color: rgba(255, 255, 255, 0.08);
-  --divider-color: rgba(255, 255, 255, 0.06);
+  --accent-primary: #3B82F6;
+  --accent-secondary: #06B6D4;
 
-  /* Primary & Accent Systems */
-  --theme-primary: #3B82F6;           /* Professional Blue Accent */
-  --theme-primary-rgb: 59, 130, 246;
-  --theme-accent: #06B6D4;            /* Soft Muted Cyan */
-  --theme-accent-rgb: 6, 182, 212;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
 
-  --success-color: #10B981;
-  --warning-color: #F59E0B;
-  --error-color: #EF4444;
+  --border-soft: rgba(255,255,255,0.08);
+  --border-medium: rgba(255,255,255,0.12);
 
-  /* Dark Formula Block */
-  --formula-bg: rgba(15, 23, 42, 0.92);
-  --formula-border: rgba(59, 130, 246, 0.18);
-  --formula-text: #F8FAFC;
-
-  /* Sidebar/TOC Active States */
-  --sidebar-active-bg: rgba(59, 130, 246, 0.12);
-  --sidebar-active-border: #3B82F6;
-  --sidebar-active-text: #FFFFFF;
+  --shadow-soft: 0 8px 30px rgba(0,0,0,0.25);
 }
 
-/* ==========================================================================
-   2️⃣ SUBJECT SPECIFIC OVERRIDES - REBUILT WITHOUT NEON/GLOW EXCESS
-   ========================================================================== */
-
-/* physics */
-[data-subject-theme="physics"] {
-  --theme-primary: #3B82F6;
-  --theme-primary-rgb: 59, 130, 246;
-  --theme-accent: #60A5FA;
-  --sidebar-active-bg: rgba(59, 130, 246, 0.1);
-  --sidebar-active-border: #3B82F6;
-  --sidebar-active-text: var(--text-main-color);
-}
-
-/* mathematics */
-[data-subject-theme="mathematics"] {
-  --theme-primary: #8B5CF6;
-  --theme-primary-rgb: 139, 92, 246;
-  --theme-accent: #A78BFA;
-  --sidebar-active-bg: rgba(139, 92, 246, 0.1);
-  --sidebar-active-border: #8B5CF6;
-  --sidebar-active-text: var(--text-main-color);
-}
-
-/* chemistry */
-[data-subject-theme="chemistry"] {
-  --theme-primary: #10B981;
-  --theme-primary-rgb: 16, 185, 129;
-  --theme-accent: #34D399;
-  --sidebar-active-bg: rgba(16, 185, 129, 0.1);
-  --sidebar-active-border: #10B981;
-  --sidebar-active-text: var(--text-main-color);
-}
-
-/* english */
-[data-subject-theme="english"] {
-  --theme-primary: #F59E0B;
-  --theme-primary-rgb: 245, 158, 11;
-  --theme-accent: #FBBF24;
-  --sidebar-active-bg: rgba(245, 158, 11, 0.1);
-  --sidebar-active-border: #F59E0B;
-  --sidebar-active-text: var(--text-main-color);
-}
-
-/* programming */
-[data-subject-theme="programming"] {
-  --theme-primary: #10B981;
-  --theme-primary-rgb: 16, 185, 129;
-  --theme-accent: #34D399;
-  --sidebar-active-bg: rgba(16, 185, 129, 0.1);
-  --sidebar-active-border: #10B981;
-  --sidebar-active-text: var(--text-main-color);
-}
-
-/* beee */
-[data-subject-theme="beee"] {
-  --theme-primary: #F97316;
-  --theme-primary-rgb: 249, 115, 22;
-  --theme-accent: #FDBA74;
-  --sidebar-active-bg: rgba(249, 115, 22, 0.1);
-  --sidebar-active-border: #F97316;
-  --sidebar-active-text: var(--text-main-color);
-}
-
-/* graphics */
-[data-subject-theme="graphics"] {
-  --theme-primary: #06B6D4;
-  --theme-primary-rgb: 6, 182, 212;
-  --theme-accent: #67E8F9;
-  --sidebar-active-bg: rgba(6, 182, 212, 0.1);
-  --sidebar-active-border: #06B6D4;
-  --sidebar-active-text: var(--text-main-color);
-}
-
-/* civil-mechanical */
-[data-subject-theme="civil-mechanical"] {
-  --theme-primary: #0EA5E9;
-  --theme-primary-rgb: 14, 165, 233;
-  --theme-accent: #38BDF8;
-  --sidebar-active-bg: rgba(14, 165, 233, 0.1);
-  --sidebar-active-border: #0EA5E9;
-  --sidebar-active-text: var(--text-main-color);
-}
-
-/* ==========================================================================
-   3️⃣ GLOBAL SANITIZATION & SYSTEM-WIDE READABILITY ENFORCEMENTS
-   ========================================================================== */
-
-/* Direct Text Color Overrides to guarantee contrast remains green-lit for AdSense/SEO */
-p, li {
-  color: var(--text-secondary) !important;
-  opacity: 1 !important; /* Force high contrast reading */
-  font-family: var(--font-sans) !important;
+/* GLOBAL SANITIZATION */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.9;
+  letter-spacing: -0.01em;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--text-main-color) !important;
-  font-family: var(--font-display) !important;
-  font-weight: 700 !important;
-  text-shadow: none !important; /* Strip all unrequested glowing text shadow effects */
-  opacity: 1 !important;
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
-/* Clean cards and panel boxes across the board */
-.glass-card, .bento-card, .cardBlock, .card {
-  background-color: var(--surface-color) !important;
-  border: 1px solid var(--border-color) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important; /* Calm soft gray shadow */
+/* Eliminate opacity/neon clutter */
+* {
   text-shadow: none !important;
-  background-image: none !important; /* Kill nested decorative background gradients */
-  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-.glass-card:hover, .bento-card:hover, .cardBlock:hover, .card:hover {
-  border-color: rgba(var(--theme-primary-rgb), 0.3) !important;
-  background-color: var(--surface-secondary) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Eliminate glowing components, text gradients, glowing borders */
-[class*="shadow-[0_0_"], [class*="box-shadow: 0 0 "], [class*="neon-glow"] {
   box-shadow: none !important;
 }
 
-[class*="text-shadow: 0 0 "], [class*="glowing-text"] {
-  text-shadow: none !important;
-}
-
-[class*="border-cyan-500"], [class*="border-cyan-400"] {
-  border-color: var(--border-color) !important;
-}
-
-/* ==========================================================================
-   4️⃣ PERFECT FORMULA BLOCK DISPLAY
-   ========================================================================== */
-.formula-block-modern, 
-.formula,
-pre.formula,
-.formula-highlight,
-.latex-formula,
-[class*="bg-slate-950"].p-6,
-.math-block {
-  background-color: var(--formula-bg) !important;
-  border: 1px solid var(--formula-border) !important;
-  color: var(--formula-text) !important;
-  line-height: 1.76 !important;
-  font-weight: 600 !important;
-  font-family: var(--font-mono) !important;
-  padding: 1.25rem 1.75rem !important;
-  border-radius: 12px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important; /* Subtle shadows only, no neon glow */
-  text-shadow: none !important;
-  margin: 1.25rem 0 !important;
-  overflow-x: auto;
-}
-
-/* Mini Inline Formulas */
-p code, li code, span code {
-  background-color: var(--formula-bg) !important;
-  border: 1px solid var(--formula-border) !important;
-  color: var(--formula-text) !important;
-  padding: 0.15rem 0.4rem !important;
-  border-radius: 6px !important;
-  font-size: 0.92em !important;
-  font-weight: 600 !important;
-}
-
-/* ==========================================================================
-   5️⃣ NAVIGATION & ACTIVE COMPONENT RE-VISIBILITY
-   ========================================================================== */
-
-/* Active link logic */
-.toc-link, .sidebar-link, .nav-link {
-  color: var(--text-secondary) !important;
-  font-family: var(--font-sans) !important;
+p, li, .prose {
+  color: var(--text-secondary);
   opacity: 1 !important;
-  transition: all 0.2s ease !important;
 }
 
-.toc-link:hover, .sidebar-link:hover, .nav-link:hover {
-  color: var(--text-main-color) !important;
-  background-color: var(--surface-secondary) !important;
-}
-
-.sidebar-item-active, .toc-active-item, .toc-link.active, .sidebar-link.active {
-  background-color: var(--sidebar-active-bg) !important;
-  border-left: 3px solid var(--sidebar-active-border) !important;
-  color: var(--sidebar-active-text) !important;
-  font-family: var(--font-sans) !important;
-  padding-left: 12px !important;
-  font-weight: 600 !important;
-}
-
-/* High Fidelity Table Readability */
-table {
-  background-color: var(--surface-color) !important;
-  border-collapse: collapse !important;
-  border: 1px solid var(--border-color) !important;
-}
-
-th {
-  background-color: var(--surface-secondary) !important;
-  color: var(--text-main-color) !important;
-  border: 1px solid var(--border-color) !important;
-  font-weight: 600 !important;
-  padding: 12px 16px !important;
-}
-
-td {
-  border: 1px solid var(--border-color) !important;
-  color: var(--text-secondary) !important;
-  padding: 12px 16px !important;
-}
-
-/* Clean Badges & Pills */
-.badge, .subject-pill, .pill {
-  background-color: var(--sidebar-active-bg) !important;
-  border: 1px solid var(--border-color) !important;
-  color: var(--sidebar-active-text) !important;
-  font-size: 0.775rem !important;
-  font-weight: 600 !important;
-  text-shadow: none !important;
+/* Standardize Interactive Cards */
+.glass-card, .card, .bento-card {
+  background-color: var(--surface-primary) !important;
+  border: 1px solid var(--border-soft) !important;
+  box-shadow: none !important;
+  border-radius: 16px;
 }
