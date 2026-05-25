@@ -12,17 +12,7 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
-    <style>
-        .glass-card { background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s; }
-        .light .glass-card { background-color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03); }
-        .glass-card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15); }
-        .viva-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
-        .viva-card-front, .viva-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-        .viva-card-back { transform: rotateY(180deg); }
-        
-        .monomer { animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-5px) rotate(5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
-    </style>
+    
     <script type="module" src="/src/gatekeeper.js"></script>
 
     <meta property="og:title" content="JNTUK R23 Polymer Chemistry | EngiPrep Hub">
@@ -51,74 +41,98 @@
     </script>
 
 
-  <style id="premium-engi-prep-hub">
-  /* PREMIUM ENGI PREP HUB SMOOTHNESS */
-  html { scroll-padding-top: 100px; }
-  .topic-block {
-    background: rgba(12, 20, 40, 0.4);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .topic-block:hover {
-    border-color: rgba(0, 168, 255, 0.2);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px inset rgba(255, 255, 255, 0.02);
-    transform: translateY(-2px);
-  }
-  .topic-header { padding: 24px 28px; }
-  .topic-title {
-    font-size: 1.05rem; font-family: 'Syne', sans-serif; letter-spacing: -0.3px;
-  }
-  .sec-line { background: linear-gradient(90deg, rgba(0,168,255,0.2), transparent); }
-  .sec-label {
-    font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 1px;
-    color: var(--accent, #00a8ff); padding: 4px 12px;
-    background: rgba(0, 168, 255, 0.05); border-radius: 100px;
-    border: 1px solid rgba(0, 168, 255, 0.15);
-  }
-  .info-card, .step-card, .rev-card, .exam-card, .box { transition: all 0.3s ease; }
-  .info-card:hover, .step-card:hover, .rev-card:hover, .exam-card:hover, .box:hover {
-    transform: translateY(-2px) scale(1.01);
-  }
-  .step-card {
-    background: linear-gradient(135deg, rgba(0, 168, 255, 0.03), rgba(0, 168, 255, 0.01));
-    border: 1px solid rgba(0, 168, 255, 0.08);
-  }
-  .hero h1 {
-    background: linear-gradient(110deg, #fff 0%, #e2e8f0 30%, #38bdf8 70%, #818cf8 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    text-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
-  }
-  .steps-container { display: flex; flex-direction: column; gap: 8px; }
-  </style>
-  </head>
+  
+  
+  
+
+    <link rel="canonical" href="https://engiprephub.in/chemistry-unit-4">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Mono:ital,wght@0,400;0,500;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style id="engiprephub-elite-core">
+    :root {
+      --bg: #050508;
+      --glass: rgba(15, 23, 42, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.2);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    
+    .glass-card:hover { border-color: var(--accent-glow); transform: translateY(-4px); }
+
+    .topic-section { margin-bottom: 5rem; }
+    
+    .sec-divider {
+      display: flex; align-items: center; gap: 16px; margin: 3rem 0 1.5rem 0;
+    }
+    .sec-line { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); }
+    .sec-label {
+      font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--accent); padding: 6px 16px; 
+      background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.15); border-radius: 100px;
+    }
+
+    .formula-card {
+      background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem;
+      border-left: 4px solid var(--accent);
+    }
+    
+    .ai-tools-dock {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: rgba(13, 17, 23, 0.85);
+      backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 100px;
+      display: flex; gap: 12px; padding: 8px 12px; z-index: 1000;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+    
+    .ai-btn {
+      background: transparent; border: none; padding: 10px 18px; border-radius: 100px; color: var(--text-muted);
+      font-weight: 600; font-size: 0.75rem; display: flex; align-items: center; gap: 8px; cursor: pointer;
+      transition: 0.3s;
+    }
+    .ai-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    
+    .check-list li { position: relative; padding-left: 28px; margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-muted); }
+    .check-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 900; }
+    </style>
+</head>
 <body class="bg-[#050508] dark:bg-[#050508] text-slate-300 dark:text-slate-350 min-h-screen font-sans antialiased">
-    <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4">
-                <span class="text-xl font-black text-slate-100">EngiPrep <span class="text-blue-500">Hub</span></span>
-            </a>
-            <div class="flex items-center gap-4">
-                <a href="/chemistry-topper-notes.html" class="px-4 py-2 hover:bg-slate-800/50 rounded-xl text-xs font-bold text-slate-300 transition-colors">Topper Notes</a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 rounded-xl text-xs font-black uppercase text-white shadow-lg shadow-blue-500/25">Dashboard</a>
+      <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
+          
+    <header class="mb-14 p-10 glass-card">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <nav class="flex items-center gap-2 text-[10px] font-black text-blue-500 uppercase tracking-widest mb-4">
+                    <a href="/">Home</a> <span>/</span> <a href="/all-subjects.html">Subjects</a> <span>/</span> <span class="text-slate-500">Unit Study</span>
+                </nav>
+                <h1 class="text-4xl lg:text-7xl font-black text-white tracking-tighter">JNTUK R23 Polymer Chemistry <span class="text-blue-500">Survival Kit</span></h1>
+                <p class="text-slate-400 mt-4 max-w-2xl font-medium">Hyper-focused JNTUK R23 preparation module. Concept intuition first, exam mastery second.</p>
+            </div>
+            <div class="flex items-center gap-3">
+               <div class="px-5 py-3 bg-white/5 rounded-2xl border border-white/10 text-center">
+                  <div class="text-[10px] font-black text-slate-500 uppercase">Success Rate</div>
+                  <div class="text-xl font-black text-blue-500">98%</div>
+               </div>
             </div>
         </div>
-    </nav>
-    
-    <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
+    </header>
+  
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+              <div class="lg:col-span-9 space-y-16">
+                  
         <!-- Breadcrumb -->
-        <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
-            <ol class="flex items-center gap-2">
-                <li><a href="/" class="hover:text-purple-500">Home</a></li>
-                <li>/</li>
-                <li><a href="/all-subjects.html" class="hover:text-purple-500">Subjects</a></li>
-                <li>/</li>
-                <li><a href="/subject.html?slug=chemistry" class="hover:text-purple-500">Chemistry</a></li>
-                <li>/</li>
-                <li class="text-purple-500" aria-current="page">Polymer Chemistry</li>
-            </ol>
-        </nav>
+        
 
         <!-- Header -->
         <header class="mb-14 p-8 glass-card bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden">
@@ -154,18 +168,14 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <!-- Left Side main tabbed container -->
             <div class="lg:col-span-9 space-y-12"><div id="tab-mechanism" class="tab-content block space-y-10">
-                    <section class="glass-card overflow-hidden">
-                        <div class="p-8">
-                            <div class="flex items-center gap-2 text-purple-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                    <section class="glass-card overflow-hidden"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="content-placeholder">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="content-placeholder">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="content-placeholder">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="content-placeholder">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="content-placeholder">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-8"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="flex items-center gap-2 text-purple-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
                                 <span class="w-8 h-px bg-purple-500"></span> Addition Polymerization
                             </div>
-                            <h2 class="text-3xl font-black mb-4">Free Radical Addition Mechanism</h2>
-                            <p class="text-slate-400 text-base max-w-3xl leading-relaxed mb-8">
+<h2 class="text-3xl font-black mb-4">Free Radical Addition Mechanism</h2>
+<p class="text-slate-400 text-base max-w-3xl leading-relaxed mb-8">
                                 Free radical polymerization of ethylene ($CH_2=CH_2$) to polyethylene is catalyzed by organic peroxides like benzoyl peroxide or hydrogen peroxide. Learn all three essential phases with precise intermediate structures.
                             </p>
-
-                            <!-- Interactive Stage Selector for mechanism -->
-                            <div class="grid grid-cols-3 gap-2 mb-8 bg-slate-950 p-1 rounded-xl border border-slate-800">
+<div class="grid grid-cols-3 gap-2 mb-8 bg-slate-950 p-1 rounded-xl border border-slate-800">
                                 <button onclick="setRadicalStage(1)" id="rad-btn-1" class="rad-stage-btn py-2.5 px-3 rounded-lg text-xs font-black bg-purple-500 text-white transition-all uppercase">
                                     Stage 1: Initiation
                                 </button>
@@ -175,38 +185,13 @@
                                 <button onclick="setRadicalStage(3)" id="rad-btn-3" class="rad-stage-btn py-2.5 px-3 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200 transition-all uppercase">
                                     Stage 3: Termination
                                 </button>
-                            </div>
-
-                            <!-- Interactive Stage Display Box -->
-                            <div id="mechanism-stage-box" class="p-6 bg-[#030308] border border-slate-800 rounded-2xl min-h-[300px] flex flex-col justify-between">
-                                <div id="radical-stage-desc">
-                                    <!-- Dynamic Description -->
-                                </div>
-                                <div id="radical-stage-viz" class="my-6 p-4 bg-slate-900/50 rounded-xl border border-slate-800/80 font-mono text-center overflow-x-auto select-none">
-                                    <!-- Dynamic Equation -->
-                                </div>
-                                <div class="p-4 bg-purple-500/5 border border-purple-500/10 rounded-xl flex items-start gap-3">
-                                    <span class="text-purple-400 font-bold text-sm">💡 Exam Insight:</span>
-                                    <p id="radical-stage-tip" class="text-xs text-slate-400 leading-relaxed">
-                                        <!-- Dynamic Tip -->
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                            </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="content-placeholder">Consolidated summary of the entire concept.</div></section>
                 </div>
 <div id="tab-plastics" class="tab-content hidden space-y-10">
-                    <section class="glass-card p-8">
-                        <div class="flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                    <section class="glass-card p-8"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-[0.2em] mb-4">
                             <span class="w-8 h-px bg-indigo-500"></span> Synthetic Resins
                         </div>
-                        <h2 class="text-3xl font-black mb-4">Plastics Synthesis: PVC, Teflon &amp; Bakelite</h2>
-                        <p class="text-slate-400 text-base leading-relaxed mb-8">
-                            Plastics are prepared via addition or step-growth condensation polymerization. Below are the precise preparation reactions and parameters required under JNTUK R23 curriculum.
-                        </p>
-
-                        <!-- Plastics selector buttons -->
-                        <div class="flex gap-2 mb-8 border-b border-slate-800">
+<h2 class="text-3xl font-black mb-4">Plastics Synthesis: PVC, Teflon &amp; Bakelite</h2><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="flex gap-2 mb-8 border-b border-slate-800">
                             <button onclick="setPlastic('bakelite')" id="plastic-btn-bakelite" class="plastic-tab-btn pb-3 px-4 text-xs font-black border-b-2 border-indigo-500 text-white uppercase tracking-wider">
                                 Bakelite (Thermohard)
                             </button>
@@ -217,25 +202,19 @@
                                 Teflon (PTFE)
                             </button>
                         </div>
-
-                        <!-- Dynamic display -->
-                        <div id="plastic-display-container" class="space-y-6">
+<div id="plastic-display-container" class="space-y-6">
                             <!-- Populated by JS -->
-                        </div>
-                    </section>
+                        </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></section>
                 </div>
 <div id="tab-elastomers" class="tab-content hidden space-y-10">
-                    <section class="glass-card p-8">
-                        <div class="flex items-center gap-2 text-rose-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                    <section class="glass-card p-8"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="flex items-center gap-2 text-rose-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
                             <span class="w-8 h-px bg-rose-500"></span> Rubbers &amp; Elastomers
                         </div>
-                        <h2 class="text-3xl font-black mb-4">Elastomers preparation &amp; Vulcanization</h2>
-                        <p class="text-slate-400 text-base leading-relaxed mb-6">
+<h2 class="text-3xl font-black mb-4">Elastomers preparation &amp; Vulcanization</h2>
+<p class="text-slate-400 text-base leading-relaxed mb-6">
                             Co-polymerization maps out monomers like 1,3-Butadiene and Styrene. Natural rubber holds poor mechanical characteristics, which are corrected using <strong>vulcanization</strong> (heating with sulfur to cross-link chains).
                         </p>
-
-                        <!-- Elastomer cards -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                             <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl">
                                 <span class="px-2 py-0.5 bg-rose-500/15 text-rose-500 rounded text-[9px] font-black uppercase tracking-widest">Copolymer</span>
                                 <h3 class="font-bold text-white mt-2 text-lg">Buna-S prep</h3>
@@ -268,10 +247,7 @@
                                     n Cl-CH₂-CH₂-Cl + n Na₂S₄ → -[-CH₂-CH₂-S-S(=S)(=S)-]-n + 2n NaCl
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Vulcanization Interactive Simulator Sandbox -->
-                        <div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+                        </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
                             <h3 class="font-black text-white text-lg mb-2 flex items-center gap-2">⛓ Interactive Vulcanization Sandbox</h3>
                             <p class="text-xs text-slate-400 mb-6">Compare chain deformation under stress. Add sulfur linkages and pull the slider to test springback elasticity!</p>
                             
@@ -312,21 +288,17 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                        </div></section>
                 </div>
 <div id="tab-conducting" class="tab-content hidden space-y-10">
-                    <section class="glass-card p-8">
-                        <div class="flex items-center gap-2 text-yellow-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                    <section class="glass-card p-8"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="flex items-center gap-2 text-yellow-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
                             <span class="w-8 h-px bg-yellow-500"></span> Smart Materials
                         </div>
-                        <h2 class="text-3xl font-black mb-4 flex items-center gap-3">Conduction Mechanisms of Conjugated Chains</h2>
-                        <p class="text-slate-400 text-base leading-relaxed mb-8">
+<h2 class="text-3xl font-black mb-4 flex items-center gap-3">Conduction Mechanisms of Conjugated Chains</h2>
+<p class="text-slate-400 text-base leading-relaxed mb-8">
                             Polymers like **Polyacetylene** (by reacting acetylene with Ziegler-Natta Catalyst) and **Polyaniline** hold alternating double bonds that delocalize electron clouds. Doping reduces the high energy forbidden band gap, triggering electrical transmission.
                         </p>
-
-                        <!-- Doping Interactive Sandbox -->
-                        <div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+<div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
                             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                                 <div>
                                     <h3 class="font-black text-white text-lg flex items-center gap-1.5">⚡ Polyacetylene Doping workbench</h3>
@@ -392,21 +364,17 @@
                                     <div class="font-mono text-[9px] bg-black p-1 text-slate-400 rounded text-center">Insulating (State 2)</div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                        </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></section>
                 </div>
 <div id="tab-biodegradable" class="tab-content hidden space-y-10">
-                    <section class="glass-card p-8">
-                        <div class="flex items-center gap-2 text-emerald-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                    <section class="glass-card p-8"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="flex items-center gap-2 text-emerald-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
                             <span class="w-8 h-px bg-emerald-500"></span> Ecological Materials
                         </div>
-                        <h2 class="text-3xl font-black mb-4">Biodegradable Polymers (PLA &amp; PGA)</h2>
-                        <p class="text-slate-400 text-base leading-relaxed mb-8">
+<h2 class="text-3xl font-black mb-4">Biodegradable Polymers (PLA &amp; PGA)</h2>
+<p class="text-slate-400 text-base leading-relaxed mb-8">
                             Modern synthetic plastics remain intact for centuries. Biodegradable macromolecules like <strong>Polylactic Acid (PLA)</strong> and <strong>Polyglycolic Acid (PGA)</strong> possess ester linkages that break down easily under microbial or soil compost water actions.
                         </p>
-
-                        <!-- Synthesis path visual card -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl relative overflow-hidden">
                                 <div class="absolute top-2 right-2 px-2 py-0.5 bg-emerald-500/10 text-emerald-500 rounded text-[9px] uppercase font-bold border border-emerald-500/20">Corn Derived</div>
                                 <h3 class="font-bold text-white text-lg">Polylactic Acid (PLA) synthesis</h3>
@@ -429,9 +397,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Biodegradable Decay Simulator -->
-                        <div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+<div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
                             <h3 class="font-black text-white text-lg mb-2">🍂 Microb Soil Compost Decay Simulator</h3>
                             <p class="text-xs text-slate-400 mb-6 font-medium">Compare the biological decay lifetime of standard commercial plastics (PVC) vs Polylactic Acid (PLA) under standard agricultural soil parameters.</p>
                             
@@ -474,14 +440,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                        </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></section>
                 </div>
-<section class="glass-card p-8">
-                    <h2 class="text-2xl font-black text-white mb-4">Interactive Reaction Quick-Reference Board</h2>
-                    <p class="text-slate-400 text-xs mb-6">Review exact chemical formulas, catalysts, and JNTUK exam guidelines in one click.</p>
-                    
-                    <div class="overflow-x-auto border border-slate-800 rounded-2xl bg-slate-950/40">
+<section class="glass-card p-8"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><h2 class="text-2xl font-black text-white mb-4">Interactive Reaction Quick-Reference Board</h2><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="overflow-x-auto border border-slate-800 rounded-2xl bg-slate-950/40">
                         <table class="w-full text-left text-xs text-slate-400">
                             <thead class="bg-slate-900 text-slate-300 font-bold border-b border-slate-800">
                                 <tr>
@@ -523,8 +484,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </section>
+                    </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></section>
     <div class="sec"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div>
     <div class="box box-blue content-missing-state" style="opacity: 0.8; font-style: italic; font-size: 0.85rem; padding: 12px 20px;">
       Critical concept for real-world engineering systems and JNTUK exams.
@@ -629,566 +589,55 @@
                 </div>
             </div>
         </div>
-    </main>
-
-    <!-- Custom Script Logic for Polymer Workbench interactive modules -->
-    <script>
-        // Tab switching
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(element => {
-                element.classList.add('hidden');
-            });
-            document.getElementById(tabId).classList.remove('hidden');
-
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-indigo-600', 'text-white');
-                btn.classList.add('text-slate-400');
-            });
-            event.target.classList.add('bg-indigo-600', 'text-white');
-            event.target.classList.remove('text-slate-400');
-
-            if (tabId === 'tab-elastomers') {
-                runVulcanizationSim();
-            }
-            if (tabId === 'tab-conducting') {
-                updateDopingVisuals();
-            }
-        }
-
-        // --- SUBMODULE 1: RADICAL MECHANISM ---
-        const radicalStages = {
-            1: {
-                title: "Homolytic Cleavage & Initiation Step",
-                desc: `Modern chain polymerization sparks from homolytic cleavage of peroxides to form reactive radicals:<br/><br/>
-                       1. Solid **Dibenzoyl Peroxide** breaks under heat to yield two benzoyloxy radicals which promptly release carbon dioxide to form **phenyl radicals** (C₆H₅•).<br/>
-                       2. The phenyl radical attacks the carbon-carbon double bond of the ethylene monomer, breaking the pi bond and generating a new carbon radical.`,
-                eq: "Dibenzoyl Peroxide (C₆H₅COO)₂  →  2 C₆H₅COO•  →  2 C₆H₅• + 2 CO₂<br/>C₆H₅• + CH₂=CH₂  →  C₆H₅-CH₂-CH₂•",
-                tip: "Make sure to illustrate the single electronic movement using fish-hook single arrows (↷) instead of full normal arrows to secure full marks."
-            },
-            2: {
-                title: "Chain propagation loop",
-                desc: `The active carbon radical undergoes swift continuous addition of ethylene monomers, propagating the chain:<br/><br/>
-                       1. Phenyl-ethyl radical attacks the next ethylene molecule's pi bond, passing the active radical unpaired electron directly to the new terminus.<br/>
-                       2. This step loops hundreds of thousands of times in microseconds, growing highly dense molecular chains without termination.`,
-                eq: "C₆H₅-CH₂-CH₂• + n CH₂=CH₂  →  C₆H₅-(CH₂-CH₂)_n-CH₂-CH₂•",
-                tip: "List that the radical species remains present exclusively at the outer extremity of the growing chain loop."
-            },
-            3: {
-                title: "Chain Terminating Pathways",
-                desc: `The highly active growing polymer chain terminates via two distinct radical collisons:<br/><br/>
-                       1. **Combination / Coupling:** Two active growing macromolecule radicals collide head-on, sharing their single electrons to form a stable covalent single bond.<br/>
-                       2. **Disproportionation:** An active radical abstracts a hydrogen atom from the other colliding chain, creating one saturated hydrocarbon segment and one unsaturated chain ending.`,
-                eq: "Coupling: 2 R-CH₂-CH₂•  →  R-CH₂-CH₂-CH₂-CH₂-R<br/>Disproportionation: 2 R-CH₂-CH₂•  →  R-CH=CH₂ + R-CH₂-CH₃",
-                tip: "Always detail both paths. Combination is typical for polystyrene, while disproportionation occurs in methyl methacrylate."
-            }
-        };
-
-        function setRadicalStage(stageNum) {
-            document.querySelectorAll('.rad-stage-btn').forEach((btn, index) => {
-                if (index + 1 === stageNum) {
-                    btn.classList.add('bg-purple-500', 'text-white');
-                    btn.classList.remove('text-slate-400');
-                } else {
-                    btn.classList.remove('bg-purple-500', 'text-white');
-                    btn.classList.add('text-slate-400');
-                }
-            });
-
-            const data = radicalStages[stageNum];
-            document.getElementById('radical-stage-desc').innerHTML = `
-                <h4 class="font-black text-white text-lg mb-2">${data.title}</h4>
-                <p class="text-xs text-slate-450 leading-relaxed">${data.desc}</p>
-            `;
-            document.getElementById('radical-stage-viz').innerHTML = data.eq;
-            document.getElementById('radical-stage-tip').innerText = data.tip;
-        }
-        setRadicalStage(1);
-
-        // --- SUBMODULE 2: PLASTICS PREP & BAKELITE CONDENSATION ---
-        const plasticData = {
-            bakelite: `
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <div class="md:col-span-8 space-y-4">
-                        <h4 class="text-white text-lg font-black">Bakelite synthesis (Phenol + Formaldehyde Condensation)</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Bakelite is a highly cross-linked thermosetting plastic. Its synthesis moves through precise, controllable steps:
-                        </p>
-                        <ol class="text-xs text-slate-400 list-decimal list-inside space-y-2 pl-2">
-                            <li>Phenol reacts with Formaldehyde (HCHO) in acidic (HCl) or basic (NaOH) catalyst to produce o-methylolphenol and p-methylolphenol intermediates.</li>
-                            <li>Condensation polymerization of o-methylolphenol forms linear chain units called **Novolac** (used in wood varnishes).</li>
-                            <li>Novolac heated with Formaldehyde or Hexamethylenetetramine (HMTA) causes cross-linking of chains, forming dense, heat-resistant **Bakelite** net frameworks.</li>
-                        </ol>
-                        
-                        <div class="bg-black/40 border border-slate-850 p-4 rounded-xl font-mono text-center text-xs">
-                            <span class="text-indigo-400">Phenol + HCHO → Methylolphenols → Novolac (Linear) → Bakelite (3D network)</span>
-                        </div>
-                    </div>
-                    <div class="md:col-span-4 bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between">
-                        <div>
-                            <span class="text-[9px] uppercase font-bold text-slate-500">Synthesis Parameter</span>
-                            <div class="text-2xl font-black text-rose-500 mt-1">HMTA Heat</div>
-                            <p class="text-[10px] text-slate-400 mt-1">Cross-linking requires temperatures between 150-180°C and solid pressures.</p>
-                        </div>
-                        <div class="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-xs text-indigo-400 font-bold text-center select-none cursor-pointer hover:bg-indigo-500/20" onclick="triggerIntermediateXp()">
-                            ⚙ Trigger intermediate check
-                        </div>
-                    </div>
-                </div>
-            `,
-            pvc: `
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <div class="md:col-span-8 space-y-4">
-                        <h4 class="text-white text-lg font-black font-sans">Polyvinyl Chloride (PVC) addition prep</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            PVC is synthesized by addition suspension polymerization of Vinyl Chloride monomer under pressure. Alternating chlorine atoms on carbon chains provide flame resistance.
-                        </p>
-                        <div class="p-4 bg-black/60 rounded-xl border border-slate-850 text-center font-mono text-xs text-indigo-450 select-all">
-                            n CH₂=CH-Cl (Vinyl Chloride)  →  -[CH₂-CHCl]-n (Polyvinyl Chloride)
-                        </div>
-                        <ul class="text-xs text-slate-500 list-disc list-inside space-y-1">
-                            <li>Monomer = Vinyl Chloride (from chloroethane)</li>
-                            <li>Catalyst = Hydrogen peroxide or Benzoyl peroxide init</li>
-                            <li>Uses = Rigid electrical conduits, drainage pipes, cable insulation</li>
-                        </ul>
-                    </div>
-                    <div class="md:col-span-4 bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between">
-                        <div>
-                            <span class="text-[9px] uppercase font-bold text-slate-500">Typical Catalyst</span>
-                            <div class="text-2xl font-black text-blue-500 mt-1">Peroxide</div>
-                            <p class="text-[10px] text-slate-400 mt-1">Requires an organic initiator to trigger free radical conversion mechanism.</p>
-                        </div>
-                    </div>
-                </div>
-            `,
-            teflon: `
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <div class="md:col-span-8 space-y-4">
-                        <h4 class="text-white text-lg font-black font-sans">Teflon (Polytetrafluoroethylene | PTFE) prep</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            PTFE is polymerized under extreme high pressure environment by heat addition. The strong carbon-fluorine bonds yield extremely low friction coefficient and high thermal stability.
-                        </p>
-                        <div class="p-4 bg-black/60 rounded-xl border border-slate-850 text-center font-mono text-xs text-indigo-450 select-all">
-                            n CF₂=CF₂ (Tetrafluoroethylene)  →  -[CF₂-CF₂]-n (Teflon / PTFE)
-                        </div>
-                        <ul class="text-xs text-slate-500 list-disc list-inside space-y-1">
-                            <li>Monomer = Tetrafluoroethylene (toxic gas)</li>
-                            <li>Catalyst = Ammonium Persulfate initiator</li>
-                            <li>Uses = Non-stick cookware lining, chemical valves, aerospace gaskets</li>
-                        </ul>
-                    </div>
-                    <div class="md:col-span-4 bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between">
-                        <div>
-                            <span class="text-[9px] uppercase font-bold text-slate-500">Special Factor</span>
-                            <div class="text-2xl font-black text-emerald-500 mt-1">C-F Strength</div>
-                            <p class="text-[10px] text-slate-400 mt-1">C-F bond energy is extremely high (485 kJ/mol), resisting chemical attacks.</p>
-                        </div>
-                    </div>
-                </div>
-            `
-        };
-
-        function setPlastic(plasticKey) {
-            document.querySelectorAll('.plastic-tab-btn').forEach(btn => {
-                btn.classList.remove('border-indigo-500', 'text-white');
-                btn.classList.add('border-transparent', 'text-slate-400');
-            });
-            event.target.classList.add('border-indigo-500', 'text-white');
-            event.target.classList.remove('border-transparent', 'text-slate-400');
-
-            document.getElementById('plastic-display-container').innerHTML = plasticData[plasticKey];
-        }
-        setPlastic('bakelite');
-
-        // --- SUBMODULE 3: ELASTOMERS & VULCANIZATION SIMULATOR ---
-        function runVulcanizationSim() {
-            const sulfurPercent = parseInt(document.getElementById('sulfur-slider').value);
-            const pullPercent = parseInt(document.getElementById('pull-slider').value);
-            
-            const svg = document.getElementById('vulcan-svg');
-            const energyBadge = document.getElementById('elastic-indicator');
-            const creepAlert = document.getElementById('creep-alert');
-            
-            // Draw polymer chains
-            let htmlContent = '';
-            
-            // Draw background grid
-            htmlContent += `<rect width="400" height="200" fill="#020204"/>`;
-            
-            const amplitude = 15;
-            const lambda = 40;
-            const chainCount = 4;
-            
-            // Calculate actual stretch
-            // If sulfur is 0, chains slide under stretch (offset changes permanently)
-            // If sulfur is high, chains stretch symmetrically
-            const plasticDeform = (sulfurPercent === 0) ? (pullPercent * 0.8) : 0;
-            const elasticStretch = pullPercent * (1 - (sulfurPercent / 120)) * 0.7;
-            
-            const colors = ['#f43f5e', '#ec4899', '#db2777', '#f472b6'];
-            
-            for (let i = 0; i < chainCount; i++) {
-                const baseY = 40 + i * 40;
-                let pathD = `M 20 ${baseY}`;
-                
-                for (let x = 20; x <= 380; x += 10) {
-                    // Apply sinusoidal waviness which flattens under stretch
-                    const waveFactor = Math.max(0.1, 1 - (pullPercent / 110));
-                    const yOffset = basesinus(x, baseY) * waveFactor;
-                    
-                    // Apply displacement
-                    const slideX = x + (i * plasticDeform * 0.2) + (elasticStretch * 0.3);
-                    const plotY = baseY + yOffset;
-                    
-                    if (x === 20) pathD = `M ${slideX} ${plotY}`;
-                    else pathD += ` L ${slideX} ${plotY}`;
-                }
-                
-                htmlContent += `<path d="${pathD}" stroke="${colors[i]}" stroke-width="2.5" fill="none" opacity="0.8"/>`;
-            }
-            
-            // Draw sulfur cross-links
-            // They connect chains at intersections
-            const crossLinkOpacity = sulfurPercent / 100;
-            if (sulfurPercent > 0) {
-                const count = Math.ceil(sulfurPercent / 12);
-                for (let l = 0; l < count; l++) {
-                    const stepX = 50 + l * 40;
-                    // Draw lines between chains
-                    for (let c = 0; c < chainCount - 1; c++) {
-                        const y1 = 40 + c * 40;
-                        const y2 = 40 + (c + 1) * 40;
-                        
-                        const slideX = stepX + (c * plasticDeform * 0.2) + (elasticStretch * 0.3);
-                        htmlContent += `<line x1="${slideX}" y1="${y1}" x2="${slideX}" y2="${y2}" stroke="#fbbf24" stroke-width="2.5" opacity="${crossLinkOpacity}" stroke-dasharray="2,2"/>`;
-                        
-                        // Sulfur labels
-                        if (l % 2 === 0 && c === 1) {
-                            htmlContent += `<text x="${slideX + 3}" y="${y1 + 20}" fill="#fbbf24" font-size="8" font-family="monospace" font-weight="bold" opacity="${crossLinkOpacity}">-S-S-</text>`;
-                        }
-                    }
-                }
-            }
-            
-            svg.innerHTML = htmlContent;
-            
-            energyBadge.innerText = `Elastic Recovery: ${sulfurPercent}%`;
-            
-            if (sulfurPercent === 0 && pullPercent > 30) {
-                creepAlert.classList.remove('hidden');
-            } else {
-                creepAlert.classList.add('hidden');
-            }
-        }
-        
-        function basesinus(x, baseY) {
-            return Math.sin(x * 0.08) * 12;
-        }
-
-        // --- SUBMODULE 4: CONDUCTING POLYMERS SILICON BENCHMARK ---
-        let currentDopants = [];
-        
-        function updateDopingVisuals() {
-            const chainBox = document.getElementById('conducting-chain-display');
-            const condReadout = document.getElementById('conductivity-readout');
-            const condBadge = document.getElementById('cond-status-badge');
-            const led = document.getElementById('led-indicator');
-            
-            // Base polyacetylene chain
-            let chainHtml = '';
-            const baseMonomers = ['CH', 'CH', 'CH', 'CH', 'CH', 'CH', 'CH', 'CH'];
-            
-            baseMonomers.forEach((m, idx) => {
-                const isDouble = (idx % 2 === 0);
-                const link = isDouble ? '<span class="text-slate-600 font-bold">=</span>' : '<span class="text-slate-800 font-bold">-</span>';
-                
-                // Color code if doped at this index
-                let css = 'text-slate-300 font-bold';
-                let dot = '';
-                currentDopants.forEach(d => {
-                    if (d.pos === idx) {
-                        if (d.type === 'p') {
-                            css = 'text-rose-400 font-black scale-110';
-                            dot = '<span class="absolute -top-3 text-[8px] font-mono text-rose-500 font-bold">h⁺</span>';
-                        } else {
-                            css = 'text-emerald-400 font-black scale-110';
-                            dot = '<span class="absolute -top-3 text-[8px] font-mono text-emerald-500 font-bold">e⁻</span>';
-                        }
-                    }
-                });
-                
-                chainHtml += `
-                    <div class="relative flex flex-col items-center select-none ${css}">
-                        ${dot}
-                        <span>${m}</span>
-                    </div>
-                `;
-                if (idx < baseMonomers.length - 1) {
-                    chainHtml += `<div>${link}</div>`;
-                }
-            });
-            
-            chainBox.innerHTML = chainHtml;
-            
-            // Map conductivity scale based on dopants count
-            const dopantCount = currentDopants.length;
-            if (dopantCount === 0) {
-                condReadout.innerText = "10⁻⁹ S/cm";
-                condBadge.className = "px-2 py-0.5 bg-red-500/15 text-red-500 rounded text-[9px] font-black uppercase";
-                condBadge.innerText = "Insulator";
-                led.className = "w-4 h-4 rounded-full bg-slate-800 transition-all duration-300";
-            } else if (dopantCount === 1) {
-                condReadout.innerText = "10⁻³ S/cm";
-                condBadge.className = "px-2 py-0.5 bg-yellow-500/15 text-yellow-500 rounded text-[9px] font-black uppercase";
-                condBadge.innerText = "Semiconductor";
-                led.className = "w-4 h-4 rounded-full bg-yellow-500/50 shadow-[0_0_8px_rgba(234,179,8,0.5)] transition-all duration-300";
-            } else {
-                condReadout.innerText = "10⁴ S/cm";
-                condBadge.className = "px-2 py-0.5 bg-emerald-500/15 text-emerald-500 rounded text-[9px] font-black uppercase";
-                condBadge.innerText = "Solid Metal";
-                led.className = "w-4 h-4 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)] transition-all duration-300";
-            }
-        }
-        
-        function addDopant(type) {
-            if (currentDopants.length >= 3) return; // limit viz
-            const pos = Math.floor(Math.random() * 8);
-            currentDopants.push({ type, pos });
-            updateDopingVisuals();
-        }
-        
-        function resetDopingSim() {
-            currentDopants = [];
-            updateDopingVisuals();
-        }
-        updateDopingVisuals();
-
-        // --- SUBMODULE 5: BIODEGRADABLE TIME DECAY SIMULATOR ---
-        let compostInterval = null;
-        let compostDay = 0;
-        
-        function startDecaySim() {
-            if (compostInterval) return;
-            compostInterval = setInterval(() => {
-                compostDay += 5;
-                if (compostDay > 180) {
-                    clearInterval(compostInterval);
-                    compostInterval = null;
-                    return;
-                }
-                
-                document.getElementById('compost-timer').innerText = `Day ${compostDay}`;
-                
-                // standard PVC remains intact (100%)
-                // PLA degrades exponentially
-                const plaIntact = Math.max(0, 100 - (compostDay * 0.56));
-                document.getElementById('pla-percent').innerText = `${Math.ceil(plaIntact)}% Intact`;
-                
-                // Animate SVG path opacity/destruction
-                const plaBottle = document.getElementById('pla-bottle-svg');
-                plaBottle.style.opacity = `${plaIntact / 100}`;
-                plaBottle.style.transform = `scale(${0.7 + (plaIntact/100)*0.3}) rotate(${(100-plaIntact)*0.1}deg)`;
-                
-            }, 80);
-        }
-        
-        function resetDecaySim() {
-            clearInterval(compostInterval);
-            compostInterval = null;
-            compostDay = 0;
-            document.getElementById('compost-timer').innerText = "Day 0";
-            document.getElementById('pla-percent').innerText = "100% Intact";
-            const plaBottle = document.getElementById('pla-bottle-svg');
-            plaBottle.style.opacity = 1;
-            plaBottle.style.transform = "scale(1) rotate(0deg)";
-        }
-
-        // --- SUBMODULE 6: ORAL VIVA COCH CARDS ---
-        const vivaCards = [
-            {
-                q: "What is the primary difference in step growth vs chain-growth polymerization mechanism?",
-                a: "Chain growth requires active initiating radicals to trigger fast continuous monomers link, while step growth involves bi-functional functional groups reacting slowly with elimination of small byproducts like water."
-            },
-            {
-                q: "Why is polyacetylene insulating before chemical doping occurs?",
-                a: "While conjugated double bonds exist, the energy gap between valence and conduction band remains too high. Doping places acceptor/donor energy levels in the gap to trigger flow."
-            },
-            {
-                q: "Identify the monomer chemical components of Bakelite resin.",
-                a: "Phenol ($C₆H₅OH$) and Formaldehyde ($HCHO$) reacted together in a 3-dimensional network cross-linked with methylene bridges."
-            }
-        ];
-        
-        let currentVivaIndex = 0;
-        let isCardFlipped = false;
-        
-        function flipVivaCard() {
-            const flipper = document.getElementById('viva-flipper');
-            isCardFlipped = !isCardFlipped;
-            if (isCardFlipped) {
-                flipper.style.transform = "rotateY(180deg)";
-            } else {
-                flipper.style.transform = "rotateY(0deg)";
-            }
-        }
-        
-        function nextVivaCard() {
-            // Reset flipping
-            const flipper = document.getElementById('viva-flipper');
-            flipper.style.transform = "rotateY(0deg)";
-            isCardFlipped = false;
-            
-            setTimeout(() => {
-                currentVivaIndex = (currentVivaIndex + 1) % vivaCards.length;
-                document.getElementById('viva-question-text').innerText = `"${vivaCards[currentVivaIndex].q}"`;
-                document.getElementById('viva-answer-text').innerText = `"${vivaCards[currentVivaIndex].a}"`;
-            }, 300);
-        }
-        
-        function readTextToSpeech() {
-            if ('speechSynthesis' in window) {
-                const speech = new SpeechSynthesisUtterance();
-                speech.text = isCardFlipped ? vivaCards[currentVivaIndex].a : vivaCards[currentVivaIndex].q;
-                speech.rate = 1.0;
-                speech.pitch = 1.1;
-                window.speechSynthesis.speak(speech);
-            } else {
-                alert("Text-to-speech option not fully supported inside this preview.");
-            }
-        }
-
-        // --- GAMIFICATION TRIGGERS ---
-        function triggerIntermediateXp() {
-            if (window.triggerXP) {
-                window.triggerXP(15, 'Analyzed Bakelite intermediate pathways');
-            } else {
-                console.log("Triggered XP level: +15 XP 'Analyzed Bakelite intermediate pathways'");
-            }
-        }
-        
-        function claimPolymerXp() {
-            if (window.triggerXP) {
-                window.triggerXP(150, 'Mastered entire polymer preparation & mechanism series!');
-            } else {
-                alert("Congratulations! Mastered entire polymer preparation and mechanism series! +150 XP awarded!");
-            }
-        }
-    </script>
-
-
-
-  <!-- ENGI PREP HUB AI TOOLS DOCK -->
-  <div class="ai-tools-dock">
-    <button class="ai-tool-btn" onclick="toggleAIProfessor()">
-      <span class="ai-tool-icon">🧠</span>
-      <span class="ai-tool-label">AI Prof</span>
-    </button>
-    <button class="ai-tool-btn" onclick="toggleFocusMode()">
-      <span class="ai-tool-icon">🎯</span>
-      <span class="ai-tool-label">Focus</span>
-    </button>
-    <button class="ai-tool-btn" onclick="toggleQuiz()">
-      <span class="ai-tool-icon">⚡</span>
-      <span class="ai-tool-label">Quiz</span>
-    </button>
-    <button class="ai-tool-btn" onclick="toggleOneDayMode()" style="background: rgba(255, 71, 87, 0.1); border-color: rgba(255, 71, 87, 0.3); color: var(--red);">
-      <span class="ai-tool-icon">🔥</span>
-      <span class="ai-tool-label">1-Day</span>
-    </button>
-  </div>
-
-  <style>
-  .ai-tools-dock {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(13, 17, 23, 0.85);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 100px;
-    display: flex;
-    gap: 12px;
-    padding: 8px 12px;
-    z-index: 1000;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px inset var(--glass-border);
-  }
-  .ai-tool-btn {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 100px;
-    padding: 8px 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text2, #9ab0cc);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .ai-tool-btn:hover {
-    background: rgba(0, 168, 255, 0.1);
-    border-color: rgba(0, 168, 255, 0.3);
-    color: var(--text, #e8edf7);
-    transform: translateY(-2px);
-  }
-  .ai-tool-icon {
-    font-size: 1.1rem;
-  }
-  @media (max-width: 768px) {
-    .ai-tools-dock {
-      width: 90%;
-      justify-content: space-between;
-      padding: 12px;
-      bottom: 16px;
-    }
-    .ai-tool-btn {
-      padding: 8px 12px;
-      flex-direction: column;
-      gap: 4px;
-      border: none;
-      background: transparent;
-    }
-    .ai-tool-btn:hover {
-      background: transparent;
-      border: none;
-      transform: none;
-      color: var(--accent);
-    }
-    .ai-tool-label {
-      font-size: 0.65rem;
-    }
-  }
-  </style>
-
-  <script>
-  if(typeof toggleAIProfessor === 'undefined') {
-    window.toggleAIProfessor = function() {
-      alert("🧠 AI Professor Initializing... Processing current context.");
-    }
-    window.toggleFocusMode = function() {
-      document.body.classList.toggle('focus-mode-active');
-      const isActive = document.body.classList.contains('focus-mode-active');
+    
+              </div>
+              <aside class="hidden lg:block lg:col-span-3 space-y-8">
+                  <div class="sticky top-32 space-y-6">
+                      <div class="glass-card p-6">
+                          <h3 class="text-xs font-black text-slate-100 uppercase mb-4 tracking-widest">In This Unit</h3>
+                          <div class="space-y-3" id="quick-links">
+                             <!-- Links will be populated by script or remain as placeholders -->
+                             <div class="p-3 bg-white/5 rounded-xl border border-white/5 text-[10px] font-bold text-slate-400">Loading Topics...</div>
+                          </div>
+                      </div>
+                      <div class="glass-card p-6 bg-blue-600/10 border-blue-500/20">
+                          <h3 class="text-xs font-black text-blue-500 uppercase mb-2 tracking-widest">Mastery Status</h3>
+                          <div class="h-2 w-full bg-blue-900/30 rounded-full overflow-hidden mb-3">
+                              <div class="h-full bg-blue-500 w-[45%]" id="progress-bar"></div>
+                          </div>
+                          <p class="text-[10px] font-bold text-slate-400">45% Syllabus Covered</p>
+                      </div>
+                  </div>
+              </aside>
+          </div>
+      </main>
       
-      if (isActive) {
-        document.querySelectorAll('.sidebar, .topbar, footer, header').forEach(el => {
-           if(el) el.style.opacity = '0.05';
+      <div class="ai-tools-dock">
+          <button class="ai-btn" onclick="toggleAI()">🧠 AI Professor</button>
+          <button class="ai-btn" onclick="toggleQuiz()">⚡ Unit Quiz</button>
+          <button class="ai-btn" onclick="toggleOneDay()" style="color:#f87171">🔥 1-Day Mode</button>
+      </div>
+
+      <script>
+        function toggleAI() { alert("🧠 AI Professor: Analysis initialized. Ask me any doubt!"); }
+        function toggleQuiz() { alert("⚡ Unit Quiz: Generating adaptive testing module..."); }
+        function toggleOneDay() { alert("🔥 1-Day Prep: Highlighting only High-Probability segments."); }
+        
+        // Auto-populate links
+        document.addEventListener('DOMContentLoaded', () => {
+          const linksMount = document.getElementById('quick-links');
+          const heads = document.querySelectorAll('h2, .section-label');
+          if (linksMount && heads.length > 0) {
+            linksMount.innerHTML = '';
+            heads.forEach((h, i) => {
+              if (i > 10) return;
+              const link = document.createElement('a');
+              link.href = '#';
+              link.className = 'block p-3 bg-white/5 rounded-xl border border-white/5 text-[10px] font-bold text-slate-400 hover:text-white hover:border-blue-500/50 transition-all';
+              link.textContent = h.textContent.substring(0, 30) + (h.textContent.length > 30 ? '...' : '');
+              linksMount.appendChild(link);
+            });
+          }
         });
-      } else {
-        document.querySelectorAll('.sidebar, .topbar, footer, header').forEach(el => {
-           if(el) el.style.opacity = '1';
-        });
-      }
-    }
-    window.toggleQuiz = function() {
-      alert("⚡ Interactive Quiz Engine loading... Getting PYQs for current unit.");
-    }
-    window.toggleOneDayMode = function() {
-      alert("🔥 One-Day-Before-Exam Mode ACTIVE! Highlighting only ⭐ PYQs & 🎯 Exam Focus.");
-      if(typeof setMode === 'function') setMode('exam');
-      else document.body.classList.toggle('exam-mode');
-    }
-  }
-  </script>
-  </body></html>
+      </script>
+    </body></html>
