@@ -43,6 +43,22 @@ window.showAchievementToast = showAchievementToast;
     if (subject) {
         document.documentElement.setAttribute('data-subject-theme', subject);
     }
+
+    // Dynamic Page Context Selection (Unique Creative Identity Mode)
+    let pageContext = 'general';
+    if (filename.includes('blog') || filename.includes('post') || filename.includes('about')) {
+        pageContext = 'blog';
+    } else if (filename.includes('ai-professor') || filename.includes('professor') || slug.includes('ai')) {
+        pageContext = 'ai-advisor';
+    } else if (filename.includes('dashboard')) {
+        pageContext = 'dashboard';
+    } else if (filename.includes('tasks') || filename.includes('planner')) {
+        pageContext = 'tasks';
+    } else if (filename.includes('tools') || filename.includes('calculator') || filename.includes('visualizer')) {
+        pageContext = 'tools';
+    }
+
+    document.documentElement.setAttribute('data-page-context', pageContext);
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
