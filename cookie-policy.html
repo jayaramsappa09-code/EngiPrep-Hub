@@ -109,13 +109,66 @@
 
         <section class="mb-12">
             <h2 class="text-2xl font-black text-slate-900 dark:text-slate-50 border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">8. Managing Cookie Preferences</h2>
-            <p>You have the right to decide whether to accept or reject non-essential cookies. You can manage your preferences directly through your web browser settings. Most browsers allow you to:</p>
-            <ul>
-                <li>View what cookies are stored and delete them individually.</li>
-                <li>Block third-party cookies.</li>
-                <li>Block cookies from particular sites.</li>
-                <li>Block all cookies entirely (Note: blocking essential cookies will break login functionality and theme preferences on Engi Prep Hub).</li>
-            </ul>
+            <p class="mb-6">You have the absolute right to decide whether to accept, reject, or customize your cookies. Beyond native web browser adjustments, we provide this live, interactive **Preferences Console** to allow instant control of your privacy settings on Engi Prep Hub.</p>
+            
+            <!-- Live Preferences Widget -->
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm not-prose mb-8">
+                <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-2 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
+                    Preference Control Console
+                </h3>
+                <p class="text-slate-500 dark:text-slate-400 text-xs mb-6">Your current preference setting will alter what AdSense assets and study trackers load on your endpoints.</p>
+                
+                <div class="space-y-4 mb-6">
+                    <!-- Essential -->
+                    <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-800">
+                        <div>
+                            <span class="block text-xs font-black text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-0.5">Essential Cookies</span>
+                            <span class="text-[11px] text-slate-400 dark:text-slate-550 leading-relaxed block max-w-[400px]">Allows Supabase authentication, session maintenance, dark-mode styling, and local study planners to operate.</span>
+                        </div>
+                        <span class="px-2.5 py-1 text-[9px] font-black uppercase bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg">Required</span>
+                    </div>
+
+                    <!-- Analytics -->
+                    <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-800">
+                        <div>
+                            <span class="block text-xs font-black text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-0.5">Analytics & Performance</span>
+                            <span class="text-[11px] text-slate-400 dark:text-slate-550 leading-relaxed block max-w-[400px]">Anonymously monitors how JNTUK scholars traverse lecture notes sheets, identifying bottlenecks or broken PDFs.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer select-none">
+                            <input type="checkbox" id="page-pref-analytics" checked class="sr-only peer">
+                            <div class="w-9 h-5 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+
+                    <!-- AdSense -->
+                    <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-800">
+                        <div>
+                            <span class="block text-xs font-black text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-0.5">Google AdSense Personalized Ads</span>
+                            <span class="text-[11px] text-slate-400 dark:text-slate-550 leading-relaxed block max-w-[400px]">Powers free syllabus notes. Custom-tailors academic solutions and non-tracker university announcements to your profile.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer select-none">
+                            <input type="checkbox" id="page-pref-adsense" checked class="sr-only peer">
+                            <div class="w-9 h-5 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Footer Console Actions -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <button id="page-save-consent" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black uppercase transition-all select-none cursor-pointer">
+                        Save Preferences
+                    </button>
+                    <button id="page-reject-all" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-black uppercase transition-all select-none cursor-pointer">
+                        Reject Non-Essential
+                    </button>
+                    <button id="page-trigger-popup" class="px-5 py-2.5 border border-dashed border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/55 text-slate-500 dark:text-slate-400 rounded-xl text-xs font-black uppercase transition-all select-none cursor-pointer">
+                        Relaunch Consent Popup
+                    </button>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed">Changes saved in this panel write directly to your browser's persistent state parameters in real time. Deleting your browser cache or switching devices will reset these parameters to default security-first variables.</p>
         </section>
 
         <section class="mb-12">
@@ -194,5 +247,81 @@
             </div>
         </div>
     </footer>
+
+    <!-- Main JS entrypoint -->
+    <script type="module" src="/src/main.js"></script>
+
+    <!-- Interactive Preferences Control Script -->
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', () => {
+            const analyticsToggle = document.getElementById('page-pref-analytics');
+            const adsenseToggle = document.getElementById('page-pref-adsense');
+            
+            const btnSave = document.getElementById('page-save-consent');
+            const btnReject = document.getElementById('page-reject-all');
+            const btnRelaunch = document.getElementById('page-trigger-popup');
+
+            // 1. Sync controls with currently stored preferences
+            const currentConsent = localStorage.getItem('cookie-consent');
+            if (currentConsent === 'all') {
+                analyticsToggle.checked = true;
+                adsenseToggle.checked = true;
+            } else if (currentConsent === 'minimal') {
+                analyticsToggle.checked = false;
+                adsenseToggle.checked = false;
+            } else if (currentConsent) {
+                try {
+                    const parsed = JSON.parse(currentConsent);
+                    analyticsToggle.checked = !!parsed.analytics;
+                    adsenseToggle.checked = !!parsed.adsense;
+                } catch(e) {
+                    analyticsToggle.checked = true;
+                    adsenseToggle.checked = true;
+                }
+            } else {
+                // Default
+                analyticsToggle.checked = true;
+                adsenseToggle.checked = true;
+            }
+
+            // 2. Click Handlers
+            btnSave.addEventListener('click', () => {
+                const analytics = analyticsToggle.checked;
+                const adsense = adsenseToggle.checked;
+
+                if (analytics && adsense) {
+                    localStorage.setItem('cookie-consent', 'all');
+                } else if (!analytics && !adsense) {
+                    localStorage.setItem('cookie-consent', 'minimal');
+                } else {
+                    localStorage.setItem('cookie-consent', JSON.stringify({ analytics, adsense }));
+                }
+
+                if (typeof window.showSuccessToast === 'function') {
+                    window.showSuccessToast('Preferences Saved', 'Your custom privacy matrix has been updated.');
+                } else {
+                    alert('Preferences saved successfully!');
+                }
+            });
+
+            btnReject.addEventListener('click', () => {
+                analyticsToggle.checked = false;
+                adsenseToggle.checked = false;
+                localStorage.setItem('cookie-consent', 'minimal');
+
+                if (typeof window.showSuccessToast === 'function') {
+                    window.showSuccessToast('Cookies Rejected', 'All analytical and advertising trackers are deactivated.');
+                } else {
+                    alert('Non-essential cookies rejected successfully.');
+                }
+            });
+
+            btnRelaunch.addEventListener('click', () => {
+                localStorage.removeItem('cookie-consent');
+                // Reload page to show popup immediately
+                window.location.reload();
+            });
+        });
+    </script>
 </body>
 </html>

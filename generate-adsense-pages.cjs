@@ -109,7 +109,7 @@ const privacyPolicy = `
     </ul>
 
     <h2>9. Contact Us</h2>
-    <p>If you have any questions about this privacy policy or our privacy practices, please contact us at: <strong>jayaramsappa09@gmail.com</strong>.</p>
+    <p>If you have any questions about this privacy policy or our privacy practices, please contact us at: <strong>engiprephub@gmail.com</strong>.</p>
 `;
 
 const termsConditions = `
@@ -218,7 +218,7 @@ const contactUs = `
                 General Inquiries
             </h3>
             <p class="text-sm mb-4">For account issues, general questions, or feedback on our platform, drop us an email.</p>
-            <p class="font-bold text-lg">jayaramsappa09@gmail.com</p>
+            <p class="font-bold text-lg">engiprephub@gmail.com</p>
         </div>
         
         <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
