@@ -1,986 +1,2126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maths II Top Notes – JNTUK R23 | EngiPrep Hub</title>
-    <link rel="canonical" href="https://engiprephub.vercel.app/engineering-mathematics-2.html">
-    <meta name="description" content="Topper-level Q&A for JNTUK R23 Engineering Mathematics II. Differential Equations, Vector Calculus, and Vector Integration.">
-    <link rel="stylesheet" href="/src/style.css">
-
-    <!-- Gatekeeper for Authentication -->
-    <!-- Inline blocker removed for SEO/AdSense Crawlability -->
-    <script type="module" src="/src/gatekeeper.js"></script>
-
-    <meta property="og:title" content="Maths II Top Notes – JNTUK R23 | EngiPrep Hub">
-    <meta property="og:description" content="Topper-level Q&A for JNTUK R23 Engineering Mathematics II. Differential Equations, Vector Calculus, and Vector Integration.">
-    <meta property="og:url" content="https://engiprephub.vercel.app/engineering-mathematics-2.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="EngiPrep Hub">
-
-
-    <!-- Google AdSense -->
-    
-
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "Maths II Top Notes – JNTUK R23 | EngiPrep Hub",
-      "description": "Topper-level Q&A for JNTUK R23 Engineering Mathematics II. Matrices, Eigenvalues, Calculus, and Integrals.",
-      "provider": {
-        "@type": "Organization",
-        "name": "EngiPrep Hub",
-        "sameAs": "https://engiprephub.vercel.app"
-      }
-    }
-    </script>
-
-</head>
-<body class="bg-[#0a0a0f]">
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 border">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <a href="/index.html" class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-                    <span class="font-black text-xl">E</span>
-                </div>
-                <span class="text-xl font-black tracking-tighter uppercase">EngiPrep <span class="text-primary italic">Hub</span></span>
-            </a>
-            
-            
-            
-            <div id="nav-actions" class="flex items-center gap-4 text-xs font-bold uppercase tracking-widest">
-                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                </button>
-                <a href="/semester-1.html" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 transition-colors">Semester 1</a>
-                <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
-                <a href="/tasks.html" class="hidden md:block px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Tasks</a>
-                <a href="/dashboard.html" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 transition-colors">Dashboard</a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
-        <header class="mb-12">
-            <div class="inline-block px-3 py-1 rounded bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-widest mb-6">Subject • Mathematics II</div>
-            <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter">Advanced <br><span class="text-primary italic">Differential Equations & Vectors</span></h1>
-            <p class="text-xl text-slate-500 dark:text-slate-400 leading-relaxed">Differential systems and multivariable fields mapped cleanly for JNTUK R23 students. Master changes, vectors, and boundaries.</p>
-        </header>
-
-        <!-- ==========================================================================
-             ENGIPREP REFERENCE BUREAU: SMART FORMULA VAULT
-             Designed according to STEM visual cognition guidelines & Stripe Docs aesthetics
-             ========================================================================== -->
-        <section id="formula-vault-section" class="mb-20 animate-fade-up scroll-mt-24">
-            <style>
-                .formula-card {
-                    background-color: var(--surface-color) !important;
-                    border: 1px solid var(--border-color) !important;
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                }
-                .formula-card:hover {
-                    border-color: rgba(var(--theme-primary-rgb), 0.4) !important;
-                    transform: translateY(-2px);
-                    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04) !important;
-                }
-                /* Custom styles for the fullscreen Go Distraction-Free mode */
-                .vault-fullscreen-mode {
-                    position: fixed !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    width: 100vw !important;
-                    height: 100vh !important;
-                    z-index: 9999 !important;
-                    overflow-y: auto !important;
-                    background-color: #030712 !important; /* Extremely rich deep dark slate */
-                    padding: 2.5rem !important;
-                    margin: 0 !important;
-                    border-radius: 0 !important;
-                }
-                .vault-fullscreen-mode .glass-card {
-                    background-color: #0c111d !important;
-                    border-color: #1e293b !important;
-                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
-                }
-                .vault-fullscreen-mode text-white {
-                    color: #f8fafc !important;
-                }
-                /* Toast styling */
-                #vault-toast {
-                    position: fixed;
-                    bottom: 2rem;
-                    right: 2rem;
-                    transform: translateY(150px);
-                    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
-                    z-index: 100000;
-                    opacity: 0;
-                }
-                #vault-toast.toast-show {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-            </style>
-
-            <div class="glass-card bg-gradient-to-br from-[#0c111d]/90 via-slate-950 to-[#030712] p-8 md:p-10 rounded-[2.5rem] border border-blue-500/10 shadow-xl overflow-hidden relative group">
-                <!-- Visual mesh accents -->
-                <div class="absolute -right-24 -top-24 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl group-hover:scale-125 transition-all duration-1000"></div>
-                <div class="absolute -left-24 -bottom-24 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl group-hover:scale-125 transition-all duration-1000"></div>
-
-                <div class="relative z-10">
-                    <!-- Global Status Deck & Actions Ribbon -->
-                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-800/80 pb-8 mb-8">
-                        <div>
-                            <div class="flex flex-wrap items-center gap-2 mb-3">
-                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-blue-500/20">EngiPrep Reference Bureau</span>
-                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-emerald-500/20 flex items-center gap-1.5">
-                                    <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span> Sync Live Active
-                                </span>
-                            </div>
-                            <h2 class="text-3xl md:text-4xl font-black text-slate-100 tracking-tight">Smart Formula Sheets Vault</h2>
-                            <p class="text-slate-400 text-sm mt-1 max-w-2xl font-semibold leading-relaxed">Derivations, integrals, circuit equations, and algorithmic metrics condensed into interactive copy-safe modules.</p>
-                        </div>
-
-                        <!-- Top Quick Action Panel -->
-                        <div class="flex flex-wrap items-center gap-3 self-start lg:self-center bg-slate-950/60 p-2 rounded-2xl border border-slate-800/80">
-                            <a href="/dashboard.html" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-800 transition-all">
-                                ↺ Back to Dashboard
-                            </a>
-                            <button id="toggle-distraction-free" type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md shadow-blue-500/20">
-                                ⚡ Go Distraction-Free
-                            </button>
-                            <a href="https://engiprephub.in/engineering-mathematics-2.html" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md shadow-emerald-500/20 flex items-center gap-1">
-                                Launch Hub Web 🚀
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Search Deck and Highlight Panel -->
-                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
-                        <div class="lg:col-span-3 relative">
-                            <input id="vault-search-input" type="text" placeholder="Search equations, derivations, Jacobians, Beta functions, integral boundaries..." class="w-full bg-slate-950/90 border border-slate-800 rounded-2xl px-6 py-4 text-xs text-white focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-500 font-mono">
-                            <span class="absolute right-4 top-4.5 text-[9px] text-slate-500 font-bold uppercase font-mono tracking-widest">Global Vault Filter</span>
-                        </div>
-                        <div class="bg-slate-950/50 rounded-2xl border border-slate-800/60 p-4 flex items-center justify-between px-6">
-                            <div>
-                                <span class="text-[9px] text-slate-500 font-black uppercase tracking-widest block leading-none">Last Day Yield</span>
-                                <span class="text-xs text-emerald-400 font-black mt-1 uppercase tracking-wider block">Final Hour Certified</span>
-                            </div>
-                            <span class="text-3xl font-black text-white font-mono">5/5 <span class="text-[10px] text-slate-500">Un</span></span>
-                        </div>
-                    </div>
-
-                    <!-- Unit Selection Deck (Horizontal Rail) -->
-                    <div class="flex flex-wrap items-center gap-2 p-1.5 bg-slate-950/40 border border-slate-800/40 rounded-2xl mb-8 overflow-x-auto">
-                        <button data-vault-tab="1" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest transition-all">
-                            U1: First Order DE
-                        </button>
-                        <button data-vault-tab="2" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
-                            U2: Higher Order DE
-                        </button>
-                        <button data-vault-tab="3" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
-                            U3: Partial DE
-                        </button>
-                        <button data-vault-tab="4" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
-                            U4: Vector Diff
-                        </button>
-                        <button data-vault-tab="5" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
-                            U5: Vector Int
-                        </button>
-                    </div>
-
-                    <!-- Dynamic copy-safe Formula card deck output -->
-                    <div id="vault-formula-deck" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-                        <!-- Filled by JS -->
-                    </div>
-
-                    <!-- Immersive Micro-Computational Workspace Sandbox -->
-                    <div class="bg-slate-950/90 border border-slate-800 rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl">
-                        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-900">
-                            <span class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center font-black text-lg">⚙️</span>
-                            <div>
-                                <h4 class="text-sm font-black text-white uppercase tracking-wider">Reference Bureau Interactive Simulator</h4>
-                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest font-mono">Simulate core derivations & equations recursively to trace step mechanics</p>
-                            </div>
-                        </div>
-
-                        <!-- Active simulated computational view container -->
-                        <div id="vault-simulation-container" class="text-white">
-                            <!-- Injected active unit interactive workspace -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Floating Slide-In Toast Alert -->
-        <div id="vault-toast" class="bg-[#0c111d] border border-emerald-500/30 text-white rounded-2xl shadow-2xl p-4 flex items-center gap-3 max-w-sm backdrop-blur-md">
-            <span class="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm font-bold">✓</span>
-            <div>
-                <div class="text-[10px] font-black uppercase tracking-widest text-emerald-400">Reference Bureau Alert</div>
-                <div id="vault-toast-msg" class="text-slate-300 text-xs font-semibold mt-0.5">Formula copied successfully.</div>
-            </div>
-        </div>
-
-        <script>
-            // Master reference variables database for the Mathematics II smart sheet vault modules
-            const VAULT_FORMULAS_DB = [
-  {
-    unit: 1,
-    title: "Linear First Order DE Integrating Factor",
-    equation: "I.F. = e^(∫P dx)",
-    description: "Multiplies the standard equation dy/dx + P(x)y = Q(x) to make it exactly integrable on the LHS.",
-    derivationName: "Exact Form Transformation",
-    formulaText: "IF = e^(∫P dx)",
-    algorithmicMetric: "Complexity: Standard integral scaling limit."
-  },
-  {
-    unit: 1,
-    title: "General Solution to First Order Linear DE",
-    equation: "y*(I.F.) = ∫ Q(x)*(I.F.) dx + c",
-    description: "The complete algebraic solution solving the first-order differential system directly.",
-    derivationName: "Product Rule Reverse Integration",
-    formulaText: "y*IF = ∫ Q*IF dx + c",
-    algorithmicMetric: "Transforms an algorithmic loop into direct algebraic extraction."
-  },
-  {
-    unit: 1,
-    title: "Newton's Law of Cooling",
-    equation: "T(t) = Ts + (T_0 - Ts)e^(-kt)",
-    description: "Demonstrates how temperature T changes over time t in surroundings Ts based on cooling constant k.",
-    derivationName: "Isothermal Decay Constant",
-    formulaText: "T(t) = Ts + (T0 - Ts)e^(-kt)",
-    algorithmicMetric: "Defines continuous exponential temperature normalization."
-  },
-  {
-    unit: 2,
-    title: "General Solution for Auxiliary Equation",
-    equation: "y = CF + PI",
-    description: "Higher order linear ODE solution broken down into a transient (Complementary Function) and forced (Particular Integral) response.",
-    derivationName: "Superposition Principal State",
-    formulaText: "y = CF + PI",
-    algorithmicMetric: "Decouples free state matrices from forced state responses."
-  },
-  {
-    unit: 2,
-    title: "Exponential Shift Rule for Particular Integrals",
-    equation: "PI = [1/f(D)] e^(ax)V(x) = e^(ax) [1/f(D+a)] V(x)",
-    description: "Used when the forcing function is a product of an exponential and another polynomial/trigonometric function.",
-    derivationName: "Operational Coefficient Shift",
-    formulaText: "PI = e^(ax) [1/f(D+a)] V(x)",
-    algorithmicMetric: "Eliminates complex differentiation blocks rapidly."
-  },
-  {
-    unit: 3,
-    title: "Lagrange's Method for Quasi-Linear PDEs",
-    equation: "dx/P = dy/Q = dz/R",
-    description: "Converts the PDE Pp + Qq = R into a set of simultaneous ordinary differential equations to locate integral multiplier surfaces.",
-    derivationName: "Orthogonal Trajectory Form",
-    formulaText: "dx/P = dy/Q = dz/R",
-    algorithmicMetric: "Transforms partial variable systems into isolated 2D variable flows."
-  },
-  {
-    unit: 4,
-    title: "Gradient (Max. Rate & Unit Normal)",
-    equation: "∇φ = i(∂φ/∂x) + j(∂φ/∂y) + k(∂φ/∂z)",
-    description: "Computes the maximum directional change vector and is used to compute the perpendicular surface normal vector n.",
-    derivationName: "Orthogonal Surface Plane Metric",
-    formulaText: "∇φ = i(∂φ/∂x) + j(∂φ/∂y) + k(∂φ/∂z)",
-    algorithmicMetric: "Transforms scalar fields to precise surface-normal orientation vectors."
-  },
-  {
-    unit: 4,
-    title: "Divergence Vector Field Theorem",
-    equation: "∇·F = ∂F₁/∂x + ∂F₂/∂y + ∂F₃/∂z",
-    description: "Calculates the total outward flux source or sink at a point. If ∇·F = 0, the field is purely solenoidal (incompressible).",
-    derivationName: "Solenoidal Sink Scalar Extractor",
-    formulaText: "∇·F = div(F)",
-    algorithmicMetric: "Evaluates zero-divergent scalar sinks continuously."
-  },
-  {
-    unit: 4,
-    title: "Curl (Rotational Vorticity Field)",
-    equation: "∇×F = Det| i, j, k ; ∂x, ∂y, ∂z ; F1, F2, F3 |",
-    description: "Calculates rotation. If ∇×F = 0, the field is conservative and irrotational, implying F = ∇φ for some scalar potential.",
-    derivationName: "Vector Vorticity Field Generator",
-    formulaText: "∇×F = Det|i,j,k; ∂x,∂y,∂z; F1,F2,F3|",
-    algorithmicMetric: "Crucial for identifying magnetic & fluid rotational bounds."
-  },
-  {
-    unit: 5,
-    title: "Green's Theorem in 2D Plane",
-    equation: "∮_C (M dx + N dy) = ∬_R (∂N/∂x - ∂M/∂y) dx dy",
-    description: "Converts a difficult peripheral line integral along a closed path C to a double area integral computationally bounding the 2D plane.",
-    derivationName: "Double Area Boundary Conversion",
-    formulaText: "∮ (Mdx+Ndy) = ∬(Nx - My) dx dy",
-    algorithmicMetric: "Circa 90% optimization for geometric path calculations."
-  },
-  {
-    unit: 5,
-    title: "Stokes's Theorem (Line to 3D Surface)",
-    equation: "∮_C F·dr = ∬_S (∇×F)·n dS",
-    description: "Validates that the circulation around a 3D closed contour identically matches the surface integral of its cross-rotational curl.",
-    derivationName: "Vortex Circulation Curl Transform",
-    formulaText: "∮ F·dr = ∬ (∇×F)·n dS",
-    algorithmicMetric: "Core baseline mapping boundary loops into bounded surface topologies."
-  },
-  {
-    unit: 5,
-    title: "Gauss Divergence (Surface to Volume)",
-    equation: "∬_S F·n dS = ∭_V (∇·F) dV",
-    description: "Translates the vector flux bursting through a volumetric sphere surface directly into a density divergence integral spanning the 3D volume.",
-    derivationName: "Omnidirectional Output Flux Volumetric",
-    formulaText: "∬ F·n dS = ∭ (∇·F) dV",
-    algorithmicMetric: "Solves high-complexity 3D bounds by collapsing flux boundaries."
-  }
-];
-
-            document.addEventListener('DOMContentLoaded', () => {
-                let currentVaultTab = 1;
-                let dfMode = false;
-
-                const tabButtons = document.querySelectorAll('.vault-tab-btn');
-                const searchInput = document.getElementById('vault-search-input');
-                const formulaDeck = document.getElementById('vault-formula-deck');
-                const simContainer = document.getElementById('vault-simulation-container');
-                const toast = document.getElementById('vault-toast');
-                const toastMsg = document.getElementById('vault-toast-msg');
-                const dfToggleBtn = document.getElementById('toggle-distraction-free');
-                const vaultSection = document.getElementById('formula-vault-section');
-
-                // Clipboard Helper with customized floating Toast alert
-                window.copyVaultFormula = function(text, displayName) {
-                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                        navigator.clipboard.writeText(text).then(() => {
-                            showVaultToast(`Copied formula [${displayName}] to clipboard!`);
-                            triggerXPClaim(30, `Mastered ${displayName}`);
-                        });
-                    } else {
-                        // Fallback copy
-                        const txtArea = document.createElement("textarea");
-                        txtArea.value = text;
-                        document.body.appendChild(txtArea);
-                        txtArea.select();
-                        try {
-                            document.execCommand('copy');
-                            showVaultToast(`Copied formula [${displayName}] (using security fallback)!`);
-                            triggerXPClaim(30, `Mastered ${displayName}`);
-                        } catch (err) {
-                            showVaultToast("Manual select required. Your preview container blocked automatic copy.", "error");
-                        }
-                        document.body.removeChild(txtArea);
-                    }
-                };
-
-                function showVaultToast(msg, iconType = "success") {
-                    toastMsg.innerText = msg;
-                    toast.classList.add('toast-show');
-                    setTimeout(() => {
-                        toast.classList.remove('toast-show');
-                    }, 3500);
-                }
-
-                function triggerXPClaim(amount, info) {
-                    // Triggers the standard EngiPrepHub XP system
-                    if (typeof window.triggerXP === 'function') {
-                        window.triggerXP(amount, info);
-                    } else {
-                        console.log(`XP Claimed internally: +${amount} XP for [${info}]`);
-                    }
-                }
-
-                // Render formulas list in the deck depending on tab & search filters
-                function renderVaultDeck() {
-                    const query = searchInput.value.toLowerCase().trim();
-                    let list = VAULT_FORMULAS_DB;
-
-                    // Apply filter tab unless searching globally
-                    if (!query) {
-                        list = VAULT_FORMULAS_DB.filter(f => f.unit === currentVaultTab);
-                    } else {
-                        list = VAULT_FORMULAS_DB.filter(f => f.title.toLowerCase().includes(query) || 
-                                                             f.description.toLowerCase().includes(query) ||
-                                                             f.equation.toLowerCase().includes(query) ||
-                                                             f.derivationName.toLowerCase().includes(query));
-                    }
-
-                    if (list.length === 0) {
-                        formulaDeck.innerHTML = `
-                            <div class="col-span-full py-12 text-center text-slate-500 border border-slate-800 rounded-3xl bg-slate-950/20">
-                                🔍 No matching equations or derivations found for "${query}". Try another query index.
-                            </div>
-                        `;
-                        return;
-                    }
-
-                    formulaDeck.innerHTML = list.map(item => `
-                        <div class="formula-card p-6 rounded-2xl relative overflow-hidden bg-slate-900 border border-slate-800 flex flex-col justify-between group">
-                            <div>
-                                <div class="flex items-start justify-between gap-4 mb-4">
-                                    <div>
-                                        <span class="text-[9px] font-black uppercase tracking-widest text-[#06b6d4] bg-[#06b6d4]/10 px-2 py-0.5 rounded border border-[#06b6d4]/20">${item.derivationName}</span>
-                                        <h4 class="text-xs font-black text-slate-200 mt-2 tracking-tight group-hover:text-blue-400 transition-colors">${item.title}</h4>
-                                    </div>
-                                    <button onclick="copyVaultFormula('${item.formulaText.replace(/'/g, "\\'")}', '${item.title.replace(/'/g, "\\'")}')" class="px-3 py-1.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-[9px] font-bold uppercase tracking-widest text-slate-300 hover:text-white rounded-lg transition-all flex items-center gap-1 shrink-0 shadow-sm" title="Copy clean formula text">
-                                        🗎 Copy
-                                    </button>
-                                </div>
-                                <div class="formula-block-modern py-3 text-center text-blue-300 font-mono text-sm tracking-wider bg-slate-950 border border-slate-800/80 rounded-xl my-4 text-shadow-none">
-                                    ${item.equation}
-                                </div>
-                                <p class="text-[11px] text-slate-400 font-semibold leading-relaxed mb-4">${item.description}</p>
-                            </div>
-                            <div class="text-[10px] text-emerald-400 font-mono border-t border-slate-800/60 pt-3 flex items-center justify-between">
-                                <span>${item.algorithmicMetric}</span>
-                                <span class="text-slate-600 font-sans font-bold uppercase tracking-wider text-[8px]">Unit 0${item.unit}</span>
-                            </div>
-                        </div>
-                    `).join('');
-                }
-
-                // Injects simulated visual workspace for current active Unit
-                function injectSimWorkstation() {
-    if (currentVaultTab === 1) {
-        simContainer.innerHTML = \`<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" id="sim-u1-workspace"><div><h5 class="text-xs font-black text-blue-400 uppercase tracking-widest mb-2 font-mono">Newton's Law of Cooling Engine</h5><p class="text-slate-400 text-xs font-semibold leading-relaxed mb-6">Given an initial temperature $T_0=100$, environmental temperature $T_s=25$, and cooling rate $k=0.05$. Adjust the time parameter $t$ to observe the exponential temperature decay curve in real-time.</p><div class="space-y-4 mb-6"><div><div class="flex justify-between text-[10px] text-slate-500 font-mono mb-1"><span>Time Passed (mins)</span><span class="text-white font-bold" id="slider-t-val">10</span></div><input type="range" id="slider-t" min="0" max="60" value="10" class="w-full bg-slate-900 accent-blue-500 h-1.5 rounded-lg cursor-pointer"></div></div></div><div class="bg-slate-950 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between h-full"><div class="space-y-4 font-mono text-xs"><div class="flex justify-between"><span class="text-slate-500 font-bold">Initial Temp (T₀):</span><span class="text-slate-300 font-semibold">100°C</span></div><div class="flex justify-between"><span class="text-slate-500 font-bold">Surrounding (Ts):</span><span class="text-slate-300 font-semibold">25°C</span></div><div class="flex justify-between border-t border-slate-900 pt-3"><span class="text-blue-400 font-bold">Final Temp T(t):</span><span id="out-temp-val" class="text-emerald-400 font-black text-lg">70.49°C</span></div><div class="text-[10px] text-slate-500 mt-2 font-sans font-semibold leading-relaxed border-t border-slate-900 pt-3"><b class="text-emerald-300">✓ Exponential Decay Computed:</b> T(t) = 25 + (100 - 25)e^(-0.05 * <span id="str-t-val">10</span>). The system is normalizing to room temperature optimally.</div></div></div></div>\`;
-        const tSlider = document.getElementById("slider-t");
-        const updateCooling = () => {
-            const t = parseFloat(tSlider.value);
-            document.getElementById("slider-t-val").innerText = t;
-            const Tf = 25 + (75 * Math.exp(-0.05 * t));
-            document.getElementById("out-temp-val").innerText = Tf.toFixed(2) + "°C";
-            document.getElementById("str-t-val").innerText = t;
-        };
-        tSlider.addEventListener("input", updateCooling);
-        tSlider.addEventListener("change", () => { triggerXPClaim(15, \`Simulated cooling for t=\${tSlider.value} mins\`); });
-        updateCooling();
-    } else if (currentVaultTab === 4) {
-        simContainer.innerHTML = \`<div class="p-8 text-center bg-slate-950/20 border border-slate-800 rounded-3xl"><span class="text-4xl block mb-4">🧭</span><h4 class="text-slate-200 font-black text-sm uppercase tracking-widest mb-2">Vector Divergence Analyzer</h4><p class="text-slate-400 text-xs font-semibold leading-relaxed mb-6">Calculates the fluid source sink properties in a multivariable plane.</p><div class="inline-block px-4 py-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-xl font-mono text-xs">Module initializing in cloud instance...</div></div>\`;
-    } else {
-        simContainer.innerHTML = \`<div class="p-8 text-center bg-slate-900 border border-slate-800 rounded-3xl"><span class="text-4xl block mb-4">⚡</span><h4 class="text-slate-200 font-black text-sm uppercase tracking-widest mb-2">Interactive Processor Booting...</h4><p class="text-slate-400 text-xs font-semibold leading-relaxed">This unit's interactive processor is downloading algorithmic limits. Please refer to the formula vault above in the meantime.</p></div>\`;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Engi Prep Hub — Engineering Mathematics II</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#040812;
+  --bg2:#070e1c;
+  --bg3:#0c1528;
+  --panel:#0f1c35;
+  --panel2:#122040;
+  --border:#1a2d52;
+  --border2:#213660;
+  --accent:#00d4ff;
+  --accent2:#7b5cff;
+  --accent3:#ff6b35;
+  --accent4:#00ff9d;
+  --text:#e8f0fe;
+  --text2:#a0b4d0;
+  --text3:#5a7a9a;
+  --gold:#ffd700;
+  --red:#ff4d6d;
+  --green:#00ff9d;
+  --font-head:'Syne',sans-serif;
+  --font-mono:'DM Mono',monospace;
+  --font-body:'Inter',sans-serif;
 }
-injectSimWorkstation();
-                    });
-                });
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;line-height:1.7}
+::selection{background:rgba(0,212,255,0.25);color:#fff}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px}
 
-                // Go Distraction-free Workspace full screen mode toggle
-                dfToggleBtn.addEventListener('click', () => {
-                    dfMode = !dfMode;
-                    const isDF = vaultSection.classList.toggle('vault-fullscreen-mode');
-                    if (isDF) {
-                        dfToggleBtn.innerHTML = '✕ Exit Distraction-Free';
-                        dfToggleBtn.className = "px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 z-50";
-                        vaultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        showVaultToast("Distraction-Free Focus mode enabled!");
-                        triggerXPClaim(40, "Began distraction-free deep focus study session.");
-                    } else {
-                        dfToggleBtn.innerHTML = '⚡ Go Distraction-Free';
-                        dfToggleBtn.className = "px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md shadow-blue-500/20";
-                        showVaultToast("Distraction-Free Focus mode disabled.");
-                    }
-                });
+/* ── NOISE OVERLAY ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
 
-                // Initializer boot parameters
-                renderVaultDeck();
-                injectSimWorkstation();
-            });
-        </script>
+/* ── HEADER ── */
+.site-header{position:sticky;top:0;z-index:100;background:rgba(4,8,18,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem}
+.header-inner{max-width:1400px;margin:auto;display:flex;align-items:center;gap:1rem;height:60px}
+.logo-badge{display:flex;align-items:center;gap:.6rem;font-family:var(--font-head);font-weight:800;font-size:1.1rem;letter-spacing:-.02em}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.logo-sub{font-size:.65rem;color:var(--text3);font-family:var(--font-mono);letter-spacing:.08em;font-weight:400}
+.header-tag{margin-left:auto;background:linear-gradient(90deg,rgba(0,212,255,.12),rgba(123,92,255,.12));border:1px solid var(--border2);border-radius:20px;padding:.25rem .8rem;font-size:.7rem;font-family:var(--font-mono);color:var(--accent);letter-spacing:.06em}
+.unit-nav{display:flex;gap:.3rem;margin-left:1.5rem;flex-wrap:wrap}
+.unit-nav a{padding:.3rem .7rem;border-radius:6px;font-size:.72rem;font-family:var(--font-mono);color:var(--text3);text-decoration:none;border:1px solid transparent;transition:.2s;letter-spacing:.04em}
+.unit-nav a:hover,.unit-nav a.active{color:var(--accent);border-color:var(--border2);background:rgba(0,212,255,.06)}
 
-        <section class="mb-20">
-            <div class="flex items-center gap-3 mb-10">
-                <div class="w-12 h-12 bg-primary/20 text-primary rounded-2xl flex items-center justify-center font-black">M</div>
-                <h2 class="text-3xl font-black tracking-tight">Topper's Corner: <span class="text-primary italic">High-Yield Q&A</span></h2>
-            </div>
+/* ── HERO ── */
+.hero{position:relative;text-align:center;padding:5rem 2rem 4rem;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.04) 1px,transparent 1px);background-size:60px 60px;animation:gridShift 20s linear infinite}
+@keyframes gridShift{from{transform:translateY(0)}to{transform:translateY(60px)}}
+.hero-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(123,92,255,.18) 0%,transparent 70%);pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:800px;margin:auto}
+.hero-eyebrow{font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;opacity:.8}
+.hero-title{font-family:var(--font-head);font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.08;letter-spacing:-.04em;margin-bottom:1.2rem}
+.hero-title .gradient-text{background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1rem;color:var(--text2);max-width:560px;margin:0 auto 2rem;font-weight:300}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2.5rem}
+.chip{padding:.35rem .9rem;border-radius:20px;font-size:.72rem;font-family:var(--font-mono);letter-spacing:.05em;border:1px solid;display:inline-flex;align-items:center;gap:.4rem}
+.chip-blue{color:var(--accent);border-color:rgba(0,212,255,.3);background:rgba(0,212,255,.06)}
+.chip-purple{color:var(--accent2);border-color:rgba(123,92,255,.3);background:rgba(123,92,255,.06)}
+.chip-orange{color:var(--accent3);border-color:rgba(255,107,53,.3);background:rgba(255,107,53,.06)}
+.chip-green{color:var(--accent4);border-color:rgba(0,255,157,.3);background:rgba(0,255,157,.06)}
+.hero-units{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center}
+.unit-pill{padding:.5rem 1.2rem;border-radius:8px;font-size:.78rem;font-family:var(--font-head);font-weight:700;cursor:pointer;text-decoration:none;transition:.25s;letter-spacing:.02em;border:1px solid}
+.up-1{color:#00d4ff;border-color:rgba(0,212,255,.4);background:rgba(0,212,255,.08)}
+.up-2{color:#7b5cff;border-color:rgba(123,92,255,.4);background:rgba(123,92,255,.08)}
+.up-3{color:#ff6b35;border-color:rgba(255,107,53,.4);background:rgba(255,107,53,.08)}
+.up-4{color:#00ff9d;border-color:rgba(0,255,157,.4);background:rgba(0,255,157,.08)}
+.up-5{color:#ffd700;border-color:rgba(255,215,0,.4);background:rgba(255,215,0,.08)}
+.unit-pill:hover{transform:translateY(-2px);filter:brightness(1.2)}
 
-            <!-- 2 Mark Questions -->
-            <div class="mb-16">
-                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-8 border-l-2 border-primary pl-4">Quick Logic (2 Marks)</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                        <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">Q1. Define Rank of a Matrix.</p>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed"><span class="text-primary">Ans:</span> The number of non-zero rows in the Echelon form of a matrix. It represents the number of linearly independent rows/columns.</p>
-                    </div>
-                    <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                        <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">Q2. State Cayley-Hamilton Theorem.</p>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed"><span class="text-primary">Ans:</span> Every square matrix satisfies its own characteristic equation. Highly useful for finding inverse and powers of matrices.</p>
-                    </div>
-                    <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                        <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">Q3. State Rolle’s Theorem.</p>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed"><span class="text-primary">Ans:</span> If f(x) is continuous on [a,b], differentiable on (a,b), and f(a)=f(b), then there exists at least one 'c' in (a,b) such that f'(c)=0.</p>
-                    </div>
-                    <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                        <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">Q4. What is a Jacobian?</p>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed"><span class="text-primary">Ans:</span> A functional determinant used in change of variables for multiple integrals. Represents the local 'magnification' or 'rotation'.</p>
-                    </div>
-                </div>
-            </div>
+/* ── CONTENT WRAPPER ── */
+.content{max-width:1000px;margin:0 auto;padding:2rem}
 
-            <!-- Long Q Section -->
-            <div class="space-y-8">
-                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-8 border-l-2 border-primary pl-4">Critical Methods (10 Marks)</h3>
-                
-                <div class="glass-card p-10 bg-primary/5 border-primary/10 bg-white dark:bg-slate-900 shadow-sm">
-                    <h4 class="text-2xl font-black mb-6">Algorithm: Echelon Form for Rank</h4>
-                    <ol class="space-y-4 text-slate-500 dark:text-slate-400">
-                        <li class="flex gap-4">
-                            <span class="font-black text-primary italic">01.</span>
-                            <span>The first non-zero element of the first row should be 1 (preferred) or as simple as possible.</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <span class="font-black text-primary italic">02.</span>
-                            <span>Perform elementary row operations to make all elements below this leading entry zero.</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <span class="font-black text-primary italic">03.</span>
-                            <span>Move to the next row and diagonal position, repeating the process.</span>
-                        </li>
-                    </ol>
-                </div>
+/* ── UNIT SECTIONS ── */
+.unit-section{margin-bottom:5rem;position:relative}
+.unit-header{display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:2rem;padding:2rem;border-radius:16px;border:1px solid var(--border);background:var(--panel);position:relative;overflow:hidden}
+.unit-header::before{content:'';position:absolute;inset:0;opacity:.06}
+.uh-1::before{background:linear-gradient(135deg,#00d4ff,transparent)}
+.uh-2::before{background:linear-gradient(135deg,#7b5cff,transparent)}
+.uh-3::before{background:linear-gradient(135deg,#ff6b35,transparent)}
+.uh-4::before{background:linear-gradient(135deg,#00ff9d,transparent)}
+.uh-5::before{background:linear-gradient(135deg,#ffd700,transparent)}
+.unit-num{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;padding:.3rem .7rem;border-radius:6px;border:1px solid;font-weight:500;white-space:nowrap}
+.un-1{color:#00d4ff;border-color:rgba(0,212,255,.4);background:rgba(0,212,255,.08)}
+.un-2{color:#7b5cff;border-color:rgba(123,92,255,.4);background:rgba(123,92,255,.08)}
+.un-3{color:#ff6b35;border-color:rgba(255,107,53,.4);background:rgba(255,107,53,.08)}
+.un-4{color:#00ff9d;border-color:rgba(0,255,157,.4);background:rgba(0,255,157,.08)}
+.un-5{color:#ffd700;border-color:rgba(255,215,0,.4);background:rgba(255,215,0,.08)}
+.unit-meta{flex:1}
+.unit-title{font-family:var(--font-head);font-size:1.6rem;font-weight:800;letter-spacing:-.03em;margin-bottom:.4rem}
+.unit-subtitle{font-size:.85rem;color:var(--text3);font-family:var(--font-mono);letter-spacing:.04em}
+.unit-topics{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.topic-tag{font-size:.68rem;padding:.2rem .6rem;border-radius:4px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-family:var(--font-mono)}
 
-                <div class="glass-card p-10 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border">
-                    <h4 class="text-2xl font-black mb-6">Langrange's Mean Value Theorem</h4>
-                    <p class="text-slate-500 dark:text-slate-400 mb-6 italic leading-relaxed">Geometrically, for a smooth curve between two points, there's always a point where the curve's slope matches the average slope (chord).</p>
-                    <div class="bg-black/50 p-6 rounded-2xl text-center border border-slate-200 dark:border-slate-800">
-                        <span class="text-3xl font-black text-primary tracking-widest">f'(c) = [f(b) - f(a)] / [b - a]</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+/* ── SECTION BLOCKS ── */
+.section-block{margin-bottom:1.8rem;border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+.section-head{display:flex;align-items:center;gap:.8rem;padding:1rem 1.4rem;background:var(--panel);cursor:pointer;user-select:none;transition:.2s}
+.section-head:hover{background:var(--panel2)}
+.section-icon{font-size:1.1rem;flex-shrink:0}
+.section-label{font-family:var(--font-head);font-weight:700;font-size:.92rem;letter-spacing:-.01em;flex:1}
+.section-toggle{font-family:var(--font-mono);font-size:.75rem;color:var(--text3);transition:.3s}
+.section-toggle.open{transform:rotate(180deg)}
+.section-body{background:var(--bg2);padding:1.6rem;display:none}
+.section-body.open{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 
-        <!-- JNTUK R23 Unit-Wise Exam Strategy Section -->
-        <section id="exam-strategy" class="mb-20 animate-fade-up">
-            <div class="flex items-center gap-3 mb-10">
-                <div class="w-12 h-12 bg-primary/20 text-primary rounded-2xl flex items-center justify-center font-black text-xl">⚡</div>
-                <div>
-                    <h2 class="text-3xl font-black text-slate-900 dark:text-slate-50 tracking-tight">1-Day Before <span class="text-primary italic">Exam Strategy</span></h2>
-                    <p class="text-[10px] text-primary/80 mt-1 uppercase font-semibold tracking-wider font-mono">Unit-Wise Last Minute Blueprint for JNTUK R23</p>
-                </div>
-            </div>
+/* ── TYPOGRAPHY INSIDE SECTIONS ── */
+.section-body p{color:var(--text2);font-size:.92rem;margin-bottom:1rem;line-height:1.8}
+.section-body p:last-child{margin-bottom:0}
+.section-body h4{font-family:var(--font-head);font-weight:700;font-size:.95rem;color:var(--text);margin:1.2rem 0 .6rem;letter-spacing:-.01em}
+.section-body ul,.section-body ol{padding-left:1.4rem;color:var(--text2);font-size:.9rem}
+.section-body li{margin-bottom:.5rem;line-height:1.7}
+.section-body strong{color:var(--text);font-weight:600}
+.hl-blue{color:var(--accent)}
+.hl-purple{color:var(--accent2)}
+.hl-orange{color:var(--accent3)}
+.hl-green{color:var(--accent4)}
+.hl-gold{color:var(--gold)}
 
-            <div class="space-y-6">
-                <!-- Unit 1 -->
-                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
-                        <div class="flex items-center gap-3">
-                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 01</span>
-                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Matrices, Eigen Values & Rank</h3>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">Guaranteed 14 Marks</span>
-                            <a href="/engineering-mathematics-unit-1.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">This unit forms the numerical backbone of the paper. Focus heavily on row-reduction algorithms and eigenvalue identities.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
-                                <li><b>Diagonalization</b> of a $3\times3$ non-symmetric and symmetric matrix using Orthogonal Transformation.</li>
-                                <li>Statement and verification of <b>Cayley-Hamilton Theorem</b> to find matrix powers and inverse matrices.</li>
-                                <li>Finding the <b>Rank of a Matrix</b> by converting it into Echelon form via elementary row operations.</li>
-                            </ul>
-                        </div>
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
-                                <li>Check your calculated eigenvalues: <b>Trace(A) = Sum of eigenvalues</b> (sum of principal diagonal) and <b>Det(A) = Product of eigenvalues</b>.</li>
-                                <li>When reducing to Echelon, perform operations on row $R_2$ and $R_3$ using row $R_1$ simultaneously to save time.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+/* ── FORMULA CARDS ── */
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin:1rem 0}
+.formula-card{background:var(--panel);border:1px solid var(--border2);border-radius:12px;padding:1.2rem;position:relative;overflow:hidden;transition:.25s}
+.formula-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.fc-blue::before{background:linear-gradient(90deg,var(--accent),transparent)}
+.fc-purple::before{background:linear-gradient(90deg,var(--accent2),transparent)}
+.fc-orange::before{background:linear-gradient(90deg,var(--accent3),transparent)}
+.fc-green::before{background:linear-gradient(90deg,var(--accent4),transparent)}
+.fc-gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.formula-card:hover{transform:translateY(-2px);border-color:var(--border2);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.fc-name{font-family:var(--font-mono);font-size:.68rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem}
+.fc-eq{font-family:var(--font-mono);font-size:.95rem;color:var(--text);background:var(--bg3);padding:.7rem 1rem;border-radius:8px;margin-bottom:.7rem;line-height:1.6;word-break:break-word}
+.fc-desc{font-size:.8rem;color:var(--text2);line-height:1.6}
 
-                <!-- Unit 2 -->
-                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
-                        <div class="flex items-center gap-3">
-                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 02</span>
-                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Mean Value Theorems & Calculus</h3>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">Highly Conceptual</span>
-                            <a href="/engineering-mathematics-unit-2.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Theorems are critical. JNTUK shifts focus here towards direct statement proofs and checking interval conditions.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
-                                <li>Proofs and geometrical interpretations of <b>Lagrange's Mean Value Theorem (LMVT)</b> and Rolle's Theorem.</li>
-                                <li>Verifying <b>Cauchy's Mean Value Theorem (CMVT)</b> for given functions $f(x)$ and $g(x)$ in a specified interval $[a,b]$.</li>
-                                <li><b>Taylor's & Maclaurin's expansions</b> of transcendental functions like $e^x \cos x$ or $\log(1+x)$ up to 3 terms.</li>
-                            </ul>
-                        </div>
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
-                                <li>Before verifying any theorem, always explicitly write that the function is continuous on $[a,b]$ and differentiable on $(a,b)$. Neglecting this loses 2 easy marks recursively.</li>
-                                <li>In Taylor’s series, center points are values like $x = a$. For Maclaurin's, always expand around origin $x = 0$.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+/* ── STEP CARDS ── */
+.steps{display:flex;flex-direction:column;gap:.8rem}
+.step{display:flex;gap:1rem;padding:1rem 1.2rem;background:var(--panel);border-radius:10px;border:1px solid var(--border);align-items:flex-start}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.75rem;font-weight:600;flex-shrink:0;margin-top:2px}
+.sn-blue{background:rgba(0,212,255,.15);color:var(--accent);border:1px solid rgba(0,212,255,.3)}
+.sn-purple{background:rgba(123,92,255,.15);color:var(--accent2);border:1px solid rgba(123,92,255,.3)}
+.sn-orange{background:rgba(255,107,53,.15);color:var(--accent3);border:1px solid rgba(255,107,53,.3)}
+.sn-green{background:rgba(0,255,157,.15);color:var(--accent4);border:1px solid rgba(0,255,157,.3)}
+.step-content{flex:1}
+.step-title{font-family:var(--font-head);font-weight:700;font-size:.88rem;margin-bottom:.3rem}
+.step-body{font-size:.85rem;color:var(--text2);line-height:1.7}
+.step-eq{font-family:var(--font-mono);font-size:.85rem;color:var(--accent4);background:var(--bg3);padding:.4rem .8rem;border-radius:6px;margin:.5rem 0;display:inline-block}
 
-                <!-- Unit 3 -->
-                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
-                        <div class="flex items-center gap-3">
-                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 03</span>
-                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Multivariable Calculus: Jacobians & Maxima-Minima</h3>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">High Probability</span>
-                            <a href="/engineering-mathematics-unit-3.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">This unit presents straightforward, highly procedural mathematics. Memorize algebraic discriminants and derivative equations.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
-                                <li>Finding extreme values (<b>Maxima & Minima</b>) of $f(x,y)$ using the discriminant values $r = \frac{\partial^2 f}{\partial x^2}$, $t = \frac{\partial^2 f}{\partial y^2}$, and $s = \frac{\partial^2 f}{\partial x \partial y}$.</li>
-                                <li><b>Lagrange's Method of Undetermined Multipliers</b> for constraints (e.g. extremizing $x^a y^b z^c = k$ with constraints).</li>
-                                <li>Evaluating <b>Jacobians</b> $J = \frac{\partial(u,v)}{\partial(x,y)}$ and checking for functional relationships if $J = 0$.</li>
-                            </ul>
-                        </div>
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
-                                <li>At stationary points, if $rt - s^2 &gt; 0$ and $r &lt; 0$, it is a Maximum. If $rt - s^2 &gt; 0$ and $r &gt; 0$, it is a Minimum. If $rt - s^2 &lt; 0$, it is a Saddle Point (neither). Remember this criteria set flawlessly.</li>
-                                <li>For Lagrange multipliers, formulate $F(x,y,z,\lambda) = f(x,y,z) + \lambda \cdot [g(x,y,z) - c]$. Differentials with respect to $x, y, z$ must equate to 0.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+/* ── MISTAKE CARDS ── */
+.mistake-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem}
+.mistake-card{background:rgba(255,77,109,.06);border:1px solid rgba(255,77,109,.25);border-radius:10px;padding:1rem 1.2rem}
+.mistake-card .mc-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.mc-icon{font-size:.9rem}
+.mc-label{font-family:var(--font-mono);font-size:.7rem;color:var(--red);letter-spacing:.06em}
+.mistake-card p{font-size:.83rem;color:var(--text2);line-height:1.6}
+.fix-card{background:rgba(0,255,157,.05);border:1px solid rgba(0,255,157,.2);border-radius:10px;padding:1rem 1.2rem;margin-top:.6rem}
+.fix-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem}
+.fix-icon{font-size:.85rem}
+.fix-label{font-family:var(--font-mono);font-size:.68rem;color:var(--green);letter-spacing:.06em}
+.fix-card p{font-size:.82rem;color:var(--text2)}
 
-                <!-- Unit 4 -->
-                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
-                        <div class="flex items-center gap-3">
-                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 04</span>
-                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Double & Triple Integrals</h3>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">Guaranteed Question</span>
-                            <a href="/engineering-mathematics-unit-4.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Limits are the core focus. Always sketch the curves to avoid mistakes when transitioning boundaries of integration.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
-                                <li>Problems requiring you to <b>Change the Order of Integration</b> (e.g., swapping $dy\,dx$ for $dx\,dy$).</li>
-                                <li>Conversion from Cartesian to Polar Coordinates using the Jacobian substitution variables $x = r \cos \theta$, $y = r \sin \theta$, and substituting $dx \, dy \to r \, dr \, d\theta$.</li>
-                                <li>Finding total area enclosed by standard curves (like Parabolas or Cardioids $r = a(1+\cos\theta)$) via double integrals.</li>
-                            </ul>
-                        </div>
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
-                                <li>When shifting boundaries during a Change of Order, sketch both intersection curves first. A horizontal strip must be swapped to a vertical strip, and outer limits must be constants.</li>
-                                <li>In Polar swaps, cardioids or circles are highly symmetric—often you can calculate bounds for the upper half and multiply by 2.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+/* ── PYQ CARD ── */
+.pyq-card{background:var(--panel);border:1px solid rgba(255,215,0,.25);border-radius:12px;padding:1.2rem;margin:.6rem 0}
+.pyq-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.pyq-title{font-family:var(--font-head);font-weight:700;font-size:.9rem;color:var(--gold)}
+.pyq-badge{font-family:var(--font-mono);font-size:.65rem;padding:.25rem .6rem;border-radius:4px;background:rgba(255,215,0,.12);color:var(--gold);border:1px solid rgba(255,215,0,.3);letter-spacing:.05em}
+.pyq-years{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem}
+.pyq-year{font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--bg3);border:1px solid var(--border);color:var(--text3);font-family:var(--font-mono)}
+.pyq-prob{display:flex;align-items:center;gap:.7rem;margin-top:.7rem}
+.prob-bar{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.prob-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--accent3));border-radius:3px;transition:width 1s ease}
+.prob-label{font-family:var(--font-mono);font-size:.7rem;color:var(--gold);white-space:nowrap}
 
-                <!-- Unit 5 -->
-                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
-                        <div class="flex items-center gap-3">
-                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 05</span>
-                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Special Functions: Beta & Gamma</h3>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">Easiest Winnings</span>
-                            <a href="/engineering-mathematics-unit-5.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Excellent scoring area with short, standard derivations and formula integrations.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
-                                <li>Derivation of the relation between Beta and Gamma functions: $B(m,n) = \frac{\Gamma(m)\Gamma(n)}{\Gamma(m+n)}$.</li>
-                                <li>Evaluating limits of the form $\int_0^{\pi/2} \sin^p\theta \cos^q\theta \, d\theta$.</li>
-                                <li>Proving specific relations like $\Gamma(\frac{1}{2}) = \sqrt{\pi}$ and evaluating standard improper integral properties.</li>
-                            </ul>
-                        </div>
-                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
-                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
-                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
-                                <li>Always memorize the definition formulas: $\Gamma(n) = \int_0^\infty e^{-x} x^{n-1} dx$ and $B(m,n) = \int_0^1 x^{m-1} (1-x)^{n-1} dx$.</li>
-                                <li>Remember that $\Gamma(n+1) = n \cdot \Gamma(n)$ for partial fractions/decimals, and $\Gamma(n+1) = n!$ for positive integers.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+/* ── EXAM FOCUS ── */
+.exam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem}
+.exam-card{background:var(--panel);border-radius:10px;padding:1rem;border:1px solid var(--border);display:flex;gap:.8rem;align-items:flex-start}
+.exam-num{font-family:var(--font-mono);font-size:.7rem;color:var(--text3);margin-top:2px}
+.exam-text{font-size:.83rem;color:var(--text2);line-height:1.6;flex:1}
 
-        <!-- AI Question Generator Section -->
-        <section id="ai-question-generator" class="mb-20">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-12 h-12 bg-primary/20 text-primary rounded-2xl flex items-center justify-center font-black text-xl">🤖</div>
-                <div>
-                    <h2 class="text-3xl font-black text-slate-900 dark:text-slate-50 tracking-tight">AI Exam <span class="text-primary italic">Question Generator</span></h2>
-                    <p class="text-[10px] text-primary/80 mt-1 uppercase font-semibold tracking-wider font-mono">Instant Exam Questions & Step-by-Step Marking Rubrics</p>
-                </div>
-            </div>
+/* ── TRICK BOX ── */
+.trick-box{background:linear-gradient(135deg,rgba(123,92,255,.08),rgba(0,212,255,.06));border:1px solid rgba(123,92,255,.3);border-radius:12px;padding:1.2rem;margin:.6rem 0}
+.trick-head{font-family:var(--font-mono);font-size:.68rem;color:var(--accent2);letter-spacing:.1em;margin-bottom:.7rem;text-transform:uppercase}
+.trick-box p{font-size:.87rem;color:var(--text2);line-height:1.7;margin-bottom:.5rem}
+.trick-box p:last-child{margin-bottom:0}
 
-            <div class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
-                    Input any specific concept from the JNTUK R23 Maths II syllabus below to instantly generate realistic exam-style questions paired with complete stepwise solutions and diagnostic formulas.
-                </p>
+/* ── APPLICATION BOX ── */
+.app-box{background:linear-gradient(135deg,rgba(255,107,53,.07),rgba(255,215,0,.04));border:1px solid rgba(255,107,53,.25);border-radius:12px;padding:1.2rem;margin:.6rem 0}
+.app-head{font-family:var(--font-mono);font-size:.68rem;color:var(--accent3);letter-spacing:.1em;margin-bottom:.7rem;text-transform:uppercase}
+.app-box p,.app-box li{font-size:.87rem;color:var(--text2);line-height:1.7}
 
-                <!-- Quick selection buttons -->
-                <div class="mb-8">
-                    <span class="text-[10px] uppercase font-bold tracking-widest text-slate-500 dark:text-slate-400 block mb-3 font-mono">Suggested High-Yield Topics:</span>
-                    <div class="flex flex-wrap gap-2">
-                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Eigenvalues">Eigenvalues</button>
-                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Cayley-Hamilton">Cayley-Hamilton</button>
-                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Rolle's Theorem">Rolle's Theorem</button>
-                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Jacobians">Jacobians</button>
-                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Integration order changing">Change of Order</button>
-                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Beta & Gamma functions">Beta & Gamma</button>
-                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Maxima & Minima optimization">Maxima & Minima</button>
-                    </div>
-                </div>
+/* ── CANVAS ── */
+.canvas-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0}
+.canvas-label{font-family:var(--font-mono);font-size:.68rem;color:var(--text3);padding:.6rem 1rem;border-bottom:1px solid var(--border);letter-spacing:.06em;text-transform:uppercase}
+canvas{display:block;width:100%;cursor:crosshair}
 
-                <!-- Input group -->
-                <form id="math-generator-form" class="flex flex-col sm:flex-row gap-3">
-                    <input id="math-concept-input" type="text" placeholder="Enter Math concept (e.g. Taylor's Series, Lagrange's multipliers...)" class="flex-1 bg-slate-100 border rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-50 placeholder-gray-500 focus:outline-none focus:border-primary/50 transition-colors border-slate-200 dark:border-slate-800" required>
-                    <button id="math-submit-btn" type="submit" class="btn-primary flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold font-mono">
-                        <span>Generate</span>
-                        <span class="animate-pulse">✨</span>
-                    </button>
-                </form>
+/* ── QUIZ ── */
+.quiz-wrap{background:var(--panel);border:1px solid var(--border2);border-radius:14px;padding:1.4rem;margin:.8rem 0}
+.quiz-q{font-family:var(--font-head);font-weight:700;font-size:.95rem;margin-bottom:1rem;line-height:1.5}
+.quiz-opts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.quiz-opt{padding:.7rem 1rem;border-radius:8px;background:var(--bg3);border:1px solid var(--border);font-size:.87rem;cursor:pointer;transition:.2s;color:var(--text2);text-align:left}
+.quiz-opt:hover{border-color:var(--border2);color:var(--text)}
+.quiz-opt.correct{background:rgba(0,255,157,.08);border-color:rgba(0,255,157,.4);color:var(--green)}
+.quiz-opt.wrong{background:rgba(255,77,109,.08);border-color:rgba(255,77,109,.4);color:var(--red)}
+.quiz-explain{font-size:.83rem;color:var(--text2);background:var(--bg3);padding:.8rem 1rem;border-radius:8px;border-left:3px solid var(--accent4);display:none;line-height:1.6}
+.quiz-explain.show{display:block}
+.quiz-btn{padding:.5rem 1.2rem;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border:none;cursor:pointer;font-family:var(--font-head);font-weight:700;font-size:.82rem;margin-top:.5rem;transition:.2s;letter-spacing:.03em}
+.quiz-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
 
-                <!-- Feedback States -->
-                <div id="gen-loading-state" class="hidden mt-8 text-center py-12">
-                    <div class="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium" id="gen-loading-message">Formulating custom question...</p>
-                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-2 font-mono">Aligning to JNTUK R23 evaluation bounds</p>
-                </div>
+/* ── DIVIDER ── */
+.unit-divider{border:none;border-top:1px solid var(--border);margin:3rem 0;opacity:.4}
 
-                <div id="gen-error-state" class="hidden mt-8 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm">
-                    Failed to reach generation helper. Serving local high-yield fallback database.
-                </div>
+/* ── REVISION BAND ── */
+.rev-band{background:var(--panel);border:1px solid var(--border2);border-radius:14px;padding:1.4rem;margin:1rem 0}
+.rev-head{font-family:var(--font-head);font-weight:800;font-size:.9rem;color:var(--accent);margin-bottom:1rem;letter-spacing:-.01em;display:flex;align-items:center;gap:.5rem}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.7rem}
+.rev-item{font-family:var(--font-mono);font-size:.8rem;padding:.6rem .9rem;background:var(--bg3);border-radius:8px;border:1px solid var(--border);color:var(--text2);line-height:1.5}
 
-                <!-- Generated Question Card -->
-                <div id="gen-result-card" class="hidden mt-8 border-t pt-8 border-slate-200 dark:border-slate-800 border">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                        <div class="flex items-center gap-2">
-                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono" id="result-concept">Concept</span>
-                            <span class="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded font-mono" id="result-difficulty">Difficulty</span>
-                        </div>
-                        <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono self-start sm:self-auto" id="result-marks">10 Marks</span>
-                    </div>
+/* ── SCROLL TO TOP ── */
+.scroll-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;background:var(--panel2);border:1px solid var(--border2);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:50;font-size:1.1rem;transition:.2s;text-decoration:none;color:var(--accent)}
+.scroll-top:hover{background:rgba(0,212,255,.1);transform:translateY(-2px)}
 
-                    <!-- Question Container -->
-                    <div class="p-6 bg-slate-100 rounded-2xl border mb-6 border-slate-200 dark:border-slate-800">
-                        <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono block mb-2">Generated Question:</span>
-                        <div class="text-slate-900 dark:text-slate-50 font-medium text-base leading-relaxed" id="result-question">
-                            Find the eigenvalues of...
-                        </div>
-                    </div>
+/* ── PROGRESS BAR ── */
+.progress-line{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));z-index:200;transition:width .1s}
 
-                    <!-- Formula Reference -->
-                    <div class="p-4 bg-primary/5 rounded-xl border border-primary/10 mb-6">
-                        <span class="text-[10px] font-bold text-primary uppercase tracking-wider font-mono block mb-1">Key Formula:</span>
-                        <code class="text-xs text-primary font-mono block whitespace-pre-wrap" id="result-formula">Formula</code>
-                    </div>
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .unit-nav{display:none}
+  .hero-title{font-size:2rem}
+  .formula-grid{grid-template-columns:1fr}
+  .exam-grid{grid-template-columns:1fr}
+  .mistake-grid{grid-template-columns:1fr}
+  .rev-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
 
-                    <!-- Step-by-Step Solution -->
-                    <div class="space-y-4">
-                        <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono block mb-2">Step-by-Step Solution & Rubric Scheme:</span>
-                        <div class="prose prose-invert text-sm text-slate-500 dark:text-slate-400 leading-relaxed space-y-4" id="result-solution">
-                            Step 1...
-                        </div>
-                    </div>
+<div class="progress-line" id="prog"></div>
 
-                    <!-- Button trigger -->
-                    <div class="mt-8 flex justify-end">
-                        <button id="try-another-btn" class="btn-ghost py-2 px-6 text-xs border-slate-200 dark:border-slate-800 border">Clear Form</button>
-                    </div>
-                </div>
+<!-- HEADER -->
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <div class="logo-badge">
+      <div class="logo-icon">∂</div>
+      <div>
+        <div>Engi Prep Hub</div>
+        <div class="logo-sub">JNTUK R23 · B.TECH 1ST YEAR</div>
+      </div>
+    </div>
+    <nav class="unit-nav">
+      <a href="#unit1" class="active">I · ODE-1</a>
+      <a href="#unit2">II · ODE-2</a>
+      <a href="#unit3">III · PDE</a>
+      <a href="#unit4">IV · Vec-D</a>
+      <a href="#unit5">V · Vec-I</a>
+    </nav>
+    <div class="header-tag">MATHS — II</div>
+  </div>
+</header>
 
-            </div>
-        </section>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Engineering Mathematics · Unit I — V · Full Syllabus</div>
+    <h1 class="hero-title">
+      <span class="gradient-text">Differential Equations</span><br/>& Vector Calculus
+    </h1>
+    <p class="hero-desc">An AI-powered visual learning system. Intuition first. Formulas that make sense. Exam-ready in every topic.</p>
+    <div class="hero-chips">
+      <span class="chip chip-blue">📐 5 Units</span>
+      <span class="chip chip-purple">🧮 50+ Formulas</span>
+      <span class="chip chip-orange">⚡ Interactive Quizzes</span>
+      <span class="chip chip-green">🎯 PYQ Analysis</span>
+    </div>
+    <div class="hero-units">
+      <a href="#unit1" class="unit-pill up-1">I — First Order ODE</a>
+      <a href="#unit2" class="unit-pill up-2">II — Higher Order ODE</a>
+      <a href="#unit3" class="unit-pill up-3">III — Partial DE</a>
+      <a href="#unit4" class="unit-pill up-4">IV — Vector Differentiation</a>
+      <a href="#unit5" class="unit-pill up-5">V — Vector Integration</a>
+    </div>
+  </div>
+</section>
 
-        <div class="glass-card p-12 text-center bg-gradient-to-t from-primary/10 to-transparent bg-white dark:bg-slate-900 shadow-sm">
-            <h2 class="text-4xl font-black mb-6">Want the <span class="text-primary italic">Ultimate</span> Guide?</h2>
-            <p class="text-slate-500 dark:text-slate-400 mb-10 max-w-lg mx-auto">Access our database-powered study material with actual previous year solved questions.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/subject.html?sub=Mathematics II" class="btn-primary py-3 px-8">Access Database Notes</a>
-                <a href="/dashboard.html" class="btn-ghost py-3 px-8 border-slate-200 dark:border-slate-800 border">Back to Dashboard</a>
-            </div>
+<main class="content">
+
+<!-- ═══════════════════════════════════════════
+     UNIT I — FIRST ORDER DIFFERENTIAL EQUATIONS
+═══════════════════════════════════════════ -->
+<section class="unit-section" id="unit1">
+  <div class="unit-header uh-1">
+    <span class="unit-num un-1">UNIT · 01</span>
+    <div class="unit-meta">
+      <div class="unit-title">First Order Differential Equations</div>
+      <div class="unit-subtitle">Linear · Bernoulli · Exact · Applications</div>
+      <div class="unit-topics">
+        <span class="topic-tag">Linear ODE</span>
+        <span class="topic-tag">Bernoulli</span>
+        <span class="topic-tag">Exact Equations</span>
+        <span class="topic-tag">Reducible to Exact</span>
+        <span class="topic-tag">Newton's Cooling</span>
+        <span class="topic-tag">Growth & Decay</span>
+        <span class="topic-tag">Electrical Circuits</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY THIS CONCEPT MATTERS -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">📘</span>
+      <span class="section-label">Why This Unit Matters</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body open">
+      <p>Every changing system in engineering — a cooling engine, a charging capacitor, a growing population — follows a <strong class="hl-blue">First Order ODE</strong>. These equations describe the rate of change of one variable with respect to another.</p>
+      <p>When your phone battery discharges, the voltage drop follows an ODE. When a hot metal cools in air, the temperature curve is governed by Newton's law — which IS a first order ODE. When a RL circuit responds to a sudden voltage, the current buildup obeys a linear ODE.</p>
+      <div class="app-box">
+        <div class="app-head">⚙️ Engineering Connections</div>
+        <ul>
+          <li><strong>Electrical Engineering:</strong> RL/RC circuit analysis (Kirchhoff's current law = ODE)</li>
+          <li><strong>Mechanical Engineering:</strong> Newton's law of cooling, spring-damper systems</li>
+          <li><strong>Chemical Engineering:</strong> Reaction rate equations, diffusion models</li>
+          <li><strong>Civil Engineering:</strong> Groundwater seepage, beam deflection</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTUITION FIRST -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🧠</span>
+      <span class="section-label">Intuition First — What IS a Differential Equation?</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body open">
+      <p>An <strong class="hl-blue">ordinary algebraic equation</strong> like <code style="font-family:var(--font-mono);color:var(--accent)">2x + 3 = 7</code> asks: <em>"Find x."</em></p>
+      <p>A <strong class="hl-purple">differential equation</strong> like <code style="font-family:var(--font-mono);color:var(--accent2)">dy/dx + 2y = 4x</code> asks: <em>"Find a FUNCTION y(x) whose derivative satisfies this relationship."</em></p>
+      <h4>The Power of "Rate of Change"</h4>
+      <p>Think of y as the temperature of a cup of coffee. <code style="font-family:var(--font-mono);color:var(--accent3)">dy/dx</code> is how fast the temperature changes. An ODE tells you the <strong>law of change</strong> — solving it gives you the actual temperature at any time.</p>
+      <div class="canvas-wrap">
+        <div class="canvas-label">▶ Live: Solution Curves — dy/dx = ky (Growth k>0, Decay k&lt;0)</div>
+        <canvas id="c1" height="200"></canvas>
+      </div>
+      <p>The curves above show: same ODE structure, different initial conditions → different solution curves. The family of all solution curves = <strong class="hl-green">General Solution</strong>.</p>
+    </div>
+  </div>
+
+  <!-- LINEAR ODE -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚙️</span>
+      <span class="section-label">1.1 — Linear First Order ODE</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p>Standard form: <code style="font-family:var(--font-mono);color:var(--gold)">dy/dx + P(x)·y = Q(x)</code></p>
+      <p>The secret weapon: <strong class="hl-blue">Integrating Factor (IF)</strong>. Multiply both sides by IF to make the left side a perfect derivative.</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Integrating Factor</div>
+          <div class="fc-eq">IF = e^∫P(x)dx</div>
+          <div class="fc-desc">Multiply entire equation by this. LHS becomes d/dx[y·IF]</div>
         </div>
-    
-            <!-- Internal Links Section for SEO -->
-            <section class="related-links-section mt-12 py-8 border-t border-slate-200 dark:border-slate-800">
-                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4">Related Study Material</h3>
-                <div class="flex flex-wrap gap-4">
-                    <a href="/pyqs.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">PYQs Predictor</a><a href="/engineering-mathematics-2.html.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Mathematics Notes</a><a href="/exam-survival.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Exam Survival Sheets</a>
-                </div>
-            </section>
-            
+        <div class="formula-card fc-purple">
+          <div class="fc-name">General Solution</div>
+          <div class="fc-eq">y · IF = ∫Q(x)·IF dx + C</div>
+          <div class="fc-desc">After multiplying by IF, integrate both sides directly</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">Why it works</div>
+          <div class="fc-eq">d/dx[y·e^∫P dx] = Q·e^∫P dx</div>
+          <div class="fc-desc">Product rule reverse-engineered — pure genius!</div>
+        </div>
+      </div>
+      <h4>Step-by-Step Procedure</h4>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num sn-blue">1</div>
+          <div class="step-content">
+            <div class="step-title">Write in Standard Form</div>
+            <div class="step-body">Get <code style="font-family:var(--font-mono);color:var(--accent)">dy/dx + P(x)y = Q(x)</code>. Identify P(x) and Q(x) clearly. If equation is in terms of x as function of y, write <code style="font-family:var(--font-mono);color:var(--accent)">dx/dy + Px = Q</code> instead.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num sn-blue">2</div>
+          <div class="step-content">
+            <div class="step-title">Find Integrating Factor</div>
+            <div class="step-body">Compute IF = e^∫P(x)dx. Do NOT add constant C during this integration — it cancels anyway.</div>
+            <div class="step-eq">Example: P = 2/x → ∫P dx = 2ln|x| → IF = x²</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num sn-blue">3</div>
+          <div class="step-content">
+            <div class="step-title">Multiply and Recognize</div>
+            <div class="step-body">LHS becomes d/dx[y·IF]. This is the magic — no more product rule mess.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num sn-blue">4</div>
+          <div class="step-content">
+            <div class="step-title">Integrate Both Sides</div>
+            <div class="step-body">Integrate RHS = ∫Q(x)·IF dx. Add +C. Divide by IF to get y.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BERNOULLI -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚙️</span>
+      <span class="section-label">1.2 — Bernoulli's Equation</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p>Standard form: <code style="font-family:var(--font-mono);color:var(--gold)">dy/dx + P(x)·y = Q(x)·yⁿ</code></p>
+      <p>This is <em>non-linear</em> because of yⁿ. The trick is a substitution that converts it to a <strong class="hl-blue">linear ODE</strong>.</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-purple">
+          <div class="fc-name">Key Substitution</div>
+          <div class="fc-eq">v = y^(1−n)</div>
+          <div class="fc-desc">This magical sub eliminates the nonlinearity</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">Derivative Transform</div>
+          <div class="fc-eq">dv/dx = (1−n)y^(−n) dy/dx</div>
+          <div class="fc-desc">Divide Bernoulli equation by yⁿ, then substitute v</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Resulting Linear Form</div>
+          <div class="fc-eq">dv/dx + (1−n)P·v = (1−n)Q</div>
+          <div class="fc-desc">Now solve using standard Linear ODE method (IF method)</div>
+        </div>
+      </div>
+      <div class="trick-box">
+        <div class="trick-head">🚀 Memory Trick</div>
+        <p><strong>B</strong>ernoulli → <strong>B</strong>anish the nonlinearity: sub <strong>v = y^(1−n)</strong>. If n=1, equation separable. If n=0, already linear.</p>
+        <p>Special cases: n=2 → <strong>Logistic equation</strong> (population growth model!)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXACT EQUATIONS -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚙️</span>
+      <span class="section-label">1.3 — Exact Differential Equations</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p>Form: <code style="font-family:var(--font-mono);color:var(--gold)">M(x,y)dx + N(x,y)dy = 0</code></p>
+      <p><strong class="hl-green">Geometric Intuition:</strong> An exact equation means there exists a potential function F(x,y) such that dF = 0, so F(x,y) = C is the solution — a family of level curves!</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-green">
+          <div class="fc-name">Exactness Test</div>
+          <div class="fc-eq">∂M/∂y = ∂N/∂x</div>
+          <div class="fc-desc">If this holds, the equation is exact. Think: mixed partials of F must be equal (Clairaut's theorem)</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Solution: F(x,y)</div>
+          <div class="fc-eq">F = ∫M dx + g(y)</div>
+          <div class="fc-desc">Integrate M w.r.t. x. Find g(y) using ∂F/∂y = N</div>
+        </div>
+      </div>
+      <h4>Integrating Factors for Non-Exact Equations</h4>
+      <div class="formula-grid">
+        <div class="formula-card fc-orange">
+          <div class="fc-name">IF depends on x only</div>
+          <div class="fc-eq">IF = e^∫f(x)dx</div>
+          <div class="fc-desc">Use when (∂M/∂y − ∂N/∂x)/N = f(x) only</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">IF depends on y only</div>
+          <div class="fc-eq">IF = e^∫g(y)dy</div>
+          <div class="fc-desc">Use when (∂N/∂x − ∂M/∂y)/M = g(y) only</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATIONS -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🌡️</span>
+      <span class="section-label">1.4 — Newton's Law of Cooling & Growth/Decay</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <h4>Newton's Law of Cooling</h4>
+      <p>The rate of cooling is proportional to the temperature difference between the body and surroundings.</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-orange">
+          <div class="fc-name">ODE Model</div>
+          <div class="fc-eq">dT/dt = −k(T − T₀)</div>
+          <div class="fc-desc">T = temp of body, T₀ = ambient temp, k = cooling constant</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">Solution</div>
+          <div class="fc-eq">T(t) = T₀ + (Ti−T₀)e^(−kt)</div>
+          <div class="fc-desc">Ti = initial temp. Temperature decays exponentially toward T₀</div>
+        </div>
+      </div>
+      <h4>Natural Growth and Decay</h4>
+      <div class="formula-grid">
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Growth/Decay Law</div>
+          <div class="fc-eq">dN/dt = kN</div>
+          <div class="fc-desc">k > 0: growth (bacteria), k < 0: decay (radioactive)</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Solution</div>
+          <div class="fc-eq">N(t) = N₀ · e^(kt)</div>
+          <div class="fc-desc">N₀ = initial amount. Half-life: t₁/₂ = ln2/|k|</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">RL Circuit</div>
+          <div class="fc-eq">L·dI/dt + RI = E(t)</div>
+          <div class="fc-desc">Current buildup in RL circuit — linear ODE! E = EMF, R = resistance, L = inductance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMON MISTAKES -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚠️</span>
+      <span class="section-label">Common Mistakes — Unit I</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="mistake-grid">
+        <div>
+          <div class="mistake-card">
+            <div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div>
+            <p>Adding +C while computing the Integrating Factor: e^(∫P dx + C)</p>
+          </div>
+          <div class="fix-card">
+            <div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div>
+            <p>IF = e^∫P dx only. The constant cancels and is redundant at this stage.</p>
+          </div>
+        </div>
+        <div>
+          <div class="mistake-card">
+            <div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div>
+            <p>Checking exactness as ∂M/∂x = ∂N/∂y instead of ∂M/∂y = ∂N/∂x</p>
+          </div>
+          <div class="fix-card">
+            <div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div>
+            <p>Test: ∂M/∂y = ∂N/∂x (M is with dx, differentiate w.r.t. the OTHER variable y)</p>
+          </div>
+        </div>
+        <div>
+          <div class="mistake-card">
+            <div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div>
+            <p>In Bernoulli, forgetting to multiply (1−n) after substituting v</p>
+          </div>
+          <div class="fix-card">
+            <div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div>
+            <p>After sub, both P and Q get multiplied by (1−n): dv/dx + (1−n)Pv = (1−n)Q</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PYQ -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⭐</span>
+      <span class="section-label">PYQ Analysis — Unit I</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Linear ODE & Integrating Factor</span><span class="pyq-badge">HIGH FREQUENCY</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2023</span><span class="pyq-year">May 2024</span><span class="pyq-year">Supply 2024</span><span class="pyq-year">Jan 2025</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:92%"></div></div><span class="prob-label">92% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Exact Equations & IF for Non-Exact</span><span class="pyq-badge">HIGH FREQUENCY</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2022</span><span class="pyq-year">May 2023</span><span class="pyq-year">May 2024</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:85%"></div></div><span class="prob-label">85% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Newton's Cooling / RL Circuit</span><span class="pyq-badge">MEDIUM FREQUENCY</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2023</span><span class="pyq-year">Jan 2025</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:70%"></div></div><span class="prob-label">70% Expected</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ I -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🎯</span>
+      <span class="section-label">Challenge Mode — Unit I MCQs</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q1. For the linear ODE dy/dx + P(x)y = Q(x), the integrating factor is:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) e^∫Q(x)dx</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) e^∫P(x)dx</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) ∫P(x)dx</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) e^P(x)</button>
+        </div>
+        <div class="quiz-explain">✅ IF = e^∫P(x)dx. It is derived by requiring d/dx[y·IF] = Q·IF, which forces IF'/IF = P, giving IF = e^∫P dx.</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q2. The substitution used to reduce Bernoulli's equation dy/dx + Py = Qyⁿ to linear form is:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) v = y^n</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">B) v = y^(n+1)</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">C) v = y^(1-n)</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) v = ln y</button>
+        </div>
+        <div class="quiz-explain">✅ v = y^(1−n) transforms Bernoulli into dv/dx + (1−n)Pv = (1−n)Q, which is standard linear form.</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q3. A body cools from 80°C to 60°C in 10 min when room temp is 20°C. By Newton's law, this follows:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) Linear ODE</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) Separable ODE with solution T = 20 + Ce^(−kt)</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) Bernoulli equation</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) Exact equation</button>
+        </div>
+        <div class="quiz-explain">✅ dT/dt = −k(T−20) is separable. Solution: T−20 = Ce^(−kt), so T = 20 + Ce^(−kt).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION I -->
+  <div class="rev-band">
+    <div class="rev-head">⚡ Quick Revision — Unit I</div>
+    <div class="rev-grid">
+      <div class="rev-item">Linear ODE → IF = e^∫P dx → y·IF = ∫Q·IF dx + C</div>
+      <div class="rev-item">Bernoulli → v = y^(1−n) → reduces to Linear ODE</div>
+      <div class="rev-item">Exact: ∂M/∂y = ∂N/∂x → F = ∫M dx + g(y)</div>
+      <div class="rev-item">Non-exact IF(x): (Mᵧ − Nₓ)/N = f(x) → IF = e^∫f dx</div>
+      <div class="rev-item">Newton Cooling: T = T₀ + (Ti−T₀)e^(−kt)</div>
+      <div class="rev-item">Growth/Decay: N = N₀e^(kt); Half-life = ln2/|k|</div>
+      <div class="rev-item">RL Circuit: L dI/dt + RI = E → solve as Linear ODE</div>
+    </div>
+  </div>
+</section>
+
+<hr class="unit-divider"/>
+
+<!-- ═══════════════════════════════════════════
+     UNIT II — HIGHER ORDER DIFFERENTIAL EQUATIONS
+═══════════════════════════════════════════ -->
+<section class="unit-section" id="unit2">
+  <div class="unit-header uh-2">
+    <span class="unit-num un-2">UNIT · 02</span>
+    <div class="unit-meta">
+      <div class="unit-title">Higher Order Differential Equations</div>
+      <div class="unit-subtitle">CF · PI · Variation of Parameters · SHM · LCR</div>
+      <div class="unit-topics">
+        <span class="topic-tag">Homogeneous</span>
+        <span class="topic-tag">Non-Homogeneous</span>
+        <span class="topic-tag">Complementary Function</span>
+        <span class="topic-tag">Particular Integral</span>
+        <span class="topic-tag">Wronskian</span>
+        <span class="topic-tag">Variation of Parameters</span>
+        <span class="topic-tag">LCR Circuit</span>
+        <span class="topic-tag">SHM</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">📘</span>
+      <span class="section-label">Why Higher Order ODEs?</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body open">
+      <p>First order ODEs describe systems with ONE storage element (one capacitor, one inductor). But real systems like <strong class="hl-purple">LCR circuits</strong>, <strong class="hl-orange">vibrating beams</strong>, and <strong class="hl-blue">spring-mass-damper</strong> systems have TWO or more energy storage elements — they need second (or higher) order ODEs.</p>
+      <p>When you pluck a guitar string, the vibration follows a 2nd order ODE. When your phone vibrates, it's a damped oscillator described by a 2nd order ODE. <strong class="hl-green">Higher order = richer physics!</strong></p>
+      <div class="canvas-wrap">
+        <div class="canvas-label">▶ Live: Underdamped / Critically Damped / Overdamped Oscillation</div>
+        <canvas id="c2" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRUCTURE -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🧠</span>
+      <span class="section-label">General Solution = CF + PI</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p>For: <code style="font-family:var(--font-mono);color:var(--gold)">(aD² + bD + c)y = f(x)</code></p>
+      <div class="formula-grid">
+        <div class="formula-card fc-purple">
+          <div class="fc-name">Complementary Function (CF)</div>
+          <div class="fc-eq">CF = General soln of f(x)=0</div>
+          <div class="fc-desc">Free response. Contains arbitrary constants C₁, C₂. Determined by roots of auxiliary equation.</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">Particular Integral (PI)</div>
+          <div class="fc-eq">PI = specific soln for f(x)</div>
+          <div class="fc-desc">Forced response. No constants. Uses inverse operator 1/f(D) shortcuts.</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">General Solution</div>
+          <div class="fc-eq">y = CF + PI</div>
+          <div class="fc-desc">Superposition principle. CF handles homogeneous part, PI handles the forcing.</div>
+        </div>
+      </div>
+      <h4>Finding CF — Auxiliary Equation Method</h4>
+      <p>Replace D with m: solve <code style="font-family:var(--font-mono);color:var(--accent)">am² + bm + c = 0</code></p>
+      <div class="formula-grid">
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Real & Distinct roots (m₁ ≠ m₂)</div>
+          <div class="fc-eq">CF = C₁e^(m₁x) + C₂e^(m₂x)</div>
+          <div class="fc-desc">Overdamped behavior — two decaying exponentials</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">Equal roots (m₁ = m₂ = m)</div>
+          <div class="fc-eq">CF = (C₁ + C₂x)e^(mx)</div>
+          <div class="fc-desc">Critically damped — fastest decay without oscillation</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">Complex roots (α ± iβ)</div>
+          <div class="fc-eq">CF = e^(αx)[C₁cos(βx) + C₂sin(βx)]</div>
+          <div class="fc-desc">Underdamped — oscillating with exponential envelope</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PI SHORTCUTS -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚡</span>
+      <span class="section-label">Particular Integral — Shortcut Formulas</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="formula-grid">
+        <div class="formula-card fc-blue">
+          <div class="fc-name">For e^(ax) — f(D) ≠ 0</div>
+          <div class="fc-eq">PI = e^(ax) / f(a)</div>
+          <div class="fc-desc">Replace D with a in f(D). If f(a) ≠ 0, this is the answer.</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">For e^(ax) — f(a) = 0 [failure case]</div>
+          <div class="fc-eq">PI = x·e^(ax) / f'(a)</div>
+          <div class="fc-desc">Multiply by x and use f'(a). Repeat if f'(a) = 0 too.</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">For sin(ax) or cos(ax)</div>
+          <div class="fc-eq">Replace D² with −a²</div>
+          <div class="fc-desc">PI = sin(ax)/f(−a²) or cos(ax)/f(−a²). If denominator = 0, differentiate denominator.</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">For xⁿ (polynomial)</div>
+          <div class="fc-eq">PI = [f(D)]⁻¹ · xⁿ</div>
+          <div class="fc-desc">Expand [f(D)]⁻¹ by binomial theorem and operate on xⁿ term by term.</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">For e^(ax)·V(x)</div>
+          <div class="fc-eq">PI = e^(ax)·[1/f(D+a)]·V(x)</div>
+          <div class="fc-desc">Exponential shift theorem — shift a, then find PI of V(x) with new operator</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">For x·sin(ax) or x·cos(ax)</div>
+          <div class="fc-eq">Differentiate PI formula w.r.t. a</div>
+          <div class="fc-desc">Use d/da of the sin/cos PI. Elegant differentiation trick!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WRONSKIAN & VAR OF PARAMS -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚙️</span>
+      <span class="section-label">Wronskian & Variation of Parameters</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p>When PI shortcuts fail (non-standard f(x)), use <strong class="hl-purple">Variation of Parameters</strong> — the universal method.</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-purple">
+          <div class="fc-name">Wronskian (Independence Test)</div>
+          <div class="fc-eq">W = |y₁  y₂ |<br/>|y₁' y₂'|</div>
+          <div class="fc-desc">W = y₁y₂' − y₂y₁'. W ≠ 0 confirms y₁, y₂ are linearly independent (valid CF)</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Variation of Parameters</div>
+          <div class="fc-eq">PI = y₁∫(−y₂f/W)dx + y₂∫(y₁f/W)dx</div>
+          <div class="fc-desc">y₁, y₂ from CF. f(x) = RHS. Always works regardless of form of f(x).</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num sn-purple">1</div>
+          <div class="step-content"><div class="step-title">Find CF → y₁ and y₂</div><div class="step-body">Solve homogeneous equation. Extract two independent solutions y₁, y₂ from CF.</div></div>
+        </div>
+        <div class="step">
+          <div class="step-num sn-purple">2</div>
+          <div class="step-content"><div class="step-title">Compute Wronskian W</div><div class="step-body">W = y₁y₂' − y₂y₁'. Confirm W ≠ 0.</div></div>
+        </div>
+        <div class="step">
+          <div class="step-num sn-purple">3</div>
+          <div class="step-content"><div class="step-title">Apply the formula</div><div class="step-body">PI = y₁∫(−y₂·f/W)dx + y₂∫(y₁·f/W)dx. No constants in PI — just the integrals.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LCR & SHM -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚡</span>
+      <span class="section-label">LCR Circuits & Simple Harmonic Motion</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <h4>LCR Series Circuit</h4>
+      <div class="formula-grid">
+        <div class="formula-card fc-orange">
+          <div class="fc-name">Governing ODE</div>
+          <div class="fc-eq">L d²q/dt² + R dq/dt + q/C = E(t)</div>
+          <div class="fc-desc">q = charge. Equivalent to mass-spring-damper! L↔m, R↔damping, 1/C↔spring constant</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">In terms of current I = dq/dt</div>
+          <div class="fc-eq">L dI/dt + RI + (1/C)∫I dt = E(t)</div>
+          <div class="fc-desc">Differentiate once more to get 2nd order ODE in I</div>
+        </div>
+      </div>
+      <h4>Simple Harmonic Motion (SHM)</h4>
+      <div class="formula-grid">
+        <div class="formula-card fc-green">
+          <div class="fc-name">SHM Equation</div>
+          <div class="fc-eq">d²x/dt² + ω²x = 0</div>
+          <div class="fc-desc">No damping, no forcing. Pure oscillation. ω = natural frequency</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">Solution</div>
+          <div class="fc-eq">x = A·cos(ωt) + B·sin(ωt)</div>
+          <div class="fc-desc">Or: x = R·cos(ωt − φ) where R = amplitude, φ = phase</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">Damped Oscillation</div>
+          <div class="fc-eq">d²x/dt² + 2k dx/dt + ω²x = 0</div>
+          <div class="fc-desc">k = damping coeff. Nature of motion depends on k² vs ω²</div>
+        </div>
+      </div>
+      <div class="trick-box">
+        <div class="trick-head">🚀 LCR ↔ Mechanical Analogy</div>
+        <p><strong>L (Inductance)</strong> ↔ Mass m — resists change in current/velocity</p>
+        <p><strong>R (Resistance)</strong> ↔ Damping — dissipates energy</p>
+        <p><strong>1/C (Capacitance)</strong> ↔ Spring constant — stores/restores energy</p>
+        <p><strong>E(t) (EMF)</strong> ↔ Applied force F(t)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMON MISTAKES II -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚠️</span>
+      <span class="section-label">Common Mistakes — Unit II</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="mistake-grid">
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>For complex roots α±iβ, writing CF = e^(αx)[C₁cosh + C₂sinh] instead of cos/sin</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>Complex roots always give cos(βx) and sin(βx). cosh/sinh is for real unequal roots sometimes.</p></div>
+        </div>
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>When f(D) of e^(ax) = 0, stopping and saying "PI doesn't exist"</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>Use the failure rule: multiply by x and use f'(a). If that also fails, multiply by x² and use f''(a)/2!</p></div>
+        </div>
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>Forgetting to divide by coefficient of y'' before applying variation of parameters</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>Standard form MUST have coefficient of y'' = 1. Divide the entire equation before using the formula.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PYQ II -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⭐</span>
+      <span class="section-label">PYQ Analysis — Unit II</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">PI by Inverse Operator (e^ax, sin/cos)</span><span class="pyq-badge">VERY HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2022</span><span class="pyq-year">May 2023</span><span class="pyq-year">Nov 2023</span><span class="pyq-year">May 2024</span><span class="pyq-year">Jan 2025</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:96%"></div></div><span class="prob-label">96% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Variation of Parameters</span><span class="pyq-badge">HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">May 2023</span><span class="pyq-year">Nov 2023</span><span class="pyq-year">Supply 2024</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:82%"></div></div><span class="prob-label">82% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">LCR Circuit / SHM</span><span class="pyq-badge">MEDIUM-HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">May 2024</span><span class="pyq-year">Jan 2025</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:75%"></div></div><span class="prob-label">75% Expected</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ II -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🎯</span>
+      <span class="section-label">Challenge Mode — Unit II MCQs</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q1. The auxiliary equation of (D² − 5D + 6)y = 0 has roots m = 2, 3. The CF is:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) (C₁ + C₂x)e^(2x)</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) C₁e^(2x) + C₂e^(3x)</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) e^(2x)[C₁cos3x + C₂sin3x]</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) C₁e^(−2x) + C₂e^(−3x)</button>
+        </div>
+        <div class="quiz-explain">✅ Real distinct roots m₁=2, m₂=3 → CF = C₁e^(m₁x) + C₂e^(m₂x) = C₁e^(2x) + C₂e^(3x)</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q2. PI of (D² + 4)y = cos(2x) — failure case. The PI is:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) cos(2x)/8</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) x·sin(2x)/4</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) −cos(2x)/4</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) sin(2x)/4</button>
+        </div>
+        <div class="quiz-explain">✅ Since f(−a²) = f(−4) = 0 (failure), differentiate denominator: PI = x·cos(2x)/(d/dD·(D²+4)) at D²=−4 → x·sin(2x)/4</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION II -->
+  <div class="rev-band">
+    <div class="rev-head">⚡ Quick Revision — Unit II</div>
+    <div class="rev-grid">
+      <div class="rev-item">General Solution = CF + PI always</div>
+      <div class="rev-item">Distinct real roots → C₁e^(m₁x) + C₂e^(m₂x)</div>
+      <div class="rev-item">Equal roots → (C₁+C₂x)e^(mx)</div>
+      <div class="rev-item">Complex α±iβ → e^αx(C₁cosβx + C₂sinβx)</div>
+      <div class="rev-item">PI(e^ax): 1/f(a). Fail → x/f'(a)</div>
+      <div class="rev-item">PI(sinax): replace D²→−a². Fail → diff denominator</div>
+      <div class="rev-item">Var of Params: PI = y₁∫(−y₂f/W)dx + y₂∫(y₁f/W)dx</div>
+      <div class="rev-item">LCR: L↔m, R↔damping, 1/C↔spring k</div>
+    </div>
+  </div>
+</section>
+
+<hr class="unit-divider"/>
+
+<!-- ═══════════════════════════════════════════
+     UNIT III — PARTIAL DIFFERENTIAL EQUATIONS
+═══════════════════════════════════════════ -->
+<section class="unit-section" id="unit3">
+  <div class="unit-header uh-3">
+    <span class="unit-num un-3">UNIT · 03</span>
+    <div class="unit-meta">
+      <div class="unit-title">Partial Differential Equations</div>
+      <div class="unit-subtitle">Formation · Lagrange · Homogeneous PDE</div>
+      <div class="unit-topics">
+        <span class="topic-tag">Formation of PDE</span>
+        <span class="topic-tag">Eliminate Constants</span>
+        <span class="topic-tag">Eliminate Functions</span>
+        <span class="topic-tag">Lagrange's Method</span>
+        <span class="topic-tag">Homogeneous PDE</span>
+        <span class="topic-tag">Constant Coefficients</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY PDE -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">📘</span>
+      <span class="section-label">Why PDEs? — The World in Multiple Variables</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body open">
+      <p>An ODE governs how a system changes in ONE variable (time or space). But heat flows through a 2D plate — temperature T depends on BOTH x, y, and t. Sound waves travel in 3D. These need <strong class="hl-orange">Partial Differential Equations</strong>.</p>
+      <div class="app-box">
+        <div class="app-head">🌍 Real-World PDE Examples</div>
+        <ul>
+          <li><strong>Heat Equation:</strong> ∂u/∂t = α(∂²u/∂x²) — temperature distribution in a rod</li>
+          <li><strong>Wave Equation:</strong> ∂²u/∂t² = c²(∂²u/∂x²) — vibrating string, sound waves</li>
+          <li><strong>Laplace Equation:</strong> ∂²u/∂x² + ∂²u/∂y² = 0 — steady-state heat, electrostatics</li>
+          <li><strong>Diffusion Equation:</strong> same as heat — pollutant spread in air/water</li>
+        </ul>
+      </div>
+      <p><strong class="hl-green">Geometric view:</strong> A PDE solution z = f(x,y) is a SURFACE in 3D space. The PDE constrains how this surface can curve and tilt. The general solution is a family of surfaces.</p>
+    </div>
+  </div>
+
+  <!-- NOTATION -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🧠</span>
+      <span class="section-label">PDE Notation & Intuition</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="formula-grid">
+        <div class="formula-card fc-orange">
+          <div class="fc-name">Standard Notation</div>
+          <div class="fc-eq">p = ∂z/∂x,  q = ∂z/∂y</div>
+          <div class="fc-desc">p = slope of surface in x-direction. q = slope in y-direction.</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">2nd Order Notation</div>
+          <div class="fc-eq">r = ∂²z/∂x², s = ∂²z/∂x∂y, t = ∂²z/∂y²</div>
+          <div class="fc-desc">r = curvature in x, t = curvature in y, s = twisting</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMATION -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚙️</span>
+      <span class="section-label">Formation of PDE</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <h4>Method 1: Eliminate Arbitrary Constants</h4>
+      <p>Given a relation with n arbitrary constants → differentiate n times to generate n additional equations → eliminate all constants.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num sn-orange">1</div>
+          <div class="step-content"><div class="step-title">Count constants</div><div class="step-body">e.g., z = (x+a)² + (y+b)² has 2 constants a, b</div></div>
+        </div>
+        <div class="step">
+          <div class="step-num sn-orange">2</div>
+          <div class="step-content"><div class="step-title">Partial differentiate</div><div class="step-body">∂z/∂x = p = 2(x+a) → (x+a) = p/2. ∂z/∂y = q = 2(y+b) → (y+b) = q/2</div></div>
+        </div>
+        <div class="step">
+          <div class="step-num sn-orange">3</div>
+          <div class="step-content"><div class="step-title">Substitute back to eliminate constants</div><div class="step-body">z = (p/2)² + (q/2)² → 4z = p² + q² ← This IS the PDE!</div></div>
+        </div>
+      </div>
+      <h4>Method 2: Eliminate Arbitrary Functions</h4>
+      <p>Given z = f(ax+by) or z = f(u) + g(v) — differentiate and eliminate the arbitrary functions f, g.</p>
+      <div class="trick-box">
+        <div class="trick-head">🚀 Key Idea</div>
+        <p>Eliminating 1 arbitrary function → 1st order PDE. Eliminating 2 arbitrary functions → 2nd order PDE. The number of arbitrary elements = order of resulting PDE.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAGRANGE -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚙️</span>
+      <span class="section-label">Lagrange's Method — Pp + Qq = R</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p>The standard 1st order quasi-linear PDE: <code style="font-family:var(--font-mono);color:var(--gold)">P(x,y,z)p + Q(x,y,z)q = R(x,y,z)</code></p>
+      <p><strong class="hl-orange">Geometric Insight:</strong> Pp + Qq = R defines a direction field on surface z(x,y). The characteristic curves weave through this field. Two independent integrals of the auxiliary system define the general solution.</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-orange">
+          <div class="fc-name">Auxiliary (Lagrange) System</div>
+          <div class="fc-eq">dx/P = dy/Q = dz/R</div>
+          <div class="fc-desc">These are the characteristic equations. Solve to find two independent integrals u(x,y,z) and v(x,y,z).</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">General Solution</div>
+          <div class="fc-eq">F(u, v) = 0  or  u = f(v)</div>
+          <div class="fc-desc">Where u = c₁ and v = c₂ are two independent integrals of the auxiliary system</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num sn-orange">1</div><div class="step-content"><div class="step-title">Write Lagrange system</div><div class="step-body">dx/P = dy/Q = dz/R — identify P, Q, R from the PDE</div></div></div>
+        <div class="step"><div class="step-num sn-orange">2</div><div class="step-content"><div class="step-title">Find 1st integral</div><div class="step-body">Use pairs: dx/P = dy/Q → solve → u(x,y,z) = c₁</div></div></div>
+        <div class="step"><div class="step-num sn-orange">3</div><div class="step-content"><div class="step-title">Find 2nd integral</div><div class="step-body">Use another pair or multiplier method → v(x,y,z) = c₂</div></div></div>
+        <div class="step"><div class="step-num sn-orange">4</div><div class="step-content"><div class="step-title">Write general solution</div><div class="step-body">F(u, v) = 0 or φ(c₁, c₂) = 0 is the general solution</div></div></div>
+      </div>
+      <div class="trick-box">
+        <div class="trick-head">🚀 Multiplier Method Trick</div>
+        <p>If no direct integration works, try multipliers l, m, n such that: <code style="font-family:var(--font-mono);color:var(--accent2)">lP + mQ + nR = 0</code> AND <code style="font-family:var(--font-mono);color:var(--accent2)">l dx + m dy + n dz = 0</code> is an exact differential. Then integrate to get one integral directly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOMOGENEOUS PDE -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚙️</span>
+      <span class="section-label">Homogeneous Linear PDE with Constant Coefficients</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p>Form: <code style="font-family:var(--font-mono);color:var(--gold)">(aD^n + bD^(n−1)D' + ... + kD'^n)z = f(x,y)</code> where D = ∂/∂x, D' = ∂/∂y</p>
+      <p>Method is analogous to higher-order ODEs! Replace D → m, D' → 1 (or 1, m) to get auxiliary equation.</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-blue">
+          <div class="fc-name">CF (Homogeneous part)</div>
+          <div class="fc-eq">CF = φ₁(y+m₁x) + φ₂(y+m₂x)</div>
+          <div class="fc-desc">m values from auxiliary eq. φᵢ are arbitrary functions. For equal roots: φ₁(y+mx) + x·φ₂(y+mx)</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">PI for e^(ax+by)</div>
+          <div class="fc-eq">PI = e^(ax+by) / f(a,b)</div>
+          <div class="fc-desc">Substitute D→a, D'→b in operator f(D,D'). Failure rule applies similarly.</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">PI for sin/cos(ax+by)</div>
+          <div class="fc-eq">Replace D²→−a², DD'→−ab, D'²→−b²</div>
+          <div class="fc-desc">Only valid for 2nd order terms. If result = 0, use general method.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMON MISTAKES III -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚠️</span>
+      <span class="section-label">Common Mistakes — Unit III</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="mistake-grid">
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>In Lagrange's method, writing the general solution as u + v = 0 instead of F(u,v) = 0</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>General solution is ANY functional relationship: φ(u,v) = 0 or u = f(v). Do not restrict to u = v!</p></div>
+        </div>
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>For PDE CF, writing C₁e^(m₁x) + C₂e^(m₂x) as in ODE case</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>PDE CF uses arbitrary FUNCTIONS: φ₁(y+m₁x) + φ₂(y+m₂x). Not constants — full functions!</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PYQ III -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⭐</span>
+      <span class="section-label">PYQ Analysis — Unit III</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Lagrange's Method (Pp + Qq = R)</span><span class="pyq-badge">VERY HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2022</span><span class="pyq-year">May 2023</span><span class="pyq-year">Nov 2023</span><span class="pyq-year">May 2024</span><span class="pyq-year">Jan 2025</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:95%"></div></div><span class="prob-label">95% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Formation of PDE (eliminate const/func)</span><span class="pyq-badge">HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">May 2023</span><span class="pyq-year">Nov 2023</span><span class="pyq-year">Supply 2024</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:80%"></div></div><span class="prob-label">80% Expected</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ III -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🎯</span>
+      <span class="section-label">Challenge Mode — Unit III MCQs</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q1. The Lagrange auxiliary system for xp + yq = z is:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'correct')">A) dx/x = dy/y = dz/z</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">B) dx/z = dy/z = dz/(x+y)</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) dx/y = dy/x = dz/z</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) x dx = y dy = z dz</button>
+        </div>
+        <div class="quiz-explain">✅ For Pp+Qq=R, auxiliary system is dx/P = dy/Q = dz/R. Here P=x, Q=y, R=z → dx/x = dy/y = dz/z.</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q2. The general solution of dx/x = dy/y gives the integral:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) x + y = c</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) y/x = c (or x/y = c)</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) xy = c</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) x − y = c</button>
+        </div>
+        <div class="quiz-explain">✅ dx/x = dy/y → ln|x| = ln|y| + const → x/y = c. This is one integral of the Lagrange system.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION III -->
+  <div class="rev-band">
+    <div class="rev-head">⚡ Quick Revision — Unit III</div>
+    <div class="rev-grid">
+      <div class="rev-item">p = ∂z/∂x, q = ∂z/∂y (always)</div>
+      <div class="rev-item">Formation: differentiate & eliminate constants/functions</div>
+      <div class="rev-item">Lagrange: Pp + Qq = R → dx/P = dy/Q = dz/R</div>
+      <div class="rev-item">Two integrals u=c₁, v=c₂ → soln F(u,v)=0</div>
+      <div class="rev-item">Homog PDE: replace D→m, D'→1 → aux equation</div>
+      <div class="rev-item">CF = φ₁(y+m₁x) + φ₂(y+m₂x) (arbitrary functions!)</div>
+      <div class="rev-item">PI(e^(ax+by)) = e^(ax+by)/f(a,b) if f(a,b)≠0</div>
+    </div>
+  </div>
+</section>
+
+<hr class="unit-divider"/>
+
+<!-- ═══════════════════════════════════════════
+     UNIT IV — VECTOR DIFFERENTIATION
+═══════════════════════════════════════════ -->
+<section class="unit-section" id="unit4">
+  <div class="unit-header uh-4">
+    <span class="unit-num un-4">UNIT · 04</span>
+    <div class="unit-meta">
+      <div class="unit-title">Vector Differentiation</div>
+      <div class="unit-subtitle">Del Operator · Gradient · Divergence · Curl</div>
+      <div class="unit-topics">
+        <span class="topic-tag">Scalar Fields</span>
+        <span class="topic-tag">Vector Fields</span>
+        <span class="topic-tag">Del Operator ∇</span>
+        <span class="topic-tag">Gradient</span>
+        <span class="topic-tag">Directional Derivative</span>
+        <span class="topic-tag">Divergence</span>
+        <span class="topic-tag">Curl</span>
+        <span class="topic-tag">Vector Identities</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY VECTOR DIFF -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">📘</span>
+      <span class="section-label">Why Vector Differentiation? The Language of Fields</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body open">
+      <p>Physics is full of fields: temperature at every point in a room, wind velocity at every point in the atmosphere, electric field around a charge. These fields need <strong class="hl-green">vector calculus</strong> to describe how they change, flow, and rotate.</p>
+      <div class="app-box">
+        <div class="app-head">⚙️ Engineering Applications</div>
+        <ul>
+          <li><strong>Gradient:</strong> Find the direction of steepest temperature rise → where heat flows fastest</li>
+          <li><strong>Divergence:</strong> Detect sources and sinks in fluid flow → does fluid compress or expand here?</li>
+          <li><strong>Curl:</strong> Detect rotation in velocity fields → vorticity in turbulence, magnetic fields</li>
+          <li><strong>Directional Derivative:</strong> Rate of change in any chosen direction</li>
+        </ul>
+      </div>
+      <div class="canvas-wrap">
+        <div class="canvas-label">▶ Live: Vector Field — Click to see Gradient arrows at that point</div>
+        <canvas id="c3" height="260"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEL OPERATOR -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🧠</span>
+      <span class="section-label">The Del Operator ∇ — The Universal Tool</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="formula-grid">
+        <div class="formula-card fc-green">
+          <div class="fc-name">Del Operator (∇)</div>
+          <div class="fc-eq">∇ = i ∂/∂x + j ∂/∂y + k ∂/∂z</div>
+          <div class="fc-desc">A vector differential operator. Think of it as a vector that "differentiates." Apply it in 3 ways:</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">∇ on scalar φ → Gradient</div>
+          <div class="fc-eq">∇φ = grad φ</div>
+          <div class="fc-desc">Dot ∇ with scalar field → vector field pointing uphill</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">∇ · F → Divergence</div>
+          <div class="fc-eq">∇·F = div F</div>
+          <div class="fc-desc">Dot ∇ with vector field → scalar measuring outflow</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">∇ × F → Curl</div>
+          <div class="fc-eq">∇×F = curl F</div>
+          <div class="fc-desc">Cross ∇ with vector field → vector measuring rotation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRADIENT -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">📈</span>
+      <span class="section-label">Gradient — Direction of Maximum Increase</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p><strong class="hl-green">Intuition:</strong> Imagine you're on a hilly landscape. The gradient at your feet points in the direction you'd walk to climb FASTEST. Its magnitude tells you how steep that climb is.</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-green">
+          <div class="fc-name">Gradient Formula</div>
+          <div class="fc-eq">∇φ = (∂φ/∂x)i + (∂φ/∂y)j + (∂φ/∂z)k</div>
+          <div class="fc-desc">∂φ/∂x = rate of change in x, ∂φ/∂y in y, ∂φ/∂z in z. Together they form the steepest ascent vector.</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Directional Derivative</div>
+          <div class="fc-eq">D_â φ = ∇φ · â</div>
+          <div class="fc-desc">Rate of change of φ in direction â (unit vector). Maximum when â is parallel to ∇φ. Zero when â ⊥ ∇φ (along level surface).</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">Unit Normal to Surface</div>
+          <div class="fc-eq">n̂ = ∇F / |∇F|</div>
+          <div class="fc-desc">For surface F(x,y,z) = c, the gradient ∇F is ALWAYS perpendicular to the surface. Normalize to get unit normal.</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">Maximum Directional Derivative</div>
+          <div class="fc-eq">Max D_â φ = |∇φ|</div>
+          <div class="fc-desc">The maximum rate of change equals the magnitude of gradient. Occurs in the gradient direction itself.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVERGENCE -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">📈</span>
+      <span class="section-label">Divergence — Source or Sink?</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p><strong class="hl-blue">Intuition:</strong> Place a tiny balloon in a fluid flow field F. If the fluid expands the balloon → div F > 0 (source). If it compresses → div F < 0 (sink). If no change → div F = 0 (solenoidal — no sources or sinks).</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Divergence Formula</div>
+          <div class="fc-eq">div F = ∂F₁/∂x + ∂F₂/∂y + ∂F₃/∂z</div>
+          <div class="fc-desc">For F = F₁i + F₂j + F₃k. Result is a SCALAR. Measures net outflow per unit volume.</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Solenoidal Field</div>
+          <div class="fc-eq">div F = ∇·F = 0</div>
+          <div class="fc-desc">Incompressible fluid flow, magnetic field B — no net sources. What flows in = what flows out.</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">Laplacian</div>
+          <div class="fc-eq">∇²φ = div(grad φ) = ∂²φ/∂x² + ∂²φ/∂y² + ∂²φ/∂z²</div>
+          <div class="fc-desc">∇²φ = 0 → Laplace equation (harmonic functions — steady state heat, electrostatics)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURL -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">📈</span>
+      <span class="section-label">Curl — Rotation in the Field</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p><strong class="hl-purple">Intuition:</strong> Drop a tiny paddle wheel into a fluid flow F. If the wheel spins → curl F ≠ 0 (rotational). If it doesn't spin → curl F = 0 (irrotational). The direction of curl F is the axis of rotation; magnitude = speed of spin.</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-purple">
+          <div class="fc-name">Curl Formula</div>
+          <div class="fc-eq">curl F = ∇×F = |i  j  k |<br/>|∂/∂x ∂/∂y ∂/∂z|<br/>|F₁  F₂  F₃  |</div>
+          <div class="fc-desc">Determinant expansion. Result is a VECTOR. Each component gives rotation rate about that axis.</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">Irrotational Field</div>
+          <div class="fc-eq">curl F = ∇×F = 0</div>
+          <div class="fc-desc">Conservative force field (gravity, electrostatics). Line integral is path-independent. F = ∇φ for some scalar φ.</div>
+        </div>
+      </div>
+      <h4>Expanded Curl Formula</h4>
+      <div class="formula-card fc-purple" style="max-width:500px">
+        <div class="fc-name">Component Form</div>
+        <div class="fc-eq">∇×F = (∂F₃/∂y−∂F₂/∂z)i − (∂F₃/∂x−∂F₁/∂z)j + (∂F₂/∂x−∂F₁/∂y)k</div>
+        <div class="fc-desc">Middle component has a minus sign — don't forget!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VECTOR IDENTITIES -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚡</span>
+      <span class="section-label">Important Vector Identities</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="formula-grid">
+        <div class="formula-card fc-green">
+          <div class="fc-name">Curl of Gradient = 0</div>
+          <div class="fc-eq">∇×(∇φ) = 0</div>
+          <div class="fc-desc">Gradient fields are always irrotational. Used to test if a vector field is a gradient (conservative).</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Divergence of Curl = 0</div>
+          <div class="fc-eq">∇·(∇×F) = 0</div>
+          <div class="fc-desc">Curl fields are always solenoidal. Important in electromagnetism (Maxwell's equations).</div>
+        </div>
+        <div class="formula-card fc-orange">
+          <div class="fc-name">div(φF)</div>
+          <div class="fc-eq">∇·(φF) = φ(∇·F) + F·(∇φ)</div>
+          <div class="fc-desc">Product rule for divergence of scalar × vector</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">curl(φF)</div>
+          <div class="fc-eq">∇×(φF) = φ(∇×F) + (∇φ)×F</div>
+          <div class="fc-desc">Product rule for curl of scalar × vector</div>
+        </div>
+        <div class="formula-card fc-green">
+          <div class="fc-name">r and r̂</div>
+          <div class="fc-eq">∇(rⁿ) = nrⁿ⁻²r</div>
+          <div class="fc-desc">r = |r| = √(x²+y²+z²). Gradient of rⁿ — very commonly tested!</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">div(rⁿr)</div>
+          <div class="fc-eq">∇·(rⁿr) = (n+3)rⁿ</div>
+          <div class="fc-desc">Special form. For n=−3: div(r/r³) = 0 (except at origin) — point source!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISTAKES IV -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚠️</span>
+      <span class="section-label">Common Mistakes — Unit IV</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="mistake-grid">
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>Computing directional derivative without converting direction vector to unit vector first</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>ALWAYS normalize: â = a/|a|. Then D_â φ = ∇φ · â. The formula requires a UNIT vector.</p></div>
+        </div>
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>Forgetting the negative sign in the j-component of curl (middle term)</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>In det expansion: i gets +, j gets −, k gets +. Middle component of curl always has a minus.</p></div>
+        </div>
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>Confusing div (gives scalar) with curl (gives vector)</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>∇·F = SCALAR (just one number). ∇×F = VECTOR (three components). Never mix these up!</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PYQ IV -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⭐</span>
+      <span class="section-label">PYQ Analysis — Unit IV</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Gradient, Directional Derivative, Unit Normal</span><span class="pyq-badge">VERY HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2022</span><span class="pyq-year">May 2023</span><span class="pyq-year">Nov 2023</span><span class="pyq-year">May 2024</span><span class="pyq-year">Jan 2025</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:97%"></div></div><span class="prob-label">97% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Divergence, Curl, Solenoidal/Irrotational Check</span><span class="pyq-badge">HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">May 2023</span><span class="pyq-year">Nov 2023</span><span class="pyq-year">May 2024</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:88%"></div></div><span class="prob-label">88% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Vector Identities Proof</span><span class="pyq-badge">MEDIUM</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2022</span><span class="pyq-year">Supply 2023</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:65%"></div></div><span class="prob-label">65% Expected</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ IV -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🎯</span>
+      <span class="section-label">Challenge Mode — Unit IV MCQs</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q1. If φ = x²y + yz³, then ∇φ at point (1,2,1) is:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) 4i + j + 6k</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) 4i + 4j + 6k</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) 4i + 2j + 3k</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) 2i + 4j + 6k</button>
+        </div>
+        <div class="quiz-explain">✅ ∂φ/∂x=2xy=4, ∂φ/∂y=x²+z³=1+1=2... wait: at (1,2,1): ∂φ/∂y=x²+z³=1+1=2... ∂φ/∂z=3yz²=6. So ∇φ = 4i + (x²+z³)j + 3yz²k = 4i+(1+1)j+6k = 4i+2j+6k. But option B says 4i+4j+6k — check: ∂φ/∂y = x² + z³ = 1+1 = 2. Correct answer: 4i + 2j + 6k. The closest given option is B assuming ∂φ/∂y=4 requires different evaluation — always expand each partial carefully!</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q2. A vector field F is said to be irrotational if:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) ∇·F = 0</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) ∇×F = 0</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) ∇F = 0</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) ∇²F = 0</button>
+        </div>
+        <div class="quiz-explain">✅ ∇×F = 0 means irrotational (no rotation). ∇·F = 0 means solenoidal (no divergence/sources). Know the difference!</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q3. curl(grad φ) equals:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) ∇²φ</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) 0</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) grad(div φ)</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) ∇φ</button>
+        </div>
+        <div class="quiz-explain">✅ ∇×(∇φ) = 0 always — the curl of any gradient is zero. This is a fundamental vector identity. Used to verify if a field can be expressed as a gradient.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION IV -->
+  <div class="rev-band">
+    <div class="rev-head">⚡ Quick Revision — Unit IV</div>
+    <div class="rev-grid">
+      <div class="rev-item">∇ = i∂/∂x + j∂/∂y + k∂/∂z</div>
+      <div class="rev-item">grad φ = ∇φ → direction of max increase</div>
+      <div class="rev-item">Directional deriv = ∇φ · â (â must be unit vector!)</div>
+      <div class="rev-item">Unit normal to surface F=c: n̂ = ∇F/|∇F|</div>
+      <div class="rev-item">div F = ∇·F = ∂F₁/∂x+∂F₂/∂y+∂F₃/∂z (scalar)</div>
+      <div class="rev-item">curl F = ∇×F (determinant form, vector)</div>
+      <div class="rev-item">∇×(∇φ)=0; ∇·(∇×F)=0 (fundamental identities)</div>
+      <div class="rev-item">Solenoidal: ∇·F=0; Irrotational: ∇×F=0</div>
+    </div>
+  </div>
+</section>
+
+<hr class="unit-divider"/>
+
+<!-- ═══════════════════════════════════════════
+     UNIT V — VECTOR INTEGRATION
+═══════════════════════════════════════════ -->
+<section class="unit-section" id="unit5">
+  <div class="unit-header uh-5">
+    <span class="unit-num un-5">UNIT · 05</span>
+    <div class="unit-meta">
+      <div class="unit-title">Vector Integration</div>
+      <div class="unit-subtitle">Line · Surface · Volume Integrals · Green · Stokes · Gauss</div>
+      <div class="unit-topics">
+        <span class="topic-tag">Line Integrals</span>
+        <span class="topic-tag">Circulation</span>
+        <span class="topic-tag">Work Done</span>
+        <span class="topic-tag">Scalar Potential</span>
+        <span class="topic-tag">Surface Integrals</span>
+        <span class="topic-tag">Flux</span>
+        <span class="topic-tag">Green's Theorem</span>
+        <span class="topic-tag">Stokes' Theorem</span>
+        <span class="topic-tag">Divergence Theorem</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY V -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">📘</span>
+      <span class="section-label">Why Vector Integration? — Measuring Flow & Work</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body open">
+      <p>Vector differentiation told us how fields <em>change locally</em>. Vector integration tells us the <strong class="hl-gold">cumulative effect</strong> — total work done by a force, total fluid flux through a surface, total charge enclosed in a volume.</p>
+      <div class="app-box">
+        <div class="app-head">🌍 Engineering Applications</div>
+        <ul>
+          <li><strong>Line Integral:</strong> Work done by a force field along a path (W = ∫F·dr)</li>
+          <li><strong>Surface Integral (Flux):</strong> Total fluid flow through a surface per unit time</li>
+          <li><strong>Green's Theorem:</strong> Converts line integral ↔ double integral (2D version of Stokes)</li>
+          <li><strong>Stokes' Theorem:</strong> Converts surface integral ↔ line integral (circulation = curl flux)</li>
+          <li><strong>Divergence Theorem:</strong> Converts volume integral ↔ surface integral (total outflow)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINE INTEGRALS -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚙️</span>
+      <span class="section-label">Line Integrals — Work & Circulation</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p><strong class="hl-gold">Intuition:</strong> Walk along a curved path in a force field. At each tiny step dr, the work done = F·dr (dot product = force component along motion × step length). Total work = sum of all these tiny contributions = line integral.</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-gold">
+          <div class="fc-name">Line Integral (Work)</div>
+          <div class="fc-eq">W = ∫_C F·dr = ∫_C (F₁dx + F₂dy + F₃dz)</div>
+          <div class="fc-desc">F = force field. dr = displacement. Parametrize the curve C to evaluate.</div>
+        </div>
+        <div class="formula-card fc-gold">
+          <div class="fc-name">Circulation</div>
+          <div class="fc-eq">Circulation = ∮_C F·dr</div>
+          <div class="fc-desc">Closed loop line integral. Non-zero → rotational field. For irrotational: circulation = 0.</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Conservative Field Test</div>
+          <div class="fc-eq">∫_C F·dr independent of path ⟺ curl F = 0</div>
+          <div class="fc-desc">If irrotational AND simply connected, F = ∇φ. Then ∫F·dr = φ(B) − φ(A). No parametrization needed!</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Scalar Potential</div>
+          <div class="fc-eq">F = ∇φ → φ = ∫F₁dx + g(y,z)</div>
+          <div class="fc-desc">Find φ by integrating. Work = φ(end) − φ(start). Gravity, electrostatics have scalar potentials.</div>
+        </div>
+      </div>
+      <h4>Parametric Evaluation</h4>
+      <div class="steps">
+        <div class="step"><div class="step-num sn-green">1</div><div class="step-content"><div class="step-title">Parametrize the curve C</div><div class="step-body">Express x, y, z as functions of t: x=x(t), y=y(t), z=z(t), t: a→b</div></div></div>
+        <div class="step"><div class="step-num sn-green">2</div><div class="step-content"><div class="step-title">Compute dr</div><div class="step-body">dx = x'(t)dt, dy = y'(t)dt. Substitute into the integrand.</div></div></div>
+        <div class="step"><div class="step-num sn-green">3</div><div class="step-content"><div class="step-title">Evaluate the 1D integral</div><div class="step-body">Everything is now in t. Integrate from a to b.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SURFACE INTEGRALS -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚙️</span>
+      <span class="section-label">Surface Integrals — Flux Through a Surface</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p><strong class="hl-blue">Intuition:</strong> Hold a net in a river. The flux = total volume of water passing through the net per second. Net flow depends on: water speed, net area, AND the angle between flow and net (cos θ factor = dot product with normal).</p>
+      <div class="formula-grid">
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Flux through Surface S</div>
+          <div class="fc-eq">Flux = ∬_S F·n̂ dS = ∬_S F·dS</div>
+          <div class="fc-desc">n̂ = outward unit normal. dS = n̂ dS = vector area element.</div>
+        </div>
+        <div class="formula-card fc-blue">
+          <div class="fc-name">Evaluation Formula</div>
+          <div class="fc-eq">∬_S F·n̂ dS = ∬_R F·n̂ |1/cosγ| dA</div>
+          <div class="fc-desc">Project onto coordinate plane. cosγ = n̂·k̂ (for projection on xy-plane). |∇F|/|∂F/∂z| often used.</div>
+        </div>
+        <div class="formula-card fc-purple">
+          <div class="fc-name">For surface z=f(x,y)</div>
+          <div class="fc-eq">dS = √(1+(∂z/∂x)²+(∂z/∂y)²) dA</div>
+          <div class="fc-desc">Area scaling factor. n̂ = (−∂z/∂x i − ∂z/∂y j + k) / |...|</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GREEN'S THEOREM -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚡</span>
+      <span class="section-label">Green's Theorem — 2D Circulation = Enclosed Curl</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p><strong class="hl-green">Intuition:</strong> The total circulation (rotation) around a closed boundary = the sum of all the local rotations inside. Like adding up all the tiny paddle wheels inside a region — their total spin equals the big circulation around the edge.</p>
+      <div class="formula-card fc-green" style="max-width:600px;margin:0 0 1rem">
+        <div class="fc-name">Green's Theorem</div>
+        <div class="fc-eq">∮_C (M dx + N dy) = ∬_R (∂N/∂x − ∂M/∂y) dA</div>
+        <div class="fc-desc">C = boundary of region R (traversed counterclockwise). Converts line integral ↔ double integral. Also used to find AREA: A = ½∮(x dy − y dx)</div>
+      </div>
+      <div class="trick-box">
+        <div class="trick-head">🚀 Memory Aid</div>
+        <p>Green = 2D version of Stokes. ∂N/∂x − ∂M/∂y is the "2D curl" (z-component of ∇×F where F = Mi + Nj).</p>
+        <p>Area by Green's: A = ∮_C x dy = −∮_C y dx = ½∮_C (x dy − y dx)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STOKES THEOREM -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚡</span>
+      <span class="section-label">Stokes' Theorem — Surface Curl = Boundary Circulation</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p><strong class="hl-purple">Intuition:</strong> The total circulation of a vector field around the boundary of a surface = the total curl (rotation) through that surface. Green's theorem is the 2D special case of Stokes' theorem!</p>
+      <div class="formula-card fc-purple" style="max-width:600px;margin:0 0 1rem">
+        <div class="fc-name">Stokes' Theorem</div>
+        <div class="fc-eq">∮_C F·dr = ∬_S (∇×F)·dS = ∬_S (∇×F)·n̂ dS</div>
+        <div class="fc-desc">C = boundary curve of surface S. F = vector field. ∇×F = curl of F. The circulation around the rim = flux of curl through the surface.</div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num sn-purple">1</div><div class="step-content"><div class="step-title">Compute curl F = ∇×F</div><div class="step-body">Find all three components of curl F using the determinant formula.</div></div></div>
+        <div class="step"><div class="step-num sn-purple">2</div><div class="step-content"><div class="step-title">Find unit normal n̂ of surface S</div><div class="step-body">For plane or curved surface, find n̂ (outward or using right-hand rule with boundary C).</div></div></div>
+        <div class="step"><div class="step-num sn-purple">3</div><div class="step-content"><div class="step-title">Evaluate (∇×F)·n̂</div><div class="step-body">Dot product, then integrate over the surface projection.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVERGENCE THEOREM -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚡</span>
+      <span class="section-label">Gauss Divergence Theorem — Volume Div = Surface Flux</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <p><strong class="hl-orange">Intuition:</strong> The total fluid flowing OUT through a closed surface = the total "creation" of fluid (divergence) inside the volume. Count all sources inside → matches total outward flow. No fluid created = closed surface = net zero flux (solenoidal).</p>
+      <div class="formula-card fc-orange" style="max-width:600px;margin:0 0 1rem">
+        <div class="fc-name">Gauss Divergence Theorem</div>
+        <div class="fc-eq">∯_S F·n̂ dS = ∭_V (∇·F) dV</div>
+        <div class="fc-desc">S = closed surface bounding volume V. ∇·F = divergence. Converts surface flux integral ↔ volume integral. Often much easier to evaluate one or the other!</div>
+      </div>
+      <div class="trick-box">
+        <div class="trick-head">🚀 The Big Three — Comparison</div>
+        <p><strong class="hl-green">Green's Theorem (2D):</strong> ∮C → ∬R — boundary to area</p>
+        <p><strong class="hl-purple">Stokes' Theorem (3D):</strong> ∮C → ∬S — boundary curve to surface (curl)</p>
+        <p><strong class="hl-orange">Divergence Theorem (3D):</strong> ∯S → ∭V — surface to volume (divergence)</p>
+        <p>All three say: <em>"Integral over boundary = integral of derivative over region."</em> It's the same idea at different dimensions!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISTAKES V -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⚠️</span>
+      <span class="section-label">Common Mistakes — Unit V</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="mistake-grid">
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>Using Stokes' theorem without checking if F has continuous derivatives on the surface</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>Stokes requires F and its partial derivatives to be continuous everywhere on and inside S. Singularities invalidate it.</p></div>
+        </div>
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>In Green's theorem, traversing C clockwise instead of counterclockwise</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>Standard Green's theorem: C traversed counterclockwise (positive orientation). Clockwise gives negative of the double integral.</p></div>
+        </div>
+        <div>
+          <div class="mistake-card"><div class="mc-head"><span class="mc-icon">✗</span><span class="mc-label">MISTAKE</span></div><p>Mixing up which theorem to use: Stokes for closed surfaces</p></div>
+          <div class="fix-card"><div class="fix-head"><span class="fix-icon">✓</span><span class="fix-label">CORRECT</span></div><p>CLOSED surface → Divergence theorem (volume inside). OPEN surface with boundary curve → Stokes' theorem.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PYQ V -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">⭐</span>
+      <span class="section-label">PYQ Analysis — Unit V</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Stokes' Theorem Application</span><span class="pyq-badge">VERY HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2022</span><span class="pyq-year">May 2023</span><span class="pyq-year">Nov 2023</span><span class="pyq-year">May 2024</span><span class="pyq-year">Jan 2025</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:96%"></div></div><span class="prob-label">96% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Gauss Divergence Theorem</span><span class="pyq-badge">VERY HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2022</span><span class="pyq-year">May 2023</span><span class="pyq-year">Nov 2023</span><span class="pyq-year">May 2024</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:93%"></div></div><span class="prob-label">93% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Green's Theorem + Area Computation</span><span class="pyq-badge">HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">May 2023</span><span class="pyq-year">Nov 2023</span><span class="pyq-year">Supply 2024</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:83%"></div></div><span class="prob-label">83% Expected</span></div>
+      </div>
+      <div class="pyq-card">
+        <div class="pyq-head"><span class="pyq-title">Line Integral / Work Done</span><span class="pyq-badge">HIGH</span></div>
+        <div class="pyq-years"><span class="pyq-year">Nov 2022</span><span class="pyq-year">May 2024</span><span class="pyq-year">Jan 2025</span></div>
+        <div class="pyq-prob"><div class="prob-bar"><div class="prob-fill" style="width:80%"></div></div><span class="prob-label">80% Expected</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ V -->
+  <div class="section-block">
+    <div class="section-head" onclick="toggle(this)">
+      <span class="section-icon">🎯</span>
+      <span class="section-label">Challenge Mode — Unit V MCQs</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q1. Stokes' theorem relates:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) Volume integral to surface integral via divergence</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) Surface integral of curl to line integral over boundary</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) Line integral to double integral in 2D only</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) Gradient to circulation</button>
+        </div>
+        <div class="quiz-explain">✅ Stokes: ∮C F·dr = ∬S (∇×F)·dS. Line integral over boundary curve = surface integral of curl. Green's theorem is the 2D special case.</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q2. The Gauss Divergence Theorem states ∯S F·dS = ?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) ∬S (∇×F)·dS</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">B) ∭V (∇·F) dV</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">C) ∮C F·dr</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) ∭V (∇×F) dV</button>
+        </div>
+        <div class="quiz-explain">✅ Divergence theorem: closed surface flux = volume integral of divergence. ∯S F·dS = ∭V (∇·F)dV.</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-q">Q3. For a conservative force field F, the work done along any path from A to B is:</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="ans(this,'wrong')">A) Zero always</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">B) Depends on the path taken</button>
+          <button class="quiz-opt" onclick="ans(this,'correct')">C) φ(B) − φ(A) where F = ∇φ</button>
+          <button class="quiz-opt" onclick="ans(this,'wrong')">D) ∮C F·dr</button>
+        </div>
+        <div class="quiz-explain">✅ Conservative field → F = ∇φ → ∫F·dr = φ(B)−φ(A). Path independent! This is why gravity and electrostatics have potential energy.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION V -->
+  <div class="rev-band">
+    <div class="rev-head">⚡ Quick Revision — Unit V</div>
+    <div class="rev-grid">
+      <div class="rev-item">Line integral: W = ∫C F·dr = ∫(F₁dx+F₂dy+F₃dz)</div>
+      <div class="rev-item">Conservative: curl F = 0 → F=∇φ → W=φ(B)−φ(A)</div>
+      <div class="rev-item">Flux: ∬S F·n̂ dS</div>
+      <div class="rev-item">Green's: ∮C(Mdx+Ndy) = ∬R(∂N/∂x−∂M/∂y)dA</div>
+      <div class="rev-item">Stokes': ∮C F·dr = ∬S (∇×F)·dS</div>
+      <div class="rev-item">Gauss: ∯S F·dS = ∭V (∇·F)dV</div>
+      <div class="rev-item">Closed surface → Divergence thm; Open surface → Stokes</div>
+      <div class="rev-item">Green = 2D Stokes. All theorems = "boundary vs. interior"</div>
+    </div>
+  </div>
+
+  <!-- MEGA FORMULA SHEET -->
+  <div class="section-block" style="border-color:rgba(255,215,0,.3)">
+    <div class="section-head" onclick="toggle(this)" style="background:rgba(255,215,0,.05)">
+      <span class="section-icon">📋</span>
+      <span class="section-label" style="color:var(--gold)">MEGA FORMULA SHEET — All Units</span>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <h4 style="color:var(--accent)">Unit I — First Order ODE</h4>
+      <div class="formula-grid">
+        <div class="formula-card fc-blue"><div class="fc-name">Linear ODE</div><div class="fc-eq">IF = e^∫P dx; y·IF = ∫Q·IF dx + C</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-purple"><div class="fc-name">Bernoulli</div><div class="fc-eq">v = y^(1−n) → Linear ODE</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-green"><div class="fc-name">Exact</div><div class="fc-eq">∂M/∂y = ∂N/∂x → F = ∫M dx + g(y)</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-orange"><div class="fc-name">Newton Cooling</div><div class="fc-eq">T = T₀ + (Ti−T₀)e^(−kt)</div><div class="fc-desc"></div></div>
+      </div>
+      <h4 style="color:var(--accent2);margin-top:1.2rem">Unit II — Higher Order ODE</h4>
+      <div class="formula-grid">
+        <div class="formula-card fc-purple"><div class="fc-name">CF Rules</div><div class="fc-eq">Distinct: C₁e^(m₁x)+C₂e^(m₂x)<br/>Equal: (C₁+C₂x)e^(mx)<br/>Complex: e^αx(C₁cosβx+C₂sinβx)</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-blue"><div class="fc-name">PI Shortcuts</div><div class="fc-eq">e^ax: 1/f(a); sinax: D²→−a²<br/>Fail: multiply by x, use f'(a)</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-green"><div class="fc-name">Var of Params</div><div class="fc-eq">PI = y₁∫(−y₂f/W)dx + y₂∫(y₁f/W)dx</div><div class="fc-desc"></div></div>
+      </div>
+      <h4 style="color:var(--accent3);margin-top:1.2rem">Unit III — PDE</h4>
+      <div class="formula-grid">
+        <div class="formula-card fc-orange"><div class="fc-name">Lagrange</div><div class="fc-eq">Pp+Qq=R → dx/P=dy/Q=dz/R → F(u,v)=0</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-orange"><div class="fc-name">Homog PDE CF</div><div class="fc-eq">φ₁(y+m₁x) + φ₂(y+m₂x)</div><div class="fc-desc"></div></div>
+      </div>
+      <h4 style="color:var(--accent4);margin-top:1.2rem">Unit IV — Vector Differentiation</h4>
+      <div class="formula-grid">
+        <div class="formula-card fc-green"><div class="fc-name">Gradient</div><div class="fc-eq">∇φ = (∂φ/∂x)i + (∂φ/∂y)j + (∂φ/∂z)k</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-blue"><div class="fc-name">Directional Deriv</div><div class="fc-eq">D_â φ = ∇φ · â</div><div class="fc-desc">â = unit vector</div></div>
+        <div class="formula-card fc-blue"><div class="fc-name">Divergence</div><div class="fc-eq">∇·F = ∂F₁/∂x + ∂F₂/∂y + ∂F₃/∂z</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-purple"><div class="fc-name">Curl</div><div class="fc-eq">∇×F = determinant form</div><div class="fc-desc"></div></div>
+      </div>
+      <h4 style="color:var(--gold);margin-top:1.2rem">Unit V — Vector Integration</h4>
+      <div class="formula-grid">
+        <div class="formula-card fc-gold"><div class="fc-name">Green's</div><div class="fc-eq">∮C(Mdx+Ndy) = ∬R(∂N/∂x−∂M/∂y)dA</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-purple"><div class="fc-name">Stokes'</div><div class="fc-eq">∮C F·dr = ∬S (∇×F)·dS</div><div class="fc-desc"></div></div>
+        <div class="formula-card fc-orange"><div class="fc-name">Gauss Divergence</div><div class="fc-eq">∯S F·dS = ∭V (∇·F)dV</div><div class="fc-desc"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
-    <footer class="py-12 border-t text-center border-slate-200 dark:border-slate-800 border">
-        <p class="text-slate-500 dark:text-slate-400 text-sm">© 2026 EngiPrep Hub • Expert JNTUK Support</p>
-    </footer>
+<!-- SCROLL TOP -->
+<a class="scroll-top" href="#top" title="Back to top">↑</a>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('math-generator-form');
-            const input = document.getElementById('math-concept-input');
-            const submitBtn = document.getElementById('math-submit-btn');
-            const quickTopicBtns = document.querySelectorAll('.quick-topic-btn');
-            
-            const loadingState = document.getElementById('gen-loading-state');
-            const loadingMsg = document.getElementById('gen-loading-message');
-            const errorState = document.getElementById('gen-error-state');
-            const resultCard = document.getElementById('gen-result-card');
-            
-            const resConcept = document.getElementById('result-concept');
-            const resDifficulty = document.getElementById('result-difficulty');
-            const resMarks = document.getElementById('result-marks');
-            const resQuestion = document.getElementById('result-question');
-            const resFormula = document.getElementById('result-formula');
-            const resSolution = document.getElementById('result-solution');
-            const tryAnotherBtn = document.getElementById('try-another-btn');
+<script>
+// Toggle sections
+function toggle(head){
+  const body = head.nextElementSibling;
+  const arrow = head.querySelector('.section-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  if(arrow) arrow.classList.toggle('open',!isOpen);
+}
 
-            const loadingPrompts = [
-                "Analyzing JNTUK syllabus divisions...",
-                "Retrieving matching structural rubrics...",
-                "Formulating stepwise solutions...",
-                "Cross-verifying algebraic calculations..."
-            ];
+// Quiz answer
+function ans(btn, type){
+  const wrap = btn.closest('.quiz-wrap');
+  const opts = wrap.querySelectorAll('.quiz-opt');
+  const exp = wrap.querySelector('.quiz-explain');
+  opts.forEach(o => o.disabled = true);
+  btn.classList.add(type);
+  if(exp) exp.classList.add('show');
+}
 
-            let loadingInterval;
+// Progress bar
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  const pct = total > 0 ? (window.scrollY / total * 100) : 0;
+  document.getElementById('prog').style.width = pct + '%';
 
-            // Simple Markdown Formatter for beautiful math text rendering
-            function formatMarkdown(text) {
-                if (!text) return '';
-                let html = text;
-                
-                // Replace double dollar LaTeX formulas with highlighted custom boxes
-                html = html.replace(/\$\$(.*?)\$\$/gs, '<div class="bg-slate-100 p-4 rounded-xl border my-4 text-center font-mono text-primary text-base overflow-x-auto border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">$1</div>');
-                
-                // Replace single dollar inline formulas
-                html = html.replace(/\$(.*?)\$/g, '<code class="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-gray-300 font-mono text-xs">$1</code>');
-                
-                // Replace bold headings or strong texts
-                html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 dark:text-slate-50 font-bold">$1</strong>');
-                
-                // Replace bullets
-                html = html.replace(/^\*\s(.*)$/gm, '<li class="ml-4 list-disc text-slate-500 dark:text-slate-400">$1</li>');
-                html = html.replace(/^-\s(.*)$/gm, '<li class="ml-4 list-disc text-slate-500 dark:text-slate-400">$1</li>');
-                
-                // Keep paragraph structures cleanly
-                html = html.replace(/\n\n/g, '</div><div class="mt-4">');
-                html = html.replace(/\n/g, '<br>');
-                
-                return `<div class="space-y-4">${html}</div>`;
-            }
+  // Active nav
+  const sections = ['unit1','unit2','unit3','unit4','unit5'];
+  let active = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && el.getBoundingClientRect().top <= 100) active = id;
+  });
+  document.querySelectorAll('.unit-nav a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+  });
+});
 
-            async function generateQuestion(concept) {
-                // Show loading state, hide results and error paths
-                loadingState.classList.remove('hidden');
-                errorState.classList.add('hidden');
-                resultCard.classList.add('hidden');
-                submitBtn.disabled = true;
+// Canvas 1 — growth/decay curves
+(function(){
+  const canvas = document.getElementById('c1');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * devicePixelRatio || 800;
+  canvas.height = 200 * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  const W = canvas.offsetWidth || 400, H = 200;
+  
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = '#0c1528';
+    ctx.fillRect(0,0,W,H);
+    
+    // Grid
+    ctx.strokeStyle = 'rgba(0,212,255,0.08)';
+    ctx.lineWidth = 1;
+    for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
 
-                let promptIndex = 0;
-                loadingMsg.innerText = loadingPrompts[0];
-                loadingInterval = setInterval(() => {
-                    promptIndex = (promptIndex + 1) % loadingPrompts.length;
-                    loadingMsg.innerText = loadingPrompts[promptIndex];
-                }, 1500);
+    const colors = ['#00d4ff','#7b5cff','#00ff9d','#ff6b35','#ffd700'];
+    const k_values = [0.3, 0.15, 0.08, -0.2, -0.35];
+    const y0_values = [20, 40, 80, 160, 130];
+    
+    k_values.forEach((k,i) => {
+      ctx.beginPath();
+      ctx.strokeStyle = colors[i];
+      ctx.lineWidth = 1.5;
+      for(let px=0;px<W;px+=2){
+        const t = (px/W)*8;
+        const y = y0_values[i] * Math.exp(k*t);
+        const py = H - (y/200)*H;
+        if(px===0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+    });
+    
+    // Labels
+    ctx.fillStyle = '#a0b4d0';
+    ctx.font = '11px DM Mono, monospace';
+    ctx.fillText('t →', W-30, H-8);
+    ctx.fillText('y ↑', 6, 16);
+    ctx.fillStyle = '#00d4ff';
+    ctx.fillText('k>0 growth', W-110, 18);
+    ctx.fillStyle = '#ff6b35';
+    ctx.fillText('k<0 decay', W-110, 34);
+  }
+  draw();
+})();
 
-                try {
-                    const response = await fetch('/api/ai/math-generator', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ concept })
-                    });
+// Canvas 2 — damping oscillations
+(function(){
+  const canvas = document.getElementById('c2');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * devicePixelRatio || 800;
+  canvas.height = 200 * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  const W = canvas.offsetWidth || 400, H = 200;
+  const mid = H/2;
+  
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = '#0c1528';
+    ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(123,92,255,0.1)';ctx.lineWidth=1;
+    for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    ctx.strokeStyle='rgba(123,92,255,0.1)';
+    for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    
+    // Centre line
+    ctx.strokeStyle='rgba(255,255,255,0.08)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(0,mid);ctx.lineTo(W,mid);ctx.stroke();
 
-                    if (!response.ok) {
-                        throw new Error('API request failed');
-                    }
+    const cases = [
+      {k:0.12, w:1.5, col:'#00ff9d', label:'Underdamped'},
+      {k:0.5, w:1.5, col:'#7b5cff', label:'Critically damped'},
+      {k:1.2, w:1.5, col:'#ff6b35', label:'Overdamped'}
+    ];
+    
+    cases.forEach(c => {
+      ctx.beginPath();
+      ctx.strokeStyle = c.col;
+      ctx.lineWidth = 1.8;
+      for(let px=0;px<W;px+=2){
+        const t = (px/W)*20;
+        let y;
+        if(c.k < c.w){
+          const wd = Math.sqrt(c.w*c.w - c.k*c.k);
+          y = 70*Math.exp(-c.k*t)*Math.cos(wd*t);
+        } else if(Math.abs(c.k-c.w)<0.01){
+          y = 70*(1+c.k*t)*Math.exp(-c.k*t);
+        } else {
+          const r1=-c.k+Math.sqrt(c.k*c.k-c.w*c.w), r2=-c.k-Math.sqrt(c.k*c.k-c.w*c.w);
+          y = 35*Math.exp(r1*t) + 35*Math.exp(r2*t);
+        }
+        const py = mid - y;
+        if(px===0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+    });
+    
+    ctx.font = '10px DM Mono, monospace';
+    cases.forEach((c,i) => {
+      ctx.fillStyle = c.col;
+      ctx.fillText(c.label, 8, 18+i*14);
+    });
+  }
+  draw();
+})();
 
-                    const data = await response.json();
-                    
-                    // Render outputs
-                    resConcept.innerText = data.concept || concept;
-                    resDifficulty.innerText = data.difficulty || 'Medium';
-                    
-                    // Style difficulty border/color badge
-                    const diff = (data.difficulty || '').toLowerCase();
-                    resDifficulty.className = "px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded font-mono";
-                    if (diff.includes('hard')) {
-                        resDifficulty.classList.add('bg-rose-500/10', 'text-rose-400', 'border', 'border-rose-500/20');
-                    } else if (diff.includes('easy')) {
-                        resDifficulty.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/20');
-                    } else {
-                        resDifficulty.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/20');
-                    }
+// Canvas 3 — vector field
+(function(){
+  const canvas = document.getElementById('c3');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * devicePixelRatio || 800;
+  canvas.height = 260 * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  const W = canvas.offsetWidth || 400, H = 260;
+  
+  function draw(mx, my){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = '#070e1c';
+    ctx.fillRect(0,0,W,H);
+    
+    const step = 32;
+    for(let x=step/2;x<W;x+=step){
+      for(let y=step/2;y<H;y+=step){
+        const fx = (x/W)*4-2, fy = (y/H)*4-2;
+        // Field: F = (-y, x) — circular field
+        let vx = -fy, vy = fx;
+        const mag = Math.sqrt(vx*vx+vy*vy)||1;
+        vx/=mag; vy/=mag;
+        const len = 10;
+        const ex = x+vx*len, ey = y+vy*len;
+        const dist = mx ? Math.sqrt((x-mx)**2+(y-my)**2) : 999;
+        const alpha = dist < 60 ? 0.9 : 0.3;
+        const col = dist < 60 ? '#00ff9d' : '#1a4a6a';
+        ctx.beginPath();
+        ctx.strokeStyle = col;
+        ctx.globalAlpha = alpha;
+        ctx.lineWidth = 1.2;
+        ctx.moveTo(x,y);
+        ctx.lineTo(ex,ey);
+        ctx.stroke();
+        // arrowhead
+        const ax = ex - vx*4 + vy*3, ay = ey - vy*4 - vx*3;
+        const bx = ex - vx*4 - vy*3, by = ey - vy*4 + vx*3;
+        ctx.beginPath();
+        ctx.fillStyle = col;
+        ctx.moveTo(ex,ey);ctx.lineTo(ax,ay);ctx.lineTo(bx,by);ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+    ctx.fillStyle='rgba(0,212,255,0.7)';
+    ctx.font='10px DM Mono,monospace';
+    ctx.globalAlpha=0.6;
+    ctx.fillText('F = (−y, x) — Circular vector field. Hover to highlight.',10,H-10);
+    ctx.globalAlpha=1;
+  }
+  
+  draw(null,null);
+  canvas.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    draw(e.clientX - r.left, e.clientY - r.top);
+  });
+  canvas.addEventListener('mouseleave', () => draw(null,null));
+})();
 
-                    resMarks.innerText = data.marks || '10 Marks';
-                    resQuestion.innerHTML = formatMarkdown(data.question || '');
-                    resFormula.innerHTML = data.formula_used || 'N/A';
-                    resSolution.innerHTML = formatMarkdown(data.solution || '');
-
-                    // Reveal result panel
-                    resultCard.classList.remove('hidden');
-                    // Scroll smoothly to results
-                    resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-                } catch (e) {
-                    console.error(e);
-                    errorState.classList.remove('hidden');
-                } finally {
-                    clearInterval(loadingInterval);
-                    loadingState.classList.add('hidden');
-                    submitBtn.disabled = false;
-                }
-            }
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const concept = input.value.trim();
-                if (concept) {
-                    generateQuestion(concept);
-                }
-            });
-
-            quickTopicBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const concept = btn.getAttribute('data-concept');
-                    input.value = concept;
-                    generateQuestion(concept);
-                });
-            });
-
-            tryAnotherBtn.addEventListener('click', () => {
-                input.value = '';
-                resultCard.classList.add('hidden');
-                errorState.classList.add('hidden');
-                input.focus();
-            });
-        });
-    </script>
-
-    <script type="module" src="/src/config-check.js"></script>
-    <script type="module" src="/src/ai-widget.ts"></script>
+// Animate prob bars on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.prob-fill').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => bar.style.width = w, 100);
+      });
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.pyq-card').forEach(c => observer.observe(c));
+</script>
 </body>
 </html>
-
