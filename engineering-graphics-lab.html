@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JNTUK EG R23: Interactive Engineering Graphics OS | EngiPrep Hub</title>
+    <link rel="canonical" href="https://engiprephub.in/engineering-graphics-lab">
     <meta name="description" content="Ultimate JNTUK R23 Engineering Graphics guide. Master Geometrical Constructions, Projections of Points, Lines, Planes, Solids, Sections and Isometric views.">
     <link rel="stylesheet" href="/src/style.css">
 
@@ -81,6 +82,416 @@
             50% { border-color: rgba(6, 182, 212, 0.8); }
             100% { border-color: rgba(6, 182, 212, 0.3); }
         }
+
+        /* Unified Graphics Lab Notes Custom Style Layer */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.25rem;
+            margin: 1.25rem 0;
+        }
+        @media (min-width: 768px) {
+            .info-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        .info-card {
+            background: rgba(12, 20, 40, 0.45);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        .info-card:hover {
+            border-color: rgba(6, 182, 212, 0.35);
+            background: rgba(12, 20, 40, 0.65);
+        }
+        .info-card-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #06b6d4;
+            margin-bottom: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .info-card p, .info-card ul {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        .styled-list {
+            list-style: none;
+            margin: 0.5rem 0;
+            padding: 0;
+        }
+        .styled-list li {
+            padding: 0.35rem 0 0.35rem 1.25rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            position: relative;
+        }
+        .styled-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #06b6d4;
+            font-size: 0.8rem;
+            top: 0.35rem;
+        }
+
+        .steps-container {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .step-card {
+            display: flex;
+            gap: 1.25rem;
+            background: rgba(6, 182, 212, 0.03);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+        .step-card:hover {
+            background: rgba(6, 182, 212, 0.06);
+            border-color: rgba(6, 182, 212, 0.2);
+        }
+        .step-num {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            background: rgba(6, 182, 212, 0.15);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        .step-title {
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            color: #f1f5f9;
+        }
+        .step-desc {
+            font-size: 0.775rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .box {
+            border-radius: 1rem;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+        .box-title {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .box-blue {
+            background: rgba(6, 182, 212, 0.05);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-left: 4px solid #06b6d4;
+            color: #cbd5e1;
+        }
+        .box-blue .box-title { color: #06b6d4; }
+        
+        .box-green {
+            background: rgba(16, 185, 129, 0.04);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-left: 4px solid #10b981;
+            color: #cbd5e1;
+        }
+        .box-green .box-title { color: #10b981; }
+
+        .box-orange {
+            background: rgba(249, 115, 22, 0.05);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            border-left: 4px solid #f97316;
+            color: #cbd5e1;
+        }
+        .box-orange .box-title { color: #f97316; }
+
+        .box-purple {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-left: 4px solid #8b5cf6;
+            color: #cbd5e1;
+        }
+        .box-purple .box-title { color: #8b5cf6; }
+
+        .box-gold {
+            background: rgba(245, 158, 11, 0.05);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-left: 4px solid #f59e0b;
+            color: #cbd5e1;
+        }
+        .box-gold .box-title { color: #f59e0b; }
+
+        .box-red {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            border-left: 4px solid #ef4444;
+            color: #cbd5e1;
+        }
+        .box-red .box-title { color: #ef4444; }
+
+        .formula {
+            background: rgba(3, 7, 18, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.775rem;
+            color: #34d399;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .cmd-block {
+            background: rgba(3, 7, 18, 0.85);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            margin: 0.75rem 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .cmd-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        @media (min-width: 640px) {
+            .cmd-row {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+        }
+        .cmd-row:last-child { border: none; }
+        .cmd-name {
+            color: #06b6d4;
+            font-size: 0.75rem;
+            font-weight: 700;
+            min-width: 110px;
+        }
+        .cmd-desc {
+            color: #94a3b8;
+            font-size: 0.725rem;
+            line-height: 1.5;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.25rem 0;
+            font-size: 0.75rem;
+        }
+        .data-table th {
+            background: rgba(6, 182, 212, 0.12);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+            color: #06b6d4;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(6, 182, 212, 0.15);
+        }
+        .data-table td {
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            color: #94a3b8;
+        }
+        .data-table tr:hover td {
+            background: rgba(6, 182, 212, 0.04);
+        }
+
+        .pyq-item {
+            background: rgba(12, 20, 40, 0.35);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            margin: 0.75rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .pyq-year {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #f59e0b;
+            min-width: 45px;
+            padding-top: 0.1rem;
+        }
+        .pyq-q {
+            font-size: 0.775rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .rev-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+        @media (min-width: 640px) {
+            .rev-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        .rev-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(6, 182, 212, 0.04));
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+        }
+        .rev-card-title {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #10b981;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .rev-card p {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .mistake-row {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            background: rgba(239, 68, 68, 0.03);
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            border-radius: 0.5rem;
+            font-size: 0.775rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+        .mistake-x {
+            color: #ef4444;
+            font-size: 0.9rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .imagination-block {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.06), rgba(139, 92, 246, 0.06));
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1.25rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .imagination-block::before {
+            content: '🧠';
+            position: absolute;
+            right: 1.25rem;
+            top: 1rem;
+            font-size: 2rem;
+            opacity: 0.25;
+        }
+        .imagination-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #a78bfa;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .imagination-block p {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .sec-header-modern {
+            margin: 1.75rem 0 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .sec-line-modern {
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.2), transparent);
+        }
+        .sec-label-modern {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.725rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #64748b;
+            white-space: nowrap;
+        }
+
+        .solid-vis-modern {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin: 1.25rem 0;
+        }
+        @media (min-width: 640px) {
+            .solid-vis-modern {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+        .solid-card-modern {
+            background: rgba(12, 20, 40, 0.35);
+            border: 1px solid rgba(6, 182, 212, 0.12);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.25s;
+        }
+        .solid-card-modern:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            background: rgba(12, 20, 40, 0.55);
+            transform: translateY(-2px);
+        }
+        .solid-emoji-modern {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .solid-name-modern {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+        .solid-desc-modern {
+            font-size: 0.675rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -97,6 +508,13 @@
     </script>
     <!-- Inline blocker removed for SEO/AdSense Crawlability -->
     <script type="module" src="/src/gatekeeper.js"></script>
+
+    <meta property="og:title" content="JNTUK EG R23: Interactive Engineering Graphics OS | EngiPrep Hub">
+    <meta property="og:description" content="Ultimate JNTUK R23 Engineering Graphics guide. Master Geometrical Constructions, Projections of Points, Lines, Planes, Solids, Sections and Isometric views.">
+    <meta property="og:url" content="https://engiprephub.in/engineering-graphics-lab">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="EngiPrep Hub">
+
 </head>
 <body class="bg-[#020208] text-slate-300 min-h-screen font-sans antialiased selection:bg-cyan-500/30 selection:text-white">
 
@@ -753,39 +1171,290 @@
                         <span class="text-xl font-extrabold text-cyan-500 font-cad">01</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">Geometrical Constructions & Curves</h2>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 font-sans">
-                        <div class="space-y-4">
-                            <h3 class="text-sm font-black text-slate-100 uppercase tracking-widest">Introduction: The Language of Engineering</h3>
-                            <p class="text-xs text-slate-400 font-medium">
-                                Drafting is a graphic language: BIS (Bureau of Indian Standards) ensures universal understanding. Unit 1 focuses on foundational geometries—lines, lettering, dimensioning—and complex loci known as Conic Sections.
+                    <div class="space-y-8 font-sans">
+                        <div class="p-5 bg-cyan-950/30 border border-cyan-500/15 rounded-2xl">
+                            <h3 class="text-sm font-black text-slate-100 uppercase tracking-widest mb-2 font-cad">Syllabus Overview</h3>
+                            <p class="text-xs text-slate-400 font-medium leading-relaxed">
+                                Base mechanics of manual and digital drafting as per BIS (Bureau of Indian Standards). Master conics, cyloids, involutes, and scales through concept flows and actual AutoCAD terminal macros.
                             </p>
-                            <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
-                                <span class="text-[9px] font-black text-cyan-500 uppercase tracking-widest">Key Concept: Eccentricity ($e$)</span>
-                                <p class="text-[10px] text-slate-300 leading-relaxed italic">The ratio of distance from a fixed point (Focus) to a fixed line (Directrix).</p>
-                                <div class="flex flex-wrap gap-2 text-[9px] font-bold font-cad uppercase">
-                                    <span class="bg-cyan-500/10 text-cyan-400 p-1 px-2 rounded-md border border-cyan-500/30">$e &lt; 1$: Ellipse</span>
-                                    <span class="bg-cyan-500/10 text-cyan-400 p-1 px-2 rounded-md border border-cyan-500/30">$e = 1$: Parabola</span>
-                                    <span class="bg-cyan-500/10 text-cyan-400 p-1 px-2 rounded-md border border-cyan-500/30">$e > 1$: Hyperbola</span>
+                        </div>
+
+                        <!-- Sub-topic 1: Lines & Lettering -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">📏 Section 1.1: Lines, Lettering & Dimensioning</span><div class="sec-line-modern"></div></div>
+                            <div class="box box-blue">
+                                <div class="box-title">Real-World Engineering Connection</div>
+                                Every blueprint, manufacturing drawing, and architectural plan uses standardized lines and lettering. Without this strict code, a 5mm thick wall looks identical to a 500mm wall. Engineers communicate through lines — you must master this visual vocabulary.
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-card-title">Bureau of Indian Standards (BIS) Lines</div>
+                                    <ul class="styled-list">
+                                        <li><strong>Continuous Thick (0.7mm)</strong> — Visible outlines & boundary lines</li>
+                                        <li><strong>Continuous Thin (0.35mm)</strong> — Dimensions, hatching & extension lines</li>
+                                        <li><strong>Dashed Thin (0.35mm)</strong> — Hidden edges & obscured detail outlines</li>
+                                        <li><strong>Chain Thin (0.2mm)</strong> — Center lines, locus paths & symmetry axis</li>
+                                        <li><strong>Chain Thick ends</strong> — Cutting plane markers for sectional views</li>
+                                    </ul>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-title">Lettering Standards</div>
+                                    <ul class="styled-list">
+                                        <li><strong>Gothic Font Ratio</strong> — 7:10 (width:height) standard</li>
+                                        <li><strong>Single Stroke</strong> — Drawn with continuous vertical or 75° inclined strokes</li>
+                                        <li><strong>Standards</strong> — Title lines: 6-8mm height; dimensions: 3.5-5mm</li>
+                                        <li><strong>Rule of thumb</strong> — Never mix styles; use strict grid guidelines</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h4 class="text-xs font-black text-slate-100 uppercase tracking-wider mt-4">Standard Dimensioning Procedure</h4>
+                            <div class="steps-container">
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Extension Lines</div>
+                                        <div class="step-desc">Extend perpendicular thin lines 2–3mm beyond dimension line. Leave a precise 1mm gap from the object outline so they do not intersect.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Dimension Lines & Arrowheads</div>
+                                        <div class="step-desc">Place parallel to the feature. Terminate at extension lines using arrowheads in a strict 3:1 length-to-width ratio. Keep distance &gt;8mm from the outline.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">3</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Aligned vs Unidirectional System</div>
+                                        <div class="step-desc">Aligned: dimensions placed above and perpendicular to the dimension line. Unidirectional: dimensions broken in the middle and written horizontally regardless of line tilt.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-[#ef4444]/5 border border-[#ef4444]/20 rounded-xl space-y-2">
+                                <span class="text-[9px] font-black text-[#ef4444] uppercase tracking-widest font-cad block">⚠️ Drawing Traps: Common Mistakes</span>
+                                <div class="mistake-row"><div class="mistake-x">✕</div> Drawing extension lines touching the object profile directly (always leave 1mm clearance gap).</div>
+                                <div class="mistake-row"><div class="mistake-x">✕</div> Crossing dimension lines over one another (place smaller dimensions closer to outlines, larger ones outer).</div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-topic 2: Polygons -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">📐 Section 1.2: Geometrical Constructions & Polygons</span><div class="sec-line-modern"></div></div>
+                            <div class="imagination-block">
+                                <div class="imagination-label">Polygons Spatial Projection</div>
+                                <p>A regular polygon represents geometric symmetry. Think of slicing a circle into equal sectors like a perfectly portioned wheel. Connect the outer vertices and a regular polygon appears. In AutoCAD, constructing a regular polygon is done in a single command, but manually we rely on perpendicular bisectors and center indicators.</p>
+                            </div>
+                            
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-card-title">Interior Angles Index</div>
+                                    <ul class="styled-list">
+                                        <li>Triangle (3 sides) — $60^\circ$</li>
+                                        <li>Square (4 sides) — $90^\circ$</li>
+                                        <li>Pentagon (5 sides) — $108^\circ$ ($Central\ angle = 72^\circ$)</li>
+                                        <li>Hexagon (6 sides) — $120^\circ$ ($Central\ angle = 60^\circ$)</li>
+                                        <li>Angle Formula — $\theta = \frac{(n-2) \times 180^\circ}{n}$</li>
+                                    </ul>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-title">General Construction Method (Give side length S)</div>
+                                    <p class="text-xs text-slate-400">
+                                        Draw base AB = S. Erect perpendicular at midpoint M. Bisect AB and sweep an arc with radius AB to identify centers of circumscribing circles for N-sided polygons. Use $P_4$ (Square) and $P_6$ (Hexagon) central axis offsets to bisect for $P_5$ (Pentagon), etc.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="box box-green">
+                                <div class="box-title">⚡ AutoCAD Command Sequence: Constructing a Pentagon</div>
+                                <div class="cmd-block">
+                                    <div class="cmd-row"><span class="cmd-name">Initiate</span><span class="cmd-desc">Type <code class="text-emerald-400">POLYGON</code> or shortcut <code class="text-emerald-400">POL</code> and press Enter.</span></div>
+                                    <div class="cmd-row"><span class="cmd-name">Sides Input</span><span class="cmd-desc">Specify number of sides: <code class="text-emerald-400">5</code> -> Enter.</span></div>
+                                    <div class="cmd-row"><span class="cmd-name">Edge Option</span><span class="cmd-desc">Type <code class="text-emerald-400">E</code> (Edge method) -> Enter.</span></div>
+                                    <div class="cmd-row"><span class="cmd-name">Co-ordinates</span><span class="cmd-desc">Specify first endpoint of edge: <code class="text-emerald-400">0,0</code> -> Enter. Specify second endpoint: <code class="text-emerald-400">@50,0</code> (for 50mm side) -> Enter.</span></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-slate-950/80 rounded-2xl border border-slate-900 p-4 space-y-4">
-                            <h4 class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Standard Projections Flow</h4>
-                            <div class="space-y-3 font-cad">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-black">1</div>
-                                    <div class="text-[10px]">FIX DIRECTRIX & AXIS $\perp$</div>
+
+                        <!-- Sub-topic 3: Conics -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">🌀 Section 1.3: Conic Sections (Ellipse, Parabola & Hyperbola)</span><div class="sec-line-modern"></div></div>
+                            <div class="imagination-block">
+                                <div class="imagination-label">Double Cone Cuts Locus</div>
+                                <p>Imagine a sand hourglass of two parallel cones. Slice it at varying angles: horizontal plane cuts a <strong>Circle</strong>; tilting slightly cuts an closed <strong>Ellipse</strong>; tilting parallel to the generator produces a continuous <strong>Parabola</strong>; slicing steeper than the generator generates a double-branched <strong>Hyperbola</strong>.</p>
+                            </div>
+
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-card-title">Eccentricity Definitions</div>
+                                    <p class="leading-relaxed">
+                                        Defined as the ratio: $e = \frac{\text{Distance of point from Focus } (F)}{\text{Perpendicular distance from Directrix } (DD')}$.
+                                    </p>
+                                    <ul class="styled-list mt-3">
+                                        <li><strong class="text-cyan-400">Ellipse ($e &lt; 1$):</strong> Symmetrical closed trajectory loop</li>
+                                        <li><strong class="text-emerald-400">Parabola ($e = 1$):</strong> Launch trajectory & reflector dish profile</li>
+                                        <li><strong class="text-orange-400">Hyperbola ($e &gt; 1$):</strong> Double branch cooling tower profile</li>
+                                    </ul>
                                 </div>
-                                <div class="flex items-center gap-3 opacity-80">
-                                    <div class="w-8 h-8 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-black">2</div>
-                                    <div class="text-[10px]">MARK FOCUS (F) ON AXIS</div>
-                                </div>
-                                <div class="flex items-center gap-3 opacity-60">
-                                    <div class="w-8 h-8 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-black">3</div>
-                                    <div class="text-[10px]">DIVIDE DISTANCE BY ($Num+Den$)</div>
+                                <div class="info-card">
+                                    <div class="info-card-title">Concentric Circle Ellipse Method</div>
+                                    <ul class="styled-list">
+                                        <li>Draw Major axis AB (120mm), Minor axis CD (80mm) centered at O</li>
+                                        <li>Draw Concentric circles with radii OA and OC</li>
+                                        <li>Divide circles into 12 equal sectors ($30^\circ$ each)</li>
+                                        <li>Project vertical lines from inner circle, horizontal lines from outer circle intersections to find the ellipse boundary locus</li>
+                                    </ul>
                                 </div>
                             </div>
-                            <button onclick="window.switchSolverSec('conic-solver')" class="w-full py-2.5 bg-black border border-slate-800 rounded-xl text-[9px] font-black text-cyan-500 uppercase hover:bg-slate-900 transition-all">Launch Conics Simulator</button>
+
+                            <h4 class="text-xs font-black text-slate-100 uppercase tracking-wider mt-4">Drafting a Parabola: Rectangle Method</h4>
+                            <div class="steps-container">
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Bounding Box</div>
+                                        <div class="step-desc">Draw a rectangle with base = given span (e.g. 100mm) and height = given Rise/Axis height (e.g. 60mm). Mark vertex V at the top-center.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Divide Edges</div>
+                                        <div class="step-desc">Divide the left and right vertical edges into 4 or 6 equal segments. Perform identical division for the bottom halves.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">3</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Locus Intersection</div>
+                                        <div class="step-desc">Connect the vertical edge points to Vertex V. Project vertical lines from the baseline divisions. Plot point intersections to derive the parabolic sweep.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box box-purple">
+                                <div class="box-title">📐 AutoCAD Terminal Macro: Focus-Directrix Conic Construct</div>
+                                <div class="cmd-block">
+                                    <div class="text-[8px] text-slate-500 mb-2">// Absolute Coordinate script to trace focus at 50mm, Eccentricity e = 2/3 (Ellipse)</div>
+                                    <pre class="bg-transparent p-0 border-none font-mono text-[9px] text-[#22d3ee] overflow-x-auto select-all">LINE; 0,-100; 0,100; (Directrix DD')
+LINE; 0,0; 150,0; (Axis line)
+CIRCLE; 50,0; 20; (Focus check)
+PLINE; 30,20; 45,32; 60,38; 78,41; 95,38; 110,32; 120,20; 120,-20; (Smooth Polyline curve sweep)
+MIRROR; last; ; 0,0; 150,0; N; (Generate complete ellipse shape via reflection)</pre>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2">
+                                <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest font-cad block">⭐ PYQ Vault Insights</span>
+                                <div class="pyq-item">
+                                    <div class="pyq-year">2023</div>
+                                    <div class="pyq-q">Draw an ellipse by Focus-Directrix method given distance of focus from directrix is 50mm and eccentricity e = 2/3. Construct a tangent and normal at 40mm from directrix.</div>
+                                </div>
+                                <div class="pyq-item">
+                                    <div class="pyq-year">2022</div>
+                                    <div class="pyq-q">Design a parabolic arch path with span 120mm and rise 80mm using the rectangle/enclosing-box method. Show tangent lines.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-topic 4: Curves -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">🌀 Section 1.4: Special Curves (Cycloids & Involutes)</span><div class="sec-line-modern"></div></div>
+                            <div class="imagination-block">
+                                <div class="imagination-label">Special Curves Mechanics</div>
+                                <p>
+                                    <strong>Cycloid:</strong> The locus of a point on the circumference of a rolling circle as it details a pure rotation roll along a flat baseline without any slippage.
+                                    <br><strong>Involute:</strong> The locus traced by the end of a taut thread as it slowly unwinds outward from a stationary base polygon/circle perimeter.
+                                </p>
+                            </div>
+
+                            <div class="steps-container">
+                                <h5 class="text-xs font-black text-slate-100 uppercase tracking-wider">Tracing a Cycloid (Circle diameter D)</h5>
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Rolling Base Offset</div>
+                                        <div class="step-desc">Draw baseline = Circumference $\pi D$ (e.g., $50\text{mm} \times 3.1416 = 157\text{mm}$). Divide baseline into 12 segments.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Centerline locus</div>
+                                        <div class="step-desc">Draw parallel centerline locus of height D/2. Plot intermediate dynamic center points $C_1$ through $C_{12}$ directly above baseline divisions.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">3</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Arc Intersection Sweep</div>
+                                        <div class="step-desc">With compass radius = $D/2$, place point at each $C_n$ and draw intersecting arc targeting horizontal line level $n$ to trace cycloid loop.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box box-gold">
+                                <div class="box-title">🛠️ AutoCAD Command Block: Involute of a Circle (Diameter 40)</div>
+                                <div class="cmd-block">
+                                    <pre class="bg-transparent p-0 border-none font-mono text-[9px] text-[#f59e0b] overflow-x-auto select-all">CIRCLE; 0,0; 20; (Draw base circle)
+LINE; 20,0; @0,-125.66; (Draw tangent line of len pi*D = 125.66)
+PLINE; 20,0; 19.3,10.2; 14.8,20.4; 7.2,28.8; -2.1,33.5; -12.4,32.8; (Trace spiral outpoints)
+// Extrapolate tangents outwards as string unwinds</pre>
+                                </div>
+                            </div>
+
+                            <div class="pyq-item">
+                                <div class="pyq-year">2023</div>
+                                <div class="pyq-q">Draw the involute of a regular hexagon of side 25mm. Draw a tangent and normal to the curve at a distance of 100mm from center.</div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-topic 5: Scales -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">📏 Section 1.5: Scales (Plain & Diagonal)</span><div class="sec-line-modern"></div></div>
+                            <div class="formula">
+                                Representative Fraction (R.F.) = $\frac{\text{Length of drawing}}{\text{Actual object dimension}}$
+                                Length of Scale (L.O.S.) = R.F. $\times$ Maximum distance to represent
+                            </div>
+
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-card-title">Plain Scales</div>
+                                    <p class="text-xs text-slate-400">
+                                        Measures two consecutive dimensions (e.g., meters & decimeters; cm & mm). Drawn as a thin rectangle. Zero is marked after the first primary unit to permit left-aligned sub-units.
+                                    </p>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-title">Diagonal Scales (Principle of Similar Triangles)</div>
+                                    <p class="text-xs text-slate-400">
+                                        Permits measurement of three consecutive units or high decimal precision (e.g., 4.56m). Uses diagonal line division inside the leftmost primary unit offset block to divide width into 1/100ths.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="p-4 bg-emerald-950/20 border border-emerald-500/20 rounded-2xl">
+                                <h5 class="text-xs font-bold text-emerald-400 mb-2 font-cad">Solved Problem Matrix: Diagonal Scale</h5>
+                                <p class="text-xs text-slate-300">
+                                    Construct a scale of $1:40$ to read up to $6\text{m}$ and show a distance of $4.38\text{m}$ on it.
+                                </p>
+                                <ul class="styled-list mt-2 font-cad text-[10.5px]">
+                                    <li>$\text{R.F.} = \frac{1}{40}$</li>
+                                    <li>$\text{L.O.S.} = \frac{1}{40} \times 600\text{cm} = 15\text{cm}$</li>
+                                    <li>Divide 15cm into 6 parts (each representing 1m). Divide first block into 10 sub-units (each 1dm = 10cm).</li>
+                                    <li>Erect height of 50mm, divide vertically into 10 grids. Diagonal intersections trace $4\text{m} + 3\text{dm} + 8\text{cm} = 4.38\text{m}$.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Gamification XP Code Segment -->
+                        <div class="p-4 bg-black/60 border border-slate-900 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="text-left">
+                                <h4 class="text-xs font-black text-white font-cad uppercase">XP Trigger Script</h4>
+                                <p class="text-[10px] text-slate-500 font-mono mt-1">if (topicSolved === "conics") triggerXP(50, "Conics Master");</p>
+                            </div>
+                            <button onclick="triggerXP(50, 'Mastered Unit I basics')" class="px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all font-cad self-start sm:self-center shadow-lg shadow-cyan-500/20">Claim 50 XP 🚀</button>
                         </div>
                     </div>
                     
@@ -803,24 +1472,224 @@
                         <span class="text-xl font-extrabold text-emerald-500 font-cad">02</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">Orthographic Projections</h2>
                     </div>
-                    <div class="space-y-6 text-xs font-medium text-slate-400 font-sans">
-                        <p>Orthographic Projection converts a 3D object into 2D plans using mutually perpendicular reference planes: HP and VP.</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-2xl space-y-1">
-                                <b class="text-white text-xs block font-cad">Angle of Projection</b>
-                                <p class="text-[10px] leading-relaxed italic text-emerald-200/60">1st Angle (Indian Standard): Object in Q1, Plane of Projection behind. 3rd Angle (US Standard): Object in Q3, Plane between eye and object.</p>
+                    <div class="space-y-8 font-sans">
+                        <div class="p-5 bg-emerald-950/30 border border-emerald-500/15 rounded-2xl">
+                            <h3 class="text-sm font-black text-slate-100 uppercase tracking-widest mb-2 font-cad">Syllabus Overview</h3>
+                            <p class="text-xs text-slate-400 font-medium leading-relaxed">
+                                Principles of orthographic projection systems. Learn to resolve 3D Euclidean coordinates into pristine 2D layouts on Horizontal (HP), Vertical (VP), and Profile (PP) reference planes.
+                            </p>
+                        </div>
+
+                        <!-- Sub-topic 1: Intro & reference planes -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">🔲 Section 2.1: Reference Planes & Quadrants</span><div class="sec-line-modern"></div></div>
+                            <div class="imagination-block">
+                                <div class="imagination-label">The Glass Box Projection Metaphor</div>
+                                <p>
+                                    Imagine clamping an object inside a transparent cubic glass box. Peer through the top plane to trace the flat <strong>Top View (TV)</strong>, project your sightline from the front to trace the <strong>Front View (FV)</strong>, and from the side for the <strong>Side View (SV)</strong>. Unfold the glass box flat onto a single spreadsheet — this represents orthographic drawing.
+                                </p>
                             </div>
-                            <div class="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-2xl space-y-1">
-                                <b class="text-white text-xs block font-cad">Point Notations</b>
-                                <p class="text-[10px] leading-relaxed font-sans">Front View (VP) is marked as $\mathbf a'$ (alpha prime). Top View (HP) is marked as $\mathbf a$. All views must align via vertical projectors.</p>
+
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-card-title">Three Primary Reference Planes</div>
+                                    <ul class="styled-list">
+                                        <li><strong>Horizontal Plane (HP)</strong> — Receives the Top View, rotated $90^\circ$ clockwise to align.</li>
+                                        <li><strong>Vertical Plane (VP)</strong> — Stands stationary; receives the principal Front View.</li>
+                                        <li><strong>Profile Plane (PP)</strong> — Receives Side Views (Left side view goes to the right of FV).</li>
+                                    </ul>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-title">First vs Third Angle Projections</div>
+                                    <ul class="styled-list">
+                                        <li><strong>1st Angle (BIS Standard)</strong> — Object is placed between observer and plane. FV rests above XY, TV aligns below XY.</li>
+                                        <li><strong>3rd Angle (US Standard)</strong> — Projection plane sits between observer and object. TV sits above XY, FV is below XY.</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div class="bg-black/60 p-5 rounded-3xl border border-slate-900 flex items-center justify-between">
-                            <div class="space-y-1">
-                                <h5 class="text-white font-black text-xs font-cad uppercase tracking-widest">The Folding Rule</h5>
-                                <p class="text-[10px] text-slate-500 italic max-w-sm">To represent views on a single sheet, the HP must be rotated 90° clockwise until it is in the same plane as the VP.</p>
+
+                        <!-- Sub-topic 2: Points -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">⦿ Section 2.2: Projections of Points</span><div class="sec-line-modern"></div></div>
+                            <p class="text-xs text-slate-400">
+                                A point possesses Euclidean coordinate offsets relative to HP and VP. Unfolding HP down places coordinates on a shared vertical alignment line.
+                            </p>
+                            
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Quadrant & Location</th>
+                                        <th>Front View ($\mathbf{a'}$) location</th>
+                                        <th>Top View ($\mathbf{a}$) location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>1st Quadrant:</strong> Above HP, In front of VP</td>
+                                        <td>Above XY line</td>
+                                        <td>Below XY line</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>2nd Quadrant:</strong> Above HP, Behind VP</td>
+                                        <td>Above XY line</td>
+                                        <td>Above XY line</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>3rd Quadrant:</strong> Below HP, Behind VP</td>
+                                        <td>Below XY line</td>
+                                        <td>Above XY line</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>4th Quadrant:</strong> Below HP, In front of VP</td>
+                                        <td>Below XY line</td>
+                                        <td>Below XY line</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>On HP:</strong> Resting on Horizontal ground</td>
+                                        <td>Directly on the XY line</td>
+                                        <td>Distance from VP (above/below)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="box box-emerald font-cad">
+                                <div class="box-title">Coordinate Rule Checklist</div>
+                                <ul class="styled-list">
+                                    <li>FV distance from XY = Distance of Point from HP (Elevation height)</li>
+                                    <li>TV distance from XY = Distance of Point from VP (Plan depth)</li>
+                                    <li>FV & TV are always connected by a vertical link callout projector line perpendicular to XY.</li>
+                                </ul>
                             </div>
-                            <button onclick="window.switchSolverSec('quad-solver')" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-[10px] font-black uppercase font-cad shadow-lg shadow-emerald-500/20">Launch Explorer</button>
+                        </div>
+
+                        <!-- Sub-topic 3: Lines -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">📉 Section 2.3: Projection of Straight Lines</span><div class="sec-line-modern"></div></div>
+                            <div class="imagination-block">
+                                <div class="imagination-label">Tilted Line Vector Locus</div>
+                                <p>
+                                    As a segment tilts relative to a reference plane, its shadow (projection length) contracts. If a line segment tilts towards the VP (angle $\phi$), its Top View contracts. If it tilts towards the HP (angle $\theta$), its Front View contracts. True Length ($\mathbf{TL}$) is always the absolute maximum length vector.
+                                </p>
+                            </div>
+
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Line Configuration System</th>
+                                        <th>Front View (FV) Profile</th>
+                                        <th>Top View (TV) Profile</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Parallel to both HP & VP</td>
+                                        <td>Horizontal line ($\mathbf{TL}$); Parallel to XY</td>
+                                        <td>Horizontal line ($\mathbf{TL}$); Parallel to XY</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inclined to HP ($\theta$), Parallel to VP</td>
+                                        <td>Line tilted at angle $\theta$ ($\mathbf{TL}$)</td>
+                                        <td>Horizontal line; Apparent contracted length</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inclined to VP ($\phi$), Parallel to HP</td>
+                                        <td>Horizontal line; Apparent contracted length</td>
+                                        <td>Line tilted at angle $\phi$ ($\mathbf{TL}$)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inclined to both reference planes</td>
+                                        <td>Line inclined at apparent angle $\alpha$</td>
+                                        <td>Line inclined at apparent angle $\beta$</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4 class="text-xs font-black text-slate-100 uppercase tracking-wider mt-4">Rotation Solver Method for True Length ($\mathbf{TL}$)</h4>
+                            <div class="steps-container">
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Plot Apparent Projections</div>
+                                        <div class="step-desc">Draw apparent Front View $a'b'$ and Top View $ab$ utilizing the specified horizontal and vertical clearance coordinates.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Rotate Top View Line</div>
+                                        <div class="step-desc">With pivot point $a$ and compass radius $ab$, rotate the TV line vector until it is perfectly parallel to XY. Label the horizontal end point $b_1$.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">3</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Project Vertically to Locus</div>
+                                        <div class="step-desc">Project a thin vertical line upward from $b_1$ to intersect the horizontal locus line crossing $b'$. Label the intersection $b_1'$. Segment $a'b_1'$ represents the True Length ($\mathbf{TL}$). Angle with horizontal is the true HP inclination angle $\theta$.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box box-orange">
+                                <div class="box-title">⚡ AutoCAD Terminal Sequence: Tilted Line Constructor</div>
+                                <div class="cmd-block">
+                                    <div class="text-[8px] text-slate-500 mb-2">// Generate line inclined at 30 to HP, 45 to VP with A at (15,20,0)</div>
+                                    <pre class="bg-transparent p-0 border-none font-mono text-[9px] text-[#22d3ee] overflow-x-auto select-all">LINE; 0,50; 200,50; (Establish baseline XY)
+LINE; 20,65; @60.62&lt;14.3; (Draw apparent Front View)
+LINE; 20,30; @49.49&lt;-20.7; (Draw apparent Top View)
+// Rotate coordinate vectors to confirm True Length segment of 70mm</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-topic 4: Planes -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">🔷 Section 2.4: Projection of Planes</span><div class="sec-line-modern"></div></div>
+                            <p class="text-xs text-slate-400 leading-relaxed font-sans">
+                                Planes (laminae) are flat 2D shapes. When parallel to a reference plane, they show their <strong>True Shape</strong>. When inclined, they contract into distorted forms.
+                            </p>
+
+                            <div class="steps-container">
+                                <h5 class="text-xs font-black text-slate-100 uppercase tracking-wider">Multi-Stage Tilting Construction: Inclined to both HP & VP</h5>
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Stage 1: Simple/Parallel State</div>
+                                        <div class="step-desc">Assume plane is parallel to HP. Draw TV as its exact True Shape (e.g. regular pentagon). Draw FV as a simple horizontal line resting directly on XY.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Stage 2: HP Inclination ($\theta$)</div>
+                                        <div class="step-desc">Tilt the horizontal FV line to make the specified angle $\theta$ with the XY axes. Project vertical lines downward, and intersect with horizontal projectors from Stage 1 TV to get the compressed TV shape.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">3</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Stage 3: VP Inclination ($\phi$)</div>
+                                        <div class="step-desc">Rotate the edge of the compressed Stage 2 TV to make the required angle $\phi$ with the reference line. Project vertical lines upward, and intersect with horizontal lines from Stage 2 FV to identify final projection vertices.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2">
+                                <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest font-cad block">⭐ PYQ Vault Insights</span>
+                                <div class="pyq-item">
+                                    <div class="pyq-year">2023</div>
+                                    <div class="pyq-q">A regular hexagonal plate of side 30mm has one corner on HP. The plate is inclined at 45° to HP and the diagonal passing through the corner resting on HP is inclined at 30° to VP. Draw its projections.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gamification XP Code Segment -->
+                        <div class="p-4 bg-black/60 border border-slate-900 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="text-left font-sans">
+                                <h4 class="text-xs font-black text-white font-cad uppercase">XP Trigger Script</h4>
+                                <p class="text-[10px] text-slate-500 font-mono mt-1">if (pointsValidated === true) triggerXP(50, "Projection Alchemist");</p>
+                            </div>
+                            <button onclick="triggerXP(50, 'Mastered Unit II Orthographic projections')" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all font-cad self-start sm:self-center shadow-lg shadow-emerald-500/20">Claim 50 XP 🚀</button>
                         </div>
                     </div>
                     <div class="pt-6 mt-6 border-t border-slate-900">
@@ -837,32 +1706,155 @@
                         <span class="text-xl font-extrabold text-blue-500 font-cad">03</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">Projections of Solids</h2>
                     </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans font-medium">
-                        <p>Mastering inclined axes and revolution solids. Understanding hidden edges is critical for scoring marks.</p>
-                        
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                            <div class="bg-slate-950 p-4 border border-blue-900/30 rounded-2xl relative overflow-hidden group">
-                                <span class="text-[8px] font-black text-blue-500 block mb-1">CUBE / PRISM</span>
-                                <p class="text-[10px] leading-normal">Polyhedral with flat bases. Projection depends on base placement.</p>
+                    <div class="space-y-8 font-sans">
+                        <div class="p-5 bg-blue-950/30 border border-blue-500/15 rounded-2xl">
+                            <h3 class="text-sm font-black text-slate-100 uppercase tracking-widest mb-2 font-cad">Syllabus Overview</h3>
+                            <p class="text-xs text-slate-400 font-medium leading-relaxed">
+                                Deciphering three-dimensional geometries in space. Master bases, apex axes, and generators for polyhedrons and solids of revolution under complex double inclination scenarios.
+                            </p>
+                        </div>
+
+                        <!-- Sub-topic 1: Types of solids -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">🧊 Section 3.1: Taxonomy of Geometric Solids</span><div class="sec-line-modern"></div></div>
+                            <div class="box box-blue">
+                                <div class="box-title font-cad">Industrial Reality Connection</div>
+                                Every mechanical hardware, structural component, and architectural asset is a combination of primitive 3D solids. A bolt represents a cylinder wedded to a truncated cone; a nut is a hexagonal prism with a cylindrical core subtraction. Mastering solid projections is crucial to deciphering industrial master files.
                             </div>
-                            <div class="bg-slate-950 p-4 border border-blue-900/30 rounded-2xl relative overflow-hidden group">
-                                <span class="text-[8px] font-black text-blue-500 block mb-1">CYLINDER / CONE</span>
-                                <p class="text-[10px] leading-normal">Solids of revolution. Contour lines (generators) define shape.</p>
+                            
+                            <div class="solid-vis-modern">
+                                <div class="solid-card-modern">
+                                    <div class="solid-emoji-modern">🔷</div>
+                                    <div class="solid-name-modern">Tetrahedron</div>
+                                    <div class="solid-desc-modern">4 equal triangular faces</div>
+                                </div>
+                                <div class="solid-card-modern">
+                                    <div class="solid-emoji-modern">🏛️</div>
+                                    <div class="solid-name-modern">Prism</div>
+                                    <div class="solid-desc-modern">2 parallel bases + rectangles</div>
+                                </div>
+                                <div class="solid-card-modern">
+                                    <div class="solid-emoji-modern">🔺</div>
+                                    <div class="solid-name-modern">Pyramid</div>
+                                    <div class="solid-desc-modern">1 base + triangular faces</div>
+                                </div>
+                                <div class="solid-card-modern">
+                                    <div class="solid-emoji-modern">🍦</div>
+                                    <div class="solid-name-modern">Cone</div>
+                                    <div class="solid-desc-modern">Circular base revolving to apex</div>
+                                </div>
                             </div>
-                            <div class="bg-slate-950 p-4 border border-blue-900/30 rounded-2xl relative overflow-hidden group">
-                                <span class="text-[8px] font-black text-blue-500 block mb-1">INCLINED AXIS</span>
-                                <p class="text-[10px] leading-normal">Complex projections where the object is tilted to one or both planes.</p>
+
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-card-title">Group A: Polyhedrons</div>
+                                    <p class="text-xs text-slate-400">
+                                        Solids bounded strictly by flat polygon faces. Includes regular prisms (triangular, square, pentagonal, hexagonal) and pyramids. Polyhedrons are characterized by sharp edges and vertices.
+                                    </p>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-title">Group B: Solids of Revolution</div>
+                                    <p class="text-xs text-slate-400">
+                                        Generated by turning a flat 2D profile about a central stationary axis. Cylinder is generated by rotating a rectangle; cone is generated by rotating a right-angled triangle. Characterized by curved, continuous envelopes.
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="p-4 bg-blue-500/5 rounded-2xl border border-blue-500/20 flex gap-4 items-center">
-                            <div class="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                                <i data-lucide="box" class="w-6 h-6"></i>
+                        <!-- Sub-topic 2: Simple Axis positions -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">📐 Section 3.2: Solids with Axis Perpendicular to HP/VP</span><div class="sec-line-modern"></div></div>
+                            <div class="imagination-block">
+                                <div class="imagination-label">Axis Perpendicular Alignment</div>
+                                <p>
+                                    At perpendicular rest, look down from above (or front) directly parallel to the axis spinal cord vector. The base of the solid resolves into its true shape (e.g. circle for a standing cone, regular hexagon for a hexagonal prism). The opposing view displays height constraints.
+                                </p>
                             </div>
-                            <div class="flex-1">
-                                <h5 class="text-white font-bold text-xs uppercase mb-1">Wait for it... Hidden Lines!</h5>
-                                <p class="text-[10px] text-slate-500 italic leading-snug">The biggest mistake in JNTUK exams is missing dotted lines for obscured edges. Always check the relative observer position.</p>
+
+                            <div class="steps-container">
+                                <h5 class="text-xs font-black text-slate-100 uppercase tracking-wider">Drafting a Standing Cylinder (Axis $\perp$ HP)</h5>
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Draw Base Top View</div>
+                                        <div class="step-desc">Establish TV as a perfect circle of diameter D. Divide circle into 12 equal sections to map reference generators.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Project Front View Height</div>
+                                        <div class="step-desc">Project vertical lines upward from circle intersections. Draw FV as a thin outline rectangle of width D and height H.</div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- Sub-topic 3: Inclined Axis -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">🚀 Section 3.3: Solids with Axis Inclined to One Reference Plane</span><div class="sec-line-modern"></div></div>
+                            <p class="text-xs text-slate-400">
+                                When a solid tilts, its projections contract. Solving this is done via the **Two-Stage Projection Method** to avoid spatial confusion.
+                            </p>
+
+                            <div class="steps-container">
+                                <h5 class="text-xs font-black text-slate-100 uppercase tracking-wider">The Two-Stage Construction Sequence (e.g. Pentagonal Pyramid, Axis inclined at $\theta$ to HP)</h5>
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Stage 1: Assume Simple Position</div>
+                                        <div class="step-desc">Place base resting flat on HP with axis perpendicular to HP. Draw TV as a regular pentagon. Project vertices upward to draw FV as a triangle of height H.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Stage 2: Tilt Face/Axis in Elevation</div>
+                                        <div class="step-desc">Recreate the Stage 1 FV triangle, tilting its base (or axis centerline) to make the prescribed angle $\theta$ with the horizontal line XY. Keep the base's lower edge point on XY.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">3</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Stage 3: Vector Intersection for TV</div>
+                                        <div class="step-desc">Project vertical lines downward from the tilted FV vertices. Intersect with horizontal projectors from the Stage 1 flat pentagonal TV to locate final projection points. Connect coordinates smoothly.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl space-y-2">
+                                <span class="text-[9px] font-black text-rose-500 uppercase tracking-widest font-cad block">⚠️ Exam Trap: Obscured Edges (Dashed Lines)</span>
+                                <p class="text-xs text-slate-300">
+                                    When looking from the top, some edges are hidden by the solid itself. Identify these by tracing the highest points in FV first — these are fully visible. The lower contour edges resting on HP will be obscured, and must be drawn as dashed lines.
+                                </p>
+                            </div>
+
+                            <div class="box box-purple">
+                                <div class="box-title">📐 AutoCAD Terminal Script: Standing Hexagonal Prism (Base 30, Height 70)</div>
+                                <div class="cmd-block">
+                                    <pre class="bg-transparent p-0 border-none font-mono text-[9px] text-[#22d3ee] overflow-x-auto select-all">POLYGON; 6; 100,100; I; 30; (Draw base hexagon in TV)
+LINE; 70,100; 130,100; (Draw projection baseline)
+EXTRUDE; last; ; 70; (Extrude 2D hexagon into 3D hexagonal baseline shape)
+// Show hidden face edges on back layer via HIDE/3DPROJECT options</pre>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2">
+                                <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest font-cad block">⭐ PYQ Vault Insights</span>
+                                <div class="pyq-item">
+                                    <div class="pyq-year">2023</div>
+                                    <div class="pyq-q">A pentagonal pyramid of base side 30mm and axis length 60mm has its base on HP. The axis is inclined at 40° to HP and parallel to VP. Draw its front and top projections.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gamification XP Code Segment -->
+                        <div class="p-4 bg-black/60 border border-slate-900 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="text-left font-sans">
+                                <h4 class="text-xs font-black text-white font-cad uppercase">XP Trigger Script</h4>
+                                <p class="text-[10px] text-slate-500 font-mono mt-1">if (solidsProjected === true) triggerXP(60, "Solid Architect");</p>
+                            </div>
+                            <button onclick="triggerXP(60, 'Mastered Unit III Solids Projections')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all font-cad self-start sm:self-center shadow-lg shadow-blue-500/20">Claim 60 XP 🚀</button>
                         </div>
                     </div>
                     <div class="pt-6 mt-6 border-t border-slate-900">
@@ -879,26 +1871,137 @@
                         <span class="text-xl font-extrabold text-rose-500 font-cad">04</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">Sections & Development</h2>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-                        <div class="space-y-4">
-                            <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-slate-900 pb-2">Part A: Sectional Views</h3>
-                            <p class="text-xs text-slate-450 leading-relaxed">
-                                Used to reveal internal details. A cutting plane slices the object. The cut surface is highlighted by <b class="text-rose-450 font-cad italic">Hatching Lines</b> (drawn at 45°).
+                    <div class="space-y-8 font-sans">
+                        <div class="p-5 bg-rose-950/30 border border-rose-500/15 rounded-2xl">
+                            <h3 class="text-sm font-black text-slate-100 uppercase tracking-widest mb-2 font-cad">Syllabus Overview</h3>
+                            <p class="text-xs text-slate-400 font-medium leading-relaxed">
+                                Peering inside internal structural cavities. Learn Section plane incisions and unfold three-dimensional envelopes flat into 2D sheet metal patterns via Parallel and Radial Line developments.
                             </p>
-                            <div class="bg-rose-500/5 p-3 rounded-xl border border-rose-500/20">
-                                <h5 class="text-[9px] font-black text-rose-400 uppercase tracking-widest mb-1 italic">EXAM TIP: TRUE SHAPE</h5>
-                                <p class="text-[10px] text-slate-400">Sectional view projected parallel to the cutting plane is the True Shape.</p>
+                        </div>
+
+                        <!-- Sub-topic 1: Sectional Views -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">✂️ Section 4.1: Section Plane Incisions & Sectional Views</span><div class="sec-line-modern"></div></div>
+                            <div class="box box-blue">
+                                <div class="box-title">Why We Cut of Solids</div>
+                                In mechanical design, external representations fail to convey internal core patterns. Think of an engine piston cylinder or valve chamber — solid black outlines look completely opaque. By cutting the solid with an imaginary **Cutting Plane Line**, we expose the intricate internal pathways clearly.
+                            </div>
+
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-card-title">Section Plane Positions</div>
+                                    <ul class="styled-list">
+                                        <li><strong>Horizontal Cutting Plane (HSP)</strong> — Parallel to HP & $\perp$ to VP. Generates the Sectional TV.</li>
+                                        <li><strong>Vertical Cutting Plane (VSP)</strong> — Parallel to VP & $\perp$ to HP. Generates the Sectional FV.</li>
+                                        <li><strong>Auxiliary Inclined Plane (AIP)</strong> — Inclined to HP & $\perp$ to VP. Generates distorted sectional views.</li>
+                                    </ul>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-title">Hatching Norms (BIS SP46)</div>
+                                    <ul class="styled-list">
+                                        <li>Drawn as fine continuous thin lines (0.35mm) representing a sliced solid profile.</li>
+                                        <li>Angled at uniform $45^\circ$ inclinations to the primary baseline axes.</li>
+                                        <li>Spaced symmetrically about 1mm to 3mm apart depending on drawing size scale.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="p-4 bg-rose-950/20 border border-rose-500/30 rounded-2xl">
+                                <h5 class="text-xs font-bold text-rose-400 mb-2 font-cad">The Holy Grail Concept: True Shape vs Apparent Shape</h5>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    When an inclined plane cuts a cylinder or cone, looking straight down onto HP shows a distorted, shortened ellipse. This is the <strong>Apparent Sectional Shape</strong>.
+                                    <br>To view the actual, uncontracted sectional cut, look perpendicular to the inclined cutting plane. Project lines perpendicular to the cut onto an auxiliary plane parallel to it. This produces the <strong>True Shape of Section</strong> — for an inclined cut on a cylinder, this true shape is a perfect, undistorted ellipse.
+                                </p>
+                            </div>
+
+                            <div class="steps-container">
+                                <h5 class="text-xs font-black text-slate-100 uppercase tracking-wider">Tracing the Sectional Cut (Cylinder with AIP cut)</h5>
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Plot Cutting Plane</div>
+                                        <div class="step-desc">Establish the AIP inclined section line in the Front View making angle $\theta$ with baseline XY, cutting across cylinder generators.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Project Intersections</div>
+                                        <div class="step-desc">Identify intersections of the section line with each generator wireframe path. Project these intersection points vertically down into the TV.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">3</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Develop Aux Line $X_1 Y_1$</div>
+                                        <div class="step-desc">Draw auxiliary reference axis line $X_1 Y_1$ parallel to the inclined cutting plane. Project perpendicular distance offsets from the TV onto this line to trace the perfect True Shape of Section.</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Sub-topic 2: Development -->
                         <div class="space-y-4">
-                            <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-slate-900 pb-2">Part B: Developments</h3>
-                            <p class="text-xs text-slate-450 leading-relaxed font-sans font-medium">
-                                Pattern for sheet metal cutting. Flattening a 3D solid into a 2D sheet. 
-                            </p>
-                            <ul class="space-y-2 font-cad uppercase text-[9px] font-black text-slate-500">
-                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i> PARALLEL LINE (Prisms/Cylinders)</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i> RADIAL LINE (Pyramids/Cones)</li>
-                            </ul>
+                            <div class="sec-header-modern"><span class="sec-label-modern">📦 Section 4.2: Development of Surfaces (Sheet Metal Patterns)</span><div class="sec-line-modern"></div></div>
+                            <div class="imagination-block">
+                                <div class="imagination-label">Surface Unfolding Logic</div>
+                                <p>
+                                    Imagine peeling the jacket off a solid. Slice along the shortest edge and roll it out flat onto a steel tabletop. This flat template of its bounding boundary skin is the <strong>Development</strong>. In manufacturing, precision developments prevent metal waste and ensure perfect bends.
+                                </p>
+                            </div>
+
+                            <div class="info-grid font-sans">
+                                <div class="info-card">
+                                    <div class="info-card-title">1. Parallel Line Development</div>
+                                    <p class="text-xs text-slate-400 mb-2">Used for prisms and cylinder envelopes where generators run parallel.</p>
+                                    <ul class="styled-list">
+                                        <li>Total perimeter is laid out on a straight baseline of length $L = n \times S$ (prism) or $L = \pi D$ (cylinder).</li>
+                                        <li>Draw vertical generator division boundaries along this baseline length.</li>
+                                        <li>Project cutout heights horizontally from sectional FV to find intersecting profile weld points.</li>
+                                    </ul>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-title">2. Radial Line Development</div>
+                                    <p class="text-xs text-slate-400 mb-2">Used for radial pyramids and cones where generators converge at an apex.</p>
+                                    <ul class="styled-list">
+                                        <li>Unfolded sweep form is a circular sector with True slant height radius $R$ and apex angle $\theta$.</li>
+                                        <li>Angle Formula: $\theta = \frac{r}{R} \times 360^\circ$ (cone) where $r$ is base radius.</li>
+                                        <li>Transfer generator cut measurements from pyramid/cone FV using radial compass sweeps.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="box box-green">
+                                <div class="box-title">⚡ AutoCAD Command Sequence: Cylinder Hatching & Cutting Profile</div>
+                                <div class="cmd-block">
+                                    <pre class="bg-transparent p-0 border-none font-mono text-[9px] text-emerald-400 overflow-x-auto select-all">RECTANG; 0,0; 60,100; (Base cylindrical form)
+LINE; 0,60; 60,100; (Inclined cutting plane line)
+TRIM; last; ; 0,100; 30,100; (Truncate top half cylinder profile)
+BHATCH; (Type Hatch command. Select ANSI31, Angle 45, Scale 1.5. Click boundary)
+// Internal sectional details are now textured with precise standard hatching lines</pre>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2 font-sans">
+                                <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest font-cad block">⭐ PYQ Vault Insights</span>
+                                <div class="pyq-item">
+                                    <div class="pyq-year">2023</div>
+                                    <div class="pyq-q">A square prism of base side 35mm and height 70mm stands standing on HP with base edges equally inclined to VP. It is cut by a section plane perpendicular to VP, inclined at 45° to HP and passing through a point on the axis 40mm above base. Draw sectional top view and actual true shape of section.</div>
+                                </div>
+                                <div class="pyq-item">
+                                    <div class="pyq-year">2022</div>
+                                    <div class="pyq-q">Draw the development of the lateral surface of a truncated cone of base diameter 40mm and axis length 60mm cut by a plane passing through midpoint of axis making 30° with HP.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gamification XP Code Segment -->
+                        <div class="p-4 bg-black/60 border border-slate-900 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="text-left font-sans">
+                                <h4 class="text-xs font-black text-white font-cad uppercase font-sans">XP Trigger Script</h4>
+                                <p class="text-[10px] text-slate-500 font-mono mt-1">if (cutsSolved === true) triggerXP(60, "Metal Architect");</p>
+                            </div>
+                            <button onclick="triggerXP(60, 'Mastered Unit IV Section and Development')" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all font-cad self-start sm:self-center shadow-lg shadow-rose-500/20 font-sans">Claim 60 XP 🚀</button>
                         </div>
                     </div>
                     <div class="pt-6 mt-12 border-t border-slate-900">
@@ -915,31 +2018,181 @@
                         <span class="text-xl font-extrabold text-amber-500 font-cad">05</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">Isometric & CAD System</h2>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center font-sans">
-                        <div class="md:col-span-8 space-y-4">
-                            <p class="text-xs text-slate-400 font-medium">Isometric maps 2D plans into a pseudo-3D view using 30° inclined axes. <b>Conversion</b> involves reconstruction of 3D objects from 2D ortho views.</p>
-                            <div class="grid grid-cols-2 gap-4 pt-2 font-cad uppercase text-[10px]">
-                                <div class="bg-black/40 p-4 border border-slate-900 rounded-2xl flex flex-col justify-between h-24 group hover:border-amber-500/50 transition-all">
-                                    <span class="text-amber-500 font-black tracking-widest block mb-1">ISO SCALE</span>
-                                    <h5 class="text-white text-lg font-black italic">0.815</h5>
-                                    <p class="text-[8px] text-slate-700 leading-none mt-1 italic">Reduction factor for Isometric Projections.</p>
+                    <div class="space-y-8 font-sans">
+                        <div class="p-5 bg-amber-950/30 border border-amber-500/15 rounded-2xl">
+                            <h3 class="text-sm font-black text-slate-100 uppercase tracking-widest mb-2 font-cad">Syllabus Overview</h3>
+                            <p class="text-xs text-slate-400 font-medium leading-relaxed">
+                                Three-dimensional spatial reconstruction. Master isometric projection scales and 30-degree coordinate mappings. Discover basic CAD syntax, terminal switches, and layers for digital drafting structures.
+                            </p>
+                        </div>
+
+                        <!-- Sub-topic 1: Isometric Projection vs Views -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">📐 Section 5.1: Isometric Projections vs Isometric Views</span><div class="sec-line-modern"></div></div>
+                            <div class="box box-blue">
+                                <div class="box-title">The 3D Parallel Vision Illusion</div>
+                                Unlike perspective drawings where parallel straight lines converge at distant vanishing points (the way train tracks look), Isometric drawing keeps all parallel lines parallel. This allows engineers to measure dimensions directly from the 3D drawing, a critical property for technical assembly guidelines.
+                            </div>
+
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-card-title">Isometric Scale Ratio (0.815)</div>
+                                    <p class="text-xs text-slate-400 mb-2">When viewing a cube along its solid diagonal, all axes tilt at $35^\circ 16'$ resulting in a foreshortening effect of approximately 82%.</p>
+                                    <div class="formula">
+                                        \text{Isometric Length} = \text{True Length} \times \cos 30^\circ / \cos 45^\circ \approx 0.815 \times \text{True Length}
+                                    </div>
+                                    <ul class="styled-list mt-2">
+                                        <li><strong>Isometric Projection:</strong> Drawn using the contracted **Isometric Scale** (0.815 length reduction).</li>
+                                        <li><strong>Isometric View / Drawing:</strong> Drawn using **True Dimensions** (1:1 scale; 18% larger than projection but preserves proportions).</li>
+                                    </ul>
                                 </div>
-                                <div class="bg-black/40 p-4 border border-slate-900 rounded-2xl flex flex-col justify-between h-24 group hover:border-indigo-500/50 transition-all">
-                                    <span class="text-indigo-400 font-black tracking-widest block mb-1">CAD COMMAND</span>
-                                    <h5 class="text-white text-lg font-black italic">TRIM / RO</h5>
-                                    <p class="text-[8px] text-slate-700 leading-none mt-1 italic">Fundamental Computer Drafting Operations.</p>
+                                <div class="info-card">
+                                    <div class="info-card-title">The Three Isometric Axes</div>
+                                    <ul class="styled-list">
+                                        <li>One vertical line axis ($90^\circ$ vertical coordinate).</li>
+                                        <li>Two horizontal lines angled at exactly $30^\circ$ left and right from the baseline.</li>
+                                        <li>Any line parallel to these axes is a **historic Iso-line**; dimensions along these are fully measurable.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="md:col-span-4 bg-slate-950 p-6 rounded-3xl border border-slate-900 text-center relative overflow-hidden group">
-                           <div class="absolute inset-0 blueprint-grid opacity-5 pointer-events-none"></div>
-                           <h5 class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Isometric Grid Viewer</h5>
-                           <div class="w-full h-32 bg-black border border-slate-800 rounded-xl relative flex items-center justify-center p-2">
-                                <div class="w-12 h-12 border-2 border-amber-500/40 transform rotate-45 animate-cad-spin"></div>
-                                <div class="absolute inset-x-2 h-px bg-amber-500/10 top-1/2"></div>
-                                <div class="absolute inset-y-2 w-px bg-amber-500/10 left-1/2"></div>
-                           </div>
-                           <p class="text-[8.5px] text-slate-500 mt-2 font-mono italic">30° Projections mapping...</p>
+
+                        <!-- Sub-topic 2: Four-Center Method for Circles -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">⭕ Section 5.2: Isometric Circles (Four-Center Method)</span><div class="sec-line-modern"></div></div>
+                            <p class="text-xs text-slate-450 leading-relaxed">
+                                A circular profile viewed in isometric perspective tilts to become a symmetrical ellipse. Since drafting conics manually is difficult, we construct an approximate ellipse using four circular arcs.
+                            </p>
+
+                            <div class="steps-container">
+                                <h5 class="text-xs font-black text-slate-100 uppercase tracking-wider">The 4-Center Ellipse Construction Process</h5>
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Draw Isometric Square (Rhombus)</div>
+                                        <div class="step-desc">Draw a rhombus ABCD of side length = Cylinder Diameter D. Align edges at exact $30^\circ$ angles. Mark midpoints 1, 2, 3, and 4 on all sides.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Connect Vertices to Midpoints</div>
+                                        <div class="step-desc">Connect obtuse vertices A and C to their opposite midpoints. Line segment A3, A4 & C1, C2 will intersect along the diagonal, creating two auxiliary center coordinates $P$ and $Q$.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">3</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Sweep the Four Arcs</div>
+                                        <div class="step-desc">Sweep arc 1-2 with center C. Sweep arc 3-4 with center A. Sweep short arc 1-4 with center P. Sweep short arc 2-3 with center Q. The four joint arcs form a smooth ellipse.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-topic 3: Ortho to Iso conversion -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">🔄 Section 5.3: Conversion of Orthographic Views to Isometric</span><div class="sec-line-modern"></div></div>
+                            <div class="steps-container">
+                                <h5 class="text-xs font-black text-slate-100 uppercase tracking-wider">Solving 2D Orthographic Assembly into 3D Views</h5>
+                                <div class="step-card">
+                                    <div class="step-num">1</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Create the Bounding Box</div>
+                                        <div class="step-desc">Determine Overall Width (W), Depth (D), and Height (H) from FV and TV. Draw an outer isometric box of dimensions W × D × H angled at 30 degrees.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">2</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Trace Principal Face Features</div>
+                                        <div class="step-desc">Map layout silhouettes from the orthographic Front View onto the front face of the box, and Top View details onto the top face.</div>
+                                    </div>
+                                </div>
+                                <div class="step-card">
+                                    <div class="step-num">3</div>
+                                    <div class="step-body">
+                                        <div class="step-title">Subtract Cavities & Darken profiles</div>
+                                        <div class="step-desc">Cut in steps or subtract unwanted slots inside the bounding box. Retrace and darken all final outlines; leave rear hidden lines out of isometric drawings.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-topic 4: CAD Basics -->
+                        <div class="space-y-4">
+                            <div class="sec-header-modern"><span class="sec-label-modern">💻 Section 5.4: Computer-Aided Drafting (CAD) Foundations</span><div class="sec-line-modern"></div></div>
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-card-title">Essential Drawing Commands</div>
+                                    <ul class="styled-list">
+                                        <li><code>L</code> / <code>LINE</code> — Draws point-to-point lines</li>
+                                        <li><code>C</code> / <code>CIRCLE</code> — Draws center-radius circles</li>
+                                        <li><code>REC</code> / <code>RECTANGLE</code> — Generates closed rectangles</li>
+                                        <li><code>POL</code> / <code>POLYGON</code> — Constructs regular multi-sided shapes</li>
+                                        <li><code>A</code> / <code>ARC</code> — Sweeps multi-point curves</li>
+                                    </ul>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-title">Modification & Editing Commands</div>
+                                    <ul class="styled-list">
+                                        <li><code>TR</code> / <code>TRIM</code> — Snippets lines off intersections</li>
+                                        <li><code>O</code> / <code>OFFSET</code> — Generates parallel copy contours</li>
+                                        <li><code>MI</code> / <code>MIRROR</code> — Reflects profiles across an axis</li>
+                                        <li><code>CO</code> / <code>COPY</code> / <code>M</code> / <code>MOVE</code> — Duplicates or repositions profiles</li>
+                                        <li><code>F</code> / <code>FILLET</code> — Rounds off sharp internal/external corners</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="box box-emerald">
+                                <div class="box-title">📁 CAD Layer Architecture Matrix</div>
+                                <table class="data-table mt-2 text-[10px]">
+                                    <thead>
+                                        <tr>
+                                            <th>Layer Name</th>
+                                            <th>Linetype</th>
+                                            <th>Weight</th>
+                                            <th>Default Color</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>01_OUTLINE</strong></td>
+                                            <td>Continuous</td>
+                                            <td>0.70 mm</td>
+                                            <td>White / Jet Black</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>02_HIDDEN</strong></td>
+                                            <td>DASHED (Hidden)</td>
+                                            <td>0.35 mm</td>
+                                            <td>Red / Yellow</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>03_CENTER</strong></td>
+                                            <td>CENTER (Long-short dash)</td>
+                                            <td>0.20 mm</td>
+                                            <td>Green / Cyan</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>04_DIMENSION</strong></td>
+                                            <td>Continuous</td>
+                                            <td>0.35 mm</td>
+                                            <td>Magenta</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Gamification XP Code Segment -->
+                        <div class="p-4 bg-black/60 border border-slate-900 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="text-left font-sans">
+                                <h4 class="text-xs font-black text-white font-cad uppercase">XP Trigger Script</h4>
+                                <p class="text-[10px] text-slate-500 font-mono mt-1">if (cadCompleted === true) triggerXP(60, "Digital Blueprinter");</p>
+                            </div>
+                            <button onclick="triggerXP(60, 'Mastered Unit V Isometric Projections and CAD')" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all font-cad self-start sm:self-center shadow-lg shadow-amber-500/20">Claim 60 XP 🚀</button>
                         </div>
                     </div>
                     <div class="pt-6 mt-12 border-t border-slate-900">
