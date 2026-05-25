@@ -1,168 +1,909 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Engi Prep Hub — PPS C Programming | JNTUK R23</title>
-    <link rel="canonical" href="https://engiprephub.in/c-programming-notes">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #050810;
+  --surface: #0d1117;
+  --glass: rgba(255,255,255,0.03);
+  --glass-border: rgba(255,255,255,0.07);
+  --accent: #00f5a0;
+  --accent2: #00d9f5;
+  --accent3: #7c3aed;
+  --accent4: #f59e0b;
+  --accent5: #ef4444;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --code-bg: #0a0d14;
+  --line: rgba(255,255,255,0.05);
+  --glow: 0 0 40px rgba(0,245,160,0.12);
+  --glow2: 0 0 40px rgba(0,217,245,0.12);
+}
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { scroll-behavior: smooth; }
 
-    <meta property="og:title" content="Engi Prep Hub — PPS C Programming | JNTUK R23">
-    <meta property="og:description" content="The ultimate JNTUK R23 engineering prep platform.">
-    <meta property="og:url" content="https://engiprephub.in/c-programming-notes">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="EngiPrep Hub">
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
 
+/* ── BACKGROUND GRID ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,245,160,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,160,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
 
-    <!-- Google AdSense -->
-    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9357545069587539" crossorigin="anonymous"></script>
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 260px;
+  background: rgba(13,17,23,0.97);
+  border-right: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-bottom: 2rem;
+}
 
+.sidebar-logo {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "Engi Prep Hub — PPS C Programming | JNTUK R23",
-      "description": "The ultimate JNTUK R23 engineering prep platform.",
-      "provider": {
-        "@type": "Organization",
-        "name": "EngiPrep Hub",
-        "sameAs": "https://engiprephub.in"
-      }
-    }
-    </script>
+.logo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
 
+.logo-sub {
+  color: var(--muted);
+  font-size: 0.7rem;
+  margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+}
 
-  
-  
-  
+.unit-nav { padding: 1rem 0; }
 
-    <link rel="canonical" href="https://engiprephub.in/c-programming-notes">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Mono:ital,wght@0,400;0,500;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style id="engiprephub-elite-core">
-    :root {
-      --bg: #050508;
-      --glass: rgba(15, 23, 42, 0.6);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --accent: #3b82f6;
-      --accent-glow: rgba(59, 130, 246, 0.2);
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-    }
-    
-    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+.unit-nav-title {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
 
-    .glass-card {
-      background: var(--glass);
-      backdrop-filter: blur(24px);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    
-    .glass-card:hover { border-color: var(--accent-glow); transform: translateY(-4px); }
+.unit-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0.65rem 1.5rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  border-left: 2px solid transparent;
+}
 
-    .topic-section { margin-bottom: 5rem; }
-    
-    .sec-divider {
-      display: flex; align-items: center; gap: 16px; margin: 3rem 0 1.5rem 0;
-    }
-    .sec-line { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); }
-    .sec-label {
-      font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 1.5px; color: var(--accent); padding: 6px 16px; 
-      background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.15); border-radius: 100px;
-    }
+.unit-btn:hover { color: var(--text); background: var(--glass); }
+.unit-btn.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: rgba(0,245,160,0.05);
+}
 
-    .formula-card {
-      background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem;
-      border-left: 4px solid var(--accent);
-    }
-    
-    .ai-tools-dock {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: rgba(13, 17, 23, 0.85);
-      backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 100px;
-      display: flex; gap: 12px; padding: 8px 12px; z-index: 1000;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    }
-    
-    .ai-btn {
-      background: transparent; border: none; padding: 10px 18px; border-radius: 100px; color: var(--text-muted);
-      font-weight: 600; font-size: 0.75rem; display: flex; align-items: center; gap: 8px; cursor: pointer;
-      transition: 0.3s;
-    }
-    .ai-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
-    
-    .check-list li { position: relative; padding-left: 28px; margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-muted); }
-    .check-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 900; }
-    </style>
-<meta name="description" content="Access JNTUK R23 notes, PYQs, formulas, calculators, and Engineering Graphics tutorials on Engi Prep Hub."></head>
-<body><header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-[#030306]/85 border-b border-slate-200 dark:border-slate-800 transition-colors">
-        <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between" aria-label="Main Navigation">
-            <a href="/" class="flex items-center gap-4 group" aria-label="EngiPrep Hub Homepage">
-                <div class="relative w-12 h-12 flex items-center justify-center">
-                    <!-- Custom SVG Logo -->
-                    <div class="absolute inset-0 from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20 hover:border-blue-500/40 duration-300 bg-slate-900"></div>
-                    <svg class="relative z-10 w-7 h-7 text-slate-900 dark:text-slate-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-                    </svg>
-                    <!-- Gear accents -->
-                    <div class="absolute -top-1 -right-1 w-4 h-4 bg-blue-400/20 rounded-full blur-sm group-hover:scale-150 transition-transform" aria-hidden="true"></div>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-blue-600 dark:text-blue-400">Hub</span></span>
-                    <div class="flex items-center gap-1.5 mt-1.5">
-                        <div class="h-[1px] w-3 bg-slate-200 dark:bg-slate-800"></div>
-                        <span class="text-[7px] font-black uppercase tracking-[0.25em] text-slate-400 dark:text-slate-400">Prepare • Practice • Perform</span>
-                        <div class="h-[1px] w-3 bg-slate-200 dark:bg-slate-800"></div>
-                    </div>
-                </div>
-            </a>
-            
-            <div class="hidden lg:flex items-center gap-8" id="dekstop-nav-menu">
-                <a href="/notes.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse JNTUK Study Notes">Study Notes</a>
-                <a href="/pyqs.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse Previous Year Solved Question Papers">Solved PYQs</a>
-                <a href="/cheat-sheets.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse Chemical and Mathematical Formula Sheets">Cheat Sheets</a>
-                <a href="/tools.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse GPA and Credit Calculators">Academic Tools</a>
-                <a href="/tasks.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Manage Study Tasks and Deadlines">Tasks</a>
-                <a href="/blog.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Read Educational Blog and Placement Articles">Academic Blog</a>
-            </div>
+.unit-btn .unit-num {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  flex-shrink: 0;
+}
 
-            
-            
-            <div class="flex items-center gap-4" id="nav-actions">
-                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                </button>
-                <!-- Fallback skeleton, populated directly by platform user context scripts -->
-                <div class="h-10 w-24 bg-slate-100 dark:bg-slate-900 rounded-xl animate-pulse"></div>
-            </div>
-        </nav>
-    </header>
-      <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
-          
-    <header class="mb-14 p-10 glass-card">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-                
-                <h1 class="text-4xl lg:text-7xl font-black text-white tracking-tighter">Engi Prep Hub — PPS C Programming <span class="text-blue-500">Survival Kit</span></h1>
-                <p class="text-slate-400 mt-4 max-w-2xl font-medium">Hyper-focused JNTUK R23 preparation module. Concept intuition first, exam mastery second.</p>
-            </div>
-            <div class="flex items-center gap-3">
-               <div class="px-5 py-3 bg-white/5 rounded-2xl border border-white/10 text-center">
-                  <div class="text-[10px] font-black text-slate-500 uppercase">Success Rate</div>
-                  <div class="text-xl font-black text-blue-500">98%</div>
-               </div>
-            </div>
-        </div>
-    </header>
-  
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-              <div class="lg:col-span-9 space-y-16">
-                  
+.unit-btn[data-unit="1"] .unit-num { background: rgba(0,245,160,0.15); color: var(--accent); }
+.unit-btn[data-unit="2"] .unit-num { background: rgba(0,217,245,0.15); color: var(--accent2); }
+.unit-btn[data-unit="3"] .unit-num { background: rgba(124,58,237,0.15); color: #a78bfa; }
+.unit-btn[data-unit="4"] .unit-num { background: rgba(245,158,11,0.15); color: var(--accent4); }
+.unit-btn[data-unit="5"] .unit-num { background: rgba(239,68,68,0.15); color: var(--accent5); }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  margin-left: 260px;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  position: sticky; top: 0;
+  background: rgba(5,8,16,0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+  padding: 0.9rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+}
+
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.breadcrumb span { color: var(--accent); }
+
+.mode-tabs {
+  display: flex; gap: 4px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.mode-tab {
+  padding: 4px 14px;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.mode-tab.active { background: var(--accent); color: #000; font-weight: 600; }
+
+/* ── HERO ── */
+.unit-hero {
+  padding: 3rem 2.5rem 2rem;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.unit-hero::after {
+  content: '';
+  position: absolute;
+  right: -100px; top: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,245,160,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.unit-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 1rem;
+}
+
+.unit-hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.75rem;
+}
+
+.unit-hero p {
+  color: var(--muted);
+  max-width: 600px;
+  font-size: 0.95rem;
+}
+
+.topic-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 1.5rem;
+}
+
+.pill {
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── CONTENT AREA ── */
+.content-area { padding: 2rem 2.5rem; }
+
+/* ── SECTION BLOCK ── */
+.section-block {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.section-block:hover { border-color: rgba(255,255,255,0.12); }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  user-select: none;
+  background: rgba(255,255,255,0.01);
+}
+
+.section-header:hover { background: rgba(255,255,255,0.03); }
+
+.section-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.si-green { background: rgba(0,245,160,0.12); }
+.si-blue { background: rgba(0,217,245,0.12); }
+.si-purple { background: rgba(124,58,237,0.12); }
+.si-yellow { background: rgba(245,158,11,0.12); }
+.si-red { background: rgba(239,68,68,0.12); }
+.si-pink { background: rgba(236,72,153,0.12); }
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+}
+
+.section-chevron {
+  color: var(--muted);
+  font-size: 0.8rem;
+  transition: transform 0.2s;
+}
+
+.section-block.open .section-chevron { transform: rotate(180deg); }
+
+.section-body { padding: 1.5rem; display: none; }
+.section-block.open .section-body { display: block; }
+
+/* ── TYPOGRAPHY ── */
+.prose { font-size: 0.9rem; color: var(--text); line-height: 1.8; }
+.prose p { margin-bottom: 0.8rem; }
+.prose strong { color: var(--accent); font-weight: 600; }
+.prose em { color: var(--accent2); font-style: normal; font-weight: 500; }
+.highlight { color: var(--accent4); font-weight: 600; }
+
+/* ── INFO CARDS GRID ── */
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1rem 0; }
+
+.info-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.1rem;
+}
+
+.info-card-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.info-card-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ── CODE BLOCK ── */
+.code-wrap {
+  background: var(--code-bg);
+  border: 1px solid rgba(0,245,160,0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 1rem 0;
+  box-shadow: 0 0 30px rgba(0,245,160,0.05);
+}
+
+.code-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1rem;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--line);
+}
+
+.code-dots { display: flex; gap: 6px; }
+.code-dots span {
+  width: 11px; height: 11px; border-radius: 50%;
+}
+.cd1 { background: #ef4444; }
+.cd2 { background: #f59e0b; }
+.cd3 { background: #22c55e; }
+
+.code-lang {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.code-copy {
+  background: rgba(0,245,160,0.1);
+  border: 1px solid rgba(0,245,160,0.2);
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.code-copy:hover { background: rgba(0,245,160,0.2); }
+
+pre {
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: #e2e8f0;
+}
+
+/* Syntax Colors */
+.kw { color: #7c3aed; font-weight: 600; }   /* keywords */
+.fn { color: #00d9f5; }                        /* functions */
+.str { color: #f59e0b; }                       /* strings */
+.num { color: #00f5a0; }                       /* numbers */
+.cm { color: #475569; font-style: italic; }    /* comments */
+.pp { color: #ec4899; }                        /* preprocessor */
+.tp { color: #a78bfa; }                        /* types */
+.op { color: #94a3b8; }                        /* operators */
+.var { color: #e2e8f0; }                       /* variables */
+
+/* ── EXPLANATION LIST ── */
+.explain-list { list-style: none; margin: 0.75rem 0; }
+.explain-list li {
+  display: flex;
+  gap: 10px;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.86rem;
+}
+.explain-list li:last-child { border-bottom: none; }
+.explain-list li .ln {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  padding-top: 2px;
+  min-width: 55px;
+}
+.explain-list li .ld { color: var(--text); }
+.explain-list li .ld strong { color: var(--accent2); }
+
+/* ── DRY RUN TABLE ── */
+.dry-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
+.dry-table th {
+  background: rgba(0,245,160,0.1);
+  color: var(--accent);
+  padding: 0.6rem 1rem;
+  text-align: center;
+  border: 1px solid rgba(0,245,160,0.15);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.dry-table td {
+  padding: 0.55rem 1rem;
+  text-align: center;
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+.dry-table tr:hover td { background: rgba(255,255,255,0.02); }
+.dry-table .highlight-row td { color: var(--accent); font-weight: 600; }
+
+/* ── MEMORY VIZ ── */
+.mem-viz {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 1rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  overflow-x: auto;
+}
+
+.mem-cell {
+  min-width: 80px;
+  border: 1px solid rgba(0,245,160,0.2);
+  text-align: center;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.mem-cell:first-child { border-radius: 8px 0 0 8px; }
+.mem-cell:last-child { border-radius: 0 8px 8px 0; }
+
+.mem-cell.active { border-color: var(--accent); background: rgba(0,245,160,0.08); }
+.mem-cell.pointer-cell { border-color: var(--accent2); background: rgba(0,217,245,0.08); }
+
+.mem-addr {
+  background: rgba(255,255,255,0.03);
+  padding: 4px 6px;
+  font-size: 0.65rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+
+.mem-val {
+  padding: 12px 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.mem-label {
+  padding: 4px 6px;
+  font-size: 0.65rem;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+}
+
+/* ── FLOWCHART ── */
+.flowchart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 1rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+}
+
+.fc-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 24px;
+  min-width: 180px;
+}
+
+.fc-start, .fc-end {
+  border-radius: 50px;
+  background: linear-gradient(135deg, rgba(0,245,160,0.2), rgba(0,217,245,0.2));
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.fc-process {
+  border-radius: 8px;
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.3);
+  color: #a78bfa;
+}
+
+.fc-decision {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  background: rgba(245,158,11,0.12);
+  border: 2px solid rgba(245,158,11,0.3);
+  color: var(--accent4);
+  min-width: 200px;
+  padding: 20px 40px;
+}
+
+.fc-arrow {
+  width: 2px;
+  height: 20px;
+  background: var(--muted);
+  position: relative;
+}
+.fc-arrow::after {
+  content: '▼';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--muted);
+  font-size: 8px;
+}
+
+/* ── ALERT BOXES ── */
+.alert {
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin: 0.75rem 0;
+  font-size: 0.86rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.alert-body { flex: 1; }
+.alert-body strong { display: block; margin-bottom: 3px; font-size: 0.8rem; letter-spacing: 0.5px; text-transform: uppercase; }
+
+.alert-error { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #fca5a5; }
+.alert-tip { background: rgba(0,245,160,0.08); border: 1px solid rgba(0,245,160,0.2); color: #6ee7b7; }
+.alert-warning { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); color: #fcd34d; }
+.alert-info { background: rgba(0,217,245,0.08); border: 1px solid rgba(0,217,245,0.2); color: #67e8f9; }
+
+/* ── MCQ QUIZ ── */
+.quiz-container { margin: 0.75rem 0; }
+
+.quiz-q {
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.quiz-q .qnum {
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.quiz-options { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
+
+.quiz-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.6rem 1rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.84rem;
+  transition: all 0.2s;
+  user-select: none;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.quiz-opt:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); }
+.quiz-opt.correct { border-color: var(--accent); background: rgba(0,245,160,0.1); color: var(--accent); }
+.quiz-opt.wrong { border-color: var(--accent5); background: rgba(239,68,68,0.1); color: #fca5a5; }
+
+.quiz-opt .opt-label {
+  width: 24px; height: 24px; border-radius: 6px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.quiz-answer {
+  display: none;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1rem;
+  background: rgba(0,245,160,0.06);
+  border: 1px solid rgba(0,245,160,0.15);
+  border-radius: 8px;
+  font-size: 0.83rem;
+  color: #6ee7b7;
+}
+
+.quiz-answer.visible { display: block; }
+
+/* ── REVISION CHIPS ── */
+.revision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+
+.rev-chip {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 0.85rem;
+  font-size: 0.82rem;
+}
+
+.rev-chip .rc-key {
+  color: var(--accent2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.rev-chip .rc-val { color: var(--text); }
+
+/* ── STEPS ── */
+.steps { margin: 0.75rem 0; }
+.step {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #000;
+  font-size: 0.72rem;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+.step-content { flex: 1; font-size: 0.86rem; }
+.step-content h4 { color: var(--accent); font-size: 0.82rem; margin-bottom: 3px; }
+
+/* ── TABS (inside sections) ── */
+.inner-tabs { display: flex; gap: 4px; margin-bottom: 1rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
+.inner-tab {
+  padding: 5px 14px;
+  border-radius: 6px;
+  background: none;
+  border: 1px solid var(--glass-border);
+  color: var(--muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.inner-tab.active { background: rgba(0,245,160,0.1); border-color: var(--accent); color: var(--accent); }
+.inner-content { display: none; }
+.inner-content.active { display: block; }
+
+/* ── PROGRESS TRACKER ── */
+.progress-bar-wrap {
+  background: rgba(255,255,255,0.04);
+  border-radius: 20px;
+  height: 4px;
+  margin: 0.5rem 0 1.5rem;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+/* ── PYQ BADGE ── */
+.pyq-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 20px;
+  color: var(--accent4);
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+  margin-left: 8px;
+}
+
+/* ── EXAM FOCUS ── */
+.exam-items { display: flex; flex-direction: column; gap: 0.5rem; }
+.exam-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.65rem 1rem;
+  background: rgba(245,158,11,0.05);
+  border: 1px solid rgba(245,158,11,0.1);
+  border-radius: 8px;
+  font-size: 0.84rem;
+}
+.exam-item .star { color: var(--accent4); font-size: 0.9rem; }
+.exam-item.hot { border-color: rgba(239,68,68,0.2); background: rgba(239,68,68,0.05); }
+.exam-item.hot .star { color: var(--accent5); }
+
+/* ── UNIT SECTION ── */
+.unit-section { display: none; }
+.unit-section.active { display: block; }
+
+/* ── RESPONSIVE ── */
+@media(max-width: 900px) {
+  .sidebar { width: 200px; }
+  .main { margin-left: 200px; }
+}
+@media(max-width: 680px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section-block { animation: fadeUp 0.4s ease both; }
+.section-block:nth-child(2) { animation-delay: 0.05s; }
+.section-block:nth-child(3) { animation-delay: 0.1s; }
+.section-block:nth-child(4) { animation-delay: 0.15s; }
+.section-block:nth-child(5) { animation-delay: 0.2s; }
+
+/* ── TOOLTIP HELPER ── */
+.sticky-helper {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #000;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0,245,160,0.3);
+  z-index: 200;
+  transition: transform 0.2s;
+}
+.sticky-helper:hover { transform: scale(1.1); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* Two-column layout for code + explanation */
+.code-explain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+@media(max-width:900px) { .code-explain-grid { grid-template-columns: 1fr; } }
+
+.inline-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8em;
+  background: rgba(124,58,237,0.15);
+  border: 1px solid rgba(124,58,237,0.25);
+  color: #a78bfa;
+}
+
+.complexity-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 0.75rem 0;
+}
+.comp-box {
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+.comp-box .comp-type { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.5rem; font-weight: 600; }
+.comp-box .comp-val { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 800; }
+.comp-box .comp-desc { font-size: 0.75rem; margin-top: 0.4rem; opacity: 0.7; }
+.time-comp { background: rgba(0,245,160,0.06); border: 1px solid rgba(0,245,160,0.15); color: var(--accent); }
+.space-comp { background: rgba(0,217,245,0.06); border: 1px solid rgba(0,217,245,0.15); color: var(--accent2); }
+</style>
+</head>
+<body>
+
+<!-- ─── SIDEBAR ─── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">⚡ Engi Prep Hub</div>
+    <div class="logo-sub">PPS · C LANG · JNTUK R23</div>
+  </div>
+  <nav class="unit-nav">
+    <div class="unit-nav-title">Units</div>
+    <button class="unit-btn active" data-unit="1" onclick="showUnit(1)">
+      <span class="unit-num">I</span> Introduction to Programming
+    </button>
+    <button class="unit-btn" data-unit="2" onclick="showUnit(2)">
+      <span class="unit-num">II</span> Control Structures
+    </button>
+    <button class="unit-btn" data-unit="3" onclick="showUnit(3)">
+      <span class="unit-num">III</span> Arrays &amp; Strings
+    </button>
+    <button class="unit-btn" data-unit="4" onclick="showUnit(4)">
+      <span class="unit-num">IV</span> Pointers &amp; Data Types
+    </button>
+    <button class="unit-btn" data-unit="5" onclick="showUnit(5)">
+      <span class="unit-num">V</span> Functions &amp; File Handling
+    </button>
+    <div class="unit-nav-title" style="margin-top:1rem;">Modes</div>
+    <button class="unit-btn" onclick="alert('📝 Exam Mode: Focus on ⭐ marked content and PYQ sections!')">
+      <span class="unit-num" style="background:rgba(245,158,11,0.15);color:#f59e0b">📝</span> Exam Mode
+    </button>
+    <button class="unit-btn" onclick="alert('⚡ Quick Revision: See the Revision sections in each unit!')">
+      <span class="unit-num" style="background:rgba(239,68,68,0.15);color:#ef4444">⚡</span> Quick Revision
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    1st Year B.Tech · All Units<br/>
+    <span style="color:var(--accent)">JNTUK R23 Syllabus</span>
+  </div>
+</aside>
+
+<!-- ─── MAIN ─── -->
+<main class="main">
   <!-- TOPBAR -->
   <div class="topbar">
     <div class="breadcrumb">
@@ -181,7 +922,7 @@
   <div class="unit-section active" id="unit-1">
     <div class="unit-hero">
       <div class="unit-tag">📡 Unit I · JNTUK R23</div>
-      <h1>Introduction to<br>Programming</h1>
+      <h1>Introduction to<br/>Programming</h1>
       <p>Build your programming foundation: understand how computers think, write your first C program, and learn to solve problems like a software engineer.</p>
       <div class="topic-pills">
         <span class="pill">History of Computers</span>
@@ -206,10 +947,30 @@
           <div class="section-title">Why Programming Matters <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p>Every app on your phone, every website you visit, every ATM you use — <strong>all powered by programming</strong>. When you learn C, you're learning the language that built UNIX, Linux, and most operating systems. You're learning how computers actually work at the metal level.</p>
             <p><em>C is the grandfather of Python, Java, JavaScript, and C++.</em> Master C, and everything else becomes easier.</p>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+          <div class="info-grid">
+            <div class="info-card">
+              <div class="info-card-title">Why C?</div>
+              <div class="info-card-value" style="font-size:0.85rem;color:var(--accent)">Fast · Portable · Foundational</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-title">Used In</div>
+              <div class="info-card-value" style="font-size:0.85rem;color:var(--accent2)">OS · Embedded · Games · Compilers</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-title">Year Created</div>
+              <div class="info-card-value">1972 — Bell Labs</div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-title">Creator</div>
+              <div class="info-card-value">Dennis Ritchie</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- ── SECTION: COMPUTER ARCHITECTURE ── -->
@@ -219,12 +980,32 @@
           <div class="section-title">Computer Architecture — ALU, Memory &amp; I/O <span class="pyq-badge">⭐ PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>Think of a computer like a human body:</strong> The brain = CPU, Memory = short-term memory (RAM), Disk = long-term memory, Keyboard = eyes/ears (input), Monitor = mouth (output).</p>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="prose" style="margin-top:1rem">
+          </div>
+          <div class="info-grid">
+            <div class="info-card" style="border-color:rgba(0,245,160,0.2)">
+              <div class="info-card-title">ALU</div>
+              <div class="info-card-value" style="font-size:0.85rem;color:var(--accent)">Arithmetic Logic Unit — does ALL math (+, -, ×, ÷) and comparisons (&gt;, &lt;, ==)</div>
+            </div>
+            <div class="info-card" style="border-color:rgba(0,217,245,0.2)">
+              <div class="info-card-title">Control Unit (CU)</div>
+              <div class="info-card-value" style="font-size:0.85rem;color:var(--accent2)">Directs all operations — the "manager" of the CPU</div>
+            </div>
+            <div class="info-card" style="border-color:rgba(124,58,237,0.2)">
+              <div class="info-card-title">Program Counter (PC)</div>
+              <div class="info-card-value" style="font-size:0.85rem;color:#a78bfa">Holds address of NEXT instruction to execute — like a bookmark</div>
+            </div>
+            <div class="info-card" style="border-color:rgba(245,158,11,0.2)">
+              <div class="info-card-title">Memory (RAM)</div>
+              <div class="info-card-value" style="font-size:0.85rem;color:var(--accent4)">Temporary storage — variables live here when program runs</div>
+            </div>
+          </div>
+          <div class="prose" style="margin-top:1rem">
             <p><strong>Memory Hierarchy (Fastest → Slowest):</strong></p>
           </div>
-<div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin:0.5rem 0">
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin:0.5rem 0">
             <div style="background:rgba(0,245,160,0.1);border:1px solid rgba(0,245,160,0.2);border-radius:8px;padding:8px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.75rem">
               <div style="color:var(--accent);font-weight:700">Registers</div>
               <div style="color:var(--muted);font-size:0.65rem">Nanoseconds</div>
@@ -244,7 +1025,12 @@
               <div style="color:var(--accent4);font-weight:700">Disk (SSD/HDD)</div>
               <div style="color:var(--muted);font-size:0.65rem">Milliseconds</div>
             </div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+          <div class="alert alert-tip">
+            <div class="alert-icon">💡</div>
+            <div class="alert-body"><strong>Key Insight</strong>When you declare <code>int a = 5;</code>, variable 'a' lives in RAM. The CPU fetches it, does math in registers, stores result back in RAM.</div>
+          </div>
+        </div>
       </div>
 
       <!-- ── SECTION: PROGRAMMING LANGUAGES ── -->
@@ -254,7 +1040,8 @@
           <div class="section-title">Programming Languages — Types &amp; Levels <span class="pyq-badge">PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="info-grid">
+        <div class="section-body">
+          <div class="info-grid">
             <div class="info-card" style="border-color:rgba(239,68,68,0.2)">
               <div class="info-card-title">Machine Language</div>
               <div class="info-card-value" style="font-size:0.8rem;color:#fca5a5">Binary 0s &amp; 1s — what CPU actually reads. Not human-friendly.</div>
@@ -268,7 +1055,7 @@
               <div class="info-card-value" style="font-size:0.8rem;color:var(--accent)">Human-readable! Compiler/interpreter converts to machine code.</div>
             </div>
           </div>
-<div class="steps">
+          <div class="steps">
             <div class="step">
               <div class="step-num">1</div>
               <div class="step-content"><h4>Write Source Code (.c file)</h4>Your C program written in editor</div>
@@ -289,7 +1076,8 @@
               <div class="step-num">5</div>
               <div class="step-content"><h4>Execute</h4>CPU runs the machine code, program output appears</div>
             </div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ── SECTION: DATA TYPES, VARIABLES, CONSTANTS ── -->
@@ -299,11 +1087,14 @@
           <div class="section-title">Data Types, Variables &amp; Constants <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p>A <strong>variable</strong> is a named box in memory that stores a value. A <strong>data type</strong> tells the compiler: how many bytes to reserve and what kind of data goes in.</p>
           </div>
-<div class="prose" style="margin-bottom:0.5rem"><strong>🖥️ Memory Visualization</strong></div>
-<div class="mem-viz">
+
+          <!-- Memory Visualization -->
+          <div class="prose" style="margin-bottom:0.5rem"><strong>🖥️ Memory Visualization</strong></div>
+          <div class="mem-viz">
             <div class="mem-cell active">
               <div class="mem-addr">0x1000</div>
               <div class="mem-val">5</div>
@@ -325,7 +1116,9 @@
               <div class="mem-label">x (double)</div>
             </div>
           </div>
-<table class="dry-table" style="margin-top:1rem">
+
+          <!-- Data Type Table -->
+          <table class="dry-table" style="margin-top:1rem">
             <thead><tr><th>Data Type</th><th>Size</th><th>Range</th><th>Format</th></tr></thead>
             <tbody>
               <tr><td class="highlight">int</td><td>4 bytes</td><td>-2,147,483,648 to 2,147,483,647</td><td>%d</td></tr>
@@ -335,7 +1128,9 @@
               <tr><td class="highlight">long</td><td>8 bytes</td><td>±9.2 × 10¹⁸</td><td>%ld</td></tr>
             </tbody>
           </table>
-<div class="code-wrap">
+
+          <!-- Code Block -->
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">variables.c</div>
@@ -359,16 +1154,20 @@
 
     <span class="kw">return</span> <span class="num">0</span>;
 }</pre>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><ul class="explain-list">
+          </div>
+
+          <ul class="explain-list">
             <li><span class="ln">Line 1</span><span class="ld"><strong>#include &lt;stdio.h&gt;</strong> — includes Standard I/O library (printf, scanf live here)</span></li>
             <li><span class="ln">Line 4-7</span><span class="ld"><strong>Variable declarations</strong> — tells compiler to reserve memory. <code>int age = 20</code> reserves 4 bytes at some address and puts 20 in it.</span></li>
             <li><span class="ln">Line 10</span><span class="ld"><strong>const</strong> — PI can never be changed after declaration. Trying to do <code>PI = 3</code> gives a compile error.</span></li>
             <li><span class="ln">%.2f</span><span class="ld"><strong>Format specifier</strong> — prints float with exactly 2 decimal places</span></li>
           </ul>
-<div class="alert alert-warning">
+
+          <div class="alert alert-warning">
             <div class="alert-icon">⚠️</div>
             <div class="alert-body"><strong>Common Error</strong>Using a variable before declaring it: <code>a = 5; int a;</code> → Compile error! Always declare first.</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ── SECTION: OPERATORS ── -->
@@ -378,10 +1177,25 @@
           <div class="section-title">Operators &amp; Type Conversion <span class="pyq-badge">⭐ PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="prose" style="margin-top:1rem">
+        <div class="section-body">
+          <table class="dry-table">
+            <thead><tr><th>Category</th><th>Operators</th><th>Example</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td class="highlight">Arithmetic</td><td>+ - * / %</td><td>10 % 3</td><td>1 (remainder)</td></tr>
+              <tr><td class="highlight">Relational</td><td>== != &gt; &lt; &gt;= &lt;=</td><td>5 &gt; 3</td><td>1 (true)</td></tr>
+              <tr><td class="highlight">Logical</td><td>&amp;&amp; || !</td><td>1 &amp;&amp; 0</td><td>0 (false)</td></tr>
+              <tr><td class="highlight">Bitwise</td><td>&amp; | ^ ~ &lt;&lt; &gt;&gt;</td><td>5 &lt;&lt; 1</td><td>10 (shift left)</td></tr>
+              <tr><td class="highlight">Assignment</td><td>= += -= *= /=</td><td>a += 5</td><td>a = a + 5</td></tr>
+              <tr><td class="highlight">Increment</td><td>++ --</td><td>a++ or ++a</td><td>adds 1</td></tr>
+              <tr><td class="highlight">Ternary</td><td>? :</td><td>a &gt; b ? a : b</td><td>max of a, b</td></tr>
+            </tbody>
+          </table>
+
+          <div class="prose" style="margin-top:1rem">
             <p><strong>Type Conversion:</strong> C automatically converts smaller types to larger (implicit). You can force it with casting (explicit).</p>
           </div>
-<div class="code-wrap" style="margin-top:0.75rem">
+
+          <div class="code-wrap" style="margin-top:0.75rem">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">typecast.c</div>
@@ -395,10 +1209,12 @@
 <span class="cm">/* Explicit Cast: force float division */</span>
 <span class="fn">printf</span>(<span class="str">"%f\n"</span>, (<span class="kw">float</span>)<span class="var">a</span> / <span class="var">b</span>); <span class="cm">// Output: 3.500000</span></pre>
           </div>
-<div class="alert alert-error">
+
+          <div class="alert alert-error">
             <div class="alert-icon">🐛</div>
             <div class="alert-body"><strong>Classic Bug</strong><code>int/int = int</code> always! Beginner expects 3.5, gets 3. Always cast to float when you need decimal results.</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ── SECTION: ALGORITHMS, FLOWCHARTS, PSEUDOCODE ── -->
@@ -408,12 +1224,30 @@
           <div class="section-title">Algorithms, Flowcharts &amp; Pseudocode <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="inner-tabs">
+        <div class="section-body">
+          <div class="prose">
+            <p><strong>Algorithm</strong> = step-by-step instructions to solve a problem. Like a recipe. Write the algorithm BEFORE you code. <em>Think first, code second!</em></p>
+          </div>
+
+          <div class="inner-tabs">
             <button class="inner-tab active" onclick="switchTab(this,'algo')">📝 Algorithm</button>
             <button class="inner-tab" onclick="switchTab(this,'flow')">📊 Flowchart</button>
             <button class="inner-tab" onclick="switchTab(this,'pseudo')">💬 Pseudocode</button>
           </div>
-<div class="inner-content" id="flow">
+
+          <div class="inner-content active" id="algo">
+            <div class="prose"><p><strong>Problem:</strong> Find largest of two numbers</p></div>
+            <div class="steps">
+              <div class="step"><div class="step-num">1</div><div class="step-content"><h4>START</h4></div></div>
+              <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Read inputs A and B</h4></div></div>
+              <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Check condition: if A &gt; B</h4>Go to step 4 if true, else step 5</div></div>
+              <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Print "A is largest"</h4>Go to step 6</div></div>
+              <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Print "B is largest"</h4></div></div>
+              <div class="step"><div class="step-num">6</div><div class="step-content"><h4>STOP</h4></div></div>
+            </div>
+          </div>
+
+          <div class="inner-content" id="flow">
             <div class="flowchart">
               <div class="fc-node fc-start">START</div>
               <div class="fc-arrow"></div>
@@ -440,7 +1274,8 @@
               <div class="rev-chip"><div class="rc-key">Parallelogram</div><div class="rc-val">Input / Output</div></div>
             </div>
           </div>
-<div class="inner-content" id="pseudo">
+
+          <div class="inner-content" id="pseudo">
             <div class="code-wrap">
               <div class="code-topbar">
                 <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
@@ -455,7 +1290,8 @@
   END IF
 END</pre>
             </div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ── SECTION: TIME & SPACE COMPLEXITY ── -->
@@ -465,10 +1301,11 @@ END</pre>
           <div class="section-title">Time &amp; Space Complexity <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>Time Complexity</strong> = how long an algorithm takes as input grows. <strong>Space Complexity</strong> = how much memory it uses. We use <em>Big O Notation</em> to express these.</p>
           </div>
-<div class="complexity-card">
+          <div class="complexity-card">
             <div class="comp-box time-comp">
               <div class="comp-type">Time Complexity</div>
               <div class="comp-val">O(n)</div>
@@ -479,7 +1316,18 @@ END</pre>
               <div class="comp-val">O(1)</div>
               <div class="comp-desc">Fixed variables → constant space</div>
             </div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+          <table class="dry-table" style="margin-top:1rem">
+            <thead><tr><th>Notation</th><th>Name</th><th>Example</th><th>Speed</th></tr></thead>
+            <tbody>
+              <tr><td class="highlight">O(1)</td><td>Constant</td><td>Access array[0]</td><td style="color:var(--accent)">⚡ Fastest</td></tr>
+              <tr><td class="highlight">O(log n)</td><td>Logarithmic</td><td>Binary Search</td><td style="color:var(--accent)">🚀 Very Fast</td></tr>
+              <tr><td class="highlight">O(n)</td><td>Linear</td><td>Linear Search</td><td style="color:var(--accent2)">✅ Good</td></tr>
+              <tr><td class="highlight">O(n²)</td><td>Quadratic</td><td>Bubble Sort (nested loop)</td><td style="color:var(--accent4)">⚠️ Slow</td></tr>
+              <tr><td class="highlight">O(2ⁿ)</td><td>Exponential</td><td>Brute Force subsets</td><td style="color:var(--accent5)">❌ Very Slow</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- ── SECTION: FIRST C PROGRAM ── -->
@@ -489,17 +1337,39 @@ END</pre>
           <div class="section-title">Your First C Program — Hello World + Input/Output <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><ul class="explain-list">
+        <div class="section-body">
+          <div class="code-wrap">
+            <div class="code-topbar">
+              <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
+              <div class="code-lang">hello.c</div>
+              <button class="code-copy" onclick="copyCode(this)">Copy</button>
+            </div>
+<pre><span class="pp">#include</span> <span class="str">&lt;stdio.h&gt;</span>   <span class="cm">/* Step 1: Import I/O library */</span>
+
+<span class="kw">int</span> <span class="fn">main</span>()             <span class="cm">/* Step 2: Program starts here */</span>
+{
+    <span class="kw">int</span> <span class="var">num</span>;           <span class="cm">/* Step 3: Declare variable */</span>
+
+    <span class="fn">printf</span>(<span class="str">"Enter a number: "</span>);  <span class="cm">/* Output */</span>
+    <span class="fn">scanf</span>(<span class="str">"%d"</span>, &amp;<span class="var">num</span>);            <span class="cm">/* Input (& = address of num) */</span>
+
+    <span class="fn">printf</span>(<span class="str">"You entered: %d\n"</span>, <span class="var">num</span>);
+
+    <span class="kw">return</span> <span class="num">0</span>;           <span class="cm">/* Step 4: Exit program */</span>
+}</pre>
+          </div>
+          <ul class="explain-list">
             <li><span class="ln">#include</span><span class="ld">Preprocessor directive — pastes stdio.h content before compilation. Gives access to <strong>printf</strong> and <strong>scanf</strong>.</span></li>
             <li><span class="ln">int main()</span><span class="ld">Every C program starts executing from <strong>main()</strong>. Returns int (0 = success, non-zero = error).</span></li>
             <li><span class="ln">printf()</span><span class="ld">Prints text to screen. <strong>\n</strong> = newline character (go to next line).</span></li>
             <li><span class="ln">scanf()</span><span class="ld">Reads user input. <strong>&amp;num</strong> = address of num (where to store the value in memory).</span></li>
             <li><span class="ln">return 0</span><span class="ld">Signals to OS that program ran successfully. <strong>0 = no errors</strong>.</span></li>
           </ul>
-<div class="alert alert-error">
+          <div class="alert alert-error">
             <div class="alert-icon">🐛</div>
-            <div class="alert-body"><strong>Forgetting &amp; in scanf</strong><code>scanf("%d", num)</code> instead of <code>scanf("%d", &amp;num)</code> → CRASH! The &amp; gives scanf the memory address to write into.</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+            <div class="alert-body"><strong>Forgetting &amp; in scanf</strong><code>scanf("%d", num)</code> instead of <code>scanf("%d", &amp;num)</code> → CRASH! The & gives scanf the memory address to write into.</div>
+          </div>
+        </div>
       </div>
 
       <!-- ── SECTION: MCQ QUIZ ── -->
@@ -509,7 +1379,8 @@ END</pre>
           <div class="section-title">Unit I — Practice MCQs</div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="quiz-container">
+        <div class="section-body">
+          <div class="quiz-container">
             <div class="quiz-q"><span class="qnum">Q1.</span> What is the size of <code>int</code> in C on a 32-bit system?</div>
             <div class="quiz-options">
               <div class="quiz-opt" onclick="answerQ(this,'wrong','q1a')"><span class="opt-label">A</span>2 bytes</div>
@@ -518,7 +1389,9 @@ END</pre>
               <div class="quiz-opt" onclick="answerQ(this,'wrong','q1a')"><span class="opt-label">D</span>1 byte</div>
             </div>
             <div class="quiz-answer" id="q1a">✅ B — int is 4 bytes (32 bits). It stores whole numbers from -2,147,483,648 to +2,147,483,647.</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="quiz-container" style="margin-top:1rem">
+          </div>
+
+          <div class="quiz-container" style="margin-top:1rem">
             <div class="quiz-q"><span class="qnum">Q2.</span> What does <code>&amp;</code> operator do in <code>scanf("%d", &amp;a)</code>?</div>
             <div class="quiz-options">
               <div class="quiz-opt" onclick="answerQ(this,'wrong','q2a')"><span class="opt-label">A</span>AND operation</div>
@@ -526,8 +1399,10 @@ END</pre>
               <div class="quiz-opt" onclick="answerQ(this,'correct','q2a')"><span class="opt-label">C</span>Get memory address of a</div>
               <div class="quiz-opt" onclick="answerQ(this,'wrong','q2a')"><span class="opt-label">D</span>Declares a new variable</div>
             </div>
-            <div class="quiz-answer" id="q2a">✅ C — &amp; is the "address-of" operator. scanf needs the address to know WHERE in memory to store the input.</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="quiz-container" style="margin-top:1rem">
+            <div class="quiz-answer" id="q2a">✅ C — & is the "address-of" operator. scanf needs the address to know WHERE in memory to store the input.</div>
+          </div>
+
+          <div class="quiz-container" style="margin-top:1rem">
             <div class="quiz-q"><span class="qnum">Q3.</span> What is the output of: <code>printf("%d", 10/3);</code>?</div>
             <div class="quiz-options">
               <div class="quiz-opt" onclick="answerQ(this,'wrong','q3a')"><span class="opt-label">A</span>3.33</div>
@@ -536,7 +1411,8 @@ END</pre>
               <div class="quiz-opt" onclick="answerQ(this,'wrong','q3a')"><span class="opt-label">D</span>Error</div>
             </div>
             <div class="quiz-answer" id="q3a">✅ B — int/int = int! The decimal is TRUNCATED (not rounded). 10/3 = 3 in integer division.</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ── SECTION: EXAM FOCUS ── -->
@@ -546,7 +1422,18 @@ END</pre>
           <div class="section-title">Unit I — Exam Focus &amp; PYQ Analysis</div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+        <div class="section-body">
+          <div class="exam-items">
+            <div class="exam-item hot"><span class="star">🔥</span>Write a C program to find sum of two numbers (PYQ — 2022, 2023)</div>
+            <div class="exam-item hot"><span class="star">🔥</span>Explain ALU, Control Unit, Memory hierarchy (PYQ — 2021, 2022)</div>
+            <div class="exam-item"><span class="star">⭐</span>What is an algorithm? Write algorithm to find largest of 3 numbers</div>
+            <div class="exam-item"><span class="star">⭐</span>Difference between compiler and interpreter</div>
+            <div class="exam-item"><span class="star">⭐</span>Explain time complexity with Big O notation — O(1), O(n), O(n²)</div>
+            <div class="exam-item"><span class="star">⭐</span>What are data types in C? Explain with size and range</div>
+            <div class="exam-item"><span class="star">⭐</span>Explain top-down vs bottom-up approach</div>
+            <div class="exam-item"><span class="star">⭐</span>Draw flowchart for swapping two numbers</div>
+          </div>
+        </div>
       </div>
 
       <!-- ── QUICK REVISION ── -->
@@ -556,7 +1443,22 @@ END</pre>
           <div class="section-title">Unit I — Quick Revision Cheat Sheet</div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+        <div class="section-body">
+          <div class="revision-grid">
+            <div class="rev-chip"><div class="rc-key">int</div><div class="rc-val">4 bytes · %d · whole numbers</div></div>
+            <div class="rev-chip"><div class="rc-key">float</div><div class="rc-val">4 bytes · %f · decimals</div></div>
+            <div class="rev-chip"><div class="rc-key">char</div><div class="rc-val">1 byte · %c · single character</div></div>
+            <div class="rev-chip"><div class="rc-key">double</div><div class="rc-val">8 bytes · %lf · high precision</div></div>
+            <div class="rev-chip"><div class="rc-key">printf</div><div class="rc-val">Output to screen</div></div>
+            <div class="rev-chip"><div class="rc-key">scanf</div><div class="rc-val">Input from user (use &)</div></div>
+            <div class="rev-chip"><div class="rc-key">Algorithm</div><div class="rc-val">Step-by-step problem solution</div></div>
+            <div class="rev-chip"><div class="rc-key">O(1)</div><div class="rc-val">Constant — fastest</div></div>
+            <div class="rev-chip"><div class="rc-key">O(n)</div><div class="rc-val">Linear — one loop</div></div>
+            <div class="rev-chip"><div class="rc-key">O(n²)</div><div class="rc-val">Quadratic — nested loops</div></div>
+            <div class="rev-chip"><div class="rc-key">ALU</div><div class="rc-val">Does math + comparisons</div></div>
+            <div class="rev-chip"><div class="rc-key">PC</div><div class="rc-val">Holds next instruction address</div></div>
+          </div>
+        </div>
       </div>
 
     </div><!-- /content-area -->
@@ -569,7 +1471,7 @@ END</pre>
   <div class="unit-section" id="unit-2">
     <div class="unit-hero" style="--accent:var(--accent2)">
       <div class="unit-tag" style="border-color:var(--accent2);color:var(--accent2)">🔀 Unit II · JNTUK R23</div>
-      <h1>Control<br>Structures</h1>
+      <h1>Control<br/>Structures</h1>
       <p>Master the logic that controls program flow — conditions, decisions, and loops. This unit is the core of ALL programming logic.</p>
       <div class="topic-pills">
         <span class="pill">if / if-else</span>
@@ -591,10 +1493,12 @@ END</pre>
           <div class="section-title">if, if-else, else-if Ladder <span class="pyq-badge">⭐ PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>Decision making in code!</strong> Like traffic signals — if red, stop; else, go. The CPU evaluates a condition: if TRUE (non-zero), execute block. If FALSE (zero), skip it.</p>
           </div>
-<div class="code-wrap">
+
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">grade.c — else-if ladder</div>
@@ -621,19 +1525,22 @@ END</pre>
     <span class="kw">return</span> <span class="num">0</span>;
 }</pre>
           </div>
-<div class="prose"><p><strong>🧠 Dry Run:</strong></p></div>
-<table class="dry-table">
+
+          <div class="prose"><p><strong>🧠 Dry Run:</strong></p></div>
+          <table class="dry-table">
             <thead><tr><th>marks</th><th>Condition Checked</th><th>Result</th><th>Output</th></tr></thead>
             <tbody>
               <tr><td>95</td><td>marks &gt;= 90</td><td>TRUE</td><td class="highlight">Grade: O</td></tr>
-              <tr><td>78</td><td>marks &gt;= 90 → FALSE<br>marks &gt;= 75 → TRUE</td><td>2nd condition true</td><td class="highlight">Grade: A+</td></tr>
+              <tr><td>78</td><td>marks &gt;= 90 → FALSE<br/>marks &gt;= 75 → TRUE</td><td>2nd condition true</td><td class="highlight">Grade: A+</td></tr>
               <tr><td>45</td><td>All conditions FALSE</td><td>else executes</td><td class="highlight">Grade: F</td></tr>
             </tbody>
           </table>
-<div class="alert alert-warning">
+
+          <div class="alert alert-warning">
             <div class="alert-icon">⚠️</div>
             <div class="alert-body"><strong>= vs ==</strong><code>if(a = 5)</code> is assignment (always true!). <code>if(a == 5)</code> is comparison. This is the most common beginner bug!</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ── SWITCH ── -->
@@ -643,9 +1550,11 @@ END</pre>
           <div class="section-title">switch Statement <span class="pyq-badge">PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>switch</strong> is a cleaner alternative to long if-else ladders. It matches a value to cases and executes. Perfect for menus, day names, grade display, etc. <em>Works with int and char only — NOT float!</em></p>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="code-wrap">
+          </div>
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">calculator.c — switch</div>
@@ -675,10 +1584,11 @@ END</pre>
     <span class="kw">return</span> <span class="num">0</span>;
 }</pre>
           </div>
-<div class="alert alert-error">
+          <div class="alert alert-error">
             <div class="alert-icon">🐛</div>
             <div class="alert-body"><strong>Missing break!</strong>Without <code>break</code>, execution falls through to next case. This is called "fall-through" — often a bug unless intentional.</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ── LOOPS ── -->
@@ -688,12 +1598,14 @@ END</pre>
           <div class="section-title">Loops — for, while, do-while <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="inner-tabs">
+        <div class="section-body">
+          <div class="inner-tabs">
             <button class="inner-tab active" onclick="switchTab(this,'for-loop')">for loop</button>
             <button class="inner-tab" onclick="switchTab(this,'while-loop')">while loop</button>
             <button class="inner-tab" onclick="switchTab(this,'dowhile-loop')">do-while</button>
           </div>
-<div class="inner-content active" id="for-loop">
+
+          <div class="inner-content active" id="for-loop">
             <div class="prose"><p><strong>for loop</strong> — use when you know exactly how many times to repeat. Has 3 parts: init, condition, update — all in one line.</p></div>
             <div class="code-wrap">
               <div class="code-topbar">
@@ -726,7 +1638,8 @@ END</pre>
               </tbody>
             </table>
           </div>
-<div class="inner-content" id="while-loop">
+
+          <div class="inner-content" id="while-loop">
             <div class="prose"><p><strong>while loop</strong> — use when you DON'T know how many times. Checks condition BEFORE each iteration. If condition is false initially, loop body never executes.</p></div>
             <div class="code-wrap">
               <div class="code-topbar">
@@ -755,7 +1668,8 @@ END</pre>
               </tbody>
             </table>
           </div>
-<div class="inner-content" id="dowhile-loop">
+
+          <div class="inner-content" id="dowhile-loop">
             <div class="prose"><p><strong>do-while</strong> — loop body executes AT LEAST ONCE, THEN checks condition. Use for menus where user must see at least one option.</p></div>
             <div class="code-wrap">
               <div class="code-topbar">
@@ -776,7 +1690,8 @@ END</pre>
               <div class="rev-chip"><div class="rc-key">while</div><div class="rc-val">Unknown iterations · condition BEFORE</div></div>
               <div class="rev-chip"><div class="rc-key">do-while</div><div class="rc-val">Executes minimum ONCE · condition AFTER</div></div>
             </div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ── BREAK & CONTINUE ── -->
@@ -786,7 +1701,8 @@ END</pre>
           <div class="section-title">break &amp; continue — Loop Control <span class="pyq-badge">PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="code-wrap">
+        <div class="section-body">
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">break_continue.c</div>
@@ -805,7 +1721,8 @@ END</pre>
     <span class="fn">printf</span>(<span class="str">"%d "</span>, <span class="var">i</span>);
 }
 <span class="cm">// Output: 1 3 5 7 9</span></pre>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ── PROGRAMS ── -->
@@ -815,13 +1732,15 @@ END</pre>
           <div class="section-title">Important Programs — Unit II <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="inner-tabs">
+        <div class="section-body">
+          <div class="inner-tabs">
             <button class="inner-tab active" onclick="switchTab(this,'p-factorial')">Factorial</button>
             <button class="inner-tab" onclick="switchTab(this,'p-prime')">Prime Check</button>
             <button class="inner-tab" onclick="switchTab(this,'p-pattern')">Pattern</button>
             <button class="inner-tab" onclick="switchTab(this,'p-fibonacci')">Fibonacci</button>
           </div>
-<div class="inner-content active" id="p-factorial">
+
+          <div class="inner-content active" id="p-factorial">
             <div class="code-wrap">
               <div class="code-topbar">
                 <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
@@ -848,7 +1767,42 @@ END</pre>
                 <tr><td>5</td><td>24×5</td><td class="highlight">120</td></tr>
               </tbody>
             </table>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="inner-content" id="p-pattern">
+          </div>
+
+          <div class="inner-content" id="p-prime">
+            <div class="code-wrap">
+              <div class="code-topbar">
+                <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
+                <div class="code-lang">prime.c</div>
+                <button class="code-copy" onclick="copyCode(this)">Copy</button>
+              </div>
+<pre><span class="pp">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+<span class="kw">int</span> <span class="fn">main</span>() {
+    <span class="kw">int</span> <span class="var">n</span>, <span class="var">isPrime</span>=<span class="num">1</span>;
+    <span class="fn">scanf</span>(<span class="str">"%d"</span>, &amp;<span class="var">n</span>);
+
+    <span class="kw">if</span> (<span class="var">n</span> &lt; <span class="num">2</span>) <span class="var">isPrime</span> = <span class="num">0</span>;
+
+    <span class="kw">for</span> (<span class="kw">int</span> <span class="var">i</span>=<span class="num">2</span>; <span class="var">i</span>*<span class="var">i</span>&lt;=<span class="var">n</span>; <span class="var">i</span>++) {
+        <span class="kw">if</span> (<span class="var">n</span> % <span class="var">i</span> == <span class="num">0</span>) {
+            <span class="var">isPrime</span> = <span class="num">0</span>;
+            <span class="kw">break</span>;
+        }
+    }
+    <span class="kw">if</span> (<span class="var">isPrime</span>)
+        <span class="fn">printf</span>(<span class="str">"%d is Prime\n"</span>, <span class="var">n</span>);
+    <span class="kw">else</span>
+        <span class="fn">printf</span>(<span class="str">"%d is Not Prime\n"</span>, <span class="var">n</span>);
+    <span class="kw">return</span> <span class="num">0</span>;
+}</pre>
+            </div>
+            <div class="alert alert-tip">
+              <div class="alert-icon">💡</div>
+              <div class="alert-body"><strong>Optimization Trick</strong>Check only up to √n (i*i &lt;= n). If n has a factor greater than √n, it must also have one smaller than √n. This makes it O(√n) instead of O(n).</div>
+            </div>
+          </div>
+
+          <div class="inner-content" id="p-pattern">
             <div class="code-wrap">
               <div class="code-topbar">
                 <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
@@ -878,7 +1832,8 @@ END</pre>
               <div class="alert-body"><strong>Pattern Logic</strong>Outer loop = rows (i). Inner loop = columns (j). Number of stars in row i = i. Nested loops are the KEY to all patterns!</div>
             </div>
           </div>
-<div class="inner-content" id="p-fibonacci">
+
+          <div class="inner-content" id="p-fibonacci">
             <div class="code-wrap">
               <div class="code-topbar">
                 <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
@@ -900,7 +1855,8 @@ END</pre>
 }
 <span class="cm">/* n=8: 0 1 1 2 3 5 8 13 */</span></pre>
             </div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- EXAM FOCUS II -->
@@ -910,14 +1866,24 @@ END</pre>
           <div class="section-title">Unit II — Exam Focus &amp; Quick Revision</div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="revision-grid" style="margin-top:1rem">
+        <div class="section-body">
+          <div class="exam-items">
+            <div class="exam-item hot"><span class="star">🔥</span>Factorial, Fibonacci — most repeated programs (PYQ every year)</div>
+            <div class="exam-item hot"><span class="star">🔥</span>Prime number check using for loop (PYQ 2022, 2023)</div>
+            <div class="exam-item hot"><span class="star">🔥</span>Star patterns with nested loops (PYQ 2021, 2022, 2023)</div>
+            <div class="exam-item"><span class="star">⭐</span>Difference: for vs while vs do-while with example</div>
+            <div class="exam-item"><span class="star">⭐</span>break and continue — explain with programs</div>
+            <div class="exam-item"><span class="star">⭐</span>Simple Calculator using switch statement</div>
+          </div>
+          <div class="revision-grid" style="margin-top:1rem">
             <div class="rev-chip"><div class="rc-key">if(a=5)</div><div class="rc-val">Assignment — always true! BUG!</div></div>
             <div class="rev-chip"><div class="rc-key">if(a==5)</div><div class="rc-val">Comparison — correct!</div></div>
             <div class="rev-chip"><div class="rc-key">break</div><div class="rc-val">Exit loop immediately</div></div>
             <div class="rev-chip"><div class="rc-key">continue</div><div class="rc-val">Skip to next iteration</div></div>
             <div class="rev-chip"><div class="rc-key">do-while</div><div class="rc-val">Min 1 execution</div></div>
             <div class="rev-chip"><div class="rc-key">switch</div><div class="rc-val">int/char only, needs break</div></div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -929,7 +1895,7 @@ END</pre>
   <div class="unit-section" id="unit-3">
     <div class="unit-hero">
       <div class="unit-tag" style="border-color:#a78bfa;color:#a78bfa">📋 Unit III · JNTUK R23</div>
-      <h1>Arrays &amp;<br>Strings</h1>
+      <h1>Arrays &amp;<br/>Strings</h1>
       <p>Store multiple values, search, sort, and manipulate text. Arrays and strings are the building blocks of data handling in C.</p>
       <div class="topic-pills">
         <span class="pill">1D Arrays</span><span class="pill">2D Arrays</span><span class="pill">Array Indexing</span>
@@ -946,12 +1912,15 @@ END</pre>
           <div class="section-title">Arrays — Memory Model &amp; Indexing <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>Array</strong> = collection of same-type elements stored in <em>contiguous (adjacent) memory</em>. Instead of declaring 100 int variables, declare one array of 100 ints.</p>
             <p><strong>Key Rule:</strong> Array indexing starts from <em>0</em>, NOT 1! An array of size n has indices 0 to n-1.</p>
           </div>
-<div class="prose" style="margin-bottom:0.5rem"><strong>🖥️ Memory — int arr[5] = {10, 20, 30, 40, 50}</strong></div>
-<div class="mem-viz">
+
+          <!-- Memory Visualization for Array -->
+          <div class="prose" style="margin-bottom:0.5rem"><strong>🖥️ Memory — int arr[5] = {10, 20, 30, 40, 50}</strong></div>
+          <div class="mem-viz">
             <div class="mem-cell active">
               <div class="mem-addr">0x100</div>
               <div class="mem-val">10</div>
@@ -978,8 +1947,9 @@ END</pre>
               <div class="mem-label">arr[4]</div>
             </div>
           </div>
-<div class="prose" style="margin-top:0.5rem"><em>Each int = 4 bytes → addresses jump by 4. arr[0] is at base address, arr[i] is at base + i×4.</em></div>
-<div class="code-wrap" style="margin-top:1rem">
+          <div class="prose" style="margin-top:0.5rem"><em>Each int = 4 bytes → addresses jump by 4. arr[0] is at base address, arr[i] is at base + i×4.</em></div>
+
+          <div class="code-wrap" style="margin-top:1rem">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">arrays.c</div>
@@ -1001,10 +1971,12 @@ END</pre>
     <span class="kw">return</span> <span class="num">0</span>;
 }</pre>
           </div>
-<div class="alert alert-error">
+
+          <div class="alert alert-error">
             <div class="alert-icon">🐛</div>
             <div class="alert-body"><strong>Out of Bounds!</strong>Accessing arr[5] when size is 5 → arr[5] doesn't exist! C won't warn you — it reads garbage memory or crashes. Always use indices 0 to n-1.</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- SORTING & SEARCHING -->
@@ -1014,11 +1986,12 @@ END</pre>
           <div class="section-title">Searching &amp; Sorting Arrays <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="inner-tabs">
+        <div class="section-body">
+          <div class="inner-tabs">
             <button class="inner-tab active" onclick="switchTab(this,'linear-search')">Linear Search</button>
             <button class="inner-tab" onclick="switchTab(this,'bubble-sort')">Bubble Sort</button>
           </div>
-<div class="inner-content active" id="linear-search">
+          <div class="inner-content active" id="linear-search">
             <div class="code-wrap">
               <div class="code-topbar">
                 <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
@@ -1045,7 +2018,7 @@ END</pre>
             </div>
             <div class="prose"><p>Time Complexity: <strong>O(n)</strong> worst case. Checks each element one by one.</p></div>
           </div>
-<div class="inner-content" id="bubble-sort">
+          <div class="inner-content" id="bubble-sort">
             <div class="code-wrap">
               <div class="code-topbar">
                 <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
@@ -1059,7 +2032,7 @@ END</pre>
 
     <span class="kw">for</span> (<span class="kw">int</span> <span class="var">i</span>=<span class="num">0</span>; <span class="var">i</span>&lt;<span class="var">n</span>-<span class="num">1</span>; <span class="var">i</span>++) {
         <span class="kw">for</span> (<span class="kw">int</span> <span class="var">j</span>=<span class="num">0</span>; <span class="var">j</span>&lt;<span class="var">n</span>-<span class="var">i</span>-<span class="num">1</span>; <span class="var">j</span>++) {
-            <span class="kw">if</span> (<span class="var">arr</span>[<span class="var">j</span>] &gt; <span class="var">arr</span>[<span class="var">j</span>+<span class="num">1</span>]) {
+            <span class="kw">if</span> (<span class="var">arr</span>[<span class="var">j</span>] > <span class="var">arr</span>[<span class="var">j</span>+<span class="num">1</span>]) {
                 <span class="var">temp</span> = <span class="var">arr</span>[<span class="var">j</span>];       <span class="cm">// swap</span>
                 <span class="var">arr</span>[<span class="var">j</span>] = <span class="var">arr</span>[<span class="var">j</span>+<span class="num">1</span>];
                 <span class="var">arr</span>[<span class="var">j</span>+<span class="num">1</span>] = <span class="var">temp</span>;
@@ -1074,7 +2047,8 @@ END</pre>
               <div class="alert-icon">💡</div>
               <div class="alert-body"><strong>Bubble Sort Logic</strong>In each pass, the largest unsorted element "bubbles up" to its correct position. After pass 1, largest is at end. After pass 2, 2nd largest is placed. Time: O(n²)</div>
             </div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- 2D ARRAYS -->
@@ -1084,10 +2058,11 @@ END</pre>
           <div class="section-title">2D Arrays — Matrix Operations <span class="pyq-badge">⭐ PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>2D array = matrix = array of arrays.</strong> Think of it as rows and columns. <code>int mat[3][3]</code> = 3 rows, 3 columns.</p>
           </div>
-<div class="code-wrap">
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">matrix_add.c</div>
@@ -1112,7 +2087,8 @@ END</pre>
 <span class="cm">/* Output:
 6 8
 10 12 */</span></pre>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- STRINGS -->
@@ -1122,11 +2098,14 @@ END</pre>
           <div class="section-title">Strings — Character Arrays &amp; Functions <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>String in C = char array ending with null character '\0'</strong>. C has no built-in String type — it's just an array of characters.</p>
           </div>
-<div class="prose" style="margin-bottom:0.5rem"><strong>🖥️ "HELLO" in Memory</strong></div>
-<div class="mem-viz">
+
+          <!-- String memory viz -->
+          <div class="prose" style="margin-bottom:0.5rem"><strong>🖥️ "HELLO" in Memory</strong></div>
+          <div class="mem-viz">
             <div class="mem-cell active"><div class="mem-addr">0x200</div><div class="mem-val">'H'</div><div class="mem-label">[0]</div></div>
             <div class="mem-cell active"><div class="mem-addr">0x201</div><div class="mem-val">'E'</div><div class="mem-label">[1]</div></div>
             <div class="mem-cell active"><div class="mem-addr">0x202</div><div class="mem-val">'L'</div><div class="mem-label">[2]</div></div>
@@ -1134,7 +2113,8 @@ END</pre>
             <div class="mem-cell active"><div class="mem-addr">0x204</div><div class="mem-val">'O'</div><div class="mem-label">[4]</div></div>
             <div class="mem-cell" style="border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.05)"><div class="mem-addr">0x205</div><div class="mem-val" style="color:#ef4444">'\0'</div><div class="mem-label">null</div></div>
           </div>
-<div class="code-wrap" style="margin-top:1rem">
+
+          <div class="code-wrap" style="margin-top:1rem">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">strings.c</div>
@@ -1163,7 +2143,8 @@ END</pre>
     <span class="kw">return</span> <span class="num">0</span>;
 }</pre>
           </div>
-<table class="dry-table">
+
+          <table class="dry-table">
             <thead><tr><th>Function</th><th>Header</th><th>What it does</th><th>Returns</th></tr></thead>
             <tbody>
               <tr><td class="highlight">strlen(s)</td><td>&lt;string.h&gt;</td><td>Length of string</td><td>int (count)</td></tr>
@@ -1173,7 +2154,8 @@ END</pre>
               <tr><td class="highlight">strupr(s)</td><td>&lt;string.h&gt;</td><td>UPPERCASE conversion</td><td>modified string</td></tr>
               <tr><td class="highlight">strlwr(s)</td><td>&lt;string.h&gt;</td><td>lowercase conversion</td><td>modified string</td></tr>
             </tbody>
-          </table><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </table>
+        </div>
       </div>
 
       <!-- EXAM III -->
@@ -1183,14 +2165,23 @@ END</pre>
           <div class="section-title">Unit III — Exam Focus &amp; Quick Revision</div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="revision-grid" style="margin-top:1rem">
+        <div class="section-body">
+          <div class="exam-items">
+            <div class="exam-item hot"><span class="star">🔥</span>Bubble Sort program with dry run (PYQ every year)</div>
+            <div class="exam-item hot"><span class="star">🔥</span>Matrix multiplication (PYQ 2022, 2023)</div>
+            <div class="exam-item hot"><span class="star">🔥</span>String operations: reverse, palindrome check (PYQ repeated)</div>
+            <div class="exam-item"><span class="star">⭐</span>Linear search vs binary search comparison</div>
+            <div class="exam-item"><span class="star">⭐</span>Explain string functions with examples</div>
+          </div>
+          <div class="revision-grid" style="margin-top:1rem">
             <div class="rev-chip"><div class="rc-key">Array index</div><div class="rc-val">Starts at 0, ends at n-1</div></div>
             <div class="rev-chip"><div class="rc-key">String end</div><div class="rc-val">'\0' null terminator</div></div>
             <div class="rev-chip"><div class="rc-key">Bubble sort</div><div class="rc-val">O(n²) — nested loops, swap adjacent</div></div>
             <div class="rev-chip"><div class="rc-key">2D array</div><div class="rc-val">arr[row][col] — row major order</div></div>
             <div class="rev-chip"><div class="rc-key">strlen</div><div class="rc-val">Counts chars BEFORE '\0'</div></div>
             <div class="rev-chip"><div class="rc-key">strcmp</div><div class="rc-val">0 = equal, &lt;0 = first smaller</div></div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1203,7 +2194,7 @@ END</pre>
   <div class="unit-section" id="unit-4">
     <div class="unit-hero">
       <div class="unit-tag" style="border-color:var(--accent4);color:var(--accent4)">🔗 Unit IV · JNTUK R23</div>
-      <h1>Pointers &amp;<br>User-Defined Types</h1>
+      <h1>Pointers &amp;<br/>User-Defined Types</h1>
       <p>Master the most powerful — and feared — concept in C. Pointers let you talk directly to memory. Structures let you create your own data types.</p>
       <div class="topic-pills">
         <span class="pill">Pointers</span><span class="pill">Dereferencing</span><span class="pill">Pointer Arithmetic</span>
@@ -1219,12 +2210,15 @@ END</pre>
           <div class="section-title">Pointers — Address, Dereferencing &amp; Arithmetic <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>Pointer = a variable that stores a memory ADDRESS</strong> instead of a regular value. Instead of storing 42, it stores where 42 lives in memory.</p>
             <p>Real-world analogy: <em>A pointer is like a Google Maps pin — it doesn't contain the restaurant, it contains its LOCATION.</em></p>
           </div>
-<div class="prose" style="margin-bottom:0.5rem"><strong>🖥️ Pointer Memory Visualization</strong></div>
-<div style="display:flex;gap:2rem;flex-wrap:wrap;margin:0.75rem 0">
+
+          <!-- Pointer Memory Visualization -->
+          <div class="prose" style="margin-bottom:0.5rem"><strong>🖥️ Pointer Memory Visualization</strong></div>
+          <div style="display:flex;gap:2rem;flex-wrap:wrap;margin:0.75rem 0">
             <div>
               <div style="font-size:0.7rem;color:var(--muted);margin-bottom:4px;font-family:'JetBrains Mono',monospace">Variable 'a'</div>
               <div class="mem-viz">
@@ -1248,7 +2242,8 @@ END</pre>
               <div style="font-size:0.65rem;color:var(--muted);margin-top:4px;font-family:'JetBrains Mono',monospace">p holds address of a</div>
             </div>
           </div>
-<div class="code-wrap">
+
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">pointers.c</div>
@@ -1273,14 +2268,17 @@ END</pre>
     <span class="kw">return</span> <span class="num">0</span>;
 }</pre>
           </div>
-<ul class="explain-list">
+
+          <ul class="explain-list">
             <li><span class="ln">int *p</span><span class="ld"><strong>Declares pointer</strong> — p can hold address of any int. The * means "this is a pointer"</span></li>
             <li><span class="ln">p = &amp;a</span><span class="ld"><strong>&amp; = address-of operator</strong> — gets the memory address where a lives</span></li>
             <li><span class="ln">*p</span><span class="ld"><strong>Dereferencing</strong> — "go to the address in p, and give me the value there". * in this context = "value at"</span></li>
             <li><span class="ln">*p = 100</span><span class="ld"><strong>Modifying via pointer</strong> — changes a's value without using a directly!</span></li>
           </ul>
-<div class="prose" style="margin-top:1rem"><p><strong>Pointer Arithmetic</strong> — when you do p++, pointer moves by the SIZE of the data type (4 bytes for int).</p></div>
-<div class="code-wrap">
+
+          <!-- Pointer Arithmetic -->
+          <div class="prose" style="margin-top:1rem"><p><strong>Pointer Arithmetic</strong> — when you do p++, pointer moves by the SIZE of the data type (4 bytes for int).</p></div>
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">ptr_arithmetic.c</div>
@@ -1295,10 +2293,12 @@ END</pre>
 <span class="var">p</span>++;
 <span class="fn">printf</span>(<span class="str">"%d\n"</span>, *<span class="var">p</span>);   <span class="cm">// 30 (arr[2])</span></pre>
           </div>
-<div class="alert alert-warning">
+
+          <div class="alert alert-warning">
             <div class="alert-icon">⚠️</div>
             <div class="alert-body"><strong>Null Pointer</strong>Always initialize pointers! <code>int *p = NULL;</code> means "points to nothing". Using an uninitialized pointer causes undefined behavior or crash.</div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- STRUCTURES -->
@@ -1308,10 +2308,11 @@ END</pre>
           <div class="section-title">Structures — User-Defined Data Types <span class="pyq-badge">⭐ PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>struct</strong> = custom data type that groups different data types together. Instead of separate name, age, gpa variables for each student, bundle them in one structure.</p>
           </div>
-<div class="code-wrap">
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">structures.c</div>
@@ -1341,7 +2342,7 @@ END</pre>
     <span class="kw">return</span> <span class="num">0</span>;
 }</pre>
           </div>
-<div class="info-grid">
+          <div class="info-grid">
             <div class="info-card">
               <div class="info-card-title">. (dot) operator</div>
               <div class="info-card-value" style="font-size:0.82rem;color:var(--accent)">s1.name → access member via struct variable</div>
@@ -1350,7 +2351,8 @@ END</pre>
               <div class="info-card-title">→ (arrow) operator</div>
               <div class="info-card-value" style="font-size:0.82rem;color:var(--accent2)">ptr→name → access via struct POINTER</div>
             </div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- UNIONS -->
@@ -1360,10 +2362,11 @@ END</pre>
           <div class="section-title">Unions — Shared Memory <span class="pyq-badge">PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>Union</strong> = like struct, but ALL members share the SAME memory location. Size = size of largest member. Only ONE member can hold a valid value at a time.</p>
           </div>
-<div class="code-wrap">
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">union.c</div>
@@ -1376,10 +2379,11 @@ END</pre>
 };
 <span class="cm">/* All share the same memory! */</span></pre>
           </div>
-<div class="revision-grid">
+          <div class="revision-grid">
             <div class="rev-chip"><div class="rc-key">struct</div><div class="rc-val">Each member has OWN memory. Size = sum of all members.</div></div>
             <div class="rev-chip"><div class="rc-key">union</div><div class="rc-val">All members SHARE memory. Size = largest member.</div></div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- EXAM IV -->
@@ -1389,14 +2393,23 @@ END</pre>
           <div class="section-title">Unit IV — Exam Focus &amp; Quick Revision</div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="revision-grid" style="margin-top:1rem">
+        <div class="section-body">
+          <div class="exam-items">
+            <div class="exam-item hot"><span class="star">🔥</span>What is a pointer? Write C program demonstrating pointer (PYQ every year)</div>
+            <div class="exam-item hot"><span class="star">🔥</span>Swap two numbers using pointers (PYQ 2022, 2023)</div>
+            <div class="exam-item hot"><span class="star">🔥</span>Define structure, write program for student database (PYQ repeated)</div>
+            <div class="exam-item"><span class="star">⭐</span>Pointer arithmetic with arrays — explain with diagram</div>
+            <div class="exam-item"><span class="star">⭐</span>Difference: structure vs union with memory layout</div>
+          </div>
+          <div class="revision-grid" style="margin-top:1rem">
             <div class="rev-chip"><div class="rc-key">&amp;a</div><div class="rc-val">Address of variable a</div></div>
             <div class="rev-chip"><div class="rc-key">*p</div><div class="rc-val">Value at address p (deref)</div></div>
             <div class="rev-chip"><div class="rc-key">int *p</div><div class="rc-val">Pointer to int declaration</div></div>
             <div class="rev-chip"><div class="rc-key">p++</div><div class="rc-val">Move 4 bytes for int pointer</div></div>
             <div class="rev-chip"><div class="rc-key">s1.name</div><div class="rc-val">Access struct member via .</div></div>
             <div class="rev-chip"><div class="rc-key">ptr→name</div><div class="rc-val">Access via struct pointer</div></div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1409,7 +2422,7 @@ END</pre>
   <div class="unit-section" id="unit-5">
     <div class="unit-hero">
       <div class="unit-tag" style="border-color:var(--accent5);color:var(--accent5)">⚙️ Unit V · JNTUK R23</div>
-      <h1>Functions &amp;<br>File Handling</h1>
+      <h1>Functions &amp;<br/>File Handling</h1>
       <p>Break programs into reusable blocks. Store and retrieve data from files. These are the hallmarks of professional C programming.</p>
       <div class="topic-pills">
         <span class="pill">Function Declaration</span><span class="pill">Arguments</span><span class="pill">Return Types</span>
@@ -1426,17 +2439,52 @@ END</pre>
           <div class="section-title">Functions — Declaration, Definition &amp; Calls <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>Function</strong> = reusable block of code that does a specific task. Write once, call many times. Like a machine in a factory — give it input, it produces output.</p>
             <p>Functions prevent code repetition (DRY = Don't Repeat Yourself).</p>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><ul class="explain-list">
+          </div>
+          <div class="code-wrap">
+            <div class="code-topbar">
+              <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
+              <div class="code-lang">functions.c</div>
+              <button class="code-copy" onclick="copyCode(this)">Copy</button>
+            </div>
+<pre><span class="pp">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+
+<span class="cm">/* ── Step 1: Function Declaration (Prototype) ── */</span>
+<span class="kw">int</span> <span class="fn">add</span>(<span class="kw">int</span> <span class="var">a</span>, <span class="kw">int</span> <span class="var">b</span>);
+<span class="kw">int</span> <span class="fn">factorial</span>(<span class="kw">int</span> <span class="var">n</span>);
+
+<span class="cm">/* ── Step 2: main() ── */</span>
+<span class="kw">int</span> <span class="fn">main</span>() {
+    <span class="kw">int</span> <span class="var">result</span> = <span class="fn">add</span>(<span class="num">5</span>, <span class="num">3</span>);   <span class="cm">// Function Call</span>
+    <span class="fn">printf</span>(<span class="str">"5+3 = %d\n"</span>, <span class="var">result</span>);
+
+    <span class="fn">printf</span>(<span class="str">"5! = %d\n"</span>, <span class="fn">factorial</span>(<span class="num">5</span>));
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+
+<span class="cm">/* ── Step 3: Function Definitions ── */</span>
+<span class="kw">int</span> <span class="fn">add</span>(<span class="kw">int</span> <span class="var">a</span>, <span class="kw">int</span> <span class="var">b</span>) {   <span class="cm">// a,b are parameters</span>
+    <span class="kw">return</span> <span class="var">a</span> + <span class="var">b</span>;
+}
+
+<span class="kw">int</span> <span class="fn">factorial</span>(<span class="kw">int</span> <span class="var">n</span>) {
+    <span class="kw">if</span> (<span class="var">n</span> == <span class="num">0</span> || <span class="var">n</span> == <span class="num">1</span>) <span class="kw">return</span> <span class="num">1</span>;  <span class="cm">// base case</span>
+    <span class="kw">return</span> <span class="var">n</span> * <span class="fn">factorial</span>(<span class="var">n</span>-<span class="num">1</span>);         <span class="cm">// recursive call</span>
+}</pre>
+          </div>
+          <ul class="explain-list">
             <li><span class="ln">Prototype</span><span class="ld"><strong>Function declaration</strong> — tells compiler: function name, return type, parameter types. Must come BEFORE main().</span></li>
             <li><span class="ln">add(5,3)</span><span class="ld"><strong>Function call</strong> — 5,3 are ARGUMENTS. Values are passed to parameters a and b.</span></li>
             <li><span class="ln">return a+b</span><span class="ld"><strong>Return value</strong> — sends computed result back to caller. return type must match declaration.</span></li>
             <li><span class="ln">Recursion</span><span class="ld"><strong>Function calling itself</strong> — needs a base case to stop. factorial(5) calls factorial(4) calls... factorial(1) which returns 1.</span></li>
           </ul>
-<div class="prose" style="margin-top:1rem;margin-bottom:0.5rem"><strong>🖥️ Stack Frame — factorial(3)</strong></div>
-<div style="display:flex;flex-direction:column;gap:4px;max-width:280px">
+
+          <!-- Stack Visualization -->
+          <div class="prose" style="margin-top:1rem;margin-bottom:0.5rem"><strong>🖥️ Stack Frame — factorial(3)</strong></div>
+          <div style="display:flex;flex-direction:column;gap:4px;max-width:280px">
             <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:0.75rem">
               <div style="color:var(--accent5);font-weight:700">factorial(1)</div>
               <div style="color:var(--muted)">n=1 → returns 1</div>
@@ -1454,7 +2502,7 @@ END</pre>
               <div style="color:var(--muted)">calls factorial(3) → gets 6</div>
             </div>
           </div>
-<div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+        </div>
       </div>
 
       <!-- SCOPE & STORAGE CLASS -->
@@ -1464,7 +2512,8 @@ END</pre>
           <div class="section-title">Scope, Lifetime &amp; Storage Classes <span class="pyq-badge">PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="revision-grid">
+        <div class="section-body">
+          <div class="revision-grid">
             <div class="rev-chip">
               <div class="rc-key">Local Variable</div>
               <div class="rc-val">Declared inside function. Exists only while function runs. Default: auto.</div>
@@ -1490,7 +2539,7 @@ END</pre>
               <div class="rc-val">Hint to store in CPU register for speed (e.g. loop counter).</div>
             </div>
           </div>
-<div class="code-wrap" style="margin-top:0.75rem">
+          <div class="code-wrap" style="margin-top:0.75rem">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">static_demo.c</div>
@@ -1506,7 +2555,8 @@ END</pre>
     <span class="fn">counter</span>(); <span class="cm">// Count = 2</span>
     <span class="fn">counter</span>(); <span class="cm">// Count = 3</span>
 }</pre>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- FILE HANDLING -->
@@ -1516,14 +2566,16 @@ END</pre>
           <div class="section-title">File Handling — Read &amp; Write to Files <span class="pyq-badge">⭐ EXAM</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
+        <div class="section-body">
+          <div class="prose">
             <p><strong>File handling</strong> = permanent data storage. Unlike variables (lost when program ends), files persist on disk. Used in real software: logs, databases, config files.</p>
           </div>
-<div class="steps">
+          <div class="steps">
             <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Open File — fopen()</h4>Creates/opens a file. Returns FILE pointer. Check for NULL (file open failure).</div></div>
             <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Read/Write — fprintf(), fscanf(), fgets()</h4>Write to or read from the file.</div></div>
             <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Close File — fclose()</h4>ALWAYS close after use! Saves buffer, frees resources.</div></div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="code-wrap">
+          </div>
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">file_handling.c</div>
@@ -1555,7 +2607,8 @@ END</pre>
     <span class="kw">return</span> <span class="num">0</span>;
 }</pre>
           </div>
-<table class="dry-table">
+
+          <table class="dry-table">
             <thead><tr><th>Mode</th><th>Meaning</th><th>If file doesn't exist</th></tr></thead>
             <tbody>
               <tr><td class="highlight">"r"</td><td>Read only</td><td>Returns NULL (error)</td></tr>
@@ -1564,7 +2617,8 @@ END</pre>
               <tr><td class="highlight">"r+"</td><td>Read + Write</td><td>Returns NULL</td></tr>
               <tr><td class="highlight">"w+"</td><td>Write + Read (overwrite)</td><td>Creates new file</td></tr>
             </tbody>
-          </table><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </table>
+        </div>
       </div>
 
       <!-- ARRAYS IN FUNCTIONS -->
@@ -1574,11 +2628,12 @@ END</pre>
           <div class="section-title">Pointers in Functions &amp; Arrays as Parameters <span class="pyq-badge">PYQ</span></div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Critical concept for real-world engineering systems and JNTUK exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="prose">
-            <p><strong>Call by Value</strong> — copy of argument passed. Changes in function DON'T affect original.<br>
+        <div class="section-body">
+          <div class="prose">
+            <p><strong>Call by Value</strong> — copy of argument passed. Changes in function DON'T affect original.<br/>
             <strong>Call by Reference (using pointers)</strong> — address passed. Changes DO affect original.</p>
           </div>
-<div class="code-wrap">
+          <div class="code-wrap">
             <div class="code-topbar">
               <div class="code-dots"><span class="cd1"></span><span class="cd2"></span><span class="cd3"></span></div>
               <div class="code-lang">call_by_ref.c — Swap using pointers</div>
@@ -1603,7 +2658,8 @@ END</pre>
     <span class="kw">for</span> (<span class="kw">int</span> <span class="var">i</span>=<span class="num">0</span>; <span class="var">i</span>&lt;<span class="var">n</span>; <span class="var">i</span>++)
         <span class="fn">printf</span>(<span class="str">"%d "</span>, <span class="var">arr</span>[<span class="var">i</span>]);
 }</pre>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
       <!-- EXAM FOCUS V -->
@@ -1613,81 +2669,93 @@ END</pre>
           <div class="section-title">Unit V — Exam Focus &amp; Quick Revision</div>
           <div class="section-chevron">▼</div>
         </div>
-        <div class="section-body"><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div><div class="revision-grid" style="margin-top:1rem">
+        <div class="section-body">
+          <div class="exam-items">
+            <div class="exam-item hot"><span class="star">🔥</span>Recursive factorial, Fibonacci (PYQ every year)</div>
+            <div class="exam-item hot"><span class="star">🔥</span>Swap two numbers using call by reference / pointers (PYQ 2022, 2023)</div>
+            <div class="exam-item hot"><span class="star">🔥</span>Write and Read from a file using fopen, fprintf, fclose (PYQ 2022)</div>
+            <div class="exam-item"><span class="star">⭐</span>Call by value vs call by reference with programs</div>
+            <div class="exam-item"><span class="star">⭐</span>Explain storage classes: auto, static, extern, register</div>
+            <div class="exam-item"><span class="star">⭐</span>Function prototype — what, why, when?</div>
+          </div>
+          <div class="revision-grid" style="margin-top:1rem">
             <div class="rev-chip"><div class="rc-key">fopen("f","w")</div><div class="rc-val">Open file for writing</div></div>
             <div class="rev-chip"><div class="rc-key">fclose(fp)</div><div class="rc-val">Always close after use!</div></div>
             <div class="rev-chip"><div class="rc-key">static var</div><div class="rc-val">Retains value between calls</div></div>
             <div class="rev-chip"><div class="rc-key">Call by val</div><div class="rc-val">Copy — original unchanged</div></div>
             <div class="rev-chip"><div class="rc-key">Call by ref</div><div class="rc-val">Pointer — original changes</div></div>
             <div class="rev-chip"><div class="rc-key">Recursion</div><div class="rc-val">Function calls itself, needs base case</div></div>
-          </div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div><div class="content-placeholder">Visualize how this behaves in a real physical or logical system.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">📘 Core Concepts</div><div class="sec-line"></div></div><div class="content-placeholder">Foundational definitions and primary relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div><div class="content-placeholder">Logical progression for solving problems or understanding flow.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Formula / Concept Zone</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Key derivations and important mathematical relations.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Time-saving methodologies for competitive and board exams.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Pitfalls to avoid during problem solving.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Previous year questions and frequency analysis.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Most expected segments and marking schemes.</div><div class="sec-divider"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div><div class="p-6 bg-blue-500/5 rounded-2xl border border-blue-500/10 text-slate-500 italic text-sm">Consolidated summary of the entire concept.</div></div>
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
 
+</main><!-- /main -->
 
-              </div>
-              <aside class="hidden lg:block lg:col-span-3 space-y-8">
-                  <div class="sticky top-32 space-y-6">
-                      <div class="glass-card p-6">
-                          <h3 class="text-xs font-black text-slate-100 uppercase mb-4 tracking-widest">In This Unit</h3>
-                          <div class="space-y-3" id="quick-links">
-                             <!-- Links will be populated by script or remain as placeholders -->
-                             <div class="p-3 bg-white/5 rounded-xl border border-white/5 text-[10px] font-bold text-slate-400">Loading Topics...</div>
-                          </div>
-                      </div>
-                      <div class="glass-card p-6 bg-blue-600/10 border-blue-500/20">
-                          <h3 class="text-xs font-black text-blue-500 uppercase mb-2 tracking-widest">Mastery Status</h3>
-                          <div class="h-2 w-full bg-blue-900/30 rounded-full overflow-hidden mb-3">
-                              <div class="h-full bg-blue-500 w-[45%]" id="progress-bar"></div>
-                          </div>
-                          <p class="text-[10px] font-bold text-slate-400">45% Syllabus Covered</p>
-                      </div>
-                  </div>
-              </aside>
-          </div>
-      </main>
-      
-      <div class="ai-tools-dock">
-          <button class="ai-btn" onclick="toggleAI()">🧠 AI Professor</button>
-          <button class="ai-btn" onclick="toggleQuiz()">⚡ Unit Quiz</button>
-          <button class="ai-btn" onclick="toggleOneDay()" style="color:#f87171">🔥 1-Day Mode</button>
-      </div>
+<!-- FLOATING HELPER -->
+<div class="sticky-helper" onclick="alert('🤖 AI Tutor Tips:\n\n✅ Arrow keys to focus sections\n✅ Click tabs to switch content\n✅ Click section headers to expand/collapse\n✅ Use sidebar to jump units\n✅ MCQ sections have clickable options\n\n📝 Exam Tips:\n• 🔥 items are most-repeated PYQs\n• ⭐ items come frequently in exams\n• Study Quick Revision before exam day!')" title="AI Tutor Help">🤖</div>
 
-      <script>
-        function toggleAI() { alert("🧠 AI Professor: Analysis initialized. Ask me any doubt!"); }
-        function toggleQuiz() { alert("⚡ Unit Quiz: Generating adaptive testing module..."); }
-        function toggleOneDay() { alert("🔥 1-Day Prep: Highlighting only High-Probability segments."); }
-        
-        // Auto-populate links
-        document.addEventListener('DOMContentLoaded', () => {
-          const linksMount = document.getElementById('quick-links');
-          const heads = document.querySelectorAll('h2, .section-label');
-          if (linksMount && heads.length > 0) {
-            linksMount.innerHTML = '';
-            heads.forEach((h, i) => {
-              if (i > 10) return;
-              const link = document.createElement('a');
-              link.href = '#';
-              link.className = 'block p-3 bg-white/5 rounded-xl border border-white/5 text-[10px] font-bold text-slate-400 hover:text-white hover:border-blue-500/50 transition-all';
-              link.textContent = h.textContent.substring(0, 30) + (h.textContent.length > 30 ? '...' : '');
-              linksMount.appendChild(link);
-            });
-          }
-        });
-      </script>
-    
-<footer class="mt-20 pt-10 border-t border-slate-200 dark:border-slate-800">
-    <div class="glass-card p-8 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
-        <h4 class="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest mb-3">About the Academic Team</h4>
-        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            Engi Prep Hub is a modern engineering education platform helping JNTUK students with notes, PYQs, Engineering Graphics tutorials, calculators, and exam preparation resources. Our content is curated by a dedicated Academic Team of university toppers and subject matter experts to provide high-yield, structured, and easy-to-scan study materials for JNTUK R23 Regulation.
-        </p>
-        <div class="mt-6 flex items-center justify-between text-xs text-slate-500">
-            <span>Written by: Engi Prep Hub Academic Team</span>
-            <span>Last Updated: May 25, 2026</span>
-        </div>
-    </div>
-</footer>
-</body></html>
+<script>
+// ─── UNIT NAVIGATION ───
+function showUnit(num) {
+  document.querySelectorAll('.unit-section').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.unit-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('unit-' + num).classList.add('active');
+  document.querySelector('.unit-btn[data-unit="' + num + '"]').classList.add('active');
+  const titles = {1:'Unit I', 2:'Unit II', 3:'Unit III', 4:'Unit IV', 5:'Unit V'};
+  document.getElementById('breadcrumb-unit').textContent = titles[num];
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── SECTION TOGGLE ───
+function toggleSection(header) {
+  const block = header.closest('.section-block');
+  block.classList.toggle('open');
+}
+
+// ─── INNER TABS ───
+function switchTab(tab, targetId) {
+  const container = tab.closest('.section-body');
+  container.querySelectorAll('.inner-tab').forEach(t => t.classList.remove('active'));
+  container.querySelectorAll('.inner-content').forEach(c => c.classList.remove('active'));
+  tab.classList.add('active');
+  const target = document.getElementById(targetId);
+  if (target) target.classList.add('active');
+}
+
+// ─── QUIZ ───
+function answerQ(optEl, type, answerId) {
+  const container = optEl.closest('.quiz-container');
+  container.querySelectorAll('.quiz-opt').forEach(o => {
+    o.classList.remove('correct', 'wrong');
+    o.style.pointerEvents = 'none';
+  });
+  optEl.classList.add(type);
+  const ans = document.getElementById(answerId);
+  if (ans) ans.classList.add('visible');
+}
+
+// ─── COPY CODE ───
+function copyCode(btn) {
+  const pre = btn.closest('.code-wrap').querySelector('pre');
+  const text = pre.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  }).catch(() => {
+    btn.textContent = '✓';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+
+// ─── OPEN FIRST SECTION AUTO ───
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.unit-section.active .section-block').forEach((block, idx) => {
+    if (idx === 0) block.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
