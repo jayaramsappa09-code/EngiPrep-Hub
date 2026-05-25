@@ -57,50 +57,111 @@ document.addEventListener('DOMContentLoaded', () => {
     initGamification();
 });
 
-// Theme Management
-function initTheme() {
-    const themeToggleBtn = document.getElementById('theme-toggle');
+// Theme Management & Custom Multi-Theme System
+function applyTheme(themeName) {
+    if (!themeName) themeName = 'dark';
+    
+    // Clear all theme classes
+    document.documentElement.classList.remove('dark', 'theme-dark', 'theme-light', 'theme-blueprint', 'theme-focus', 'theme-exam');
+    
+    // Set custom theme class
+    document.documentElement.classList.add(`theme-${themeName}`);
+    
+    // Add legacy .dark class dynamically for dark-toned themes to preserve Tailwind utility compatibility
+    if (themeName === 'dark' || themeName === 'blueprint' || themeName === 'exam') {
+        document.documentElement.classList.add('dark');
+    }
+    
+    // Store in localStorage
+    localStorage.setItem('color-theme', themeName);
+
+    // Sync button icons based on light vs dark spectrum of the active theme
     const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
     const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-    // Change the icons inside the button based on previous settings
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
+    
+    const isDarkSpectrum = (themeName === 'dark' || themeName === 'blueprint' || themeName === 'exam');
+    if (isDarkSpectrum) {
         if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
         if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
     } else {
-        document.documentElement.classList.remove('dark');
         if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
         if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
     }
+}
 
+window.applyTheme = applyTheme;
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('color-theme') || 'dark';
+    applyTheme(savedTheme);
+
+    const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', function() {
-            // toggle icons inside button
-            if (themeToggleDarkIcon) themeToggleDarkIcon.classList.toggle('hidden');
-            if (themeToggleLightIcon) themeToggleLightIcon.classList.toggle('hidden');
+        // Prevent stacking listeners
+        themeToggleBtn.replaceWith(themeToggleBtn.cloneNode(true));
+        const newThemeBtn = document.getElementById('theme-toggle');
 
-            // if set via local storage previously
-            if (localStorage.getItem('color-theme')) {
-                if (localStorage.getItem('color-theme') === 'light') {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                }
-            // if NOT set via local storage previously
-            } else {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                }
+        newThemeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            let dropdown = document.getElementById('theme-dropdown-menu');
+            if (dropdown) {
+                dropdown.remove();
+                return;
             }
+            
+            dropdown = document.createElement('div');
+            dropdown.id = 'theme-dropdown-menu';
+            dropdown.className = 'theme-dropdown-card';
+            
+            const themes = [
+                { id: 'dark', label: 'Default Dark', dot: '#0B1020', desc: 'Vercel Deep Slate' },
+                { id: 'light', label: 'Light Mode', dot: '#FFFFFF', desc: 'Notion Clean Paper' },
+                { id: 'blueprint', label: 'Blueprint Mode', dot: '#00D2FF', desc: 'Civil/Mech Drafting' },
+                { id: 'focus', label: 'Focus Mode', dot: '#FAF6EE', desc: 'Distraction-free Ink' },
+                { id: 'exam', label: 'Exam Mode', dot: '#F59E0B', desc: 'High-Yield Alert' }
+            ];
+            
+            const activeTheme = localStorage.getItem('color-theme') || 'dark';
+            
+            let htmlContent = '';
+            themes.forEach(t => {
+                const isActive = t.id === activeTheme;
+                htmlContent += `
+                    <div class="theme-dropdown-item ${isActive ? 'active' : ''}" data-theme-id="${t.id}">
+                        <span class="theme-dot" style="background-color: ${t.dot}; border: 1px solid rgba(255, 255, 255, 0.2);"></span>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-[12px] leading-tight text-text-main">${t.label}</span>
+                            <span class="text-[9px] text-slate-400 leading-tight">${t.desc}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            dropdown.innerHTML = htmlContent;
+            
+            newThemeBtn.style.position = 'relative';
+            newThemeBtn.appendChild(dropdown);
+            
+            // Add click events for item selection
+            dropdown.querySelectorAll('.theme-dropdown-item').forEach(item => {
+                item.addEventListener('click', function(evt) {
+                    evt.stopPropagation();
+                    const selTheme = this.getAttribute('data-theme-id');
+                    applyTheme(selTheme);
+                    dropdown.remove();
+                });
+            });
         });
     }
+
+    // Close on clicking outside
+    document.addEventListener('click', function(e) {
+        const dropdown = document.getElementById('theme-dropdown-menu');
+        const themeBtn = document.getElementById('theme-toggle');
+        if (dropdown && themeBtn && !themeBtn.contains(e.target)) {
+            dropdown.remove();
+        }
+    });
 }
 
 // Sync UI on auth changes
