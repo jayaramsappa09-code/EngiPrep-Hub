@@ -58,6 +58,9 @@
 
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 selection:bg-blue-100 transition-colors duration-300" id="revision-body-target">
+    <!-- Beautiful Premium Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+
     <!-- Navbar (Hidden in distraction-free revision mode) -->
     <nav class="fixed top-0 w-full z-50 bg-white dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-6" id="main-global-navbar">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
@@ -359,7 +362,7 @@
     </div>
 
     <!-- Global Footer -->
-    <footer class="pt-24 pb-12 px-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-850 transition-colors" aria-label="Academic Resource Footer">
+    <footer id="global-page-footer" class="pt-24 pb-12 px-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-850 transition-colors" aria-label="Academic Resource Footer">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20 text-left">
                 <div>
@@ -419,6 +422,33 @@
     </footer>
 
     <script type="module">
+        // Elegant non-blocking Premium Toast System
+        window.showToast = function(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `px-5 py-3 rounded-2xl text-[11px] font-extrabold uppercase tracking-wider bg-slate-900 border border-slate-800 dark:bg-white dark:border-slate-100 text-slate-100 dark:text-slate-900 shadow-2xl flex items-center gap-3 animate-fade-in pointer-events-auto transition-all duration-300 transform translate-y-2 opacity-0`;
+            
+            const dotColor = type === 'success' ? 'bg-emerald-500' : (type === 'error' ? 'bg-rose-500' : 'bg-blue-500');
+            toast.innerHTML = `
+                <span class="w-1.5 h-1.5 rounded-full ${dotColor} animate-pulse"></span>
+                <span class="flex-1">${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
         window.activeFormulaTab = 'sheets';
         window.activeSubject = 'PPS';
 
@@ -428,34 +458,43 @@
                 { id: "pps-f2", title: "Struct allocation offsets", desc: "Declares modular user defined containers standard byte rules.", formula: "struct User { int id; char code[10]; } u;" },
                 { id: "pps-f3", title: "Formatted file write prints", desc: "Forwards characters to standard file streams.", formula: "fprintf(fptr, \"%d %s\", u.id, u.code);" },
                 { id: "pps-f4", title: "Dynamic Memory Allocation", desc: "Allocates blocks on the heap dynamically preserving layout constraints.", formula: "int *arr = (int*)malloc(n * sizeof(int));" },
-                { id: "pps-f5", title: "Recursive Null string lookup", desc: "Iterates characters continuously until termination byte is reached.", formula: "while(*str != '\\0') { len++; str++; }" }
+                { id: "pps-f5", title: "Recursive Null string lookup", desc: "Iterates characters continuously until termination byte is reached.", formula: "while(*str != '\\0') { len++; str++; }" },
+                { id: "pps-f6", title: "Bitwise Masking Operation", desc: "Performs low-level bit toggling or inspection via logic gates.", formula: "int active = flags & (1 << pos);" }
             ],
             M1: [
                 { id: "m1-f1", title: "Cayley-Hamilton Identity", desc: "Substituting original matrix inside its characteristic equation rules.", formula: "a_n * A^n + a_n-1 * A^n-1 + ... + a_0 * I = [0]" },
                 { id: "m1-f2", title: "Multivariable Jacobian conversion", desc: "Row/Col differentiation determinants for cartesian swaps.", formula: "J = ∂(u,v)/∂(x,y) = (∂u/∂x * ∂v/∂y) - (∂u/∂y * ∂v/∂x)" },
                 { id: "m1-f3", title: "Beta-Gamma Symm relationship", desc: "Integral values mapping symmetrical relationships.", formula: "B(m, n) = [Γ(m) * Γ(n)] / Γ(m + n)" },
-                { id: "m1-f4", title: "Taylor Series Expansion 2D", desc: "Formulates approximation profiles of functions around specific coords.", formula: "f(x,y) = f(a,b) + [f_x(a,b)(x-a) + f_y(a,b)(y-b)] + o(h^2)" }
+                { id: "m1-f4", title: "Taylor Series Expansion 2D", desc: "Formulates approximation profiles of functions around specific coords.", formula: "f(x,y) = f(a,b) + [f_x(a,b)(x-a) + f_y(a,b)(y-b)] + o(h^2)" },
+                { id: "m1-f5", title: "Newton's Law of Cooling ODE", desc: "Models thermal energy dissipation in fluid containers.", formula: "dT/dt = -k(T - T_s)  ==>  T(t) = T_s + C * e^(-k*t)" }
             ],
             M2: [
                 { id: "m2-f1", title: "Newton-Raphson Iterative Root Finder", desc: "Rapidly converges to real roots of algebraic or transcendental functions.", formula: "x_n+1 = x_n - [f(x_n) / f'(x_n)]" },
                 { id: "m2-f2", title: "Runge-Kutta 4th Order Vector Equations", desc: "Solves standard ordinary differential equations with higher accuracy bounds.", formula: "y_n+1 = y_n + (1/6)*(k1 + 2*k2 + 2*k3 + k4)" },
-                { id: "m2-f3", title: "Integrating Factor (Linear 1st Order ODE)", desc: "Simplifies non-exact linear differential equations of format dy/dx + Py = Q.", formula: "I.F. = e^(∫ P dx)" }
+                { id: "m2-f3", title: "Integrating Factor (Linear 1st Order ODE)", desc: "Simplifies non-exact linear differential equations of format dy/dx + Py = Q.", formula: "I.F. = e^(∫ P dx)" },
+                { id: "m2-f4", title: "Laplace Transform Definition", desc: "Converts real-time integral equations into complex frequency domain parameter systems.", formula: "L{f(t)} = ∫[0 to ∞] e^(-s*t) * f(t) dt" },
+                { id: "m2-f5", title: "Inverse Laplace Convolution Theorem", desc: "Simplifies complicated reciprocal transform multiplication steps into standard time integrals.", formula: "L^-1{F(s)*G(s)} = ∫[0 to t] f(u) * g(t-u) du" }
             ],
             Physics: [
                 { id: "phy-f1", title: "Newton's dark ring diameter", desc: "Calculates ring boundary ratios under plano lens planes.", formula: "D_n^2 = 4 * n * R * λ" },
                 { id: "phy-f2", title: "Optical fibers acceptance angle", desc: "Max light acceptance angle under refractive indexes.", formula: "sin θ = √(n1^2 - n2^2) / n0" },
                 { id: "phy-f3", title: "Schrodinger wave equations", desc: "Determines coordinates probability wave models.", formula: "[-h^2 / 2m] * ∇^2Ψ + VΨ = EΨ" },
-                { id: "phy-f4", title: "Bragg's Law of Diffraction", desc: "Specifies constructive interference angles under crystal spacing lattice lines.", formula: "2d * sin θ = n * λ" }
+                { id: "phy-f4", title: "Bragg's Law of Diffraction", desc: "Specifies constructive interference angles under crystal spacing lattice lines.", formula: "2d * sin θ = n * λ" },
+                { id: "phy-f5", title: "De Broglie Electron Wavelength", desc: "Relates wave-particle duality to electrical potentials.", formula: "λ = h / √(2 * m * e * V) ≈ 1.226 / √V nm" }
             ],
             Chemistry: [
                 { id: "chem-f1", title: "Nernst Equation for Electrode Potential", desc: "Calculates cell potentials under varying non-standard state concentration factors.", formula: "E = E° - (0.0591 / n) * log10([Products] / [Reactants])" },
                 { id: "chem-f2", title: "Equivalent Water Hardness Conversion in mg/L", desc: "Normalizes dissolved calcium and magnesium contents into solid CaCO3 equivalents.", formula: "CaCO3 eq (mg/L) = Mass of salts * (50 / Eq. wt. of salts)" },
-                { id: "chem-f3", title: "Fox Mixture Equation (Polymer Glass Tg)", desc: "Traces dynamic glass transition temperatures across physical copolymer compositions.", formula: "1 / Tg = w1 / Tg1 + w2 / Tg2" }
+                { id: "chem-f3", title: "Fox Mixture Equation (Polymer Glass Tg)", desc: "Traces dynamic glass transition temperatures across physical copolymer compositions.", formula: "1 / Tg = w1 / Tg1 + w2 / Tg2" },
+                { id: "chem-f4", title: "Electrolyte Cell Specific Conductance", desc: "Calculates specific conductance of analytical solutions using measured resistance and cell factors.", formula: "κ = (1 / R) * (l / A) = G * G*" },
+                { id: "chem-f5", title: "Kohlrausch's Independent Migration Law", desc: "Models infinite dilution equivalent conductivity limits by summing ion dynamics.", formula: "Λ_m° = v_+ * λ_+° + v_- * λ_-°" }
             ],
             BEEE: [
                 { id: "beee-f1", title: "Series RLC resonant frequency", desc: "Locates state coordinates where reactive impedance values cancel out entirely.", formula: "f_r = 1 / (2 * π * √(L * C))" },
                 { id: "beee-f2", title: "RMS Voltage of AC Sinewave", desc: "Determines DC equivalent heating potentials of a standard alternating waveform.", formula: "V_rms = V_peak / √2 ≈ 0.707 * V_peak" },
-                { id: "beee-f3", title: "DC Voltage Dividers rule", desc: "Apportions relative electrical potential across connected resistor channels.", formula: "V_x = V_total * (R_x / R_total)" }
+                { id: "beee-f3", title: "DC Voltage Dividers rule", desc: "Apportions relative electrical potential across connected resistor channels.", formula: "V_x = V_total * (R_x / R_total)" },
+                { id: "beee-f4", title: "Maximum Power Transfer Condition", desc: "Maximizes load power output by matching impedance values back to system thresholds.", formula: "R_L = R_th" },
+                { id: "beee-f5", title: "Three-Phase Active Electric Power", desc: "Calculates unified active energy output across multi-phase high capacity installations.", formula: "P = √3 * V_L * I_L * cos(φ)" }
             ]
         };
 
@@ -523,10 +562,10 @@
             if(savedArr.some(f => f.id === id)) {
                 // Remove
                 savedArr = savedArr.filter(f => f.id !== id);
-                alert("Formula successfully removed from your saved deck.");
+                window.showToast("Formula removed from saved collection.", "info");
             } else {
                 savedArr.push(found);
-                alert("Formula added to Saved deck!");
+                window.showToast("⭐ Added to saved collection! 🔥 +10 XP earned.", "success");
             }
             localStorage.setItem('prep-saved-formulas', JSON.stringify(savedArr));
             renderFormulasList();
@@ -562,7 +601,7 @@
         window.copyFormulaSnippet = function(nodeId) {
             const txt = document.getElementById(nodeId).innerText;
             navigator.clipboard.writeText(txt).then(() => {
-                alert("Equation criteria successfully copied!");
+                window.showToast("📋 Equation copied directly to clipboard!", "success");
             });
         }
 
@@ -708,17 +747,17 @@
                 normal.classList.remove('hidden');
                 dist.classList.add('hidden');
                 nav.classList.remove('hidden');
-                foot.classList.remove('hidden');
+                if (foot) foot.classList.remove('hidden');
                 body.className = "bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 selection:bg-blue-100 transition-colors duration-300";
-                alert("Revision Mode deactivated. Standard interface restored.");
+                window.showToast("Standard interface restored.", "info");
             } else {
                 // Enter distraction free
                 normal.classList.add('hidden');
                 dist.classList.remove('hidden');
                 nav.classList.add('hidden');
-                foot.classList.add('hidden');
+                if (foot) foot.classList.add('hidden');
                 body.className = "bg-slate-900 dark:bg-slate-50 text-slate-400 select-text";
-                alert("Rapid Revision Mode Activated! Distraction elements successfully filtered out.");
+                window.showToast("⚡ Rapid Revision Mode Active! Focus on pure concepts.", "success");
             }
         }
 

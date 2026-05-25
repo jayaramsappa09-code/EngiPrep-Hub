@@ -898,21 +898,53 @@ function initLiveActivities() {
     // Check if the user has globally disabled notifications in their settings
     const currentMuted = localStorage.getItem('mute-academic-ticks') === 'true';
 
-    // Set of highly specific JNTUK undergraduate student context events
-    const academicEvents = [
-        { name: "Sai Kiran", college: "JNTUK Kakinada", action: "downloaded Unit-1 Mathematics integration sheet", badge: "📚 NOTES" },
-        { name: "Meghana", college: "Aditya Engineering College", action: "just cleared Polymer Chemistry quiz with 100%", badge: "⚡ QUIZ" },
-        { name: "Divya", college: "Vasavi Institute", action: "queried the AI Professor on 'Hermitian Matrices proof'", badge: "🤖 AI CHAT" },
-        { name: "Venkat S.", college: "Pragati College of Engineering", action: "finished Basic Electrical Unit-1 circuits homework", badge: "✏️ STUDY" },
-        { name: "Tarun Kumar", college: "SRKR Bhimavaram", action: "unlocked 'C Programming Master' rank", badge: "🏆 LEVEL" },
-        { name: "Srinivas", college: "Vishnu Institute of Tech", action: "simulated basic involute curve construction in Graphics", badge: "📐 CAD" },
-        { name: "Anoop K.", college: "GVP Visakhapatnam", action: "bookmarked Unit-3 Wave Optics Notes", badge: "🔖 BOOKMARK" },
-        { name: "Sireesha", college: "ANITS", action: "solved the 2024 JNTUK Quantum Physics PYQ derivation", badge: "📝 PYQ" },
-        { name: "Prudhvi Raj", college: "GMRIT Rajam", action: "compiled standard AutoCAD command matrix for ellipse locus", badge: "📐 CAD" },
-        { name: "Chaitanya G.", college: "Lendi Association", action: "unlocked +25 Mastery XP for completing Unit-2 Thermodynamics basics", badge: "⭐ XP" },
-        { name: "Anjali S.", college: "MVGR विजयनगरम", action: "asked AI Professor: 'Simplify de Broglie wavelength derivation'", badge: "🤖 AI CHAT" },
-        { name: "Swapna", college: "Raghu Institute of Tech", action: "completed practice test for Civil and Mechanical Unit-2", badge: "⚡ QUIZ" }
+    // Disjointed pool of highly specific Telugu engineering first & last names
+    const studentNames = [
+        "Sai Kiran", "Meghana", "Divya", "Venkat S.", "Tarun", "Srinivas", "Anoop K.", 
+        "Sireesha", "Prudhvi Raj", "Chaitanya G.", "Anjali S.", "Swapna", "Gautam", 
+        "Niharika", "Priya M.", "Teja P.", "Harika", "Satish", "Vamsi", "Ravi", 
+        "Mounika", "Kalyan", "Nikhil", "Sneha", "Sowmya", "Bhavana", "Dinesh", 
+        "Sravya", "Rohit", "Yamini", "Jaswanth", "Karthik", "Hema", "Vineeth", 
+        "Deepika", "Kiran Prasanna", "Pranav", "Lavanya", "Sandeep", "Sai Kumar"
     ];
+
+    // Wide array of real JNTUK affiliated engineering colleges
+    const engineeringColleges = [
+        "JNTUK Kakinada", "Aditya Engg College", "Vasavi Institute", "Pragati Engg College", 
+        "SRKR Bhimavaram", "Vishnu Inst of Tech", "GVP Visakhapatnam", "ANITS Vizag", 
+        "GMRIT Rajam", "Lendi Institute", "MVGR Vijayanagram", "Raghu Inst of Tech", 
+        "RVR & JC College", "Bapatla Engg College", "Lakireddy Bali Reddy", "JNTUK Vizianagaram", 
+        "UCEK Kakinada", "SRK Institute", "Pace Institute", "Dadi Institute"
+    ];
+
+    // Set of diverse, highly specific JNTUK engineering academic study actions
+    const academicActivities = [
+        { action: "downloaded Unit-1 Mathematics integration sheets", badge: "📚 NOTES" },
+        { action: "just cleared Polymer Chemistry quiz with 100%", badge: "⚡ QUIZ" },
+        { action: "queried the AI Professor on 'Hermitian Matrices proof'", badge: "🤖 AI CHAT" },
+        { action: "finished Basic Electrical Unit-1 circuits homework", badge: "✏️ STUDY" },
+        { action: "unlocked 'C Programming Master' rank", badge: "🏆 LEVEL" },
+        { action: "simulated basic involute curve construction in Graphics", badge: "📐 CAD" },
+        { action: "bookmarked Unit-3 Wave Optics Notes", badge: "🔖 BOOKMARK" },
+        { action: "solved the 2024 JNTUK Quantum Physics PYQ derivation", badge: "📝 PYQ" },
+        { action: "compiled standard AutoCAD command matrix for ellipse locus", badge: "📐 CAD" },
+        { action: "unlocked +25 Mastery XP for completing Unit-2 Thermodynamics basics", badge: "⭐ XP" },
+        { action: "asked AI Professor: 'Simplify de Broglie wavelength derivation'", badge: "🤖 AI CHAT" },
+        { action: "completed practice test for Civil and Mechanical Unit-2", badge: "⚡ QUIZ" },
+        { action: "solved water hardness mg/L equivalents calculator challenge", badge: "🧪 LAB" },
+        { action: "downloaded Newton's rings dark diameter cheat-sheet", badge: "📚 NOTES" },
+        { action: "simulated a Series RLC resonant frequency inside formula sandbox", badge: "📐 TECH" },
+        { action: "completed Laplace constant equation practice sets", badge: "✏️ STUDY" },
+        { action: "analyzed Phase Rule curves for Lead-Silver eutectic mixture", badge: "🧪 LAB" },
+        { action: "tested a Series RLC AC circuit in the Virtual Lab sandbox", badge: "📐 TECH" },
+        { action: "bookmarked M2 Integration cheat-sheet for rapid revision", badge: "🔖 BOOKMARK" },
+        { action: "created custom formula deck for Applied Physics Bragg's Law", badge: "⭐ XP" }
+    ];
+
+    // Strict history limits so the same names and colleges never repeat concurrently or in recent queues
+    let lastUsedNames = [];
+    let lastUsedColleges = [];
+    const maxHistoryCount = 10;
 
     // Create the persistent mounting container in bottom-left zone
     const host = document.createElement('div');
@@ -920,7 +952,6 @@ function initLiveActivities() {
     host.className = 'fixed bottom-6 left-6 z-[998] max-w-[340px] pointer-events-none font-sans print:hidden flex flex-col gap-2';
     document.body.appendChild(host);
 
-    let activeNotification = null;
     let tickerTimeout = null;
 
     // Trigger one initial popup 4.5 seconds after page loads for active styling feedback
@@ -959,9 +990,42 @@ function initLiveActivities() {
         // Clean out any existing alert inside the host parent
         host.innerHTML = '';
 
-        // Pick an authentic student activity event randomly
-        const randomEvent = academicEvents[Math.floor(Math.random() * academicEvents.length)];
-        const el = createNotificationMarkup(randomEvent);
+        // Select a premium name, avoiding recently used names
+        let acceptableNames = studentNames.filter(n => !lastUsedNames.includes(n));
+        if (acceptableNames.length === 0) {
+            lastUsedNames = [];
+            acceptableNames = studentNames;
+        }
+        const chosenName = acceptableNames[Math.floor(Math.random() * acceptableNames.length)];
+        lastUsedNames.push(chosenName);
+        if (lastUsedNames.length > maxHistoryCount) {
+            lastUsedNames.shift();
+        }
+
+        // Select a premium college, avoiding recently used colleges
+        let acceptableColleges = engineeringColleges.filter(c => !lastUsedColleges.includes(c));
+        if (acceptableColleges.length === 0) {
+            lastUsedColleges = [];
+            acceptableColleges = engineeringColleges;
+        }
+        const chosenCollege = acceptableColleges[Math.floor(Math.random() * acceptableColleges.length)];
+        lastUsedColleges.push(chosenCollege);
+        if (lastUsedColleges.length > maxHistoryCount) {
+            lastUsedColleges.shift();
+        }
+
+        // Pick a dynamic activity action
+        const activeEvent = academicActivities[Math.floor(Math.random() * academicActivities.length)];
+
+        // Synthesize the randomized non-repetitive event object
+        const fullEvent = {
+            name: chosenName,
+            college: chosenCollege,
+            action: activeEvent.action,
+            badge: activeEvent.badge
+        };
+
+        const el = createNotificationMarkup(fullEvent);
         host.appendChild(el);
 
         // Slide up with spring effect
