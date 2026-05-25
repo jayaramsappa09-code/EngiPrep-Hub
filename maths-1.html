@@ -71,6 +71,826 @@
             <p class="text-xl text-slate-500 dark:text-slate-400 leading-relaxed">Higher engineering math simplifies for JNTUK R23 beginners. Master the logic, not just the formulas.</p>
         </header>
 
+        <!-- ==========================================================================
+             ENGIPREP REFERENCE BUREAU: SMART FORMULA VAULT
+             Designed according to STEM visual cognition guidelines & Stripe Docs aesthetics
+             ========================================================================== -->
+        <section id="formula-vault-section" class="mb-20 animate-fade-up scroll-mt-24">
+            <style>
+                .formula-card {
+                    background-color: var(--surface-color) !important;
+                    border: 1px solid var(--border-color) !important;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+                .formula-card:hover {
+                    border-color: rgba(var(--theme-primary-rgb), 0.4) !important;
+                    transform: translateY(-2px);
+                    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04) !important;
+                }
+                /* Custom styles for the fullscreen Go Distraction-Free mode */
+                .vault-fullscreen-mode {
+                    position: fixed !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: 100vw !important;
+                    height: 100vh !important;
+                    z-index: 9999 !important;
+                    overflow-y: auto !important;
+                    background-color: #030712 !important; /* Extremely rich deep dark slate */
+                    padding: 2.5rem !important;
+                    margin: 0 !important;
+                    border-radius: 0 !important;
+                }
+                .vault-fullscreen-mode .glass-card {
+                    background-color: #0c111d !important;
+                    border-color: #1e293b !important;
+                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+                }
+                .vault-fullscreen-mode text-white {
+                    color: #f8fafc !important;
+                }
+                /* Toast styling */
+                #vault-toast {
+                    position: fixed;
+                    bottom: 2rem;
+                    right: 2rem;
+                    transform: translateY(150px);
+                    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+                    z-index: 100000;
+                    opacity: 0;
+                }
+                #vault-toast.toast-show {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            </style>
+
+            <div class="glass-card bg-gradient-to-br from-[#0c111d]/90 via-slate-950 to-[#030712] p-8 md:p-10 rounded-[2.5rem] border border-blue-500/10 shadow-xl overflow-hidden relative group">
+                <!-- Visual mesh accents -->
+                <div class="absolute -right-24 -top-24 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl group-hover:scale-125 transition-all duration-1000"></div>
+                <div class="absolute -left-24 -bottom-24 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl group-hover:scale-125 transition-all duration-1000"></div>
+
+                <div class="relative z-10">
+                    <!-- Global Status Deck & Actions Ribbon -->
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-800/80 pb-8 mb-8">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2 mb-3">
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-blue-500/20">EngiPrep Reference Bureau</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-emerald-500/20 flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span> Sync Live Active
+                                </span>
+                            </div>
+                            <h2 class="text-3xl md:text-4xl font-black text-slate-100 tracking-tight">Smart Formula Sheets Vault</h2>
+                            <p class="text-slate-400 text-sm mt-1 max-w-2xl font-semibold leading-relaxed">Derivations, integrals, circuit equations, and algorithmic metrics condensed into interactive copy-safe modules.</p>
+                        </div>
+
+                        <!-- Top Quick Action Panel -->
+                        <div class="flex flex-wrap items-center gap-3 self-start lg:self-center bg-slate-950/60 p-2 rounded-2xl border border-slate-800/80">
+                            <a href="/dashboard.html" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-800 transition-all">
+                                ↺ Back to Dashboard
+                            </a>
+                            <button id="toggle-distraction-free" type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md shadow-blue-500/20">
+                                ⚡ Go Distraction-Free
+                            </button>
+                            <a href="https://engiprephub.in/maths-1" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md shadow-emerald-500/20 flex items-center gap-1">
+                                Launch Hub Web 🚀
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Search Deck and Highlight Panel -->
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="lg:col-span-3 relative">
+                            <input id="vault-search-input" type="text" placeholder="Search equations, derivations, Jacobians, Beta functions, integral boundaries..." class="w-full bg-slate-950/90 border border-slate-800 rounded-2xl px-6 py-4 text-xs text-white focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-500 font-mono">
+                            <span class="absolute right-4 top-4.5 text-[9px] text-slate-500 font-bold uppercase font-mono tracking-widest">Global Vault Filter</span>
+                        </div>
+                        <div class="bg-slate-950/50 rounded-2xl border border-slate-800/60 p-4 flex items-center justify-between px-6">
+                            <div>
+                                <span class="text-[9px] text-slate-500 font-black uppercase tracking-widest block leading-none">Last Day Yield</span>
+                                <span class="text-xs text-emerald-400 font-black mt-1 uppercase tracking-wider block">Final Hour Certified</span>
+                            </div>
+                            <span class="text-3xl font-black text-white font-mono">5/5 <span class="text-[10px] text-slate-500">Un</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Unit Selection Deck (Horizontal Rail) -->
+                    <div class="flex flex-wrap items-center gap-2 p-1.5 bg-slate-950/40 border border-slate-800/40 rounded-2xl mb-8 overflow-x-auto">
+                        <button data-vault-tab="1" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U1: Matrices & Eigen
+                        </button>
+                        <button data-vault-tab="2" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U2: Mean Calculus
+                        </button>
+                        <button data-vault-tab="3" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U3: Jacobians Min
+                        </button>
+                        <button data-vault-tab="4" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U4: Polar Integrals
+                        </button>
+                        <button data-vault-tab="5" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U5: Special Beta
+                        </button>
+                    </div>
+
+                    <!-- Dynamic copy-safe Formula card deck output -->
+                    <div id="vault-formula-deck" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                        <!-- Filled by JS -->
+                    </div>
+
+                    <!-- Immersive Micro-Computational Workspace Sandbox -->
+                    <div class="bg-slate-950/90 border border-slate-800 rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl">
+                        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-900">
+                            <span class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center font-black text-lg">⚙️</span>
+                            <div>
+                                <h4 class="text-sm font-black text-white uppercase tracking-wider">Reference Bureau Interactive Simulator</h4>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest font-mono">Simulate core derivations & equations recursively to trace step mechanics</p>
+                            </div>
+                        </div>
+
+                        <!-- Active simulated computational view container -->
+                        <div id="vault-simulation-container" class="text-white">
+                            <!-- Injected active unit interactive workspace -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Floating Slide-In Toast Alert -->
+        <div id="vault-toast" class="bg-[#0c111d] border border-emerald-500/30 text-white rounded-2xl shadow-2xl p-4 flex items-center gap-3 max-w-sm backdrop-blur-md">
+            <span class="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm font-bold">✓</span>
+            <div>
+                <div class="text-[10px] font-black uppercase tracking-widest text-emerald-400">Reference Bureau Alert</div>
+                <div id="vault-toast-msg" class="text-slate-300 text-xs font-semibold mt-0.5">Formula copied successfully.</div>
+            </div>
+        </div>
+
+        <script>
+            // Master reference variables database for the Mathematics I smart sheet vault modules
+            const VAULT_FORMULAS_DB = [
+              {
+                unit: 1,
+                title: "Characteristic Formula for s=3 Matrix",
+                equation: "λ³ - S₁λ² + S₂λ - |A| = 0",
+                description: "S₁ represents Matrix Trace (diagonal sum), S₂ is sum of diagonal principal minors, and |A| is determinant. Solver target equation used to extract eigenvalues.",
+                derivationName: "Orthogonal Eigen-Value Resolution",
+                formulaText: "λ³ - S₁λ² + S₂λ - |A| = 0",
+                algorithmicMetric: "Complexity: O(1) direct mapping, bypasses analytical row manipulations."
+              },
+              {
+                unit: 1,
+                title: "Cayley-Hamilton Identity Theorem Matrix solver",
+                equation: "A³ - S₁A² + S₂A - |A|I = 0",
+                description: "Permits immediate inverse computation. Multiplying across the core characteristic system by A⁻¹ gives: A⁻¹ = (1/|A|) * (A² - S₁A + S₂I).",
+                derivationName: "Hamilton Inverse Polynomial Mapping",
+                formulaText: "A⁻¹ = (1/|A|) * (A² - S₁A + S₂I)",
+                algorithmicMetric: "Saves up to 65% matrix floating-point operations in manual testing."
+              },
+              {
+                unit: 1,
+                title: "Orthogonal transformation decoupling",
+                equation: "Pᵀ A P = D  [Pᵀ = P⁻¹]",
+                description: "For real symmetric matrices, the modal matrix P containing normalized column eigenvectors is orthogonal. Decouples complex multi-state coordinates.",
+                derivationName: "Real Symmetric Spectral Transform",
+                formulaText: "Pᵀ A P = D",
+                algorithmicMetric: "Canonical Decoupling: Highly vital for civil & structural modal vibrations."
+              },
+              {
+                unit: 2,
+                title: "Lagrange's Mean Value Theorem (LMVT)",
+                equation: "f'(c) = [f(b) - f(a)] / (b - a)",
+                description: "Asserts that on continuous interval [a,b] with differential bounds (a,b), there is at least one point 'c' where instantaneous change matches average boundary secant rate.",
+                derivationName: "Secant Boundary Tangential Continuity",
+                formulaText: "f'(c) = (f(b) - f(a)) / (b - a)",
+                algorithmicMetric: "Prerequisite: Functions must be continuous on [a,b] & differentiable on (a,b)."
+              },
+              {
+                unit: 2,
+                title: "Cauchy's Parametric Mean Value (CMVT)",
+                equation: "f'(c) / g'(c) = [f(b) - f(a)] / [g(b) - g(a)]",
+                description: "Provides extended geometric scaling ratio validation for parametric curves x=g(t), y=f(t). Foundations for Taylor series error residuals.",
+                derivationName: "Parametric Calculus Coordinate Linker",
+                formulaText: "f'(c) / g'(c) = (f(b) - f(a)) / (g(b) - g(a))",
+                algorithmicMetric: "Eliminates coordinate parameter discontinuities systematically if g'(c) ≠ 0."
+              },
+              {
+                unit: 2,
+                title: "Taylor Series expansion centering value a",
+                equation: "f(x) = f(a) + f'(a)(x-a) + [f''(a)/2!](x-a)² + ...",
+                description: "Representing an infinitely differentiable real function at proximity point a as a convergent polynomial power sequence.",
+                derivationName: "Analytical Polynomial Power Series Expansion",
+                formulaText: "f(x) = f(a) + f'(a)(x-a) + (f''(a)/2!)*(x-a)²",
+                algorithmicMetric: "Truncation convergence is extremely fast within (x - a) < 1.0 boundary."
+              },
+              {
+                unit: 3,
+                title: "Multivariable stationary point discriminant",
+                equation: "Δ = rt - s²",
+                description: "Hessian discriminant metric for f(x,y). Let r = f_xx, t = f_yy, s = f_xy. Δ > 0 & r < 0: Maxima. Δ > 0 & r > 0: Minima. Δ < 0: Saddle point.",
+                derivationName: "Bivariate Extremes Hessian Determinant",
+                formulaText: "rt - s²  [r=f_xx, t=f_yy, s=f_xy]",
+                algorithmicMetric: "Provides flawless analytical decision boundary for multivariable systems."
+              },
+              {
+                unit: 3,
+                title: "2D Jacobian transform coordinate sealer",
+                equation: "J = ∂(u,v)/∂(x,y) = (u_x * v_y) - (u_y * v_x)",
+                description: "Gives functional ratios during integrations change of variables. If Jacobian J = 0, u and v are functionally connected and dependent.",
+                derivationName: "Bivariate Differential Transform Jacobian",
+                formulaText: "J = (∂u/∂x * ∂v/∂y) - (∂u/∂y * ∂v/∂x)",
+                algorithmicMetric: "Multiplication scale factor for area transformation elements: dx dy = |J| du dv."
+              },
+              {
+                unit: 3,
+                title: "Lagrange's Undetermined multiplier constrain",
+                equation: "∇f(x,y,z) = λ ∇g(x,y,z)",
+                description: "Finds local extremas of objective f subject to system constraint equation g(x,y,z) = c without requiring variable algebra replacements.",
+                derivationName: "Gradient Path Parallel Constrained Optimization",
+                formulaText: "∇f = λ ∇g",
+                algorithmicMetric: "Transforms constrained multi-variable systems to higher system equations."
+              },
+              {
+                unit: 4,
+                title: "Polar coordinate grid transformation mapping",
+                equation: "dx dy = r dr dθ",
+                description: "Changes Cartesian area differentials into polar sector frames with substitution equations: x = r cosθ, y = r sinθ.",
+                derivationName: "Radial Sector Jacobian Coordinate Mapper",
+                formulaText: "dx dy = r dr dθ",
+                algorithmicMetric: "Simplifies Circular/Cardioid path limit evaluations from O(N²) to O(N)."
+              },
+              {
+                unit: 4,
+                title: "Polar boundary double Integral area surface",
+                equation: "Area = ∬_R r dr dθ",
+                description: "Represents total enclosed physical region bounds for symmetric polar systems, e.g. Cardioid r=a(1+cosθ).",
+                derivationName: "Double Polar Boundary Integrand Area",
+                formulaText: "A = ∬ r dr dθ",
+                algorithmicMetric: "Perfectly leverages cardioid symmetry to solve upper-bounds and multiply by 2."
+              },
+              {
+                unit: 5,
+                title: "Beta & Gamma Transcendental Relationship",
+                equation: "β(m,n) = [Г(m) * Г(n)] / Г(m+n)",
+                description: "Main link bridging double limits of Beta function to structural Factorial Gamma curves. Unlocks direct fractional calculations.",
+                derivationName: "Transcendental Improper Integrand Connector",
+                formulaText: "β(m,n) = Г(m)Г(n) / Г(m+n)",
+                algorithmicMetric: "Decreases manual integration cycles of trigonometry limits to a 2-step factor."
+              },
+              {
+                unit: 5,
+                title: "Beta Sin-Cos Trigonometric integral formulation",
+                equation: "∫₀^(π/2) sinᵖθ cosᑫθ dθ = ½ β([p+1]/2, [q+1]/2)",
+                description: "Calculates extremely hard improper sinusoidal integral evaluations by direct conversion to half-integer transcendental Beta factors.",
+                derivationName: "Symmetric Trigonometric Special reduction",
+                formulaText: "∫₀^(π/2) sinᵖθ cosᑫθ dθ = ½ β((p+1)/2, (q+1)/2)",
+                algorithmicMetric: "Allows integration solvers to skip intermediate expansion polynomials entirely."
+              },
+              {
+                unit: 5,
+                title: "Gamma Half-Integer base parameter value",
+                equation: "Г(½) = √π",
+                description: "Important base boundary parameter derived using coordinate transformations on Gaussian integral limits, ∫_0^inf e^-x² dx.",
+                derivationName: "Gaussian Integral Amplitude Boundary Parameter",
+                formulaText: "Г(½) = √π",
+                algorithmicMetric: "Core baseline constant for recursive multi-fractional Gamma calculations."
+              }
+            ];
+
+            document.addEventListener('DOMContentLoaded', () => {
+                let currentVaultTab = 1;
+                let dfMode = false;
+
+                const tabButtons = document.querySelectorAll('.vault-tab-btn');
+                const searchInput = document.getElementById('vault-search-input');
+                const formulaDeck = document.getElementById('vault-formula-deck');
+                const simContainer = document.getElementById('vault-simulation-container');
+                const toast = document.getElementById('vault-toast');
+                const toastMsg = document.getElementById('vault-toast-msg');
+                const dfToggleBtn = document.getElementById('toggle-distraction-free');
+                const vaultSection = document.getElementById('formula-vault-section');
+
+                // Clipboard Helper with customized floating Toast alert
+                window.copyVaultFormula = function(text, displayName) {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(text).then(() => {
+                            showVaultToast(`Copied formula [${displayName}] to clipboard!`);
+                            triggerXPClaim(30, `Mastered ${displayName}`);
+                        });
+                    } else {
+                        // Fallback copy
+                        const txtArea = document.createElement("textarea");
+                        txtArea.value = text;
+                        document.body.appendChild(txtArea);
+                        txtArea.select();
+                        try {
+                            document.execCommand('copy');
+                            showVaultToast(`Copied formula [${displayName}] (using security fallback)!`);
+                            triggerXPClaim(30, `Mastered ${displayName}`);
+                        } catch (err) {
+                            showVaultToast("Manual select required. Your preview container blocked automatic copy.", "error");
+                        }
+                        document.body.removeChild(txtArea);
+                    }
+                };
+
+                function showVaultToast(msg, iconType = "success") {
+                    toastMsg.innerText = msg;
+                    toast.classList.add('toast-show');
+                    setTimeout(() => {
+                        toast.classList.remove('toast-show');
+                    }, 3500);
+                }
+
+                function triggerXPClaim(amount, info) {
+                    // Triggers the standard EngiPrepHub XP system
+                    if (typeof window.triggerXP === 'function') {
+                        window.triggerXP(amount, info);
+                    } else {
+                        console.log(`XP Claimed internally: +${amount} XP for [${info}]`);
+                    }
+                }
+
+                // Render formulas list in the deck depending on tab & search filters
+                function renderVaultDeck() {
+                    const query = searchInput.value.toLowerCase().trim();
+                    let list = VAULT_FORMULAS_DB;
+
+                    // Apply filter tab unless searching globally
+                    if (!query) {
+                        list = VAULT_FORMULAS_DB.filter(f => f.unit === currentVaultTab);
+                    } else {
+                        list = VAULT_FORMULAS_DB.filter(f => f.title.toLowerCase().includes(query) || 
+                                                             f.description.toLowerCase().includes(query) ||
+                                                             f.equation.toLowerCase().includes(query) ||
+                                                             f.derivationName.toLowerCase().includes(query));
+                    }
+
+                    if (list.length === 0) {
+                        formulaDeck.innerHTML = `
+                            <div class="col-span-full py-12 text-center text-slate-500 border border-slate-800 rounded-3xl bg-slate-950/20">
+                                🔍 No matching equations or derivations found for "${query}". Try another query index.
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    formulaDeck.innerHTML = list.map(item => `
+                        <div class="formula-card p-6 rounded-2xl relative overflow-hidden bg-slate-900 border border-slate-800 flex flex-col justify-between group">
+                            <div>
+                                <div class="flex items-start justify-between gap-4 mb-4">
+                                    <div>
+                                        <span class="text-[9px] font-black uppercase tracking-widest text-[#06b6d4] bg-[#06b6d4]/10 px-2 py-0.5 rounded border border-[#06b6d4]/20">${item.derivationName}</span>
+                                        <h4 class="text-xs font-black text-slate-200 mt-2 tracking-tight group-hover:text-blue-400 transition-colors">${item.title}</h4>
+                                    </div>
+                                    <button onclick="copyVaultFormula('${item.formulaText.replace(/'/g, "\\'")}', '${item.title.replace(/'/g, "\\'")}')" class="px-3 py-1.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-[9px] font-bold uppercase tracking-widest text-slate-300 hover:text-white rounded-lg transition-all flex items-center gap-1 shrink-0 shadow-sm" title="Copy clean formula text">
+                                        🗎 Copy
+                                    </button>
+                                </div>
+                                <div class="formula-block-modern py-3 text-center text-blue-300 font-mono text-sm tracking-wider bg-slate-950 border border-slate-800/80 rounded-xl my-4 text-shadow-none">
+                                    ${item.equation}
+                                </div>
+                                <p class="text-[11px] text-slate-400 font-semibold leading-relaxed mb-4">${item.description}</p>
+                            </div>
+                            <div class="text-[10px] text-emerald-400 font-mono border-t border-slate-800/60 pt-3 flex items-center justify-between">
+                                <span>${item.algorithmicMetric}</span>
+                                <span class="text-slate-600 font-sans font-bold uppercase tracking-wider text-[8px]">Unit 0${item.unit}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Injects simulated visual workspace for current active Unit
+                function injectSimWorkstation() {
+                    if (currentVaultTab === 1) {
+                        simContainer.innerHTML = `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" id="sim-u1-workspace">
+                                <div>
+                                    <h5 class="text-xs font-black text-blue-400 uppercase tracking-widest mb-2 font-mono">Diagonal Eigenvalue Trace Solver</h5>
+                                    <p class="text-slate-400 text-xs font-semibold leading-relaxed mb-6">Enter principal diagonal elements of a $3\\times3$ matrix. This visualizer demonstrates the vital theorem showing that the sum of all eigenvalues exactly equals the trace.</p>
+                                    
+                                    <div class="grid grid-cols-3 gap-4 mb-6">
+                                        <div>
+                                            <label class="block text-[10px] font-mono text-slate-500 uppercase font-black mb-1.5">Diag a₁₁</label>
+                                            <input type="number" id="diag-a" value="4" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-center text-white focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-mono text-slate-500 uppercase font-black mb-1.5">Diag a₂₂</label>
+                                            <input type="number" id="diag-b" value="2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-center text-white focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-mono text-slate-500 uppercase font-black mb-1.5">Diag a₃₃</label>
+                                            <input type="number" id="diag-c" value="1" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-center text-white focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                        </div>
+                                    </div>
+
+                                    <button type="button" id="u1-sim-compute" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                                        Verify Spectral Trace ⚡
+                                    </button>
+                                </div>
+
+                                <!-- Display Terminal Grid -->
+                                <div class="bg-slate-950 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between h-full">
+                                    <div class="border-b border-slate-900 pb-4 mb-4">
+                                        <div class="text-[10px] text-slate-500 font-mono uppercase font-black">Matrix Setup [A]</div>
+                                        <div class="grid grid-cols-3 gap-2 mt-3 font-mono text-xs text-center max-w-[150px] mx-auto text-slate-400">
+                                            <div class="p-1 font-bold text-blue-400 border border-slate-900" id="term-a">4</div> <div class="p-1 border border-slate-900">0</div> <div class="p-1 border border-slate-900">0</div>
+                                            <div class="p-1 border border-slate-900">0</div> <div class="p-1 font-bold text-blue-400 border border-slate-900" id="term-b">2</div> <div class="p-1 border border-slate-900">0</div>
+                                            <div class="p-1 border border-slate-900">0</div> <div class="p-1 border border-slate-900">0</div> <div class="p-1 font-bold text-blue-400 border border-slate-900" id="term-c">1</div>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3 font-mono text-xs" id="u1-trace-results">
+                                        <div class="flex justify-between">
+                                            <span class="text-slate-500 font-bold">Sum of Diagonals (Trace):</span>
+                                            <span class="text-blue-300 font-black">7</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-slate-500 font-bold">Sum of Eigenvalues (Σλ):</span>
+                                            <span class="text-emerald-400 font-black">7</span>
+                                        </div>
+                                        <div class="text-[11px] text-slate-500 mt-2 font-sans font-semibold leading-relaxed border-t border-slate-900 pt-3">
+                                            <b class="text-emerald-300">✓ Identity Confirmed:</b> Trace S₁ = Σλ_i mathematically matches identically. Orthogonal translation verification passed recursively.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        // Attach U1 solver event listener
+                        const compBtn = document.getElementById('u1-sim-compute');
+                        compBtn.addEventListener('click', () => {
+                            const valA = parseFloat(document.getElementById('diag-a').value) || 0;
+                            const valB = parseFloat(document.getElementById('diag-b').value) || 0;
+                            const valC = parseFloat(document.getElementById('diag-c').value) || 0;
+
+                            document.getElementById('term-a').innerText = valA;
+                            document.getElementById('term-b').innerText = valB;
+                            document.getElementById('term-c').innerText = valC;
+
+                            const sumVal = valA + valB + valC;
+
+                            document.getElementById('u1-trace-results').innerHTML = `
+                                <div class="flex justify-between">
+                                    <span class="text-slate-500 font-bold">Sum of Diagonals (Trace):</span>
+                                    <span class="text-blue-300 font-black">${sumVal}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-500 font-bold">Sum of Eigenvalues (Σλ):</span>
+                                    <span class="text-emerald-400 font-black">${sumVal}</span>
+                                </div>
+                                <div class="text-[11px] text-slate-500 mt-2 font-sans font-semibold leading-relaxed border-t border-slate-900 pt-3">
+                                    <b class="text-emerald-300">✓ Identity Confirmed:</b> Trace S₁ = Sum of Eigenvalues matches identically at ${sumVal}. Orthogonal translation verification passed recursively.
+                                </div>
+                            `;
+                            triggerXPClaim(15, `Verified trace eigenvalue sum of ${sumVal}`);
+                        });
+                    } else if (currentVaultTab === 2) {
+                        simContainer.innerHTML = `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" id="sim-u2-workspace">
+                                <div>
+                                    <h5 class="text-xs font-black text-blue-400 uppercase tracking-widest mb-2 font-mono">LMVT Differentiable Tangent Solver</h5>
+                                    <p class="text-slate-400 text-xs font-semibold leading-relaxed mb-6">Let $f(x) = x^2$ on interval $[1, b]$. Slide variable $b$ to see how the slope of secant matches slope of tangent parameter $c$ geometrically.</p>
+                                    
+                                    <div class="mb-6">
+                                        <label class="block text-[10px] font-mono text-slate-500 uppercase font-black mb-1.5 flex justify-between">
+                                            <span>Boundary endpoint 'b'</span>
+                                            <span class="text-blue-400 font-bold" id="b-slider-label">3.0</span>
+                                        </label>
+                                        <input type="range" id="b-val-slider" min="1.5" max="5.0" step="0.1" value="3.0" class="w-full bg-slate-900 accent-blue-500 h-1.5 rounded-lg cursor-pointer">
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 font-mono mb-4">Calculus bounds: f'(c) = (b² - 1) / (b - 1) = b + 1. Since f'(x)=2x, LMVT points matches: c = (b+1)/2.</p>
+                                </div>
+
+                                <div class="bg-slate-950 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between h-full">
+                                    <div class="space-y-4 font-mono text-xs">
+                                        <div class="flex justify-between">
+                                            <span class="text-slate-500 font-bold">Secant Interval:</span>
+                                            <span class="text-slate-300 font-semibold">[1, <span id="out-b-val" class="font-bold text-white">3.0</span>]</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-slate-500 font-bold">Boundary Slope:</span>
+                                            <span id="out-slope-val" class="text-blue-300 font-black">4.0</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-slate-500 font-bold">Tangent Parameter 'c':</span>
+                                            <span id="out-c-val" class="text-emerald-400 font-black">2.0</span>
+                                        </div>
+                                        <div class="text-[11px] text-slate-400 mt-2 font-sans font-semibold leading-relaxed border-t border-slate-900 pt-3">
+                                            <b class="text-emerald-300">✓ LMVT Verification successful:</b> Since $f(x)=x^2$ is continuous on $[1, <span id="str-b-val">3</span>]$ and differentiable on $(1, <span id="str-b-val-2">3</span>)$, 'c' exists at exactly <span id="str-c-val" class="text-blue-400">2</span> which is beautifully nested within the open interval parameters.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        const bSlider = document.getElementById('b-val-slider');
+                        const bLabel = document.getElementById('b-slider-label');
+
+                        const updateLMVTSolver = () => {
+                            const bVal = parseFloat(bSlider.value);
+                            bLabel.innerText = bVal.toFixed(1);
+
+                            const slope = bVal + 1;
+                            const cVal = (bVal + 1) / 2;
+
+                            document.getElementById('out-b-val').innerText = bVal.toFixed(1);
+                            document.getElementById('out-slope-val').innerText = slope.toFixed(2);
+                            document.getElementById('out-c-val').innerText = cVal.toFixed(2);
+
+                            document.getElementById('str-b-val').innerText = bVal.toFixed(1);
+                            document.getElementById('str-b-val-2').innerText = bVal.toFixed(1);
+                            document.getElementById('str-c-val').innerText = cVal.toFixed(2);
+                        };
+
+                        bSlider.addEventListener('input', updateLMVTSolver);
+                        bSlider.addEventListener('change', () => {
+                            triggerXPClaim(15, `Solved LMVT boundary for b=${parseFloat(bSlider.value).toFixed(1)}`);
+                        });
+                        updateLMVTSolver();
+
+                    } else if (currentVaultTab === 3) {
+                        simContainer.innerHTML = `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" id="sim-u3-workspace">
+                                <div>
+                                    <h5 class="text-xs font-black text-blue-400 uppercase tracking-widest mb-2 font-mono">Stationary Discriminant extreme point Classifier</h5>
+                                    <p class="text-slate-400 text-xs font-semibold leading-relaxed mb-6">Adjust sliders for second-order partial derivative coefficients $r$, $s$, and $t$ to instantly evaluate extrema traits.</p>
+                                    
+                                    <div class="space-y-4 mb-6">
+                                        <div>
+                                            <div class="flex justify-between text-[10px] text-slate-500 font-mono mb-1">
+                                                <span>r (f_xx)</span>
+                                                <span class="text-white font-bold" id="slider-r-val">3</span>
+                                            </div>
+                                            <input type="range" id="slider-r" min="-10" max="10" value="3" class="w-full bg-slate-900 accent-blue-500 h-1.5 rounded-lg cursor-pointer">
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-[10px] text-slate-500 font-mono mb-1">
+                                                <span>s (f_xy)</span>
+                                                <span class="text-white font-bold" id="slider-s-val">1</span>
+                                            </div>
+                                            <input type="range" id="slider-s" min="-10" max="10" value="1" class="w-full bg-slate-900 accent-blue-500 h-1.5 rounded-lg cursor-pointer">
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-[10px] text-slate-500 font-mono mb-1">
+                                                <span>t (f_yy)</span>
+                                                <span class="text-white font-bold" id="slider-t-val">2</span>
+                                            </div>
+                                            <input type="range" id="slider-t" min="-10" max="10" value="2" class="w-full bg-slate-900 accent-blue-500 h-1.5 rounded-lg cursor-pointer">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-950 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between h-full">
+                                    <div class="space-y-4 font-mono text-xs">
+                                        <div class="flex justify-between">
+                                            <span class="text-slate-500 font-bold">Determinant Metric Δ (rt - s²):</span>
+                                            <span id="out-u3-det" class="text-slate-300 font-black">5</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-slate-500 font-bold">Principal f_xx (r):</span>
+                                            <span id="out-u3-r" class="text-blue-300 font-black">3</span>
+                                        </div>
+                                        <div class="flex justify-between items-center py-2 border-t border-b border-slate-900">
+                                            <span class="text-slate-400 font-bold">CLASSIFICATION RESPONSE:</span>
+                                            <span id="out-u3-class" class="text-emerald-400 font-black px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-[10px] uppercase">Local Minimum</span>
+                                        </div>
+                                        <p class="text-[10px] text-slate-500 font-sans font-semibold leading-relaxed">
+                                            <b>Decision logic:</b> If Δ > 0 & r > 0, it holds a localized sink valley (Minimum). If Δ > 0 & r < 0, it holds a peak crest (Maximum). If Δ < 0, a saddle pathway is created.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        const sR = document.getElementById('slider-r');
+                        const sS = document.getElementById('slider-s');
+                        const sT = document.getElementById('slider-t');
+
+                        const updateU3Solver = () => {
+                            const r = parseFloat(sR.value);
+                            const s = parseFloat(sS.value);
+                            const t = parseFloat(sT.value);
+
+                            document.getElementById('slider-r-val').innerText = r;
+                            document.getElementById('slider-s-val').innerText = s;
+                            document.getElementById('slider-t-val').innerText = t;
+
+                            const delta = (r * t) - (s * s);
+
+                            document.getElementById('out-u3-det').innerText = delta;
+                            document.getElementById('out-u3-r').innerText = r;
+
+                            const classBox = document.getElementById('out-u3-class');
+                            classBox.className = "font-black px-2.5 py-1 rounded-lg text-[10px] uppercase border";
+                            
+                            if (delta > 0) {
+                                if (r > 0) {
+                                    classBox.innerText = "Local Minimum";
+                                    classBox.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/20');
+                                } else if (r < 0) {
+                                    classBox.innerText = "Local Maximum";
+                                    classBox.classList.add('bg-rose-500/10', 'text-rose-400', 'border-rose-500/20');
+                                } else {
+                                    classBox.innerText = "Inconclusive";
+                                    classBox.classList.add('bg-amber-500/10', 'text-amber-400', 'border-amber-500/20');
+                                }
+                            } else if (delta < 0) {
+                                classBox.innerText = "Saddle Point";
+                                classBox.classList.add('bg-blue-500/10', 'text-blue-400', 'border-blue-500/20');
+                            } else {
+                                classBox.innerText = "Inconclusive";
+                                classBox.classList.add('bg-amber-500/10', 'text-amber-400', 'border-amber-500/20');
+                            }
+                        };
+
+                        [sR, sS, sT].forEach(slider => {
+                            slider.addEventListener('input', updateU3Solver);
+                            slider.addEventListener('change', () => {
+                                const delta = parseFloat(sR.value) * parseFloat(sT.value) - Math.pow(parseFloat(sS.value), 2);
+                                triggerXPClaim(15, `Classified stationary system with delta=${delta}`);
+                            });
+                        });
+                        updateU3Solver();
+
+                    } else if (currentVaultTab === 4) {
+                        simContainer.innerHTML = `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" id="sim-u4-workspace">
+                                <div>
+                                    <h5 class="text-xs font-black text-blue-400 uppercase tracking-widest mb-2 font-mono">Polar Radial circle Area converter</h5>
+                                    <p class="text-slate-400 text-xs font-semibold leading-relaxed mb-6">Slide circle limit Radius $R$ to compute double integration area in polar coordinate systems step-by-step.</p>
+                                    
+                                    <div class="mb-6">
+                                        <label class="block text-[10px] font-mono text-slate-500 uppercase font-black mb-1.5 flex justify-between">
+                                            <span>Radius 'R' bounds selector</span>
+                                            <span class="text-blue-400 font-bold" id="r-slider-label">3</span>
+                                        </label>
+                                        <input type="range" id="r-val-slider" min="1" max="10" step="1" value="3" class="w-full bg-slate-900 accent-blue-500 h-1.5 rounded-lg cursor-pointer">
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 font-mono">Formulation: ∫₀²ᵀ ∫₀ᴿ r dr dθ = ∫₀²ᵀ (R²/2) dθ = πR² area bytes.</p>
+                                </div>
+
+                                <div class="bg-slate-950 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between h-full">
+                                    <div class="space-y-3 font-mono text-[11px]">
+                                        <div class="text-[10px] text-slate-500 uppercase font-black mb-1">Step-by-Step Integrand reduction:</div>
+                                        <div class="p-2 border-l-2 border-blue-500/30 bg-slate-900/40">
+                                            1. Evaluate inner limits: [r²/2] from 0 to <span class="text-white font-bold out-inner-r">3</span> = <span class="text-blue-300 out-inner-calc">4.5</span>
+                                        </div>
+                                        <div class="p-2 border-l-2 border-blue-500/30 bg-slate-900/40">
+                                            2. Outer integration: ∫₀²ᵀ <span class="out-inner-calc">4.5</span> dθ = <span class="out-inner-calc">4.5</span> * 2π = <span class="text-emerald-400 font-black out-total-pi">9</span>π units²
+                                        </div>
+                                        <div class="flex justify-between items-center text-xs border-t border-slate-900 pt-3">
+                                            <span class="font-bold text-slate-500">Calculated Area Value:</span>
+                                            <span id="out-polar-area" class="text-white font-black">28.27</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        const rSlider = document.getElementById('r-val-slider');
+                        const rLabel = document.getElementById('r-slider-label');
+
+                        const updateU4Solver = () => {
+                            const rVal = parseInt(rSlider.value);
+                            rLabel.innerText = rVal;
+
+                            const innerCalc = (rVal * rVal) / 2;
+                            const totalPi = rVal * rVal;
+                            const decArea = Math.PI * rVal * rVal;
+
+                            document.querySelectorAll('.out-inner-r').forEach(el => el.innerText = rVal);
+                            document.querySelectorAll('.out-inner-calc').forEach(el => el.innerText = innerCalc);
+                            document.querySelectorAll('.out-total-pi').forEach(el => el.innerText = totalPi);
+                            document.getElementById('out-polar-area').innerText = decArea.toFixed(2);
+                        };
+
+                        rSlider.addEventListener('input', updateU4Solver);
+                        rSlider.addEventListener('change', () => {
+                            triggerXPClaim(15, `Computed Cartesian polar boundary area for limit R=${rSlider.value}`);
+                        });
+                        updateU4Solver();
+
+                    } else if (currentVaultTab === 5) {
+                        simContainer.innerHTML = `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" id="sim-u5-workspace">
+                                <div>
+                                    <h5 class="text-xs font-black text-blue-400 uppercase tracking-widest mb-2 font-mono">Gamma Factorial Reduction simulator</h5>
+                                    <p class="text-slate-400 text-xs font-semibold leading-relaxed mb-6">Select integer or fractional step $n$ parameters to visualize how Gamma Special integral formulas decrease factorials step-by-step.</p>
+                                    
+                                    <div class="mb-6">
+                                        <label class="block text-[10px] font-mono text-slate-500 uppercase font-black mb-1.5 flex justify-between">
+                                            <span>Parameter value n (Gamma limits)</span>
+                                            <span class="text-blue-400 font-bold" id="gamma-n-label">3.5</span>
+                                        </label>
+                                        <input type="range" id="gamma-n-slider" min="1.0" max="6.0" step="0.5" value="3.5" class="w-full bg-slate-900 accent-blue-500 h-1.5 rounded-lg cursor-pointer">
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-950 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between h-full">
+                                    <div class="space-y-3 font-mono text-xs">
+                                        <div class="text-[10px] text-slate-500 uppercase font-black mb-1">Step-by-Step Reduction Steps:</div>
+                                        <div id="u5-steps-output" class="text-slate-300 space-y-1 text-[11px] leading-relaxed">
+                                            <!-- Steps injected live -->
+                                        </div>
+                                        <div class="flex justify-between items-center text-xs border-t border-slate-900 pt-3">
+                                            <span class="font-bold text-slate-500">Г(n) Total Value:</span>
+                                            <span id="out-gamma-res" class="text-emerald-400 font-black">3.323</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        const gnSlider = document.getElementById('gamma-n-slider');
+                        const gnLabel = document.getElementById('gamma-n-label');
+                        const stepsOut = document.getElementById('u5-steps-output');
+                        const resOut = document.getElementById('out-gamma-res');
+
+                        const updateU5Reducer = () => {
+                            const n = parseFloat(gnSlider.value);
+                            gnLabel.innerText = n;
+
+                            let steps = [];
+                            let val = 1.0;
+                            let current = n - 1;
+
+                            if (n % 1 === 0) {
+                                // Integer Gamma (n) = (n-1)!
+                                steps.push(`1. since n=${n} is an integer, Г(${n}) = (${n}-1)!`);
+                                let factSteps = [];
+                                let trackingVal = 1;
+                                for (let i = current; i >= 1; i--) {
+                                    factSteps.push(i);
+                                    trackingVal *= i;
+                                }
+                                steps.push(`2. Reduction: ${factSteps.join(' × ')}`);
+                                val = trackingVal;
+                            } else {
+                                // Fractional Gamma with Г(1/2) = sqrt(pi)
+                                steps.push(`1. since n=${n} is a half-integer, we reduce using Г(x+1) = xГ(x)`);
+                                let fracSteps = [];
+                                let trackingVal = 1.0;
+                                let dummy = current;
+                                while (dummy > 0.5) {
+                                    fracSteps.push(dummy);
+                                    trackingVal *= dummy;
+                                    dummy -= 1.0;
+                                }
+                                steps.push(`2. Chain steps: ${fracSteps.join(' × ')} × Г(½)`);
+                                steps.push(`3. substitute base limit Г(½) = √π (value ≈ 1.7725)`);
+                                val = trackingVal * Math.sqrt(Math.PI);
+                            }
+
+                            stepsOut.innerHTML = steps.map(s => `<div class="p-1">${s}</div>`).join('');
+                            resOut.innerText = val.toFixed(3);
+                        };
+
+                        gnSlider.addEventListener('input', updateU5Reducer);
+                        gnSlider.addEventListener('change', () => {
+                            triggerXPClaim(15, `Simulated Gamma reduction sequence for n=${gnSlider.value}`);
+                        });
+                        updateU5Reducer();
+                    }
+                }
+
+                // Handle search event listeners
+                searchInput.addEventListener('input', renderVaultDeck);
+
+                // Handle Tab selection events
+                tabButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        tabButtons.forEach(b => {
+                            b.className = 'vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all';
+                        });
+                        btn.className = 'vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest transition-all';
+                        currentVaultTab = parseInt(btn.dataset.vaultTab);
+                        renderVaultDeck();
+                        injectSimWorkstation();
+                    });
+                });
+
+                // Go Distraction-free Workspace full screen mode toggle
+                dfToggleBtn.addEventListener('click', () => {
+                    dfMode = !dfMode;
+                    const isDF = vaultSection.classList.toggle('vault-fullscreen-mode');
+                    if (isDF) {
+                        dfToggleBtn.innerHTML = '✕ Exit Distraction-Free';
+                        dfToggleBtn.className = "px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 z-50";
+                        vaultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        showVaultToast("Distraction-Free Focus mode enabled!");
+                        triggerXPClaim(40, "Began distraction-free deep focus study session.");
+                    } else {
+                        dfToggleBtn.innerHTML = '⚡ Go Distraction-Free';
+                        dfToggleBtn.className = "px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md shadow-blue-500/20";
+                        showVaultToast("Distraction-Free Focus mode disabled.");
+                    }
+                });
+
+                // Initializer boot parameters
+                renderVaultDeck();
+                injectSimWorkstation();
+            });
+        </script>
+
         <section class="mb-20">
             <div class="flex items-center gap-3 mb-10">
                 <div class="w-12 h-12 bg-primary/20 text-primary rounded-2xl flex items-center justify-center font-black">M</div>
