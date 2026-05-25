@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateAuthUI();
     initGamification();
     initAcademicNavigator();
+    initLiveActivities();
 });
 
 // Theme Management & Custom Multi-Theme System
@@ -884,3 +885,101 @@ function initAcademicNavigator() {
         }
     });
 }
+
+/**
+ * Universal Live Academic Activity Feed
+ * Simulates active global students across different engineering colleges (JNTUK R23)
+ * to provide an immersive, inspiring study dashboard mood.
+ */
+function initLiveActivities() {
+    // Prevent duplicate ticker initializations
+    if (document.getElementById('live-activity-host')) return;
+
+    // Check if the user has globally disabled notifications in their settings
+    const currentMuted = localStorage.getItem('mute-academic-ticks') === 'true';
+
+    // Set of highly specific JNTUK undergraduate student context events
+    const academicEvents = [
+        { name: "Sai Kiran", college: "JNTUK Kakinada", action: "downloaded Unit-1 Mathematics integration sheet", badge: "📚 NOTES" },
+        { name: "Meghana", college: "Aditya Engineering College", action: "just cleared Polymer Chemistry quiz with 100%", badge: "⚡ QUIZ" },
+        { name: "Divya", college: "Vasavi Institute", action: "queried the AI Professor on 'Hermitian Matrices proof'", badge: "🤖 AI CHAT" },
+        { name: "Venkat S.", college: "Pragati College of Engineering", action: "finished Basic Electrical Unit-1 circuits homework", badge: "✏️ STUDY" },
+        { name: "Tarun Kumar", college: "SRKR Bhimavaram", action: "unlocked 'C Programming Master' rank", badge: "🏆 LEVEL" },
+        { name: "Srinivas", college: "Vishnu Institute of Tech", action: "simulated basic involute curve construction in Graphics", badge: "📐 CAD" },
+        { name: "Anoop K.", college: "GVP Visakhapatnam", action: "bookmarked Unit-3 Wave Optics Notes", badge: "🔖 BOOKMARK" },
+        { name: "Sireesha", college: "ANITS", action: "solved the 2024 JNTUK Quantum Physics PYQ derivation", badge: "📝 PYQ" },
+        { name: "Prudhvi Raj", college: "GMRIT Rajam", action: "compiled standard AutoCAD command matrix for ellipse locus", badge: "📐 CAD" },
+        { name: "Chaitanya G.", college: "Lendi Association", action: "unlocked +25 Mastery XP for completing Unit-2 Thermodynamics basics", badge: "⭐ XP" },
+        { name: "Anjali S.", college: "MVGR विजयनगरम", action: "asked AI Professor: 'Simplify de Broglie wavelength derivation'", badge: "🤖 AI CHAT" },
+        { name: "Swapna", college: "Raghu Institute of Tech", action: "completed practice test for Civil and Mechanical Unit-2", badge: "⚡ QUIZ" }
+    ];
+
+    // Create the persistent mounting container in bottom-left zone
+    const host = document.createElement('div');
+    host.id = 'live-activity-host';
+    host.className = 'fixed bottom-6 left-6 z-[998] max-w-[340px] pointer-events-none font-sans print:hidden flex flex-col gap-2';
+    document.body.appendChild(host);
+
+    let activeNotification = null;
+    let tickerTimeout = null;
+
+    // Trigger one initial popup 4.5 seconds after page loads for active styling feedback
+    if (!currentMuted) {
+        setTimeout(scheduleNextNotification, 4500);
+    }
+
+    function createNotificationMarkup(event) {
+        const item = document.createElement('div');
+        item.className = 'pointer-events-auto flex items-start gap-3 bg-white/95 dark:bg-slate-950/95 border border-slate-200/80 dark:border-slate-850 p-4 rounded-2xl shadow-xl shadow-slate-100/50 dark:shadow-none backdrop-blur-md translate-y-8 opacity-0 transition-all duration-500 ease-out select-none';
+        
+        item.innerHTML = `
+            <div class="flex-1 space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="text-[9px] font-black uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/35 px-1.5 py-0.5 rounded-md tracking-wider">${event.badge}</span>
+                    <span class="text-[10px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest">${event.college}</span>
+                </div>
+                <p class="text-[11px] font-semibold text-slate-700 dark:text-slate-350 leading-relaxed">
+                    <strong class="text-slate-900 dark:text-slate-100 font-black">${event.name}</strong> ${event.action}
+                </p>
+            </div>
+            
+            <div class="flex flex-col gap-1 items-end pl-2">
+                <!-- Close/Dismiss -->
+                <button class="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-900 p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer" onclick="this.closest('#live-activity-host').innerHTML='';" title="Dismiss alert">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+        `;
+        return item;
+    }
+
+    function scheduleNextNotification() {
+        if (localStorage.getItem('mute-academic-ticks') === 'true') return;
+
+        // Clean out any existing alert inside the host parent
+        host.innerHTML = '';
+
+        // Pick an authentic student activity event randomly
+        const randomEvent = academicEvents[Math.floor(Math.random() * academicEvents.length)];
+        const el = createNotificationMarkup(randomEvent);
+        host.appendChild(el);
+
+        // Slide up with spring effect
+        setTimeout(() => {
+            el.classList.remove('translate-y-8', 'opacity-0');
+        }, 50);
+
+        // Clear out current alert after 6 seconds of exposure
+        const fadeoutTimer = setTimeout(() => {
+            el.classList.add('-translate-y-4', 'opacity-0');
+            setTimeout(() => {
+                el.remove();
+            }, 500);
+        }, 6500);
+
+        // Trigger the loop recursively with random offsets (every 22 to 38 seconds)
+        const nextStagger = 22000 + Math.random() * 16000;
+        tickerTimeout = setTimeout(scheduleNextNotification, nextStagger);
+    }
+}
+

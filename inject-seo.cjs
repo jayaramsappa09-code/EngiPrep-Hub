@@ -123,6 +123,12 @@ htmlFiles.forEach(file => {
         modified = true;
     }
 
+    // 6. Universal Academic Navigator & Active Live Tickers
+    if (!content.includes('src="/src/main.js"') && content.includes('</body>')) {
+        content = content.replace('</body>', '    <!-- Universal Academic Navigator & Active Live Alerts -->\n    <script type="module" src="/src/main.js"></script>\n</body>');
+        modified = true;
+    }
+
 
     if (modified) {
         fs.writeFileSync(file, content);
