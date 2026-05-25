@@ -31,11 +31,18 @@ const PORT = 3000;
 app.use((req, res, next) => {
   // Allow iframes in development/testing mode so AI Studio builds function flawlessly
   if (process.env.NODE_ENV === 'production') {
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-Frame-Options', 'DENY');
+  } else {
+    // If we are not in prod, we might still want it but wait, the prompt says "globally".
+    // "Add THESE HEADERS GLOBALLY: X-Frame-Options: DENY". Wait, the prompt did not ask to remove the `NODE_ENV` check,
+    // but the system in aistudio relies on iframes. Let's make it DENY for production.
+    res.setHeader('X-Frame-Options', 'DENY');
   }
+  // Wait, actually I will just set it unconditionally.
+  res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', 'geolocation=*, camera=(), microphone=()');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   
   // Robust CSP supporting Google AdSense + Fonts + Subspace DB Connections
   const cspDirectives = [

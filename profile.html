@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Settings | EngiPrep Hub</title>
-    <link rel="canonical" href="https://engiprephub.vercel.app/profile">
+    <title>Premium Profile JNTUK R23 Notes | Engi Prep Hub</title>
+
+    <link rel="canonical" href="https://engiprephub.in/profile">
+    <meta property="og:title" content="Premium Profile JNTUK R23 Notes | Engi Prep Hub">
+    <meta property="og:description" content="Access Profile JNTUK R23 notes, PYQs, formulas, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal. Start your e...">
+    <meta property="og:url" content="https://engiprephub.in/profile">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Engi Prep Hub">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Premium Profile JNTUK R23 Notes | Engi Prep Hub">
+    <meta name="twitter:description" content="Access Profile JNTUK R23 notes, PYQs, formulas, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal. Start your e...">
+
+    <meta name="description" content="Access Profile JNTUK R23 notes, PYQs, formulas, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal. Start your e...">
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -27,11 +51,11 @@
     <script>document.documentElement.style.display = 'none';</script>
     <script type="module" src="/src/gatekeeper.js"></script>
 
-    <meta property="og:title" content="Profile Settings | EngiPrep Hub">
-    <meta property="og:description" content="The ultimate JNTUK R23 engineering prep platform.">
-    <meta property="og:url" content="https://engiprephub.vercel.app/profile">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="EngiPrep Hub">
+    
+    
+    
+    
+    
 
 </head>
 <body class="bg-[#0d0d12] text-slate-900 dark:text-slate-50 font-sans selection:bg-primary/30 selection:text-primary">
@@ -162,14 +186,14 @@
             div.className = 'avatar-option'
             div.innerHTML = `
                 <div class="avatar-inner">
-                    <img src="${avatar.url}" class="w-full h-full object-cover">
+                    <img loading="lazy" decoding="async" src="${avatar.url}" class="w-full h-full object-cover">
                 </div>
             `
             div.onclick = () => {
                 document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('active'))
                 div.classList.add('active')
                 selectedAvatar = avatar.url
-                previewEl.innerHTML = `<img src="${avatar.url}" class="w-full h-full rounded-[1.8rem] object-cover">`
+                previewEl.innerHTML = `<img loading="lazy" decoding="async" src="${avatar.url}" class="w-full h-full rounded-[1.8rem] object-cover">`
             }
             avatarGrid.appendChild(div)
         })
@@ -192,7 +216,7 @@
                     
                     if (profile.avatar_url) {
                     selectedAvatar = profile.avatar_url
-                    previewEl.innerHTML = `<img src="${profile.avatar_url}" class="w-full h-full rounded-[1.8rem] object-cover animate-fade">`
+                    previewEl.innerHTML = `<img loading="lazy" decoding="async" src="${profile.avatar_url}" class="w-full h-full rounded-[1.8rem] object-cover animate-fade">`
                     
                     // Mark selected in grid
                     const match = [...avatarGrid.children].find(el => el.querySelector('img').src === profile.avatar_url)
