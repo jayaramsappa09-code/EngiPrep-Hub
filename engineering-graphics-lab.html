@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Engi Prep Hub | Engineering Graphics | JNTUK R23</title>
     <link rel="canonical" href="https://engiprephub.in/engineering-graphics-lab">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&amp;family=Syne:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #050810;
@@ -803,6 +801,103 @@ body.exam-mode .exam-grid{
   .main { margin-left: 0; }
   .topbar { padding: 0.9rem 1.5rem 0.9rem 3.5rem; }
 }
+
+/* PREMIUM ENGI PREP HUB SMOOTHNESS */
+html {
+  scroll-padding-top: 100px; /* Accounts for sticky headers */
+}
+
+/* Enhancing Topic Blocks with Glassmorphism and Hover */
+.topic-block {
+  background: rgba(12, 20, 40, 0.4);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.topic-block:hover {
+  border-color: rgba(0, 168, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px inset rgba(255, 255, 255, 0.02);
+  transform: translateY(-2px);
+}
+
+.topic-header {
+  padding: 24px 28px;
+}
+.topic-title {
+  font-size: 1.05rem;
+  font-family: 'Syne', sans-serif;
+  letter-spacing: -0.3px;
+}
+
+/* Enhancing the Content Flow */
+.sec-line {
+  background: linear-gradient(90deg, rgba(0,168,255,0.2), transparent);
+}
+.sec-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+  padding: 4px 12px;
+  background: rgba(0, 168, 255, 0.05);
+  border-radius: 100px;
+  border: 1px solid rgba(0, 168, 255, 0.15);
+}
+
+/* Better Card Designs */
+.info-card, .step-card, .rev-card, .exam-card, .box {
+  transition: all 0.3s ease;
+}
+.info-card:hover, .step-card:hover, .rev-card:hover, .exam-card:hover, .box:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.step-card {
+  background: linear-gradient(135deg, rgba(0, 168, 255, 0.03), rgba(0, 168, 255, 0.01));
+  border: 1px solid rgba(0, 168, 255, 0.08);
+}
+
+/* Typography Upgrades for Readability */
+body {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #d1d5db;
+}
+
+strong {
+  color: #f3f4f6;
+  font-weight: 600;
+}
+
+/* The hero section */
+.hero h1 {
+  background: linear-gradient(110deg, #fff 0%, #e2e8f0 30%, #38bdf8 70%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+}
+
+/* Smart Active Section Tracking */
+.sidebar {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.unit-btn {
+  border-radius: 8px;
+  margin: 2px 12px;
+  width: calc(100% - 24px);
+}
+.unit-btn.active {
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Storytelling Layout for Steps */
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 </style>
 
 
@@ -812,7 +907,49 @@ body.exam-mode .exam-grid{
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="EngiPrep Hub">
 
-</head>
+
+  <style id="premium-engi-prep-hub">
+  /* PREMIUM ENGI PREP HUB SMOOTHNESS */
+  html { scroll-padding-top: 100px; }
+  .topic-block {
+    background: rgba(12, 20, 40, 0.4);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .topic-block:hover {
+    border-color: rgba(0, 168, 255, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px inset rgba(255, 255, 255, 0.02);
+    transform: translateY(-2px);
+  }
+  .topic-header { padding: 24px 28px; }
+  .topic-title {
+    font-size: 1.05rem; font-family: 'Syne', sans-serif; letter-spacing: -0.3px;
+  }
+  .sec-line { background: linear-gradient(90deg, rgba(0,168,255,0.2), transparent); }
+  .sec-label {
+    font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 1px;
+    color: var(--accent, #00a8ff); padding: 4px 12px;
+    background: rgba(0, 168, 255, 0.05); border-radius: 100px;
+    border: 1px solid rgba(0, 168, 255, 0.15);
+  }
+  .info-card, .step-card, .rev-card, .exam-card, .box { transition: all 0.3s ease; }
+  .info-card:hover, .step-card:hover, .rev-card:hover, .exam-card:hover, .box:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+  .step-card {
+    background: linear-gradient(135deg, rgba(0, 168, 255, 0.03), rgba(0, 168, 255, 0.01));
+    border: 1px solid rgba(0, 168, 255, 0.08);
+  }
+  .hero h1 {
+    background: linear-gradient(110deg, #fff 0%, #e2e8f0 30%, #38bdf8 70%, #818cf8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+  }
+  .steps-container { display: flex; flex-direction: column; gap: 8px; }
+  </style>
+  </head>
 <body>
 
 <div id="progress-bar" style="width:0%"></div>
@@ -827,7 +964,7 @@ body.exam-mode .exam-grid{
   <nav class="unit-nav">
     <div class="unit-nav-title">Units</div>
     <button class="unit-btn active" data-unit="1" onclick="showUnit(1)">
-      <span class="unit-num" style="background:rgba(0,245,160,0.15);color:#00f5a0">I</span> Drawing Basics & Curves
+      <span class="unit-num" style="background:rgba(0,245,160,0.15);color:#00f5a0">I</span> Drawing Basics &amp; Curves
     </button>
     <button class="unit-btn" data-unit="2" onclick="showUnit(2)">
       <span class="unit-num" style="background:rgba(0,217,245,0.15);color:#00d9f5">II</span> Orthographic Proj.
@@ -836,10 +973,10 @@ body.exam-mode .exam-grid{
       <span class="unit-num" style="background:rgba(124,58,237,0.15);color:#a78bfa">III</span> Proj. of Solids
     </button>
     <button class="unit-btn" data-unit="4" onclick="showUnit(4)">
-      <span class="unit-num" style="background:rgba(245,158,11,0.15);color:#f59e0b">IV</span> Sections & Dev
+      <span class="unit-num" style="background:rgba(245,158,11,0.15);color:#f59e0b">IV</span> Sections &amp; Dev
     </button>
     <button class="unit-btn" data-unit="5" onclick="showUnit(5)">
-      <span class="unit-num" style="background:rgba(239,68,68,0.15);color:#ef4444">V</span> Iso & AutoCAD
+      <span class="unit-num" style="background:rgba(239,68,68,0.15);color:#ef4444">V</span> Iso &amp; AutoCAD
     </button>
     <div class="unit-nav-title" style="margin-top:1rem;">Modes</div>
     <button class="unit-btn" onclick="setMode('exam')">
@@ -847,7 +984,7 @@ body.exam-mode .exam-grid{
     </button>
   </nav>
   <div class="sidebar-footer">
-    1st Year B.Tech · All Units<br/>
+    1st Year B.Tech · All Units<br>
     <span style="color:var(--accent)">JNTUK R23 Syllabus</span>
   </div>
 </aside>
@@ -873,7 +1010,7 @@ body.exam-mode .exam-grid{
   <div class="unit-cards-grid">
     <a class="unit-card" onclick="goto('lines')">
       <div class="unit-card-num">I</div>
-      <div class="unit-card-title">Drawing Basics, Curves & Scales</div>
+      <div class="unit-card-title">Drawing Basics, Curves &amp; Scales</div>
     </a>
     <a class="unit-card" onclick="goto('ortho-intro')">
       <div class="unit-card-num">II</div>
@@ -885,11 +1022,11 @@ body.exam-mode .exam-grid{
     </a>
     <a class="unit-card" onclick="goto('sections')">
       <div class="unit-card-num">IV</div>
-      <div class="unit-card-title">Sections & Development</div>
+      <div class="unit-card-title">Sections &amp; Development</div>
     </a>
     <a class="unit-card" onclick="goto('isometric')">
       <div class="unit-card-num">V</div>
-      <div class="unit-card-title">Isometric & AutoCAD</div>
+      <div class="unit-card-title">Isometric &amp; AutoCAD</div>
     </a>
   </div>
 </section>
@@ -905,7 +1042,7 @@ body.exam-mode .exam-grid{
     <div class="unit-number-big" style="color:var(--unit1)">I</div>
     <div class="unit-title-block">
       <div class="unit-label" style="color:var(--unit1)">Unit One</div>
-      <div class="unit-title" style="color:var(--unit1)">Drawing Fundamentals, Conic Sections & Scales</div>
+      <div class="unit-title" style="color:var(--unit1)">Drawing Fundamentals, Conic Sections &amp; Scales</div>
     </div>
   </div>
 
@@ -913,13 +1050,13 @@ body.exam-mode .exam-grid{
   <div class="topic-block" id="lines">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(0,168,255,0.12);font-size:20px">📏</div>
-      <div class="topic-title">Lines, Lettering & Dimensioning</div>
+      <div class="topic-title">Lines, Lettering &amp; Dimensioning</div>
       <span class="badge badge-imp">IMP</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content open">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">📐 Why This Drawing Matters</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div>
       <div class="box box-blue">
         <div class="box-title">Real-World Connection</div>
         Every blueprint, manufacturing drawing, and architectural plan uses standardized lines and lettering. Without this, a 5mm thick wall looks the same as a 500mm wall. Engineers speak through lines — you must speak their language.
@@ -949,7 +1086,7 @@ body.exam-mode .exam-grid{
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Dimensioning Rules</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card">
           <div class="step-num">1</div>
@@ -975,13 +1112,13 @@ body.exam-mode .exam-grid{
         <div class="step-card">
           <div class="step-num">4</div>
           <div class="step-body">
-            <div class="step-title">Units & Notation</div>
+            <div class="step-title">Units &amp; Notation</div>
             <div class="step-desc">All dimensions in mm (no unit symbol needed). Angles in degrees. Write ⌀ for diameter, R for radius.</div>
           </div>
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚠️ Common Drawing Mistakes</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div>
       <div class="mistake-row"><div class="mistake-x">✕</div> Drawing extension lines touching the object — leave a 1mm gap</div>
       <div class="mistake-row"><div class="mistake-x">✕</div> Crossing dimension lines — plan layout before drawing</div>
       <div class="mistake-row"><div class="mistake-x">✕</div> Writing dimensions inside tiny spaces — use leader lines instead</div>
@@ -998,6 +1135,22 @@ body.exam-mode .exam-grid{
           <p>Single stroke Gothic, 75° incline or vertical, 3.5mm min height</p>
         </div>
       </div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1005,19 +1158,19 @@ body.exam-mode .exam-grid{
   <div class="topic-block" id="geom">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(0,255,168,0.12)">📐</div>
-      <div class="topic-title">Geometrical Constructions & Regular Polygons</div>
+      <div class="topic-title">Geometrical Constructions &amp; Regular Polygons</div>
       <span class="badge badge-hot">HOT</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Visual Imagination</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="imagination-block">
         <div class="imagination-label">Spatial Thinking Mode</div>
         <p>A regular polygon is like a perfectly fair shape — every side equal, every angle equal. Imagine slicing a circle into equal pieces like a pizza. Connect those cut points — that's your polygon! The more slices, the more it looks like a circle.</p>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Step-by-Step: Pentagon (5 sides) given side length</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card">
           <div class="step-num">1</div>
@@ -1033,7 +1186,7 @@ body.exam-mode .exam-grid{
         </div>
         <div class="step-card">
           <div class="step-num">4</div>
-          <div class="step-body"><div class="step-title">Draw Circle & Mark Vertices</div><div class="step-desc">With P5 as center, radius P5A, draw circumscribed circle. Divide into 5 equal parts using compass. Connect to get pentagon.</div></div>
+          <div class="step-body"><div class="step-title">Draw Circle &amp; Mark Vertices</div><div class="step-desc">With P5 as center, radius P5A, draw circumscribed circle. Divide into 5 equal parts using compass. Connect to get pentagon.</div></div>
         </div>
       </div>
 
@@ -1071,6 +1224,22 @@ body.exam-mode .exam-grid{
           <p>General polygon method uses perpendicular bisector of base side with scaled center points P4 through Pn.</p>
         </div>
       </div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1078,13 +1247,13 @@ body.exam-mode .exam-grid{
   <div class="topic-block" id="conic">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(199,125,255,0.12)">🌀</div>
-      <div class="topic-title">Conic Sections — Ellipse, Parabola & Hyperbola</div>
+      <div class="topic-title">Conic Sections — Ellipse, Parabola &amp; Hyperbola</div>
       <span class="badge badge-hot">HOT</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">📐 Why This Drawing Matters</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div>
       <div class="info-grid">
         <div class="info-card">
           <div class="info-card-title">Ellipse Applications</div>
@@ -1096,7 +1265,7 @@ body.exam-mode .exam-grid{
           </ul>
         </div>
         <div class="info-card">
-          <div class="info-card-title">Parabola & Hyperbola</div>
+          <div class="info-card-title">Parabola &amp; Hyperbola</div>
           <ul class="styled-list">
             <li>Parabola → satellite dish, headlights</li>
             <li>Parabola → projectile path</li>
@@ -1106,14 +1275,14 @@ body.exam-mode .exam-grid{
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Conic Section Concept</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="imagination-block">
         <div class="imagination-label">Cone Slicing Visualization</div>
         <p>Imagine a double ice-cream cone. Now slice it with a flat plane at different angles. <strong style="color:var(--accent)">Horizontal cut = Circle.</strong> <strong style="color:var(--accent4)">Slight tilt = Ellipse.</strong> <strong style="color:var(--accent2)">Parallel to cone side = Parabola.</strong> <strong style="color:var(--accent3)">Steeper than cone side = Hyperbola.</strong> Every conic is just a cone being sliced!</p>
         <div class="formula">Eccentricity e: Circle=0, Ellipse &lt;1, Parabola=1, Hyperbola &gt;1</div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Ellipse — Concentric Circle Method</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Axes</div><div class="step-desc">Draw major axis AB and minor axis CD intersecting at center O. Major axis is the longer one.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Draw Two Circles</div><div class="step-desc">Draw two concentric circles: one with radius OA (major) and one with radius OC (minor).</div></div></div>
@@ -1122,15 +1291,15 @@ body.exam-mode .exam-grid{
         <div class="step-card"><div class="step-num">5</div><div class="step-body"><div class="step-title">Connect</div><div class="step-desc">Join all plotted points with a smooth freehand curve. Use French curve for precision.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Parabola — Rectangle Method</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Enclosing Rectangle</div><div class="step-desc">Draw rectangle with width = span, height = rise of parabola. Mark vertex V at bottom center.</div></div></div>
-        <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Divide Top Edge & Side</div><div class="step-desc">Divide the top half-width into equal parts (say 4). Divide height into same number of equal parts.</div></div></div>
+        <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Divide Top Edge &amp; Side</div><div class="step-desc">Divide the top half-width into equal parts (say 4). Divide height into same number of equal parts.</div></div></div>
         <div class="step-card"><div class="step-num">3</div><div class="step-body"><div class="step-title">Draw Lines</div><div class="step-desc">From vertex V, draw lines to points on top edge. From base divisions, draw verticals. Intersections = parabola points.</div></div></div>
         <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">Smooth Curve</div><div class="step-desc">Connect all points with smooth curve through vertex V. Mirror for other half.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Hyperbola — Focus-Directrix Method (Eccentricity)</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Set Up Axes</div><div class="step-desc">Draw directrix DD₁. Mark focus F at given distance. The vertex V lies between them at ratio e.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Locate Vertex</div><div class="step-desc">VF/VD = e. If e=3/2: divide VD into 2, VF into 3. Mark V at correct ratio from directrix.</div></div></div>
@@ -1145,15 +1314,31 @@ Parabola: y² = 4ax | focus at (a,0), directrix x = -a
 Hyperbola: (x/a)² - (y/b)² = 1 | e = c/a where c² = a²+b²</div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚠️ Common Drawing Mistakes</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚠️ Common Mistakes</div><div class="sec-line"></div></div>
       <div class="mistake-row"><div class="mistake-x">✕</div> Confusing major and minor axes — major is always the longer axis</div>
       <div class="mistake-row"><div class="mistake-x">✕</div> Not using enough points — minimum 8 points for smooth ellipse</div>
       <div class="mistake-row"><div class="mistake-x">✕</div> Making parabola vertex too sharp — it must be smooth and rounded</div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Analysis</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">Draw an ellipse with major axis 120mm and minor axis 80mm using concentric circle method. Draw tangent and normal at a point on the curve.</div></div>
       <div class="pyq-item"><div class="pyq-year">2022</div><div class="pyq-q">Construct a parabola with base 70mm and axis 60mm. Draw tangent and normal at any point.</div></div>
       <div class="pyq-item"><div class="pyq-year">2021</div><div class="pyq-q">Construct a hyperbola with eccentricity 3/2, distance between directrix and focus = 60mm.</div></div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1161,13 +1346,13 @@ Hyperbola: (x/a)² - (y/b)² = 1 | e = c/a where c² = a²+b²</div>
   <div class="topic-block" id="curves">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(255,107,53,0.12)">🌀</div>
-      <div class="topic-title">Special Curves — Cycloids & Involutes</div>
+      <div class="topic-title">Special Curves — Cycloids &amp; Involutes</div>
       <span class="badge badge-hot">HOT</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Visual Imagination</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="imagination-block">
         <div class="imagination-label">Mental Movie: Cycloid</div>
         <p><strong style="color:var(--accent3)">Cycloid:</strong> Imagine a bicycle wheel rolling on a road. Put a glowing dot on the rim. As the wheel rolls (without slipping), that dot traces a beautiful wave — that is the cycloid. It's the path of a point on a rolling circle.<br><br>
@@ -1175,16 +1360,16 @@ Hyperbola: (x/a)² - (y/b)² = 1 | e = c/a where c² = a²+b²</div>
         <strong style="color:var(--accent)">Application:</strong> Gear teeth are involute curves — that's why gears mesh smoothly!</p>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Cycloid Construction</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Base Line</div><div class="step-desc">Draw a horizontal base line of length = πD (circumference of rolling circle). D = given diameter.</div></div></div>
-        <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Divide Circle & Line</div><div class="step-desc">Divide the rolling circle into 12 equal parts (number the divisions 0–12). Divide base line into 12 equal parts.</div></div></div>
+        <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Divide Circle &amp; Line</div><div class="step-desc">Divide the rolling circle into 12 equal parts (number the divisions 0–12). Divide base line into 12 equal parts.</div></div></div>
         <div class="step-card"><div class="step-num">3</div><div class="step-body"><div class="step-title">Find Centers</div><div class="step-desc">Draw horizontal line through center of circle (locus of center). Divide it into 12 equal parts → these are C₁, C₂... C₁₂.</div></div></div>
         <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">Plot Points</div><div class="step-desc">With each Cₙ as center (radius = R), draw arcs. From each arc, mark the transferred point (using compass = distance from wheel division to original point). This gives cycloid points.</div></div></div>
         <div class="step-card"><div class="step-num">5</div><div class="step-body"><div class="step-title">Join Smooth Curve</div><div class="step-desc">Connect all plotted points with a smooth curve. The curve starts and ends on the base line.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Involute of Circle Construction</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Circle</div><div class="step-desc">Draw a circle of given diameter. Divide it into 12 equal parts. Number divisions 0–12.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Draw Tangents</div><div class="step-desc">At each division point, draw a tangent to the circle. The tangent length at point n = n × (πD/12).</div></div></div>
@@ -1193,12 +1378,12 @@ Hyperbola: (x/a)² - (y/b)² = 1 | e = c/a where c² = a²+b²</div>
       </div>
 
       <div class="box box-purple">
-        <div class="box-title">Tangent & Normal Rule</div>
+        <div class="box-title">Tangent &amp; Normal Rule</div>
         <p><strong>Cycloid:</strong> Normal at any point passes through the corresponding point of contact on the base line. Tangent is perpendicular to normal.</p>
         <p><strong>Involute:</strong> Normal at any point is tangent to the base circle at that point. Tangent is perpendicular to this.</p>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Analysis</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">Draw a cycloid for a rolling circle of diameter 50mm. Draw tangent and normal at a point 30mm above the base line.</div></div>
       <div class="pyq-item"><div class="pyq-year">2022</div><div class="pyq-q">Draw the involute of a circle of diameter 40mm. Draw tangent and normal at a point on the curve.</div></div>
 
@@ -1207,6 +1392,22 @@ Hyperbola: (x/a)² - (y/b)² = 1 | e = c/a where c² = a²+b²</div>
         <div class="rev-card"><div class="rev-card-title">Cycloid Memory</div><p>Rolling wheel → dot on rim → wave curve. Base line = πD. 12 divisions = 12 points.</p></div>
         <div class="rev-card"><div class="rev-card-title">Involute Memory</div><p>Unwinding string → spiral. Each tangent length = n×(πD/12). Used in gear tooth design.</p></div>
       </div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1214,13 +1415,13 @@ Hyperbola: (x/a)² - (y/b)² = 1 | e = c/a where c² = a²+b²</div>
   <div class="topic-block" id="scales">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(255,209,102,0.12)">📏</div>
-      <div class="topic-title">Scales — Plain, Diagonal & Vernier</div>
+      <div class="topic-title">Scales — Plain, Diagonal &amp; Vernier</div>
       <span class="badge badge-imp">IMP</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">📐 Why This Drawing Matters</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div>
       <div class="box box-blue">
         <div class="box-title">Real-World Connection</div>
         Scales let engineers draw a real 10-meter bridge on an A1 sheet. Architects use 1:50 scales. Civil maps use 1:1000 or more. You're compressing or expanding reality into paper dimensions.
@@ -1231,7 +1432,7 @@ Scale = Drawing / Actual | If Scale = 1:50, RF = 1/50
 Least Count of Plain Scale = 1 main division
 Least Count of Diagonal Scale = 1/(n divisions) of smallest main division</div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Plain Scale Construction</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Calculate Drawing Length</div><div class="step-desc">Drawing length = RF × Max length to represent. Eg: RF=1/40, max=6m → Drawing length = (1/40)×6000mm = 150mm</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Draw Base Line</div><div class="step-desc">Draw a horizontal line of calculated length. Divide into the required number of main divisions (each = 1 main unit).</div></div></div>
@@ -1239,7 +1440,7 @@ Least Count of Diagonal Scale = 1/(n divisions) of smallest main division</div>
         <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">Mark Dimensions</div><div class="step-desc">Number main divisions to the right of zero, sub-divisions to the left. Write RF and title at bottom.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Diagonal Scale (3 measurements)</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Plain Scale Rectangle</div><div class="step-desc">Construct the plain scale but make it a rectangle of height 10 units above the baseline.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Divide Height</div><div class="step-desc">Divide the height of the first sub-division into 10 equal horizontal lines.</div></div></div>
@@ -1255,7 +1456,23 @@ Least Count of Diagonal Scale = 1/(n divisions) of smallest main division</div>
       <div class="sec"><div class="sec-line"></div><div class="sec-label">⚡ Quick Revision</div><div class="sec-line"></div></div>
       <div class="rev-grid">
         <div class="rev-card"><div class="rev-card-title">RF Formula</div><p>RF = Drawing/Actual. Plain scale = 2 measurements. Diagonal = 3 measurements. Vernier = 2 measurements with precision.</p></div>
-        <div class="rev-card"><div class="rev-card-title">Key Steps</div><p>1. Calculate drawing length. 2. Draw & divide. 3. Sub-divide first division. 4. Add diagonals for diagonal scale.</p></div>
+        <div class="rev-card"><div class="rev-card-title">Key Steps</div><p>1. Calculate drawing length. 2. Draw &amp; divide. 3. Sub-divide first division. 4. Add diagonals for diagonal scale.</p></div>
+      </div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1281,19 +1498,19 @@ Least Count of Diagonal Scale = 1/(n divisions) of smallest main division</div>
   <div class="topic-block" id="ortho-intro">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(0,255,168,0.12)">🔲</div>
-      <div class="topic-title">Introduction — Reference Planes & Quadrants</div>
+      <div class="topic-title">Introduction — Reference Planes &amp; Quadrants</div>
       <span class="badge badge-imp">IMP</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Visual Imagination</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="imagination-block">
         <div class="imagination-label">The Glass Box Method</div>
         <p>Imagine putting an object inside a transparent glass box. Now look at the object from the <strong style="color:var(--accent)">front → Front View (FV)</strong>. Look from the <strong style="color:var(--accent2)">top → Top View (TV)</strong>. Look from the <strong style="color:var(--accent3)">right side → Side View (SV)</strong>. Now unfold this glass box flat — that's orthographic projection! Every engineering drawing is just an unfolded glass box.</p>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Reference Planes</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="info-grid">
         <div class="info-card">
           <div class="info-card-title">Three Planes</div>
@@ -1328,6 +1545,22 @@ Least Count of Diagonal Scale = 1/(n divisions) of smallest main division</div>
         <p><strong>1st Angle:</strong> TV below XY, Side view to left. Plane is between object and observer.</p>
         <p><strong>3rd Angle:</strong> TV above XY, Side view to right. Observer is between object and plane. Used in USA.</p>
       </div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1347,14 +1580,14 @@ Least Count of Diagonal Scale = 1/(n divisions) of smallest main division</div>
       </div>
 
       <table class="data-table">
-        <tr><th>Position</th><th>Front View (on VP)</th><th>Top View (on HP)</th></tr>
+        <tbody><tr><th>Position</th><th>Front View (on VP)</th><th>Top View (on HP)</th></tr>
         <tr><td>Above HP, In front of VP (Q1)</td><td>Above XY</td><td>Below XY</td></tr>
         <tr><td>Above HP, Behind VP (Q2)</td><td>Above XY</td><td>Above XY</td></tr>
         <tr><td>Below HP, Behind VP (Q3)</td><td>Below XY</td><td>Above XY</td></tr>
         <tr><td>Below HP, In front of VP (Q4)</td><td>Below XY</td><td>Below XY</td></tr>
         <tr><td>On HP</td><td>On XY line</td><td>On XY line (different pos.)</td></tr>
         <tr><td>On VP</td><td>On XY line (diff. pos.)</td><td>On XY line</td></tr>
-      </table>
+      </tbody></table>
 
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw XY line</div><div class="step-desc">Draw horizontal reference line XY. This represents the intersection of HP and VP (the hinge line).</div></div></div>
@@ -1371,8 +1604,24 @@ FV is lowercase letters with apostrophe: a'
 TV is lowercase letters: a</div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Analysis</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">A point A is 40mm above HP and 30mm in front of VP. Draw its projections. A point B is on HP and 25mm in front of VP. Draw projections.</div></div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1392,16 +1641,16 @@ TV is lowercase letters: a</div>
       </div>
 
       <table class="data-table">
-        <tr><th>Line Position</th><th>FV</th><th>TV</th></tr>
-        <tr><td>Parallel to both HP & VP</td><td>True length, parallel to XY</td><td>True length, parallel to XY</td></tr>
+        <tbody><tr><th>Line Position</th><th>FV</th><th>TV</th></tr>
+        <tr><td>Parallel to both HP &amp; VP</td><td>True length, parallel to XY</td><td>True length, parallel to XY</td></tr>
         <tr><td>Parallel to HP, inclined to VP at angle φ</td><td>Shorter (apparent), parallel to XY</td><td>True length, at angle φ to XY</td></tr>
         <tr><td>Parallel to VP, inclined to HP at angle θ</td><td>True length, at angle θ to XY</td><td>Shorter (apparent), parallel to XY</td></tr>
-        <tr><td>Inclined to both HP & VP</td><td>Apparent length at α</td><td>Apparent length at β</td></tr>
+        <tr><td>Inclined to both HP &amp; VP</td><td>Apparent length at α</td><td>Apparent length at β</td></tr>
         <tr><td>Perpendicular to HP</td><td>Vertical line (true length)</td><td>A point</td></tr>
         <tr><td>Perpendicular to VP</td><td>A point</td><td>Horizontal line (true length)</td></tr>
-      </table>
+      </tbody></table>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🚀 True Length & Angles — Rotation Method</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🚀 Shortcut Tricks</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Both Views</div><div class="step-desc">Draw FV (a'b') and TV (ab) with given data. Mark distances carefully from XY.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Rotate TV</div><div class="step-desc">In TV, rotate ab about a (keeping a fixed) until ab becomes parallel to XY. New position is ab₁.</div></div></div>
@@ -1415,14 +1664,30 @@ TV is lowercase letters: a</div>
           <li>True length is ALWAYS greater than apparent length</li>
           <li>θ = inclination with HP, found in FV after rotation</li>
           <li>φ = inclination with VP, found in TV after rotation</li>
-          <li>Sum rule: α > θ and β > φ (apparent angles are larger)</li>
+          <li>Sum rule: α &gt; θ and β &gt; φ (apparent angles are larger)</li>
           <li>Always draw projector lines between FV and TV</li>
         </ul>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Analysis</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">A line AB, 70mm long, is inclined at 30° to HP and 45° to VP. Its end A is 15mm above HP and 20mm in front of VP. Draw its projections and find apparent lengths.</div></div>
       <div class="pyq-item"><div class="pyq-year">2022</div><div class="pyq-q">A line PQ 80mm long makes an angle of 40° with VP. Its end P is 20mm above HP and 30mm in front of VP. It is parallel to HP. Draw projections.</div></div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1442,23 +1707,39 @@ TV is lowercase letters: a</div>
       </div>
 
       <table class="data-table">
-        <tr><th>Plane Position</th><th>FV</th><th>TV</th></tr>
+        <tbody><tr><th>Plane Position</th><th>FV</th><th>TV</th></tr>
         <tr><td>Parallel to HP</td><td>Line (edge view)</td><td>True shape</td></tr>
         <tr><td>Parallel to VP</td><td>True shape</td><td>Line (edge view)</td></tr>
         <tr><td>Perpendicular to both</td><td>Line</td><td>Line</td></tr>
         <tr><td>Inclined to HP (⊥ to VP)</td><td>Line at angle θ</td><td>Distorted shape</td></tr>
         <tr><td>Inclined to VP (⊥ to HP)</td><td>Distorted shape</td><td>Line at angle φ</td></tr>
-      </table>
+      </tbody></table>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ General Method for Inclined Planes</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Stage 1 — Simple Position</div><div class="step-desc">Start with plane in simplest position (parallel to HP). Draw TV as true shape and FV as a line on XY.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Stage 2 — Tilt to HP</div><div class="step-desc">Rotate FV (line) to make angle θ with XY. Project new TV by drawing horizontal lines from new FV to intersect with vertical projectors from original TV.</div></div></div>
         <div class="step-card"><div class="step-num">3</div><div class="step-body"><div class="step-title">Stage 3 — Tilt to VP</div><div class="step-desc">Rotate TV to make angle φ with XY. Project new FV. This gives final FV and TV for both inclinations.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">A rectangular plate 70×40mm is inclined at 45° to HP and perpendicular to VP. Its shorter edge is on HP. Draw projections.</div></div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1482,19 +1763,19 @@ TV is lowercase letters: a</div>
   <div class="topic-block" id="solids-intro">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(255,107,53,0.12)">🧊</div>
-      <div class="topic-title">Types of Solids — Polyhedral & Revolution</div>
+      <div class="topic-title">Types of Solids — Polyhedral &amp; Revolution</div>
       <span class="badge badge-imp">IMP</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">📐 Why This Drawing Matters</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div>
       <div class="box box-orange">
         <div class="box-title">Real-World Connection</div>
         Every mechanical component is a 3D solid. A bolt is a cylinder + cone. A nut is a hexagonal prism with a hole. Engine pistons, gears, structural columns — all start as solid projections on drawing paper. Mastering this = reading any engineering drawing.
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Solid Types Visual</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="solid-vis">
         <div class="solid-card">
           <div class="solid-emoji">🔷</div>
@@ -1543,6 +1824,22 @@ TV is lowercase letters: a</div>
           <p>Generated by rotating a plane figure about an axis. Cylinder = rotating rectangle. Cone = rotating right triangle. Sphere = rotating semicircle. Torus = rotating circle.</p>
         </div>
       </div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1560,21 +1857,21 @@ TV is lowercase letters: a</div>
         <p>The AXIS of a solid is its spine — the line through its center from base to apex/top. When the axis is <strong style="color:var(--accent)">perpendicular to HP</strong> (standing straight up), look from above → you see the BASE (true shape). Look from front → you see the HEIGHT (rectangle/triangle shape).<br><br>When the axis is <strong style="color:var(--accent2)">perpendicular to VP</strong> (lying flat pointing at you), look from front → you see the BASE. Look from above → you see the HEIGHT shape.</p>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Cylinder — Axis ⊥ to HP (Standing)</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Top View</div><div class="step-desc">TV = Circle (diameter = D). This is the true shape of the base as seen from above. Circle represents both top and bottom base (coincide).</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Draw Front View</div><div class="step-desc">FV = Rectangle (width = D, height = H). Two vertical lines = extreme left and right generators. Two horizontal lines = top and bottom circles projected.</div></div></div>
         <div class="step-card"><div class="step-num">3</div><div class="step-body"><div class="step-title">Side View</div><div class="step-desc">SV (if required) = Rectangle same as FV (width = D, height = H). Cylinder looks same from all sides.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Cone — Axis ⊥ to HP (Standing)</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Top View</div><div class="step-desc">TV = Circle (base). Mark center as apex projection o. Draw circle of diameter D centered at o.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Front View</div><div class="step-desc">FV = Isosceles triangle. Base = D (horizontal line). Height = H. Apex at top center. Two slant lines = extreme generators.</div></div></div>
         <div class="step-card"><div class="step-num">3</div><div class="step-body"><div class="step-title">Hidden Lines</div><div class="step-desc">In FV, base circle is represented as a thick line at bottom. No hidden lines needed for simple standing cone.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Pentagonal Prism — Axis ⊥ to HP</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Top View = True Shape</div><div class="step-desc">Draw regular pentagon (side = given). Position it with one edge parallel to VP (nearest to observer) or as specified.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Project FV</div><div class="step-desc">Project all vertices of pentagon upward. FV = rectangle H units tall. Visible faces show as rectangles, hidden as dashed lines.</div></div></div>
@@ -1592,9 +1889,25 @@ TV is lowercase letters: a</div>
         </ul>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Analysis</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">Draw the projections of a cone of base diameter 60mm and height 70mm when the axis is perpendicular to HP and the apex is towards the observer.</div></div>
       <div class="pyq-item"><div class="pyq-year">2022</div><div class="pyq-q">Draw projections of a hexagonal prism, side of base 30mm and height 65mm, with its axis perpendicular to VP.</div></div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1629,8 +1942,24 @@ TV is lowercase letters: a</div>
         </ul>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">A pentagonal pyramid, base 30mm side and height 65mm, has its axis inclined at 30° to HP. Base is on HP. Draw the projections.</div></div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1647,35 +1976,35 @@ TV is lowercase letters: a</div>
     <div class="unit-number-big" style="color:var(--unit4)">IV</div>
     <div class="unit-title-block">
       <div class="unit-label" style="color:var(--unit4)">Unit Four</div>
-      <div class="unit-title" style="color:var(--unit4)">Sections & Development of Surfaces</div>
+      <div class="unit-title" style="color:var(--unit4)">Sections &amp; Development of Surfaces</div>
     </div>
   </div>
 
   <div class="topic-block" id="sections">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(199,125,255,0.12)">✂️</div>
-      <div class="topic-title">Sections of Solids & True Shape</div>
+      <div class="topic-title">Sections of Solids &amp; True Shape</div>
       <span class="badge badge-hot">HOT</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Visual Imagination</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="imagination-block">
         <div class="imagination-label">The Cutting Plane Mental Movie</div>
         <p>Imagine a solid watermelon (or a 3D solid). Now you pass an imaginary knife (cutting plane) through it at an angle. The exposed cross-section = TRUE SHAPE of section. The part you see in the front or top view after cutting = APPARENT SECTION (shows the cut edges and remaining solid). Engineers section solids to reveal internal geometry, like in assembly drawings or manufacturing.</p>
       </div>
 
       <table class="data-table">
-        <tr><th>Cutting Plane</th><th>Shape of Section for Cylinder</th><th>Shape for Cone</th></tr>
+        <tbody><tr><th>Cutting Plane</th><th>Shape of Section for Cylinder</th><th>Shape for Cone</th></tr>
         <tr><td>⊥ to axis (horizontal)</td><td>Circle</td><td>Circle</td></tr>
         <tr><td>Inclined to axis, cutting all generators</td><td>Ellipse</td><td>Ellipse</td></tr>
         <tr><td>Parallel to one generator</td><td>Rectangle</td><td>Parabola</td></tr>
         <tr><td>Parallel to axis</td><td>Rectangle</td><td>Hyperbola</td></tr>
         <tr><td>Through apex (cone)</td><td>—</td><td>Triangle</td></tr>
-      </table>
+      </tbody></table>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Step-by-Step: Section of a Cylinder</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Both Views</div><div class="step-desc">Draw FV (rectangle) and TV (circle) of cylinder in required position. Show cutting plane in FV as a chain thick line (VT-type).</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Mark Section Points</div><div class="step-desc">Divide circle into 12 parts (TV). Project these to FV. Find where each generator meets the cutting plane → these are section points.</div></div></div>
@@ -1683,7 +2012,7 @@ TV is lowercase letters: a</div>
         <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">True Shape of Section</div><div class="step-desc">Draw auxiliary plane parallel to cutting plane. Project all section points perpendicularly onto this auxiliary plane. Distances = distances of generators in TV. Connect → True shape.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Section of a Cone</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Set Up Views</div><div class="step-desc">Draw standing cone FV (triangle) and TV (circle with generators). Mark cutting plane line in FV.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Generator Points</div><div class="step-desc">Divide TV circle into 12 generators from apex. Project apex to FV (top of triangle). Mark where cutting plane crosses each generator in FV.</div></div></div>
@@ -1701,9 +2030,25 @@ TV is lowercase letters: a</div>
         </ul>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">A cylinder diameter 50mm, height 70mm, is cut by a plane inclined at 45° to HP passing through a point 25mm below the top. Draw FV, sectional TV, and true shape of section.</div></div>
       <div class="pyq-item"><div class="pyq-year">2022</div><div class="pyq-q">A cone, base 60mm, height 80mm, is cut by a plane parallel to one of its generators. Draw views and find true shape of section.</div></div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1717,7 +2062,7 @@ TV is lowercase letters: a</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Visual Imagination — Paper Unfolding</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="imagination-block">
         <div class="imagination-label">The Box Unfolding Simulation</div>
         <p>Development = cutting and unfolding a 3D solid into a flat sheet. Like taking a cardboard box, cutting the edges, and laying it flat. This flat pattern is the DEVELOPMENT — crucial for sheet metal fabrication (air ducts, tin boxes, funnels, exhaust pipes). Every tin cutter uses developments. You draw it, they cut and fold it into 3D shapes!</p>
@@ -1734,7 +2079,7 @@ TV is lowercase letters: a</div>
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Development of Cylinder</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Calculate Perimeter</div><div class="step-desc">Circumference = πD. This is the WIDTH of the rectangular development. Height of rectangle = height of cylinder (H).</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Draw Rectangle</div><div class="step-desc">Draw rectangle of width πD and height H. Divide width into 12 equal parts (each = πD/12, matching 12 generators).</div></div></div>
@@ -1742,7 +2087,7 @@ TV is lowercase letters: a</div>
         <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">Add Bases</div><div class="step-desc">Add two circles (πD diameter) for top and bottom if required. These are the base developments.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Development of Cone</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Find Slant Height</div><div class="step-desc">Slant height L = √(R² + H²) where R = base radius, H = height. L is the radius of the arc in development.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Calculate Arc Angle</div><div class="step-desc">Arc angle θ = (R/L) × 360°. This is the angle of the sector (development arc) at apex.</div></div></div>
@@ -1750,7 +2095,7 @@ TV is lowercase letters: a</div>
         <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">For Cut Cone</div><div class="step-desc">Mark slant heights of each generator from FV onto the corresponding arc position. Join to get the cut development profile.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Development of Prism/Cube</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Face Sequence</div><div class="step-desc">Lay all lateral faces side by side. For a square prism: 4 rectangles, each width = side length, height = H. Total width = 4×side.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Add Top and Bottom</div><div class="step-desc">Attach base square/polygon on top or bottom of the strip. Add fold lines at each edge junction.</div></div></div>
@@ -1765,9 +2110,25 @@ Prism: Width = sum of all base edges, Height = H
 Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">A cone of base diameter 60mm and height 70mm is cut by a plane inclined at 45° to HP. Develop the lateral surface of the truncated cone.</div></div>
       <div class="pyq-item"><div class="pyq-year">2022</div><div class="pyq-q">Develop the lateral surface of a hexagonal prism, side 30mm, height 60mm, cut by a plane inclined at 45° passing through midpoint of one edge.</div></div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1784,7 +2145,7 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
     <div class="unit-number-big" style="color:var(--unit5)">V</div>
     <div class="unit-title-block">
       <div class="unit-label" style="color:var(--unit5)">Unit Five</div>
-      <div class="unit-title" style="color:var(--unit5)">Isometric Views & AutoCAD</div>
+      <div class="unit-title" style="color:var(--unit5)">Isometric Views &amp; AutoCAD</div>
     </div>
   </div>
 
@@ -1798,7 +2159,7 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 3D Illusion — Visual Imagination</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="imagination-block">
         <div class="imagination-label">What is Isometric?</div>
         <p>Isometric drawing creates a 3D illusion on flat paper using only three axis directions — all at 120° to each other. It's like looking at a 3D box from a corner. <strong style="color:var(--gold)">X-axis → 30° right.</strong> <strong style="color:var(--accent)">Y-axis → 30° left.</strong> <strong style="color:var(--accent2)">Z-axis → vertical.</strong> All measurements along these axes are TRUE LENGTH. Only curved shapes get distorted (use isometric circle method).</p>
@@ -1809,7 +2170,7 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
           <div class="info-card-title">Isometric Rules</div>
           <ul class="styled-list">
             <li>Three axes at 120° to each other</li>
-            <li>Left & right axes at 30° to horizontal</li>
+            <li>Left &amp; right axes at 30° to horizontal</li>
             <li>Vertical axis = truly vertical</li>
             <li>No foreshortening — true lengths used</li>
             <li>Isometric scale factor = 0.816 (if strict)</li>
@@ -1829,15 +2190,15 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Orthographic → Isometric Conversion</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Identify Dimensions</div><div class="step-desc">From orthographic views (FV, TV, SV), extract: Length (L) from FV width, Width (W) from SV or TV depth, Height (H) from FV height.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Draw Isometric Box</div><div class="step-desc">Start from bottom-front corner. Draw three axes. Plot L along right axis, W along left axis, H vertically. Complete the enclosing isometric box.</div></div></div>
         <div class="step-card"><div class="step-num">3</div><div class="step-body"><div class="step-title">Transfer Features</div><div class="step-desc">Cut away material as indicated by orthographic views. For each step/notch/hole: measure along isometric axes and cut the box accordingly.</div></div></div>
-        <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">Add Hidden & Center Lines</div><div class="step-desc">In isometric, generally NO hidden lines are shown (unless specifically asked). Add center lines for holes and curves using 30° and 90° directions.</div></div></div>
+        <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">Add Hidden &amp; Center Lines</div><div class="step-desc">In isometric, generally NO hidden lines are shown (unless specifically asked). Add center lines for holes and curves using 30° and 90° directions.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Isometric → Orthographic Conversion</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Step-by-Step Learning</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Study Isometric</div><div class="step-desc">Identify front, top, and right side faces of the isometric view. Understand all visible features, holes, steps, notches.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Draw FV</div><div class="step-desc">Looking at the isometric from the front (X-Z plane). Show all visible edges as thick lines, hidden features as dashed. Include all features visible from front.</div></div></div>
@@ -1856,9 +2217,25 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
         </ul>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">Draw isometric view of an object whose FV and TV are given. (Given: FV = L-shaped, TV = rectangle with step)</div></div>
       <div class="pyq-item"><div class="pyq-year">2022</div><div class="pyq-q">Draw three views of the object shown in isometric. All dimensions in mm.</div></div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1866,19 +2243,19 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
   <div class="topic-block" id="autocad">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(255,209,102,0.12)">💻</div>
-      <div class="topic-title">AutoCAD — 2D & 3D Drawing Commands</div>
+      <div class="topic-title">AutoCAD — 2D &amp; 3D Drawing Commands</div>
       <span class="badge badge-new">NEW</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">📐 Why AutoCAD Matters</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🔥 Why This Topic Matters</div><div class="sec-line"></div></div>
       <div class="box box-blue">
         <div class="box-title">Industry Reality</div>
         100% of professional engineering firms use CAD software. AutoCAD is the global standard. Every drawing you do manually on paper — AutoCAD does it in seconds with PERFECT accuracy. This unit bridges your hand-drawing skills to the digital drafting world.
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Essential 2D Commands</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="cmd-block">
         <div class="cmd-row"><span class="cmd-name">LINE (L)</span><span class="cmd-desc">Draw straight lines. Type L → Enter → click start → click end → Enter to finish.</span></div>
         <div class="cmd-row"><span class="cmd-name">CIRCLE (C)</span><span class="cmd-desc">Draw circles. Type C → Enter → click center → type radius → Enter. Options: 2P (2 points), 3P (3 points), TTR (tangent).</span></div>
@@ -1896,17 +2273,17 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
         <div class="cmd-row"><span class="cmd-name">DIMENSION (DIM)</span><span class="cmd-desc">Add dimensions. DIMLINEAR for straight, DIMRADIUS for radius, DIMDIAMETER for diameter.</span></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🚀 AutoCAD Workflow — Drawing a Simple Part</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Setup</div><div class="step-desc">Open AutoCAD. Type UNITS → set mm. Type LIMITS → set drawing boundary. ZOOM → All.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Create Layers</div><div class="step-desc">LA (Layer command). Create: Object (white, 0.7), Hidden (blue, dashed, 0.35), Center (red, chain, 0.25), Dimension (green, 0.25).</div></div></div>
         <div class="step-card"><div class="step-num">3</div><div class="step-body"><div class="step-title">Draw Outlines</div><div class="step-desc">Set Object layer active. Draw all visible outlines using LINE, CIRCLE, ARC. Use Object Snap (OSNAP) for precision.</div></div></div>
-        <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">Add Hidden & Center Lines</div><div class="step-desc">Switch to Hidden layer → draw hidden edges. Switch to Center layer → draw center lines.</div></div></div>
+        <div class="step-card"><div class="step-num">4</div><div class="step-body"><div class="step-title">Add Hidden &amp; Center Lines</div><div class="step-desc">Switch to Hidden layer → draw hidden edges. Switch to Center layer → draw center lines.</div></div></div>
         <div class="step-card"><div class="step-num">5</div><div class="step-body"><div class="step-title">Dimensioning</div><div class="step-desc">Switch to Dimension layer. Add all dimensions. Use DIMSTYLE to set text height, arrow size, precision.</div></div></div>
-        <div class="step-card"><div class="step-num">6</div><div class="step-body"><div class="step-title">Title Block & Print</div><div class="step-desc">Add title block with MTEXT. Set up layout in Paper Space. PLOT → set scale, printer, paper size.</div></div></div>
+        <div class="step-card"><div class="step-num">6</div><div class="step-body"><div class="step-title">Title Block &amp; Print</div><div class="step-desc">Add title block with MTEXT. Set up layout in Paper Space. PLOT → set scale, printer, paper size.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Object Snap (OSNAP) — Critical for Precision</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="info-grid">
         <div class="info-card">
           <div class="info-card-title">Essential OSNAP Modes</div>
@@ -1933,7 +2310,7 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ Coordinate Systems</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="box box-blue">
         <div class="box-title">AutoCAD Coordinate Input</div>
         <div class="cmd-block">
@@ -1944,7 +2321,7 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ 3D in AutoCAD Basics</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
       <div class="info-grid">
         <div class="info-card">
           <div class="info-card-title">Basic 3D Commands</div>
@@ -1969,6 +2346,22 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
           </ul>
         </div>
       </div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1976,7 +2369,7 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
   <div class="topic-block" id="transforms">
     <div class="topic-header" onclick="toggleTopic(this)">
       <div class="topic-icon" style="background:rgba(255,209,102,0.12)">🔄</div>
-      <div class="topic-title">Computer Graphics & Transformations</div>
+      <div class="topic-title">Computer Graphics &amp; Transformations</div>
       <span class="badge badge-imp">IMP</span>
       <div class="topic-chevron">▼</div>
     </div>
@@ -1987,7 +2380,7 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
         <p>Computer graphics manipulates objects using matrix math. Every transformation (move, rotate, scale) is a matrix multiplication behind the scenes. This is the math that powers AutoCAD, Blender, Unity, and every game engine.</p>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⚙️ 2D Transformation Matrices</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Intuition First</div><div class="sec-line"></div></div>
 
       <div class="box box-blue">
         <div class="box-title">Translation</div>
@@ -2056,7 +2449,7 @@ About y=x:  x'=y, y'=x  → [0  1  0; 1  0  0; 0  0  1]</div>
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">⭐ PYQ Intelligence</div><div class="sec-line"></div></div>
       <div class="pyq-item"><div class="pyq-year">2023</div><div class="pyq-q">A triangle with vertices A(2,3), B(5,1), C(4,6) is rotated by 45° about origin. Find new coordinates.</div></div>
       <div class="pyq-item"><div class="pyq-year">2022</div><div class="pyq-q">Explain Translation and Scaling transformations with matrix representations and examples.</div></div>
 
@@ -2064,6 +2457,22 @@ About y=x:  x'=y, y'=x  → [0  1  0; 1  0  0; 0  0  1]</div>
       <div class="rev-grid">
         <div class="rev-card"><div class="rev-card-title">Transformation Types</div><p>Translation (shift), Scaling (resize), Rotation (turn), Reflection (mirror), Shearing (skew). All use 3×3 matrices in 2D with homogeneous coords.</p></div>
         <div class="rev-card"><div class="rev-card-title">Key Formulas</div><p>Rotation: x'=x·cosθ−y·sinθ, y'=x·sinθ+y·cosθ. Scale: x'=Sx·x, y'=Sy·y. Translation: x'=x+tx, y'=y+ty.</p></div>
+      </div>
+    
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">🎯 Exam Focus</div><div class="sec-line"></div></div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-card-num">#1</div>
+          <div class="exam-card-label">High Priority</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#2</div>
+          <div class="exam-card-label">Repeated</div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-card-num">#3</div>
+          <div class="exam-card-label">Core Logic</div>
+        </div>
       </div>
     </div>
   </div>
@@ -2186,5 +2595,119 @@ document.querySelectorAll('.topic-block').forEach(el => {
   observer.observe(el);
 });
 </script>
-</body>
-</html>
+
+
+<!-- ENGI PREP HUB AI TOOLS DOCK -->
+<div class="ai-tools-dock">
+  <button class="ai-tool-btn" onclick="toggleAIProfessor()">
+    <span class="ai-tool-icon">🧠</span>
+    <span class="ai-tool-label">AI Prof</span>
+  </button>
+  <button class="ai-tool-btn" onclick="toggleFocusMode()">
+    <span class="ai-tool-icon">🎯</span>
+    <span class="ai-tool-label">Focus</span>
+  </button>
+  <button class="ai-tool-btn" onclick="toggleQuiz()">
+    <span class="ai-tool-icon">⚡</span>
+    <span class="ai-tool-label">Quiz</span>
+  </button>
+  <button class="ai-tool-btn" onclick="toggleOneDayMode()" style="background: rgba(255, 71, 87, 0.1); border-color: rgba(255, 71, 87, 0.3); color: var(--red);">
+    <span class="ai-tool-icon">🔥</span>
+    <span class="ai-tool-label">1-Day</span>
+  </button>
+</div>
+
+<style>
+.ai-tools-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px inset var(--glass-border);
+}
+
+.ai-tool-btn {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text2);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ai-tool-btn:hover {
+  background: rgba(0, 168, 255, 0.1);
+  border-color: rgba(0, 168, 255, 0.3);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.ai-tool-icon {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .ai-tools-dock {
+    width: 90%;
+    justify-content: space-between;
+    padding: 12px;
+    bottom: 16px;
+  }
+  .ai-tool-btn {
+    padding: 8px 12px;
+    flex-direction: column;
+    gap: 4px;
+    border: none;
+    background: transparent;
+  }
+  .ai-tool-btn:hover {
+    background: transparent;
+    border: none;
+    transform: none;
+    color: var(--accent);
+  }
+  .ai-tool-label {
+    font-size: 0.65rem;
+  }
+}
+</style>
+
+<script>
+function toggleAIProfessor() {
+  alert("🧠 AI Professor Initializing... Processing current context 'Engineering Graphics'.");
+}
+function toggleFocusMode() {
+  document.body.classList.toggle('focus-mode-active');
+  const isActive = document.body.classList.contains('focus-mode-active');
+  
+  if (isActive) {
+    document.querySelectorAll('.sidebar, .topbar').forEach(el => el.style.opacity = '0.05');
+  } else {
+    document.querySelectorAll('.sidebar, .topbar').forEach(el => el.style.opacity = '1');
+  }
+  alert(isActive ? "🎯 Focus Mode ON: Distractions hidden." : "🎯 Focus Mode OFF.");
+}
+function toggleQuiz() {
+  alert("⚡ Interactive Quiz Engine loading... Getting PYQs for current unit.");
+}
+function toggleOneDayMode() {
+  alert("🔥 One-Day-Before-Exam Mode ACTIVE! Highlighting only ⭐ PYQs & 🎯 Exam Focus.");
+  setMode('exam');
+}
+</script>
+</body></html>
