@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Theme Management & Custom Multi-Theme System
 function applyTheme(themeName) {
-    if (!themeName) themeName = 'dark';
+    if (!themeName) themeName = 'light';
     
     // Clear all theme classes
     document.documentElement.classList.remove('dark', 'theme-dark', 'theme-light', 'theme-blueprint', 'theme-focus', 'theme-exam');
@@ -109,7 +109,7 @@ function applyTheme(themeName) {
 window.applyTheme = applyTheme;
 
 function initTheme() {
-    const savedTheme = localStorage.getItem('color-theme') || 'dark';
+    const savedTheme = localStorage.getItem('color-theme') || 'light';
     applyTheme(savedTheme);
 
     const themeToggleBtn = document.getElementById('theme-toggle');

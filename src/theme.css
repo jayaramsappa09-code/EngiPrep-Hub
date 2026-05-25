@@ -48,7 +48,7 @@ html.dark {
   --theme-badge-text: #60a5fa;
 
   /* Formula Block */
-  --formula-bg: rgba(15, 23, 42, 0.95);
+  --formula-bg: rgba(15, 23, 42, 0.92);
   --formula-border: rgba(59, 130, 246, 0.18);
   --formula-text: #F8FAFC;
   
@@ -241,43 +241,79 @@ html.theme-exam {
    SYSTEM-WIDE READABILITY & GLOBAL OVERRIDES
    -------------------------------------------------------------------------- */
 
-/* Standard text/prose overrides to keep contrast ratios flawless */
-p, li {
-  color: var(--text-secondary) !important;
-  opacity: 1 !important; /* Never let opacity sink below strict standards! */
-  font-family: var(--font-sans);
+/* Typography Reset — Deeply legible and responsive standard style */
+html, body {
+  font-family: var(--font-sans) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.625;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* Force headings to use Space Grotesk and remain perfectly high contrast */
+h1, h2, h3, h4, h5, h6, 
+.font-display, 
+[class*="font-sans font-bold"],
+[class*="font-semibold"]:not(p):not(li):not(span) {
+  font-family: var(--font-display) !important;
   color: var(--text-main-color) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  text-shadow: none !important; /* Strip all unrequested glowing text shadow effects */
   opacity: 1 !important;
 }
 
-/* Anchor tags within flow */
+/* Enforce Inter globally for all educational prose & body texts */
+p, li, span:not(.font-mono):not(.theme-dot):not(.subject-pill) {
+  font-family: var(--font-sans) !important;
+  color: var(--text-secondary) !important;
+  opacity: 1 !important; /* Never let readable structures decline in contrast */
+  line-height: 1.7 !important;
+}
+
+/* Strip all opacity levels lower than 0.9 on any text or explanations to prevent eye exhaustion */
+[class*="text-slate-400"],
+[class*="text-slate-500"],
+[class*="text-gray-400"],
+[class*="text-gray-500"],
+[class*="dark:text-slate-400"],
+[class*="dark:text-slate-500"],
+[class*="opacity-40"],
+[class*="opacity-50"],
+[class*="opacity-60"],
+.text-opacity-60, .text-opacity-50, .text-opacity-40 {
+  color: var(--text-secondary) !important;
+  opacity: 1 !important; /* Forces premium Notion/GitBook readable standards */
+}
+
+/* Standard contrast anchors inside notes */
 p a, li a {
   color: var(--theme-primary) !important;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
+  opacity: 1 !important;
 }
 p a:hover, li a:hover {
   filter: brightness(1.15);
 }
 
-/* Force consistency across all card layouts */
+/* Force consistency across all card layouts with gentle borders and no aggressive glows */
 .glass-card, .bento-card, .cardBlock, .card {
   background-color: var(--surface-color) !important;
   border: 1px solid var(--border-color) !important;
   border-radius: 16px !important;
   padding: 1.5rem !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1) !important;
-  transition: border-color 0.3s, background-color 0.3s, transform 0.3s !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important; /* Soft, natural slate shadows, no cyber aura */
+  text-shadow: none !important;
+  background-image: none !important; /* Strip heavy background gradients behind readability texts */
+  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease !important;
 }
 
 .glass-card:hover, .bento-card:hover, .cardBlock:hover, .card:hover {
-  border-color: var(--theme-primary) !important;
+  border-color: rgba(var(--theme-primary-rgb), 0.3) !important;
   background-color: var(--surface-secondary) !important;
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
 }
 
 /* Absolute sanitization of unreadable dark-on-dark texts */
@@ -337,21 +373,23 @@ tr:nth-child(even) {
   margin: 1.5rem 0 !important;
 }
 
-/* Formula blocks (Central focus point of the learning material!) */
+/* Formula blocks (Perfect scientific alignment, JetBrains Mono font context) */
 .formula-block-modern, 
 .formula,
 pre.formula,
-.formula-highlight {
+.formula-highlight,
+.latex-formula {
   background-color: var(--formula-bg) !important;
   border: 1px solid var(--formula-border) !important;
   color: var(--formula-text) !important;
   font-size: 1.05rem !important;
-  line-height: 1.7 !important;
+  line-height: 1.76 !important;
   font-weight: 600 !important;
   font-family: var(--font-mono) !important;
-  padding: 1.15rem 1.75rem !important;
+  padding: 1.25rem 1.75rem !important;
   border-radius: 14px !important;
-  box-shadow: 0 6px 15px -4px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.03) !important; /* Very subtle blue accent aura only, no aggressive sci-fi rays */
+  text-shadow: none !important;
   margin: 1.25rem 0 !important;
   overflow-x: auto;
 }
@@ -359,18 +397,23 @@ pre.formula,
 /* Sidebar and Table of Contents high-fidelity style */
 .toc-link, .sidebar-link, .nav-link {
   color: var(--text-secondary) !important;
+  font-family: var(--font-sans) !important;
+  opacity: 1 !important;
   transition: all 0.2s ease !important;
 }
 
 .toc-link:hover, .sidebar-link:hover, .nav-link:hover {
   color: var(--text-main-color) !important;
+  background-color: rgba(255, 255, 255, 0.02) !important;
 }
 
-.sidebar-item-active, .toc-active-item {
+.sidebar-item-active, .toc-active-item, .toc-link.active, .sidebar-link.active {
   background-color: var(--sidebar-active-bg) !important;
   border-left: 3px solid var(--sidebar-active-border) !important;
   color: var(--sidebar-active-text) !important;
   font-weight: 700 !important;
+  font-family: var(--font-sans) !important;
+  padding-left: 12px !important;
 }
 
 /* Practice Quiz Option button style */
