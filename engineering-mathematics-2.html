@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engineering Mathematics II (R23) | Exam OS</title>
+    <link rel="canonical" href="https://engiprephub.in/engineering-mathematics-2">
     <link rel="stylesheet" href="/src/style.css">
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -43,6 +44,13 @@
         .flashcard-inner { transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
     </style>
+
+    <meta property="og:title" content="Engineering Mathematics II (R23) | Exam OS">
+    <meta property="og:description" content="The ultimate JNTUK R23 engineering prep platform.">
+    <meta property="og:url" content="https://engiprephub.in/engineering-mathematics-2">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="EngiPrep Hub">
+
 </head>
 <body class="bg-slate-50 dark:bg-[#080c16] text-slate-800 dark:text-slate-200 font-sans antialiased selection:bg-indigo-500/30">
 
@@ -158,29 +166,105 @@
         
         <!-- UNIT 1 -->
         <section id="unit-1" class="glass-panel p-8 rounded-[2rem]">
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex items-center gap-4 mb-8 border-b border-slate-200 dark:border-slate-700 pb-4">
                 <div class="w-12 h-12 bg-indigo-500 text-white font-black text-xl flex items-center justify-center rounded-2xl shadow-lg shadow-indigo-500/30">I</div>
                 <div>
                     <h2 class="text-2xl font-black text-slate-900 dark:text-white">First Order Differential Equations</h2>
                     <p class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mt-1">Linear, Exact & Applications</p>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="border border-slate-200 dark:border-slate-800 p-6 rounded-2xl hover:border-indigo-500/50 transition-colors">
-                    <h3 class="text-sm font-black text-slate-800 dark:text-slate-200 mb-4">Core Methods</h3>
-                    <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
-                        <li class="flex gap-2"><span>•</span> <span><strong>Linear DE:</strong> <span class="math-font">dy/dx + P(x)y = Q(x)</span></span></li>
-                        <li class="flex gap-2"><span>•</span> <span><strong>Bernoulli’s:</strong> <span class="math-font">dy/dx + P(x)y = Q(x)yⁿ</span></span></li>
-                        <li class="flex gap-2"><span>•</span> <span><strong>Exact DE:</strong> <span class="math-font">M dx + N dy = 0</span> where <span class="math-font">∂M/∂y = ∂N/∂x</span></span></li>
-                    </ul>
+            
+            <div class="space-y-8">
+                <!-- Why it matters -->
+                <div class="bg-indigo-50/50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-900/30 p-6 rounded-2xl">
+                    <h3 class="flex items-center gap-2 text-sm font-black text-indigo-900 dark:text-indigo-300 uppercase tracking-widest mb-3"><span>🔥</span> Why This Topic Matters</h3>
+                    <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">Every changing system in engineering — a cooling engine, a charging capacitor, a growing population — follows a <strong>First Order ODE</strong>. These equations describe the continuous rate of change of variables. If you want to predict how long a laptop battery takes to discharge, you have to solve a linear ODE!</p>
                 </div>
-                <div class="border border-slate-200 dark:border-slate-800 p-6 rounded-2xl hover:border-indigo-500/50 transition-colors bg-indigo-50/50 dark:bg-indigo-900/10">
-                    <h3 class="text-sm font-black text-indigo-900 dark:text-indigo-300 mb-4">Applications Checklist</h3>
-                    <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400 font-medium">
-                        <li>Newton’s Law of Cooling <span class="text-[10px] bg-red-100 text-red-600 px-2 py-0.5 rounded-full ml-2">99% Repeat</span></li>
-                        <li>Growth and Decay problems</li>
-                        <li>L-R and C-R Electrical Circuits</li>
-                    </ul>
+
+                <!-- Intuition -->
+                <div>
+                    <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>🧠</span> Intuition First</h3>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-400">
+                        <p class="mb-3">An ordinary algebraic equation (e.g., <code class="text-indigo-500 font-mono">2x + 3 = 7</code>) says: <em>"Find the number <span class="math-font">x</span>."</em></p>
+                        <p>A differential equation (e.g., <code class="text-indigo-500 font-mono">dy/dx + 2y = 4x</code>) says: <em>"Find the FUNCTION <span class="math-font">y(x)</span>."</em></p>
+                        <p class="mt-3 text-xs opacity-75">You are reverse-engineering a continuous system based on its slope.</p>
+                    </div>
+                </div>
+
+                <!-- Core Concepts & Formulas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>📘</span> Core Concepts</h3>
+                        <div class="space-y-4">
+                            <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500/50 transition-colors bg-white dark:bg-[#0c101c]">
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Linear DE</h4>
+                                <p class="text-xs text-slate-500 mb-3">Has the standard form <span class="math-font text-indigo-500">dy/dx + P(x)y = Q(x)</span>. The key is the Integrating Factor (IF).</p>
+                                <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded text-xs font-mono text-slate-700 dark:text-slate-300 font-bold">IF = e^(∫P dx)</div>
+                            </div>
+                            <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500/50 transition-colors bg-white dark:bg-[#0c101c]">
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Bernoulli's Eq</h4>
+                                <p class="text-xs text-slate-500 mb-3">A non-linear equation that reduces to linear form using substitution. standard form: <span class="math-font text-indigo-500">dy/dx + P(x)y = Q(x)yⁿ</span></p>
+                                <div class="bg-indigo-50 dark:bg-indigo-900/20 p-2 rounded text-xs font-mono text-indigo-700 dark:text-indigo-400 font-bold">Sub: v = y^(1-n)</div>
+                            </div>
+                            <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500/50 transition-colors bg-white dark:bg-[#0c101c]">
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Exact DE</h4>
+                                <p class="text-xs text-slate-500 mb-3">Based on partial derivatives. <span class="math-font text-indigo-500">M dx + N dy = 0</span> is exact if and only if:</p>
+                                <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded text-xs font-mono text-slate-700 dark:text-slate-300 font-bold">∂M/∂y = ∂N/∂x</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>⚡</span> Formula Zone</h3>
+                        <div class="space-y-4">
+                            <div class="p-5 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-200 dark:border-indigo-800">
+                                <span class="text-[10px] uppercase font-black text-indigo-500 tracking-widest block mb-1">General Solution (Linear DE)</span>
+                                <p class="font-mono text-sm text-slate-800 dark:text-slate-200 font-bold">y · (IF) = ∫ Q(x) · (IF) dx + C</p>
+                            </div>
+                            <div class="p-5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-200 dark:border-emerald-800">
+                                <span class="text-[10px] uppercase font-black text-emerald-500 tracking-widest block mb-1">Newton's Cooling Law</span>
+                                <p class="font-mono text-sm text-slate-800 dark:text-slate-200 font-bold">T(t) = T₀ + (T_i - T₀)e^(-kt)</p>
+                            </div>
+                            <div class="p-5 rounded-xl bg-gradient-to-br from-rose-500/10 to-orange-500/10 border border-rose-200 dark:border-rose-800">
+                                <span class="text-[10px] uppercase font-black text-rose-500 tracking-widest block mb-1">Solution to Exact DE</span>
+                                <p class="font-mono text-sm text-slate-800 dark:text-slate-200 font-bold">∫ M dx (y const) + ∫ N dy (no x) = C</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mistakes & PYQs -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-rose-50 dark:bg-rose-900/10 border border-rose-200 dark:border-rose-800/50 rounded-2xl p-6">
+                        <h3 class="flex items-center gap-2 text-sm font-black text-rose-600 dark:text-rose-400 uppercase tracking-widest mb-4"><span>⚠️</span> Common Mistakes</h3>
+                        <ul class="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+                            <li class="flex gap-3">
+                                <span class="text-rose-500 mt-0.5">✗</span> 
+                                <div><strong class="block text-slate-900 dark:text-slate-100">Adding +C to IF</strong><span class="text-xs opacity-80 block mt-1">Don't add +C when finding IF = e^(∫P dx). It cancels out later anyway.</span></div>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="text-rose-500 mt-0.5">✗</span> 
+                                <div><strong class="block text-slate-900 dark:text-slate-100">Exactness Check Confusion</strong><span class="text-xs opacity-80 block mt-1">Test is ∂M/∂y = ∂N/∂x, NOT the other way around.</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/50 rounded-2xl p-6">
+                        <h3 class="flex items-center gap-2 text-sm font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest mb-4"><span>⭐</span> PYQ Analysis</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Linear ODE & IF</span>
+                                <span class="text-[10px] font-black bg-amber-200 text-amber-800 dark:bg-amber-900 dark:text-amber-300 px-2 py-1 rounded">2023, 2024</span>
+                            </li>
+                            <li class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Exact Equations</span>
+                                <span class="text-[10px] font-black bg-amber-200 text-amber-800 dark:bg-amber-900 dark:text-amber-300 px-2 py-1 rounded">Nov 2022</span>
+                            </li>
+                            <li class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Newton's Cooling</span>
+                                <span class="text-[10px] font-black bg-emerald-200 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300 px-2 py-1 rounded">GUARANTEED</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -195,21 +279,84 @@
                 </div>
             </div>
             
-            <!-- MEMORY TREE SECTION -->
-            <div class="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 overflow-x-auto">
-                <h3 class="text-xs font-black text-purple-500 uppercase tracking-widest mb-6 border-b border-slate-200 dark:border-slate-800 pb-2">Cognitive Memory Tree: Finding PI [ 1/f(D) * X ]</h3>
-                <div class="font-mono text-sm text-slate-700 dark:text-slate-300 min-w-[600px]">
-Particular Integral (PI)
-├── X = e^(ax)
-│   ├── If f(a) ≠ 0 ➔ PI = e^(ax) / f(a)
-│   └── If f(a) = 0 ➔ PI = x * e^(ax) / f'(a)
-├── X = sin(ax) or cos(ax)
-│   ├── Substitute D² = -a²
-│   └── If f(-a²) = 0 ➔ multiply x, diff denom
-├── X = x^m
-│   └── Expand [f(D)]⁻¹ using Binomial to degree m
-└── X = e^(ax) * V(x)
-    └── Shift e^(ax) ➔ e^(ax) * [1/f(D+a)] V(x)
+            <div class="space-y-8 mt-6">
+                <!-- Intuition -->
+                <div class="bg-purple-50/50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-900/30 p-6 rounded-2xl">
+                    <h3 class="flex items-center gap-2 text-sm font-black text-purple-900 dark:text-purple-300 uppercase tracking-widest mb-3"><span>🧠</span> System Architecture: CF + PI</h3>
+                    <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">Higher order ODEs model complex systems like vibrating beams and electrical LCR circuits. The total response string always equals exactly: <strong class="text-purple-600 dark:text-purple-400">Total Response (y) = Transient State (CF) + Steady State (PI)</strong>.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <h4 class="font-bold text-slate-800 dark:text-slate-200 text-xs uppercase mb-2 text-indigo-500">Complementary Function (CF)</h4>
+                            <p class="text-xs text-slate-500">The "Free Response". Determined entirely by solving the homogeneous part <span class="math-font text-indigo-400">f(D)y = 0</span>. Uses roots of the auxiliary equation (real distinct, equal, or complex).</p>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <h4 class="font-bold text-slate-800 dark:text-slate-200 text-xs uppercase mb-2 text-purple-500">Particular Integral (PI)</h4>
+                            <p class="text-xs text-slate-500">The "Forced Response". This is the specific solution generated purely by the forcing function on the RHS <span class="math-font text-purple-400">f(x)</span>. Uses Inverse Operator shortcuts <span class="math-font">1/f(D)</span>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shortcuts (Memory Tree) -->
+                <div>
+                    <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>⚡</span> Inverse Operator Shortcuts</h3>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 overflow-x-auto relative">
+                        <div class="font-mono text-sm text-slate-700 dark:text-slate-300 min-w-[600px] leading-relaxed">
+<strong class="text-xs text-purple-500">Particular Integral engine: PI = [1/f(D)] × X</strong>
+├── <span class="text-indigo-600 dark:text-indigo-400 font-bold">X = e^(ax)</span>
+│   ├── If f(a) ≠ 0 ➔ <span class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300 px-1 rounded">PI = e^(ax) / f(a)</span>
+│   └── If f(a) = 0 ➔ Multiply by x, use f'(a). If f'(a)=0, do x² and f''(a).
+│
+├── <span class="text-emerald-600 dark:text-emerald-400 font-bold">X = sin(ax) or cos(ax)</span>
+│   ├── Substitute <span class="text-emerald-700 dark:text-emerald-300">D² = -a²</span> (never sub for D)
+│   └── If f(-a²) = 0 ➔ multiply x, diff denom wrt D, evaluate.
+│
+├── <span class="text-orange-600 dark:text-orange-400 font-bold">X = x^m (Polynomials)</span>
+│   └── Expand [f(D)]⁻¹ using Binomial Theorem in ascending powers of D
+│
+└── <span class="text-rose-600 dark:text-rose-400 font-bold">X = e^(ax) * V(x)</span>  <span class="text-[10px] text-slate-400 italic">// Exponential Shift Law</span>
+    └── Shift e^(ax) outside ➔ <span class="bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 px-1 rounded">e^(ax) * [1/f(D+a)] V(x)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Variation of Parameters -->
+                <div>
+                    <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>⚙️</span> Variation of Parameters</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-6 bg-slate-900 rounded-2xl border border-slate-800 text-slate-200 shadow-inner">
+                            <p class="text-xs text-slate-400 mb-4">When PI shortcuts fail (e.g. for tan(x), sec(x), log(x)), use the universal Variation of Parameters sequence.</p>
+                            <h4 class="text-purple-400 font-mono text-xs uppercase mb-2">Step 1: Get CF Solutions</h4>
+                            <p class="font-mono text-sm bg-slate-800 p-2 rounded mb-4">CF = C₁y₁ + C₂y₂</p>
+                            
+                            <h4 class="text-teal-400 font-mono text-xs uppercase mb-2">Step 2: Wronskian (W)</h4>
+                            <p class="font-mono text-sm bg-slate-800 p-2 rounded mb-4">W = (y₁)(y₂') - (y₂)(y₁')</p>
+                            <p class="text-[10px] text-rose-400 italic -mt-2 mb-4">Ensure standard form! coefficient of y'' must be 1 to use f(x).</p>
+                            
+                            <h4 class="text-orange-400 font-mono text-xs uppercase mb-2">Step 3: PI Formula</h4>
+                            <p class="font-mono text-sm bg-slate-800 p-2 rounded">PI = -y₁∫(y₂f/W)dx + y₂∫(y₁f/W)dx</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-purple-50 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-800/50 rounded-2xl p-6 h-full">
+                                <h3 class="flex items-center gap-2 text-sm font-black text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-4"><span>⭐</span> PYQ Analysis</h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-center justify-between">
+                                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Inverse Operator PI</span>
+                                        <span class="text-[10px] font-black bg-purple-200 text-purple-800 dark:bg-purple-900 dark:text-purple-300 px-2 py-1 rounded w-16 text-center">96%</span>
+                                    </li>
+                                    <li class="flex items-center justify-between">
+                                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Var of Parameters</span>
+                                        <span class="text-[10px] font-black bg-purple-200 text-purple-800 dark:bg-purple-900 dark:text-purple-300 px-2 py-1 rounded w-16 text-center">82%</span>
+                                    </li>
+                                    <li class="flex items-center justify-between">
+                                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">LCR Circuits Model</span>
+                                        <span class="text-[10px] font-black bg-orange-200 text-orange-800 dark:bg-orange-900 dark:text-orange-300 px-2 py-1 rounded w-16 text-center">75%</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -275,44 +422,101 @@ Particular Integral (PI)
 
         <!-- UNIT 3 & 4 Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <section id="unit-3" class="glass-panel p-8 rounded-[2rem]">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-10 h-10 bg-blue-500 text-white font-black flex items-center justify-center rounded-xl">III</div>
-                    <h2 class="text-xl font-black text-slate-900 dark:text-white">Partial DE</h2>
-                </div>
-                <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
-                    <li class="p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <strong class="text-blue-600 dark:text-blue-400 block mb-1">Lagrange's Method:</strong>
-                        Auxiliary eq: <span class="math-font">dx/P = dy/Q = dz/R</span>
-                    </li>
-                    <li class="p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <strong class="text-blue-600 dark:text-blue-400 block mb-1">Formation of PDE:</strong>
-                        Eliminate arbitrary constants a & b.
-                    </li>
-                </ul>
-            </section>
-            
-            <section id="unit-4" class="glass-panel p-8 rounded-[2rem]">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-10 h-10 bg-cyan-500 text-white font-black flex items-center justify-center rounded-xl">IV</div>
-                    <h2 class="text-xl font-black text-slate-900 dark:text-white">Vector Differentiation</h2>
+            <section id="unit-3" class="glass-panel p-8 rounded-[2rem] flex flex-col">
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-700 pb-4">
+                    <div class="w-10 h-10 bg-blue-500 text-white font-black flex items-center justify-center rounded-xl shadow-lg shadow-blue-500/30">III</div>
+                    <div>
+                        <h2 class="text-xl font-black text-slate-900 dark:text-white">Partial DE</h2>
+                        <p class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mt-1">Surfaces & Multiple Variables</p>
+                    </div>
                 </div>
                 
-                <!-- VECTOR VISUALIZATION BLOCK -->
-                <div class="relative bg-slate-900 rounded-xl p-4 overflow-hidden mt-4">
-                    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 10px 10px, #06b6d4 2px, transparent 0); background-size: 20px 20px;"></div>
-                    <div class="relative z-10 flex flex-col gap-3 font-mono text-xs">
-                        <div class="bg-slate-800 text-cyan-400 p-2 rounded border border-cyan-500/20">
-                            <span class="text-slate-400 select-none">Gradient  :</span> ∇φ = (i∂/∂x + j∂/∂y + k∂/∂z)φ 
-                            <span class="block text-[10px] text-cyan-200/50 mt-1">// Normal to surface</span>
+                <div class="space-y-6 flex-1">
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/30">
+                        While ODEs describe systems in one variable (like time), <strong>PDEs</strong> model systems depending on multiple variables, such as heat flow across a 2D surface or sound waves in 3D air.
+                    </p>
+
+                    <!-- Notation -->
+                    <div>
+                        <h3 class="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-3"><span>🔑</span> Standard Notation</h3>
+                        <div class="grid grid-cols-2 gap-2 font-mono text-[10px] text-slate-600 dark:text-slate-400">
+                            <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">p = ∂z/∂x</div>
+                            <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">q = ∂z/∂y</div>
+                            <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">r = ∂²z/∂x²</div>
+                            <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">t = ∂²z/∂y²</div>
+                            <div class="col-span-2 bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">s = ∂²z/∂x∂y</div>
                         </div>
-                        <div class="bg-slate-800 text-teal-400 p-2 rounded border border-teal-500/20">
-                            <span class="text-slate-400 select-none">Divergence:</span> ∇·F = ∂F₁/∂x + ∂F₂/∂y + ∂F₃/∂z
-                            <span class="block text-[10px] text-teal-200/50 mt-1">// If 0 ➔ Solenoidal vector</span>
+                    </div>
+
+                    <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
+                        <li class="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
+                            <strong class="text-blue-600 dark:text-blue-400 block mb-2 text-xs uppercase tracking-widest">Formation of PDE</strong>
+                            <p class="text-xs mb-2">Eliminate arbitrary constants (a,b) or arbitrary functions (f,g). Number of arbitrary elements eliminated = order of resulting PDE.</p>
+                        </li>
+                        
+                        <li class="p-4 bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-600">
+                            <strong class="text-blue-100 block mb-2 text-xs uppercase tracking-widest flex justify-between">
+                                Lagrange's Method
+                                <span class="bg-white/20 px-2 py-0.5 rounded text-[9px]">95% EXAM PROBABILITY</span>
+                            </strong>
+                            <p class="text-xs mb-2">For Quasi-linear equation <strong class="font-mono bg-white/20 px-1 rounded">Pp + Qq = R</strong></p>
+                            <div class="font-mono text-sm bg-black/20 p-2 rounded font-bold text-center">dx/P = dy/Q = dz/R</div>
+                            <p class="text-[10px] mt-2 opacity-90">Find two independent integrals u=c₁ and v=c₂ by solving pairs or using multipliers. General solution: F(u,v) = 0.</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="unit-4" class="glass-panel p-8 rounded-[2rem] flex flex-col">
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-700 pb-4">
+                    <div class="w-10 h-10 bg-cyan-500 text-white font-black flex items-center justify-center rounded-xl shadow-lg shadow-cyan-500/30">IV</div>
+                    <div>
+                        <h2 class="text-xl font-black text-slate-900 dark:text-white">Vector Differentiation</h2>
+                        <p class="text-[10px] font-bold text-cyan-500 uppercase tracking-widest mt-1">The Language of Fields</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                            How do fluid velocities, wind forces, and gravitational pull change from point to point? The <strong>Del Operator (∇)</strong> unlocks the calculus of 3D spaces.
+                        </p>
+                    </div>
+                    
+                    <!-- VECTOR VISUALIZATION BLOCK -->
+                    <div class="relative bg-slate-900 rounded-xl p-5 overflow-hidden shadow-inner flex-1">
+                        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 10px 10px, #06b6d4 2px, transparent 0); background-size: 20px 20px;"></div>
+                        <div class="relative z-10 flex flex-col gap-3 font-mono text-[11px]">
+                            
+                            <div class="bg-slate-800/80 text-cyan-300 p-3 rounded-lg border border-cyan-500/30 backdrop-blur">
+                                <strong class="text-slate-300 uppercase tracking-widest block mb-1 text-[9px]">1. Gradient (Maximum Increase)</strong>
+                                <span class="font-bold text-sm">∇φ = i(∂φ/∂x) + j(∂φ/∂y) + k(∂φ/∂z)</span> 
+                                <span class="block text-[10px] text-cyan-200/50 mt-1.5">// Result: Vector. Computes Unit Normal vector to surface φ=c</span>
+                            </div>
+                            
+                            <div class="bg-slate-800/80 text-teal-300 p-3 rounded-lg border border-teal-500/30 backdrop-blur">
+                                <strong class="text-slate-300 uppercase tracking-widest block mb-1 text-[9px]">2. Divergence (Sources & Sinks)</strong>
+                                <span class="font-bold text-sm">∇·F = ∂F₁/∂x + ∂F₂/∂y + ∂F₃/∂z</span>
+                                <span class="block text-[10px] text-teal-200/50 mt-1.5">// Result: Scalar. If 0 ➔ Solenoidal vector field (incompressible)</span>
+                            </div>
+                            
+                            <div class="bg-slate-800/80 text-purple-300 p-3 rounded-lg border border-purple-500/30 backdrop-blur">
+                                <strong class="text-slate-300 uppercase tracking-widest block mb-1 text-[9px]">3. Curl (Rotation & Vorticity)</strong>
+                                <span class="font-bold text-sm leading-tight">∇×F = Det|  i     j     k  |
+         | ∂/∂x  ∂/∂y  ∂/∂z |
+         |  F₁    F₂    F₃  |</span>
+                                <span class="block text-[10px] text-purple-200/50 mt-1.5">// Result: Vector. If 0 ➔ Irrotational vector field (conservative)</span>
+                            </div>
+
                         </div>
-                        <div class="bg-slate-800 text-purple-400 p-2 rounded border border-purple-500/20">
-                            <span class="text-slate-400 select-none">Curl      :</span> ∇×F = Det| i  j  k |
-                            <span class="block text-[10px] text-purple-200/50 mt-1">// If 0 ➔ Irrotational vector</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 mt-2">
+                        <div class="p-3 bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-100 dark:border-red-900/30 text-[10px] text-red-600 dark:text-red-400 font-bold">
+                            💥 curl(grad) = 0<br/>∇×(∇φ) = 0
+                        </div>
+                        <div class="p-3 bg-cyan-50 dark:bg-cyan-900/10 rounded-xl border border-cyan-100 dark:border-cyan-900/30 text-[10px] text-cyan-600 dark:text-cyan-400 font-bold">
+                            💥 div(curl) = 0<br/>∇·(∇×F) = 0
                         </div>
                     </div>
                 </div>
@@ -321,29 +525,54 @@ Particular Integral (PI)
 
         <!-- UNIT 5 -->
         <section id="unit-5" class="glass-panel p-8 rounded-[2rem]">
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex items-center gap-4 mb-8 border-b border-slate-200 dark:border-slate-700 pb-4">
                 <div class="w-12 h-12 bg-teal-500 text-white font-black text-xl flex items-center justify-center rounded-2xl shadow-lg shadow-teal-500/30">V</div>
                 <div>
                     <h2 class="text-2xl font-black text-slate-900 dark:text-white">Vector Integration</h2>
-                    <p class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest mt-1">High Weightage Theorems</p>
+                    <p class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest mt-1">The Holy Trinity of Theorems</p>
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-[#0c101c]">
-                    <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Green's Theorem</h4>
-                    <p class="text-xs text-slate-500 mb-3 line-clamp-3">Relates line integral around simple closed curve C to double integral over plane region R bounded by C.</p>
-                    <div class="font-mono text-[10px] bg-slate-100 dark:bg-slate-800 p-2 rounded text-teal-600 dark:text-teal-400 font-bold">∮(M dx + N dy) = ∬(∂N/∂x - ∂M/∂y)dxdy</div>
+            <div class="space-y-6">
+                <!-- Theorem Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Green -->
+                    <div class="p-6 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden flex flex-col transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-500/10">
+                        <div class="absolute top-0 right-0 p-3 opacity-10 text-4xl">🟢</div>
+                        <h4 class="font-black text-slate-900 dark:text-slate-100 mb-1 text-sm uppercase tracking-wider text-teal-600 dark:text-teal-400">Green's Theorem</h4>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Line ↔ 2D Surface (Plane)</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 flex-1">Converts a difficult line integral around a closed curve C into a much simpler double integral over the plane region R bounded by C.</p>
+                        <div class="font-mono text-[10px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded font-bold text-teal-700 dark:text-teal-300 shadow-inner">
+                            ∮_C (M dx + N dy) <br/>= ∬_R (∂N/∂x - ∂M/∂y) dx dy
+                        </div>
+                    </div>
+                    
+                    <!-- Stokes -->
+                    <div class="p-6 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden flex flex-col transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/10">
+                        <div class="absolute top-0 right-0 p-3 opacity-10 text-4xl">🌀</div>
+                        <h4 class="font-black text-slate-900 dark:text-slate-100 mb-1 text-sm uppercase tracking-wider text-blue-600 dark:text-blue-400">Stokes' Theorem</h4>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Line ↔ 3D Surface</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 flex-1">Upgrades Green's Theorem to 3D. Relates the circulation of a vector field around a boundary curve to the "curl" across the surface spanning it.</p>
+                        <div class="font-mono text-[10px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded font-bold text-blue-700 dark:text-blue-300 shadow-inner">
+                            ∮_C F · dr = ∬_S (∇×F) · n dS
+                        </div>
+                    </div>
+                    
+                    <!-- Gauss -->
+                    <div class="p-6 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden flex flex-col transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/10">
+                        <div class="absolute top-0 right-0 p-3 opacity-10 text-4xl">📦</div>
+                        <h4 class="font-black text-slate-900 dark:text-slate-100 mb-1 text-sm uppercase tracking-wider text-purple-600 dark:text-purple-400">Gauss Divergence</h4>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Closed Surface ↔ Volume</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 flex-1">Measures the total outward flux of a vector field through a closed surface (like a sphere) by integrating its divergence over the enclosed volume.</p>
+                        <div class="font-mono text-[10px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded font-bold text-purple-700 dark:text-purple-300 shadow-inner">
+                            ∬_S F · n dS = ∭_V (∇·F) dV
+                        </div>
+                    </div>
                 </div>
-                <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-[#0c101c]">
-                    <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Stokes' Theorem</h4>
-                    <p class="text-xs text-slate-500 mb-3 line-clamp-3">Relates surface integral of curl of vector field over surface S to line integral of vector field over its boundary C.</p>
-                    <div class="font-mono text-[10px] bg-slate-100 dark:bg-slate-800 p-2 rounded text-teal-600 dark:text-teal-400 font-bold">∮F·dr = ∬(∇×F)·n dS</div>
-                </div>
-                <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-[#0c101c]">
-                    <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Gauss Divergence</h4>
-                    <p class="text-xs text-slate-500 mb-3 line-clamp-3">Relates surface integral of vector field over closed surface to volume integral of divergence of region.</p>
-                    <div class="font-mono text-[10px] bg-slate-100 dark:bg-slate-800 p-2 rounded text-teal-600 dark:text-teal-400 font-bold">∬F·n dS = ∭(∇·F)dV</div>
+
+                <div class="bg-amber-50 dark:bg-amber-900/10 p-4 rounded-xl border border-amber-200 dark:border-amber-900/30">
+                    <p class="text-xs text-amber-800 dark:text-amber-300 font-bold flex items-center gap-2 uppercase tracking-widest"><span class="text-base text-amber-500">⚠</span> Exam Hack (15 Marks)</p>
+                    <p class="text-[11px] text-amber-700 dark:text-amber-400 mt-1 pl-6 font-medium">If a question asks to "Evaluate by Green's Theorem", you MUST calculate the double integral RHS. If it says "Verify Green's Theorem", you must calculate BOTH LHS (line integral) and RHS (double integral) independently and show they are equal.</p>
                 </div>
             </div>
         </section>
