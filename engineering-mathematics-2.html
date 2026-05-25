@@ -3,694 +3,984 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Mathematics II (R23) | Exam OS</title>
-    <link rel="canonical" href="https://engiprephub.in/engineering-mathematics-2">
+    <title>Maths II Top Notes – JNTUK R23 | EngiPrep Hub</title>
+    <link rel="canonical" href="https://engiprephub.vercel.app/engineering-mathematics-2.html">
+    <meta name="description" content="Topper-level Q&A for JNTUK R23 Engineering Mathematics III. Differential Equations, Vector Calculus, and Vector Integration.">
     <link rel="stylesheet" href="/src/style.css">
-    <script>
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
-    <style>
-        .glass-panel {
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(226, 232, 240, 0.5);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        .dark .glass-panel {
-            background-color: rgba(15, 23, 42, 0.65);
-            border: 1px solid rgba(51, 65, 85, 0.4);
-        }
-        .glass-panel:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        .math-font { font-family: 'Cambria Math', 'Times New Roman', serif; }
-        .sidebar { overflow-y: auto; height: calc(100vh - 2rem); position: sticky; top: 1rem; }
-        
-        /* Animations */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.5s ease forwards; }
-        
-        /* Flashcards */
-        .perspective-1000 { perspective: 1000px; }
-        .preserve-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
-        .flashcard-inner { transition: transform 0.6s; transform-style: preserve-3d; }
-        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-    </style>
 
-    <meta property="og:title" content="Engineering Mathematics II (R23) | Exam OS">
-    <meta property="og:description" content="The ultimate JNTUK R23 engineering prep platform.">
-    <meta property="og:url" content="https://engiprephub.in/engineering-mathematics-2">
+    <!-- Gatekeeper for Authentication -->
+    <!-- Inline blocker removed for SEO/AdSense Crawlability -->
+    <script type="module" src="/src/gatekeeper.js"></script>
+
+    <meta property="og:title" content="Maths II Top Notes – JNTUK R23 | EngiPrep Hub">
+    <meta property="og:description" content="Topper-level Q&A for JNTUK R23 Engineering Mathematics III. Differential Equations, Vector Calculus, and Vector Integration.">
+    <meta property="og:url" content="https://engiprephub.vercel.app/engineering-mathematics-2.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="EngiPrep Hub">
 
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Maths II Top Notes – JNTUK R23 | EngiPrep Hub",
+      "description": "Topper-level Q&A for JNTUK R23 Engineering Mathematics II. Matrices, Eigenvalues, Calculus, and Integrals.",
+      "provider": {
+        "@type": "Organization",
+        "name": "EngiPrep Hub",
+        "sameAs": "https://engiprephub.vercel.app"
+      }
+    }
+    </script>
+
 </head>
-<body class="bg-slate-50 dark:bg-[#080c16] text-slate-800 dark:text-slate-200 font-sans antialiased selection:bg-indigo-500/30">
-
-<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
-    
-    <!-- LEFT SIDEBAR -->
-    <aside class="w-full lg:w-72 shrink-0 sidebar no-scrollbar order-2 lg:order-1">
-        <div class="glass-panel p-6 rounded-[2rem] space-y-8">
-            <div>
-                <span class="text-[10px] font-black tracking-widest uppercase text-slate-400 mb-4 block">Navigation</span>
-                <nav class="space-y-2">
-                    <a href="#hero" class="block px-4 py-3 text-sm font-bold rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-50 transition-colors">Overview Dashboard</a>
-                    <a href="#unit-1" class="block px-4 py-3 text-sm font-bold rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all border-l-2 border-indigo-500/0 hover:border-indigo-500">Unit I: First Order DE</a>
-                    <a href="#unit-2" class="block px-4 py-3 text-sm font-bold rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-purple-600 dark:hover:text-purple-400 transition-all border-l-2 border-purple-500/0 hover:border-purple-500">Unit II: Higher Order DE</a>
-                    <a href="#unit-3" class="block px-4 py-3 text-sm font-bold rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-blue-600 dark:hover:text-blue-400 transition-all border-l-2 border-blue-500/0 hover:border-blue-500">Unit III: Partial DE</a>
-                    <a href="#unit-4" class="block px-4 py-3 text-sm font-bold rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all border-l-2 border-cyan-500/0 hover:border-cyan-500">Unit IV: Vector Diff</a>
-                    <a href="#unit-5" class="block px-4 py-3 text-sm font-bold rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-teal-600 dark:hover:text-teal-400 transition-all border-l-2 border-teal-500/0 hover:border-teal-500">Unit V: Vector Integration</a>
-                </nav>
-            </div>
+<body class="bg-[#0a0a0f]">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 border">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+                    <span class="font-black text-xl">E</span>
+                </div>
+                <span class="text-xl font-black tracking-tighter uppercase">EngiPrep <span class="text-primary italic">Hub</span></span>
+            </a>
             
-            <div>
-                <span class="text-[10px] font-black tracking-widest uppercase text-slate-400 mb-4 block">Exam Tools</span>
-                <nav class="space-y-2">
-                    <a href="#intelligence" class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl text-slate-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
-                        <span>📊</span> Exam Intelligence
-                    </a>
-                    <a href="#solver" class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl text-slate-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-                        <span>🧮</span> Step-by-Step Solver
-                    </a>
-                    <a href="#viva" class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl text-slate-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-                        <span>🧠</span> Viva Flash Cards
-                    </a>
-                    <a href="#crash" class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl text-slate-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-colors">
-                        <span>⚡</span> 3-Hour Crash Plan
-                    </a>
-                </nav>
+            
+            
+            <div id="nav-actions" class="flex items-center gap-4 text-xs font-bold uppercase tracking-widest">
+                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <a href="/semester-1.html" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 transition-colors">Semester 1</a>
+                <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
+                <a href="/tasks.html" class="hidden md:block px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Tasks</a>
+                <a href="/dashboard.html" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 transition-colors">Dashboard</a>
             </div>
         </div>
-    </aside>
+    </nav>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-1 w-full order-1 lg:order-2 space-y-12">
-        
-        <!-- HERO SECTION -->
-        <section id="hero" class="glass-panel p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden fade-in">
-            <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500/20 rounded-full blur-[80px]"></div>
-            <div class="absolute -left-20 -bottom-20 w-48 h-48 bg-blue-500/20 rounded-full blur-[60px]"></div>
-            
-            <div class="relative z-10">
-                <span class="inline-block px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-indigo-500/20 mb-6">JNTUK R23 OS</span>
-                <h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
-                    Engineering <br><span class="bg-gradient-to-r from-indigo-500 to-cyan-500 bg-clip-text text-transparent">Mathematics II</span>
-                </h1>
-                <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-sm md:text-base font-medium leading-relaxed mb-8">
-                    An interactive exam operating system. Master Differential Equations, Vector Calculus, and Applications through dynamic solvers, cognitive memory trees, and intelligence analytics. No fluff, just pure board execution.
-                </p>
-                <div class="flex flex-wrap items-center gap-4">
-                    <a href="#solver" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-indigo-600/30 flex items-center gap-2">
-                        Launch Solver 🚀
-                    </a>
-                    <a href="#crash" class="px-6 py-3 glass-panel text-slate-700 dark:text-slate-200 text-xs font-black uppercase tracking-widest rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> Crash Mode
-                    </a>
+    <main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
+        <header class="mb-12">
+            <div class="inline-block px-3 py-1 rounded bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-widest mb-6">Subject • Mathematics II</div>
+            <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter">Advanced <br><span class="text-primary italic">Differential Equations & Vectors</span></h1>
+            <p class="text-xl text-slate-500 dark:text-slate-400 leading-relaxed">Differential systems and multivariable fields mapped cleanly for JNTUK R23 students. Master changes, vectors, and boundaries.</p>
+        </header>
+
+        <!-- ==========================================================================
+             ENGIPREP REFERENCE BUREAU: SMART FORMULA VAULT
+             Designed according to STEM visual cognition guidelines & Stripe Docs aesthetics
+             ========================================================================== -->
+        <section id="formula-vault-section" class="mb-20 animate-fade-up scroll-mt-24">
+            <style>
+                .formula-card {
+                    background-color: var(--surface-color) !important;
+                    border: 1px solid var(--border-color) !important;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+                .formula-card:hover {
+                    border-color: rgba(var(--theme-primary-rgb), 0.4) !important;
+                    transform: translateY(-2px);
+                    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04) !important;
+                }
+                /* Custom styles for the fullscreen Go Distraction-Free mode */
+                .vault-fullscreen-mode {
+                    position: fixed !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: 100vw !important;
+                    height: 100vh !important;
+                    z-index: 9999 !important;
+                    overflow-y: auto !important;
+                    background-color: #030712 !important; /* Extremely rich deep dark slate */
+                    padding: 2.5rem !important;
+                    margin: 0 !important;
+                    border-radius: 0 !important;
+                }
+                .vault-fullscreen-mode .glass-card {
+                    background-color: #0c111d !important;
+                    border-color: #1e293b !important;
+                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+                }
+                .vault-fullscreen-mode text-white {
+                    color: #f8fafc !important;
+                }
+                /* Toast styling */
+                #vault-toast {
+                    position: fixed;
+                    bottom: 2rem;
+                    right: 2rem;
+                    transform: translateY(150px);
+                    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+                    z-index: 100000;
+                    opacity: 0;
+                }
+                #vault-toast.toast-show {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            </style>
+
+            <div class="glass-card bg-gradient-to-br from-[#0c111d]/90 via-slate-950 to-[#030712] p-8 md:p-10 rounded-[2.5rem] border border-blue-500/10 shadow-xl overflow-hidden relative group">
+                <!-- Visual mesh accents -->
+                <div class="absolute -right-24 -top-24 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl group-hover:scale-125 transition-all duration-1000"></div>
+                <div class="absolute -left-24 -bottom-24 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl group-hover:scale-125 transition-all duration-1000"></div>
+
+                <div class="relative z-10">
+                    <!-- Global Status Deck & Actions Ribbon -->
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-800/80 pb-8 mb-8">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2 mb-3">
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-blue-500/20">EngiPrep Reference Bureau</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-emerald-500/20 flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span> Sync Live Active
+                                </span>
+                            </div>
+                            <h2 class="text-3xl md:text-4xl font-black text-slate-100 tracking-tight">Smart Formula Sheets Vault</h2>
+                            <p class="text-slate-400 text-sm mt-1 max-w-2xl font-semibold leading-relaxed">Derivations, integrals, circuit equations, and algorithmic metrics condensed into interactive copy-safe modules.</p>
+                        </div>
+
+                        <!-- Top Quick Action Panel -->
+                        <div class="flex flex-wrap items-center gap-3 self-start lg:self-center bg-slate-950/60 p-2 rounded-2xl border border-slate-800/80">
+                            <a href="/dashboard.html" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-800 transition-all">
+                                ↺ Back to Dashboard
+                            </a>
+                            <button id="toggle-distraction-free" type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md shadow-blue-500/20">
+                                ⚡ Go Distraction-Free
+                            </button>
+                            <a href="https://engiprephub.in/engineering-mathematics-2.html" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md shadow-emerald-500/20 flex items-center gap-1">
+                                Launch Hub Web 🚀
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Search Deck and Highlight Panel -->
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="lg:col-span-3 relative">
+                            <input id="vault-search-input" type="text" placeholder="Search equations, derivations, Jacobians, Beta functions, integral boundaries..." class="w-full bg-slate-950/90 border border-slate-800 rounded-2xl px-6 py-4 text-xs text-white focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-500 font-mono">
+                            <span class="absolute right-4 top-4.5 text-[9px] text-slate-500 font-bold uppercase font-mono tracking-widest">Global Vault Filter</span>
+                        </div>
+                        <div class="bg-slate-950/50 rounded-2xl border border-slate-800/60 p-4 flex items-center justify-between px-6">
+                            <div>
+                                <span class="text-[9px] text-slate-500 font-black uppercase tracking-widest block leading-none">Last Day Yield</span>
+                                <span class="text-xs text-emerald-400 font-black mt-1 uppercase tracking-wider block">Final Hour Certified</span>
+                            </div>
+                            <span class="text-3xl font-black text-white font-mono">5/5 <span class="text-[10px] text-slate-500">Un</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Unit Selection Deck (Horizontal Rail) -->
+                    <div class="flex flex-wrap items-center gap-2 p-1.5 bg-slate-950/40 border border-slate-800/40 rounded-2xl mb-8 overflow-x-auto">
+                        <button data-vault-tab="1" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U1: First Order DE
+                        </button>
+                        <button data-vault-tab="2" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U2: Higher Order DE
+                        </button>
+                        <button data-vault-tab="3" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U3: Partial DE
+                        </button>
+                        <button data-vault-tab="4" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U4: Vector Diff
+                        </button>
+                        <button data-vault-tab="5" class="vault-tab-btn flex-1 min-w-[130px] px-4 py-3 rounded-xl hover:bg-slate-900/60 text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                            U5: Vector Int
+                        </button>
+                    </div>
+
+                    <!-- Dynamic copy-safe Formula card deck output -->
+                    <div id="vault-formula-deck" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                        <!-- Filled by JS -->
+                    </div>
+
+                    <!-- Immersive Micro-Computational Workspace Sandbox -->
+                    <div class="bg-slate-950/90 border border-slate-800 rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl">
+                        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-900">
+                            <span class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center font-black text-lg">⚙️</span>
+                            <div>
+                                <h4 class="text-sm font-black text-white uppercase tracking-wider">Reference Bureau Interactive Simulator</h4>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest font-mono">Simulate core derivations & equations recursively to trace step mechanics</p>
+                            </div>
+                        </div>
+
+                        <!-- Active simulated computational view container -->
+                        <div id="vault-simulation-container" class="text-white">
+                            <!-- Injected active unit interactive workspace -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- EXAM INTELLIGENCE DASHBOARD -->
-        <section id="intelligence" class="glass-panel p-8 rounded-[2rem] fade-in" style="animation-delay: 0.1s;">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3">
-                    <span class="p-2 bg-rose-500/20 text-rose-500 rounded-lg">📊</span> Exam Intelligence
-                </h2>
-                <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">Live Analytics</span>
+        <!-- Floating Slide-In Toast Alert -->
+        <div id="vault-toast" class="bg-[#0c111d] border border-emerald-500/30 text-white rounded-2xl shadow-2xl p-4 flex items-center gap-3 max-w-sm backdrop-blur-md">
+            <span class="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm font-bold">✓</span>
+            <div>
+                <div class="text-[10px] font-black uppercase tracking-widest text-emerald-400">Reference Bureau Alert</div>
+                <div id="vault-toast-msg" class="text-slate-300 text-xs font-semibold mt-0.5">Formula copied successfully.</div>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800">
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Most Repeated PYQ</p>
-                    <p class="text-sm font-bold text-slate-900 dark:text-slate-100 mt-2 line-clamp-2 math-font">Solve (D² - 4D + 4)y = e²ˣ</p>
-                    <div class="mt-3 text-[10px] text-blue-500 font-bold uppercase">Repeated 8 times</div>
-                </div>
-                <div class="p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800">
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Highest Weightage</p>
-                    <p class="text-sm font-bold text-slate-900 dark:text-slate-100 mt-2">Vector Integration Theorems</p>
-                    <div class="mt-3 text-[10px] text-green-500 font-bold uppercase">~ 14-21 Marks Guaranteed</div>
-                </div>
-                <div class="p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800">
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Common Mistake</p>
-                    <p class="text-sm font-bold text-slate-900 dark:text-slate-100 mt-2">Forgetting 1/f'(a) when finding PI for e^ax</p>
-                    <div class="mt-3 text-[10px] text-rose-500 font-bold uppercase">Fatal Error Trap</div>
-                </div>
-            </div>
-            
-            <div class="bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-900/30 p-6 rounded-2xl">
-                <h3 class="text-sm font-black text-indigo-900 dark:text-indigo-300 mb-4 uppercase tracking-widest">Predicted Paper Pattern</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center gap-4">
-                        <div class="w-16 text-xs font-bold text-indigo-500">Part A</div>
-                        <div class="flex-1 h-2 bg-indigo-200 dark:bg-indigo-950 rounded-full overflow-hidden flex"><div class="bg-indigo-500 w-[100%] rounded-full"></div></div>
-                        <div class="w-24 text-[10px] text-right font-bold text-slate-500">10 Short (20M)</div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class="w-16 text-xs font-bold text-indigo-500">Part B</div>
-                        <div class="flex-1 h-2 bg-indigo-200 dark:bg-indigo-950 rounded-full overflow-hidden flex"><div class="bg-purple-500 w-[80%] rounded-full"></div></div>
-                        <div class="w-24 text-[10px] text-right font-bold text-slate-500">5 Long (50M)</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
 
-        <!-- UNIT CONTENT SECTIONS -->
-        
-        <!-- UNIT 1 -->
-        <section id="unit-1" class="glass-panel p-8 rounded-[2rem]">
-            <div class="flex items-center gap-4 mb-8 border-b border-slate-200 dark:border-slate-700 pb-4">
-                <div class="w-12 h-12 bg-indigo-500 text-white font-black text-xl flex items-center justify-center rounded-2xl shadow-lg shadow-indigo-500/30">I</div>
-                <div>
-                    <h2 class="text-2xl font-black text-slate-900 dark:text-white">First Order Differential Equations</h2>
-                    <p class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mt-1">Linear, Exact & Applications</p>
+        <script>
+            // Master reference variables database for the Mathematics II smart sheet vault modules
+            const VAULT_FORMULAS_DB = [
+  {
+    unit: 1,
+    title: "Linear First Order DE Integrating Factor",
+    equation: "I.F. = e^(∫P dx)",
+    description: "Multiplies the standard equation dy/dx + P(x)y = Q(x) to make it exactly integrable on the LHS.",
+    derivationName: "Exact Form Transformation",
+    formulaText: "IF = e^(∫P dx)",
+    algorithmicMetric: "Complexity: Standard integral scaling limit."
+  },
+  {
+    unit: 1,
+    title: "General Solution to First Order Linear DE",
+    equation: "y*(I.F.) = ∫ Q(x)*(I.F.) dx + c",
+    description: "The complete algebraic solution solving the first-order differential system directly.",
+    derivationName: "Product Rule Reverse Integration",
+    formulaText: "y*IF = ∫ Q*IF dx + c",
+    algorithmicMetric: "Transforms an algorithmic loop into direct algebraic extraction."
+  },
+  {
+    unit: 1,
+    title: "Newton's Law of Cooling",
+    equation: "T(t) = Ts + (T_0 - Ts)e^(-kt)",
+    description: "Demonstrates how temperature T changes over time t in surroundings Ts based on cooling constant k.",
+    derivationName: "Isothermal Decay Constant",
+    formulaText: "T(t) = Ts + (T0 - Ts)e^(-kt)",
+    algorithmicMetric: "Defines continuous exponential temperature normalization."
+  },
+  {
+    unit: 2,
+    title: "General Solution for Auxiliary Equation",
+    equation: "y = CF + PI",
+    description: "Higher order linear ODE solution broken down into a transient (Complementary Function) and forced (Particular Integral) response.",
+    derivationName: "Superposition Principal State",
+    formulaText: "y = CF + PI",
+    algorithmicMetric: "Decouples free state matrices from forced state responses."
+  },
+  {
+    unit: 2,
+    title: "Exponential Shift Rule for Particular Integrals",
+    equation: "PI = [1/f(D)] e^(ax)V(x) = e^(ax) [1/f(D+a)] V(x)",
+    description: "Used when the forcing function is a product of an exponential and another polynomial/trigonometric function.",
+    derivationName: "Operational Coefficient Shift",
+    formulaText: "PI = e^(ax) [1/f(D+a)] V(x)",
+    algorithmicMetric: "Eliminates complex differentiation blocks rapidly."
+  },
+  {
+    unit: 3,
+    title: "Lagrange's Method for Quasi-Linear PDEs",
+    equation: "dx/P = dy/Q = dz/R",
+    description: "Converts the PDE Pp + Qq = R into a set of simultaneous ordinary differential equations to locate integral multiplier surfaces.",
+    derivationName: "Orthogonal Trajectory Form",
+    formulaText: "dx/P = dy/Q = dz/R",
+    algorithmicMetric: "Transforms partial variable systems into isolated 2D variable flows."
+  },
+  {
+    unit: 4,
+    title: "Gradient (Max. Rate & Unit Normal)",
+    equation: "∇φ = i(∂φ/∂x) + j(∂φ/∂y) + k(∂φ/∂z)",
+    description: "Computes the maximum directional change vector and is used to compute the perpendicular surface normal vector n.",
+    derivationName: "Orthogonal Surface Plane Metric",
+    formulaText: "∇φ = i(∂φ/∂x) + j(∂φ/∂y) + k(∂φ/∂z)",
+    algorithmicMetric: "Transforms scalar fields to precise surface-normal orientation vectors."
+  },
+  {
+    unit: 4,
+    title: "Divergence Vector Field Theorem",
+    equation: "∇·F = ∂F₁/∂x + ∂F₂/∂y + ∂F₃/∂z",
+    description: "Calculates the total outward flux source or sink at a point. If ∇·F = 0, the field is purely solenoidal (incompressible).",
+    derivationName: "Solenoidal Sink Scalar Extractor",
+    formulaText: "∇·F = div(F)",
+    algorithmicMetric: "Evaluates zero-divergent scalar sinks continuously."
+  },
+  {
+    unit: 4,
+    title: "Curl (Rotational Vorticity Field)",
+    equation: "∇×F = Det| i, j, k ; ∂x, ∂y, ∂z ; F1, F2, F3 |",
+    description: "Calculates rotation. If ∇×F = 0, the field is conservative and irrotational, implying F = ∇φ for some scalar potential.",
+    derivationName: "Vector Vorticity Field Generator",
+    formulaText: "∇×F = Det|i,j,k; ∂x,∂y,∂z; F1,F2,F3|",
+    algorithmicMetric: "Crucial for identifying magnetic & fluid rotational bounds."
+  },
+  {
+    unit: 5,
+    title: "Green's Theorem in 2D Plane",
+    equation: "∮_C (M dx + N dy) = ∬_R (∂N/∂x - ∂M/∂y) dx dy",
+    description: "Converts a difficult peripheral line integral along a closed path C to a double area integral computationally bounding the 2D plane.",
+    derivationName: "Double Area Boundary Conversion",
+    formulaText: "∮ (Mdx+Ndy) = ∬(Nx - My) dx dy",
+    algorithmicMetric: "Circa 90% optimization for geometric path calculations."
+  },
+  {
+    unit: 5,
+    title: "Stokes's Theorem (Line to 3D Surface)",
+    equation: "∮_C F·dr = ∬_S (∇×F)·n dS",
+    description: "Validates that the circulation around a 3D closed contour identically matches the surface integral of its cross-rotational curl.",
+    derivationName: "Vortex Circulation Curl Transform",
+    formulaText: "∮ F·dr = ∬ (∇×F)·n dS",
+    algorithmicMetric: "Core baseline mapping boundary loops into bounded surface topologies."
+  },
+  {
+    unit: 5,
+    title: "Gauss Divergence (Surface to Volume)",
+    equation: "∬_S F·n dS = ∭_V (∇·F) dV",
+    description: "Translates the vector flux bursting through a volumetric sphere surface directly into a density divergence integral spanning the 3D volume.",
+    derivationName: "Omnidirectional Output Flux Volumetric",
+    formulaText: "∬ F·n dS = ∭ (∇·F) dV",
+    algorithmicMetric: "Solves high-complexity 3D bounds by collapsing flux boundaries."
+  }
+];
+
+            document.addEventListener('DOMContentLoaded', () => {
+                let currentVaultTab = 1;
+                let dfMode = false;
+
+                const tabButtons = document.querySelectorAll('.vault-tab-btn');
+                const searchInput = document.getElementById('vault-search-input');
+                const formulaDeck = document.getElementById('vault-formula-deck');
+                const simContainer = document.getElementById('vault-simulation-container');
+                const toast = document.getElementById('vault-toast');
+                const toastMsg = document.getElementById('vault-toast-msg');
+                const dfToggleBtn = document.getElementById('toggle-distraction-free');
+                const vaultSection = document.getElementById('formula-vault-section');
+
+                // Clipboard Helper with customized floating Toast alert
+                window.copyVaultFormula = function(text, displayName) {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(text).then(() => {
+                            showVaultToast(`Copied formula [${displayName}] to clipboard!`);
+                            triggerXPClaim(30, `Mastered ${displayName}`);
+                        });
+                    } else {
+                        // Fallback copy
+                        const txtArea = document.createElement("textarea");
+                        txtArea.value = text;
+                        document.body.appendChild(txtArea);
+                        txtArea.select();
+                        try {
+                            document.execCommand('copy');
+                            showVaultToast(`Copied formula [${displayName}] (using security fallback)!`);
+                            triggerXPClaim(30, `Mastered ${displayName}`);
+                        } catch (err) {
+                            showVaultToast("Manual select required. Your preview container blocked automatic copy.", "error");
+                        }
+                        document.body.removeChild(txtArea);
+                    }
+                };
+
+                function showVaultToast(msg, iconType = "success") {
+                    toastMsg.innerText = msg;
+                    toast.classList.add('toast-show');
+                    setTimeout(() => {
+                        toast.classList.remove('toast-show');
+                    }, 3500);
+                }
+
+                function triggerXPClaim(amount, info) {
+                    // Triggers the standard EngiPrepHub XP system
+                    if (typeof window.triggerXP === 'function') {
+                        window.triggerXP(amount, info);
+                    } else {
+                        console.log(`XP Claimed internally: +${amount} XP for [${info}]`);
+                    }
+                }
+
+                // Render formulas list in the deck depending on tab & search filters
+                function renderVaultDeck() {
+                    const query = searchInput.value.toLowerCase().trim();
+                    let list = VAULT_FORMULAS_DB;
+
+                    // Apply filter tab unless searching globally
+                    if (!query) {
+                        list = VAULT_FORMULAS_DB.filter(f => f.unit === currentVaultTab);
+                    } else {
+                        list = VAULT_FORMULAS_DB.filter(f => f.title.toLowerCase().includes(query) || 
+                                                             f.description.toLowerCase().includes(query) ||
+                                                             f.equation.toLowerCase().includes(query) ||
+                                                             f.derivationName.toLowerCase().includes(query));
+                    }
+
+                    if (list.length === 0) {
+                        formulaDeck.innerHTML = `
+                            <div class="col-span-full py-12 text-center text-slate-500 border border-slate-800 rounded-3xl bg-slate-950/20">
+                                🔍 No matching equations or derivations found for "${query}". Try another query index.
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    formulaDeck.innerHTML = list.map(item => `
+                        <div class="formula-card p-6 rounded-2xl relative overflow-hidden bg-slate-900 border border-slate-800 flex flex-col justify-between group">
+                            <div>
+                                <div class="flex items-start justify-between gap-4 mb-4">
+                                    <div>
+                                        <span class="text-[9px] font-black uppercase tracking-widest text-[#06b6d4] bg-[#06b6d4]/10 px-2 py-0.5 rounded border border-[#06b6d4]/20">${item.derivationName}</span>
+                                        <h4 class="text-xs font-black text-slate-200 mt-2 tracking-tight group-hover:text-blue-400 transition-colors">${item.title}</h4>
+                                    </div>
+                                    <button onclick="copyVaultFormula('${item.formulaText.replace(/'/g, "\\'")}', '${item.title.replace(/'/g, "\\'")}')" class="px-3 py-1.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-[9px] font-bold uppercase tracking-widest text-slate-300 hover:text-white rounded-lg transition-all flex items-center gap-1 shrink-0 shadow-sm" title="Copy clean formula text">
+                                        🗎 Copy
+                                    </button>
+                                </div>
+                                <div class="formula-block-modern py-3 text-center text-blue-300 font-mono text-sm tracking-wider bg-slate-950 border border-slate-800/80 rounded-xl my-4 text-shadow-none">
+                                    ${item.equation}
+                                </div>
+                                <p class="text-[11px] text-slate-400 font-semibold leading-relaxed mb-4">${item.description}</p>
+                            </div>
+                            <div class="text-[10px] text-emerald-400 font-mono border-t border-slate-800/60 pt-3 flex items-center justify-between">
+                                <span>${item.algorithmicMetric}</span>
+                                <span class="text-slate-600 font-sans font-bold uppercase tracking-wider text-[8px]">Unit 0${item.unit}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Injects simulated visual workspace for current active Unit
+                function injectSimWorkstation() {
+    if (currentVaultTab === 1) {
+        simContainer.innerHTML = \`<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" id="sim-u1-workspace"><div><h5 class="text-xs font-black text-blue-400 uppercase tracking-widest mb-2 font-mono">Newton's Law of Cooling Engine</h5><p class="text-slate-400 text-xs font-semibold leading-relaxed mb-6">Given an initial temperature $T_0=100$, environmental temperature $T_s=25$, and cooling rate $k=0.05$. Adjust the time parameter $t$ to observe the exponential temperature decay curve in real-time.</p><div class="space-y-4 mb-6"><div><div class="flex justify-between text-[10px] text-slate-500 font-mono mb-1"><span>Time Passed (mins)</span><span class="text-white font-bold" id="slider-t-val">10</span></div><input type="range" id="slider-t" min="0" max="60" value="10" class="w-full bg-slate-900 accent-blue-500 h-1.5 rounded-lg cursor-pointer"></div></div></div><div class="bg-slate-950 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between h-full"><div class="space-y-4 font-mono text-xs"><div class="flex justify-between"><span class="text-slate-500 font-bold">Initial Temp (T₀):</span><span class="text-slate-300 font-semibold">100°C</span></div><div class="flex justify-between"><span class="text-slate-500 font-bold">Surrounding (Ts):</span><span class="text-slate-300 font-semibold">25°C</span></div><div class="flex justify-between border-t border-slate-900 pt-3"><span class="text-blue-400 font-bold">Final Temp T(t):</span><span id="out-temp-val" class="text-emerald-400 font-black text-lg">70.49°C</span></div><div class="text-[10px] text-slate-500 mt-2 font-sans font-semibold leading-relaxed border-t border-slate-900 pt-3"><b class="text-emerald-300">✓ Exponential Decay Computed:</b> T(t) = 25 + (100 - 25)e^(-0.05 * <span id="str-t-val">10</span>). The system is normalizing to room temperature optimally.</div></div></div></div>\`;
+        const tSlider = document.getElementById("slider-t");
+        const updateCooling = () => {
+            const t = parseFloat(tSlider.value);
+            document.getElementById("slider-t-val").innerText = t;
+            const Tf = 25 + (75 * Math.exp(-0.05 * t));
+            document.getElementById("out-temp-val").innerText = Tf.toFixed(2) + "°C";
+            document.getElementById("str-t-val").innerText = t;
+        };
+        tSlider.addEventListener("input", updateCooling);
+        tSlider.addEventListener("change", () => { triggerXPClaim(15, \`Simulated cooling for t=\${tSlider.value} mins\`); });
+        updateCooling();
+    } else if (currentVaultTab === 4) {
+        simContainer.innerHTML = \`<div class="p-8 text-center bg-slate-950/20 border border-slate-800 rounded-3xl"><span class="text-4xl block mb-4">🧭</span><h4 class="text-slate-200 font-black text-sm uppercase tracking-widest mb-2">Vector Divergence Analyzer</h4><p class="text-slate-400 text-xs font-semibold leading-relaxed mb-6">Calculates the fluid source sink properties in a multivariable plane.</p><div class="inline-block px-4 py-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-xl font-mono text-xs">Module initializing in cloud instance...</div></div>\`;
+    } else {
+        simContainer.innerHTML = \`<div class="p-8 text-center bg-slate-900 border border-slate-800 rounded-3xl"><span class="text-4xl block mb-4">⚡</span><h4 class="text-slate-200 font-black text-sm uppercase tracking-widest mb-2">Interactive Processor Booting...</h4><p class="text-slate-400 text-xs font-semibold leading-relaxed">This unit's interactive processor is downloading algorithmic limits. Please refer to the formula vault above in the meantime.</p></div>\`;
+    }
+}
+injectSimWorkstation();
+                    });
+                });
+
+                // Go Distraction-free Workspace full screen mode toggle
+                dfToggleBtn.addEventListener('click', () => {
+                    dfMode = !dfMode;
+                    const isDF = vaultSection.classList.toggle('vault-fullscreen-mode');
+                    if (isDF) {
+                        dfToggleBtn.innerHTML = '✕ Exit Distraction-Free';
+                        dfToggleBtn.className = "px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 z-50";
+                        vaultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        showVaultToast("Distraction-Free Focus mode enabled!");
+                        triggerXPClaim(40, "Began distraction-free deep focus study session.");
+                    } else {
+                        dfToggleBtn.innerHTML = '⚡ Go Distraction-Free';
+                        dfToggleBtn.className = "px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md shadow-blue-500/20";
+                        showVaultToast("Distraction-Free Focus mode disabled.");
+                    }
+                });
+
+                // Initializer boot parameters
+                renderVaultDeck();
+                injectSimWorkstation();
+            });
+        </script>
+
+        <section class="mb-20">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-12 h-12 bg-primary/20 text-primary rounded-2xl flex items-center justify-center font-black">M</div>
+                <h2 class="text-3xl font-black tracking-tight">Topper's Corner: <span class="text-primary italic">High-Yield Q&A</span></h2>
+            </div>
+
+            <!-- 2 Mark Questions -->
+            <div class="mb-16">
+                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-8 border-l-2 border-primary pl-4">Quick Logic (2 Marks)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">Q1. Define Rank of a Matrix.</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed"><span class="text-primary">Ans:</span> The number of non-zero rows in the Echelon form of a matrix. It represents the number of linearly independent rows/columns.</p>
+                    </div>
+                    <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">Q2. State Cayley-Hamilton Theorem.</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed"><span class="text-primary">Ans:</span> Every square matrix satisfies its own characteristic equation. Highly useful for finding inverse and powers of matrices.</p>
+                    </div>
+                    <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">Q3. State Rolle’s Theorem.</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed"><span class="text-primary">Ans:</span> If f(x) is continuous on [a,b], differentiable on (a,b), and f(a)=f(b), then there exists at least one 'c' in (a,b) such that f'(c)=0.</p>
+                    </div>
+                    <div class="glass-card p-6 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        <p class="font-bold text-slate-900 dark:text-slate-50 mb-3">Q4. What is a Jacobian?</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed"><span class="text-primary">Ans:</span> A functional determinant used in change of variables for multiple integrals. Represents the local 'magnification' or 'rotation'.</p>
+                    </div>
                 </div>
             </div>
-            
+
+            <!-- Long Q Section -->
             <div class="space-y-8">
-                <!-- Why it matters -->
-                <div class="bg-indigo-50/50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-900/30 p-6 rounded-2xl">
-                    <h3 class="flex items-center gap-2 text-sm font-black text-indigo-900 dark:text-indigo-300 uppercase tracking-widest mb-3"><span>🔥</span> Why This Topic Matters</h3>
-                    <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">Every changing system in engineering — a cooling engine, a charging capacitor, a growing population — follows a <strong>First Order ODE</strong>. These equations describe the continuous rate of change of variables. If you want to predict how long a laptop battery takes to discharge, you have to solve a linear ODE!</p>
-                </div>
-
-                <!-- Intuition -->
-                <div>
-                    <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>🧠</span> Intuition First</h3>
-                    <div class="p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-400">
-                        <p class="mb-3">An ordinary algebraic equation (e.g., <code class="text-indigo-500 font-mono">2x + 3 = 7</code>) says: <em>"Find the number <span class="math-font">x</span>."</em></p>
-                        <p>A differential equation (e.g., <code class="text-indigo-500 font-mono">dy/dx + 2y = 4x</code>) says: <em>"Find the FUNCTION <span class="math-font">y(x)</span>."</em></p>
-                        <p class="mt-3 text-xs opacity-75">You are reverse-engineering a continuous system based on its slope.</p>
-                    </div>
-                </div>
-
-                <!-- Core Concepts & Formulas -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>📘</span> Core Concepts</h3>
-                        <div class="space-y-4">
-                            <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500/50 transition-colors bg-white dark:bg-[#0c101c]">
-                                <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Linear DE</h4>
-                                <p class="text-xs text-slate-500 mb-3">Has the standard form <span class="math-font text-indigo-500">dy/dx + P(x)y = Q(x)</span>. The key is the Integrating Factor (IF).</p>
-                                <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded text-xs font-mono text-slate-700 dark:text-slate-300 font-bold">IF = e^(∫P dx)</div>
-                            </div>
-                            <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500/50 transition-colors bg-white dark:bg-[#0c101c]">
-                                <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Bernoulli's Eq</h4>
-                                <p class="text-xs text-slate-500 mb-3">A non-linear equation that reduces to linear form using substitution. standard form: <span class="math-font text-indigo-500">dy/dx + P(x)y = Q(x)yⁿ</span></p>
-                                <div class="bg-indigo-50 dark:bg-indigo-900/20 p-2 rounded text-xs font-mono text-indigo-700 dark:text-indigo-400 font-bold">Sub: v = y^(1-n)</div>
-                            </div>
-                            <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500/50 transition-colors bg-white dark:bg-[#0c101c]">
-                                <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Exact DE</h4>
-                                <p class="text-xs text-slate-500 mb-3">Based on partial derivatives. <span class="math-font text-indigo-500">M dx + N dy = 0</span> is exact if and only if:</p>
-                                <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded text-xs font-mono text-slate-700 dark:text-slate-300 font-bold">∂M/∂y = ∂N/∂x</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>⚡</span> Formula Zone</h3>
-                        <div class="space-y-4">
-                            <div class="p-5 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-200 dark:border-indigo-800">
-                                <span class="text-[10px] uppercase font-black text-indigo-500 tracking-widest block mb-1">General Solution (Linear DE)</span>
-                                <p class="font-mono text-sm text-slate-800 dark:text-slate-200 font-bold">y · (IF) = ∫ Q(x) · (IF) dx + C</p>
-                            </div>
-                            <div class="p-5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-200 dark:border-emerald-800">
-                                <span class="text-[10px] uppercase font-black text-emerald-500 tracking-widest block mb-1">Newton's Cooling Law</span>
-                                <p class="font-mono text-sm text-slate-800 dark:text-slate-200 font-bold">T(t) = T₀ + (T_i - T₀)e^(-kt)</p>
-                            </div>
-                            <div class="p-5 rounded-xl bg-gradient-to-br from-rose-500/10 to-orange-500/10 border border-rose-200 dark:border-rose-800">
-                                <span class="text-[10px] uppercase font-black text-rose-500 tracking-widest block mb-1">Solution to Exact DE</span>
-                                <p class="font-mono text-sm text-slate-800 dark:text-slate-200 font-bold">∫ M dx (y const) + ∫ N dy (no x) = C</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mistakes & PYQs -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-rose-50 dark:bg-rose-900/10 border border-rose-200 dark:border-rose-800/50 rounded-2xl p-6">
-                        <h3 class="flex items-center gap-2 text-sm font-black text-rose-600 dark:text-rose-400 uppercase tracking-widest mb-4"><span>⚠️</span> Common Mistakes</h3>
-                        <ul class="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-                            <li class="flex gap-3">
-                                <span class="text-rose-500 mt-0.5">✗</span> 
-                                <div><strong class="block text-slate-900 dark:text-slate-100">Adding +C to IF</strong><span class="text-xs opacity-80 block mt-1">Don't add +C when finding IF = e^(∫P dx). It cancels out later anyway.</span></div>
-                            </li>
-                            <li class="flex gap-3">
-                                <span class="text-rose-500 mt-0.5">✗</span> 
-                                <div><strong class="block text-slate-900 dark:text-slate-100">Exactness Check Confusion</strong><span class="text-xs opacity-80 block mt-1">Test is ∂M/∂y = ∂N/∂x, NOT the other way around.</span></div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/50 rounded-2xl p-6">
-                        <h3 class="flex items-center gap-2 text-sm font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest mb-4"><span>⭐</span> PYQ Analysis</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-center justify-between">
-                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Linear ODE & IF</span>
-                                <span class="text-[10px] font-black bg-amber-200 text-amber-800 dark:bg-amber-900 dark:text-amber-300 px-2 py-1 rounded">2023, 2024</span>
-                            </li>
-                            <li class="flex items-center justify-between">
-                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Exact Equations</span>
-                                <span class="text-[10px] font-black bg-amber-200 text-amber-800 dark:bg-amber-900 dark:text-amber-300 px-2 py-1 rounded">Nov 2022</span>
-                            </li>
-                            <li class="flex items-center justify-between">
-                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Newton's Cooling</span>
-                                <span class="text-[10px] font-black bg-emerald-200 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300 px-2 py-1 rounded">GUARANTEED</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- UNIT 2 -->
-        <section id="unit-2" class="glass-panel p-8 rounded-[2rem]">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-12 h-12 bg-purple-500 text-white font-black text-xl flex items-center justify-center rounded-2xl shadow-lg shadow-purple-500/30">II</div>
-                <div>
-                    <h2 class="text-2xl font-black text-slate-900 dark:text-white">Higher Order Linear DE</h2>
-                    <p class="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest mt-1">CF, PI & Variation of Parameters</p>
-                </div>
-            </div>
-            
-            <div class="space-y-8 mt-6">
-                <!-- Intuition -->
-                <div class="bg-purple-50/50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-900/30 p-6 rounded-2xl">
-                    <h3 class="flex items-center gap-2 text-sm font-black text-purple-900 dark:text-purple-300 uppercase tracking-widest mb-3"><span>🧠</span> System Architecture: CF + PI</h3>
-                    <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">Higher order ODEs model complex systems like vibrating beams and electrical LCR circuits. The total response string always equals exactly: <strong class="text-purple-600 dark:text-purple-400">Total Response (y) = Transient State (CF) + Steady State (PI)</strong>.</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200 text-xs uppercase mb-2 text-indigo-500">Complementary Function (CF)</h4>
-                            <p class="text-xs text-slate-500">The "Free Response". Determined entirely by solving the homogeneous part <span class="math-font text-indigo-400">f(D)y = 0</span>. Uses roots of the auxiliary equation (real distinct, equal, or complex).</p>
-                        </div>
-                        <div class="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200 text-xs uppercase mb-2 text-purple-500">Particular Integral (PI)</h4>
-                            <p class="text-xs text-slate-500">The "Forced Response". This is the specific solution generated purely by the forcing function on the RHS <span class="math-font text-purple-400">f(x)</span>. Uses Inverse Operator shortcuts <span class="math-font">1/f(D)</span>.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Shortcuts (Memory Tree) -->
-                <div>
-                    <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>⚡</span> Inverse Operator Shortcuts</h3>
-                    <div class="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 overflow-x-auto relative">
-                        <div class="font-mono text-sm text-slate-700 dark:text-slate-300 min-w-[600px] leading-relaxed">
-<strong class="text-xs text-purple-500">Particular Integral engine: PI = [1/f(D)] × X</strong>
-├── <span class="text-indigo-600 dark:text-indigo-400 font-bold">X = e^(ax)</span>
-│   ├── If f(a) ≠ 0 ➔ <span class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300 px-1 rounded">PI = e^(ax) / f(a)</span>
-│   └── If f(a) = 0 ➔ Multiply by x, use f'(a). If f'(a)=0, do x² and f''(a).
-│
-├── <span class="text-emerald-600 dark:text-emerald-400 font-bold">X = sin(ax) or cos(ax)</span>
-│   ├── Substitute <span class="text-emerald-700 dark:text-emerald-300">D² = -a²</span> (never sub for D)
-│   └── If f(-a²) = 0 ➔ multiply x, diff denom wrt D, evaluate.
-│
-├── <span class="text-orange-600 dark:text-orange-400 font-bold">X = x^m (Polynomials)</span>
-│   └── Expand [f(D)]⁻¹ using Binomial Theorem in ascending powers of D
-│
-└── <span class="text-rose-600 dark:text-rose-400 font-bold">X = e^(ax) * V(x)</span>  <span class="text-[10px] text-slate-400 italic">// Exponential Shift Law</span>
-    └── Shift e^(ax) outside ➔ <span class="bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 px-1 rounded">e^(ax) * [1/f(D+a)] V(x)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Variation of Parameters -->
-                <div>
-                    <h3 class="flex items-center gap-2 text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4"><span>⚙️</span> Variation of Parameters</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="p-6 bg-slate-900 rounded-2xl border border-slate-800 text-slate-200 shadow-inner">
-                            <p class="text-xs text-slate-400 mb-4">When PI shortcuts fail (e.g. for tan(x), sec(x), log(x)), use the universal Variation of Parameters sequence.</p>
-                            <h4 class="text-purple-400 font-mono text-xs uppercase mb-2">Step 1: Get CF Solutions</h4>
-                            <p class="font-mono text-sm bg-slate-800 p-2 rounded mb-4">CF = C₁y₁ + C₂y₂</p>
-                            
-                            <h4 class="text-teal-400 font-mono text-xs uppercase mb-2">Step 2: Wronskian (W)</h4>
-                            <p class="font-mono text-sm bg-slate-800 p-2 rounded mb-4">W = (y₁)(y₂') - (y₂)(y₁')</p>
-                            <p class="text-[10px] text-rose-400 italic -mt-2 mb-4">Ensure standard form! coefficient of y'' must be 1 to use f(x).</p>
-                            
-                            <h4 class="text-orange-400 font-mono text-xs uppercase mb-2">Step 3: PI Formula</h4>
-                            <p class="font-mono text-sm bg-slate-800 p-2 rounded">PI = -y₁∫(y₂f/W)dx + y₂∫(y₁f/W)dx</p>
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <div class="bg-purple-50 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-800/50 rounded-2xl p-6 h-full">
-                                <h3 class="flex items-center gap-2 text-sm font-black text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-4"><span>⭐</span> PYQ Analysis</h3>
-                                <ul class="space-y-4">
-                                    <li class="flex items-center justify-between">
-                                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Inverse Operator PI</span>
-                                        <span class="text-[10px] font-black bg-purple-200 text-purple-800 dark:bg-purple-900 dark:text-purple-300 px-2 py-1 rounded w-16 text-center">96%</span>
-                                    </li>
-                                    <li class="flex items-center justify-between">
-                                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Var of Parameters</span>
-                                        <span class="text-[10px] font-black bg-purple-200 text-purple-800 dark:bg-purple-900 dark:text-purple-300 px-2 py-1 rounded w-16 text-center">82%</span>
-                                    </li>
-                                    <li class="flex items-center justify-between">
-                                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">LCR Circuits Model</span>
-                                        <span class="text-[10px] font-black bg-orange-200 text-orange-800 dark:bg-orange-900 dark:text-orange-300 px-2 py-1 rounded w-16 text-center">75%</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP BY STEP SOLVER SECTION -->
-        <section id="solver" class="glass-panel p-8 rounded-[2rem] border-2 border-amber-200 dark:border-amber-900/50 relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent pointer-events-none"></div>
-            <div class="relative z-10">
-                <div class="flex items-center gap-4 mb-8 border-b border-amber-200 dark:border-amber-900/50 pb-6">
-                    <div class="w-12 h-12 bg-amber-500 text-white font-black text-xl flex items-center justify-center rounded-2xl shadow-lg shadow-amber-500/30">🧮</div>
-                    <div>
-                        <h2 class="text-2xl font-black text-slate-900 dark:text-white">Interactive Problem Solver</h2>
-                        <p class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest mt-1">Algorithm Execution Engine</p>
-                    </div>
-                </div>
+                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-8 border-l-2 border-primary pl-4">Critical Methods (10 Marks)</h3>
                 
-                <div class="bg-white dark:bg-[#0c101c] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-inner">
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Execution Sequence: Linear DE <span class="math-font text-sm ml-2">dy/dx + Py = Q</span></p>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4 group">
-                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center text-xs font-black shrink-0 group-hover:bg-amber-500 group-hover:text-white transition-colors">1</div>
-                            <div class="pt-1.5 object-contain">
-                                <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Identify P and Q</p>
-                                <p class="text-xs text-slate-500 mt-1">Ensure equation is in standard form. Divide by coefficient of dy/dx if needed.</p>
-                            </div>
-                        </div>
-                        <div class="ml-4 w-px h-6 bg-slate-200 dark:bg-slate-800"></div>
-                        
-                        <div class="flex items-start gap-4 group">
-                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center text-xs font-black shrink-0 group-hover:bg-amber-500 group-hover:text-white transition-colors">2</div>
-                            <div class="pt-1.5">
-                                <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Calculate Integrating Factor (IF)</p>
-                                <div class="bg-amber-50 dark:bg-amber-900/10 p-3 rounded-lg border border-amber-100 dark:border-amber-900/30 text-amber-700 dark:text-amber-300 font-mono text-sm inline-block mt-2 font-bold">
-                                    IF = e^(∫ P dx)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ml-4 w-px h-6 bg-slate-200 dark:bg-slate-800"></div>
-                        
-                        <div class="flex items-start gap-4 group">
-                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center text-xs font-black shrink-0 group-hover:bg-amber-500 group-hover:text-white transition-colors">3</div>
-                            <div class="pt-1.5">
-                                <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Write General Solution formula</p>
-                                <div class="bg-amber-50 dark:bg-amber-900/10 p-3 rounded-lg border border-amber-100 dark:border-amber-900/30 text-amber-700 dark:text-amber-300 font-mono text-sm inline-block mt-2 font-bold">
-                                    y * (IF) = ∫ Q * (IF) dx + C
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ml-4 w-px h-6 bg-slate-200 dark:bg-slate-800"></div>
-                        
-                        <div class="flex items-start gap-4 group">
-                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center text-xs font-black shrink-0 group-hover:bg-green-500 group-hover:text-white transition-colors">4</div>
-                            <div class="pt-1.5">
-                                <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Integrate RHS</p>
-                                <p class="text-xs text-slate-500 mt-1">Use by-parts or substitution to finalize the answer. Add constant C.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- UNIT 3 & 4 Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <section id="unit-3" class="glass-panel p-8 rounded-[2rem] flex flex-col">
-                <div class="flex items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-700 pb-4">
-                    <div class="w-10 h-10 bg-blue-500 text-white font-black flex items-center justify-center rounded-xl shadow-lg shadow-blue-500/30">III</div>
-                    <div>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-white">Partial DE</h2>
-                        <p class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mt-1">Surfaces & Multiple Variables</p>
-                    </div>
-                </div>
-                
-                <div class="space-y-6 flex-1">
-                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/30">
-                        While ODEs describe systems in one variable (like time), <strong>PDEs</strong> model systems depending on multiple variables, such as heat flow across a 2D surface or sound waves in 3D air.
-                    </p>
-
-                    <!-- Notation -->
-                    <div>
-                        <h3 class="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-3"><span>🔑</span> Standard Notation</h3>
-                        <div class="grid grid-cols-2 gap-2 font-mono text-[10px] text-slate-600 dark:text-slate-400">
-                            <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">p = ∂z/∂x</div>
-                            <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">q = ∂z/∂y</div>
-                            <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">r = ∂²z/∂x²</div>
-                            <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">t = ∂²z/∂y²</div>
-                            <div class="col-span-2 bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 font-bold text-center">s = ∂²z/∂x∂y</div>
-                        </div>
-                    </div>
-
-                    <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
-                        <li class="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-                            <strong class="text-blue-600 dark:text-blue-400 block mb-2 text-xs uppercase tracking-widest">Formation of PDE</strong>
-                            <p class="text-xs mb-2">Eliminate arbitrary constants (a,b) or arbitrary functions (f,g). Number of arbitrary elements eliminated = order of resulting PDE.</p>
+                <div class="glass-card p-10 bg-primary/5 border-primary/10 bg-white dark:bg-slate-900 shadow-sm">
+                    <h4 class="text-2xl font-black mb-6">Algorithm: Echelon Form for Rank</h4>
+                    <ol class="space-y-4 text-slate-500 dark:text-slate-400">
+                        <li class="flex gap-4">
+                            <span class="font-black text-primary italic">01.</span>
+                            <span>The first non-zero element of the first row should be 1 (preferred) or as simple as possible.</span>
                         </li>
-                        
-                        <li class="p-4 bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-600">
-                            <strong class="text-blue-100 block mb-2 text-xs uppercase tracking-widest flex justify-between">
-                                Lagrange's Method
-                                <span class="bg-white/20 px-2 py-0.5 rounded text-[9px]">95% EXAM PROBABILITY</span>
-                            </strong>
-                            <p class="text-xs mb-2">For Quasi-linear equation <strong class="font-mono bg-white/20 px-1 rounded">Pp + Qq = R</strong></p>
-                            <div class="font-mono text-sm bg-black/20 p-2 rounded font-bold text-center">dx/P = dy/Q = dz/R</div>
-                            <p class="text-[10px] mt-2 opacity-90">Find two independent integrals u=c₁ and v=c₂ by solving pairs or using multipliers. General solution: F(u,v) = 0.</p>
+                        <li class="flex gap-4">
+                            <span class="font-black text-primary italic">02.</span>
+                            <span>Perform elementary row operations to make all elements below this leading entry zero.</span>
                         </li>
-                    </ul>
+                        <li class="flex gap-4">
+                            <span class="font-black text-primary italic">03.</span>
+                            <span>Move to the next row and diagonal position, repeating the process.</span>
+                        </li>
+                    </ol>
                 </div>
-            </section>
-            
-            <section id="unit-4" class="glass-panel p-8 rounded-[2rem] flex flex-col">
-                <div class="flex items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-700 pb-4">
-                    <div class="w-10 h-10 bg-cyan-500 text-white font-black flex items-center justify-center rounded-xl shadow-lg shadow-cyan-500/30">IV</div>
-                    <div>
-                        <h2 class="text-xl font-black text-slate-900 dark:text-white">Vector Differentiation</h2>
-                        <p class="text-[10px] font-bold text-cyan-500 uppercase tracking-widest mt-1">The Language of Fields</p>
-                    </div>
-                </div>
-                
-                <div class="space-y-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                            How do fluid velocities, wind forces, and gravitational pull change from point to point? The <strong>Del Operator (∇)</strong> unlocks the calculus of 3D spaces.
-                        </p>
-                    </div>
-                    
-                    <!-- VECTOR VISUALIZATION BLOCK -->
-                    <div class="relative bg-slate-900 rounded-xl p-5 overflow-hidden shadow-inner flex-1">
-                        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 10px 10px, #06b6d4 2px, transparent 0); background-size: 20px 20px;"></div>
-                        <div class="relative z-10 flex flex-col gap-3 font-mono text-[11px]">
-                            
-                            <div class="bg-slate-800/80 text-cyan-300 p-3 rounded-lg border border-cyan-500/30 backdrop-blur">
-                                <strong class="text-slate-300 uppercase tracking-widest block mb-1 text-[9px]">1. Gradient (Maximum Increase)</strong>
-                                <span class="font-bold text-sm">∇φ = i(∂φ/∂x) + j(∂φ/∂y) + k(∂φ/∂z)</span> 
-                                <span class="block text-[10px] text-cyan-200/50 mt-1.5">// Result: Vector. Computes Unit Normal vector to surface φ=c</span>
-                            </div>
-                            
-                            <div class="bg-slate-800/80 text-teal-300 p-3 rounded-lg border border-teal-500/30 backdrop-blur">
-                                <strong class="text-slate-300 uppercase tracking-widest block mb-1 text-[9px]">2. Divergence (Sources & Sinks)</strong>
-                                <span class="font-bold text-sm">∇·F = ∂F₁/∂x + ∂F₂/∂y + ∂F₃/∂z</span>
-                                <span class="block text-[10px] text-teal-200/50 mt-1.5">// Result: Scalar. If 0 ➔ Solenoidal vector field (incompressible)</span>
-                            </div>
-                            
-                            <div class="bg-slate-800/80 text-purple-300 p-3 rounded-lg border border-purple-500/30 backdrop-blur">
-                                <strong class="text-slate-300 uppercase tracking-widest block mb-1 text-[9px]">3. Curl (Rotation & Vorticity)</strong>
-                                <span class="font-bold text-sm leading-tight">∇×F = Det|  i     j     k  |
-         | ∂/∂x  ∂/∂y  ∂/∂z |
-         |  F₁    F₂    F₃  |</span>
-                                <span class="block text-[10px] text-purple-200/50 mt-1.5">// Result: Vector. If 0 ➔ Irrotational vector field (conservative)</span>
-                            </div>
 
-                        </div>
+                <div class="glass-card p-10 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border">
+                    <h4 class="text-2xl font-black mb-6">Langrange's Mean Value Theorem</h4>
+                    <p class="text-slate-500 dark:text-slate-400 mb-6 italic leading-relaxed">Geometrically, for a smooth curve between two points, there's always a point where the curve's slope matches the average slope (chord).</p>
+                    <div class="bg-black/50 p-6 rounded-2xl text-center border border-slate-200 dark:border-slate-800">
+                        <span class="text-3xl font-black text-primary tracking-widest">f'(c) = [f(b) - f(a)] / [b - a]</span>
                     </div>
-
-                    <div class="grid grid-cols-2 gap-3 mt-2">
-                        <div class="p-3 bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-100 dark:border-red-900/30 text-[10px] text-red-600 dark:text-red-400 font-bold">
-                            💥 curl(grad) = 0<br/>∇×(∇φ) = 0
-                        </div>
-                        <div class="p-3 bg-cyan-50 dark:bg-cyan-900/10 rounded-xl border border-cyan-100 dark:border-cyan-900/30 text-[10px] text-cyan-600 dark:text-cyan-400 font-bold">
-                            💥 div(curl) = 0<br/>∇·(∇×F) = 0
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- UNIT 5 -->
-        <section id="unit-5" class="glass-panel p-8 rounded-[2rem]">
-            <div class="flex items-center gap-4 mb-8 border-b border-slate-200 dark:border-slate-700 pb-4">
-                <div class="w-12 h-12 bg-teal-500 text-white font-black text-xl flex items-center justify-center rounded-2xl shadow-lg shadow-teal-500/30">V</div>
-                <div>
-                    <h2 class="text-2xl font-black text-slate-900 dark:text-white">Vector Integration</h2>
-                    <p class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest mt-1">The Holy Trinity of Theorems</p>
                 </div>
             </div>
-            
+        </section>
+
+        <!-- JNTUK R23 Unit-Wise Exam Strategy Section -->
+        <section id="exam-strategy" class="mb-20 animate-fade-up">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-12 h-12 bg-primary/20 text-primary rounded-2xl flex items-center justify-center font-black text-xl">⚡</div>
+                <div>
+                    <h2 class="text-3xl font-black text-slate-900 dark:text-slate-50 tracking-tight">1-Day Before <span class="text-primary italic">Exam Strategy</span></h2>
+                    <p class="text-[10px] text-primary/80 mt-1 uppercase font-semibold tracking-wider font-mono">Unit-Wise Last Minute Blueprint for JNTUK R23</p>
+                </div>
+            </div>
+
             <div class="space-y-6">
-                <!-- Theorem Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Green -->
-                    <div class="p-6 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden flex flex-col transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-500/10">
-                        <div class="absolute top-0 right-0 p-3 opacity-10 text-4xl">🟢</div>
-                        <h4 class="font-black text-slate-900 dark:text-slate-100 mb-1 text-sm uppercase tracking-wider text-teal-600 dark:text-teal-400">Green's Theorem</h4>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Line ↔ 2D Surface (Plane)</p>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 flex-1">Converts a difficult line integral around a closed curve C into a much simpler double integral over the plane region R bounded by C.</p>
-                        <div class="font-mono text-[10px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded font-bold text-teal-700 dark:text-teal-300 shadow-inner">
-                            ∮_C (M dx + N dy) <br/>= ∬_R (∂N/∂x - ∂M/∂y) dx dy
+                <!-- Unit 1 -->
+                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
+                        <div class="flex items-center gap-3">
+                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 01</span>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Matrices, Eigen Values & Rank</h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">Guaranteed 14 Marks</span>
+                            <a href="/engineering-mathematics-unit-1.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
                         </div>
                     </div>
-                    
-                    <!-- Stokes -->
-                    <div class="p-6 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden flex flex-col transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/10">
-                        <div class="absolute top-0 right-0 p-3 opacity-10 text-4xl">🌀</div>
-                        <h4 class="font-black text-slate-900 dark:text-slate-100 mb-1 text-sm uppercase tracking-wider text-blue-600 dark:text-blue-400">Stokes' Theorem</h4>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Line ↔ 3D Surface</p>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 flex-1">Upgrades Green's Theorem to 3D. Relates the circulation of a vector field around a boundary curve to the "curl" across the surface spanning it.</p>
-                        <div class="font-mono text-[10px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded font-bold text-blue-700 dark:text-blue-300 shadow-inner">
-                            ∮_C F · dr = ∬_S (∇×F) · n dS
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">This unit forms the numerical backbone of the paper. Focus heavily on row-reduction algorithms and eigenvalue identities.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
+                                <li><b>Diagonalization</b> of a $3\times3$ non-symmetric and symmetric matrix using Orthogonal Transformation.</li>
+                                <li>Statement and verification of <b>Cayley-Hamilton Theorem</b> to find matrix powers and inverse matrices.</li>
+                                <li>Finding the <b>Rank of a Matrix</b> by converting it into Echelon form via elementary row operations.</li>
+                            </ul>
                         </div>
-                    </div>
-                    
-                    <!-- Gauss -->
-                    <div class="p-6 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden flex flex-col transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/10">
-                        <div class="absolute top-0 right-0 p-3 opacity-10 text-4xl">📦</div>
-                        <h4 class="font-black text-slate-900 dark:text-slate-100 mb-1 text-sm uppercase tracking-wider text-purple-600 dark:text-purple-400">Gauss Divergence</h4>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Closed Surface ↔ Volume</p>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 flex-1">Measures the total outward flux of a vector field through a closed surface (like a sphere) by integrating its divergence over the enclosed volume.</p>
-                        <div class="font-mono text-[10px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded font-bold text-purple-700 dark:text-purple-300 shadow-inner">
-                            ∬_S F · n dS = ∭_V (∇·F) dV
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
+                                <li>Check your calculated eigenvalues: <b>Trace(A) = Sum of eigenvalues</b> (sum of principal diagonal) and <b>Det(A) = Product of eigenvalues</b>.</li>
+                                <li>When reducing to Echelon, perform operations on row $R_2$ and $R_3$ using row $R_1$ simultaneously to save time.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-amber-50 dark:bg-amber-900/10 p-4 rounded-xl border border-amber-200 dark:border-amber-900/30">
-                    <p class="text-xs text-amber-800 dark:text-amber-300 font-bold flex items-center gap-2 uppercase tracking-widest"><span class="text-base text-amber-500">⚠</span> Exam Hack (15 Marks)</p>
-                    <p class="text-[11px] text-amber-700 dark:text-amber-400 mt-1 pl-6 font-medium">If a question asks to "Evaluate by Green's Theorem", you MUST calculate the double integral RHS. If it says "Verify Green's Theorem", you must calculate BOTH LHS (line integral) and RHS (double integral) independently and show they are equal.</p>
+                <!-- Unit 2 -->
+                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
+                        <div class="flex items-center gap-3">
+                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 02</span>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Mean Value Theorems & Calculus</h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">Highly Conceptual</span>
+                            <a href="/engineering-mathematics-unit-2.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Theorems are critical. JNTUK shifts focus here towards direct statement proofs and checking interval conditions.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
+                                <li>Proofs and geometrical interpretations of <b>Lagrange's Mean Value Theorem (LMVT)</b> and Rolle's Theorem.</li>
+                                <li>Verifying <b>Cauchy's Mean Value Theorem (CMVT)</b> for given functions $f(x)$ and $g(x)$ in a specified interval $[a,b]$.</li>
+                                <li><b>Taylor's & Maclaurin's expansions</b> of transcendental functions like $e^x \cos x$ or $\log(1+x)$ up to 3 terms.</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
+                                <li>Before verifying any theorem, always explicitly write that the function is continuous on $[a,b]$ and differentiable on $(a,b)$. Neglecting this loses 2 easy marks recursively.</li>
+                                <li>In Taylor’s series, center points are values like $x = a$. For Maclaurin's, always expand around origin $x = 0$.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 3 -->
+                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
+                        <div class="flex items-center gap-3">
+                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 03</span>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Multivariable Calculus: Jacobians & Maxima-Minima</h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">High Probability</span>
+                            <a href="/engineering-mathematics-unit-3.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">This unit presents straightforward, highly procedural mathematics. Memorize algebraic discriminants and derivative equations.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
+                                <li>Finding extreme values (<b>Maxima & Minima</b>) of $f(x,y)$ using the discriminant values $r = \frac{\partial^2 f}{\partial x^2}$, $t = \frac{\partial^2 f}{\partial y^2}$, and $s = \frac{\partial^2 f}{\partial x \partial y}$.</li>
+                                <li><b>Lagrange's Method of Undetermined Multipliers</b> for constraints (e.g. extremizing $x^a y^b z^c = k$ with constraints).</li>
+                                <li>Evaluating <b>Jacobians</b> $J = \frac{\partial(u,v)}{\partial(x,y)}$ and checking for functional relationships if $J = 0$.</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
+                                <li>At stationary points, if $rt - s^2 &gt; 0$ and $r &lt; 0$, it is a Maximum. If $rt - s^2 &gt; 0$ and $r &gt; 0$, it is a Minimum. If $rt - s^2 &lt; 0$, it is a Saddle Point (neither). Remember this criteria set flawlessly.</li>
+                                <li>For Lagrange multipliers, formulate $F(x,y,z,\lambda) = f(x,y,z) + \lambda \cdot [g(x,y,z) - c]$. Differentials with respect to $x, y, z$ must equate to 0.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 4 -->
+                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
+                        <div class="flex items-center gap-3">
+                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 04</span>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Double & Triple Integrals</h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">Guaranteed Question</span>
+                            <a href="/engineering-mathematics-unit-4.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Limits are the core focus. Always sketch the curves to avoid mistakes when transitioning boundaries of integration.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
+                                <li>Problems requiring you to <b>Change the Order of Integration</b> (e.g., swapping $dy\,dx$ for $dx\,dy$).</li>
+                                <li>Conversion from Cartesian to Polar Coordinates using the Jacobian substitution variables $x = r \cos \theta$, $y = r \sin \theta$, and substituting $dx \, dy \to r \, dr \, d\theta$.</li>
+                                <li>Finding total area enclosed by standard curves (like Parabolas or Cardioids $r = a(1+\cos\theta)$) via double integrals.</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
+                                <li>When shifting boundaries during a Change of Order, sketch both intersection curves first. A horizontal strip must be swapped to a vertical strip, and outer limits must be constants.</li>
+                                <li>In Polar swaps, cardioids or circles are highly symmetric—often you can calculate bounds for the upper half and multiply by 2.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 5 -->
+                <div class="glass-card p-8 transition-all duration-300 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-4 mb-4 border-slate-200 dark:border-slate-800 border">
+                        <div class="flex items-center gap-3">
+                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono">Unit 05</span>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-slate-50">Special Functions: Beta & Gamma</h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono">Easiest Winnings</span>
+                            <a href="/engineering-mathematics-unit-5.html" class="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 text-slate-700 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest transition-all">View Guide &crarr;</a>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Excellent scoring area with short, standard derivations and formula integrations.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-primary">🎯 Top Priority Problem Types:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400 mt-2">
+                                <li>Derivation of the relation between Beta and Gamma functions: $B(m,n) = \frac{\Gamma(m)\Gamma(n)}{\Gamma(m+n)}$.</li>
+                                <li>Evaluating limits of the form $\int_0^{\pi/2} \sin^p\theta \cos^q\theta \, d\theta$.</li>
+                                <li>Proving specific relations like $\Gamma(\frac{1}{2}) = \sqrt{\pi}$ and evaluating standard improper integral properties.</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">
+                            <span class="font-extrabold text-emerald-500">💡 Exam Shortcuts & Hacks:</span>
+                            <ul class="list-disc pl-4 space-y-1.5 text-slate-500 dark:text-slate-400/80 mt-2 dark:text-slate-400">
+                                <li>Always memorize the definition formulas: $\Gamma(n) = \int_0^\infty e^{-x} x^{n-1} dx$ and $B(m,n) = \int_0^1 x^{m-1} (1-x)^{n-1} dx$.</li>
+                                <li>Remember that $\Gamma(n+1) = n \cdot \Gamma(n)$ for partial fractions/decimals, and $\Gamma(n+1) = n!$ for positive integers.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- VIVA FLASH CARDS -->
-        <section id="viva" class="glass-panel p-8 rounded-[2rem] bg-emerald-500/5 border-emerald-200 dark:border-emerald-900/30">
-            <div class="flex items-center justify-between mb-8">
+        <!-- AI Question Generator Section -->
+        <section id="ai-question-generator" class="mb-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 bg-primary/20 text-primary rounded-2xl flex items-center justify-center font-black text-xl">🤖</div>
                 <div>
-                    <h2 class="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3">
-                        <span class="p-2 bg-emerald-500/20 text-emerald-600 rounded-lg">🧠</span> Viva Memory Cards
-                    </h2>
-                    <p class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mt-2">Click cards to flip</p>
+                    <h2 class="text-3xl font-black text-slate-900 dark:text-slate-50 tracking-tight">AI Exam <span class="text-primary italic">Question Generator</span></h2>
+                    <p class="text-[10px] text-primary/80 mt-1 uppercase font-semibold tracking-wider font-mono">Instant Exam Questions & Step-by-Step Marking Rubrics</p>
                 </div>
             </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 perspective-1000">
-                <!-- Card 1 -->
-                <div class="flashcard h-32 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner w-full h-full relative">
-                        <div class="absolute w-full h-full backface-hidden bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col justify-center items-center text-center shadow-sm">
-                            <span class="text-[10px] text-slate-400 uppercase font-black block w-full text-left mb-1">Q1</span>
-                            <span class="text-sm font-bold text-slate-800 dark:text-slate-100">Condition for Exact DE?</span>
-                        </div>
-                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-emerald-600 text-white rounded-xl border border-emerald-500 p-4 flex flex-col justify-center items-center text-center shadow-lg">
-                            <span class="text-sm font-bold math-font">∂M/∂y = ∂N/∂x</span>
-                        </div>
+
+            <div class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 border hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+                    Input any specific concept from the JNTUK R23 Maths II syllabus below to instantly generate realistic exam-style questions paired with complete stepwise solutions and diagnostic formulas.
+                </p>
+
+                <!-- Quick selection buttons -->
+                <div class="mb-8">
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-slate-500 dark:text-slate-400 block mb-3 font-mono">Suggested High-Yield Topics:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Eigenvalues">Eigenvalues</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Cayley-Hamilton">Cayley-Hamilton</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Rolle's Theorem">Rolle's Theorem</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Jacobians">Jacobians</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Integration order changing">Change of Order</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Beta & Gamma functions">Beta & Gamma</button>
+                        <button class="quick-topic-btn text-xs px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 border text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-primary/20 hover:border-primary/30 transition-all font-medium cursor-pointer border-slate-200 dark:border-slate-800" data-concept="Maxima & Minima optimization">Maxima & Minima</button>
                     </div>
                 </div>
-                <!-- Card 2 -->
-                <div class="flashcard h-32 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner w-full h-full relative">
-                        <div class="absolute w-full h-full backface-hidden bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col justify-center items-center text-center shadow-sm">
-                            <span class="text-[10px] text-slate-400 uppercase font-black block w-full text-left mb-1">Q2</span>
-                            <span class="text-sm font-bold text-slate-800 dark:text-slate-100">What is Wronskian?</span>
+
+                <!-- Input group -->
+                <form id="math-generator-form" class="flex flex-col sm:flex-row gap-3">
+                    <input id="math-concept-input" type="text" placeholder="Enter Math concept (e.g. Taylor's Series, Lagrange's multipliers...)" class="flex-1 bg-slate-100 border rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-50 placeholder-gray-500 focus:outline-none focus:border-primary/50 transition-colors border-slate-200 dark:border-slate-800" required>
+                    <button id="math-submit-btn" type="submit" class="btn-primary flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold font-mono">
+                        <span>Generate</span>
+                        <span class="animate-pulse">✨</span>
+                    </button>
+                </form>
+
+                <!-- Feedback States -->
+                <div id="gen-loading-state" class="hidden mt-8 text-center py-12">
+                    <div class="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium" id="gen-loading-message">Formulating custom question...</p>
+                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-2 font-mono">Aligning to JNTUK R23 evaluation bounds</p>
+                </div>
+
+                <div id="gen-error-state" class="hidden mt-8 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm">
+                    Failed to reach generation helper. Serving local high-yield fallback database.
+                </div>
+
+                <!-- Generated Question Card -->
+                <div id="gen-result-card" class="hidden mt-8 border-t pt-8 border-slate-200 dark:border-slate-800 border">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-black uppercase tracking-wider rounded font-mono" id="result-concept">Concept</span>
+                            <span class="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded font-mono" id="result-difficulty">Difficulty</span>
                         </div>
-                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-emerald-600 text-white rounded-xl border border-emerald-500 p-4 flex flex-col justify-center items-center text-center shadow-lg">
-                            <span class="text-xs font-medium">Determinant of solutions and their derivatives: W(y₁,y₂) = y₁y₂' - y₂y₁'</span>
+                        <span class="text-xs font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded font-mono self-start sm:self-auto" id="result-marks">10 Marks</span>
+                    </div>
+
+                    <!-- Question Container -->
+                    <div class="p-6 bg-slate-100 rounded-2xl border mb-6 border-slate-200 dark:border-slate-800">
+                        <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono block mb-2">Generated Question:</span>
+                        <div class="text-slate-900 dark:text-slate-50 font-medium text-base leading-relaxed" id="result-question">
+                            Find the eigenvalues of...
                         </div>
                     </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="flashcard h-32 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner w-full h-full relative">
-                        <div class="absolute w-full h-full backface-hidden bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col justify-center items-center text-center shadow-sm">
-                            <span class="text-[10px] text-slate-400 uppercase font-black block w-full text-left mb-1">Q3</span>
-                            <span class="text-sm font-bold text-slate-800 dark:text-slate-100">Meaning of Curl F = 0?</span>
-                        </div>
-                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-emerald-600 text-white rounded-xl border border-emerald-500 p-4 flex flex-col justify-center items-center text-center shadow-lg">
-                            <span class="text-xs font-bold leading-tight">The vector field is Irrotational (Conservative).</span>
+
+                    <!-- Formula Reference -->
+                    <div class="p-4 bg-primary/5 rounded-xl border border-primary/10 mb-6">
+                        <span class="text-[10px] font-bold text-primary uppercase tracking-wider font-mono block mb-1">Key Formula:</span>
+                        <code class="text-xs text-primary font-mono block whitespace-pre-wrap" id="result-formula">Formula</code>
+                    </div>
+
+                    <!-- Step-by-Step Solution -->
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono block mb-2">Step-by-Step Solution & Rubric Scheme:</span>
+                        <div class="prose prose-invert text-sm text-slate-500 dark:text-slate-400 leading-relaxed space-y-4" id="result-solution">
+                            Step 1...
                         </div>
                     </div>
-                </div>
-                <!-- Card 4 -->
-                <div class="flashcard h-32 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner w-full h-full relative">
-                        <div class="absolute w-full h-full backface-hidden bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col justify-center items-center text-center shadow-sm">
-                            <span class="text-[10px] text-slate-400 uppercase font-black block w-full text-left mb-1">Q4</span>
-                            <span class="text-sm font-bold text-slate-800 dark:text-slate-100">Newton's cooling law formula?</span>
-                        </div>
-                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-emerald-600 text-white rounded-xl border border-emerald-500 p-4 flex flex-col justify-center items-center text-center shadow-lg">
-                            <span class="text-[11px] font-bold math-font">dT/dt = -k(T - T_surroundings)</span>
-                        </div>
+
+                    <!-- Button trigger -->
+                    <div class="mt-8 flex justify-end">
+                        <button id="try-another-btn" class="btn-ghost py-2 px-6 text-xs border-slate-200 dark:border-slate-800 border">Clear Form</button>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- 3-HOUR CRASH REVISION SECTION -->
-        <section id="crash" class="glass-panel p-8 rounded-[2rem] bg-gradient-to-br from-red-500/10 to-transparent border-red-200 dark:border-red-900/30">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 bg-red-600 text-white font-black text-2xl flex items-center justify-center rounded-xl shadow-lg shadow-red-600/30 animate-pulse">⚡</div>
-                <div>
-                    <h2 class="text-2xl font-black text-slate-900 dark:text-red-100">3-Hour Exam Crash Mode</h2>
-                    <p class="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-widest mt-1">High Scoring Topics Only • Last Minute Prep</p>
-                </div>
+        <div class="glass-card p-12 text-center bg-gradient-to-t from-primary/10 to-transparent bg-white dark:bg-slate-900 shadow-sm">
+            <h2 class="text-4xl font-black mb-6">Want the <span class="text-primary italic">Ultimate</span> Guide?</h2>
+            <p class="text-slate-500 dark:text-slate-400 mb-10 max-w-lg mx-auto">Access our database-powered study material with actual previous year solved questions.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/subject.html?sub=Mathematics II" class="btn-primary py-3 px-8">Access Database Notes</a>
+                <a href="/dashboard.html" class="btn-ghost py-3 px-8 border-slate-200 dark:border-slate-800 border">Back to Dashboard</a>
             </div>
+        </div>
+    
+            <!-- Internal Links Section for SEO -->
+            <section class="related-links-section mt-12 py-8 border-t border-slate-200 dark:border-slate-800">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4">Related Study Material</h3>
+                <div class="flex flex-wrap gap-4">
+                    <a href="/pyqs.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">PYQs Predictor</a><a href="/engineering-mathematics-2.html.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Mathematics Notes</a><a href="/exam-survival.html" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg text-sm hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors font-medium">Exam Survival Sheets</a>
+                </div>
+            </section>
             
-            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-red-100 dark:border-red-900/50">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-slate-800 text-white text-[10px] font-black px-2 py-1 rounded">HOUR 1</span>
-                            <span class="font-bold text-sm">Differential Eq</span>
-                        </div>
-                        <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-2 font-medium">
-                            <li>→ Exact DE rule & Integrating factors</li>
-                            <li>→ Newton's law of cooling problem</li>
-                            <li>→ Variation of Parameters method</li>
-                        </ul>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-slate-800 text-white text-[10px] font-black px-2 py-1 rounded">HOUR 2</span>
-                            <span class="font-bold text-sm">Vector Calculus</span>
-                        </div>
-                        <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-2 font-medium">
-                            <li>→ Gradient (Directional Derivative)</li>
-                            <li>→ Curl & Divergence proofs</li>
-                            <li>→ Determine if Solenoidal / Irrotational</li>
-                        </ul>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-slate-800 text-white text-[10px] font-black px-2 py-1 rounded">HOUR 3</span>
-                            <span class="font-bold text-sm">Theorems (15M)</span>
-                        </div>
-                        <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-2 font-medium">
-                            <li>→ Green's Theorem evaluation</li>
-                            <li>→ Stokes' Theorem application</li>
-                            <li>→ Divergence Theorem conversion</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+</main>
 
-    </main>
-</div>
+    <footer class="py-12 border-t text-center border-slate-200 dark:border-slate-800 border">
+        <p class="text-slate-500 dark:text-slate-400 text-sm">© 2026 EngiPrep Hub • Expert JNTUK Support</p>
+    </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('math-generator-form');
+            const input = document.getElementById('math-concept-input');
+            const submitBtn = document.getElementById('math-submit-btn');
+            const quickTopicBtns = document.querySelectorAll('.quick-topic-btn');
+            
+            const loadingState = document.getElementById('gen-loading-state');
+            const loadingMsg = document.getElementById('gen-loading-message');
+            const errorState = document.getElementById('gen-error-state');
+            const resultCard = document.getElementById('gen-result-card');
+            
+            const resConcept = document.getElementById('result-concept');
+            const resDifficulty = document.getElementById('result-difficulty');
+            const resMarks = document.getElementById('result-marks');
+            const resQuestion = document.getElementById('result-question');
+            const resFormula = document.getElementById('result-formula');
+            const resSolution = document.getElementById('result-solution');
+            const tryAnotherBtn = document.getElementById('try-another-btn');
+
+            const loadingPrompts = [
+                "Analyzing JNTUK syllabus divisions...",
+                "Retrieving matching structural rubrics...",
+                "Formulating stepwise solutions...",
+                "Cross-verifying algebraic calculations..."
+            ];
+
+            let loadingInterval;
+
+            // Simple Markdown Formatter for beautiful math text rendering
+            function formatMarkdown(text) {
+                if (!text) return '';
+                let html = text;
+                
+                // Replace double dollar LaTeX formulas with highlighted custom boxes
+                html = html.replace(/\$\$(.*?)\$\$/gs, '<div class="bg-slate-100 p-4 rounded-xl border my-4 text-center font-mono text-primary text-base overflow-x-auto border-slate-200 dark:border-slate-800 dark:bg-slate-800/50">$1</div>');
+                
+                // Replace single dollar inline formulas
+                html = html.replace(/\$(.*?)\$/g, '<code class="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-gray-300 font-mono text-xs">$1</code>');
+                
+                // Replace bold headings or strong texts
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 dark:text-slate-50 font-bold">$1</strong>');
+                
+                // Replace bullets
+                html = html.replace(/^\*\s(.*)$/gm, '<li class="ml-4 list-disc text-slate-500 dark:text-slate-400">$1</li>');
+                html = html.replace(/^-\s(.*)$/gm, '<li class="ml-4 list-disc text-slate-500 dark:text-slate-400">$1</li>');
+                
+                // Keep paragraph structures cleanly
+                html = html.replace(/\n\n/g, '</div><div class="mt-4">');
+                html = html.replace(/\n/g, '<br>');
+                
+                return `<div class="space-y-4">${html}</div>`;
+            }
+
+            async function generateQuestion(concept) {
+                // Show loading state, hide results and error paths
+                loadingState.classList.remove('hidden');
+                errorState.classList.add('hidden');
+                resultCard.classList.add('hidden');
+                submitBtn.disabled = true;
+
+                let promptIndex = 0;
+                loadingMsg.innerText = loadingPrompts[0];
+                loadingInterval = setInterval(() => {
+                    promptIndex = (promptIndex + 1) % loadingPrompts.length;
+                    loadingMsg.innerText = loadingPrompts[promptIndex];
+                }, 1500);
+
+                try {
+                    const response = await fetch('/api/ai/math-generator', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ concept })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('API request failed');
+                    }
+
+                    const data = await response.json();
+                    
+                    // Render outputs
+                    resConcept.innerText = data.concept || concept;
+                    resDifficulty.innerText = data.difficulty || 'Medium';
+                    
+                    // Style difficulty border/color badge
+                    const diff = (data.difficulty || '').toLowerCase();
+                    resDifficulty.className = "px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded font-mono";
+                    if (diff.includes('hard')) {
+                        resDifficulty.classList.add('bg-rose-500/10', 'text-rose-400', 'border', 'border-rose-500/20');
+                    } else if (diff.includes('easy')) {
+                        resDifficulty.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/20');
+                    } else {
+                        resDifficulty.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/20');
+                    }
+
+                    resMarks.innerText = data.marks || '10 Marks';
+                    resQuestion.innerHTML = formatMarkdown(data.question || '');
+                    resFormula.innerHTML = data.formula_used || 'N/A';
+                    resSolution.innerHTML = formatMarkdown(data.solution || '');
+
+                    // Reveal result panel
+                    resultCard.classList.remove('hidden');
+                    // Scroll smoothly to results
+                    resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                } catch (e) {
+                    console.error(e);
+                    errorState.classList.remove('hidden');
+                } finally {
+                    clearInterval(loadingInterval);
+                    loadingState.classList.add('hidden');
+                    submitBtn.disabled = false;
+                }
+            }
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const concept = input.value.trim();
+                if (concept) {
+                    generateQuestion(concept);
+                }
+            });
+
+            quickTopicBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const concept = btn.getAttribute('data-concept');
+                    input.value = concept;
+                    generateQuestion(concept);
+                });
+            });
+
+            tryAnotherBtn.addEventListener('click', () => {
+                input.value = '';
+                resultCard.classList.add('hidden');
+                errorState.classList.add('hidden');
+                input.focus();
+            });
+        });
+    </script>
+
+    <script type="module" src="/src/config-check.js"></script>
+    <script type="module" src="/src/ai-widget.ts"></script>
 </body>
 </html>
+
