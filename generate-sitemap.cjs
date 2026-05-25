@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const domain = 'https://engiprephub.vercel.app';
+const domain = 'https://engiprephub.in';
 const publicDir = path.join(__dirname, 'dist');
 
 if (!fs.existsSync(publicDir)) {

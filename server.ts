@@ -27,6 +27,33 @@ const ai = new GoogleGenAI({
 const app = express();
 const PORT = 3000;
 
+// Production-ready security headers
+app.use((req, res, next) => {
+  // Allow iframes in development/testing mode so AI Studio builds function flawlessly
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  }
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'geolocation=*, camera=(), microphone=()');
+  
+  // Robust CSP supporting Google AdSense + Fonts + Subspace DB Connections
+  const cspDirectives = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.gstatic.com https://*.googleapis.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com",
+    "img-src 'self' data: https://*.doubleclick.net https://*.google.com https://*.googlesyndication.com https://*.google-analytics.com https://*.supabase.co https://*.supabase.com https://*.supabase.net",
+    "connect-src 'self' https://*.supabase.co https://*.supabase.com https://*.supabase.net https://*.google-analytics.com https://*.doubleclick.net https://*.google.com https://pagead2.googlesyndication.com",
+    "frame-src 'self' https://*.doubleclick.net https://*.google.com https://*.googlesyndication.com https://*.supabase.co",
+    "object-src 'none'",
+    "upgrade-insecure-requests"
+  ].join('; ');
+  
+  res.setHeader('Content-Security-Policy', cspDirectives);
+  next();
+});
+
 app.use(express.json());
 
 // Helper for SEO clean URLs mapping

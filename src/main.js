@@ -63,6 +63,7 @@ window.showAchievementToast = showAchievementToast;
 
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
+    initCookieConsent();
     initMobileMenu();
     initActiveNavLinks();
     initSearch();
@@ -176,6 +177,132 @@ function initTheme() {
         const themeBtn = document.getElementById('theme-toggle');
         if (dropdown && themeBtn && !themeBtn.contains(e.target)) {
             dropdown.remove();
+        }
+    });
+}
+
+function initCookieConsent() {
+    if (localStorage.getItem('cookie-consent')) {
+        return; // Consent already given
+    }
+
+    // Create the HTML representation
+    const consentDiv = document.createElement('div');
+    consentDiv.id = 'cookie-consent-banner';
+    consentDiv.className = 'fixed bottom-4 right-4 left-4 md:left-auto md:w-[380px] z-[9999] p-5 rounded-2xl shadow-2xl transition-all duration-300 transform translate-y-12 opacity-0 border';
+    consentDiv.style.backgroundColor = 'var(--surface-color)';
+    consentDiv.style.borderColor = 'var(--border-color)';
+    consentDiv.style.backdropFilter = 'blur(12px)';
+
+    consentDiv.innerHTML = `
+        <div class="flex flex-col gap-3">
+            <div class="flex items-start gap-3">
+                <div class="p-2 rounded-xl" style="background-color: rgba(var(--theme-primary-rgb, 139, 92, 246), 0.1); color: var(--theme-primary, #6366F1);">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <h4 class="text-[14px] font-bold tracking-tight text-text-main" style="color: var(--text-main, #ffffff)">Cookie Consent</h4>
+                    <p class="text-[11px] mt-1 text-slate-400 font-sans leading-relaxed">
+                        We use cookies to personalize academic notes, analyze traffic flow, and deliver compliant JNTUK high-yield ads.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Preferences Panel -->
+            <div id="cookie-prefs-panel" class="hidden flex-col gap-2 p-3 rounded-lg text-[11px] select-none" style="background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color);">
+                <label class="flex items-center justify-between cursor-pointer">
+                    <span class="font-semibold" style="color: var(--text-main, #ffffff)">Strictly Necessary</span>
+                    <input type="checkbox" disabled checked class="accent-[var(--theme-primary)]">
+                </label>
+                <div class="h-[1px] bg-slate-800/40 my-1 font-sans"></div>
+                <label class="flex items-center justify-between cursor-pointer">
+                    <div class="flex flex-col">
+                        <span class="font-semibold" style="color: var(--text-main, #ffffff)">Analytics & Performance</span>
+                        <span class="text-[9px] text-slate-500">Track study times & navigation</span>
+                    </div>
+                    <input type="checkbox" id="cookie-pref-analytics" checked style="accent-color: var(--theme-primary, #6366F1);">
+                </label>
+                <div class="h-[1px] bg-slate-800/40 my-1 font-sans"></div>
+                <label class="flex items-center justify-between cursor-pointer">
+                    <div class="flex flex-col">
+                        <span class="font-semibold" style="color: var(--text-main, #ffffff)">Google AdSense</span>
+                        <span class="text-[9px] text-slate-500">Deliver highly targeted premium ads</span>
+                    </div>
+                    <input type="checkbox" id="cookie-pref-adsense" checked style="accent-color: var(--theme-primary, #6366F1);">
+                </label>
+            </div>
+
+            <div class="flex items-center justify-end gap-2 text-[11px] mt-1">
+                <button id="cookie-btn-manage" class="px-2.5 py-1.5 font-bold rounded-lg text-slate-400 hover:text-white transition-colors cursor-pointer">
+                    Manage
+                </button>
+                <button id="cookie-btn-reject" class="px-3 py-1.5 font-semibold text-slate-400 border rounded-xl hover:text-white transition-all cursor-pointer" style="border-color: var(--border-color);">
+                    Reject
+                </button>
+                <button id="cookie-btn-accept" class="px-4 py-1.5 font-bold text-white rounded-xl transition-all hover:scale-[1.02] cursor-pointer" style="background: var(--theme-primary, #4F46E5);">
+                    Accept All
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(consentDiv);
+
+    // Fade-in animation
+    setTimeout(() => {
+        consentDiv.classList.remove('translate-y-12', 'opacity-0');
+        consentDiv.classList.add('translate-y-0', 'opacity-100');
+    }, 100);
+
+    const prefsPanel = consentDiv.querySelector('#cookie-prefs-panel');
+    const manageBtn = consentDiv.querySelector('#cookie-btn-manage');
+    const rejectBtn = consentDiv.querySelector('#cookie-btn-reject');
+    const acceptBtn = consentDiv.querySelector('#cookie-btn-accept');
+
+    manageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (prefsPanel.classList.contains('hidden')) {
+            prefsPanel.classList.remove('hidden');
+            prefsPanel.classList.add('flex');
+            manageBtn.textContent = 'Hide';
+        } else {
+            prefsPanel.classList.remove('flex');
+            prefsPanel.classList.add('hidden');
+            manageBtn.textContent = 'Manage';
+        }
+    });
+
+    const closeBanner = (consentType) => {
+        consentDiv.classList.add('translate-y-12', 'opacity-0');
+        setTimeout(() => {
+            consentDiv.remove();
+        }, 300);
+        localStorage.setItem('cookie-consent', consentType);
+    };
+
+    rejectBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeBanner('minimal');
+        if (typeof window.showSuccessToast === 'function') {
+            window.showSuccessToast('Minimal cookies preference saved.');
+        }
+    });
+
+    acceptBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const analytics = consentDiv.querySelector('#cookie-pref-analytics')?.checked ?? true;
+        const adsense = consentDiv.querySelector('#cookie-pref-adsense')?.checked ?? true;
+        
+        if (analytics && adsense) {
+            closeBanner('all');
+        } else {
+            closeBanner(JSON.stringify({ analytics, adsense }));
+        }
+
+        if (typeof window.showSuccessToast === 'function') {
+            window.showSuccessToast('Your cookie preferences have been applied successfully.');
         }
     });
 }

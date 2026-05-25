@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const domain = 'https://engiprephub.vercel.app';
+const domain = 'https://engiprephub.in';
 const publicDir = '.';
 
 function getHtmlFiles(dir) {
@@ -25,7 +25,7 @@ const htmlFiles = getHtmlFiles(publicDir);
 
 const adSenseScript = `
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9357545069587539" crossorigin="anonymous"></script>
 `;
 
 htmlFiles.forEach(file => {
