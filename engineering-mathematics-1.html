@@ -138,44 +138,60 @@
   .steps-container { display: flex; flex-direction: column; gap: 8px; }
   </style>
   </head>
-<body class="math-grid relative">
-
-    <!-- GAMIFICATION HEADER -->
-    <header class="fixed top-0 w-full z-50 glass-panel !rounded-none !border-x-0 !border-t-0 p-4 bg-[#030014]/80">
-        <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-cyan-900/40 flex items-center justify-center border border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-                    <span class="text-2xl font-mono-accent text-cyan-400">∑</span>
+<body class="math-grid relative"><header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-[#030306]/85 border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between" aria-label="Main Navigation">
+            <a href="/" class="flex items-center gap-4 group" aria-label="EngiPrep Hub Homepage">
+                <div class="relative w-12 h-12 flex items-center justify-center">
+                    <!-- Custom SVG Logo -->
+                    <div class="absolute inset-0 from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20 hover:border-blue-500/40 duration-300 bg-slate-900"></div>
+                    <svg class="relative z-10 w-7 h-7 text-slate-900 dark:text-slate-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                    <!-- Gear accents -->
+                    <div class="absolute -top-1 -right-1 w-4 h-4 bg-blue-400/20 rounded-full blur-sm group-hover:scale-150 transition-transform" aria-hidden="true"></div>
                 </div>
-                <div>
-                    <h1 class="font-black text-xl text-white tracking-tight">Engineering Mathematics I</h1>
-                    <p class="text-xs font-mono-accent text-cyan-400">JNTUK R23 • ELITE PREP MODE</p>
-                </div>
-            </div>
-            
-            <div class="flex items-center gap-6">
-                <div class="text-right">
-                    <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Rank: <span id="rank-display" class="text-slate-400 font-black ml-1">NOT STARTED</span></p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-32 md:w-48 h-2.5 bg-slate-800/80 rounded-full overflow-hidden border border-slate-700">
-                            <div id="progress-bar" class="h-full bg-gradient-to-r from-cyan-500 to-violet-500 progress-fill shadow-[0_0_10px_#06b6d4]" style="width: 0%"></div>
-                        </div>
-                        <span id="xp-display" class="font-mono-accent text-xs font-bold text-white bg-slate-800/50 px-2 py-1 rounded">0 XP</span>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-blue-600 dark:text-blue-400">Hub</span></span>
+                    <div class="flex items-center gap-1.5 mt-1.5">
+                        <div class="h-[1px] w-3 bg-slate-200 dark:bg-slate-800"></div>
+                        <span class="text-[7px] font-black uppercase tracking-[0.25em] text-slate-400 dark:text-slate-400">Prepare • Practice • Perform</span>
+                        <div class="h-[1px] w-3 bg-slate-200 dark:bg-slate-800"></div>
                     </div>
                 </div>
-                <button onclick="resetInternalTracker()" class="hidden md:block px-3 py-1.5 text-[10px] uppercase font-bold rounded-lg bg-red-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors">Wipe Memory</button>
+            </a>
+            
+            <div class="hidden lg:flex items-center gap-8" id="dekstop-nav-menu">
+                <a href="/notes.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse JNTUK Study Notes">Study Notes</a>
+                <a href="/pyqs.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse Previous Year Solved Question Papers">Solved PYQs</a>
+                <a href="/cheat-sheets.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse Chemical and Mathematical Formula Sheets">Cheat Sheets</a>
+                <a href="/tools.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse GPA and Credit Calculators">Academic Tools</a>
+                <a href="/tasks.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Manage Study Tasks and Deadlines">Tasks</a>
+                <a href="/blog.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Read Educational Blog and Placement Articles">Academic Blog</a>
             </div>
-        </div>
+
+            
+            
+            <div class="flex items-center gap-4" id="nav-actions">
+                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <!-- Fallback skeleton, populated directly by platform user context scripts -->
+                <div class="h-10 w-24 bg-slate-100 dark:bg-slate-900 rounded-xl animate-pulse"></div>
+            </div>
+        </nav>
     </header>
+
+    <!-- GAMIFICATION HEADER -->
+    
 
     <div class="max-w-[1400px] mx-auto pt-28 px-4 pb-12 flex flex-col lg:flex-row gap-8">
         
         <!-- SIDEBAR NAVIGATION -->
         <aside class="w-full lg:w-72 shrink-0 h-min sticky top-28 glass-panel p-6 shadow-2xl z-40">
             <p class="text-[10px] font-black uppercase tracking-widest text-cyan-500/80 mb-4 ml-2">M1 Control Center</p>
-            <nav id="auto-nav" class="space-y-1">
-                <!-- Auto-generated by JS -->
-            </nav>
+            
             
             <div class="mt-8 border-t border-slate-700/50 pt-6">
                  <p class="text-[10px] font-black uppercase tracking-widest text-violet-400/80 mb-4 ml-2">Tactical Tools</p>

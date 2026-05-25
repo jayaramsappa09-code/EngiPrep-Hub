@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Formula Sheets & Revision Mode | EngiPrep Hub</title>
+    <title>Smart Formula Sheets &amp; Revision Mode | EngiPrep Hub</title>
     <link rel="canonical" href="https://engiprephub.vercel.app/cheat-sheets">
     <meta name="description" content="Copy, save, and print engineering formulas. Leverage our AMOLED distraction-free revision mode during the final hours of exam preparation.">
     <script>
@@ -26,37 +24,59 @@
     <!-- Inline blocker removed for SEO/AdSense Crawlability -->
     <script type="module" src="/src/gatekeeper.js"></script>
 
-    <meta property="og:title" content="Smart Formula Sheets & Revision Mode | EngiPrep Hub">
+    <meta property="og:title" content="Smart Formula Sheets &amp; Revision Mode | EngiPrep Hub">
     <meta property="og:description" content="Copy, save, and print engineering formulas. Leverage our AMOLED distraction-free revision mode during the final hours of exam preparation.">
     <meta property="og:url" content="https://engiprephub.vercel.app/cheat-sheets">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="EngiPrep Hub">
 
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 selection:bg-blue-100 transition-colors duration-300" id="revision-body-target">
-    <!-- Navbar (Hidden in distraction-free revision mode) -->
-    <nav class="fixed top-0 w-full z-50 bg-white dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-6" id="main-global-navbar">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-blue-600 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20"></div>
-                    <svg class="relative z-10 w-5 h-5 text-slate-900 dark:text-slate-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 selection:bg-blue-100 transition-colors duration-300" id="revision-body-target"><header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-[#030306]/85 border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between" aria-label="Main Navigation">
+            <a href="/" class="flex items-center gap-4 group" aria-label="EngiPrep Hub Homepage">
+                <div class="relative w-12 h-12 flex items-center justify-center">
+                    <!-- Custom SVG Logo -->
+                    <div class="absolute inset-0 from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/20 hover:border-blue-500/40 duration-300 bg-slate-900"></div>
+                    <svg class="relative z-10 w-7 h-7 text-slate-900 dark:text-slate-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
                     </svg>
+                    <!-- Gear accents -->
+                    <div class="absolute -top-1 -right-1 w-4 h-4 bg-blue-400/20 rounded-full blur-sm group-hover:scale-150 transition-transform" aria-hidden="true"></div>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">Formula <span class="text-blue-600 dark:text-blue-400">Vault</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">EngiPrep Reference Bureau</span>
+                    <span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-blue-600 dark:text-blue-400">Hub</span></span>
+                    <div class="flex items-center gap-1.5 mt-1.5">
+                        <div class="h-[1px] w-3 bg-slate-200 dark:bg-slate-800"></div>
+                        <span class="text-[7px] font-black uppercase tracking-[0.25em] text-slate-400 dark:text-slate-400">Prepare • Practice • Perform</span>
+                        <div class="h-[1px] w-3 bg-slate-200 dark:bg-slate-800"></div>
+                    </div>
                 </div>
             </a>
-            <div class="flex items-center gap-6">
-                <button onclick="toggleRevisionMode()" class="px-5 py-2.5 bg-slate-900 dark:bg-blue-900/40 dark:text-blue-200 text-[10px] font-black uppercase tracking-wider rounded-xl hover:-translate-y-0.5 transition-all flex items-center gap-2 text-slate-900 dark:text-slate-50">
-                    <span>⚡ Go Distraction-Free</span>
-                </button>
+            
+            <div class="hidden lg:flex items-center gap-8" id="dekstop-nav-menu">
+                <a href="/notes.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse JNTUK Study Notes">Study Notes</a>
+                <a href="/pyqs.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse Previous Year Solved Question Papers">Solved PYQs</a>
+                <a href="/cheat-sheets.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse Chemical and Mathematical Formula Sheets">Cheat Sheets</a>
+                <a href="/tools.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Browse GPA and Credit Calculators">Academic Tools</a>
+                <a href="/tasks.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Manage Study Tasks and Deadlines">Tasks</a>
+                <a href="/blog.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Read Educational Blog and Placement Articles">Academic Blog</a>
             </div>
-        </div>
-    </nav>
+
+            
+            
+            <div class="flex items-center gap-4" id="nav-actions">
+                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <!-- Fallback skeleton, populated directly by platform user context scripts -->
+                <div class="h-10 w-24 bg-slate-100 dark:bg-slate-900 rounded-xl animate-pulse"></div>
+            </div>
+        </nav>
+    </header>
+    <!-- Navbar (Hidden in distraction-free revision mode) -->
+    
 
     <!-- Normal Mode Main Area -->
     <div id="normal-mode-content">
@@ -66,7 +86,7 @@
                 <a href="javascript:history.length > 1 ? history.back() : window.location.href='/dashboard.html'" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#64748b] hover:text-blue-600 transition-all group dark:hover:text-blue-400">
                     <span class="w-8 h-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center shadow-xs group-hover:-translate-x-1 transition-transform">
                         <svg class="w-4 h-4 text-slate-500 group-hover:text-blue-600 transition-colors dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                         </svg>
                     </span>
                     Back to Dashboard
@@ -152,7 +172,7 @@
                          <a href="#rev-sec-1" class="block py-1 hover:text-slate-900 dark:text-slate-50 border-b border-zinc-900/40 text-emerald-400">● 1. C-Programming Strings</a>
                          <a href="#rev-sec-2" class="block py-1 hover:text-slate-900 dark:text-slate-50 border-b border-zinc-900/40">● 2. Linear Algebra Matrices</a>
                          <a href="#rev-sec-3" class="block py-1 hover:text-slate-900 dark:text-slate-50 border-b border-zinc-900/40">● 3. Partial Derivatives</a>
-                         <a href="#rev-sec-4" class="block py-1 hover:text-slate-900 dark:text-slate-50 border-b border-zinc-900/40">● 4. Optics & Diffraction</a>
+                         <a href="#rev-sec-4" class="block py-1 hover:text-slate-900 dark:text-slate-50 border-b border-zinc-900/40">● 4. Optics &amp; Diffraction</a>
                      </div>
                 </nav>
 
@@ -175,7 +195,7 @@
             <section id="rev-sec-1" class="space-y-4 scroll-mt-24 font-mono text-xs">
                 <div class="flex items-center gap-3">
                     <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 1</span>
-                    <h3 class="text-base font-black text-slate-900 dark:text-slate-50">C-Programming: Strings & Pointer Indexes</h3>
+                    <h3 class="text-base font-black text-slate-900 dark:text-slate-50">C-Programming: Strings &amp; Pointer Indexes</h3>
                 </div>
                 <p class="leading-relaxed text-slate-400">Strings in C are simply contiguous arrays of characters backed by a Null-terminator character (\0). Memory locations computed by index displacements:</p>
                 <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono space-y-2">
@@ -193,7 +213,7 @@
             <section id="rev-sec-2" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
                 <div class="flex items-center gap-3">
                     <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 2</span>
-                    <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Linear Algebra: Matrices & Row Echelon Ranks</h3>
+                    <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Linear Algebra: Matrices &amp; Row Echelon Ranks</h3>
                 </div>
                 <p class="leading-relaxed text-slate-400">To calculate Matrix rank, transition array cells into Row Echelon reductions using simple subtraction operations:</p>
                 <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono space-y-1">
@@ -220,7 +240,7 @@
             <section id="rev-sec-4" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
                 <div class="flex items-center gap-3">
                     <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 4</span>
-                    <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Applied Physics: Optics & Grating Diffraction</h3>
+                    <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Applied Physics: Optics &amp; Grating Diffraction</h3>
                 </div>
                 <p class="leading-relaxed text-slate-400">Calculates diffraction grating slit displacement limits mathematically:</p>
                 <div class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 text-slate-300 font-mono">
@@ -407,5 +427,6 @@
 
     </script>
     <script type="module" src="/src/ai-widget.ts"></script>
-</body>
-</html>
+
+
+</body></html>
