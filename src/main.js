@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStudyPlanner();
     updateAuthUI();
     initGamification();
+    initAcademicNavigator();
 });
 
 // Theme Management & Custom Multi-Theme System
@@ -749,5 +750,137 @@ function initGamification() {
                 }
             }
         });
+    });
+}
+
+/**
+ * Universal Academic Navigator Widget
+ * Enables instant breadcrumb backtracking, quick Hub linkage, Dashboard access
+ * and an expandable mini-nav of all academic pages everywhere!
+ */
+function initAcademicNavigator() {
+    if (document.getElementById('academic-navigator')) return;
+
+    const navContainer = document.createElement('div');
+    navContainer.id = 'academic-navigator';
+    navContainer.className = 'fixed bottom-6 right-6 md:right-8 z-[999] flex flex-col items-end gap-3 font-sans print:hidden animate-fade-in-up';
+    
+    navContainer.innerHTML = `
+        <!-- Expandable Menu -->
+        <div id="academic-navigator-menu" class="hidden flex flex-col gap-1.5 bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-850 rounded-2xl p-4 shadow-2xl w-60 transform translate-y-4 opacity-0 transition-all duration-300">
+            <h4 class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-900 pb-2 mb-1.5 flex items-center justify-between">
+                <span>Academic Portal</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+            </h4>
+            
+            <div class="space-y-0.5">
+                <a href="/" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
+                    <span class="text-base select-none">🏠</span>
+                    <span class="flex-1">Academic Hub</span>
+                    <span class="text-[9px] font-mono text-slate-400/90">HOME</span>
+                </a>
+                <a href="/dashboard.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
+                    <span class="text-base select-none">⚡</span>
+                    <span class="flex-1">Student Dashboard</span>
+                    <span class="text-[9px] font-mono text-slate-400/90">DASH</span>
+                </a>
+                <a href="/notes.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
+                    <span class="text-base select-none">📚</span>
+                    <span class="flex-1">Syllabus Notes PDF</span>
+                    <span class="text-[9px] font-mono text-slate-400/90">NOTES</span>
+                </a>
+                <a href="/pyqs.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
+                    <span class="text-base select-none">📝</span>
+                    <span class="flex-1">Solved PYQs Archive</span>
+                    <span class="text-[9px] font-mono text-slate-400/90">PAPERS</span>
+                </a>
+                <a href="/exam-survival.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
+                    <span class="text-base select-none">🔥</span>
+                    <span class="flex-1">Exam Survival Guidance</span>
+                    <span class="text-[9px] font-mono text-slate-400/90">TIPS</span>
+                </a>
+                <a href="/ai-professor.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
+                    <span class="text-base select-none">🤖</span>
+                    <span class="flex-1">AI Professor Advisor</span>
+                    <span class="text-[9px] font-mono text-slate-400/90">CHAT</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Interactive Pill Control -->
+        <div class="flex items-center gap-2 bg-slate-900/95 dark:bg-slate-950/95 hover:bg-slate-900 dark:hover:bg-slate-950 border border-slate-800/80 dark:border-slate-850 rounded-full py-1.5 px-3 shadow-2xl backdrop-blur-md transition-all">
+            <!-- Go Back Button -->
+            <button id="academic-nav-back" style="font-family: inherit" title="Go back to history" class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800/80 hover:bg-slate-750 text-slate-300 hover:text-white transition-all cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            
+            <span class="w-[1px] h-4 bg-slate-800"></span>
+            
+            <!-- Home Hub Button -->
+            <a href="/" title="Go to Home Hub" class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800/80 hover:bg-slate-750 text-slate-300 hover:text-white transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            </a>
+            
+            <span class="w-[1px] h-4 bg-slate-800"></span>
+
+            <!-- Dashboard Button -->
+            <a href="/dashboard.html" title="Go to Dashboard" class="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M16 8v8m-4-5v5m-4-2v2M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12z"></path></svg>
+            </a>
+
+            <span class="w-[1px] h-4 bg-slate-800"></span>
+
+            <!-- Related Pages Menu Toggle -->
+            <button id="academic-nav-menu-toggle" title="Explore Academics Menu" class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-800 hover:bg-slate-750 text-[10px] font-black uppercase text-slate-200 hover:text-white rounded-full transition-all cursor-pointer select-none">
+                <span>Menu</span>
+                <svg id="academic-nav-menu-icon" class="w-2.5 h-2.5 transition-transform duration-350" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+        </div>
+    `;
+
+    document.body.appendChild(navContainer);
+
+    const btnBack = navContainer.querySelector('#academic-nav-back');
+    const toggleMenu = navContainer.querySelector('#academic-nav-menu-toggle');
+    const menuEl = navContainer.querySelector('#academic-navigator-menu');
+    const iconEl = navContainer.querySelector('#academic-nav-menu-icon');
+
+    btnBack.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (window.history.length > 1 && document.referrer) {
+            window.history.back();
+        } else {
+            window.location.href = '/';
+        }
+    });
+
+    toggleMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = !menuEl.classList.contains('hidden');
+        if (isOpen) {
+            menuEl.classList.add('translate-y-4', 'opacity-0');
+            iconEl.classList.remove('rotate-180');
+            setTimeout(() => {
+                menuEl.classList.add('hidden');
+            }, 300);
+        } else {
+            menuEl.classList.remove('hidden');
+            setTimeout(() => {
+                menuEl.classList.remove('translate-y-4', 'opacity-0');
+                iconEl.classList.add('rotate-180');
+            }, 10);
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!navContainer.contains(e.target)) {
+            if (!menuEl.classList.contains('hidden')) {
+                menuEl.classList.add('translate-y-4', 'opacity-0');
+                iconEl.classList.remove('rotate-180');
+                setTimeout(() => {
+                    menuEl.classList.add('hidden');
+                }, 300);
+            }
+        }
     });
 }
