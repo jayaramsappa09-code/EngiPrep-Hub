@@ -1,39 +1,42 @@
 /* ==========================================================================
-   ENGIPREPHUB PREMIUM EDUCATIONAL THEME
-   Content-First • Premium Readability • Calm Engineering Study Workspace
-   Rebuilt from Scratch based on Design Tokens & Pedagogy Requirements
+   ENGIPREPHUB PROFESSIONAL EDUCATIONAL COLOR ARCHITECTURE
+   Designed for High-Focus Study Sessions, Readability, and Eye Comfort
    ========================================================================== */
 
 /* ==========================================================================
-   1️⃣ THEME DEFINITIONS & TOKENS
+   1️⃣ COLOR DESIGN TOKENS (LIGHT & DARK MODES)
    ========================================================================== */
 
-:root, html.theme-light, html:not(.dark):not(.theme-dark):not(.theme-blueprint):not(.theme-focus):not(.theme-exam) {
-  /* Light Mode Design System */
-  --background-color: #FAFAFA;        /* Pristine soft off-white canvas */
-  --background-secondary: #F1F5F9;  /* Soft slate secondary background */
-  --surface-color: #FFFFFF;           /* Elevated white surface */
-  --surface-secondary: #F1F5F9;       /* Calm light slate components */
-  --surface-elevated: #E2E8F0;        /* Hover levels */
-  --soft-card: #F1F5F9;               /* Highlight boxes */
-  
-  --text-main-color: #0F172A;         /* Slate 900 - High contrast display headings */
-  --text-secondary: #475569;          /* Slate 600 - Perfect paragraph reading contrast */
-  --text-muted-color: #64748B;        /* Slate 500 - Secondary captions */
-  --text-disabled-color: #94A3B8;     /* Muted metadata */
-  
-  --border-color: #E2E8F0;            /* Soft slate borders */
-  --divider-color: #E2E8F0;
-  
-  --theme-primary: #2563EB;           /* Academic Royal Blue */
-  --theme-primary-rgb: 37, 99, 235;
-  --theme-accent: #0891B2;            /* Secondary accent teal */
-  
-  --success-color: #059669;
-  --warning-color: #D97706;
-  --error-color: #DC2626;
+:root {
+  /* LIGHT MODE - Crisp, Pristine, and Clear (Stripe & Vercel Inspired) */
+  --background-color: #FAFAFA;          /* Crisp canvas background */
+  --background-secondary: #F8FAFC;      /* Extremely soft off-white secondary canvas */
+  --surface-color: #FFFFFF;             /* Pure white main content container */
+  --surface-secondary: #F1F5F9;         /* Off-white secondary surfaces */
+  --surface-elevated: #E2E8F0;          /* Subtle hover surfaces */
+  --soft-card: #F1F5F9;                 /* Soft highlights */
 
-  /* Formula Block */
+  /* Light Typography (Highest Legibility & Sharpness) */
+  --text-main-color: #0F172A;           /* Slate 900 - Headings */
+  --text-secondary: #334155;            /* Slate 700 - Body & Prose text */
+  --text-muted-color: #64748B;          /* Slate 500 - Captions and subtle text */
+  --text-disabled-color: #94A3B8;       /* Slate 400 - Overlays & disabled state */
+
+  /* Neutral Border & Dividers */
+  --border-color: #E2E8F0;              /* Calm borders */
+  --divider-color: #F1F5F9;
+
+  /* Accent Color System (Soft & Purposeful) */
+  --theme-primary: #2563EB;             /* Vercel Professional Blue */
+  --theme-primary-rgb: 37, 99, 235;
+  --theme-accent: #0891B2;              /* Soft Teal Accent */
+  --theme-accent-rgb: 8, 145, 178;
+
+  --success-color: #059669;             /* Calm green */
+  --warning-color: #D97706;             /* Calm amber */
+  --error-color: #DC2626;               /* Calm red */
+
+  /* Light Formula Block */
   --formula-bg: #F8FAFC;
   --formula-border: #E2E8F0;
   --formula-text: #0F172A;
@@ -43,38 +46,42 @@
   --sidebar-active-border: #2563EB;
   --sidebar-active-text: #1D4ED8;
 
-  /* Typography Pairing */
+  /* Typography Variables */
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* Rebuilt Dark Mode Architecture - Completely free of glowing neon clutter */
+/* 🌙 THE PERFECT DARK MODE - Calm Midnight, Eye-Safe, High Contrast */
 html.dark, html.theme-dark, .dark, .theme-dark {
-  --background-color: #0B1020;        /* Pure solid dark navy midnight */
-  --background-secondary: #111827;    /* Elevated solid secondary shell */
-  --surface-color: #1F2937;           /* Card & Panel Base */
-  --surface-secondary: #273449;       /* Interactive Component Backing */
-  --surface-elevated: #334155;        /* Focused elements & hovers */
+  --background-color: #0B1020;        /* Mid-night Navy Base */
+  --background-secondary: #111827;    /* Slate-midnight secondary background */
+  --surface-color: #1F2937;           /* Card Base (Gray 800) */
+  --surface-secondary: #273449;       /* Gray 700-navy mid-tones */
+  --surface-elevated: #334155;        /* Interactive focused elements */
   --soft-card: #334155;               /* Informational cards */
-  
-  --text-main-color: #F8FAFC;         /* Highest contrast light text */
-  --text-secondary: #CBD5E1;          /* Soft body slate */
-  --text-muted-color: #94A3B8;        /* Calming muted captions */
-  --text-disabled-color: #64748B;     /* Muted labels */
-  
+
+  /* Dark Typography (Perfect high-yield contrast ratio, non-glaring) */
+  --text-main-color: #F8FAFC;         /* Crisp near-white display headers */
+  --text-secondary: #CBD5E1;          /* Comfortable reading slate-gray paragraphs */
+  --text-muted-color: #94A3B8;        /* Soft readability slate */
+  --text-disabled-color: #64748B;     /* Subdued captioning slate */
+
+  /* Neutral Border & Dividers */
   --border-color: rgba(255, 255, 255, 0.08);
-  --divider-color: rgba(255, 255, 255, 0.08);
-  
-  --theme-primary: #3B82F6;           /* Premium Blue Accent */
+  --divider-color: rgba(255, 255, 255, 0.06);
+
+  /* Primary & Accent Systems */
+  --theme-primary: #3B82F6;           /* Professional Blue Accent */
   --theme-primary-rgb: 59, 130, 246;
-  --theme-accent: #06B6D4;            /* Soft Cyan Accent */
-  
+  --theme-accent: #06B6D4;            /* Soft Muted Cyan */
+  --theme-accent-rgb: 6, 182, 212;
+
   --success-color: #10B981;
   --warning-color: #F59E0B;
   --error-color: #EF4444;
 
-  /* Formula Block */
+  /* Dark Formula Block */
   --formula-bg: rgba(15, 23, 42, 0.92);
   --formula-border: rgba(59, 130, 246, 0.18);
   --formula-text: #F8FAFC;
@@ -86,178 +93,221 @@ html.dark, html.theme-dark, .dark, .theme-dark {
 }
 
 /* ==========================================================================
-   2️⃣ GLOBAL BASE RE-ARCHITECTING (FORCE-STRIP CYBERPUNK/NEON AGGRESSION)
+   2️⃣ SUBJECT SPECIFIC OVERRIDES - REBUILT WITHOUT NEON/GLOW EXCESS
    ========================================================================== */
 
-/* Standard layout forces */
-body {
-  background-color: var(--background-color) !important;
-  color: var(--text-secondary) !important;
-  font-family: var(--font-sans) !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.625;
+/* physics */
+[data-subject-theme="physics"] {
+  --theme-primary: #3B82F6;
+  --theme-primary-rgb: 59, 130, 246;
+  --theme-accent: #60A5FA;
+  --sidebar-active-bg: rgba(59, 130, 246, 0.1);
+  --sidebar-active-border: #3B82F6;
+  --sidebar-active-text: var(--text-main-color);
 }
 
-/* Unify typography strictly */
-h1, h2, h3, h4, h5, h6, 
-.font-display, 
-[class*="font-sans font-bold"],
-[class*="font-semibold"]:not(p):not(li):not(span) {
-  font-family: var(--font-display) !important;
+/* mathematics */
+[data-subject-theme="mathematics"] {
+  --theme-primary: #8B5CF6;
+  --theme-primary-rgb: 139, 92, 246;
+  --theme-accent: #A78BFA;
+  --sidebar-active-bg: rgba(139, 92, 246, 0.1);
+  --sidebar-active-border: #8B5CF6;
+  --sidebar-active-text: var(--text-main-color);
+}
+
+/* chemistry */
+[data-subject-theme="chemistry"] {
+  --theme-primary: #10B981;
+  --theme-primary-rgb: 16, 185, 129;
+  --theme-accent: #34D399;
+  --sidebar-active-bg: rgba(16, 185, 129, 0.1);
+  --sidebar-active-border: #10B981;
+  --sidebar-active-text: var(--text-main-color);
+}
+
+/* english */
+[data-subject-theme="english"] {
+  --theme-primary: #F59E0B;
+  --theme-primary-rgb: 245, 158, 11;
+  --theme-accent: #FBBF24;
+  --sidebar-active-bg: rgba(245, 158, 11, 0.1);
+  --sidebar-active-border: #F59E0B;
+  --sidebar-active-text: var(--text-main-color);
+}
+
+/* programming */
+[data-subject-theme="programming"] {
+  --theme-primary: #10B981;
+  --theme-primary-rgb: 16, 185, 129;
+  --theme-accent: #34D399;
+  --sidebar-active-bg: rgba(16, 185, 129, 0.1);
+  --sidebar-active-border: #10B981;
+  --sidebar-active-text: var(--text-main-color);
+}
+
+/* beee */
+[data-subject-theme="beee"] {
+  --theme-primary: #F97316;
+  --theme-primary-rgb: 249, 115, 22;
+  --theme-accent: #FDBA74;
+  --sidebar-active-bg: rgba(249, 115, 22, 0.1);
+  --sidebar-active-border: #F97316;
+  --sidebar-active-text: var(--text-main-color);
+}
+
+/* graphics */
+[data-subject-theme="graphics"] {
+  --theme-primary: #06B6D4;
+  --theme-primary-rgb: 6, 182, 212;
+  --theme-accent: #67E8F9;
+  --sidebar-active-bg: rgba(6, 182, 212, 0.1);
+  --sidebar-active-border: #06B6D4;
+  --sidebar-active-text: var(--text-main-color);
+}
+
+/* civil-mechanical */
+[data-subject-theme="civil-mechanical"] {
+  --theme-primary: #0EA5E9;
+  --theme-primary-rgb: 14, 165, 233;
+  --theme-accent: #38BDF8;
+  --sidebar-active-bg: rgba(14, 165, 233, 0.1);
+  --sidebar-active-border: #0EA5E9;
+  --sidebar-active-text: var(--text-main-color);
+}
+
+/* ==========================================================================
+   3️⃣ GLOBAL SANITIZATION & SYSTEM-WIDE READABILITY ENFORCEMENTS
+   ========================================================================== */
+
+/* Direct Text Color Overrides to guarantee contrast remains green-lit for AdSense/SEO */
+p, li {
+  color: var(--text-secondary) !important;
+  opacity: 1 !important; /* Force high contrast reading */
+  font-family: var(--font-sans) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
   color: var(--text-main-color) !important;
+  font-family: var(--font-display) !important;
   font-weight: 700 !important;
-  letter-spacing: -0.02em !important;
-  text-shadow: none !important; /* Eliminate all bright neon glowing word effects */
+  text-shadow: none !important; /* Strip all unrequested glowing text shadow effects */
   opacity: 1 !important;
 }
 
-p, li, span:not(.font-mono):not(.theme-dot):not(.subject-pill) {
-  font-family: var(--font-sans) !important;
-  color: var(--text-secondary) !important;
-  opacity: 1 !important; /* Force high body legibility under long sessions */
-  line-height: 1.7 !important;
-}
-
-/* Force premium, high-contrast readable states for common utility classes */
-.text-slate-400, .text-slate-500, .text-gray-400, .text-gray-500,
-.dark .text-slate-400, .dark .text-slate-500, .dark .text-gray-400, .dark .text-gray-500,
-[class*="opacity-40"], [class*="opacity-50"], [class*="opacity-60"],
-.text-opacity-60, .text-opacity-50, .text-opacity-40 {
-  color: var(--text-secondary) !important;
-  opacity: 1 !important;
-}
-
-/* Clean cards & panel definitions - No glowing overlays, borders or shadow explosions */
-.glass-card, .bento-card, .cardBlock, .card,
-[class*="bg-slate-900/80"], [class*="bg-slate-950/80"], [class*="bg-slate-900/60"] {
+/* Clean cards and panel boxes across the board */
+.glass-card, .bento-card, .cardBlock, .card {
   background-color: var(--surface-color) !important;
-  background-image: none !important;
   border: 1px solid var(--border-color) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important; /* Calm soft gray shadow */
   text-shadow: none !important;
-  border-radius: 16px !important;
-  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease !important;
+  background-image: none !important; /* Kill nested decorative background gradients */
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 .glass-card:hover, .bento-card:hover, .cardBlock:hover, .card:hover {
   border-color: rgba(var(--theme-primary-rgb), 0.3) !important;
   background-color: var(--surface-secondary) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Force high visibility anchors inside contents */
-p a, li a {
-  color: var(--theme-primary) !important;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  opacity: 1 !important;
+/* Eliminate glowing components, text gradients, glowing borders */
+[class*="shadow-[0_0_"], [class*="box-shadow: 0 0 "], [class*="neon-glow"] {
+  box-shadow: none !important;
 }
-p a:hover, li a:hover {
-  filter: brightness(1.15);
+
+[class*="text-shadow: 0 0 "], [class*="glowing-text"] {
+  text-shadow: none !important;
+}
+
+[class*="border-cyan-500"], [class*="border-cyan-400"] {
+  border-color: var(--border-color) !important;
 }
 
 /* ==========================================================================
-   3️⃣ FORMULA & CODE VISIBILITY SYSTEM (POP CLEARLY WITHOUT BLUR)
-   ========================================================================= */
-
+   4️⃣ PERFECT FORMULA BLOCK DISPLAY
+   ========================================================================== */
 .formula-block-modern, 
 .formula,
 pre.formula,
 .formula-highlight,
 .latex-formula,
-[class*="bg-slate-950"].p-6 {
+[class*="bg-slate-950"].p-6,
+.math-block {
   background-color: var(--formula-bg) !important;
   border: 1px solid var(--formula-border) !important;
   color: var(--formula-text) !important;
-  line-height: 1.75 !important;
+  line-height: 1.76 !important;
   font-weight: 600 !important;
   font-family: var(--font-mono) !important;
   padding: 1.25rem 1.75rem !important;
   border-radius: 12px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important; /* Strip aggressive cyber glowing rays */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important; /* Subtle shadows only, no neon glow */
   text-shadow: none !important;
   margin: 1.25rem 0 !important;
   overflow-x: auto;
 }
 
-code, kbd, pre, samp {
-  font-family: var(--font-mono) !important;
-}
-
-/* Inline mini-formulas */
-p code, li code {
+/* Mini Inline Formulas */
+p code, li code, span code {
   background-color: var(--formula-bg) !important;
   border: 1px solid var(--formula-border) !important;
   color: var(--formula-text) !important;
   padding: 0.15rem 0.4rem !important;
   border-radius: 6px !important;
-  font-size: 0.9em !important;
-  font-weight: 500 !important;
+  font-size: 0.92em !important;
+  font-weight: 600 !important;
 }
 
 /* ==========================================================================
-   4️⃣ TOC & SIDEBAR HIGH-FIDELITY LAYOUT (NOTION & VERCEL INSPIRATION)
+   5️⃣ NAVIGATION & ACTIVE COMPONENT RE-VISIBILITY
    ========================================================================== */
 
-.toc-link, .sidebar-link, .nav-link,
-[class*="sidebar-link"], [class*="toc-link"] {
+/* Active link logic */
+.toc-link, .sidebar-link, .nav-link {
   color: var(--text-secondary) !important;
   font-family: var(--font-sans) !important;
   opacity: 1 !important;
-  font-size: 0.925rem !important;
-  font-weight: 500 !important;
-  padding: 0.5rem 0.75rem !important;
-  border-radius: 8px !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all 0.2s ease !important;
 }
 
 .toc-link:hover, .sidebar-link:hover, .nav-link:hover {
   color: var(--text-main-color) !important;
   background-color: var(--surface-secondary) !important;
-  padding-left: 0.65rem !important;
 }
 
-.sidebar-item-active, .toc-active-item, .toc-link.active, .sidebar-link.active,
-[class*="toc-active-item"], [class*="sidebar-item-active"] {
+.sidebar-item-active, .toc-active-item, .toc-link.active, .sidebar-link.active {
   background-color: var(--sidebar-active-bg) !important;
   border-left: 3px solid var(--sidebar-active-border) !important;
   color: var(--sidebar-active-text) !important;
   font-family: var(--font-sans) !important;
+  padding-left: 12px !important;
   font-weight: 600 !important;
-  padding-left: 0.85rem !important;
-  border-radius: 0 8px 8px 0 !important;
 }
 
-/* ==========================================================================
-   5️⃣ ADDITIONAL ACCENTS & BUTTON SANITIZATION
-   ========================================================================== */
-
-/* Force clean action items and practice buttons */
-button, .btn {
-  font-family: var(--font-sans) !important;
-}
-
-.option-btn, .quiz-option {
+/* High Fidelity Table Readability */
+table {
   background-color: var(--surface-color) !important;
-  border: 1.5px solid var(--border-color) !important;
+  border-collapse: collapse !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+th {
+  background-color: var(--surface-secondary) !important;
+  color: var(--text-main-color) !important;
+  border: 1px solid var(--border-color) !important;
+  font-weight: 600 !important;
+  padding: 12px 16px !important;
+}
+
+td {
+  border: 1px solid var(--border-color) !important;
   color: var(--text-secondary) !important;
-  padding: 1rem 1.25rem !important;
-  border-radius: 12px !important;
-  text-align: left !important;
-  font-weight: 500 !important;
-  transition: all 0.2s ease !important;
+  padding: 12px 16px !important;
 }
 
-.option-btn:hover, .quiz-option:hover {
-  border-color: var(--theme-primary) !important;
-  background-color: var(--sidebar-active-bg) !important;
-  color: var(--sidebar-active-text) !important;
-}
-
-/* Badges and academic pills */
+/* Clean Badges & Pills */
 .badge, .subject-pill, .pill {
   background-color: var(--sidebar-active-bg) !important;
   border: 1px solid var(--border-color) !important;
@@ -265,11 +315,4 @@ button, .btn {
   font-size: 0.775rem !important;
   font-weight: 600 !important;
   text-shadow: none !important;
-}
-
-/* Remove giant glowing neon-pulse circles and cyberpunk circles from visual elements */
-svg circle.animate-pulse, svg circle.animate-ping, .pulse-ring {
-  animation: none !important;
-  opacity: 0.15 !important;
-  stroke: var(--theme-primary) !important;
 }
