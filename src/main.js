@@ -772,29 +772,6 @@ function initMobileMenu() {
     const nav = document.querySelector('nav');
     if (!nav) return;
 
-    // Check if we already have a desktop navigation menu
-    let desktopMenu = document.getElementById('desktop-nav-menu') || document.getElementById('dekstop-nav-menu');
-    if (!desktopMenu) {
-        // Find logo link
-        const logoLink = nav.querySelector('a[href="/"]') || nav.querySelector('a');
-        if (logoLink) {
-            desktopMenu = document.createElement('div');
-            desktopMenu.id = 'desktop-nav-menu';
-            desktopMenu.className = 'hidden lg:flex items-center gap-8 mx-auto px-6 whitespace-nowrap';
-            desktopMenu.innerHTML = `
-                <a href="/notes.html" class="nav-link text-[10px] font-extrabold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">📚 Notes</a>
-                <a href="/pyqs.html" class="nav-link text-[10px] font-extrabold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">📝 PYQs</a>
-                <a href="/cheat-sheets.html" class="nav-link text-[10px] font-extrabold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">⚡ Cheat Sheets</a>
-                <a href="/exam-survival.html" class="nav-link text-[10px] font-extrabold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">🔥 Exam Prep</a>
-                <a href="/tools.html" class="nav-link text-[10px] font-extrabold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">🛠 Tools</a>
-                <a href="/blog.html" class="nav-link text-[10px] font-extrabold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">✍️ Blog</a>
-                <a href="/dashboard.html" class="nav-link text-[10px] font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Dashboard</a>
-            `;
-            // Insert it after the logo
-            logoLink.parentNode.insertBefore(desktopMenu, logoLink.nextSibling);
-        }
-    }
-
     // Check if we already have the button
     let menuBtn = document.getElementById('mobile-menu-btn');
     let mobileMenu = document.getElementById('mobile-menu');
