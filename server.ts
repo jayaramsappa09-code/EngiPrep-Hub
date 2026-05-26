@@ -27,7 +27,7 @@ const formLimiter = rateLimit({
 const storage = multer.memoryStorage();
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB limit
 
-const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+const fileFilter = (req: any, file: any, cb: any) => {
   const allowedMimeTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'image/webp', 'text/plain'];
   const dangerousExts = ['.exe', '.bat', '.js', '.sh', '.html', '.php', '.py'];
   
@@ -152,7 +152,6 @@ app.post('/api/notes/parse', upload.single('file'), async (req: any, res) => {
       return res.status(400).json({ error: 'Unsupported file format' });
     }
 
-    fs.unlinkSync(filePath); // Clean up
     res.json({ content });
   } catch (error: any) {
     console.error('File parsing error:', error);

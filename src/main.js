@@ -588,41 +588,39 @@ function initCookieConsent() {
     // Create the HTML representation
     const consentDiv = document.createElement('div');
     consentDiv.id = 'cookie-consent-banner';
-    consentDiv.className = 'fixed bottom-6 right-6 z-[9999] p-6 rounded-3xl shadow-2xl transition-all duration-300 transform translate-y-0 opacity-100 border border-slate-100 max-w-sm';
-    consentDiv.style.backgroundColor = '#FFFFFF';
-    consentDiv.style.color = '#0F172A';
+    consentDiv.className = 'fixed bottom-6 right-6 z-[9999] p-6 rounded-3xl shadow-2xl transition-all duration-300 transform translate-y-0 opacity-100 border border-slate-200 dark:border-slate-800 max-w-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100';
 
     consentDiv.innerHTML = `
         <div class="flex flex-col gap-4">
-            <h4 class="text-sm font-black text-[#0F172A] tracking-tight">We Value Your Privacy 🍪</h4>
-            <p class="text-[13px] text-[#475569] leading-relaxed">
-                We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies as described in our <a href="/cookie-policy.html" target="_blank" class="text-[#2563EB] hover:underline font-medium">Privacy Policy</a> and <a href="/cookie-policy.html" target="_blank" class="text-[#2563EB] hover:underline font-medium">Cookie Policy</a>.
+            <h4 class="text-sm font-black text-slate-900 dark:text-white tracking-tight">We Value Your Privacy 🍪</h4>
+            <p class="text-[13px] text-slate-600 dark:text-slate-350 leading-relaxed">
+                We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies as described in our <a href="/cookie-policy.html" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">Privacy Policy</a> and <a href="/cookie-policy.html" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">Cookie Policy</a>.
             </p>
 
             <!-- Preferences Panel -->
-            <div id="cookie-prefs-panel" class="hidden flex-col gap-2 p-4 rounded-2xl text-[12px] bg-[#F1F5F9] border border-[#E2E8F0]">
+            <div id="cookie-prefs-panel" class="hidden flex-col gap-2 p-4 rounded-2xl text-[12px] bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-850">
                 <label class="flex items-center justify-between cursor-pointer">
-                    <span class="font-semibold text-[#0F172A]">Strictly Necessary</span>
-                    <input type="checkbox" disabled checked class="accent-[#2563EB]">
+                    <span class="font-semibold text-slate-805 dark:text-slate-200">Strictly Necessary</span>
+                    <input type="checkbox" disabled checked class="accent-blue-600 dark:accent-blue-500">
                 </label>
                 <label class="flex items-center justify-between cursor-pointer">
-                    <span class="text-[#475569]">Analytics & Performance</span>
-                    <input type="checkbox" id="cookie-pref-analytics" checked class="accent-[#2563EB]">
+                    <span class="text-slate-600 dark:text-slate-350">Analytics & Performance</span>
+                    <input type="checkbox" id="cookie-pref-analytics" checked class="accent-blue-600 dark:accent-blue-500">
                 </label>
                 <label class="flex items-center justify-between cursor-pointer">
-                    <span class="text-[#475569]">Google AdSense</span>
-                    <input type="checkbox" id="cookie-pref-adsense" checked class="accent-[#2563EB]">
+                    <span class="text-slate-600 dark:text-slate-350">Google AdSense</span>
+                    <input type="checkbox" id="cookie-pref-adsense" checked class="accent-blue-600 dark:accent-blue-500">
                 </label>
             </div>
 
             <div class="flex flex-wrap items-center gap-2 text-xs">
-                <button id="cookie-btn-accept" class="px-5 py-2.5 font-bold text-white rounded-xl transition-all bg-[#2563EB] hover:bg-[#1D4ED8]">
+                <button id="cookie-btn-accept" class="px-5 py-2.5 font-bold text-white rounded-xl transition-all bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 shadow-md shadow-blue-500/10">
                     Accept All
                 </button>
-                <button id="cookie-btn-reject" class="px-5 py-2.5 font-semibold text-[#475569] border border-[#E2E8F0] rounded-xl hover:bg-[#F1F5F9]">
+                <button id="cookie-btn-reject" class="px-5 py-2.5 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800">
                     Reject All
                 </button>
-                <button id="cookie-btn-manage" class="px-4 py-2.5 font-semibold text-[#64748B] hover:text-[#0F172A]">
+                <button id="cookie-btn-manage" class="px-4 py-2.5 font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
                     Customize
                 </button>
             </div>
