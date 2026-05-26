@@ -234,7 +234,8 @@ htmlFiles.forEach(file => {
 
     // 5.5 Inject Footer and Author Box
     const footer = `
-<footer class="bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+<!-- EngiPrepHubFooter -->
+<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
   <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
     <a href="/about.html" class="hover:text-white">About</a>
     <a href="/contact.html" class="hover:text-white">Contact</a>
@@ -246,7 +247,16 @@ htmlFiles.forEach(file => {
   <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
 </footer>
 `;
+    // Remove ALL previously injected footers and AuthorBoxes to start fresh.
+    content = content.replace(/<!-- EngiPrepHubFooter -->[\s\S]*?<\/footer>/g, '');
+    content = content.replace(/<!-- EngiPrepAuthorBox -->[\s\S]*?<\/section>/g, '');
+    
+    // Clean up any remaining comments from previous failed attempts
+    content = content.replace(/<!-- EngiPrepHubFooter -->/g, '');
+    content = content.replace(/<!-- EngiPrepAuthorBox -->/g, '');
+    
     const authorBox = `
+<!-- EngiPrepAuthorBox -->
 <section class="max-w-4xl mx-auto my-16 p-8 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center gap-6">
   <img src="/public/logo.png" alt="EngiPrepHub Logo" class="w-20 h-20 rounded-full border border-slate-700">
   <div>
@@ -258,15 +268,16 @@ htmlFiles.forEach(file => {
 
     if (content.includes('</body>')) {
         let enhancedContent = content;
-        if (!content.includes('<!-- Footer -->')) {
-             enhancedContent = enhancedContent.replace('</body>', `\n${footer}\n</body>`);
-             modified = true;
+        
+        // Inject AuthorBox if it's a notes page
+        if (isNotes) {
+             enhancedContent = enhancedContent.replace('</body>', `\n${authorBox}\n</body>`);
         }
-        if (isNotes && !content.includes('<!-- AuthorBox -->')) {
-             enhancedContent = enhancedContent.replace(footer, `\n<!-- AuthorBox -->\n${authorBox}\n${footer}`);
-             modified = true;
-        }
+        // Always inject footer
+        enhancedContent = enhancedContent.replace('</body>', `\n${footer}\n</body>`);
+        
         content = enhancedContent;
+        modified = true;
     }
 
     // 6. Structured Schema: Course block for notes, FAQPage block for pyqs, and EducationalOrganization + webSite for homepage
