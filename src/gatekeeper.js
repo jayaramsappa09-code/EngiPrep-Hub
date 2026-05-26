@@ -48,7 +48,13 @@ export async function enforceAuthentication() {
     ];
     
     const isProtected = protectedPages.some(page => filename === page);
-    const isNotePage = filename.includes('unit-') || filename === 'engineering-graphics-lab.html' || filename.includes('-notes.html');
+    const isNotePage = filename.includes('unit-') || 
+                       filename.includes('-unit') || 
+                       filename === 'engineering-graphics-lab.html' || 
+                       filename.includes('-notes.html') ||
+                       (filename.includes('mathematics') && filename.endsWith('.html')) ||
+                       (filename.includes('physics') && filename.endsWith('.html')) ||
+                       (filename.includes('chemistry') && filename.endsWith('.html'));
     
     const { data: { session } } = await supabase.auth.getSession();
     
