@@ -1,0 +1,104 @@
+/* ==========================================================================
+   ENGIPREPHUB RESPONSIVE LAYOUT SYSTEM
+   Flawless mobile presentation, touch target sizes, offscreen transitions
+   ========================================================================== */
+
+/* Core reset for layout overflow */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden !important;
+}
+
+/* Fluid graphics and elements size controls */
+img, svg, canvas, video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Scroll containers for wide code blocks */
+pre, code {
+  overflow-x: auto !important;
+}
+
+/* Main text viewport sizing adjustments */
+@media (max-width: 1024px) {
+  .notes-layout, .notes-container {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Slide out drawer design instead of hard-hiding if it's open */
+  .sidebar {
+    transform: translateX(-100%) !important;
+    position: fixed !important;
+    z-index: 1000 !important;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0) !important;
+  }
+  
+  .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .notes-layout, .notes-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidebar {
+    display: none !important; /* Hide sidebar list strictly as requested */
+  }
+  
+  /* Force display on open */
+  .sidebar.open {
+    display: flex !important;
+    transform: translateX(0) !important;
+    position: fixed !important;
+    width: 300px !important;
+  }
+
+  .notes-section, .section-block, .notes-container .section-block {
+    padding: 24px !important;
+    border-radius: 18px !important;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.6rem !important;
+  }
+
+  h3 {
+    font-size: 1.35rem !important;
+  }
+  
+  /* Grid conversions for smaller displays */
+  .code-explain-grid, .complexity-card, .info-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  .main-content {
+    min-width: 0 !important;
+  }
+}
+
+/* Ensure absolute padding balance on small mobile screens */
+@media (max-width: 480px) {
+  .notes-section, .section-block {
+    padding: 16px !important;
+    border-radius: 12px !important;
+  }
+  
+  .content-area, .unit-hero {
+    padding: 1rem !important;
+  }
+}

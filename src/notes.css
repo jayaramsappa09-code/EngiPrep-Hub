@@ -1,0 +1,137 @@
+/* ==========================================================================
+   ENGIPREPHUB NOTES & DOCUMENTATION PAGES STYLING
+   Vercel & Stripe Docs Inspired Layout
+   ========================================================================== */
+
+/* Notes containers */
+.notes-container, .notes-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding: 0 1.5rem !important;
+  width: 100% !important;
+}
+
+/* On pages without sidebars or general layout support */
+.notes-content {
+  max-width: 760px !important;
+  width: 100% !important;
+}
+
+/* Individual expandable or plain note sections */
+.notes-section, .section-block {
+  background: var(--surface-primary) !important;
+  border: 1px solid var(--border-primary) !important;
+  border-radius: 24px !important;
+  padding: 3rem !important; /* 48px */
+  margin-bottom: 2rem !important;
+  box-shadow: var(--shadow-soft) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.notes-section:hover, .section-block:hover {
+  border-color: var(--border-secondary) !important;
+  box-shadow: var(--shadow-medium) !important;
+}
+
+/* Content Area margins within notes */
+.content-area {
+  max-width: 760px !important;
+  margin: 0 auto !important;
+}
+
+/* Header within note blocks */
+.section-header {
+  border-bottom: 1px solid var(--border-primary) !important;
+  padding: 1.5rem 0 !important;
+  margin-bottom: 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.section-body {
+  padding: 0 !important;
+}
+
+/* ── FORMULA & MATHEMATICAL BLOCKS ── */
+.formula-block, .formula, .math-block, .formula-block-modern {
+  background: #0F172A !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  border-radius: 18px !important;
+  padding: 24px !important;
+  overflow-x: auto !important;
+  margin: 1.5rem 0 !important;
+  color: #F8FAFC !important;
+  font-family: var(--font-mono) !important;
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
+}
+
+.latex-formula, .math-display {
+  display: block;
+  text-align: center;
+  padding: 1rem;
+  background: var(--surface-secondary);
+  border-radius: 12px;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+/* Inline formula definitions */
+p code, li code, pre code:not(pre code) {
+  padding: 2px 6px !important;
+  background: var(--surface-secondary) !important;
+  border: 1px solid var(--border-primary) !important;
+  border-radius: 6px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.9em !important;
+  color: var(--accent-primary) !important;
+}
+
+/* High-yield alerts and boxes */
+.high-yield, .alert {
+  border-radius: 18px !important;
+  padding: 1.5rem !important;
+  margin: 1.5rem 0 !important;
+  border: 1px solid var(--border-primary) !important;
+  background: var(--surface-secondary) !important;
+}
+
+.high-yield {
+  border-left: 4px solid var(--accent-primary) !important;
+}
+
+.alert-error {
+  border-left: 4px solid var(--danger) !important;
+  background: rgba(239, 68, 68, 0.05) !important;
+  color: var(--text-primary) !important;
+}
+
+.alert-tip {
+  border-left: 4px solid var(--success) !important;
+  background: rgba(16, 185, 129, 0.05) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Multi-column items */
+.code-explain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* Diagrams constraint sizes */
+.diagram-container, .hero-graphic, .canvas-wrapper {
+  overflow: hidden !important;
+  max-width: 100% !important;
+  border-radius: 18px;
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-primary);
+  margin: 1.5rem 0;
+}
