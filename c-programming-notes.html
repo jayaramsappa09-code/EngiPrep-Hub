@@ -1131,6 +1131,47 @@ pre {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── PORTAL NAVIGATION STYLES ── */
+.portal-nav {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+.portal-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.5rem;
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 3.5px solid transparent;
+}
+.portal-link:hover {
+  background: var(--secondary-card);
+  color: var(--accent);
+  border-left-color: var(--accent);
+  padding-left: 1.7rem;
+}
+.portal-link-icon-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.portal-link-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.portal-link:hover .portal-link-badge {
+  color: var(--accent);
+}
 </style>
 
     
@@ -1195,6 +1236,47 @@ pre {
       <span class="unit-num" style="background:rgba(239,68,68,0.15);color:#ef4444">⚡</span> Quick Revision
     </button>
   </nav>
+
+  <!-- Premium Academic Portal Quick Links -->
+  <div class="portal-nav">
+    <div class="unit-nav-title">Academic Portal</div>
+    <a href="/" class="portal-link">
+      <div class="portal-link-icon-wrap"><span>🏠</span> Academic Hub</div>
+      <span class="portal-link-badge">HOME</span>
+    </a>
+    <a href="/dashboard.html" class="portal-link">
+      <div class="portal-link-icon-wrap"><span>⚡</span> Student Dashboard</div>
+      <span class="portal-link-badge">DASH</span>
+    </a>
+    <a href="/notes.html" class="portal-link">
+      <div class="portal-link-icon-wrap"><span>📚</span> Notes Catalog</div>
+      <span class="portal-link-badge">NOTES</span>
+    </a>
+    <a href="/pyqs.html" class="portal-link">
+      <div class="portal-link-icon-wrap"><span>📝</span> Solved PYQs</div>
+      <span class="portal-link-badge">PAPERS</span>
+    </a>
+    <a href="/cheat-sheets.html" class="portal-link">
+      <div class="portal-link-icon-wrap"><span>📋</span> Cheat Sheets</div>
+      <span class="portal-link-badge">LIST</span>
+    </a>
+    <a href="/exam-survival.html" class="portal-link">
+      <div class="portal-link-icon-wrap"><span>🔥</span> Exam Survival</div>
+      <span class="portal-link-badge">TIPS</span>
+    </a>
+    <a href="/tools.html" class="portal-link">
+      <div class="portal-link-icon-wrap"><span>🛠</span> Academic Tools</div>
+      <span class="portal-link-badge">TOOLS</span>
+    </a>
+    <a href="/blog.html" class="portal-link">
+      <div class="portal-link-icon-wrap"><span>✍️</span> Academic Blog</div>
+      <span class="portal-link-badge">BLOG</span>
+    </a>
+    <a href="/ai-professor.html" class="portal-link">
+      <div class="portal-link-icon-wrap"><span>🤖</span> AI Professor</div>
+      <span class="portal-link-badge">CHAT</span>
+    </a>
+  </div>
   
   <!-- Sticky Table of Contents inside Left Sidebar (Premium Layout) -->
   <div class="toc-card">

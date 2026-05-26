@@ -1135,9 +1135,24 @@ function initAcademicNavigator() {
 
     document.body.appendChild(navContainer);
 
+    // Highlight active link in the Academic Portal Menu
+    const currentPath = window.location.pathname;
+    const menuEl = navContainer.querySelector('#academic-navigator-menu');
+    const portalLinks = menuEl.querySelectorAll('a');
+    portalLinks.forEach(link => {
+        const hrefAttr = link.getAttribute('href');
+        if (hrefAttr) {
+            const isMatch = (hrefAttr === '/' && currentPath === '/') || 
+                            (hrefAttr !== '/' && (currentPath === hrefAttr || currentPath.startsWith(hrefAttr + '?') || currentPath.endsWith(hrefAttr)));
+            if (isMatch) {
+                link.classList.add('bg-blue-50/80', 'dark:bg-blue-950/20', 'text-blue-600', 'dark:text-blue-400', 'border-l-2', 'border-blue-600');
+                link.classList.remove('text-slate-700', 'dark:text-slate-300');
+            }
+        }
+    });
+
     const btnBack = navContainer.querySelector('#academic-nav-back');
     const toggleMenu = navContainer.querySelector('#academic-nav-menu-toggle');
-    const menuEl = navContainer.querySelector('#academic-navigator-menu');
     const iconEl = navContainer.querySelector('#academic-nav-menu-icon');
 
     btnBack.addEventListener('click', (e) => {
