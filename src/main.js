@@ -768,6 +768,131 @@ function showNotification(msg) {
 }
 
 function initMobileMenu() {
+    // Inject custom premium quick-links styles if not already injected
+    if (!document.getElementById('quick-links-styles')) {
+        const styles = `
+            .quick-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 16px;
+                padding: 0 1.25rem 1.25rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .quick-link {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 14px;
+                border-radius: 14px;
+                background: #F8FAFC;
+                border: 1px solid #E2E8F0;
+                color: #334155;
+                text-decoration: none !important;
+                font-family: 'Inter', system-ui, -apple-system, sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                letter-spacing: -0.01em;
+                transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+                cursor: pointer;
+                line-height: 1.2;
+                box-sizing: border-box;
+            }
+
+            .quick-link:hover {
+                background: #EFF6FF !important;
+                border-color: #BFDBFE !important;
+                color: #2563EB !important;
+                transform: translateY(-1px);
+            }
+
+            .quick-link.active, .quick-link:active {
+                background: #DBEAFE !important;
+                color: #1D4ED8 !important;
+                border-color: #BFDBFE !important;
+            }
+
+            .quick-link-icon {
+                width: 16px;
+                height: 16px;
+                stroke: currentColor;
+                stroke-width: 2.2;
+                fill: none;
+                flex-shrink: 0;
+            }
+
+            /* Dark Mode overrides */
+            body.dark-mode .quick-link, 
+            .dark .quick-link,
+            [data-theme="dark"] .quick-link,
+            body.exam-mode .quick-link { /* Ensure consistency across custom modes */
+                background: #111827;
+                border-color: #1F2937;
+                color: #9CA3AF;
+            }
+
+            body.dark-mode .quick-link:hover, 
+            .dark .quick-link:hover,
+            [data-theme="dark"] .quick-link:hover,
+            body.exam-mode .quick-link:hover {
+                background: #1E3A8A !important;
+                border-color: #2563EB !important;
+                color: #38BDF8 !important;
+            }
+
+            body.dark-mode .quick-link.active, 
+            .dark .quick-link.active,
+            [data-theme="dark"] .quick-link.active,
+            body.exam-mode .quick-link.active {
+                background: #1E40AF !important;
+                color: #60A5FA !important;
+                border-color: #2563EB !important;
+            }
+
+            /* Structure & hiding behavior for mobileMenu when appended to unit-nav */
+            #mobile-menu {
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+
+            @media (min-width: 1024px) {
+                .unit-nav #mobile-menu,
+                .sidebar #mobile-menu,
+                aside #mobile-menu {
+                    display: block !important;
+                    position: static !important;
+                    padding: 0 !important;
+                    margin-top: 16px !important;
+                    background: transparent !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+            }
+
+            @media (max-width: 767px) {
+                .quick-links {
+                    display: grid !important;
+                    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                    gap: 8px !important;
+                    padding: 0 1rem 1rem !important;
+                }
+                .quick-link {
+                    justify-content: center !important;
+                    padding: 9px 10px !important;
+                    font-size: 13px !important;
+                    border-radius: 12px !important;
+                }
+            }
+        `;
+        const styleSheet = document.createElement("style");
+        styleSheet.id = "quick-links-styles";
+        styleSheet.innerText = styles;
+        document.head.appendChild(styleSheet);
+    }
+
     // Dynamically inject the mobile menu hamburger button and mobile menu drawer if they aren't already hardcoded in the DOM.
     const nav = document.querySelector('nav');
     if (!nav) return;
@@ -799,33 +924,44 @@ function initMobileMenu() {
     }
 
     if (!mobileMenu) {
+        const cleanPath = window.location.pathname.split('?')[0].split('#')[0].replace(/^\/|\/$/g, '');
+        const activeClass = (linkPath) => {
+            const cleanLink = linkPath.replace(/^\/|\/$/g, '');
+            return cleanPath === cleanLink ? 'active' : '';
+        };
+
         mobileMenu = document.createElement('div');
         mobileMenu.id = 'mobile-menu';
         mobileMenu.className = 'hidden absolute top-20 left-0 w-full bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-xl z-40 flex flex-col p-6 space-y-3 lg:hidden divide-y divide-border/40';
         mobileMenu.innerHTML = `
-            <div class="flex flex-col space-y-2 pb-3">
-                <a href="/notes.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
-                    📚 Notes
+            <div class="quick-links">
+                <a href="/notes.html" class="quick-link ${activeClass('/notes.html')}">
+                    <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span>Notes</span>
                 </a>
-                <a href="/pyqs.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
-                    📝 PYQs
+                <a href="/pyqs.html" class="quick-link ${activeClass('/pyqs.html')}">
+                    <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    <span>PYQs</span>
                 </a>
-                <a href="/cheat-sheets.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
-                    ⚡ Cheat Sheets
+                <a href="/cheat-sheets.html" class="quick-link ${activeClass('/cheat-sheets.html')}">
+                    <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+                    <span>Cheat Sheets</span>
                 </a>
-                <a href="/exam-survival.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
-                    🔥 Exam Prep
+                <a href="/exam-survival.html" class="quick-link ${activeClass('/exam-survival.html')}">
+                    <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                    <span>Exam Prep</span>
                 </a>
-                <a href="/tools.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
-                    🛠 Tools
+                <a href="/tools.html" class="quick-link ${activeClass('/tools.html')}">
+                    <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.7 6.1-1-1a3 3 0 0 0-4.6 4.3l3 3a3 3 0 0 0 4.1l-1.3 1.3a1 1 0 0 1-1.4 0L11 11.2a1 1 0 0 1 0-1.4l1.3-1.3a1 1 0 0 1 1.4 0l.9.9a1 1 0 0 1 0 1.4l-1.1 1.1"/><path d="m5.2 19 1.4-1.4a1 1 0 0 1 1.4 0l1.1 1.1a1 1 0 0 1 0 1.4L7.7 21.5a1 1 0 0 1-1.4 0l-1.1-1.1a1 1 0 0 1 0-1.4z"/><path d="m12.3 13.7-2.6-2.6m-2.1 6.8 5-5M4.8 14.8l2.5-2.5"/></svg>
+                    <span>Tools</span>
                 </a>
-                <a href="/blog.html" class="px-4 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-50 flex items-center gap-3 transition-colors">
-                    ✍️ Blog
+                <a href="/blog.html" class="quick-link ${activeClass('/blog.html')}">
+                    <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    <span>Blog</span>
                 </a>
-            </div>
-            <div class="pt-3 flex flex-col space-y-3">
-                <a href="/dashboard.html" class="px-4 py-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-widest text-center">
-                    Dashboard
+                <a href="/dashboard.html" class="quick-link ${activeClass('/dashboard.html')}">
+                    <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    <span>Dashboard</span>
                 </a>
             </div>
         `;
