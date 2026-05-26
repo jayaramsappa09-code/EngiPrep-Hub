@@ -1766,11 +1766,13 @@
             }, 4000);
         }
 
-        logoutBtn.addEventListener('click', async () => {
-            if (confirm('Verify: Terminate session?')) {
-                await signOut()
-            }
-        })
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+                if (confirm('Verify: Terminate session?')) {
+                    await signOut()
+                }
+            })
+        }
 
         // Active State Restorer on DOM loads
         if(localStorage.getItem('panic-mode') === 'active') {

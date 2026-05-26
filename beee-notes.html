@@ -3,708 +3,2374 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Beee Notes JNTUK R23 Notes | Engi Prep Hub</title>
-
-    <link rel="canonical" href="https://engiprephub.in/beee-notes">
-    <meta property="og:title" content="Premium Beee Notes JNTUK R23 Notes | Engi Prep Hub">
-    <meta property="og:description" content="Access Beee Notes JNTUK R23 notes, PYQs, formulas, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal.">
-    <meta property="og:url" content="https://engiprephub.in/beee-notes">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Engi Prep Hub">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Premium Beee Notes JNTUK R23 Notes | Engi Prep Hub">
-    <meta name="twitter:description" content="Access Beee Notes JNTUK R23 notes, PYQs, formulas, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal.">
-
-    <meta name="description" content="Access Beee Notes JNTUK R23 notes, PYQs, formulas, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal.">
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    <link rel="stylesheet" href="/src/style.css">
-    <script>
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
+    <title>BEEE - Engi Prep Hub | JNTUK R23</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Circuit Grid & Glowing Glassmorphism */
-        .glass-panel {
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(226, 232, 240, 0.5);
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #07091a;
+            --bg-secondary: #0d1128;
+            --bg-card: rgba(20, 25, 55, 0.7);
+            --text-primary: #e8eaf6;
+            --text-secondary: #9fa8c5;
+            --accent-blue: #00d4ff;
+            --accent-purple: #a855f7;
+            --accent-green: #00ffa3;
+            --accent-orange: #ff7043;
+            --accent-yellow: #ffd600;
+            --glass-bg: rgba(255,255,255,0.04);
+            --glass-border: rgba(255,255,255,0.09);
         }
-        .dark .glass-panel {
-            background-color: rgba(15, 23, 42, 0.65);
-            border: 1px solid rgba(245, 158, 11, 0.2); /* Amber border */
-            background-image: 
-                linear-gradient(rgba(245, 158, 11, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(245, 158, 11, 0.04) 1px, transparent 1px);
-            background-size: 20px 20px;
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        .glass-panel:hover {
-            border-color: rgba(245, 158, 11, 0.3);
-            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.1), 0 4px 6px -4px rgba(245, 158, 11, 0.05);
+        /* ── Background ── */
+        .bg-animation { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+        .bg-orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.18; animation: orbFloat 25s infinite ease-in-out; }
+        .orb-1 { width:500px;height:500px;background:var(--accent-blue);top:5%;left:10%;animation-delay:0s; }
+        .orb-2 { width:400px;height:400px;background:var(--accent-purple);bottom:15%;right:8%;animation-delay:8s; }
+        .orb-3 { width:300px;height:300px;background:var(--accent-green);top:55%;left:55%;animation-delay:16s; }
+        @keyframes orbFloat {
+            0%,100%{transform:translate(0,0) scale(1);}
+            33%{transform:translate(40px,-40px) scale(1.1);}
+            66%{transform:translate(-25px,25px) scale(0.9);}
         }
-        .premium-border {
-            border: 1px solid rgba(226, 232, 240, 0.5);
+        /* ── Header ── */
+        header {
+            position: fixed; top:0; width:100%;
+            background: rgba(7,9,26,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 2rem; z-index:1000;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
         }
-        .dark .premium-border {
-            border: 1px solid rgba(245, 158, 11, 0.3);
+        .header-content { max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center; }
+        .logo {
+            font-family:'Outfit',sans-serif; font-size:1.6rem; font-weight:800; letter-spacing:-0.5px;
+            background: linear-gradient(135deg,var(--accent-blue),var(--accent-purple));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
         }
-        
-        .neon-glow-amber { box-shadow: 0 0 20px -5px rgba(245, 158, 11, 0.4); }
-        .neon-glow-cyan { box-shadow: 0 0 20px -5px rgba(6, 182, 212, 0.3); }
-
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-        .dark ::-webkit-scrollbar-thumb { background: #d97706; }
+        .header-badges { display:flex;gap:0.75rem;align-items:center; }
+        .badge {
+            padding:0.3rem 0.9rem;border-radius:20px;font-size:0.78rem;font-weight:600;
+            background:var(--glass-bg);border:1px solid var(--glass-border);color:var(--text-secondary);
+        }
+        .badge-reg { border-color:rgba(0,212,255,0.4);color:var(--accent-blue); }
+        /* ── Progress Bar ── */
+        .progress-bar {
+            position:fixed;top:66px;left:0;height:3px;width:0%;
+            background:linear-gradient(90deg,var(--accent-blue),var(--accent-purple),var(--accent-green));
+            transition:width 0.2s;z-index:999;box-shadow:0 0 10px var(--accent-blue);
+        }
+        /* ── Sidebar ── */
+        .sidebar {
+            position:fixed;left:0;top:69px;width:270px;height:calc(100vh - 69px);
+            background:rgba(7,9,26,0.9);backdrop-filter:blur(12px);
+            border-right:1px solid var(--glass-border);
+            padding:1.5rem 0.8rem;overflow-y:auto;z-index:100;transition:transform 0.3s ease;
+        }
+        .sidebar::-webkit-scrollbar{width:4px;}
+        .sidebar::-webkit-scrollbar-thumb{background:var(--accent-blue);border-radius:2px;}
+        .nav-unit { margin-bottom:1.5rem; }
+        .unit-title {
+            font-size:0.75rem;font-weight:700;color:var(--accent-blue);
+            text-transform:uppercase;letter-spacing:1.5px;
+            margin-bottom:0.6rem;padding:0.5rem 0.75rem;
+            background:rgba(0,212,255,0.08);border-radius:8px;
+        }
+        .nav-link {
+            display:block;padding:0.5rem 0.85rem;color:var(--text-secondary);
+            text-decoration:none;border-radius:7px;margin-bottom:0.2rem;
+            transition:all 0.25s;font-size:0.87rem;border-left:2px solid transparent;
+        }
+        .nav-link:hover{background:rgba(0,212,255,0.07);color:var(--accent-blue);transform:translateX(4px);}
+        .nav-link.active{background:rgba(0,212,255,0.12);color:var(--accent-blue);border-left-color:var(--accent-blue);}
+        /* ── Main Container ── */
+        .container { margin-left:270px;padding:90px 2.5rem 4rem 2.5rem;max-width:1100px; }
+        /* ── Hero ── */
+        .hero {
+            text-align:center;padding:3.5rem 2rem;margin-bottom:3rem;
+            background:linear-gradient(135deg,rgba(0,212,255,0.07),rgba(168,85,247,0.07));
+            border-radius:24px;border:1px solid var(--glass-border);backdrop-filter:blur(10px);
+            position:relative;overflow:hidden;
+        }
+        .hero::before {
+            content:'';position:absolute;inset:0;
+            background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,0.12),transparent 60%);
+        }
+        .hero h1 {
+            font-size:3rem;font-weight:900;letter-spacing:-1px;
+            background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple),var(--accent-green));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+            margin-bottom:0.75rem;
+        }
+        .hero p { font-size:1.15rem;color:var(--text-secondary);max-width:650px;margin:0 auto 2rem; }
+        .stats { display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap; }
+        .stat-card {
+            background:var(--glass-bg);padding:1.2rem 1.8rem;border-radius:14px;
+            border:1px solid var(--glass-border);min-width:120px;text-align:center;
+        }
+        .stat-number{font-size:1.9rem;font-weight:800;color:var(--accent-blue);}
+        .stat-label{color:var(--text-secondary);font-size:0.85rem;margin-top:0.2rem;}
+        /* ── Unit Section ── */
+        .unit-section { margin-bottom:5rem;scroll-margin-top:90px; }
+        .unit-header {
+            background:linear-gradient(135deg,rgba(20,25,55,0.9),rgba(168,85,247,0.1));
+            padding:2rem 2rem 2rem 2.5rem;border-radius:18px;
+            border:1px solid var(--glass-border);margin-bottom:2rem;
+            position:relative;overflow:hidden;
+        }
+        .unit-header::before {
+            content:'';position:absolute;left:0;top:0;width:5px;height:100%;
+            background:linear-gradient(180deg,var(--accent-blue),var(--accent-purple));
+        }
+        .unit-header h2{font-size:1.9rem;color:var(--accent-blue);margin-bottom:0.4rem;font-weight:800;}
+        .unit-header p{color:var(--text-secondary);font-size:1.05rem;}
+        .unit-badge {
+            position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);
+            font-size:3.5rem;opacity:0.1;
+        }
+        /* ── Topic Card ── */
+        .topic-card {
+            background:var(--glass-bg);backdrop-filter:blur(10px);
+            border:1px solid var(--glass-border);border-radius:18px;
+            padding:2rem;margin-bottom:2rem;
+            transition:all 0.35s;scroll-margin-top:90px;
+        }
+        .topic-card:hover{border-color:rgba(0,212,255,0.35);box-shadow:0 8px 40px rgba(0,212,255,0.12);}
+        .topic-title{font-size:1.7rem;font-weight:800;color:var(--accent-blue);margin-bottom:1.2rem;}
+        /* ── Section Headers ── */
+        .section-header {
+            display:flex;align-items:center;gap:0.7rem;
+            margin:2rem 0 1rem;padding-bottom:0.6rem;
+            border-bottom:1px solid var(--glass-border);
+        }
+        .section-icon{font-size:1.3rem;}
+        .section-header h3{font-size:1.2rem;color:var(--accent-blue);font-weight:700;}
+        /* ── Content Boxes ── */
+        .why-matters {
+            background:linear-gradient(135deg,rgba(0,212,255,0.08),rgba(0,255,163,0.05));
+            padding:1.4rem;border-radius:12px;border-left:4px solid var(--accent-blue);margin:1.2rem 0;
+        }
+        .intuition-box {
+            background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(255,112,67,0.06));
+            padding:1.4rem;border-radius:12px;border-left:4px solid var(--accent-purple);margin:1.2rem 0;
+        }
+        .highlight-box {
+            background:linear-gradient(135deg,rgba(0,255,163,0.07),rgba(0,212,255,0.07));
+            padding:1.3rem;border-radius:12px;border:1px solid rgba(0,255,163,0.25);margin:1.2rem 0;
+        }
+        .warning-box {
+            background:linear-gradient(135deg,rgba(255,112,67,0.1),rgba(255,0,0,0.05));
+            padding:1.3rem;border-radius:12px;border:1px solid rgba(255,112,67,0.35);margin:1.2rem 0;
+        }
+        .exam-box {
+            background:linear-gradient(135deg,rgba(168,85,247,0.12),rgba(0,212,255,0.07));
+            padding:1.4rem;border-radius:12px;border:1px solid rgba(168,85,247,0.3);margin:1.2rem 0;
+        }
+        /* ── Formula Card ── */
+        .formula-card {
+            background:linear-gradient(135deg,rgba(0,212,255,0.1),rgba(168,85,247,0.1));
+            padding:1.8rem;border-radius:14px;border:2px solid rgba(0,212,255,0.4);
+            margin:1.4rem 0;position:relative;overflow:hidden;
+        }
+        .formula-card::after {
+            content:attr(data-icon);position:absolute;right:12px;top:8px;
+            font-size:3rem;opacity:0.1;
+        }
+        .formula-title{font-size:1.05rem;color:var(--accent-blue);margin-bottom:0.8rem;font-weight:700;}
+        .formula-content {
+            font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:600;
+            color:var(--text-primary);margin:0.8rem 0;letter-spacing:0.5px;
+        }
+        .formula-variables{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--glass-border);}
+        .variable{display:flex;align-items:center;gap:0.6rem;margin:0.4rem 0;color:var(--text-secondary);}
+        .variable-name{color:var(--accent-green);font-weight:700;font-family:'JetBrains Mono',monospace;min-width:70px;}
+        /* ── PYQ Badge ── */
+        .pyq-badge {
+            display:inline-block;
+            background:linear-gradient(135deg,var(--accent-orange),#e53935);
+            color:#fff;padding:0.2rem 0.7rem;border-radius:20px;
+            font-size:0.72rem;font-weight:700;margin-left:0.5rem;vertical-align:middle;
+        }
+        /* ── Lists ── */
+        .custom-list{list-style:none;padding:0;}
+        .custom-list li {
+            padding:0.7rem 1rem;margin:0.4rem 0;
+            background:var(--glass-bg);border-radius:8px;
+            border-left:3px solid var(--accent-blue);
+            transition:all 0.25s;
+        }
+        .custom-list li:hover{background:rgba(0,212,255,0.08);transform:translateX(4px);}
+        /* ── Tables ── */
+        .custom-table{width:100%;border-collapse:collapse;margin:1.2rem 0;border-radius:12px;overflow:hidden;}
+        .custom-table th{
+            background:linear-gradient(135deg,rgba(0,212,255,0.18),rgba(168,85,247,0.18));
+            padding:0.9rem 1rem;text-align:left;color:var(--accent-blue);font-weight:700;font-size:0.9rem;
+        }
+        .custom-table td{padding:0.85rem 1rem;border-top:1px solid var(--glass-border);color:var(--text-secondary);font-size:0.9rem;}
+        .custom-table tr:hover td{background:rgba(0,212,255,0.04);}
+        /* ── Truth Table ── */
+        .truth-table{width:100%;border-collapse:collapse;margin:1rem 0;font-family:'JetBrains Mono',monospace;border-radius:10px;overflow:hidden;}
+        .truth-table th{background:rgba(0,212,255,0.2);padding:0.7rem 1.2rem;color:var(--accent-blue);font-weight:600;text-align:center;}
+        .truth-table td{padding:0.6rem 1.2rem;border-top:1px solid var(--glass-border);text-align:center;color:var(--text-secondary);}
+        .truth-table .out-1{color:var(--accent-green);font-weight:700;}
+        .truth-table .out-0{color:var(--accent-orange);font-weight:700;}
+        /* ── Circuit Box ── */
+        .circuit-box {
+            background:var(--bg-secondary);padding:1.8rem;border-radius:12px;
+            border:2px dashed rgba(0,212,255,0.35);margin:1.2rem 0;text-align:center;
+        }
+        .circuit-box p{color:var(--accent-blue);font-weight:600;}
+        /* ── Revision Card ── */
+        .revision-card {
+            background:var(--bg-card);padding:1.2rem 1.5rem;border-radius:12px;
+            border:1px solid var(--glass-border);margin:0.6rem 0;cursor:pointer;transition:all 0.25s;
+        }
+        .revision-card:hover{border-color:var(--accent-blue);box-shadow:0 4px 20px rgba(0,212,255,0.1);}
+        .revision-card ul{list-style:none;padding:0;margin-top:0.6rem;}
+        .revision-card ul li{padding:0.3rem 0;color:var(--text-secondary);font-size:0.92rem;}
+        .revision-title{font-weight:700;color:var(--accent-blue);font-size:1rem;}
+        /* ── Grid Layouts ── */
+        .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:1.2rem 0;}
+        .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:1.2rem 0;}
+        .grid-card{background:var(--glass-bg);padding:1.2rem;border-radius:12px;border:1px solid var(--glass-border);transition:all 0.25s;}
+        .grid-card:hover{border-color:rgba(0,212,255,0.3);transform:translateY(-3px);}
+        .grid-card h5{color:var(--accent-green);font-weight:700;margin-bottom:0.5rem;font-size:0.95rem;}
+        .grid-card p{color:var(--text-secondary);font-size:0.88rem;line-height:1.6;}
+        /* ── Gate Box ── */
+        .gate-row{display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0;}
+        .gate-card{
+            flex:1;min-width:220px;background:var(--glass-bg);border:1px solid var(--glass-border);
+            border-radius:12px;padding:1.2rem;
+        }
+        .gate-card h5{color:var(--accent-purple);font-weight:700;margin-bottom:0.5rem;font-size:1rem;}
+        /* ── Expandable ── */
+        .expandable-header {
+            display:flex;justify-content:space-between;align-items:center;
+            padding:1rem 1.2rem;background:var(--glass-bg);border-radius:10px;
+            margin:0.8rem 0;cursor:pointer;transition:background 0.25s;user-select:none;
+        }
+        .expandable-header:hover{background:rgba(0,212,255,0.08);}
+        .expandable-header span{color:var(--text-secondary);}
+        .expandable-content{max-height:0;overflow:hidden;transition:max-height 0.5s ease,padding 0.3s;}
+        .expandable-content.active{max-height:3000px;padding:1rem 0.5rem;}
+        /* ── FAB ── */
+        .fab {
+            position:fixed;bottom:2rem;right:2rem;width:56px;height:56px;
+            background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));
+            border-radius:50%;display:flex;align-items:center;justify-content:center;
+            cursor:pointer;box-shadow:0 4px 20px rgba(0,212,255,0.5);
+            z-index:999;transition:all 0.3s;font-size:1.4rem;
+        }
+        .fab:hover{transform:scale(1.1) rotate(15deg);}
+        /* ── Mobile ── */
+        .menu-toggle{display:none;background:var(--accent-blue);border:none;color:#000;padding:0.45rem 0.9rem;border-radius:7px;cursor:pointer;font-size:0.95rem;font-weight:700;}
+        @media(max-width:768px){
+            .sidebar{transform:translateX(-100%);}
+            .sidebar.active{transform:translateX(0);}
+            .container{margin-left:0;padding:90px 1.2rem 3rem;}
+            .hero h1{font-size:2rem;}
+            .menu-toggle{display:block;}
+            .grid-2,.grid-3{grid-template-columns:1fr;}
+            .header-badges{display:none;}
+            .unit-badge{display:none;}
+        }
+        /* ── Animations ── */
+        @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+        .animate-in{animation:fadeUp 0.6s ease-out both;}
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar{width:8px;}
+        ::-webkit-scrollbar-track{background:var(--bg-primary);}
+        ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent-blue),var(--accent-purple));border-radius:4px;}
+        /* ── Misc ── */
+        strong{color:var(--text-primary);}
+        code{font-family:'JetBrains Mono',monospace;background:rgba(0,212,255,0.1);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.88em;color:var(--accent-green);}
+        .color-blue{color:var(--accent-blue);}
+        .color-green{color:var(--accent-green);}
+        .color-purple{color:var(--accent-purple);}
+        .color-orange{color:var(--accent-orange);}
+        .mt-1{margin-top:0.5rem;}.mt-2{margin-top:1rem;}.mt-3{margin-top:1.5rem;}
+        ol.step-list{list-style:none;counter-reset:steps;padding:0;}
+        ol.step-list li{counter-increment:steps;padding:0.6rem 0.8rem 0.6rem 3rem;position:relative;margin:0.4rem 0;background:var(--glass-bg);border-radius:8px;}
+        ol.step-list li::before{content:counter(steps);position:absolute;left:0.7rem;top:50%;transform:translateY(-50%);width:1.5rem;height:1.5rem;background:var(--accent-blue);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;}
     </style>
-    <!-- Inline blocker removed for SEO/AdSense Crawlability -->
-    <script type="module" src="/src/gatekeeper.js"></script>
-
-    
-    
-    
-    
-    
-
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9357545069587539" crossorigin="anonymous"></script>
-
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "BEEE Subject Hub – JNTUK R23 | EngiPrep Hub",
-      "description": "Ultimate JNTUK R23 BEEE study hub. Free high-yield unit notes, interactive circuit simulators, logic gate playgrounds, and quick revision sheets.",
-      "provider": {
-        "@type": "Organization",
-        "name": "EngiPrep Hub",
-        "sameAs": "https://engiprephub.in"
-      }
-    }
-    </script>
-
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 selection:bg-amber-100 dark:selection:bg-amber-900/50 leading-relaxed antialiased">
-    
-    <div id="reading-progress-container" class="fixed top-0 left-0 w-full h-1 bg-transparent z-[100]">
-        <div id="reading-progress-bar" class="h-full bg-amber-500 transition-all duration-150 w-0 shadow-[0_0_10px_rgba(245,158,11,0.8)]"></div>
+<body>
+
+<div class="bg-animation">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+</div>
+
+<!-- ══ HEADER ══ -->
+<header>
+    <div class="header-content">
+        <div class="logo">⚡ Engi Prep Hub</div>
+        <div class="header-badges">
+            <span class="badge badge-reg">JNTUK R23</span>
+            <span class="badge">1st Year B.Tech</span>
+            <span class="badge">BEEE</span>
+        </div>
+        <button class="menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
+    </div>
+</header>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ══ SIDEBAR ══ -->
+<nav class="sidebar" id="sidebar">
+    <div class="nav-unit">
+        <div class="unit-title">🔌 Unit I — Circuits</div>
+        <a href="#dc-circuits" class="nav-link">DC Circuits</a>
+        <a href="#ac-circuits" class="nav-link">AC Circuits</a>
+    </div>
+    <div class="nav-unit">
+        <div class="unit-title">⚙️ Unit II — Machines</div>
+        <a href="#dc-motor" class="nav-link">DC Motor & Generator</a>
+        <a href="#transformer" class="nav-link">Transformer</a>
+        <a href="#induction-motor" class="nav-link">3-Phase Induction Motor</a>
+        <a href="#alternator" class="nav-link">Alternator</a>
+        <a href="#instruments" class="nav-link">Measuring Instruments</a>
+    </div>
+    <div class="nav-unit">
+        <div class="unit-title">🔋 Unit III — Energy</div>
+        <a href="#energy-resources" class="nav-link">Energy Resources</a>
+        <a href="#power-plants" class="nav-link">Power Plants</a>
+        <a href="#electricity-bill" class="nav-link">Electricity Bill</a>
+        <a href="#safety" class="nav-link">Electrical Safety</a>
+    </div>
+    <div class="nav-unit">
+        <div class="unit-title">🔬 Unit IV — Semiconductors</div>
+        <a href="#pn-diode" class="nav-link">PN Junction Diode</a>
+        <a href="#zener" class="nav-link">Zener Diode</a>
+        <a href="#bjt" class="nav-link">BJT Transistor</a>
+        <a href="#amplifier" class="nav-link">CE Amplifier</a>
+    </div>
+    <div class="nav-unit">
+        <div class="unit-title">💻 Unit V — Digital</div>
+        <a href="#number-systems" class="nav-link">Number Systems</a>
+        <a href="#codes" class="nav-link">Digital Codes</a>
+        <a href="#logic-gates" class="nav-link">Logic Gates</a>
+        <a href="#boolean" class="nav-link">Boolean Algebra</a>
+        <a href="#adders" class="nav-link">Adders</a>
+        <a href="#flipflops" class="nav-link">Flip-Flops</a>
+        <a href="#registers-counters" class="nav-link">Registers & Counters</a>
+    </div>
+</nav>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero animate-in">
+        <h1>Basic Electrical &amp; Electronics Engineering</h1>
+        <p>JNTUK R23 Regulation · Premium Interactive Notes · 1st Year B.Tech</p>
+        <div class="stats">
+            <div class="stat-card"><div class="stat-number">5</div><div class="stat-label">Units</div></div>
+            <div class="stat-card"><div class="stat-number">50+</div><div class="stat-label">Topics</div></div>
+            <div class="stat-card"><div class="stat-number">120+</div><div class="stat-label">Formulas</div></div>
+            <div class="stat-card"><div class="stat-number">∞</div><div class="stat-label">Practice</div></div>
+        </div>
     </div>
 
-    <!-- Main Navigation Bar -->
-    <nav class="fixed top-0 w-full z-40 bg-white dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-amber-900/30 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-amber-600 to-orange-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-amber-500/20"></div>
-                    <svg class="relative z-10 w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-amber-500 dark:text-amber-400">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Circuits • Logic • Power</span>
-                </div>
-            </a>
-            
-            <div id="nav-actions" class="flex items-center gap-4">
-                <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-amber-500 transition-all">
-                    <span>🌓</span>
-                </button>
-                <div class="hidden sm:flex items-center gap-3 px-4 py-2 bg-amber-50 dark:bg-amber-950/30 rounded-full border border-amber-100 dark:border-amber-900/20 text-xs font-black">
-                    <span class="text-amber-600 dark:text-amber-400">JNTUK JNTU-K BEEE R23</span>
-                </div>
-                <a href="/dashboard.html" class="btn-primary text-[10px] py-2 px-6 uppercase tracking-wider bg-amber-600 hover:bg-amber-500 text-white rounded-xl">Dashboard</a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="max-w-7xl mx-auto px-6 pt-28 pb-32">
-        <div id="toast-container" class="fixed top-24 right-6 z-50 pointer-events-none space-y-2"></div>
-
-        <!-- Section 1: Hero Header -->
-        <header class="mb-12 p-8 glass-panel rounded-[2.5rem] relative overflow-hidden flex flex-col lg:flex-row lg:items-center justify-between gap-8 animate-fadeIn">
-            <div class="absolute -right-16 -top-16 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl"></div>
-            <div class="absolute -left-16 -bottom-16 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl"></div>
-            
-            <div class="relative z-10 space-y-4 w-full">
-                <div class="flex flex-wrap gap-2">
-                    <span class="inline-flex items-center px-3 py-1 bg-amber-50 dark:bg-amber-950/50 border border-amber-100 dark:border-amber-900/30 text-amber-600 dark:text-amber-400 text-[10px] font-black uppercase tracking-wider rounded-full">Course ID: R231201</span>
-                    <span class="inline-flex items-center px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-500 text-[10px] font-black uppercase tracking-wider rounded-full">Credits: 3 • Circuit Engine</span>
-                </div>
-                
-                <div>
-                    <h1 class="text-4xl lg:text-5xl font-black tracking-tight leading-none text-slate-900 dark:text-slate-50">
-                        Basic Electrical & Electronics <br><span class="bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">JNTUK R23 Engine</span>
-                    </h1>
-                    <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-xs sm:text-sm mt-3 leading-relaxed font-medium">
-                        Complete AI-powered electrical & electronics study OS. Master DC/AC circuits, machines, energy resources, logic gates, and rectifiers intuitively through intelligent simulation platforms.
-                    </p>
-                </div>
-
-                <div class="flex items-center gap-4 pt-1 flex-wrap sm:flex-nowrap">
-                    <button onclick="window.toggleGlobalBookmarked()" id="bookmark-btn-global" class="px-5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-amber-900/30 text-slate-800 dark:text-slate-200 text-[10px] font-black uppercase tracking-wider rounded-xl cursor-pointer flex items-center gap-2 hover:border-amber-500 transition-all">
-                        🔖 Save to Planner
-                    </button>
-                    <a href="#survival-recipe" class="px-5 py-2.5 bg-purple-600 hover:bg-purple-500 text-white font-black text-[10px] uppercase tracking-wider rounded-xl transition-all shadow-md shadow-purple-600/20 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                        1-Day Prep Mode
-                    </a>
-                </div>
-            </div>
-
-            <div class="w-full lg:w-80 p-6 bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-amber-900/40 rounded-[2rem] flex flex-col justify-between h-48 relative z-10 neon-glow-amber shadow-xl">
-                <div>
-                    <div class="flex items-center justify-between mb-1">
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-amber-500">Subject Coverage</span>
-                        <span id="syl-progress-percent" class="text-xs font-black text-amber-400">0% Built</span>
-                    </div>
-                    <h4 class="text-sm font-black text-slate-800 dark:text-slate-100">BEEE Syllabus Mastery</h4>
-                </div>
-                
-                <div class="w-full bg-slate-200 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden border border-slate-300 dark:border-slate-700 shadow-inner">
-                    <div id="syl-progress-bar" class="h-full bg-gradient-to-r from-amber-400 to-pink-500 rounded-full transition-all duration-500 relative" style="width: 0%">
-                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGxpbmUgeDE9IjUiIHkxPSIwIiB4Mj0iMTUiIHkyPSIyMCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')] mix-blend-overlay"></div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between text-[9px] font-black uppercase text-slate-400 mt-2">
-                    <span id="units-fraction">0 / 5 Units Ready</span>
-                    <button onclick="window.resetSyllabusUnits()" class="text-pink-400 hover:text-pink-300 hover:underline">Clear Progress</button>
-                </div>
-            </div>
-        </header>
-
-        <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 border-b border-slate-200 dark:border-amber-900/30 font-sans" id="subject-tabs-container">
-            <button onclick="window.switchTab('units-sec')" class="subtab-btn active px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer text-amber-500 border border-amber-500 bg-amber-500/10">Interactive Units ⚡</button>
-            <button onclick="window.switchTab('formulas-sec')" class="subtab-btn px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer text-slate-500 hover:text-slate-300">Formula Vault 💾</button>
-            <button onclick="window.switchTab('pyq-sec')" class="subtab-btn px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer text-slate-500 hover:text-slate-300">Solved PYQs 📜</button>
-            <button onclick="window.switchTab('expected-sec')" class="subtab-btn px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer text-slate-500 hover:text-slate-300">Predictor 🎯</button>
-            <button onclick="window.switchTab('viva-sec')" class="subtab-btn px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer text-slate-500 hover:text-slate-300">Viva Cards 🃏</button>
-            <button onclick="window.switchTab('mnemonics-sec')" class="subtab-btn px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer text-slate-500 hover:text-slate-300">Mnemonics 🧠</button>
+    <!-- ════════════════════════════════════════
+         UNIT I: DC & AC CIRCUITS
+    ════════════════════════════════════════ -->
+    <section class="unit-section" id="unit1">
+        <div class="unit-header">
+            <h2>⚡ UNIT I — DC &amp; AC CIRCUITS</h2>
+            <p>Master the fundamentals — backbone of every electrical system</p>
+            <div class="unit-badge">Ⅰ</div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div class="lg:col-span-8 space-y-12">
-                
-                <section id="units-sec" class="tab-content transition-all duration-300">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="text-2xl text-amber-400" style="text-shadow: 0 0 10px rgba(245,158,11,0.5);">⚡</span>
-                        <div>
-                            <h2 class="text-xl font-extrabold text-slate-900 dark:text-amber-50 mb-0.5">Interactive Concept Modules</h2>
-                            <p class="text-[9.5px] text-amber-600 dark:text-amber-400 font-black uppercase tracking-widest">Engineering visualizations & circuits</p>
-                        </div>
+        <!-- DC CIRCUITS -->
+        <div class="topic-card" id="dc-circuits">
+            <div class="topic-title">🔋 DC CIRCUITS</div>
+
+            <div class="section-header"><span class="section-icon">💡</span><h3>Why This Topic Matters</h3></div>
+            <div class="why-matters">
+                <p><strong>DC circuits are everywhere!</strong> From your phone charger to solar panels to car batteries — understanding DC is your first step into electronics.</p>
+                <p class="mt-2">🎯 <strong>Real-world:</strong> Power supply design, battery systems, automotive electronics, embedded systems</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>Think of electricity like water in pipes:</strong></p>
+                <ul class="custom-list mt-2">
+                    <li><strong>Voltage (V)</strong> = Water pressure pushing through pipes</li>
+                    <li><strong>Current (I)</strong> = Volume of water flowing per second</li>
+                    <li><strong>Resistance (R)</strong> = Narrowness of the pipe restricting flow</li>
+                </ul>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🔌</span><h3>Core Circuit Elements</h3></div>
+            <div class="grid-3">
+                <div class="grid-card">
+                    <h5>⚡ Resistor (R)</h5>
+                    <p>Opposes current flow. Converts electrical energy to heat. Unit: Ohm (Ω)</p>
+                </div>
+                <div class="grid-card">
+                    <h5>🧲 Inductor (L)</h5>
+                    <p>Stores energy in magnetic field. Opposes change in current. Unit: Henry (H)</p>
+                </div>
+                <div class="grid-card">
+                    <h5>🔋 Capacitor (C)</h5>
+                    <p>Stores energy in electric field. Opposes change in voltage. Unit: Farad (F)</p>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Formula Zone</h3></div>
+
+            <div class="formula-card" data-icon="⚡">
+                <div class="formula-title">Ohm's Law <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">V = I × R</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">V</span><span>→ Voltage (Volts, V)</span></div>
+                    <div class="variable"><span class="variable-name">I</span><span>→ Current (Amperes, A)</span></div>
+                    <div class="variable"><span class="variable-name">R</span><span>→ Resistance (Ohms, Ω)</span></div>
+                </div>
+                <div class="highlight-box mt-2">🚀 <strong>VIR Triangle:</strong> Cover what you want to find — it shows the formula automatically!</div>
+            </div>
+
+            <div class="formula-card" data-icon="💡">
+                <div class="formula-title">Power Formulas <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">P = V × I = I² × R = V² / R</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">P</span><span>→ Power (Watts, W)</span></div>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🔗</span><h3>Kirchhoff's Laws</h3></div>
+
+            <div class="formula-card" data-icon="🔗">
+                <div class="formula-title">KCL — Kirchhoff's Current Law <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">Σ I(in) = Σ I(out)</div>
+                <div class="intuition-box mt-2">
+                    <p><strong>💡 What comes in must go out!</strong> Like a traffic junction — cars entering = cars leaving.</p>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="🔄">
+                <div class="formula-title">KVL — Kirchhoff's Voltage Law <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">Σ V = 0 (around any closed loop)</div>
+                <div class="intuition-box mt-2">
+                    <p><strong>💡 Energy is conserved in a loop!</strong> Like hiking — if you return to start, net elevation change = 0.</p>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚙️</span><h3>Circuit Configurations</h3></div>
+
+            <div class="grid-2">
+                <div class="formula-card">
+                    <div class="formula-title">Series Circuit</div>
+                    <div class="formula-content" style="font-size:1rem;">R_total = R₁ + R₂ + R₃</div>
+                    <div class="formula-variables">
+                        <div class="variable"><span class="variable-name">Current</span><span>Same everywhere</span></div>
+                        <div class="variable"><span class="variable-name">Voltage</span><span>Divides across resistors</span></div>
                     </div>
-
-                    <div class="grid grid-cols-1 gap-6">
-                        <!-- Unit 1 -->
-                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border border-l-4 border-l-amber-500" id="unit-1">
-                            <div class="flex items-start justify-between gap-4 mb-4">
-                                <div>
-                                    <span class="text-[9px] font-black bg-amber-950/50 px-2.5 py-0.5 rounded-full border border-amber-800 text-amber-400 uppercase tracking-widest text-shadow mb-1 inline-block">Unit I</span>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-slate-50 mt-1">DC & AC Circuits</h3>
-                                </div>
-                                <input type="checkbox" id="check-u1" onclick="window.toggleUnitProgress('u1')" class="w-5 h-5 accent-amber-500 rounded cursor-pointer ring-2 ring-amber-900/50">
-                            </div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-                                RLC elements, Ohm's law limitations, KCL & KVL, superposition theorem. AC waveforms, frequency, Phase diagrams, RMS/Average values, Form/Peak factors, active/reactive/apparent power, impedance.
-                            </p>
-                            <div class="flex flex-wrap gap-2 border-t border-amber-900/30 pt-4 mt-2">
-                                <span class="bg-amber-950 p-2 rounded-xl text-[10px] text-amber-400 font-semibold cursor-pointer hover:bg-amber-900" onclick="window.showInteractiveDemo('u1-kcl')">🔌 KCL/KVL Balancer</span>
-                                <span class="bg-amber-950 p-2 rounded-xl text-[10px] text-amber-400 font-semibold cursor-pointer hover:bg-amber-900" onclick="window.showInteractiveDemo('u1-ac')">〰️ AC Waveform Viewer</span>
-                                <span class="bg-amber-950 p-2 rounded-xl text-[10px] text-amber-400 font-semibold cursor-pointer hover:bg-amber-900" onclick="window.showInteractiveDemo('u1-phasor')">📐 Phasor & Impedance</span>
-                            </div>
-                            <div class="mt-4 pt-4 border-t border-amber-900/30">
-                                <a href="/basic-electrical-engineering-unit-1.html" class="flex items-center justify-center gap-2.5 w-full py-3.5 px-6 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-600/20">
-                                    📖 Access Unit I Exam Guide & Notes
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Unit 2 -->
-                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border border-l-4 border-l-cyan-500" id="unit-2">
-                            <div class="flex items-start justify-between gap-4 mb-4">
-                                <div>
-                                    <span class="text-[9px] font-black bg-cyan-950/50 px-2.5 py-0.5 rounded-full border border-cyan-800 text-cyan-400 uppercase tracking-widest text-shadow mb-1 inline-block">Unit II</span>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-slate-50 mt-1">Machines & Measuring Instruments</h3>
-                                </div>
-                                <input type="checkbox" id="check-u2" onclick="window.toggleUnitProgress('u2')" class="w-5 h-5 accent-cyan-500 rounded cursor-pointer">
-                            </div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-                                Principles of DC Motor, DC Generator, 1-Phase Transformer, 3-Phase Induction Motor, Alternator. Moving Coil (PMMC) and Moving Iron (MI) instruments. Wheatstone Bridge.
-                            </p>
-                            <div class="flex flex-wrap gap-2 border-t border-cyan-900/30 pt-4 mt-2">
-                                <span class="bg-cyan-950 p-2 rounded-xl text-[10px] text-cyan-400 font-semibold cursor-pointer hover:bg-cyan-900" onclick="window.showInteractiveDemo('u2-transformer')">🔋 Transfomer Flux Sim</span>
-                                <span class="bg-cyan-950 p-2 rounded-xl text-[10px] text-cyan-400 font-semibold cursor-pointer hover:bg-cyan-900" onclick="window.showInteractiveDemo('u2-pmmc')">🧭 PMMC Needle Demo</span>
-                                <span class="bg-cyan-950 p-2 rounded-xl text-[10px] text-cyan-400 font-semibold cursor-pointer hover:bg-cyan-900" onclick="window.showInteractiveDemo('u2-motor')">⚙️ Motor Field Engine</span>
-                            </div>
-                            <div class="mt-4 pt-4 border-t border-cyan-900/30">
-                                <a href="/basic-electrical-engineering-unit-2.html" class="flex items-center justify-center gap-2.5 w-full py-3.5 px-6 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md shadow-cyan-600/20">
-                                    📖 Access Unit II Exam Guide & Notes
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Unit 3 -->
-                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border border-l-4 border-l-green-500" id="unit-3">
-                            <div class="flex items-start justify-between gap-4 mb-4">
-                                <div>
-                                    <span class="text-[9px] font-black bg-green-950/50 px-2.5 py-0.5 rounded-full border border-green-800 text-green-400 uppercase tracking-widest mb-1 inline-block">Unit III</span>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-slate-50 mt-1">Energy Resources & Safety</h3>
-                                </div>
-                                <input type="checkbox" id="check-u3" onclick="window.toggleUnitProgress('u3')" class="w-5 h-5 accent-green-500 rounded cursor-pointer">
-                            </div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-                                Hydel, Nuclear, Solar, Wind power. Electricity Bill estimation (appliance ratings, two-part tariff). Safety: Fuses, MCBs, Electric shock, Earthing concepts and shock prevention.
-                            </p>
-                            <div class="flex flex-wrap gap-2 border-t border-green-900/30 pt-4 mt-2">
-                                <span class="bg-green-950 p-2 rounded-xl text-[10px] text-green-400 font-semibold cursor-pointer hover:bg-green-900" onclick="window.showInteractiveDemo('u3-power')">☢️ Plant Flow Vis</span>
-                                <span class="bg-green-950 p-2 rounded-xl text-[10px] text-green-400 font-semibold cursor-pointer hover:bg-green-900" onclick="window.showInteractiveDemo('u3-bill')">💡 Bill Calculator</span>
-                                <span class="bg-green-950 p-2 rounded-xl text-[10px] text-green-400 font-semibold cursor-pointer hover:bg-green-900" onclick="window.showInteractiveDemo('u3-mcb')">⚡ MCB/Earthing Trip Sim</span>
-                            </div>
-                            <div class="mt-4 pt-4 border-t border-green-900/30">
-                                <a href="/basic-electrical-engineering-unit-3.html" class="flex items-center justify-center gap-2.5 w-full py-3.5 px-6 rounded-xl bg-green-600 hover:bg-green-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md shadow-green-600/20">
-                                    📖 Access Unit III Exam Guide & Notes
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Unit 4 -->
-                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border border-l-4 border-l-purple-500" id="unit-4">
-                            <div class="flex items-start justify-between gap-4 mb-4">
-                                <div>
-                                    <span class="text-[9px] font-black bg-purple-950/50 px-2.5 py-0.5 rounded-full border border-purple-800 text-purple-400 uppercase tracking-widest mb-1 inline-block">Unit IV</span>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-slate-50 mt-1">Semiconductor Devices</h3>
-                                </div>
-                                <input type="checkbox" id="check-u4" onclick="window.toggleUnitProgress('u4')" class="w-5 h-5 accent-purple-500 rounded cursor-pointer">
-                            </div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-                                Evolution of electronics. PN junction diode characteristics. Zener effect and diode. BJT transistor, CB/CE/CC configurations. CE amplifier operation and characteristics.
-                            </p>
-                            <div class="flex flex-wrap gap-2 border-t border-purple-900/30 pt-4 mt-2">
-                                <span class="bg-purple-950 p-2 rounded-xl text-[10px] text-purple-400 font-semibold cursor-pointer hover:bg-purple-900" onclick="window.showInteractiveDemo('u4-pn')">⚛️ PN Depletion Viewer</span>
-                                <span class="bg-purple-950 p-2 rounded-xl text-[10px] text-purple-400 font-semibold cursor-pointer hover:bg-purple-900" onclick="window.showInteractiveDemo('u4-bjt')">🎛️ BJT Flow Vis</span>
-                            </div>
-                            <div class="mt-4 pt-4 border-t border-purple-900/30">
-                                <a href="/basic-electrical-engineering-unit-4.html" class="flex items-center justify-center gap-2.5 w-full py-3.5 px-6 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md shadow-purple-600/20">
-                                    📖 Access Unit IV Exam Guide & Notes
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Unit 5 -->
-                        <div class="glass-panel p-6 rounded-[2rem] relative flex flex-col justify-between premium-border border-l-4 border-l-pink-500" id="unit-5">
-                            <div class="flex items-start justify-between gap-4 mb-4">
-                                <div>
-                                    <span class="text-[9px] font-black bg-pink-950/50 px-2.5 py-0.5 rounded-full border border-pink-800 text-pink-400 uppercase tracking-widest mb-1 inline-block">Unit V</span>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-slate-50 mt-1">Circuits & Digital Electronics</h3>
-                                </div>
-                                <input type="checkbox" id="check-u5" onclick="window.toggleUnitProgress('u5')" class="w-5 h-5 accent-pink-500 rounded cursor-pointer">
-                            </div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-                                Full wave bridge rectifier, capacitor filters, zener regulator, RC coupled amplifier. Number systems, Logic Gates, Boolean algebra, Adders, Flip-Flops, Registers, Counters.
-                            </p>
-                            <div class="flex flex-wrap gap-2 border-t border-pink-900/30 pt-4 mt-2">
-                                <span class="bg-pink-950 p-2 rounded-xl text-[10px] text-pink-400 font-semibold cursor-pointer hover:bg-pink-900" onclick="window.showInteractiveDemo('u5-rectifier')">📉 Ripple Rectifier Demo</span>
-                                <span class="bg-pink-950 p-2 rounded-xl text-[10px] text-pink-400 font-semibold cursor-pointer hover:bg-pink-900" onclick="window.showInteractiveDemo('u5-logic')">🕹️ Logic Gate Playground</span>
-                            </div>
-                            <div class="mt-4 pt-4 border-t border-pink-900/30">
-                                <a href="/basic-electrical-engineering-unit-5.html" class="flex items-center justify-center gap-2.5 w-full py-3.5 px-6 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md shadow-pink-600/20">
-                                    📖 Access Unit V Exam Guide & Notes
-                                </a>
-                            </div>
-                        </div>
+                    <div class="highlight-box mt-2">💡 Christmas lights — if one breaks, all go out!</div>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Parallel Circuit</div>
+                    <div class="formula-content" style="font-size:1rem;">1/R_total = 1/R₁ + 1/R₂</div>
+                    <div class="formula-variables">
+                        <div class="variable"><span class="variable-name">Voltage</span><span>Same across all</span></div>
+                        <div class="variable"><span class="variable-name">Current</span><span>Divides through branches</span></div>
                     </div>
+                    <div class="highlight-box mt-2">💡 Home wiring — one device off doesn't affect others!</div>
+                </div>
+            </div>
 
-                    <!-- Interactive Canvas Area Injected by JS -->
-                    <div id="quick-flash-display" class="mt-8 p-6 bg-slate-950/80 border border-amber-800/60 rounded-3xl hidden neon-glow-amber shadow-xl relative overflow-hidden">
-                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/circuit-board.png')] opacity-10 pointer-events-none"></div>
-                        <div class="absolute w-full h-[1px] bg-amber-900/50 top-6 left-0 shadow-[0_0_8px_rgba(245,158,11,0.5)]"></div>
-                        <h4 class="text-xs font-black text-amber-400 uppercase tracking-widest mb-2" id="flash-title-meta">SYSTEM_INIT...</h4>
-                        <h3 class="text-lg font-extrabold text-amber-50 relative z-10" id="flash-topic-head">Interactive Viewer</h3>
-                        <p class="text-xs text-amber-200 mt-2 leading-relaxed font-mono relative z-10" id="flash-topic-body"></p>
-                        
-                        <div class="mt-6 w-full h-48 bg-slate-900 rounded-xl border border-slate-700 flex items-center justify-center font-mono text-amber-700 relative overflow-hidden" id="canvas-container">
-                             <!-- Pulse animations -->
-                             <div class="absolute h-full w-[2px] left-1/4 top-0 bg-gradient-to-b from-transparent via-amber-500/50 to-transparent"></div>
-                             <div class="absolute h-full w-[2px] left-3/4 top-0 bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent animate-pulse"></div>
-                             
-                             <p class="relative z-10">[ SIMULATION ENGINE OFFLINE IN PREVIEW SPACE ]</p>
-                        </div>
+            <div class="section-header"><span class="section-icon">🎯</span><h3>Superposition Theorem</h3></div>
+            <div class="intuition-box">
+                <p><strong>Multiple sources? Find effect of each one separately, then add!</strong></p>
+            </div>
+            <ol class="step-list">
+                <li>Consider one source at a time — replace other voltage sources with <strong>short circuits</strong>, current sources with <strong>open circuits</strong></li>
+                <li>Calculate current/voltage due to that single source</li>
+                <li>Repeat for every source</li>
+                <li>Add all contributions algebraically (watch directions!)</li>
+            </ol>
+            <div class="warning-box mt-2">
+                <p><strong>⚠️ Common Mistakes:</strong></p>
+                <ul style="margin-top:0.5rem;list-style:disc;padding-left:1.2rem;color:var(--text-secondary);">
+                    <li>Forgetting to replace sources properly</li>
+                    <li>Ignoring current direction when adding</li>
+                    <li>Applying superposition to power (doesn't work for nonlinear!)</li>
+                </ul>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⭐</span><h3>PYQ Analysis</h3></div>
+            <div class="exam-box">
+                <ul class="custom-list">
+                    <li>Series/parallel resistance calculations <span class="pyq-badge">10+ times</span></li>
+                    <li>KVL/KCL circuit solving <span class="pyq-badge">15+ times</span></li>
+                    <li>Superposition theorem numericals <span class="pyq-badge">8+ times</span></li>
+                    <li>Power calculations <span class="pyq-badge">12+ times</span></li>
+                </ul>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ DC Circuits — Quick Revision</div>
+                <ul>
+                    <li>✅ V = IR · P = VI = I²R = V²/R</li>
+                    <li>✅ KCL: Current in = Current out at junction</li>
+                    <li>✅ KVL: Sum of voltages around loop = 0</li>
+                    <li>✅ Series: R_total = R₁+R₂, same current, voltage divides</li>
+                    <li>✅ Parallel: 1/R = 1/R₁+1/R₂, same voltage, current divides</li>
+                    <li>✅ Superposition: one source at a time, then algebraic sum</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- AC CIRCUITS -->
+        <div class="topic-card" id="ac-circuits">
+            <div class="topic-title">🌊 AC CIRCUITS</div>
+
+            <div class="section-header"><span class="section-icon">💡</span><h3>Why This Topic Matters</h3></div>
+            <div class="why-matters">
+                <p><strong>AC powers your entire world!</strong> Home electricity, power grid, motors, generators — all AC. This is real electrical engineering.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>DC vs AC — the core difference:</strong></p>
+                <ul class="custom-list mt-2">
+                    <li><strong>DC</strong> — River flowing one direction constantly</li>
+                    <li><strong>AC</strong> — Ocean waves — up, down, repeat forever!</li>
+                </ul>
+                <p class="mt-2">💡 <strong>Why AC?</strong> Easier to generate, transmit long distances, and transform to different voltages!</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">📊</span><h3>AC Waveform Parameters</h3></div>
+
+            <div class="formula-card" data-icon="🌊">
+                <div class="formula-title">Standard AC Equation</div>
+                <div class="formula-content">v(t) = Vm · sin(ωt + φ)</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">Vm</span><span>→ Peak/Amplitude (maximum voltage)</span></div>
+                    <div class="variable"><span class="variable-name">ω</span><span>→ Angular frequency (rad/s)</span></div>
+                    <div class="variable"><span class="variable-name">φ</span><span>→ Phase angle (degrees or rad)</span></div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="formula-card">
+                    <div class="formula-title">Frequency &amp; Time Period <span class="pyq-badge">HIGH PYQ</span></div>
+                    <div class="formula-content" style="font-size:1.1rem;">f = 1/T · ω = 2πf</div>
+                    <div class="formula-variables">
+                        <div class="variable"><span class="variable-name">f</span><span>→ Frequency (Hz)</span></div>
+                        <div class="variable"><span class="variable-name">T</span><span>→ Time period (seconds)</span></div>
                     </div>
-                </section>
-
-                <section id="formulas-sec" class="tab-content hidden transition-all duration-300">
-                    <h2 class="text-xl font-extrabold text-slate-900 dark:text-amber-50 mb-6 font-mono">💾 FORMULA_EQUATION_VAULT //</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-5 rounded-2xl bg-amber-950/20 border border-amber-900/50 hover:border-amber-500 transition-all">
-                            <h3 class="text-sm font-black text-slate-800 dark:text-white">RMS Value (Sine Wave)</h3>
-                            <p class="text-xs text-amber-600 dark:text-amber-400 font-mono mt-2 p-2 bg-slate-100 dark:bg-slate-900 rounded">Irms = Imax / √2 = 0.707 Imax</p>
-                            <ul class="text-[10px] mt-2 space-y-1 text-slate-600 dark:text-slate-400 list-disc ml-4">
-                                <li>Form Factor = RMS / Avg = 1.11</li>
-                                <li>Peak Factor = Max / RMS = 1.414</li>
-                            </ul>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-cyan-950/20 border border-cyan-900/50 hover:border-cyan-500 transition-all">
-                            <h3 class="text-sm font-black text-slate-800 dark:text-white">Transformer EMF Equation</h3>
-                            <p class="text-xs text-cyan-600 dark:text-cyan-400 font-mono mt-2 p-2 bg-slate-100 dark:bg-slate-900 rounded">E = 4.44 × f × Φm × N</p>
-                            <p class="text-[10px] mt-2 text-slate-600 dark:text-slate-400 font-bold">f is freq, Φm is max flux, N is turns.</p>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-purple-950/20 border border-purple-900/50">
-                            <h3 class="text-sm font-black text-slate-800 dark:text-white">AC Power Components</h3>
-                            <p class="text-xs text-purple-600 dark:text-purple-400 font-mono mt-2 p-2 bg-slate-100 dark:bg-slate-900 rounded">P = VI cosφ (Active, W)<br>Q = VI sinφ (Reactive, VAR)<br>S = VI (Apparent, VA)</p>
-                            <p class="text-[10px] mt-2 text-slate-600 dark:text-slate-400">Power Factor = cosφ = P / S = R / Z</p>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-pink-950/20 border border-pink-900/50">
-                            <h3 class="text-sm font-black text-slate-800 dark:text-white">Boolean Algebra Laws</h3>
-                            <p class="text-[10px] text-pink-600 dark:text-pink-400 font-mono mt-2 p-2 bg-slate-100 dark:bg-slate-900 rounded">
-                                A + AB = A (Absorption)<br>
-                                A + A'B = A + B<br>
-                                (A+B)' = A' · B' (DeMorgan's)
-                            </p>
-                        </div>
+                    <div class="highlight-box mt-2">🇮🇳 India: 50 Hz · USA: 60 Hz</div>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Critical Values <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                    <div class="formula-content" style="font-size:1rem;">Vrms = 0.707 × Vm<br>Vavg = 0.637 × Vm</div>
+                    <div class="formula-variables">
+                        <div class="variable"><span class="variable-name">Form F</span><span>= 1.11 (Vrms/Vavg)</span></div>
+                        <div class="variable"><span class="variable-name">Peak F</span><span>= 1.414 (Vm/Vrms)</span></div>
                     </div>
-                </section>
+                </div>
+            </div>
 
-                <section id="pyq-sec" class="tab-content hidden transition-all duration-300">
-                    <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2 font-mono">📜 SOLVED_PAPER_ARCHIVES // JNTUK</h2>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Frequently repeated BEEE derivations mapped with topper theory notes.</p>
-                    
-                    <div class="space-y-4">
-                        <div class="border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 rounded-2xl">
-                            <div class="flex justify-between items-start cursor-pointer group" onclick="document.getElementById('sol-beee-1').classList.toggle('hidden')">
-                                <div>
-                                    <span class="text-[10px] font-bold text-amber-500 dark:text-amber-400 mb-1 block">Unit I - 10 Marks (Repeated 4x)</span>
-                                    <h4 class="text-sm font-bold text-slate-900 dark:text-slate-50 group-hover:text-cyan-600 dark:group-hover:text-cyan-400">Derive the expression for RMS value and Average Value of an alternating quantity.</h4>
-                                </div>
-                                <span class="text-xl">👇</span>
-                            </div>
-                            <div id="sol-beee-1" class="hidden mt-4 p-4 border-t border-dashed border-slate-300 dark:border-slate-700 font-mono text-xs text-slate-600 dark:text-slate-400">
-                                <b>Strategy:</b><br><br>
-                                1. Start with i = Im * sin(θ) where θ = ωt.<br>
-                                2. Average: Integrate over half cycle (0 to π). Avg = (1/π) ∫ Im*sin(θ) dθ = 2*Im/π = 0.637*Im.<br>
-                                3. Root Mean Square: Square the wave, find mean over full cycle (0 to 2π), then root.<br>
-                                4. RMS = √ [ (1/2π) ∫ (Im*sinθ)² dθ ]. Use identity sin²θ = (1-cos2θ)/2.<br>
-                                5. Result: Irms = Im / √2 = 0.707*Im.<br>
-                                (Write clean steps, box final answers).
-                            </div>
-                        </div>
+            <div class="intuition-box">
+                <p><strong>💡 What is RMS?</strong> The equivalent DC value that produces the same heating effect!</p>
+                <p class="mt-1"><strong>Your home 230V is RMS</strong> — actual peak voltage = 230 × √2 ≈ 325V!</p>
+                <p class="mt-1"><strong>Memory trick for values:</strong> <code>0.707</code> · <code>0.637</code> · <code>1.11</code> · <code>1.414</code></p>
+            </div>
 
-                        <div class="border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 rounded-2xl">
-                            <div class="flex justify-between items-start cursor-pointer group" onclick="document.getElementById('sol-beee-2').classList.toggle('hidden')">
-                                <div>
-                                    <span class="text-[10px] font-bold text-cyan-500 dark:text-cyan-400 mb-1 block">Unit V - 5 Marks (R20/R23 Specimen)</span>
-                                    <h4 class="text-sm font-bold text-slate-900 dark:text-slate-50 group-hover:text-cyan-600 dark:group-hover:text-cyan-400">Explain the operation of Full Wave Bridge Rectifier with waveforms.</h4>
-                                </div>
-                                <span class="text-xl">👇</span>
-                            </div>
-                            <div id="sol-beee-2" class="hidden mt-4 p-4 border-t border-dashed border-slate-300 dark:border-slate-700 font-mono text-xs text-slate-600 dark:text-slate-400">
-                                <b>Strategy:</b><br><br>
-                                1. Diagram is 50% of marks. Draw 4 diodes (D1, D2, D3, D4) in bridge formation.<br>
-                                2. Positive half-cycle: D1 and D2 are forward biased (conducting), D3/D4 are reverse.<br>
-                                3. Negative half-cycle: D3 and D4 are forward biased (conducting), D1/D2 are reverse.<br>
-                                4. Note that current direction through load resistor RL is SAME in both cycles.<br>
-                                5. Draw input AC sine wave, and output pulsating DC wave (m-shapes).<br>
-                                6. Efficiency = 81.2%, Ripple Factor = 0.48.
-                            </div>
-                        </div>
+            <div class="section-header"><span class="section-icon">📐</span><h3>R, L, C Phasor Diagrams</h3></div>
+
+            <div class="grid-3">
+                <div class="grid-card">
+                    <h5>Pure R Circuit</h5>
+                    <p>V and I are <strong style="color:var(--accent-green);">IN PHASE</strong> (φ = 0°)</p>
+                    <p class="mt-1" style="font-size:0.85rem;">Both reach peak at same time. Power is always positive.</p>
+                </div>
+                <div class="grid-card">
+                    <h5>Pure L Circuit</h5>
+                    <p>V <strong style="color:var(--accent-blue);">LEADS</strong> I by 90°</p>
+                    <p class="mt-1" style="font-size:0.85rem;"><strong>ELI</strong> — E leads I in L. Reactance: XL = 2πfL</p>
+                </div>
+                <div class="grid-card">
+                    <h5>Pure C Circuit</h5>
+                    <p>I <strong style="color:var(--accent-purple);">LEADS</strong> V by 90°</p>
+                    <p class="mt-1" style="font-size:0.85rem;"><strong>ICE</strong> — I leads E in C. Reactance: XC = 1/(2πfC)</p>
+                </div>
+            </div>
+
+            <div class="intuition-box mt-2">
+                <p>🎯 <strong>Memory Trick: "ELI the ICE man"</strong></p>
+                <p><strong>ELI</strong> → E (Voltage) Leads I (Current) in L (Inductor)</p>
+                <p><strong>ICE</strong> → I (Current) Leads E (Voltage) in C (Capacitor)</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚙️</span><h3>Impedance</h3></div>
+
+            <div class="formula-card" data-icon="⚡">
+                <div class="formula-title">Impedance of R-L-C Circuit <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">Z = √(R² + (XL − XC)²)</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">Z</span><span>→ Impedance (Ohms) — total AC opposition</span></div>
+                    <div class="variable"><span class="variable-name">XL</span><span>→ Inductive reactance = 2πfL</span></div>
+                    <div class="variable"><span class="variable-name">XC</span><span>→ Capacitive reactance = 1/(2πfC)</span></div>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="📐">
+                <div class="formula-title">Phase Angle <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">φ = tan⁻¹((XL − XC) / R)</div>
+                <div class="highlight-box mt-2">
+                    <p>✅ XL &gt; XC → Inductive (V leads) &nbsp;|&nbsp; ✅ XC &gt; XL → Capacitive (I leads)</p>
+                    <p>✅ XL = XC → <strong>Resonance!</strong> (Z = R, purely resistive)</p>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Power in AC Circuits</h3></div>
+
+            <div class="grid-3">
+                <div class="formula-card">
+                    <div class="formula-title">Active Power <span class="pyq-badge">VERY HIGH</span></div>
+                    <div class="formula-content" style="font-size:1.1rem;">P = VI·cos(φ)</div>
+                    <p style="color:var(--text-secondary);font-size:0.88rem;margin-top:0.5rem;">Unit: Watts (W) — what you pay for!</p>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Reactive Power</div>
+                    <div class="formula-content" style="font-size:1.1rem;">Q = VI·sin(φ)</div>
+                    <p style="color:var(--text-secondary);font-size:0.88rem;margin-top:0.5rem;">Unit: VAR — bounces back and forth</p>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Apparent Power</div>
+                    <div class="formula-content" style="font-size:1.1rem;">S = V × I</div>
+                    <p style="color:var(--text-secondary);font-size:0.88rem;margin-top:0.5rem;">Unit: VA — S² = P² + Q²</p>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="🎯">
+                <div class="formula-title">Power Factor <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">pf = cos(φ) = P/S = R/Z</div>
+                <div class="intuition-box mt-2">
+                    <p><strong>Range:</strong> 0 to 1 · <strong>Ideal:</strong> 1.0 · <strong>Industry target:</strong> &gt;0.9</p>
+                    <p class="mt-1">⚠️ Low power factor = higher current = thicker cables = higher cost!</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>⚠️ Common Mistakes:</strong></p>
+                <ul style="margin-top:0.5rem;list-style:disc;padding-left:1.2rem;color:var(--text-secondary);">
+                    <li>Using DC formulas in AC without reactance</li>
+                    <li>Confusing RMS and peak values (0.707 × Vm!)</li>
+                    <li>Adding AC voltages algebraically (must use phasors!)</li>
+                    <li>Wrong units: P→W, Q→VAR, S→VA</li>
+                </ul>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ AC Circuits — Quick Revision</div>
+                <ul>
+                    <li>✅ Vrms = 0.707Vm · Vavg = 0.637Vm · FF = 1.11 · PF = 1.414</li>
+                    <li>✅ f = 1/T · ω = 2πf</li>
+                    <li>✅ XL = 2πfL · XC = 1/(2πfC)</li>
+                    <li>✅ Z = √(R² + (XL−XC)²)</li>
+                    <li>✅ ELI (V leads in L) · ICE (I leads in C)</li>
+                    <li>✅ P = VIcosφ (W) · Q = VIsinφ (VAR) · S = VI (VA)</li>
+                    <li>✅ S² = P² + Q² · pf = cosφ = P/S</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         UNIT II: MACHINES & INSTRUMENTS
+    ════════════════════════════════════════ -->
+    <section class="unit-section" id="unit2">
+        <div class="unit-header">
+            <h2>⚙️ UNIT II — MACHINES &amp; MEASURING INSTRUMENTS</h2>
+            <p>How electrical machines convert energy and how we measure electrical quantities</p>
+            <div class="unit-badge">Ⅱ</div>
+        </div>
+
+        <!-- DC MOTOR & GENERATOR -->
+        <div class="topic-card" id="dc-motor">
+            <div class="topic-title">⚙️ DC MOTOR &amp; DC GENERATOR</div>
+
+            <div class="section-header"><span class="section-icon">💡</span><h3>Why This Topic Matters</h3></div>
+            <div class="why-matters">
+                <p><strong>Motors and generators are the heart of modern civilization!</strong> Electric vehicles, industrial machines, power plants — all use these principles.</p>
+                <p class="mt-2">🎯 <strong>Real-world:</strong> EVs, industrial automation, elevators, fans, pumps, power generation</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>The Beautiful Duality</h3></div>
+            <div class="intuition-box">
+                <ul class="custom-list">
+                    <li><strong>DC Motor:</strong> Give electricity → Get rotation &nbsp; (Electrical → Mechanical)</li>
+                    <li><strong>DC Generator:</strong> Give rotation → Get electricity &nbsp; (Mechanical → Electrical)</li>
+                </ul>
+                <p class="mt-2">💡 <strong>Mind-blowing:</strong> The SAME machine can work as both motor and generator!</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🔌</span><h3>Working Principle</h3></div>
+
+            <div class="grid-2">
+                <div class="highlight-box">
+                    <p><strong>DC Motor</strong></p>
+                    <p class="mt-1">Current-carrying conductor in magnetic field experiences force</p>
+                    <p class="mt-1">📌 <strong>Fleming's Left Hand Rule</strong></p>
+                    <p style="font-size:0.88rem;color:var(--text-secondary);margin-top:0.5rem;">Thumb = Motion · Index = Field · Middle = Current</p>
+                </div>
+                <div class="highlight-box">
+                    <p><strong>DC Generator</strong></p>
+                    <p class="mt-1">Moving conductor in magnetic field has EMF induced</p>
+                    <p class="mt-1">📌 <strong>Fleming's Right Hand Rule</strong></p>
+                    <p style="font-size:0.88rem;color:var(--text-secondary);margin-top:0.5rem;">Faraday's Law of Electromagnetic Induction</p>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Formula Zone</h3></div>
+
+            <div class="formula-card" data-icon="⚙️">
+                <div class="formula-title">EMF Equation (Motor Back EMF / Generator EMF) <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">E = (P × Φ × N × Z) / (60 × A)</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">P</span><span>→ Number of poles</span></div>
+                    <div class="variable"><span class="variable-name">Φ</span><span>→ Flux per pole (Weber)</span></div>
+                    <div class="variable"><span class="variable-name">N</span><span>→ Speed (RPM)</span></div>
+                    <div class="variable"><span class="variable-name">Z</span><span>→ Total armature conductors</span></div>
+                    <div class="variable"><span class="variable-name">A</span><span>→ Parallel paths (A=P for lap, A=2 for wave)</span></div>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="🔄">
+                <div class="formula-title">Motor Torque <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">T = (P × Φ × Ia × Z) / (2π × A)</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">T</span><span>→ Torque (N·m)</span></div>
+                    <div class="variable"><span class="variable-name">Ia</span><span>→ Armature current (A)</span></div>
+                </div>
+                <div class="highlight-box mt-2">🔑 <strong>Key:</strong> Torque ∝ Φ × Ia — more flux or more current = more torque!</div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>Types of DC Motors (by field connection):</strong></p>
+                <div class="grid-3" style="margin-top:0.8rem;">
+                    <div class="grid-card"><h5>Shunt Motor</h5><p>Field parallel to armature. Constant speed. Used in lathes, fans.</p></div>
+                    <div class="grid-card"><h5>Series Motor</h5><p>Field in series. High starting torque. Used in cranes, traction.</p></div>
+                    <div class="grid-card"><h5>Compound Motor</h5><p>Both shunt + series field. Best of both. Used in elevators, compressors.</p></div>
+                </div>
+            </div>
+
+            <div class="exam-box">
+                <p><strong>🎯 Applications:</strong></p>
+                <ul class="custom-list mt-2">
+                    <li>DC Motors → EVs, industrial speed control, cranes, printers</li>
+                    <li>DC Generators → Backup power, battery charging, welding machines</li>
+                </ul>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ DC Machines — Quick Revision</div>
+                <ul>
+                    <li>✅ Motor: Electrical→Mechanical (Left Hand Rule)</li>
+                    <li>✅ Generator: Mechanical→Electrical (Right Hand Rule)</li>
+                    <li>✅ E = PΦNZ/60A (same formula for both!)</li>
+                    <li>✅ Torque = PΦIaZ/2πA</li>
+                    <li>✅ Series motor: high torque · Shunt motor: constant speed</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TRANSFORMER -->
+        <div class="topic-card" id="transformer">
+            <div class="topic-title">🔄 TRANSFORMER</div>
+
+            <div class="section-header"><span class="section-icon">💡</span><h3>Why This Topic Matters</h3></div>
+            <div class="why-matters">
+                <p><strong>Transformers are the backbone of power transmission!</strong> Without them, electricity couldn't travel long distances. They're why you get safe 230V from 11kV power lines.</p>
+                <p class="mt-2">🎯 <strong>Real-world:</strong> Power grids, mobile chargers, welding machines, distribution systems, isolation</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>🎯 A Voltage Converter with NO Moving Parts!</strong></p>
+                <p class="mt-1"><strong>Working:</strong> Changing current in primary coil → Changing magnetic field → Induces voltage in secondary coil (Mutual Induction)</p>
+                <p class="mt-1"><strong>Analogy:</strong> Like a gear system — trade voltage for current, like trading speed for force!</p>
+                <p class="mt-1">⚠️ <strong>Only works for AC</strong> — DC gives no changing field, no induction!</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Formula Zone</h3></div>
+
+            <div class="formula-card" data-icon="🔄">
+                <div class="formula-title">Transformation Ratio <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">K = N₂/N₁ = V₂/V₁ = I₁/I₂</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">K</span><span>→ Transformation ratio</span></div>
+                    <div class="variable"><span class="variable-name">N₁,N₂</span><span>→ Turns in primary, secondary</span></div>
+                    <div class="variable"><span class="variable-name">V₁,V₂</span><span>→ Primary, secondary voltages</span></div>
+                    <div class="variable"><span class="variable-name">I₁,I₂</span><span>→ Primary, secondary currents</span></div>
+                </div>
+                <div class="highlight-box mt-2">
+                    <p>K &gt; 1 → Step-Up (V increases) &nbsp;|&nbsp; K &lt; 1 → Step-Down (V decreases) &nbsp;|&nbsp; K = 1 → Isolation</p>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="⚡">
+                <div class="formula-title">EMF Equation <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">E = 4.44 × f × Φm × N</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">E</span><span>→ Induced EMF (volts)</span></div>
+                    <div class="variable"><span class="variable-name">f</span><span>→ Frequency (Hz)</span></div>
+                    <div class="variable"><span class="variable-name">Φm</span><span>→ Maximum flux (Weber)</span></div>
+                    <div class="variable"><span class="variable-name">N</span><span>→ Number of turns</span></div>
+                </div>
+                <div class="highlight-box mt-2">🚀 <strong>Memory trick:</strong> "4.44" — remember three 4s!</div>
+            </div>
+
+            <div class="formula-card" data-icon="📊">
+                <div class="formula-title">Efficiency <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">η = (Output / Input) × 100%</div>
+                <div class="highlight-box mt-2">
+                    <p><strong>Losses:</strong> Copper loss (I²R, variable) + Core loss (hysteresis + eddy current, fixed)</p>
+                    <p><strong>Practical:</strong> 95–99% efficiency for large transformers!</p>
+                </div>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Transformer — Quick Revision</div>
+                <ul>
+                    <li>✅ Works only on AC — mutual induction principle</li>
+                    <li>✅ K = N₂/N₁ = V₂/V₁ = I₁/I₂</li>
+                    <li>✅ EMF = 4.44 f Φm N</li>
+                    <li>✅ Step-up: K&gt;1 · Step-down: K&lt;1</li>
+                    <li>✅ Losses: copper + core (hysteresis + eddy current)</li>
+                    <li>✅ Efficiency: 95–99%</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3-PHASE INDUCTION MOTOR -->
+        <div class="topic-card" id="induction-motor">
+            <div class="topic-title">🔄 3-PHASE INDUCTION MOTOR</div>
+
+            <div class="section-header"><span class="section-icon">💡</span><h3>Why This Topic Matters</h3></div>
+            <div class="why-matters">
+                <p><strong>The workhorse of industry!</strong> 3-phase induction motors power 80% of all industrial machinery — pumps, compressors, conveyors, fans.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>🔄 The Magic of Rotating Magnetic Field (RMF):</strong></p>
+                <p class="mt-1">3-phase AC in stator windings creates a magnetic field that <strong>rotates</strong> — even though the stator is stationary! This rotating field drags the rotor along.</p>
+                <p class="mt-1">💡 <strong>Why "Induction"?</strong> Rotor current is INDUCED (not directly connected), just like a transformer secondary!</p>
+                <p class="mt-1">🎯 <strong>Analogy:</strong> A spinning magnet pulling a metal disc without touching it.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Formula Zone</h3></div>
+
+            <div class="grid-2">
+                <div class="formula-card">
+                    <div class="formula-title">Synchronous Speed <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                    <div class="formula-content">Ns = 120f / P</div>
+                    <div class="formula-variables">
+                        <div class="variable"><span class="variable-name">Ns</span><span>→ Sync. speed (RPM)</span></div>
+                        <div class="variable"><span class="variable-name">f</span><span>→ Frequency (Hz)</span></div>
+                        <div class="variable"><span class="variable-name">P</span><span>→ No. of poles</span></div>
                     </div>
-                </section>
-
-                <section id="expected-sec" class="tab-content hidden transition-all duration-300">
-                    <div class="bg-purple-50 dark:bg-purple-950/20 border-2 border-purple-300 dark:border-purple-600/50 p-8 rounded-3xl dark:neon-glow-amber relative overflow-hidden">
-                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 dark:opacity-20 pointer-events-none"></div>
-                        <h2 class="text-2xl font-black text-purple-600 dark:text-purple-500 mb-2 font-mono">⚠️ AI_MOST_EXPECTED_PREDICTIONS</h2>
-                        <p class="text-sm text-purple-700 dark:text-purple-200 mb-6">Algorithms analyzing JNTUK patterns reveal these highly probable questions for R23.</p>
-                        
-                        <ul class="space-y-3 font-mono text-sm text-slate-700 dark:text-slate-300">
-                            <li class="bg-white/60 dark:bg-black/40 p-4 rounded-xl border border-purple-200 dark:border-purple-500/30">
-                                <span class="text-purple-600 dark:text-purple-400 font-bold">[HIGH ]</span> Explain transformer working principle and derive EMF equation.
-                            </li>
-                            <li class="bg-white/60 dark:bg-black/40 p-4 rounded-xl border border-purple-200 dark:border-purple-500/30">
-                                <span class="text-amber-500 dark:text-amber-400 font-bold">[88% ]</span> Compare PMMC and Moving Iron (MI) instruments. Difference table.
-                            </li>
-                            <li class="bg-white/60 dark:bg-black/40 p-4 rounded-xl border border-purple-200 dark:border-purple-500/30">
-                                <span class="text-pink-600 dark:text-pink-400 font-bold">[81% ]</span> Draw CE amplifier characteristics and explain input/output regions.
-                            </li>
-                            <li class="bg-white/60 dark:bg-black/40 p-4 rounded-xl border border-purple-200 dark:border-purple-500/30">
-                                <span class="text-cyan-600 dark:text-cyan-400 font-bold">[76% ]</span> Explain basic logic gates with truth tables & symbols. Implement Half Adder.
-                            </li>
-                        </ul>
+                    <div class="highlight-box mt-2">50Hz, 4-pole: Ns = 1500 RPM<br>50Hz, 2-pole: Ns = 3000 RPM</div>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Slip <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                    <div class="formula-content">s = (Ns − N) / Ns</div>
+                    <div class="formula-variables">
+                        <div class="variable"><span class="variable-name">N</span><span>→ Actual rotor speed</span></div>
+                        <div class="variable"><span class="variable-name">s</span><span>→ Slip (2–5% at full load)</span></div>
                     </div>
-                </section>
+                    <div class="highlight-box mt-2">If slip = 0 → No induction, no torque! Rotor must lag.</div>
+                </div>
+            </div>
 
-                <section id="viva-sec" class="tab-content hidden transition-all duration-300">
-                    <h2 class="text-xl font-extrabold text-cyan-600 dark:text-cyan-400 mb-2 font-mono">🃏 VIVA_FLIP_CARDS //</h2>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Labs & External Viva Short Answers.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-6 rounded-2xl cursor-pointer peer-flip" onclick="this.querySelector('.viva-ans').classList.toggle('hidden')">
-                            <h4 class="font-bold text-slate-900 dark:text-slate-200">Why does a transformer only work on AC?</h4>
-                            <p class="viva-ans hidden mt-4 border-t border-slate-300 dark:border-slate-700 pt-4 text-cyan-600 dark:text-cyan-300 text-sm">Transformer works on Faraday's law of induction which requires changing magnetic flux. DC provides constant flux, so no induced EMF. (It can also burn out).</p>
-                        </div>
-                        <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-6 rounded-2xl cursor-pointer" onclick="this.querySelector('.viva-ans').classList.toggle('hidden')">
-                            <h4 class="font-bold text-slate-900 dark:text-slate-200">Define Power Factor.</h4>
-                            <p class="viva-ans hidden mt-4 border-t border-slate-300 dark:border-slate-700 pt-4 text-cyan-600 dark:text-cyan-300 text-sm">Cosine of the angle between voltage and current (cosφ). Also defined as ratio of Active power to Apparent power (P/S).</p>
-                        </div>
-                        <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-6 rounded-2xl cursor-pointer" onclick="this.querySelector('.viva-ans').classList.toggle('hidden')">
-                            <h4 class="font-bold text-slate-900 dark:text-slate-200">Difference between Fuse and MCB?</h4>
-                            <p class="viva-ans hidden mt-4 border-t border-slate-300 dark:border-slate-700 pt-4 text-cyan-600 dark:text-cyan-300 text-sm">Fuse melts and must be replaced after a fault. MCB simply trips and can be reset. MCB acts faster than a standard fuse.</p>
-                        </div>
-                        <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-6 rounded-2xl cursor-pointer" onclick="this.querySelector('.viva-ans').classList.toggle('hidden')">
-                            <h4 class="font-bold text-slate-900 dark:text-slate-200">Why is CE configuration widely used?</h4>
-                            <p class="viva-ans hidden mt-4 border-t border-slate-300 dark:border-slate-700 pt-4 text-cyan-600 dark:text-cyan-300 text-sm">Common Emitter provides both high Voltage Gain and high Current Gain, yielding the highest overall Power Gain among BJT configs.</p>
-                        </div>
-                    </div>
-                </section>
-                
-                <section id="mnemonics-sec" class="tab-content hidden transition-all duration-300">
-                     <h2 class="text-xl font-extrabold text-pink-500 dark:text-pink-400 mb-6 font-mono">🧠 COGNITIVE_MNEMONICS // Memory Aids</h2>
-                     <div class="space-y-4 font-mono">
-                         <div class="bg-pink-50 dark:bg-black/50 p-5 rounded-xl border border-pink-200 dark:border-pink-500/30">
-                            <h3 class="text-pink-600 dark:text-pink-300 font-bold mb-2">ELI the ICE man</h3>
-                            <p class="text-slate-800 dark:text-white">"ELI (Voltage Leads Current in Inductor)"</p>
-                            <p class="text-slate-800 dark:text-white mt-1">"ICE (Current Leads Voltage in Capacitor)"</p>
-                            <p class="text-xs text-slate-500 mt-1">L = Inductor, C = Capacitor, E/V = Voltage, I = Current.</p>
-                         </div>
-                         <div class="bg-pink-50 dark:bg-black/50 p-5 rounded-xl border border-pink-200 dark:border-pink-500/30">
-                            <h3 class="text-pink-600 dark:text-pink-300 font-bold mb-2">Resistor Color Code</h3>
-                            <p class="text-slate-800 dark:text-white">"BB ROY of Great Britain had a Very Good Wife."</p>
-                            <p class="text-xs text-slate-500 mt-1">Black(0), Brown(1), Red(2), Orange(3), Yellow(4), Green(5), Blue(6), Violet(7), Gray(8), White(9).</p>
-                         </div>
-                     </div>
-                </section>
-
-                <section id="survival-recipe" class="p-8 bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-900/50 rounded-3xl mt-12 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
-                    <h3 class="text-2xl font-black text-purple-600 dark:text-purple-500 mb-4 font-mono">🚨 1-DAY EXAM SURVIVAL PROTOCOL //</h3>
-                    <p class="text-sm text-purple-700 dark:text-purple-200 mb-6">Aiming for 70% in 24 hours? Follow this BEEE roadmap strictly.</p>
-                    <ul class="space-y-3 font-mono text-sm text-slate-800 dark:text-slate-300">
-                        <li><b class="text-slate-900 dark:text-white">1. Guaranteed 15M (Transformers):</b> Memorize EMF equation and Transformer principle. Draw core clearly. Always repeated.</li>
-                        <li><b class="text-slate-900 dark:text-white">2. Free Flow 10M (Safety):</b> Unit 3 (Fuses, MCBs, Earthing) is complete general knowledge. Read once, write pages.</li>
-                        <li><b class="text-slate-900 dark:text-white">3. Logic Gates & Rectifier:</b> Memorize Truth Tables, symbols. Bridge rectifier diagram provides instant marks.</li>
-                        <li><b class="text-slate-900 dark:text-white">4. Skip KVL/KCL Numericals if weak:</b> Theoretical derivations (RMS, Average) have higher probability and zero math errors.</li>
-                        <li><b class="text-slate-900 dark:text-white">5. Presentation Strategy:</b> Put final equations in a Box. Draw waveforms large covering half a page using pen, not light pencil.</li>
+            <div class="grid-2" style="margin-top:1rem;">
+                <div class="highlight-box">
+                    <p><strong>Squirrel Cage Rotor</strong></p>
+                    <ul style="margin-top:0.5rem;font-size:0.88rem;list-style:disc;padding-left:1.2rem;color:var(--text-secondary);">
+                        <li>Simple, rugged, low maintenance</li>
+                        <li>No external resistance connection</li>
+                        <li>90% of industrial motors</li>
                     </ul>
-                </section>
-
-            </div>
-            
-            <div class="lg:col-span-4 space-y-6">
-                <!-- Gamification Profile -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 dark:neon-glow-amber shadow-sm">
-                    <div class="text-center font-mono">
-                        <div class="w-20 h-20 mx-auto bg-amber-50 dark:bg-amber-950 rounded-full flex items-center justify-center border-2 border-amber-200 dark:border-amber-500/50 mb-3 text-3xl shadow-[0_0_15px_rgba(245,158,11,0.2)] dark:shadow-[0_0_15px_rgba(245,158,11,0.5)]">
-                            <span id="rank-emoji">⚡</span>
-                        </div>
-                        <h3 class="text-amber-600 dark:text-amber-400 font-bold tracking-widest text-xs uppercase" id="rank-title">CIRCUIT BEGINNER</h3>
-                        <p class="text-[10px] text-slate-500 mt-1">Total Power XP: <span id="xp-counter" class="text-slate-800 dark:text-white text-sm">0</span></p>
-                        
-                        <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full mt-4 mb-1">
-                            <div id="xp-bar" class="h-full bg-amber-500 rounded-full" style="width: 0%"></div>
-                        </div>
-                        <p class="text-[9px] text-slate-500 dark:text-slate-600 text-left">Next rank at 100 XP</p>
-                    </div>
                 </div>
+                <div class="highlight-box">
+                    <p><strong>Slip Ring (Wound) Rotor</strong></p>
+                    <ul style="margin-top:0.5rem;font-size:0.88rem;list-style:disc;padding-left:1.2rem;color:var(--text-secondary);">
+                        <li>External resistance can be added</li>
+                        <li>Better speed control</li>
+                        <li>Higher starting torque</li>
+                    </ul>
+                </div>
+            </div>
 
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
-                     <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest mb-4">Quick Revision Sheets</h3>
-                     <a href="#" class="block p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 hover:border-amber-500 hover:text-amber-500 dark:hover:text-amber-400 transition-all font-mono mb-2">📄 Circuit Laws & Equations.pdf</a>
-                     <a href="#" class="block p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 hover:border-amber-500 hover:text-amber-500 dark:hover:text-amber-400 transition-all font-mono mb-2">📄 Logic Gate Combinations.pdf</a>
-                     <a href="#" class="block p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 hover:border-amber-500 hover:text-amber-500 dark:hover:text-amber-400 transition-all font-mono">📄 Rectifier Differences Table.pdf</a>
+            <div class="revision-card">
+                <div class="revision-title">⚡ Induction Motor — Quick Revision</div>
+                <ul>
+                    <li>✅ RMF is created by 3-phase supply to stator</li>
+                    <li>✅ Ns = 120f/P (synchronous speed)</li>
+                    <li>✅ Slip s = (Ns−N)/Ns · Typical: 2–5%</li>
+                    <li>✅ Squirrel cage: simple, rugged · Slip ring: speed control</li>
+                    <li>✅ Self-starting, no brushes, low maintenance</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ALTERNATOR -->
+        <div class="topic-card" id="alternator">
+            <div class="topic-title">⚡ ALTERNATOR (AC Generator)</div>
+
+            <div class="why-matters">
+                <p><strong>Alternators generate the AC electricity supplied to your home!</strong> Every power plant uses an alternator — from thermal to nuclear to hydro.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>Reverse of Motor:</strong> Mechanical rotation → Changing magnetic field → Induced AC EMF</p>
+                <p class="mt-1">In alternators, the <strong>field (rotor) rotates</strong> while <strong>armature (stator) is stationary</strong> — opposite to DC generator!</p>
+            </div>
+
+            <div class="formula-card" data-icon="⚡">
+                <div class="formula-title">EMF Equation <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">E = 4.44 × Kw × f × Φ × N</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">Kw</span><span>→ Winding factor (≈ 0.95)</span></div>
+                    <div class="variable"><span class="variable-name">N</span><span>→ Turns per phase</span></div>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="🔄">
+                <div class="formula-title">Frequency Equation <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">f = PN / 120</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">P</span><span>→ Number of poles</span></div>
+                    <div class="variable"><span class="variable-name">N</span><span>→ Speed in RPM</span></div>
+                </div>
+                <div class="highlight-box mt-2">For 50Hz, 2-pole: N = 3000 RPM &nbsp;|&nbsp; 4-pole: N = 1500 RPM</div>
+            </div>
+
+            <div class="exam-box">
+                <p><strong>Alternator vs DC Generator:</strong></p>
+                <table class="custom-table mt-2">
+                    <thead><tr><th>Feature</th><th>Alternator</th><th>DC Generator</th></tr></thead>
+                    <tbody>
+                        <tr><td>Output</td><td>AC</td><td>DC</td></tr>
+                        <tr><td>Rotating part</td><td>Field (rotor)</td><td>Armature (rotor)</td></tr>
+                        <tr><td>Commutator</td><td>Not required</td><td>Required</td></tr>
+                        <tr><td>Slip rings</td><td>Required</td><td>Not required</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MEASURING INSTRUMENTS -->
+        <div class="topic-card" id="instruments">
+            <div class="topic-title">📊 MEASURING INSTRUMENTS</div>
+
+            <div class="why-matters">
+                <p><strong>You can't control what you can't measure!</strong> Measurement is fundamental to every electrical system. From your electricity meter to lab equipment — measurement keeps everything working.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🔬</span><h3>PMMC vs Moving Iron vs Wheatstone</h3></div>
+
+            <div class="grid-3">
+                <div class="grid-card">
+                    <h5>PMMC</h5>
+                    <p><strong>DC only</strong> · High accuracy · Linear scale</p>
+                    <p class="mt-1" style="font-size:0.85rem;">Principle: Current-carrying coil in permanent magnet field experiences torque proportional to current</p>
+                    <p class="mt-1" style="color:var(--accent-orange);font-size:0.85rem;">Limitation: DC only!</p>
+                </div>
+                <div class="grid-card">
+                    <h5>Moving Iron</h5>
+                    <p><strong>AC &amp; DC</strong> · Medium accuracy · Non-linear scale</p>
+                    <p class="mt-1" style="font-size:0.85rem;">Principle: Iron piece attracted or repelled by magnetic field. Two types: Attraction &amp; Repulsion</p>
+                    <p class="mt-1" style="color:var(--accent-green);font-size:0.85rem;">Advantage: Works for both!</p>
+                </div>
+                <div class="grid-card">
+                    <h5>Wheatstone Bridge</h5>
+                    <p><strong>DC</strong> · Very high accuracy · Resistance measurement</p>
+                    <p class="mt-1" style="font-size:0.85rem;">Principle: Bridge balance condition — no current through galvanometer</p>
+                    <p class="mt-1" style="color:var(--accent-blue);font-size:0.85rem;">Best for: Precise R measurement</p>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="🔬">
+                <div class="formula-title">Wheatstone Bridge Balance <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">R₁/R₂ = R₃/R₄</div>
+                <div class="intuition-box mt-2">
+                    <p>At balance: No current through galvanometer → Unknown R = (R₂ × R₃) / R₁</p>
+                </div>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Instruments — Quick Revision</div>
+                <ul>
+                    <li>✅ PMMC: DC only, high accuracy, linear scale</li>
+                    <li>✅ Moving Iron: AC &amp; DC, medium accuracy, non-linear</li>
+                    <li>✅ Wheatstone: Resistance measurement, R₁/R₂ = R₃/R₄</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         UNIT III: ENERGY & SAFETY
+    ════════════════════════════════════════ -->
+    <section class="unit-section" id="unit3">
+        <div class="unit-header">
+            <h2>🔋 UNIT III — ENERGY RESOURCES &amp; SAFETY</h2>
+            <p>Power generation, electricity billing, and life-saving electrical safety</p>
+            <div class="unit-badge">Ⅲ</div>
+        </div>
+
+        <!-- ENERGY RESOURCES -->
+        <div class="topic-card" id="energy-resources">
+            <div class="topic-title">🌍 ENERGY RESOURCES</div>
+
+            <div class="why-matters">
+                <p><strong>Energy powers civilization!</strong> Understanding sources helps you see where electricity comes from and why renewable energy is the future of engineering.</p>
+            </div>
+
+            <div class="grid-2" style="margin-top:1.5rem;">
+                <div class="warning-box">
+                    <p><strong>🏭 Conventional Sources</strong></p>
+                    <ul style="margin-top:0.7rem;list-style:disc;padding-left:1.2rem;color:var(--text-secondary);">
+                        <li>Coal — most used in India (thermal)</li>
+                        <li>Petroleum &amp; Natural Gas</li>
+                        <li>Nuclear (uranium/thorium fission)</li>
+                        <li>Hydro (large dams)</li>
+                    </ul>
+                    <p style="margin-top:0.8rem;font-size:0.88rem;color:var(--accent-orange);">❌ Limited · Polluting · CO₂ emissions</p>
+                </div>
+                <div class="highlight-box">
+                    <p><strong>🌿 Non-Conventional (Renewable)</strong></p>
+                    <ul style="margin-top:0.7rem;list-style:disc;padding-left:1.2rem;color:var(--text-secondary);">
+                        <li>☀️ Solar — photovoltaic cells</li>
+                        <li>💨 Wind — turbines</li>
+                        <li>🌊 Tidal — ocean tides</li>
+                        <li>🔥 Geothermal — Earth's heat</li>
+                        <li>🌱 Biomass — organic matter</li>
+                    </ul>
+                    <p style="margin-top:0.8rem;font-size:0.88rem;color:var(--accent-green);">✅ Renewable · Clean · No CO₂ · Future!</p>
                 </div>
             </div>
         </div>
-    </main>
 
-    <script>
-        // Gamification & Core State Machine
-        let state = {
-            xp: parseInt(localStorage.getItem('beee_xp') || '0'),
-            units: JSON.parse(localStorage.getItem('beee_units') || '[]'),
-            bookmarked: localStorage.getItem('beee_bookmarked') === 'true'
-        };
+        <!-- POWER PLANTS -->
+        <div class="topic-card" id="power-plants">
+            <div class="topic-title">⚡ POWER PLANTS</div>
 
-        function addXP(amount) {
-            state.xp += amount;
-            localStorage.setItem('beee_xp', state.xp.toString());
-            updateProfile();
-            showToast("\u2B06\uFE0F +" + amount + " XP Gained!");
-        }
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">💧 Hydel (Hydroelectric) Power Plant</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="intuition-box"><p><strong>Simple Idea:</strong> Falling water spins turbines → Generates electricity!</p></div>
+                <ol class="step-list">
+                    <li>Dam stores water at height (potential energy)</li>
+                    <li>Water released through penstock (high pressure pipes)</li>
+                    <li>High-speed water hits turbine blades → spins turbine</li>
+                    <li>Turbine drives generator → AC electricity!</li>
+                    <li>Water discharged to downstream river</li>
+                </ol>
+                <div class="grid-2 mt-2">
+                    <div class="highlight-box"><p>✅ Clean · Low operating cost · 50+ year life · No fuel</p></div>
+                    <div class="warning-box"><p>❌ High initial cost · Depends on rainfall · Ecological impact</p></div>
+                </div>
+                <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.5rem;"><strong>Examples:</strong> Bhakra Nangal, Tehri Dam, Sardar Sarovar</p>
+            </div>
 
-        function updateProfile() {
-            document.getElementById('xp-counter').innerText = state.xp.toString();
-            let rank = "CIRCUIT BEGINNER";
-            let em = "⚡";
-            let next = 100;
-            if (state.xp >= 100) { rank = "POWER EXPLORER"; em = "🔋"; next = 250; }
-            if (state.xp >= 250) { rank = "ELECTRONICS ENGINEER"; em = "🧠"; next = 500; }
-            if (state.xp >= 500) { rank = "ELECTRICAL ELITE"; em = "🏆"; next = 1000; }
-            
-            document.getElementById('rank-title').innerText = rank;
-            document.getElementById('rank-emoji').innerText = em;
-            
-            const pct = Math.min((state.xp / next) * 100, 100);
-            document.getElementById('xp-bar').style.width = pct + "%";
-        }
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">⚛️ Nuclear Power Plant</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="intuition-box"><p><strong>Simple Idea:</strong> Split uranium atoms → Huge heat → Boil water → Steam spins turbine → Electricity!</p></div>
+                <div class="grid-2 mt-2">
+                    <div class="highlight-box"><p>✅ Tiny fuel needed · Huge power · No CO₂ emissions</p></div>
+                    <div class="warning-box"><p>❌ Radioactive waste · Safety risk · High initial cost</p></div>
+                </div>
+                <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.5rem;"><strong>Examples:</strong> Tarapur, Kudankulam, Kaiga, Narora</p>
+            </div>
 
-        // Module UI Toggle
-        window.switchTab = function(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.add('hidden');
-                el.style.opacity = '0';
-            });
-            document.querySelectorAll('.subtab-btn').forEach(b => {
-                b.classList.remove('active', 'text-amber-500', 'border', 'border-amber-500', 'bg-amber-500/10');
-                b.classList.add('text-slate-500');
-            });
-            
-            const activeBtn = event.currentTarget || document.querySelector(\`[onclick="window.switchTab('\${tabId}')"]\`);
-            activeBtn.classList.remove('text-slate-500');
-            activeBtn.classList.add('active', 'text-amber-500', 'border', 'border-amber-500', 'bg-amber-500/10');
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">☀️ Solar Power Plant</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="intuition-box"><p><strong>Photovoltaic Effect:</strong> Sunlight photons hit semiconductor → Knock electrons free → Direct current flows!</p></div>
+                <div class="grid-2 mt-2">
+                    <div class="grid-card"><h5>PV (Photovoltaic)</h5><p>Direct conversion. Solar panels on rooftops, solar farms. Most common.</p></div>
+                    <div class="grid-card"><h5>Solar Thermal</h5><p>Mirrors concentrate sunlight → Heat fluid → Steam turbine → Electricity</p></div>
+                </div>
+                <div class="grid-2 mt-1">
+                    <div class="highlight-box"><p>✅ Unlimited sun · Zero pollution · Low maintenance · Scalable</p></div>
+                    <div class="warning-box"><p>❌ Daylight only · Weather dependent · Storage needed</p></div>
+                </div>
+                <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.5rem;">🇮🇳 <strong>India's Goal:</strong> 100 GW solar by 2030!</p>
+            </div>
 
-            const tab = document.getElementById(tabId);
-            tab.classList.remove('hidden');
-            setTimeout(() => { tab.style.opacity = '1'; }, 50);
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">💨 Wind Power Plant</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="intuition-box"><p><strong>Simple Idea:</strong> Wind spins aerodynamic blades → Turbine drives generator → AC electricity!</p></div>
+                <ol class="step-list mt-2">
+                    <li>Wind hits curved turbine blades (like airplane wings)</li>
+                    <li>Blades rotate the rotor shaft</li>
+                    <li>Gearbox increases speed to generator requirements</li>
+                    <li>Generator produces AC, fed to grid via transformer</li>
+                </ol>
+                <div class="grid-2 mt-2">
+                    <div class="highlight-box"><p>✅ Clean · Low operating cost · Land usable for farming too</p></div>
+                    <div class="warning-box"><p>❌ Variable wind · Noise · High initial cost · Bird impact</p></div>
+                </div>
+                <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.5rem;"><strong>Best locations:</strong> Coastal, hilltops — Gujarat, Tamil Nadu, Rajasthan</p>
+            </div>
+        </div>
 
-            // Give XP for exploring
-            if (Math.random() > 0.7) addXP(5);
-        };
+        <!-- ELECTRICITY BILL -->
+        <div class="topic-card" id="electricity-bill">
+            <div class="topic-title">💰 ELECTRICITY BILL CALCULATION</div>
 
-        // Syllabus Tracking
-        window.toggleUnitProgress = function(unitId) {
-            const el = document.getElementById('check-' + unitId);
-            if (el.checked) {
-                if (!state.units.includes(unitId)) {
-                    state.units.push(unitId);
-                    addXP(20);
+            <div class="why-matters">
+                <p><strong>Money matters!</strong> Understanding electricity bills is life-long practical knowledge — and a very common exam question!</p>
+            </div>
+
+            <div class="formula-card" data-icon="💡">
+                <div class="formula-title">Unit of Electricity <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">1 Unit = 1 kWh = 1000 Wh</div>
+                <div class="intuition-box mt-2">
+                    <p>Using 1000W (1kW) for 1 hour = 1 unit</p>
+                    <p>100W bulb × 10 hours = 1 unit · 1000W heater × 1 hour = 1 unit · AC (2kW) × 30 min = 1 unit</p>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="🔢">
+                <div class="formula-title">Energy Consumption <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">Energy (kWh) = Power (kW) × Time (hours)</div>
+                <div class="highlight-box mt-2">
+                    <p><strong>Example:</strong> Fan 75W × 8h/day × 30 days = 0.075 × 8 × 30 = <strong>18 kWh = 18 units</strong></p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>Common Appliance Ratings:</strong></p>
+                <table class="custom-table mt-2">
+                    <thead><tr><th>Appliance</th><th>Power</th><th>Units/hr</th></tr></thead>
+                    <tbody>
+                        <tr><td>LED Bulb</td><td>9–12W</td><td>≈0.01</td></tr>
+                        <tr><td>Ceiling Fan</td><td>70–80W</td><td>≈0.075</td></tr>
+                        <tr><td>TV (LED)</td><td>60–100W</td><td>≈0.08</td></tr>
+                        <tr><td>Refrigerator</td><td>150–250W</td><td>≈0.2</td></tr>
+                        <tr><td>AC (1.5 ton)</td><td>1500–2000W</td><td>≈1.8</td></tr>
+                        <tr><td>Water Heater</td><td>2000W</td><td>≈2.0</td></tr>
+                        <tr><td>Washing Machine</td><td>500–1000W</td><td>≈0.7</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="exam-box mt-2">
+                <p><strong>🎯 Sample Bill Calculation (Slab System):</strong></p>
+                <div class="highlight-box mt-2">
+                    <p>First 50 units: ₹2/unit → ₹100</p>
+                    <p>Next 50 units (51–100): ₹3/unit → ₹150</p>
+                    <p>Next 50 units (101–150): ₹4.50/unit → ₹225</p>
+                    <p><strong>Energy Charges: ₹475 + Fixed charges ₹50 = ₹525</strong></p>
+                </div>
+                <p class="mt-2" style="font-size:0.9rem;color:var(--text-secondary);">✅ Energy saving: LED bulbs, AC at 24°C, 5-star rated appliances, switch off when not in use</p>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Electricity Bill — Quick Revision</div>
+                <ul>
+                    <li>✅ 1 Unit = 1 kWh = Power(kW) × Time(hours)</li>
+                    <li>✅ Energy = P × t (calculate for each appliance)</li>
+                    <li>✅ Bill = Σ(units × slab rate) + fixed charges</li>
+                    <li>✅ Highest consumers: AC, geyser, washing machine</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SAFETY -->
+        <div class="topic-card" id="safety">
+            <div class="topic-title">⚠️ ELECTRICAL SAFETY</div>
+
+            <div class="warning-box" style="font-size:1.05rem;">
+                <p>⚡ <strong>Even 50V AC can be lethal! Your home has 230V!</strong> Safety is not optional.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚠️</span><h3>Electric Shock</h3></div>
+
+            <table class="custom-table">
+                <thead><tr><th>Current (mA)</th><th>Effect on Human Body</th></tr></thead>
+                <tbody>
+                    <tr><td>1 mA</td><td>Just perceptible (tingling)</td></tr>
+                    <tr><td>5 mA</td><td>Maximum "safe" threshold</td></tr>
+                    <tr><td>10–20 mA</td><td>Painful, loss of muscle control</td></tr>
+                    <tr><td>50 mA</td><td>Severe pain, breathing difficulty</td></tr>
+                    <tr><td style="color:var(--accent-orange);font-weight:700;">100–200 mA</td><td style="color:var(--accent-orange);font-weight:700;">Heart stops — FATAL (ventricular fibrillation)</td></tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box mt-2">
+                <p><strong>🚨 First Aid for Electric Shock:</strong></p>
+                <ol class="step-list mt-2">
+                    <li><strong>DO NOT touch the victim directly!</strong></li>
+                    <li>Switch off power immediately at main switch</li>
+                    <li>If can't switch off — push victim with DRY wooden stick</li>
+                    <li>Check breathing and pulse</li>
+                    <li>Start CPR if needed</li>
+                    <li>Call ambulance (108) immediately</li>
+                </ol>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🔌</span><h3>Protection Devices</h3></div>
+
+            <div class="grid-2">
+                <div class="highlight-box">
+                    <p><strong>🔌 Fuse — The Sacrificial Protector</strong></p>
+                    <p class="mt-1" style="font-size:0.88rem;">Thin wire with low melting point. Excess current → Heats → Melts → Circuit breaks!</p>
+                    <p class="mt-1" style="font-size:0.88rem;"><strong>Material:</strong> Tin-lead alloy (low melting point)</p>
+                    <p class="mt-1" style="font-size:0.88rem;"><strong>Limitation:</strong> Must be replaced after operation (one-time use)</p>
+                    <p class="mt-1" style="font-size:0.88rem;"><strong>Types:</strong> Rewirable · Cartridge · HRC</p>
+                </div>
+                <div class="highlight-box">
+                    <p><strong>⚡ MCB — Miniature Circuit Breaker</strong></p>
+                    <p class="mt-1" style="font-size:0.88rem;">Automatically breaks circuit — no replacement needed, just reset!</p>
+                    <p class="mt-1" style="font-size:0.88rem;"><strong>Thermal:</strong> Bimetallic strip for overload protection</p>
+                    <p class="mt-1" style="font-size:0.88rem;"><strong>Magnetic:</strong> Electromagnet for short circuit (instant trip)</p>
+                    <p class="mt-1" style="font-size:0.88rem;"><strong>Ratings:</strong> 6A, 10A, 16A, 32A</p>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🌍</span><h3>Earthing (Grounding)</h3></div>
+
+            <div class="intuition-box">
+                <p><strong>💡 What it does:</strong> Provides a safe path for leakage current to flow into the earth instead of through YOUR body!</p>
+                <p class="mt-1"><strong>Without earthing:</strong> Faulty appliance body = 230V. You touch it → Current through you → SHOCK!</p>
+                <p class="mt-1"><strong>With earthing:</strong> Leakage current flows safely through earth wire into ground. You are safe! ✅</p>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>Components:</strong></p>
+                <ul style="margin-top:0.5rem;list-style:disc;padding-left:1.2rem;font-size:0.9rem;color:var(--text-secondary);">
+                    <li>Earth electrode: GI plate/copper rod buried in ground</li>
+                    <li>Earth wire: Green/yellow wire, connects metal body to electrode</li>
+                    <li>Earth pit: Moisture-rich pit, maintains low resistance</li>
+                </ul>
+                <p class="mt-2"><strong>Target earth resistance:</strong> &lt; 1 Ohm</p>
+            </div>
+
+            <div class="exam-box">
+                <p><strong>🛡️ Safety Precautions:</strong></p>
+                <div class="grid-2 mt-2">
+                    <ul style="list-style:none;color:var(--text-secondary);font-size:0.9rem;">
+                        <li>✅ Never work on live circuits</li>
+                        <li>✅ Switch off main before repairs</li>
+                        <li>✅ Use insulated tools</li>
+                        <li>✅ No wet hands near electricity</li>
+                        <li>✅ Check earthing of appliances</li>
+                        <li>✅ Correct MCB/fuse ratings</li>
+                    </ul>
+                    <ul style="list-style:none;color:var(--text-secondary);font-size:0.9rem;">
+                        <li>❌ Never use copper wire as fuse</li>
+                        <li>❌ Never overload sockets</li>
+                        <li>❌ No electrical in bathroom</li>
+                        <li>❌ Ignore burning smell = danger!</li>
+                        <li>❌ No DIY electrical without knowledge</li>
+                        <li>❌ Never touch shock victim with bare hands</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Safety — Quick Revision</div>
+                <ul>
+                    <li>✅ 100mA through heart = FATAL</li>
+                    <li>✅ Fuse: melts, one-time, low melting point alloy</li>
+                    <li>✅ MCB: trips &amp; resets, thermal + magnetic protection</li>
+                    <li>✅ Earthing: diverts leakage current to ground (earth resistance &lt;1Ω)</li>
+                    <li>✅ First aid: DON'T touch victim, switch off power first</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         UNIT IV: SEMICONDUCTOR DEVICES
+    ════════════════════════════════════════ -->
+    <section class="unit-section" id="unit4">
+        <div class="unit-header">
+            <h2>🔬 UNIT IV — SEMICONDUCTOR DEVICES</h2>
+            <p>Enter the world of modern electronics — diodes, transistors, and amplifiers</p>
+            <div class="unit-badge">Ⅳ</div>
+        </div>
+
+        <!-- PN JUNCTION DIODE -->
+        <div class="topic-card" id="pn-diode">
+            <div class="topic-title">🔌 PN JUNCTION DIODE</div>
+
+            <div class="section-header"><span class="section-icon">💡</span><h3>Why This Topic Matters</h3></div>
+            <div class="why-matters">
+                <p><strong>The foundation of all modern electronics!</strong> Diode is the simplest semiconductor device — understanding it unlocks transistors, ICs, and everything digital.</p>
+                <p class="mt-2">🎯 <strong>Real-world:</strong> Rectifiers (AC→DC), LED lighting, voltage clippers, solar panels, signal demodulation</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>🎯 The One-Way Valve of Electronics:</strong></p>
+                <p class="mt-1">Diode allows current to flow in <strong>ONE direction only</strong>, like a check valve in water pipes.</p>
+                <p class="mt-1"><strong>P-side (Anode)</strong> — has holes (positive charge carriers)</p>
+                <p><strong>N-side (Cathode)</strong> — has electrons (negative charge carriers)</p>
+                <p class="mt-1"><strong>At junction:</strong> Electrons and holes recombine → Depletion region forms → Acts as a barrier</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚙️</span><h3>Biasing Conditions</h3></div>
+
+            <div class="grid-2">
+                <div class="highlight-box">
+                    <p><strong>Forward Bias (ON)</strong></p>
+                    <p class="mt-1" style="font-size:0.88rem;">P connected to +ve, N to −ve</p>
+                    <p style="font-size:0.88rem;">Barrier reduces → Current flows ✅</p>
+                    <p style="font-size:0.88rem;margin-top:0.4rem;"><strong>Cut-in voltage:</strong></p>
+                    <p style="font-size:0.88rem;">Silicon: ~0.7V · Germanium: ~0.3V</p>
+                </div>
+                <div class="warning-box">
+                    <p><strong>Reverse Bias (OFF)</strong></p>
+                    <p class="mt-1" style="font-size:0.88rem;">P connected to −ve, N to +ve</p>
+                    <p style="font-size:0.88rem;">Barrier increases → Only tiny leakage current ✅</p>
+                    <p style="font-size:0.88rem;margin-top:0.4rem;"><strong>Breakdown voltage:</strong> If exceeded → Reverse breakdown!</p>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Diode Equation</h3></div>
+
+            <div class="formula-card" data-icon="🔌">
+                <div class="formula-title">Ideal Diode Equation <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">I = Is(e^(V/VT) − 1)</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">Is</span><span>→ Reverse saturation current (tiny)</span></div>
+                    <div class="variable"><span class="variable-name">V</span><span>→ Applied voltage</span></div>
+                    <div class="variable"><span class="variable-name">VT</span><span>→ Thermal voltage ≈ 26mV at room temp</span></div>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🔌</span><h3>Half Wave &amp; Full Wave Rectifiers</h3></div>
+
+            <div class="highlight-box">
+                <p><strong>Rectifier = AC → DC Converter using diodes!</strong></p>
+            </div>
+
+            <div class="grid-2 mt-2">
+                <div class="formula-card">
+                    <div class="formula-title">Half Wave Rectifier</div>
+                    <div class="formula-content" style="font-size:0.95rem;">Vdc = Vm/π = 0.318Vm</div>
+                    <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.5rem;">Uses 1 diode · Passes only +ve half cycle · Efficiency: 40.6%</p>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Full Wave Rectifier</div>
+                    <div class="formula-content" style="font-size:0.95rem;">Vdc = 2Vm/π = 0.636Vm</div>
+                    <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.5rem;">Uses 4 diodes (bridge) · Passes both halves · Efficiency: 81.2%</p>
+                </div>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ PN Diode — Quick Revision</div>
+                <ul>
+                    <li>✅ Forward bias: P→+ve, N→−ve, current flows</li>
+                    <li>✅ Reverse bias: P→−ve, N→+ve, no current</li>
+                    <li>✅ Si cut-in: 0.7V · Ge cut-in: 0.3V</li>
+                    <li>✅ HWR: Vdc = 0.318Vm · FWR: Vdc = 0.636Vm</li>
+                    <li>✅ Applications: Rectifiers, clippers, clampers, LEDs</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ZENER DIODE -->
+        <div class="topic-card" id="zener">
+            <div class="topic-title">⚡ ZENER DIODE</div>
+
+            <div class="why-matters">
+                <p><strong>The voltage stabilizer!</strong> Zener diode maintains constant output voltage despite varying input — fundamental to every power supply.</p>
+                <p class="mt-2">🎯 <strong>Real-world:</strong> Voltage regulators, reference circuits, surge protection, power supplies</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>🎯 The Voltage Clamp:</strong></p>
+                <p class="mt-1">A normal diode breaks down in reverse bias. A Zener is <strong>designed</strong> to break down at a specific voltage (Zener voltage Vz) — and <strong>hold that voltage precisely</strong>!</p>
+                <p class="mt-1"><strong>Analogy:</strong> Like a pressure relief valve — once pressure hits the set point, it holds it constant no matter what!</p>
+            </div>
+
+            <div class="formula-card" data-icon="⚡">
+                <div class="formula-title">Zener as Voltage Regulator <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">Vout = Vz (constant)</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">Vz</span><span>→ Zener breakdown voltage (fixed by design)</span></div>
+                    <div class="variable"><span class="variable-name">Rs</span><span>→ Series resistor to limit current</span></div>
+                </div>
+                <div class="highlight-box mt-2">
+                    <p>Series resistor: Rs = (Vin − Vz) / Iz</p>
+                    <p>Power dissipation in Zener: Pz = Vz × Iz</p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="highlight-box">
+                    <p><strong>Normal Diode vs Zener</strong></p>
+                    <ul style="margin-top:0.5rem;font-size:0.88rem;color:var(--text-secondary);">
+                        <li>Normal diode: Breaks down &amp; destroyed in reverse</li>
+                        <li>Zener: Designed to work in reverse breakdown safely</li>
+                        <li>Zener symbol: Bent cathode line (Z shape)</li>
+                    </ul>
+                </div>
+                <div class="highlight-box">
+                    <p><strong>Applications</strong></p>
+                    <ul style="margin-top:0.5rem;font-size:0.88rem;color:var(--text-secondary);">
+                        <li>Voltage regulators (5V, 3.3V, etc.)</li>
+                        <li>Voltage reference circuits</li>
+                        <li>Overvoltage protection/clippers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Zener Diode — Quick Revision</div>
+                <ul>
+                    <li>✅ Works in reverse breakdown — maintains constant Vz</li>
+                    <li>✅ Used as voltage regulator: Vout = Vz</li>
+                    <li>✅ Series resistor Rs = (Vin−Vz)/Iz</li>
+                    <li>✅ Symbol: bent cathode (like Z)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- BJT TRANSISTOR -->
+        <div class="topic-card" id="bjt">
+            <div class="topic-title">🔬 BJT TRANSISTOR</div>
+
+            <div class="section-header"><span class="section-icon">💡</span><h3>Why This Topic Matters</h3></div>
+            <div class="why-matters">
+                <p><strong>The transistor changed the world!</strong> Modern smartphones have 10 billion+ transistors. Every computer, phone, and digital device relies on transistors.</p>
+                <p class="mt-2">🎯 <strong>Real-world:</strong> Amplifiers, switches, oscillators, logic gates, all digital ICs</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>🎯 The Current-Controlled Current Source:</strong></p>
+                <p class="mt-1">A small base current controls a much larger collector current — like a valve controlling a water flow!</p>
+                <p class="mt-1"><strong>Two types:</strong> NPN (current flows N→P→N) · PNP (current flows P→N→P)</p>
+                <p class="mt-1"><strong>Three terminals:</strong> Base (B) · Collector (C) · Emitter (E)</p>
+                <p class="mt-1"><strong>🔑 Key Rule:</strong> Ib × β = Ic (small base current amplified β times!)</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>BJT Parameters</h3></div>
+
+            <div class="formula-card" data-icon="🔬">
+                <div class="formula-title">Current Relationship <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">IE = IB + IC</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">IE</span><span>→ Emitter current (largest)</span></div>
+                    <div class="variable"><span class="variable-name">IB</span><span>→ Base current (smallest, control current)</span></div>
+                    <div class="variable"><span class="variable-name">IC</span><span>→ Collector current</span></div>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="📊">
+                <div class="formula-title">Current Gain Parameters <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">β = IC / IB &nbsp;(CE gain)</div>
+                <div class="formula-content">α = IC / IE &nbsp;(CB gain)</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">β (hFE)</span><span>→ CE current gain (typical: 20–500)</span></div>
+                    <div class="variable"><span class="variable-name">α</span><span>→ CB current gain (α = β/(β+1), always &lt;1)</span></div>
+                </div>
+                <div class="highlight-box mt-2">
+                    <p>Relationship: β = α/(1−α) &nbsp;|&nbsp; α = β/(β+1)</p>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚙️</span><h3>Three Configurations</h3></div>
+
+            <table class="custom-table">
+                <thead>
+                    <tr><th>Configuration</th><th>Input</th><th>Output</th><th>Current Gain</th><th>Voltage Gain</th><th>Application</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>CB (Common Base)</strong></td><td>Emitter</td><td>Collector</td><td>&lt;1 (α)</td><td>High</td><td>RF amplifiers</td></tr>
+                    <tr><td><strong>CE (Common Emitter)</strong></td><td>Base</td><td>Collector</td><td>β (high)</td><td>High</td><td>Amplifiers (most common)</td></tr>
+                    <tr><td><strong>CC (Common Collector)</strong></td><td>Base</td><td>Emitter</td><td>β+1</td><td>≈1</td><td>Impedance matching, buffers</td></tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box mt-2">
+                <p>🎯 <strong>CE is most widely used</strong> — high current AND voltage gain = maximum power gain!</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">📊</span><h3>Operating Regions</h3></div>
+
+            <div class="grid-3">
+                <div class="grid-card">
+                    <h5>Active Region</h5>
+                    <p>BE forward biased · BC reverse biased · Used for AMPLIFICATION</p>
+                </div>
+                <div class="grid-card">
+                    <h5>Saturation Region</h5>
+                    <p>Both junctions forward biased · Transistor fully ON · Used as SWITCH (ON)</p>
+                </div>
+                <div class="grid-card">
+                    <h5>Cutoff Region</h5>
+                    <p>Both junctions reverse biased · Transistor fully OFF · Used as SWITCH (OFF)</p>
+                </div>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ BJT — Quick Revision</div>
+                <ul>
+                    <li>✅ IE = IB + IC · β = IC/IB · α = IC/IE</li>
+                    <li>✅ β = α/(1−α) · α = β/(β+1)</li>
+                    <li>✅ CE: most common, high gain, amplifiers</li>
+                    <li>✅ CB: voltage gain only, RF · CC: impedance buffer</li>
+                    <li>✅ Active = amplify · Saturation = switch ON · Cutoff = switch OFF</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CE AMPLIFIER -->
+        <div class="topic-card" id="amplifier">
+            <div class="topic-title">📢 CE AMPLIFIER</div>
+
+            <div class="why-matters">
+                <p><strong>Amplifiers make weak signals strong!</strong> Microphones, radio receivers, audio systems — all need amplification. CE amplifier is the fundamental building block.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>🎯 Small input → Big output, same shape!</strong></p>
+                <p class="mt-1">A tiny AC signal at the base gets amplified at the collector — like using a small lever to move a big rock.</p>
+                <p class="mt-1"><strong>Key feature:</strong> CE amplifier gives 180° phase shift — output is inverted!</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Circuit &amp; Formulas</h3></div>
+
+            <div class="formula-card" data-icon="📢">
+                <div class="formula-title">Voltage Gain <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                <div class="formula-content">Av = −β × RC / re</div>
+                <div class="formula-variables">
+                    <div class="variable"><span class="variable-name">Av</span><span>→ Voltage gain (negative = 180° phase shift)</span></div>
+                    <div class="variable"><span class="variable-name">RC</span><span>→ Collector resistance</span></div>
+                    <div class="variable"><span class="variable-name">re</span><span>→ AC emitter resistance ≈ 26mV/IE</span></div>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="📊">
+                <div class="formula-title">Load Line &amp; Q-Point <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content">VCE = VCC − IC × RC</div>
+                <div class="intuition-box mt-2">
+                    <p><strong>Q-point (Quiescent point):</strong> The DC operating point — where transistor sits without any AC signal</p>
+                    <p>For undistorted amplification: Q-point must be at <strong>middle of load line</strong></p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>Characteristics of CE Amplifier:</strong></p>
+                <ul style="margin-top:0.5rem;list-style:disc;padding-left:1.2rem;color:var(--text-secondary);">
+                    <li>High voltage gain AND current gain → maximum power gain</li>
+                    <li>Phase reversal (180° shift) between input and output</li>
+                    <li>Medium input impedance, medium output impedance</li>
+                    <li>Most widely used configuration for audio amplifiers</li>
+                </ul>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ CE Amplifier — Quick Revision</div>
+                <ul>
+                    <li>✅ Av = −β × RC/re (negative = 180° phase shift)</li>
+                    <li>✅ VCE = VCC − IC×RC (load line equation)</li>
+                    <li>✅ Q-point: middle of load line for max undistorted output</li>
+                    <li>✅ CE: high current gain, high voltage gain, 180° phase reversal</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         UNIT V: DIGITAL ELECTRONICS
+    ════════════════════════════════════════ -->
+    <section class="unit-section" id="unit5">
+        <div class="unit-header">
+            <h2>💻 UNIT V — DIGITAL ELECTRONICS</h2>
+            <p>Number systems, logic gates, Boolean algebra, flip-flops, and digital circuits</p>
+            <div class="unit-badge">Ⅴ</div>
+        </div>
+
+        <!-- NUMBER SYSTEMS -->
+        <div class="topic-card" id="number-systems">
+            <div class="topic-title">🔢 NUMBER SYSTEMS</div>
+
+            <div class="why-matters">
+                <p><strong>Computers speak binary!</strong> All digital systems — computers, phones, CPUs — use binary at the lowest level. Understanding number systems is your entry to digital electronics.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>Why do computers use binary (0,1)?</strong></p>
+                <p class="mt-1">Because electronic circuits have only TWO states: <strong>OFF (0V = 0)</strong> and <strong>ON (5V or 3.3V = 1)</strong>. Simple and reliable!</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">📊</span><h3>Number System Summary</h3></div>
+
+            <table class="custom-table">
+                <thead><tr><th>System</th><th>Base</th><th>Digits Used</th><th>Example</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Decimal</strong></td><td>10</td><td>0–9</td><td>147₁₀</td></tr>
+                    <tr><td><strong>Binary</strong></td><td>2</td><td>0, 1</td><td>10010011₂</td></tr>
+                    <tr><td><strong>Octal</strong></td><td>8</td><td>0–7</td><td>223₈</td></tr>
+                    <tr><td><strong>Hexadecimal</strong></td><td>16</td><td>0–9, A–F</td><td>93₁₆</td></tr>
+                </tbody>
+            </table>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Conversion Techniques</h3></div>
+
+            <div class="grid-2">
+                <div class="formula-card">
+                    <div class="formula-title">Decimal → Binary <span class="pyq-badge">HIGH PYQ</span></div>
+                    <div class="formula-content" style="font-size:1rem;">Repeated Division by 2</div>
+                    <div class="highlight-box mt-2">
+                        <p><strong>Example:</strong> 13 → Binary</p>
+                        <p style="font-family:'JetBrains Mono',monospace;margin-top:0.5rem;">13÷2 = 6 R <strong>1</strong><br>6÷2 = 3 R <strong>0</strong><br>3÷2 = 1 R <strong>1</strong><br>1÷2 = 0 R <strong>1</strong></p>
+                        <p style="margin-top:0.5rem;">Read remainders bottom-up: <strong>1101₂</strong></p>
+                    </div>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Binary → Decimal <span class="pyq-badge">HIGH PYQ</span></div>
+                    <div class="formula-content" style="font-size:1rem;">Multiply by powers of 2</div>
+                    <div class="highlight-box mt-2">
+                        <p><strong>Example:</strong> 1101₂ → Decimal</p>
+                        <p style="font-family:'JetBrains Mono',monospace;margin-top:0.5rem;">1×2³ + 1×2² + 0×2¹ + 1×2⁰<br>= 8 + 4 + 0 + 1 = <strong>13₁₀</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="🔢">
+                <div class="formula-title">Hex ↔ Binary (Fast Trick) <span class="pyq-badge">MEDIUM PYQ</span></div>
+                <div class="formula-content" style="font-size:1rem;">Each hex digit = 4 binary bits</div>
+                <div class="highlight-box mt-2">
+                    <p>0=0000 · 1=0001 · 2=0010 · 3=0011 · 4=0100 · 5=0101</p>
+                    <p>6=0110 · 7=0111 · 8=1000 · 9=1001 · A=1010 · B=1011</p>
+                    <p>C=1100 · D=1101 · E=1110 · F=1111</p>
+                    <p class="mt-1"><strong>Example:</strong> 3F₁₆ = 0011 1111₂</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIGITAL CODES -->
+        <div class="topic-card" id="codes">
+            <div class="topic-title">📋 DIGITAL CODES</div>
+
+            <div class="why-matters">
+                <p><strong>Codes solve real problems!</strong> Different codes handle error detection, weighted representation, and efficient digital communication.</p>
+            </div>
+
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">BCD Code (Binary Coded Decimal)</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="intuition-box"><p>Each decimal digit represented by its 4-bit binary equivalent separately.</p></div>
+                <div class="highlight-box mt-2">
+                    <p><strong>Example:</strong> 9₁₀ = 1001 in BCD · 25₁₀ = 0010 0101 in BCD</p>
+                    <p class="mt-1"><strong>Valid BCD digits:</strong> 0000 to 1001 (0–9) · 1010 to 1111 are INVALID in BCD!</p>
+                    <p class="mt-1"><strong>Use:</strong> Digital clocks, calculators, 7-segment displays</p>
+                </div>
+            </div>
+
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">Excess-3 Code (XS-3)</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="intuition-box"><p>BCD + 3 added to each digit. <strong>Self-complementing code!</strong></p></div>
+                <div class="highlight-box mt-2">
+                    <p><strong>Conversion:</strong> Take BCD of digit, add 0011 (3)</p>
+                    <p><strong>Example:</strong> 5 → BCD = 0101 → XS-3 = 0101+0011 = 1000</p>
+                    <p class="mt-1"><strong>Key property:</strong> 9's complement obtained by inverting all bits!</p>
+                </div>
+            </div>
+
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">Gray Code</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="intuition-box"><p>Only ONE bit changes between consecutive numbers — reduces errors in mechanical systems!</p></div>
+                <div class="formula-card" style="margin-top:1rem;">
+                    <div class="formula-title">Binary to Gray Conversion <span class="pyq-badge">HIGH PYQ</span></div>
+                    <div class="formula-content" style="font-size:1rem;">MSB stays same. Each other bit = XOR of that binary bit and previous binary bit</div>
+                    <div class="highlight-box mt-2">
+                        <p><strong>Example:</strong> Binary 1011 → Gray</p>
+                        <p style="font-family:'JetBrains Mono',monospace;margin-top:0.3rem;">G3=B3=1 · G2=B3⊕B2=1⊕0=1 · G1=B2⊕B1=0⊕1=1 · G0=B1⊕B0=1⊕1=0</p>
+                        <p>Binary 1011 = Gray 1110</p>
+                    </div>
+                </div>
+                <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.5rem;"><strong>Applications:</strong> Rotary encoders, error reduction in digital sensors, optical encoders</p>
+            </div>
+
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">Hamming Code (Error Correction)</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="intuition-box"><p>Adds parity bits at specific positions to DETECT and CORRECT single-bit errors!</p></div>
+                <div class="highlight-box mt-2">
+                    <p><strong>Parity bit positions:</strong> 1, 2, 4, 8, 16 ... (powers of 2)</p>
+                    <p class="mt-1"><strong>For n data bits:</strong> Need r parity bits where 2^r ≥ n + r + 1</p>
+                    <p class="mt-1"><strong>For 4 data bits:</strong> r = 3 parity bits → total 7-bit Hamming code</p>
+                    <p class="mt-1"><strong>Error detection:</strong> Check all parity positions → Syndrome gives error position!</p>
+                    <p class="mt-1"><strong>Applications:</strong> RAM memory error correction, network transmission, satellite communication</p>
+                </div>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Digital Codes — Quick Revision</div>
+                <ul>
+                    <li>✅ BCD: each decimal digit = 4-bit binary (0000–1001 valid)</li>
+                    <li>✅ XS-3: BCD + 3, self-complementing, 9's comp = bit inversion</li>
+                    <li>✅ Gray: only 1 bit changes at a time, B→G: MSB same, others XOR</li>
+                    <li>✅ Hamming: parity bits at 2^n positions, detects AND corrects 1-bit errors</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LOGIC GATES -->
+        <div class="topic-card" id="logic-gates">
+            <div class="topic-title">🔲 LOGIC GATES</div>
+
+            <div class="why-matters">
+                <p><strong>Logic gates are the atoms of digital electronics!</strong> Every processor, memory chip, and digital device is built from millions of these tiny building blocks.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>The 7 Basic Gates</h3></div>
+
+            <!-- AND Gate -->
+            <div class="gate-row">
+                <div class="gate-card">
+                    <h5>AND Gate</h5>
+                    <p style="font-family:'JetBrains Mono',monospace;color:var(--accent-blue);margin-bottom:0.8rem;">Y = A · B</p>
+                    <table class="truth-table">
+                        <thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td class="out-0">0</td></tr>
+                            <tr><td>0</td><td>1</td><td class="out-0">0</td></tr>
+                            <tr><td>1</td><td>0</td><td class="out-0">0</td></tr>
+                            <tr><td>1</td><td>1</td><td class="out-1">1</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.7rem;">Output 1 only when ALL inputs are 1</p>
+                </div>
+
+                <div class="gate-card">
+                    <h5>OR Gate</h5>
+                    <p style="font-family:'JetBrains Mono',monospace;color:var(--accent-blue);margin-bottom:0.8rem;">Y = A + B</p>
+                    <table class="truth-table">
+                        <thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td class="out-0">0</td></tr>
+                            <tr><td>0</td><td>1</td><td class="out-1">1</td></tr>
+                            <tr><td>1</td><td>0</td><td class="out-1">1</td></tr>
+                            <tr><td>1</td><td>1</td><td class="out-1">1</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.7rem;">Output 1 when ANY input is 1</p>
+                </div>
+
+                <div class="gate-card">
+                    <h5>NOT Gate (Inverter)</h5>
+                    <p style="font-family:'JetBrains Mono',monospace;color:var(--accent-blue);margin-bottom:0.8rem;">Y = Ā</p>
+                    <table class="truth-table">
+                        <thead><tr><th>A</th><th>Y</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td class="out-1">1</td></tr>
+                            <tr><td>1</td><td class="out-0">0</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.7rem;">Output is complement of input</p>
+                </div>
+            </div>
+
+            <div class="gate-row">
+                <div class="gate-card">
+                    <h5>NAND Gate <span class="pyq-badge">VERY HIGH</span></h5>
+                    <p style="font-family:'JetBrains Mono',monospace;color:var(--accent-blue);margin-bottom:0.8rem;">Y = (A · B)̄</p>
+                    <table class="truth-table">
+                        <thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td class="out-1">1</td></tr>
+                            <tr><td>0</td><td>1</td><td class="out-1">1</td></tr>
+                            <tr><td>1</td><td>0</td><td class="out-1">1</td></tr>
+                            <tr><td>1</td><td>1</td><td class="out-0">0</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="color:var(--accent-green);font-size:0.85rem;margin-top:0.7rem;">⭐ Universal Gate — can make ANY gate!</p>
+                </div>
+
+                <div class="gate-card">
+                    <h5>NOR Gate <span class="pyq-badge">HIGH</span></h5>
+                    <p style="font-family:'JetBrains Mono',monospace;color:var(--accent-blue);margin-bottom:0.8rem;">Y = (A + B)̄</p>
+                    <table class="truth-table">
+                        <thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td class="out-1">1</td></tr>
+                            <tr><td>0</td><td>1</td><td class="out-0">0</td></tr>
+                            <tr><td>1</td><td>0</td><td class="out-0">0</td></tr>
+                            <tr><td>1</td><td>1</td><td class="out-0">0</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="color:var(--accent-green);font-size:0.85rem;margin-top:0.7rem;">⭐ Universal Gate — can make ANY gate!</p>
+                </div>
+
+                <div class="gate-card">
+                    <h5>XOR Gate</h5>
+                    <p style="font-family:'JetBrains Mono',monospace;color:var(--accent-blue);margin-bottom:0.8rem;">Y = A ⊕ B</p>
+                    <table class="truth-table">
+                        <thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td class="out-0">0</td></tr>
+                            <tr><td>0</td><td>1</td><td class="out-1">1</td></tr>
+                            <tr><td>1</td><td>0</td><td class="out-1">1</td></tr>
+                            <tr><td>1</td><td>1</td><td class="out-0">0</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.7rem;">Output 1 when inputs are DIFFERENT</p>
+                </div>
+            </div>
+
+            <div class="highlight-box mt-2">
+                <p><strong>🌟 Universal Gates:</strong></p>
+                <ul style="margin-top:0.5rem;list-style:disc;padding-left:1.2rem;color:var(--text-secondary);">
+                    <li>NAND and NOR are called universal gates</li>
+                    <li>Any logic function can be built using ONLY NAND gates OR ONLY NOR gates</li>
+                    <li>Practical advantage: single type of chip needed for entire circuit!</li>
+                </ul>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Logic Gates — Quick Revision</div>
+                <ul>
+                    <li>✅ AND: all 1→1 · OR: any 1→1 · NOT: invert</li>
+                    <li>✅ NAND = AND+NOT · NOR = OR+NOT</li>
+                    <li>✅ XOR: 1 when inputs differ · XNOR: 1 when inputs same</li>
+                    <li>✅ NAND and NOR are Universal Gates</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- BOOLEAN ALGEBRA -->
+        <div class="topic-card" id="boolean">
+            <div class="topic-title">📐 BOOLEAN ALGEBRA</div>
+
+            <div class="why-matters">
+                <p><strong>Boolean algebra simplifies logic circuits!</strong> Instead of using more gates, simplify expressions to use fewer — saving cost and power.</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Key Theorems</h3></div>
+
+            <div class="grid-2">
+                <div class="formula-card">
+                    <div class="formula-title">De Morgan's Theorems <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                    <div class="formula-content" style="font-size:1.1rem;">(A·B)̄ = Ā + B̄</div>
+                    <div class="formula-content" style="font-size:1.1rem;">(A+B)̄ = Ā · B̄</div>
+                    <div class="intuition-box mt-2">
+                        <p><strong>Rule:</strong> Break the bar, change the sign!</p>
+                        <p>AND ↔ OR when bar is broken across</p>
+                    </div>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Basic Identities <span class="pyq-badge">HIGH PYQ</span></div>
+                    <div class="formula-content" style="font-size:0.95rem;">A+0=A · A·1=A · A+1=1 · A·0=0</div>
+                    <div class="formula-content" style="font-size:0.95rem;">A+A=A · A·A=A · A+Ā=1 · A·Ā=0</div>
+                    <div class="highlight-box mt-2">
+                        <p>Idempotent: A+A=A · A·A=A</p>
+                        <p>Complement: A+Ā=1 · A·Ā=0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formula-card" data-icon="📐">
+                <div class="formula-title">Important Laws <span class="pyq-badge">HIGH PYQ</span></div>
+                <div class="formula-content" style="font-size:0.95rem;">Commutative: A+B = B+A · A·B = B·A</div>
+                <div class="formula-content" style="font-size:0.95rem;">Associative: (A+B)+C = A+(B+C)</div>
+                <div class="formula-content" style="font-size:0.95rem;">Distributive: A·(B+C) = A·B + A·C</div>
+                <div class="formula-content" style="font-size:0.95rem;">Absorption: A+A·B = A · A·(A+B) = A</div>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Boolean Algebra — Quick Revision</div>
+                <ul>
+                    <li>✅ De Morgan's 1: (AB)̄ = Ā+B̄ · De Morgan's 2: (A+B)̄ = Ā·B̄</li>
+                    <li>✅ A+Ā = 1 · A·Ā = 0 · A+A = A · A·A = A</li>
+                    <li>✅ Absorption: A+AB = A · A(A+B) = A</li>
+                    <li>✅ Double complement: (Ā)̄ = A</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ADDERS -->
+        <div class="topic-card" id="adders">
+            <div class="topic-title">➕ ADDERS (Combinational Circuits)</div>
+
+            <div class="why-matters">
+                <p><strong>Adders are the arithmetic core of every processor!</strong> Your CPU calculates 2+3 using hardware adder circuits built from logic gates.</p>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="formula-card">
+                        <div class="formula-title">Half Adder <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                        <div class="formula-content" style="font-size:1rem;">Sum = A ⊕ B<br>Carry = A · B</div>
+                        <table class="truth-table mt-2">
+                            <thead><tr><th>A</th><th>B</th><th>Sum</th><th>Carry</th></tr></thead>
+                            <tbody>
+                                <tr><td>0</td><td>0</td><td class="out-0">0</td><td class="out-0">0</td></tr>
+                                <tr><td>0</td><td>1</td><td class="out-1">1</td><td class="out-0">0</td></tr>
+                                <tr><td>1</td><td>0</td><td class="out-1">1</td><td class="out-0">0</td></tr>
+                                <tr><td>1</td><td>1</td><td class="out-0">0</td><td class="out-1">1</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.5rem;">Adds 2 bits. No carry-in input.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="formula-card">
+                        <div class="formula-title">Full Adder <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                        <div class="formula-content" style="font-size:1rem;">Sum = A⊕B⊕Cin<br>Cout = AB+BCin+ACin</div>
+                        <table class="truth-table mt-2">
+                            <thead><tr><th>A</th><th>B</th><th>Cin</th><th>Sum</th><th>Cout</th></tr></thead>
+                            <tbody>
+                                <tr><td>0</td><td>0</td><td>0</td><td class="out-0">0</td><td class="out-0">0</td></tr>
+                                <tr><td>0</td><td>0</td><td>1</td><td class="out-1">1</td><td class="out-0">0</td></tr>
+                                <tr><td>0</td><td>1</td><td>0</td><td class="out-1">1</td><td class="out-0">0</td></tr>
+                                <tr><td>0</td><td>1</td><td>1</td><td class="out-0">0</td><td class="out-1">1</td></tr>
+                                <tr><td>1</td><td>0</td><td>0</td><td class="out-1">1</td><td class="out-0">0</td></tr>
+                                <tr><td>1</td><td>0</td><td>1</td><td class="out-0">0</td><td class="out-1">1</td></tr>
+                                <tr><td>1</td><td>1</td><td>0</td><td class="out-0">0</td><td class="out-1">1</td></tr>
+                                <tr><td>1</td><td>1</td><td>1</td><td class="out-1">1</td><td class="out-1">1</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.5rem;">Adds 3 bits (A, B, Carry-in). Used in multi-bit adders!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 <strong>Full Adder = 2 Half Adders + 1 OR gate!</strong></p>
+                <p class="mt-1">For 4-bit addition, chain 4 Full Adders → Ripple Carry Adder (RCA)</p>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Adders — Quick Revision</div>
+                <ul>
+                    <li>✅ Half Adder: Sum = A⊕B, Carry = A·B (2 inputs, no carry-in)</li>
+                    <li>✅ Full Adder: Sum = A⊕B⊕Cin, Cout = AB+BCin+ACin</li>
+                    <li>✅ Full Adder = 2 Half Adders + 1 OR gate</li>
+                    <li>✅ n-bit addition needs n Full Adders in chain</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FLIP-FLOPS -->
+        <div class="topic-card" id="flipflops">
+            <div class="topic-title">🔄 FLIP-FLOPS (Sequential Circuits)</div>
+
+            <div class="why-matters">
+                <p><strong>Flip-flops are the memory cells of digital circuits!</strong> Unlike combinational circuits (output depends only on current input), flip-flops REMEMBER the previous state.</p>
+                <p class="mt-2">🎯 <strong>Real-world:</strong> Registers, counters, memory, CPU pipeline stages, data storage</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🧠</span><h3>Intuition First</h3></div>
+            <div class="intuition-box">
+                <p><strong>🎯 Bistable Device — Two Stable States!</strong></p>
+                <p class="mt-1">A flip-flop holds either 0 or 1 until told to change. Like a light switch — it stays ON or OFF until you flip it!</p>
+                <p class="mt-1"><strong>Key feature:</strong> Clock-controlled — state changes only at clock edge</p>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⚡</span><h3>Types of Flip-Flops</h3></div>
+
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">SR Flip-Flop (Set-Reset)</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="formula-card">
+                    <div class="formula-title">SR Flip-Flop <span class="pyq-badge">HIGH PYQ</span></div>
+                    <table class="truth-table mt-2">
+                        <thead><tr><th>S</th><th>R</th><th>Q(next)</th><th>State</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>Q</td><td>No change</td></tr>
+                            <tr><td>0</td><td>1</td><td class="out-0">0</td><td>Reset</td></tr>
+                            <tr><td>1</td><td>0</td><td class="out-1">1</td><td>Set</td></tr>
+                            <tr><td>1</td><td>1</td><td colspan="2" style="color:var(--accent-orange);">FORBIDDEN (invalid)</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="warning-box mt-2">⚠️ S=1, R=1 is FORBIDDEN state — output undefined!</div>
+                </div>
+            </div>
+
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">D Flip-Flop (Data)</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="formula-card">
+                    <div class="formula-title">D Flip-Flop <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                    <div class="formula-content">Q(next) = D</div>
+                    <table class="truth-table mt-2">
+                        <thead><tr><th>D</th><th>Q(next)</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td class="out-0">0</td></tr>
+                            <tr><td>1</td><td class="out-1">1</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="highlight-box mt-2">
+                        <p><strong>Simple!</strong> Output copies input D at clock edge.</p>
+                        <p>Used in: Registers, data latches, shift registers</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">JK Flip-Flop</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="formula-card">
+                    <div class="formula-title">JK Flip-Flop <span class="pyq-badge">VERY HIGH PYQ</span></div>
+                    <table class="truth-table mt-2">
+                        <thead><tr><th>J</th><th>K</th><th>Q(next)</th><th>Operation</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>Q</td><td>No change</td></tr>
+                            <tr><td>0</td><td>1</td><td class="out-0">0</td><td>Reset</td></tr>
+                            <tr><td>1</td><td>0</td><td class="out-1">1</td><td>Set</td></tr>
+                            <tr><td>1</td><td>1</td><td>Q̄</td><td style="color:var(--accent-green);">Toggle ⭐</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="highlight-box mt-2">
+                        <p><strong>Improved SR!</strong> J=1,K=1 is valid and TOGGLES output (no forbidden state!)</p>
+                        <p><strong>Most versatile</strong> flip-flop — used in counters!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-header" onclick="toggleExpand(this)">
+                <span style="font-weight:600;color:var(--accent-blue);">T Flip-Flop (Toggle)</span>
+                <span>▼</span>
+            </div>
+            <div class="expandable-content">
+                <div class="formula-card">
+                    <div class="formula-title">T Flip-Flop <span class="pyq-badge">HIGH PYQ</span></div>
+                    <div class="formula-content">Q(next) = T⊕Q</div>
+                    <table class="truth-table mt-2">
+                        <thead><tr><th>T</th><th>Q(next)</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td>Q (no change)</td></tr>
+                            <tr><td>1</td><td>Q̄ (toggle)</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="highlight-box mt-2">
+                        <p>T=0: Hold · T=1: Toggle · Perfect for COUNTERS!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Flip-Flops — Quick Revision</div>
+                <ul>
+                    <li>✅ SR: S=set, R=reset, S=R=1 FORBIDDEN</li>
+                    <li>✅ D: Q(next) = D (copies input)</li>
+                    <li>✅ JK: J=K=1 → Toggle (no forbidden state!)</li>
+                    <li>✅ T: T=1→Toggle, T=0→Hold (for counters)</li>
+                    <li>✅ All flip-flops are clock-controlled (edge-triggered)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- REGISTERS & COUNTERS -->
+        <div class="topic-card" id="registers-counters">
+            <div class="topic-title">📟 REGISTERS &amp; COUNTERS</div>
+
+            <div class="section-header"><span class="section-icon">💡</span><h3>Registers</h3></div>
+
+            <div class="why-matters">
+                <p><strong>Registers are temporary data storage!</strong> Your CPU's registers hold data being processed. Shift registers are used in serial communication.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="highlight-box">
+                    <p><strong>SISO — Serial In, Serial Out</strong></p>
+                    <p style="font-size:0.88rem;margin-top:0.5rem;color:var(--text-secondary);">Data enters and exits one bit at a time. Used in serial communication, time delay circuits.</p>
+                </div>
+                <div class="highlight-box">
+                    <p><strong>SIPO — Serial In, Parallel Out</strong></p>
+                    <p style="font-size:0.88rem;margin-top:0.5rem;color:var(--text-secondary);">Serial input, all bits output simultaneously. Serial to parallel converter!</p>
+                </div>
+                <div class="highlight-box">
+                    <p><strong>PISO — Parallel In, Serial Out</strong></p>
+                    <p style="font-size:0.88rem;margin-top:0.5rem;color:var(--text-secondary);">All bits loaded at once, output one by one. Parallel to serial converter!</p>
+                </div>
+                <div class="highlight-box">
+                    <p><strong>PIPO — Parallel In, Parallel Out</strong></p>
+                    <p style="font-size:0.88rem;margin-top:0.5rem;color:var(--text-secondary);">Fastest! Load and output all bits simultaneously. CPU data registers.</p>
+                </div>
+            </div>
+
+            <div class="section-header"><span class="section-icon">🔢</span><h3>Counters</h3></div>
+
+            <div class="intuition-box">
+                <p><strong>🎯 Counters count clock pulses!</strong></p>
+                <p class="mt-1">Built from flip-flops chained together. Each clock pulse increments (or decrements) the count.</p>
+                <p class="mt-1"><strong>n flip-flops → can count 2^n states (0 to 2^n−1)</strong></p>
+            </div>
+
+            <div class="grid-2">
+                <div class="formula-card">
+                    <div class="formula-title">Ripple (Asynchronous) Counter <span class="pyq-badge">HIGH PYQ</span></div>
+                    <div class="formula-content" style="font-size:1rem;">Modulus = 2^n</div>
+                    <div class="highlight-box mt-2">
+                        <p>Each FF triggered by output of previous FF.</p>
+                        <p>Simple but slower (ripple delay).</p>
+                        <p><strong>Example:</strong> 4-bit counter counts 0 to 15 (mod-16)</p>
+                    </div>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Synchronous Counter <span class="pyq-badge">HIGH PYQ</span></div>
+                    <div class="formula-content" style="font-size:1rem;">All FFs triggered simultaneously</div>
+                    <div class="highlight-box mt-2">
+                        <p>All FFs get clock at same time → Faster!</p>
+                        <p>More complex but high-speed operation.</p>
+                        <p><strong>Used in:</strong> CPUs, high-speed digital systems</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>Types of Counters by Count:</strong></p>
+                <table class="custom-table mt-2">
+                    <thead><tr><th>Type</th><th>Count Sequence</th><th>Application</th></tr></thead>
+                    <tbody>
+                        <tr><td>Up Counter</td><td>0,1,2,...,2^n−1,0,1...</td><td>Frequency divider, timer</td></tr>
+                        <tr><td>Down Counter</td><td>2^n−1,...,2,1,0,2^n−1...</td><td>Countdown timers</td></tr>
+                        <tr><td>Up/Down Counter</td><td>Both directions</td><td>Position encoders</td></tr>
+                        <tr><td>Mod-N Counter</td><td>0 to N−1</td><td>Clock dividers, custom counts</td></tr>
+                        <tr><td>Ring Counter</td><td>Circular shift of 1</td><td>Sequence generators</td></tr>
+                        <tr><td>Johnson Counter</td><td>Twisted ring</td><td>Decade counters</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header"><span class="section-icon">⭐</span><h3>Unit V — Final PYQ Summary</h3></div>
+
+            <div class="exam-box">
+                <p><strong>🎯 Most Asked in Unit V:</strong></p>
+                <ul class="custom-list mt-2">
+                    <li>Number system conversions — Binary ↔ Decimal ↔ Hex <span class="pyq-badge">20+ times</span></li>
+                    <li>Truth tables for all gates AND combinations <span class="pyq-badge">18+ times</span></li>
+                    <li>Boolean simplification using De Morgan's <span class="pyq-badge">15+ times</span></li>
+                    <li>Half Adder and Full Adder design <span class="pyq-badge">15+ times</span></li>
+                    <li>JK and D flip-flop truth table &amp; circuit <span class="pyq-badge">12+ times</span></li>
+                    <li>Gray code conversion <span class="pyq-badge">10+ times</span></li>
+                    <li>Counter design (ripple, 3-bit, 4-bit) <span class="pyq-badge">10+ times</span></li>
+                    <li>BCD and Hamming code problems <span class="pyq-badge">8+ times</span></li>
+                </ul>
+            </div>
+
+            <div class="revision-card">
+                <div class="revision-title">⚡ Registers &amp; Counters — Quick Revision</div>
+                <ul>
+                    <li>✅ 4 types: SISO, SIPO, PISO, PIPO</li>
+                    <li>✅ Ripple counter: FFs in chain, mod=2^n, slower</li>
+                    <li>✅ Synchronous: all FFs clocked together, faster</li>
+                    <li>✅ n flip-flops → 2^n states, counts 0 to 2^n−1</li>
+                    <li>✅ T or JK (J=K=1) flip-flops used to build counters</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         FINAL EXAM STRATEGY
+    ════════════════════════════════════════ -->
+    <section class="unit-section">
+        <div class="unit-header" style="background:linear-gradient(135deg,rgba(255,214,0,0.1),rgba(255,112,67,0.1));border-color:rgba(255,214,0,0.3);">
+            <h2 style="color:var(--accent-yellow);">🎯 FINAL EXAM STRATEGY — All Units</h2>
+            <p>Your complete game plan for scoring maximum marks</p>
+        </div>
+
+        <div class="topic-card">
+            <div class="grid-2">
+                <div class="exam-box">
+                    <p><strong>📊 Unit-wise Weightage:</strong></p>
+                    <table class="custom-table mt-2">
+                        <thead><tr><th>Unit</th><th>Topic</th><th>Expected Marks</th></tr></thead>
+                        <tbody>
+                            <tr><td>I</td><td>DC &amp; AC Circuits</td><td style="color:var(--accent-green);">20–25 marks</td></tr>
+                            <tr><td>II</td><td>Machines &amp; Instruments</td><td style="color:var(--accent-blue);">15–20 marks</td></tr>
+                            <tr><td>III</td><td>Energy &amp; Safety</td><td style="color:var(--accent-blue);">15 marks</td></tr>
+                            <tr><td>IV</td><td>Semiconductor Devices</td><td style="color:var(--accent-purple);">15–20 marks</td></tr>
+                            <tr><td>V</td><td>Digital Electronics</td><td style="color:var(--accent-orange);">20–25 marks</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="highlight-box">
+                    <p><strong>💯 Top 10 Highest-Scoring Topics:</strong></p>
+                    <ol style="margin-top:0.7rem;list-style:decimal;padding-left:1.5rem;color:var(--text-secondary);">
+                        <li>KVL/KCL numericals</li>
+                        <li>AC power (P, Q, S, pf)</li>
+                        <li>Transformer ratio &amp; EMF</li>
+                        <li>Induction motor (Ns, slip)</li>
+                        <li>Flip-flop truth tables (JK, D)</li>
+                        <li>Logic gate combinations</li>
+                        <li>Half/Full Adder design</li>
+                        <li>Number conversions</li>
+                        <li>Semiconductor diode/Zener</li>
+                        <li>Electricity bill calculation</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="warning-box mt-2">
+                <p><strong>⚠️ Top Common Mistakes to Avoid:</strong></p>
+                <div class="grid-2 mt-2">
+                    <ul style="list-style:disc;padding-left:1.2rem;color:var(--text-secondary);font-size:0.9rem;">
+                        <li>Confusing Vrms and Vpeak</li>
+                        <li>Wrong KVL sign convention</li>
+                        <li>Forgetting units (W vs VA vs VAR)</li>
+                        <li>S=R=1 forbidden in SR flip-flop</li>
+                    </ul>
+                    <ul style="list-style:disc;padding-left:1.2rem;color:var(--text-secondary);font-size:0.9rem;">
+                        <li>Mixing up α and β formulas</li>
+                        <li>Reading binary to decimal wrong</li>
+                        <li>Transformer works only for AC!</li>
+                        <li>Fuse material: NOT copper wire!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="revision-card" style="margin-top:1.5rem;">
+                <div class="revision-title">🔥 1-Day-Before-Exam Master Revision</div>
+                <ul>
+                    <li>✅ Ohm's Law · KCL · KVL · Series/Parallel R formulas</li>
+                    <li>✅ Vrms=0.707Vm · Vavg=0.637Vm · FF=1.11 · PF=1.414</li>
+                    <li>✅ ELI the ICE man · Z=√(R²+(XL−XC)²) · pf=cosφ</li>
+                    <li>✅ E=PΦNZ/60A · Transformer: K=N2/N1=V2/V1 · E=4.44fΦN</li>
+                    <li>✅ Ns=120f/P · Slip=(Ns−N)/Ns</li>
+                    <li>✅ 1 unit=1kWh · Energy=P×t · Earthing &lt;1Ω</li>
+                    <li>✅ Diode: Si=0.7V · Zener=voltage regulator · β=IC/IB</li>
+                    <li>✅ De Morgan's: (AB)̄=Ā+B̄ · NAND/NOR=universal gates</li>
+                    <li>✅ Half Adder: Sum=A⊕B, Carry=AB · Full Adder has carry-in</li>
+                    <li>✅ JK: J=K=1→Toggle · D: Q=D · T: T=1→Toggle</li>
+                    <li>✅ n FF → 2^n states · Ripple counter: simple · Sync: fast</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</div><!-- end container -->
+
+<!-- FAB -->
+<div class="fab" onclick="scrollToTop()" title="Back to Top">⬆</div>
+
+<script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
+        document.getElementById('progressBar').style.width = progress + '%';
+        updateActiveNav();
+    });
+
+    // Active nav highlighting
+    function updateActiveNav() {
+        const sections = document.querySelectorAll('[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let currentId = '';
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 120 && rect.bottom >= 120) {
+                currentId = section.id;
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + currentId) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Sidebar toggle
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    // Scroll to top
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Expandable sections
+    function toggleExpand(header) {
+        const content = header.nextElementSibling;
+        const arrow = header.querySelector('span:last-child');
+        content.classList.toggle('active');
+        arrow.textContent = content.classList.contains('active') ? '▲' : '▼';
+    }
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close sidebar on mobile
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('sidebar').classList.remove('active');
+                    }
                 }
-            } else {
-                state.units = state.units.filter(u => u !== unitId);
-            }
-            localStorage.setItem('beee_units', JSON.stringify(state.units));
-            updateSyllabusGauge();
-        };
-
-        function updateSyllabusGauge() {
-            const count = state.units.length;
-            const pct = (count / 5) * 100;
-            document.getElementById('syl-progress-percent').innerText = Math.round(pct) + "% Built";
-            document.getElementById('units-fraction').innerText = count + " / 5 Units Ready";
-            document.getElementById('syl-progress-bar').style.width = pct + "%";
-
-            // Update dom checks
-            for(let i=1; i<=5; i++){
-                const cb = document.getElementById('check-u' + i);
-                if (cb) cb.checked = state.units.includes('u' + i);
-            }
-        }
-
-        window.resetSyllabusUnits = function() {
-            state.units = [];
-            localStorage.setItem('beee_units', JSON.stringify(state.units));
-            updateSyllabusGauge();
-            showToast("Circuit progress wiped.");
-        };
-
-        window.toggleGlobalBookmarked = function() {
-            state.bookmarked = !state.bookmarked;
-            localStorage.setItem('beee_bookmarked', state.bookmarked.toString());
-            const btn = document.getElementById('bookmark-btn-global');
-            if (state.bookmarked) {
-                btn.classList.add('border-amber-500', 'text-amber-500');
-                btn.innerHTML = '🔖 SAVED';
-                showToast("Added to Dashboard.");
-            } else {
-                btn.classList.remove('border-amber-500', 'text-amber-500');
-                btn.innerHTML = '🔖 Save to Planner';
-            }
-        };
-
-        window.showInteractiveDemo = function(demoId) {
-            addXP(10);
-            const box = document.getElementById('quick-flash-display');
-            box.classList.remove('hidden');
-            
-            const titles = {
-                'u1-kcl': 'KCL/KVL Balancer Engine',
-                'u1-ac': 'AC Waveform Oscilloscope',
-                'u1-phasor': 'Phasor Target System',
-                'u2-transformer': 'Transformer Magnetic Flux Viewer',
-                'u2-pmmc': 'PMMC Analog Needle Movement',
-                'u2-motor': 'DC Motor Force Simulator',
-                'u3-power': 'Nuclear/Hydel Power Flow Diagram',
-                'u3-bill': 'Appliance Tariff Estimator',
-                'u3-mcb': 'Overload Trip Physics Engine',
-                'u4-pn': 'Depletion Region & Doping Visualization',
-                'u4-bjt': 'CE amplifier Transistor Dataflow',
-                'u5-rectifier': 'Ripple Filter Diode Network',
-                'u5-logic': 'Boolean Logic Gate Sandbox'
-            };
-            
-            document.getElementById('flash-title-meta').innerText = 'CIRCUIT MODAL: ' + demoId;
-            document.getElementById('flash-topic-head').innerText = titles[demoId] || 'Interactive Engine Setup';
-            document.getElementById('flash-topic-body').innerText = '> Initializing WebGL contexts... > Fetching circuit properties... \\n> POWER_ON. Interaction enabled in final build.';
-            
-            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function showToast(msg) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-amber-500/50 text-slate-800 dark:text-amber-400 rounded-lg text-xs font-bold shadow-lg shadow-amber-500/20 transform transition-all translate-y-4 opacity-0 font-mono';
-            toast.innerText = msg;
-            container.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.remove('translate-y-4', 'opacity-0');
-            }, 10);
-            
-            setTimeout(() => {
-                toast.classList.add('opacity-0', '-translate-y-4');
-                setTimeout(() => toast.remove(), 300);
-            }, 2500);
-        }
-
-        // Reading scroll
-        window.addEventListener('scroll', () => {
-             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-             const scrolled = (winScroll / height) * 100;
-             document.getElementById("reading-progress-bar").style.width = scrolled + "%";
-        });
-
-        // Init
-        document.addEventListener('DOMContentLoaded', () => {
-            updateProfile();
-            updateSyllabusGauge();
-            if (state.bookmarked) {
-                const btn = document.getElementById('bookmark-btn-global');
-                btn.classList.add('border-amber-500', 'text-amber-500');
-                btn.innerHTML = '🔖 SAVED';
             }
         });
-    </script>
-    <script type="module" src="/src/main.js"></script>
-    <script type="module" src="/src/config-check.js"></script>
-    <script type="module" src="/src/ai-widget.ts"></script>
+    });
+
+    // Animate cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.topic-card, .formula-card, .unit-header').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+    });
+</script>
 </body>
 </html>
