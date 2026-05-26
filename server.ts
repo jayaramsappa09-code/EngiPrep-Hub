@@ -106,6 +106,61 @@ const getFilePath = (filename: string) => {
 };
 
 // SEO Clean URLs mapping for elite searchindexing
+app.get('/subject.html', (req, res, next) => {
+  const sub = (req.query.sub || req.query.slug || '').toString().toLowerCase();
+  if (sub) {
+    if (sub.includes('physics') || sub.includes('ap102')) {
+      return res.redirect(301, '/engineering-physics');
+    }
+    if (sub.includes('chemistry')) {
+      return res.redirect(301, '/engineering-chemistry');
+    }
+    if (sub.includes('mathematics ii') || sub === 'm2' || sub.includes('maths ii') || sub.includes('maths 2')) {
+      return res.redirect(301, '/engineering-mathematics-2');
+    }
+    if (sub.includes('mathematics i') || sub === 'm1' || sub.includes('maths i') || sub.includes('maths 1')) {
+      return res.redirect(301, '/engineering-mathematics');
+    }
+    if (sub.includes('graphics') || sub === 'eg' || sub.includes('engineering graphics')) {
+      return res.redirect(301, '/engineering-graphics');
+    }
+    if (sub.includes('english') || sub.includes('communicative')) {
+      return res.redirect(301, '/communicative-english');
+    }
+    if (sub.includes('electrical') || sub === 'beee' || sub.includes('basic electrical')) {
+      return res.redirect(301, '/basic-electrical-engineering');
+    }
+    if (sub.includes('c programming') || sub.includes('pps') || sub.includes('problem solving')) {
+      return res.redirect(301, '/c-programming');
+    }
+    if (sub.includes('data structure')) {
+      return res.redirect(301, '/data-structures');
+    }
+    if (sub.includes('civil') || sub.includes('mechanical') || sub.includes('bcme')) {
+      return res.redirect(301, '/basic-civil-and-mechanical-engineering');
+    }
+  }
+  next();
+});
+
+const cleanSubjectRoutes = [
+  { path: '/engineering-physics', file: 'physics-notes.html' },
+  { path: '/engineering-chemistry', file: 'chemistry-topper-notes.html' },
+  { path: '/engineering-mathematics', file: 'maths-1.html' },
+  { path: '/engineering-mathematics-2', file: 'engineering-mathematics-2.html' },
+  { path: '/engineering-graphics', file: 'engineering-graphics-lab.html' },
+  { path: '/communicative-english', file: 'communicative-english.html' },
+  { path: '/basic-electrical-engineering', file: 'beee-notes.html' },
+  { path: '/c-programming', file: 'c-programming-notes.html' },
+  { path: '/data-structures', file: 'data-structures-basics.html' },
+  { path: '/basic-civil-and-mechanical-engineering', file: 'basic-civil-mechanical-engineering.html' }
+];
+
+cleanSubjectRoutes.forEach(route => {
+  app.get(route.path, (req, res) => res.sendFile(getFilePath(route.file)));
+  app.get(`${route.path}/`, (req, res) => res.sendFile(getFilePath(route.file)));
+});
+
 app.get('/pyqs', (req, res) => {
   res.sendFile(getFilePath('pyqs.html'));
 });
