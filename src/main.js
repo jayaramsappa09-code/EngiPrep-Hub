@@ -583,7 +583,7 @@ function initCookieConsent() {
         e.stopPropagation();
         closeBanner('minimal');
         if (typeof window.showSuccessToast === 'function') {
-            window.showSuccessToast('Minimal cookies preference saved.');
+            window.showSuccessToast('Preferences Saved', 'Minimal cookies preference saved.');
         }
     });
 
@@ -599,7 +599,7 @@ function initCookieConsent() {
         }
 
         if (typeof window.showSuccessToast === 'function') {
-            window.showSuccessToast('Your cookie preferences have been applied successfully.');
+            window.showSuccessToast('Preferences Saved', 'Your cookie preferences have been applied successfully.');
         }
     });
 
