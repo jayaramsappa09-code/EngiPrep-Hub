@@ -1172,6 +1172,96 @@ pre {
 .portal-link:hover .portal-link-badge {
   color: var(--accent);
 }
+
+/* ─── STUDY MODES PREMIUM STATES ─── */
+body.study-mode-exam .section-block {
+  opacity: 0.65;
+  filter: saturate(80%);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.study-mode-exam .section-block.has-exam-priority {
+  opacity: 1 !important;
+  filter: none !important;
+  border-left: 6px solid #F59E0B !important;
+  border-color: #F59E0B !important;
+  box-shadow: 0 10px 40px rgba(245,158,11,0.18), inset 0 0 20px rgba(245,158,11,0.05) !important;
+}
+body.study-mode-exam .section-block.has-exam-priority .section-header {
+  background: rgba(245,158,11,0.06) !important;
+}
+
+body.study-mode-practice .section-block {
+  opacity: 0.65;
+  filter: saturate(80%);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.study-mode-practice .section-block.has-practice-interactive {
+  opacity: 1 !important;
+  filter: none !important;
+  border-left: 6px solid #3B82F6 !important;
+  border-color: #3B82F6 !important;
+  box-shadow: 0 10px 40px rgba(59,130,246,0.18), inset 0 0 20px rgba(59,130,246,0.05) !important;
+}
+body.study-mode-practice .section-block.has-practice-interactive .section-header {
+  background: rgba(59,130,246,0.06) !important;
+}
+
+body.study-mode-revision .section-block {
+  opacity: 0.45;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.study-mode-revision .section-block.has-revision-sheet {
+  opacity: 1 !important;
+  border-left: 6px solid #EF4444 !important;
+  border-color: #EF4444 !important;
+  box-shadow: 0 10px 40px rgba(239,68,68,0.18), inset 0 0 20px rgba(239,68,68,0.05) !important;
+}
+body.study-mode-revision .section-block.has-revision-sheet .section-header {
+  background: rgba(239,68,68,0.06) !important;
+}
+
+/* Pulsing indicators */
+.pulse-amber {
+  animation: pulse-amber-glow 2s infinite;
+}
+@keyframes pulse-amber-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5); }
+  50% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+}
+.pulse-blue {
+  animation: pulse-blue-glow 2s infinite;
+}
+@keyframes pulse-blue-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+  50% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+}
+.pulse-red {
+  animation: pulse-red-glow 2s infinite;
+}
+@keyframes pulse-red-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+  50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+
+/* Premium Mode Status Banner */
+.study-mode-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.75rem;
+  margin-bottom: 2rem;
+  border-radius: 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #FFFFFF;
+  border: 1px solid transparent;
+  animation: slide-in-top 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes slide-in-top {
+  from { transform: translateY(-12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 </style>
 
     
@@ -1229,10 +1319,10 @@ pre {
       <span class="unit-num">V</span> Functions &amp; File Handling
     </button>
     <div class="unit-nav-title" style="margin-top:1rem;">Modes</div>
-    <button class="unit-btn" onclick="window.showEncouragingToast('📝 Exam Mode Activated', 'Focus on the ⭐ marked content and 🔥 PYQ sections to master the exam!')">
+    <button class="unit-btn" id="side-mode-exam" onclick="setStudyMode('exam')">
       <span class="unit-num" style="background:rgba(245,158,11,0.15);color:#f59e0b">📝</span> Exam Mode
     </button>
-    <button class="unit-btn" onclick="window.showSuccessToast('⚡ Quick Revision Mode', 'Navigate straight to the key summary points and core revision cards!')">
+    <button class="unit-btn" id="side-mode-revision" onclick="setStudyMode('revision')">
       <span class="unit-num" style="background:rgba(239,68,68,0.15);color:#ef4444">⚡</span> Quick Revision
     </button>
   </nav>
@@ -1305,9 +1395,9 @@ pre {
       </div>
     </div>
     <div class="mode-tabs">
-      <button class="mode-tab active">Learn</button>
-      <button class="mode-tab" onclick="window.showSuccessToast('🎯 Practice Mode Active', 'Interactive MCQ challenge options are now ready!')">Practice</button>
-      <button class="mode-tab" onclick="window.showEncouragingToast('🏆 Exam Mode Active', 'Highlighting ⭐ standard questions and 🔥 PYQs for focus study!')">Exam</button>
+      <button class="mode-tab active" id="tab-mode-learn" onclick="setStudyMode('learn')">Learn</button>
+      <button class="mode-tab" id="tab-mode-practice" onclick="setStudyMode('practice')">Practice</button>
+      <button class="mode-tab" id="tab-mode-exam" onclick="setStudyMode('exam')">Exam</button>
     </div>
   </div>
 
@@ -3244,6 +3334,174 @@ function copyCode(btn) {
     setTimeout(() => btn.textContent = 'Copy', 2000);
   });
 }
+
+// ─── STUDY MODES ENGINE ───
+function setStudyMode(mode) {
+  // Clear existing banners
+  const existingBanner = document.getElementById('active-study-mode-banner');
+  if (existingBanner) existingBanner.remove();
+
+  // Clear mode classes from body
+  document.body.classList.remove('study-mode-exam', 'study-mode-practice', 'study-mode-revision');
+  
+  // Reset active classes on tabs and buttons
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#side-mode-exam, #side-mode-revision').forEach(b => b.classList.remove('active'));
+  
+  // Highlight active controls
+  const tabLearn = document.getElementById('tab-mode-learn');
+  const tabPractice = document.getElementById('tab-mode-practice');
+  const tabExam = document.getElementById('tab-mode-exam');
+  const sideExam = document.getElementById('side-mode-exam');
+  const sideRevision = document.getElementById('side-mode-revision');
+
+  if (mode === 'learn') {
+    if (tabLearn) tabLearn.classList.add('active');
+    if (window.showSuccessToast) window.showSuccessToast('📖 Learn Mode Active', 'Displaying all structured study guides, full concepts and examples.');
+    
+    // Expand first block, collapse nothing we keep state
+    document.querySelectorAll('.unit-section.active .section-block').forEach((block, idx) => {
+      block.style.opacity = '1';
+      block.style.filter = 'none';
+      if (idx === 0) block.classList.add('open');
+      else block.classList.remove('open');
+    });
+  } 
+  else if (mode === 'exam') {
+    document.body.classList.add('study-mode-exam');
+    if (tabExam) tabExam.classList.add('active');
+    if (sideExam) sideExam.classList.add('active');
+    
+    if (window.showEncouragingToast) window.showEncouragingToast('🏆 Exam Recov Mode Active', 'Highlighting ⭐ standard questions and 🔥 PYQs for maximum mark efficiency.');
+
+    // Inject active mode banner at top of active unit section
+    const activeUnit = document.querySelector('.unit-section.active');
+    if (activeUnit) {
+      const banner = document.createElement('div');
+      banner.id = 'active-study-mode-banner';
+      banner.className = 'study-mode-banner bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 border-amber-400 shadow-lg';
+      banner.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="text-xl">🏆</span>
+          <div>
+            <p class="font-extrabold uppercase tracking-widest text-[10px] text-amber-50 leading-tight">Exam Prep Isolation Active</p>
+            <p class="text-[11px] text-amber-100 mt-0.5 leading-relaxed">General explanations de-emphasized. Standard priority questions & JNTUK R23 PYQs highlighted and open.</p>
+          </div>
+        </div>
+        <button onclick="setStudyMode('learn')" class="px-2.5 py-1 text-[9px] font-bold text-amber-950 bg-white hover:bg-amber-50 rounded-lg cursor-pointer">RESET</button>
+      `;
+      activeUnit.insertBefore(banner, activeUnit.firstChild);
+    }
+
+    // Process section blocks
+    let firstHighlighted = null;
+    document.querySelectorAll('.unit-section.active .section-block').forEach(block => {
+      const text = block.textContent || "";
+      const isExam = block.querySelector('.pyq-badge') || text.includes('⭐') || text.includes('PYQ') || text.includes('Priority') || text.includes('Guaranteed') || text.includes('10 marks');
+      if (isExam) {
+        block.classList.add('has-exam-priority', 'open');
+        if (!firstHighlighted) firstHighlighted = block;
+      } else {
+        block.classList.remove('has-exam-priority', 'open');
+      }
+    });
+
+    if (firstHighlighted) {
+      firstHighlighted.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  } 
+  else if (mode === 'practice') {
+    document.body.classList.add('study-mode-practice');
+    if (tabPractice) tabPractice.classList.add('active');
+    
+    if (window.showSuccessToast) window.showSuccessToast('🎯 Practice Assessment Active', 'Direct mapping to interactive MCQs, quizzes, and code compilers.');
+
+    // Inject active mode banner at top of active unit section
+    const activeUnit = document.querySelector('.unit-section.active');
+    if (activeUnit) {
+      const banner = document.createElement('div');
+      banner.id = 'active-study-mode-banner';
+      banner.className = 'study-mode-banner bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-700 border-blue-400 shadow-lg';
+      banner.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="text-xl">🎯</span>
+          <div>
+            <p class="font-extrabold uppercase tracking-widest text-[10px] text-blue-50 leading-tight">Practice Engine Engaged</p>
+            <p class="text-[11px] text-blue-100 mt-0.5 leading-relaxed">Interactive MCQs, coding sandboxes and conceptual self-assessments high-focus.</p>
+          </div>
+        </div>
+        <button onclick="setStudyMode('learn')" class="px-2.5 py-1 text-[9px] font-bold text-blue-950 bg-white hover:bg-blue-50 rounded-lg cursor-pointer">RESET</button>
+      `;
+      activeUnit.insertBefore(banner, activeUnit.firstChild);
+    }
+
+    // Process section blocks
+    let firstHighlighted = null;
+    document.querySelectorAll('.unit-section.active .section-block').forEach(block => {
+      const hasInteractive = block.querySelector('.quiz-container') || block.querySelector('.code-wrap') || block.querySelector('canvas') || block.querySelector('.sandbox-control');
+      if (hasInteractive) {
+        block.classList.add('has-practice-interactive', 'open');
+        if (!firstHighlighted) firstHighlighted = block;
+      } else {
+        block.classList.remove('has-practice-interactive', 'open');
+      }
+    });
+
+    if (firstHighlighted) {
+      firstHighlighted.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  else if (mode === 'revision') {
+    document.body.classList.add('study-mode-revision');
+    if (sideRevision) sideRevision.classList.add('active');
+    
+    if (window.showSuccessToast) window.showSuccessToast('⚡ Quick Revision Filter On', 'Highlighting high-yield cheat sheets, key tables and instant definitions.');
+
+    // Inject active mode banner at top of active unit section
+    const activeUnit = document.querySelector('.unit-section.active');
+    if (activeUnit) {
+      const banner = document.createElement('div');
+      banner.id = 'active-study-mode-banner';
+      banner.className = 'study-mode-banner bg-gradient-to-r from-red-600 via-orange-600 to-red-700 border-red-400 shadow-lg';
+      banner.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="text-xl">⚡</span>
+          <div>
+            <p class="font-extrabold uppercase tracking-widest text-[10px] text-red-50 leading-tight">Quick Revision Core Active</p>
+            <p class="text-[11px] text-red-100 mt-0.5 leading-relaxed">Key formula definitions, code syntax cheat sheets and quick revision chips auto-expanded.</p>
+          </div>
+        </div>
+        <button onclick="setStudyMode('learn')" class="px-2.5 py-1 text-[9px] font-bold text-red-950 bg-white hover:bg-red-50 rounded-lg cursor-pointer">RESET</button>
+      `;
+      activeUnit.insertBefore(banner, activeUnit.firstChild);
+    }
+
+    // Process section blocks
+    let firstHighlighted = null;
+    document.querySelectorAll('.unit-section.active .section-block').forEach(block => {
+      const text = block.textContent || "";
+      const isRevision = text.includes('Quick Revision') || text.includes('Cheat Sheet') || block.querySelector('.rev-chip') || text.includes('highlights');
+      if (isRevision) {
+        block.classList.add('has-revision-sheet', 'open');
+        if (!firstHighlighted) firstHighlighted = block;
+        block.querySelectorAll('.rev-chip').forEach(chip => {
+          chip.classList.add('pulse-red');
+        });
+      } else {
+        block.classList.remove('has-revision-sheet', 'open');
+      }
+    });
+
+    if (firstHighlighted) {
+      firstHighlighted.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Rebuild the TOC to match current state
+  buildTocForActiveUnit();
+}
+
+window.setStudyMode = setStudyMode;
 
 // ─── INITIALIZATION ───
 document.addEventListener('DOMContentLoaded', () => {
