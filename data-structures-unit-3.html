@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNTUK R23 Unit 2: Singly, Doubly, &amp; Circular Linked Lists | EngiPrep Hub</title>
-    <meta name="description" content="Ultimate JNTUK R23 Data Structures Unit II guide. Master Singly, Doubly, and Circular Linked List representations, node pointers traversal, and operations.">
-    <link class="stylesheet" href="/src/style.css" rel="stylesheet">
+    <title>JNTUK R23 Unit 3: Stacks &amp; Expression Evaluations | EngiPrep Hub</title>
+    <meta name="description" content="Ultimate JNTUK R23 Data Structures Unit III guide. Master Last-In-First-Out (LIFO) stacks, Array and Linked List stack implementations, and expression evaluations.">
+    <link rel="stylesheet" href="/src/style.css">
 
     <!-- KaTeX CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -116,24 +116,24 @@
                 <li>/</li>
                 <li><a href="/data-structures-basics.html" class="hover:text-blue-500">Data Structures</a></li>
                 <li>/</li>
-                <li class="text-blue-500" aria-current="page">Unit II: Linked Lists</li>
+                <li class="text-blue-500" aria-current="page">Unit III: Stacks</li>
             </ol>
         </nav>
 
         <!-- TOP HEADER BOX -->
         <header class="mb-14 p-8 glass-card relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#04091c] border border-blue-950/45">
-            <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none font-sans"></div>
+            <div class="absolute right-0 top-0 w-80 h-80 bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none font-sans"></div>
             <div class="space-y-4 relative z-10 max-w-2xl">
                 <div class="flex items-center gap-2 flex-wrap">
-                    <span class="px-2.5 py-0.5 bg-indigo-500/15 border border-indigo-500/25 text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit II Workspace</span>
-                    <span class="px-2.5 py-0.5 bg-[#f59e0b]/15 border border-[#f59e0b]/25 text-[#f59e0b] text-[10px] font-black uppercase tracking-widest rounded-full">Difficulty: Hard</span>
+                    <span class="px-2.5 py-0.5 bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">Unit III Workspace</span>
+                    <span class="px-2.5 py-0.5 bg-[#f59e0b]/15 border border-[#f59e0b]/25 text-[#f59e0b] text-[10px] font-black uppercase tracking-widest rounded-full">Difficulty: Medium</span>
                 </div>
                 <div>
                     <h1 class="text-3xl lg:text-4xl font-extrabold text-white uppercase tracking-tight font-sans">
-                        Unit II: Singly, Doubly &amp;<br>Circular Linked Lists
+                        Unit III: Stacks &amp;<br>Applications
                     </h1>
                     <p class="text-slate-400 text-xs sm:text-sm mt-3 font-medium leading-relaxed">
-                        Trace nodes memory allocation patterns. Conquer pointer redirection layouts across insertions, deletions, list traversals, and array-linked list comparisons.
+                        Explore Last-In-First-Out (LIFO) stacks models. Conquer operations implementations using sequential arrays and dynamic links, along with expression converters and backtracking.
                     </p>
                     <div class="flex flex-wrap gap-2.5 mt-5">
                         <a href="#solved-papers" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
@@ -238,264 +238,276 @@
             <!-- RIGHT PANEL: MASTER CONTENT -->
             <div class="lg:col-span-9 space-y-16">
 
-                <!-- 01 SLL Representations -->
+                <!-- 01 LIFO Stack Operations -->
                 <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-blue-500 font-mono">01</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Singly Linked List Representation</h2>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Last-In-First-Out (LIFO) Stack Operations</h2>
                     </div>
                     <div class="space-y-4 text-xs font-medium text-slate-400">
                         <p>
-                            A <b>Singly Linked List (SLL)</b> is a collection of nodes allocated dynamically in non-contiguous location buffers. Each node has two components:
+                            A <b>Stack</b> is a linear structure conforming to the <b>Last In First Out (LIFO)</b> operational principle. Elements are pushed onto and popped from the absolute top boundary exclusively.
                         </p>
                         <ul class="list-disc list-inside space-y-2 text-slate-350 bg-[#050616] p-4 rounded-xl border border-blue-950">
-                            <li><b class="text-white">Data Field:</b> Holds the actual payload information (integer, character, object).</li>
-                            <li><b class="text-white">Next Pointer:</b> Contains the reference/address link to the subsequent node in sequence. The final node next parameter is <code class="text-[#0dffc0]">NULL</code>.</li>
+                            <li><b class="text-white">Push:</b> Adds an element onto the top.</li>
+                            <li><b class="text-white">Pop:</b> Removes and returns the element at the top.</li>
+                            <li><b class="text-white">Peek/Top:</b> Audits the value of the top element without altering structure states.</li>
                         </ul>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-1" onclick="toggleScoreTask('tag-1')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master Singly List physical allocation (+20 XP)</span>
+                                <span>Master Stack operations mechanics (+20 XP)</span>
                             </label>
                         </div>
                     </div>
                 </section>
 
-                <!-- 02 DLL & Circular List logic -->
+                <!-- 02 Array vs List Stacks -->
                 <section id="core-principles" class="glass-card p-8 scroll-mt-24">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-blue-500 font-mono">02</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">DLL &amp; Circular List logic</h2>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Array vs List Stack Implementations</h2>
                     </div>
                     <div class="space-y-4 text-xs font-medium leading-relaxed text-slate-400">
                         <p>
-                            We address traverse limits by introducing bidirectional linkages and loops:
+                            Stacks can be implemented dynamically or sequentially with different boundaries:
                         </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans">
                             <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-blue-400 font-bold uppercase text-[9.5px]">Doubly Linked Lists (DLL)</span>
+                                <span class="text-blue-400 font-bold uppercase text-[9.5px]">Arrays Implementation</span>
                                 <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    Each node holds two pointers: <code class="text-[#0dffc0]">prev</code> and <code class="text-[#0dffc0]">next</code>. This allows full bidirectional traversal, although it increases memory consumption slightly.
+                                    Uses a fixed size sequence array and an integer tracking index (<code class="text-[#0dffc0]">top</code>). Quick constant access, but risks throwing an Overflow error when memory boundaries are exceeded.
                                 </p>
                             </div>
                             <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-indigo-400 font-bold uppercase text-[9.5px]">Circular Linked Lists (CLL)</span>
+                                <span class="text-indigo-400 font-bold uppercase text-[9.5px]">Linked List Implementation</span>
                                 <p class="text-slate-400 text-[11px] leading-relaxed">
-                                    The final node points directly back to the head node instead of <code class="text-[#0dffc0]">NULL</code>, forming a circular loop useful for scheduling patterns.
+                                    Pushes and pops elements from the head boundary of a Singly Linked List, where the head represents the active top pointer. Completely avoids overflow issues because it allocates node memory dynamically.
                                 </p>
                             </div>
                         </div>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-2" onclick="toggleScoreTask('tag-2')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Learn DLL and CLL structures (+20 XP)</span>
+                                <span>Learn Array &amp; List implementations (+20 XP)</span>
                             </label>
                         </div>
                     </div>
                 </section>
 
-                <!-- 03 Essential tradeoffs list -->
+                <!-- 03 Essential overflow bounds -->
                 <section id="definitions" class="glass-card p-8 scroll-mt-24">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-blue-500 font-mono">03</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Essential Tradeoffs List</h2>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Essential Overflow Bounds</h2>
                     </div>
                     <div class="space-y-5 text-xs text-slate-400">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans">
                             <div class="p-4 bg-slate-950/70 border border-slate-900 rounded-xl space-y-1">
-                                <b class="text-white text-xs block">Array Properties</b>
+                                <b class="text-white text-xs block">Overflow Conditions</b>
                                 <p class="text-[11px] text-slate-450 leading-relaxed">
-                                    Contiguous memory. Constant time random access $\mathcal{O}(1)$. Shifting cost during insertion is $\mathcal{O}(n)$.
+                                    Triggered in array-backed stacks when pushing onto a completely saturated index: <code class="text-[#0dffc0]">top == MAX - 1</code>.
                                 </p>
                             </div>
                             <div class="p-4 bg-slate-950/70 border border-slate-900 rounded-xl space-y-1">
-                                <b class="text-white text-xs block">Linked List Properties</b>
+                                <b class="text-white text-xs block">Underflow Conditions</b>
                                 <p class="text-[11px] text-slate-450 leading-relaxed">
-                                    Dynamic non-contiguous nodes. Safe pointers redirection. Insertion at head is constant $\mathcal{O}(1)$. Access time is progressive $\mathcal{O}(n)$.
+                                    Triggered during pop requests on an empty stack structure: <code class="text-[#0dffc0]">top == -1</code>.
                                 </p>
                             </div>
                         </div>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-3" onclick="toggleScoreTask('tag-3')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Understand structural tradeoffs (+20 XP)</span>
+                                <span>Verify State Overflow Conditions (+20 XP)</span>
                             </label>
                         </div>
                     </div>
                 </section>
 
-                <!-- 04 Core SLL insertions code -->
-                <section id="derivations" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-blue-500 font-sans">
+                <!-- 04 Core Stack Push/Pop code -->
+                <section id="derivations" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-blue-500">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-blue-500 font-mono">04</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Core SLL insertions code</h2>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Core Array-Backed Stack Push/Pop Code</h2>
                     </div>
-                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed">
-                        <p>Write clean C-styled pointers redirection templates clearly showing node creation:</p>
+                    <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans">
+                        <p>Write simple array-backed stack structures containing boundaries checks in standard C:</p>
                         <pre class="bg-slate-950/90 p-4 rounded-xl border border-blue-950 text-[#0dffc0] font-mono text-[10.5px]">
-// SLL Node structure
-struct Node {
-    int data;
-    struct Node* next;
-};
+#define MAX 100
+int stack[MAX];
+int top = -1;
 
-// Insert at Head operation
-struct Node* insertAtHead(struct Node* head, int value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = value;
-    newNode->next = head; // Point new node next link to old head
-    return newNode;       // Return new node as updated head
+// Push operation
+void push(int val) {
+    if (top == MAX - 1) {
+        printf("Overflow Error\n");
+        return;
+    }
+    stack[++top] = val; // Increment top index FIRST, then assign value
+}
+
+// Pop operation
+int pop() {
+    if (top == -1) {
+        printf("Underflow Error\n");
+        return -1;
+    }
+    return stack[top--]; // Return top value FIRST, then decrement index
 }</pre>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-4" onclick="toggleScoreTask('tag-4')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Memorize Insertion logic structures (+20 XP)</span>
+                                <span>Commit C stack algorithm to memory (+20 XP)</span>
                             </label>
                         </div>
                     </div>
                 </section>
 
-                <!-- 05 High-Yield SLL Formula sheet -->
+                <!-- 05 High-Yield Stack cheat sheet -->
                 <section id="formula-sheet" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-[#f59e0b]">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-[#f59e0b] font-mono">05</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">High-Yield SLL Formula sheet</h2>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">High-Yield Stack Cheat Sheet</h2>
                     </div>
                     <div class="space-y-4 text-xs font-medium font-sans text-slate-400">
-                        <p>Operational complexity summaries for various parts of a Linked List:</p>
+                        <p>Quick operational cost breakdown for Stack data types:</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono">
                             <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl">
-                                <span class="text-blue-400 font-bold block text-[9px] uppercase">Insertion/Deletion at Head</span>
+                                <span class="text-blue-400 font-bold block text-[9px] uppercase">Push &amp; Pop operational cost</span>
                                 <h4 class="text-white font-extrabold text-sm mt-1">Time complexity: $\mathcal{O}(1)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">SLL, DLL, and CLL require only dynamic pointer flips to update the head node.</p>
+                                <p class="text-[10px] text-slate-500 font-sans mt-1">We push or pop elements from the top index exclusively; no shifting is required.</p>
                             </div>
                             <div class="p-[#101530] bg-slate-950 border border-slate-900 rounded-xl p-4">
-                                <span class="text-[#f59e0b] font-bold block text-[9px] uppercase">Pointer Search Traverse</span>
+                                <span class="text-[#f59e0b] font-bold block text-[9px] uppercase">Element Access / Search Cost</span>
                                 <h4 class="text-white font-extrabold text-sm mt-1">Time complexity: $\mathcal{O}(n)$</h4>
-                                <p class="text-[10px] text-slate-500 font-sans mt-1">To search or access an element, we must traverse the list sequentially from the head.</p>
+                                <p class="text-[10px] text-slate-500 font-sans mt-1">To search inside a stack, we must systematically pop and examine every element.</p>
                             </div>
                         </div>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-5" onclick="toggleScoreTask('tag-5')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Lock high-yield reference parameters (+20 XP)</span>
+                                <span>Lock high-yield Stack runtime parameters (+20 XP)</span>
                             </label>
                         </div>
                     </div>
                 </section>
 
-                <!-- 06 Interactive Sandbox SLL -->
-                <section id="calculator" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-indigo-500">
+                <!-- 06 Interactive Converter Sandbox -->
+                <section id="calculator" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-indigo-500 font-sans">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-indigo-400 font-mono">06</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Interactive Sandbox: LinkedList Node Visualizer</h2>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Interactive Converter: Infix to Postfix Parser</h2>
                     </div>
                     
                     <div class="p-5 bg-[#01020d] border border-blue-950 rounded-xl space-y-6">
-                        <div class="flex items-center gap-3 flex-wrap">
-                            <div class="flex flex-col gap-1">
-                                <label class="text-[9px] text-slate-550 uppercase font-bold tracking-wider">Node data value:</label>
-                                <input type="number" id="sll-node-input" value="10" class="px-3 py-1 bg-[#030308] border border-blue-950 rounded text-xs text-center text-white font-mono w-20">
+                        <div class="flex items-center gap-3 flex-wrap text-sm font-sans">
+                            <div class="flex flex-col gap-1 flex-grow">
+                                <label class="text-[9px] text-slate-500 uppercase font-black tracking-wider">Infix Expression payload String:</label>
+                                <input type="text" id="infix-input-field" value="A+B*C" class="px-3 py-1.5 bg-[#030308] border border-blue-950 rounded text-xs text-white font-mono uppercase font-bold">
                             </div>
-                            <div class="flex gap-2 mt-4 flex-wrap">
-                                <button onclick="simulateSLL('add-head')" class="px-3 py-1.5 bg-blue-600/20 text-blue-400 border border-blue-600/30 hover:bg-blue-600/30 font-black text-xs uppercase rounded cursor-pointer transition-all">Insert Head</button>
-                                <button onclick="simulateSLL('add-tail')" class="px-3 py-1.5 bg-indigo-600/20 text-indigo-400 border border-indigo-600/30 hover:bg-indigo-600/30 font-black text-xs uppercase rounded cursor-pointer transition-all">Insert Tail</button>
-                                <button onclick="simulateSLL('del-head')" class="px-3 py-1.5 bg-rose-600/20 text-rose-400 border border-rose-600/30 hover:bg-rose-600/30 font-black text-xs uppercase rounded cursor-pointer transition-all">Delete Head</button>
-                            </div>
+                            <button onclick="evalInfixToPostfix()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-black text-xs uppercase cursor-pointer mt-4 transition-all whitespace-nowrap">Convert Step-by-Step</button>
                         </div>
 
-                        <!-- Logical visual list nodes -->
-                        <div class="py-6 px-4 bg-[#020206] border border-blue-950/35 rounded-lg flex items-center justify-start gap-2.5 overflow-x-auto min-h-24 no-scrollbar" id="sll-visualization-container">
-                            <!-- JS driven nodes render here dynamically -->
-                        </div>
-
-                        <!-- Logs trace -->
-                        <div class="p-3 bg-slate-950/90 border border-blue-950 font-mono text-[10.5px] text-slate-500 leading-normal rounded" id="sll-v-feed">
-                            LinkedList state helper log trace loaded. Add nodes to watch head updating sequence.
+                        <!-- Render dynamic conversion log matrix table -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs font-sans">
+                                <thead>
+                                    <tr class="border-b border-blue-950 text-indigo-400 font-bold">
+                                        <th class="p-2.5">Symbol Read</th>
+                                        <th class="p-2.5">Stack Contents (LIFO List)</th>
+                                        <th class="p-2.5">Postfix Accumulated String</th>
+                                        <th class="p-2.5">Algorithmic Explanation Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-blue-950/30 text-slate-400 font-mono" id="infix-table-rows">
+                                    <tr>
+                                        <td colspan="4" class="p-4 text-center text-slate-500">Enter an Infix mathematical equation (e.g., A+B*C) above and click 'Convert'.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </section>
 
-                <!-- 07 Dynamic lists solved examples -->
+                <!-- 07 Expression Solved examples -->
                 <section id="numericals" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-emerald-500 font-sans">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-emerald-500 font-mono">07</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Dynamic Lists Solved Examples</h2>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Infix Conversion Solved Examples</h2>
                     </div>
                     <div class="space-y-6 text-xs text-slate-400 leading-relaxed">
                         <div class="p-5 bg-emerald-500/5 border border-emerald-500/20 rounded-xl space-y-1">
-                            <span class="text-[#0dffc0] text-[9.5px] font-mono tracking-wider font-bold">BOARD SOLVED TEST: REDIRECT FLIPS FOR SLL REVERSAL</span>
+                            <span class="text-[#0dffc0] text-[9.5px] font-mono tracking-wider font-bold">BOARD SOLVED TEST: TRACING EXPRESSION (val: A+B*C)</span>
                             <p class="mt-2 text-slate-350">
-                                Trace pointer redirections step-by-step to reverse a list: <code class="text-white">Head -> [10] -> [20] -> [30] -> NULL</code>.
+                                Trace Infix to Postfix conversion: <code class="text-white">A+B*C</code>, showing stack updates.
                             </p>
-                            <div class="bg-black/40 border border-blue-950 p-4 rounded-xl font-mono text-[11px] text-indigo-400">
-                                1. Set three pointers: <code class="text-[#0dffc0]">prev = NULL, current = head, next = NULL</code>.<br>
-                                2. In loop, save next reference: <code class="text-[#0dffc0]">next = current->next</code>.<br>
-                                3. Flip pointers linkage: <code class="text-[#0dffc0]">current->next = prev</code>.<br>
-                                4. Progress trackers: <code class="text-[#0dffc0]">prev = current, current = next</code>.<br>
-                                5. When current equals NULL, make <code class="text-[#0dffc0]">head = prev</code>. Result linked: <code class="text-emerald-400">Head -> [30] -> [20] -> [10] -> NULL</code>!
+                            <div class="bg-black/40 border border-blue-950 p-4 rounded-xl font-mono text-[11px] text-indigo-400 space-y-1">
+                                1. Symbol Read: 'A' -> Postfix: A<br>
+                                2. Symbol Read: '+' -> Operator. Stack: [+], Postfix: A<br>
+                                3. Symbol Read: 'B' -> Postfix: AB<br>
+                                4. Symbol Read: '*' -> Precedence of '*' > '+'. Stack: [+, *], Postfix: AB<br>
+                                5. Symbol Read: 'C' -> Postfix: ABC<br>
+                                6. [EOF]: Pop stack to end. Postfix outcome: <code class="text-emerald-400">ABC*+</code>!
                             </div>
                         </div>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-6" onclick="toggleScoreTask('tag-6')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Review Reversed linked-list pointer logic (+20 XP)</span>
+                                <span>Save Expression Trace examples (+20 XP)</span>
                             </label>
                         </div>
                     </div>
                 </section>
 
-                <!-- 08 JNTUK Solved Papers DLL -->
+                <!-- 08 JNTUK Solved Evaluation -->
                 <section id="solved-papers" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-purple-500">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-purple-500 font-mono">08</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">JNTUK Solved Papers DLL</h2>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">JNTUK Solved Evaluation paper</h2>
                     </div>
                     <div class="space-y-6 text-xs text-slate-400 leading-relaxed font-sans">
                         <div class="border-l-2 border-purple-500 pl-4 space-y-1">
-                            <h4 class="font-extrabold text-white">Doubly LinkedList Insertion at Head in C <span class="text-purple-400">(10 Marks JNTUK Exam)</span></h4>
-                            <p>To safely insert a new node at the head in DLL, update both the forward and backward pointers:</p>
-                            <pre class="bg-slate-950/85 p-3 rounded-lg border border-purple-950 text-[#0dffc0] font-mono text-[10.5px]">
-struct Node* insertHeadDLL(struct Node* head, int val) {
-    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
-    temp->data = val;
-    temp->prev = NULL;
-    temp->next = head;
-
-    if (head != NULL) {
-        head->prev = temp; // Link backward pointer of old head to temp
-    }
-    return temp; // Updated Head node returning
-}</pre>
+                            <h4 class="font-extrabold text-white">Evaluate Postfix Equation "2 3 1 * + 9 -" <span class="text-purple-400">(5 Marks JNTUK Board)</span></h4>
+                            <p>To evaluate a postfix string, push values onto the stack. When an operator is read, pop the top two values, apply the operator, and push the result back:</p>
+                            <div class="bg-slate-950/85 p-3 rounded-lg border border-purple-950 text-[#0dffc0] font-mono text-[10.5px] space-y-1">
+                                <p>1. Data 2: Push(2) -> Stack: [2]</p>
+                                <p>2. Data 3: Push(3) -> Stack: [2, 3]</p>
+                                <p>3. Data 1: Push(1) -> Stack: [2, 3, 1]</p>
+                                <p>4. Operator '*': Pop(1), Pop(3). 3 * 1 = 3. Push(3) -> Stack: [2, 3]</p>
+                                <p>5. Operator '+': Pop(3), Pop(2). 2 + 3 = 5. Push(5) -> Stack: [5]</p>
+                                <p>6. Data 9: Push(9) -> Stack: [5, 9]</p>
+                                <p>7. Operator '-': Pop(9), Pop(5). 5 - 9 = -4. Push(-4) -> Final Result: <b class="text-emerald-400">-4</b></p>
+                            </div>
                         </div>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-7" onclick="toggleScoreTask('tag-7')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Master DLL structural insertions (+20 XP)</span>
+                                <span>Master dynamic values stack evaluations (+20 XP)</span>
                             </label>
                         </div>
                     </div>
                 </section>
 
                 <!-- 09 Most Expected Predictor -->
-                <section id="predictor" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-rose-500">
+                <section id="predictor" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-rose-500 animate-fadeIn">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/25 pb-3">
                         <span class="text-xl font-bold text-rose-500 font-mono">09</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight">Most Expected Predictor</h2>
                     </div>
                     <div class="space-y-4 text-xs font-medium font-sans">
                         <div class="p-4 bg-rose-500/5 rounded-xl border border-rose-500/20 space-y-2">
-                            <span class="text-rose-450 uppercase font-black tracking-widest text-[8.5px]">PREDICTED BOARD EXAM ESSAYS (10 MARKS EACH)</span>
+                            <span class="text-rose-455 uppercase font-black tracking-widest text-[8.5px]">PREDICTED BOARD EXAM ESSAYS (10 MARKS EACH)</span>
                             <ul class="list-decimal list-inside space-y-1.5 text-slate-350">
-                                <li>Detail representation and algorithms to insert and delete nodes at specific middle positions in Double Linked Lists.</li>
-                                <li>Explain representations of Singly Linked List structures and write code for Head/Tail deletions.</li>
-                                <li>Detail the differences between Circular Linked Lists and Singly Linked Lists, highlighting circular traversal conditions.</li>
+                                <li>Explain stack operations (push, pop, peek), and write C functions for Linked List stack implementations.</li>
+                                <li>Trace the step-by-step conversion of infix expression <code class="text-white">A + (B * C - (D / E ^ F) * G) * H</code> to postfix using a stack outline table.</li>
+                                <li>Describe stack applications in backtracking maze, nested parenthesis validations, and string reversals.</li>
                             </ul>
                         </div>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-8" onclick="toggleScoreTask('tag-8')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Check-off essay questions review (+20 XP)</span>
+                                <span>Check-off expected essay reviews (+20 XP)</span>
                             </label>
                         </div>
                     </div>
@@ -514,74 +526,74 @@ struct Node* insertHeadDLL(struct Node* head, int val) {
                             <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between animate-fadeIn">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
                                     <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">Why do Circular Lists avoid storing NULL references?</h4>
+                                    <h4 class="text-xs font-bold text-white leading-relaxed">How does recursion use stacks implicitly?</h4>
                                     <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
                                 </div>
                                 <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between">
                                     <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">Because the final node's next field contains the address pointer to the original head node, forming a continuous cycle.</p>
-                                    <span class="text-[9px] text-emerald-400">Score unlocked!</span>
+                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">Each recursive call allocates a new activation record containing variables and return addresses, pushing them onto the system's runtime call stack.</p>
+                                    <span class="text-[9px] text-emerald-400 font-bold">Score unlocked!</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Card 2 -->
                         <div class="relative w-full h-32 cursor-pointer select-none group" onclick="flipVivaCard(this)">
-                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between animate-[#030308]">
+                            <div class="viva-card-inner absolute inset-0 w-full h-full border border-blue-950/35 rounded-2xl bg-gradient-to-br from-[#070b24] to-[#040616] p-5 flex flex-col justify-between animate-fadeIn">
                                 <div class="viva-card-front absolute inset-0 p-5 flex flex-col justify-between">
                                     <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider font-mono">Question</span>
-                                    <h4 class="text-xs font-bold text-white leading-relaxed">What memory footprint issue is associated with DLL nodes?</h4>
+                                    <h4 class="text-xs font-bold text-white leading-relaxed">Why do we prefix expression values conversion operations?</h4>
                                     <span class="text-[9.5px] text-slate-500">Tap to Flip 🧪</span>
                                 </div>
-                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between animate-f">
+                                <div class="viva-card-back absolute inset-0 p-5 bg-[#121639] rounded-2xl flex flex-col justify-between">
                                     <span class="text-[#0dffc0] text-[9.5px] font-black uppercase tracking-wider">Answer Verified</span>
-                                    <p class="text-[10.5px] text-slate-300 leading-normal">Each node requires two overhead address markers/pointers (prev, next), which consumes double the pointer storage space compared to a Singly Linked List.</p>
-                                    <span class="text-[9px] text-emerald-400 font-sans">Score unlocked!</span>
+                                    <p class="text-[10.5px] text-slate-300 leading-normal font-sans">Parsing postfix allows compilers to resolve complex math without parenthesis boundaries checking or backtracking on operator relative precedence weights.</p>
+                                    <span class="text-[9px] text-emerald-400 font-bold">Score unlocked!</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- 11 SLL vs Array cheats -->
+                <!-- 11 Stack Backtracking Cheatsheet -->
                 <section id="revision-sheets" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-cyan-500">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-cyan-500 font-mono">11</span>
-                        <h2 class="text-xl font-black text-white uppercase tracking-tight">SLL vs Array cheats</h2>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Stack Backtracking Cheatsheet</h2>
                     </div>
                     <div class="space-y-4 text-xs font-medium text-slate-400 font-sans leading-relaxed">
-                        <p>Evaluate these comparison vectors:</p>
+                        <p>Evaluate these Stack application vectors:</p>
                         <ul class="list-disc list-inside space-y-1.5 text-slate-350">
-                            <li><b class="text-white">Access Speed:</b> Arrays: constant $\mathcal{O}(1)$ via index calculations. Lists: sequential traverse $\mathcal{O}(n)$.</li>
-                            <li><b class="text-white">Dynamic Allocations:</b> Arrays can cause buffer overflow or waste unused pre-allocated indices. Lists allocate nodes strictly when needed.</li>
+                            <li><b class="text-white">Balancing Symbols:</b> For every closing bracket, pop the stack and ensure it matches the corresponding opening symbol types.</li>
+                            <li><b class="text-white">Backtracking:</b> Save current coordinate paths on the stack. If a dead end is reached, pop the stack to return to the previous decision point.</li>
                         </ul>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-9" onclick="toggleScoreTask('tag-9')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Save tradeoffs summaries indicators (+20 XP)</span>
+                                <span>Save Backtracking summary indications (+20 XP)</span>
                             </label>
                         </div>
                     </div>
                 </section>
 
                 <!-- 12 Memory Aids & Mnemonics -->
-                <section id="mnemonics" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-yellow-500">
+                <section id="mnemonics" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-yellow-500 font-sans">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
                         <span class="text-xl font-bold text-yellow-500 font-mono">12</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight">Memory Aids &amp; Mnemonics</h2>
                     </div>
-                    <div class="space-y-4 text-xs font-medium text-slate-400 font-sans">
+                    <div class="space-y-4 text-xs text-slate-400 font-sans">
                         <div class="p-5 bg-yellow-500/5 border border-yellow-500/20 rounded-xl space-y-2 leading-relaxed">
-                            <span class="text-[9px] font-black uppercase text-yellow-500 tracking-widest font-mono">SLL LINK MNEMONIC</span>
-                            <p class="text-slate-350 font-sans">
-                                <b>"Flipping head requires connecting references before breaking links!"</b><br>
-                                In SLL insert actions, always assign <code class="text-[#0dffc0]">newNode->next = head</code> FIRST, then assign <code class="text-[#0dffc0]">head = newNode</code>. Reversing this order breaks your references chain, leaving the existing nodes orphaned in memory!
+                            <span class="text-[9px] font-black uppercase text-yellow-500 tracking-widest font-mono">LIFO TRAY STACK MNEMONIC</span>
+                            <p class="text-slate-350">
+                                <b>"First placed is last popped!"</b><br>
+                                Imagine cafeteria dinner trays stacked vertically. The first tray you wash and place at the absolute bottom of the stack can only be retrieved after popping every tray placed on top of it.
                             </p>
                         </div>
                         <div class="pt-2">
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-10" onclick="toggleScoreTask('tag-10')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
-                                <span>Maintain Pointer swap safety rules (+20 XP)</span>
+                                <span>Learn Trays stack analogies (+20 XP)</span>
                             </label>
                         </div>
                     </div>
@@ -595,18 +607,18 @@ struct Node* insertHeadDLL(struct Node* head, int val) {
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center font-sans text-xs">
                         <div class="md:col-span-8 space-y-4 font-medium leading-relaxed">
-                            <h4 class="text-sm font-black text-white">How to score maximum marks in Unit II Linked Lists:</h4>
+                            <h4 class="text-sm font-black text-white">How to score maximum marks in Unit III Stacks:</h4>
                             <p class="text-slate-350">
-                                1. <b>Represent pointers using physical links arrows:</b> If an insertion is requested (e.g. between nodes A and B), illustrate the links clearly. Cross out the broken references and draw bold arrows for the updated link locations.
+                                1. <b>Represent Stacks vertically:</b> Always draw stacks as vertical buckets open at the top. Clearly label the active index address <code class="text-blue-400">top</code> indicating where pushes and pops occur.
                             </p>
                             <p class="text-slate-350">
-                                2. <b>Write SLL Struct definition first:</b> Every linked list question should start with the defining <code class="text-rose-400">struct Node</code> block. Even if the examiner asks for general logic, writing this struct immediately secures safety points.
+                                2. <b>Detail Precedence rankings:</b> During expression evaluations, explicitly state precedence rules (e.g. $\text{exponent } (\wedge) &gt; \text{multiplication } (*) &gt; \text{addition } (+)$). Placing this chart in your answer sheet instantly pleases the evaluator.
                             </p>
                         </div>
                         <div class="md:col-span-4 p-5 bg-[#030308] border border-rose-500/20 rounded-2xl text-center space-y-3">
                             <span class="text-lg">🎓</span>
                             <h5 class="text-xs font-bold text-white">Done reviewing?</h5>
-                            <p class="text-[10px] text-slate-450 leading-relaxed font-sans">Make sure you have crossed all checks to lock Unit II status in your browser storage.</p>
+                            <p class="text-[10px] text-slate-450 leading-relaxed font-sans">Verify you clicked all checklist items to register your Unit III accomplishments progress.</p>
                             <label class="flex items-center gap-2.5 cursor-pointer text-xs font-bold text-slate-400 select-none">
                                 <input type="checkbox" id="tag-11" onclick="toggleScoreTask('tag-11')" class="w-4 h-4 accent-blue-500 rounded border-slate-700 bg-[#020208]">
                                 <span>I am exam-ready (+20 XP)</span>
@@ -621,16 +633,14 @@ struct Node* insertHeadDLL(struct Node* head, int val) {
 
     <script>
         let scoreXP = 0;
-        const maxXPValue = 220; // 11 tasks * 20 value = 220 total
-
-        let sllList = [10, 20, 30]; // Initial visual node queue
+        const maxXPValue = 220; // 1tasks * 20 value = 220 total
 
         function initPlatform() {
-            const storedXP = localStorage.getItem('engi_ds_u2_score');
+            const storedXP = localStorage.getItem('engi_ds_u3_score');
             if (storedXP) {
                 scoreXP = parseInt(storedXP);
                 for (let i = 1; i <= 11; i++) {
-                    const status = localStorage.getItem(`engi_ds_u1_u2_task_${i}`);
+                    const status = localStorage.getItem(`engi_ds_u3_task_${i}`);
                     const elCheck = document.getElementById(`tag-${i}`);
                     if (elCheck && status === 'done') {
                         elCheck.checked = true;
@@ -640,7 +650,6 @@ struct Node* insertHeadDLL(struct Node* head, int val) {
                 scoreXP = 0;
             }
             updateXPUIRender();
-            renderSLLNodes();
         }
 
         function showToastMessage(msg) {
@@ -659,7 +668,7 @@ struct Node* insertHeadDLL(struct Node* head, int val) {
             if (scoreXP < 0) scoreXP = 0;
             if (scoreXP > maxXPValue) scoreXP = maxXPValue;
 
-            localStorage.setItem('engi_ds_u2_score', scoreXP);
+            localStorage.setItem('engi_ds_u3_score', scoreXP);
             const percentage = Math.round((scoreXP / maxXPValue) * 100);
 
             document.getElementById('percentage-indicator').innerText = `${percentage}%`;
@@ -670,13 +679,13 @@ struct Node* insertHeadDLL(struct Node* head, int val) {
                 statusText.innerText = 'NOT STARTED';
                 statusText.className = 'text-[10px] font-black text-rose-500 font-sans';
             } else if (percentage < 40) {
-                statusText.innerText = 'POINTER TRAINEE 🛠️';
+                statusText.innerText = 'STACK NOVICE 🛠️';
                 statusText.className = 'text-[10px] font-black text-blue-450 font-sans';
             } else if (percentage < 85) {
-                statusText.innerText = 'NODE EXPERT 🧠';
+                statusText.innerText = 'PARSING TRACER 🧠';
                 statusText.className = 'text-[10px] font-black text-indigo-400 font-sans';
             } else {
-                statusText.innerText = 'LINKED ARCHITECT 🏆';
+                statusText.innerText = 'STACK MASTER 🏆';
                 statusText.className = 'text-[10px] font-black text-emerald-400 animate-pulse font-sans';
             }
         }
@@ -687,21 +696,21 @@ struct Node* insertHeadDLL(struct Node* head, int val) {
             
             if (chkElement.checked) {
                 scoreXP += 20;
-                localStorage.setItem(`engi_ds_u1_u2_task_${indexValue}`, 'done');
+                localStorage.setItem(`engi_ds_u3_task_${indexValue}`, 'done');
                 showToastMessage(`Checkpoint master! +20 XP 🔥`);
             } else {
                 scoreXP -= 20;
-                localStorage.setItem(`engi_ds_u1_u2_task_${indexValue}`, 'undone');
+                localStorage.setItem(`engi_ds_u3_task_${indexValue}`, 'undone');
                 showToastMessage(`Removed Checkpoint! -20 XP`);
             }
             updateXPUIRender();
         };
 
         window.resetInternalTracker = function() {
-            if (confirm("Reset all study checklists and unlocked XP values for Unit II?")) {
-                localStorage.removeItem('engi_ds_u2_score');
+            if (confirm("Reset all study checklists and unlocked XP values for Unit III?")) {
+                localStorage.removeItem('engi_ds_u3_score');
                 for (let i = 1; i <= 11; i++) {
-                    localStorage.removeItem(`engi_ds_u1_u2_task_${i}`);
+                    localStorage.removeItem(`engi_ds_u3_task_${i}`);
                     const chkElement = document.getElementById(`tag-${i}`);
                     if (chkElement) chkElement.checked = false;
                 }
@@ -726,70 +735,89 @@ struct Node* insertHeadDLL(struct Node* head, int val) {
             showToastMessage(`Practiced Oral Viva! +5 XP 🧪`);
         };
 
-        // LinkedList Simulator
-        function renderSLLNodes() {
-            const container = document.getElementById('sll-visualization-container');
-            if(!container) return;
-            container.innerHTML = '';
-
-            if (sllList.length === 0) {
-                container.innerHTML = `<span class="text-xs text-rose-500 font-bold font-mono">Head -> NULL (Empty list state)</span>`;
-                return;
-            }
-
-            // Head item label
-            const headLabel = document.createElement('div');
-            headLabel.className = "flex flex-col items-center justify-center font-mono text-[10px] font-black text-blue-400 uppercase tracking-widest pl-2";
-            headLabel.innerHTML = `<span>Head</span><span class="text-slate-650">↓</span>`;
-            container.appendChild(headLabel);
-
-            sllList.forEach((val, idx) => {
-                // Node cell block representation
-                const nodeBlock = document.createElement('div');
-                nodeBlock.className = "flex items-stretch border border-blue-500/30 bg-[#060920] rounded-lg overflow-hidden font-mono text-xs scale-95 md:scale-100 shadow-sm";
-                nodeBlock.innerHTML = `
-                    <div class="px-3 py-1.5 bg-blue-500/10 text-white font-extrabold flex items-center justify-center border-r border-blue-500/20">${val}</div>
-                    <div class="px-2 py-1.5 text-blue-400 bg-[#030616] flex items-center justify-center min-w-[28px] font-black">next</div>
-                `;
-                container.appendChild(nodeBlock);
-
-                // Pointer directional arrow
-                const arrow = document.createElement('div');
-                arrow.className = "text-indigo-500 font-black text-sm flex items-center justify-center px-1";
-                if (idx === sllList.length - 1) {
-                    arrow.innerHTML = `<span>→</span> <span class="bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] text-rose-400 font-bold ml-1.5">NULL</span>`;
-                } else {
-                    arrow.innerHTML = `<span>→</span>`;
-                }
-                container.appendChild(arrow);
-            });
+        // Expression Parser Conversion Logic
+        function getPriority(op) {
+            if (op === '+' || op === '-') return 1;
+            if (op === '*' || op === '/') return 2;
+            if (op === '^') return 3;
+            return 0;
         }
 
-        window.simulateSLL = function(action) {
-            const valInput = document.getElementById('sll-node-input');
-            const feed = document.getElementById('sll-v-feed');
-            const dataVal = parseInt(valInput.value);
+        function isAlphaNumeric(char) {
+            return /[a-zA-Z0-9]/.test(char);
+        }
 
-            if (isNaN(dataVal) && (action === 'add-head' || action === 'add-tail')) {
-                feed.innerHTML = `<span class="text-rose-500 font-bold">Error: Put a numerical integer inside node values field.</span>`;
+        window.evalInfixToPostfix = function() {
+            const exp = document.getElementById('infix-input-field').value.replace(/\s+/g, '');
+            const tableBody = document.getElementById('infix-table-rows');
+            if(!tableBody) return;
+            tableBody.innerHTML = '';
+
+            if (!exp) {
+                tableBody.innerHTML = "<tr><td colspan='4' class='p-4 text-center text-rose-500'>Empty equation payload. Please write e.g., A+B!</td></tr>";
                 return;
             }
 
-            if (action === 'add-head') {
-                sllList.unshift(dataVal);
-                feed.innerHTML = `Allocated node dynamic block data index. Flipped Head pointer to brand-new [${dataVal} | next] node successfully.`;
-            } else if (action === 'add-tail') {
-                sllList.push(dataVal);
-                feed.innerHTML = `Traversed entire sequence starting from head node. Swapped final NULL pointer link of old tail to point to [${dataVal}].`;
-            } else if (action === 'del-head') {
-                if (sllList.length === 0) {
-                    feed.innerHTML = `<span class="text-rose-500 font-bold">Underflow warning: Linked List is empty! Nothing to pop.</span>`;
-                    return;
+            let stack = [];
+            let postfix = "";
+            let logRows = [];
+
+            for (let i = 0; i < exp.length; i++) {
+                let char = exp[i];
+                let action = "";
+
+                if (isAlphaNumeric(char)) {
+                    postfix += char;
+                    action = `Append operand '${char}' directly to postfix string.`;
+                } 
+                else if (char === '(') {
+                    stack.push(char);
+                    action = `Push open parenthesis '(' onto operator stack.`;
+                } 
+                else if (char === ')') {
+                    while (stack.length > 0 && stack[stack.length - 1] !== '(') {
+                        postfix += stack.pop();
+                    }
+                    stack.pop(); // Pop '('
+                    action = `Closing paren reached. Pop and append operators until '(' is matched.`;
+                } 
+                else {
+                    while (stack.length > 0 && getPriority(stack[stack.length - 1]) >= getPriority(char)) {
+                        postfix += stack.pop();
+                    }
+                    stack.push(char);
+                    action = `Operator '${char}' seen. Pop operators of higher or equal precedence, then push '${char}'.`;
                 }
-                const removedValue = sllList.shift();
-                feed.innerHTML = `Preserved old head next address reference, called free() on popped Node holding value: ${removedValue}. Head pointer successfully redirected to index successor.`;
+
+                logRows.push({
+                    symbol: char,
+                    stack: [...stack].join(', ') || "[empty]",
+                    postfix: postfix,
+                    action: action
+                });
             }
-            renderSLLNodes();
+
+            while (stack.length > 0) {
+                const poppedOp = stack.pop();
+                postfix += poppedOp;
+                logRows.push({
+                    symbol: "[EOF]",
+                    stack: [...stack].join(', ') || "[empty]",
+                    postfix: postfix,
+                    action: `End of expression reached. Flush remaining operator '${poppedOp}' from stack.`
+                });
+            }
+
+            logRows.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-2.5 border-b border-blue-950/40 font-bold text-white">${row.symbol}</td>
+                    <td class="p-2.5 border-b border-blue-950/40 text-indigo-400 font-bold">${row.stack}</td>
+                    <td class="p-2.5 border-b border-blue-950/40 text-emerald-400 font-bold">${row.postfix}</td>
+                    <td class="p-2.5 border-b border-blue-950/40 text-slate-400 text-[10px]/relaxed font-sans">${row.action}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
         };
     </script>
 </body>
