@@ -478,10 +478,6 @@ function initTheme() {
 }
 
 function initCookieConsent() {
-    if (localStorage.getItem('cookie-consent')) {
-        return; // Consent already given
-    }
-
     // Create the HTML representation
     const consentDiv = document.createElement('div');
     consentDiv.id = 'cookie-consent-banner';
@@ -576,7 +572,6 @@ function initCookieConsent() {
         setTimeout(() => {
             consentDiv.remove();
         }, 300);
-        localStorage.setItem('cookie-consent', consentType);
     };
 
     rejectBtn.addEventListener('click', (e) => {
