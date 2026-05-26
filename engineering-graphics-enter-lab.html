@@ -249,162 +249,40 @@
         <!-- UNIT 1 -->
         <div id="unit-1" class="unit-content active">
             <div class="topic-card">
-                </head>
-<body>
+                
+                <div class="topic-title">
+                    <span>Ellipse (Concentric Circles Method)</span>
+                    <button class="copy-btn" onclick="copyCode('code-u1-1')">Copy Commands</button>
+                </div>
+                <p style="color:var(--text-secondary); margin-bottom:1rem;">Manual update area for Unit 1 AutoCAD sequences.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                        <span class="terminal-title">AutoCAD Command Line</span>
+                    </div>
+                    <div class="code-block" id="code-u1-1">
+C
+0,0
+50
+C
+0,0
+30
+L
+0,50
+0,-50
 
-<!-- PROGRESS BAR -->
-<div id="pg-bar"></div>
+<!-- UPDATE YOUR COMMANDS HERE -->
+                    </div>
+                </div>
+            </div>
 
-<!-- HEADER -->
-<header id="header">
-  <button id="hamburger" class="icon-btn" onclick="toggleSidebar()">☰</button>
-  
-  <div class="header-logo">
-    <div class="logo-icon">⚡</div>
-    EngiPrepHub
-  </div>
-  
-  <div class="header-sep"></div>
-  
-  <div class="header-subject">
-    Engineering Graphics
-    <span class="header-badge">JNTUK R23</span>
-    <span class="header-badge">1st Year</span>
-  </div>
-  
-  <!-- MODE TOGGLE -->
-  <div class="mode-toggle">
-    <button class="mode-btn eg-mode active" onclick="switchMode('eg')">
-      ✏️ <span>Manual Drawing</span>
-    </button>
-    <button class="mode-btn cad-mode" onclick="switchMode('cad')">
-      💻 <span>AutoCAD Master</span>
-    </button>
-  </div>
-  
-  <div class="header-actions">
-    <button class="icon-btn" title="Focus Mode" onclick="toggleFocus()">🎯</button>
-    <button class="icon-btn" title="Night Mode" onclick="toggleNight()">🌙</button>
-  </div>
-</header>
-
-<!-- SHELL -->
-<div id="shell">
-
-<!-- ═══════════════════════════════════════
-   SIDEBAR
-═══════════════════════════════════════ -->
-<nav id="sidebar">
-
-  <!-- EG NAV -->
-  <div id="eg-nav">
-    <div class="sidebar-section">
-      <div class="sidebar-section-label">Units</div>
-      
-      <div class="nav-group">
-        <button class="nav-group-header open" onclick="toggleNavGroup(this,'nav-u1')">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div class="nav-unit-badge" style="background:#EFF6FF;color:var(--accent)">I</div>
-            Drawing Basics
-          </div>
-          <span class="nav-chevron">›</span>
-        </button>
-        <div id="nav-u1" class="nav-children open">
-          <button class="nav-item" onclick="scrollTo('lines')"><div class="nav-dot"></div>Lines & Lettering</button>
-          <button class="nav-item" onclick="scrollTo('dimensioning')"><div class="nav-dot"></div>Dimensioning</button>
-          <button class="nav-item" onclick="scrollTo('geom-constructions')"><div class="nav-dot"></div>Geometrical Constructions</button>
-          <button class="nav-item" onclick="scrollTo('conics')"><div class="nav-dot"></div>Conic Sections</button>
-          <button class="nav-item" onclick="scrollTo('special-curves')"><div class="nav-dot"></div>Cycloids & Involutes</button>
-          <button class="nav-item" onclick="scrollTo('scales')"><div class="nav-dot"></div>Scales</button>
-        </div>
-      </div>
-      
-      <div class="nav-group">
-        <button class="nav-group-header" onclick="toggleNavGroup(this,'nav-u2')">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div class="nav-unit-badge" style="background:#F0FDF4;color:var(--success)">II</div>
-            Orthographic
-          </div>
-          <span class="nav-chevron">›</span>
-        </button>
-        <div id="nav-u2" class="nav-children">
-          <button class="nav-item" onclick="scrollTo('ortho-intro')"><div class="nav-dot"></div>Planes & Quadrants</button>
-          <button class="nav-item" onclick="scrollTo('proj-points')"><div class="nav-dot"></div>Projection of Points</button>
-          <button class="nav-item" onclick="scrollTo('proj-lines')"><div class="nav-dot"></div>Projection of Lines</button>
-          <button class="nav-item" onclick="scrollTo('proj-planes')"><div class="nav-dot"></div>Projection of Planes</button>
-        </div>
-      </div>
-      
-      <div class="nav-group">
-        <button class="nav-group-header" onclick="toggleNavGroup(this,'nav-u3')">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div class="nav-unit-badge" style="background:#FFFBEB;color:#92400E">III</div>
-            Solids
-          </div>
-          <span class="nav-chevron">›</span>
-        </button>
-        <div id="nav-u3" class="nav-children">
-          <button class="nav-item" onclick="scrollTo('solid-types')"><div class="nav-dot"></div>Types of Solids</button>
-          <button class="nav-item" onclick="scrollTo('solid-proj')"><div class="nav-dot"></div>Projections</button>
-          <button class="nav-item" onclick="scrollTo('solid-inclined')"><div class="nav-dot"></div>Inclined Solids</button>
-        </div>
-      </div>
-      
-      <div class="nav-group">
-        <button class="nav-group-header" onclick="toggleNavGroup(this,'nav-u4')">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div class="nav-unit-badge" style="background:#F5F3FF;color:var(--purple)">IV</div>
-            Sections & Dev
-          </div>
-          <span class="nav-chevron">›</span>
-        </button>
-        <div id="nav-u4" class="nav-children">
-          <button class="nav-item" onclick="scrollTo('sections')"><div class="nav-dot"></div>Sections of Solids</button>
-          <button class="nav-item" onclick="scrollTo('development')"><div class="nav-dot"></div>Development</button>
-        </div>
-      </div>
-      
-      <div class="nav-group">
-        <button class="nav-group-header" onclick="toggleNavGroup(this,'nav-u5')">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div class="nav-unit-badge" style="background:#ECFEFF;color:var(--teal)">V</div>
-            ISO & AutoCAD
-          </div>
-          <span class="nav-chevron">›</span>
-        </button>
-        <div id="nav-u5" class="nav-children">
-          <button class="nav-item" onclick="scrollTo('isometric')"><div class="nav-dot"></div>Isometric Views</button>
-          <button class="nav-item" onclick="scrollTo('computer-graphics')"><div class="nav-dot"></div>Computer Graphics</button>
-          <button class="nav-item" onclick="scrollTo('transformations')"><div class="nav-dot"></div>Transformations</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CAD NAV -->
-  <div id="cad-nav" style="display:none">
-    <div class="sidebar-section">
-      <div class="sidebar-section-label">AutoCAD Modules</div>
-      <button class="nav-item" onclick="scrollTo('cad-setup')"><div class="nav-dot"></div>Setup & Interface</button>
-      <button class="nav-item" onclick="scrollTo('cad-draw-tools')"><div class="nav-dot"></div>Draw Tools</button>
-      <button class="nav-item" onclick="scrollTo('cad-modify-tools')"><div class="nav-dot"></div>Modify Tools</button>
-      <button class="nav-item" onclick="scrollTo('cad-annotation')"><div class="nav-dot"></div>Annotation</button>
-      <button class="nav-item" onclick="scrollTo('cad-layers')"><div class="nav-dot"></div>Layer Management</button>
-      <button class="nav-item" onclick="scrollTo('cad-workflows')"><div class="nav-dot"></div>Workflows</button>
-      <button class="nav-item" onclick="scrollTo('cad-shortcuts')"><div class="nav-dot"></div>Shortcut Master</button>
-      <button class="nav-item" onclick="scrollTo('cad-3d')"><div class="nav-dot"></div>3D Basics</button>
-      <button class="nav-item" onclick="scrollTo('cad-workspace')"><div class="nav-dot"></div>Practice Lab</button>
-      <button class="nav-item" onclick="scrollTo('cad-viva')"><div class="nav-dot"></div>Viva Q&A</button>
-    </div>
-  </div>
-
-</nav>
-
-
-
-      
-
-
+            <div class="topic-card">
+                <div class="topic-title">
+                    <span>Parabola (Rectangle Method)</span>
+                    <button class="copy-btn" onclick="copyCode('code-u1-2')">Copy Commands</button>
+                </div>
                 <div class="terminal-container">
                     <div class="terminal-header">
                         <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
