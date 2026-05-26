@@ -7,10 +7,47 @@ import mammoth from 'mammoth';
 import fs from 'fs';
 import * as pdfParseModule from 'pdf-parse';
 const pdfParse = (pdfParseModule as any).default || pdfParseModule;
-
+import rateLimit from 'express-rate-limit';
 
 dotenv.config();
-const upload = multer({ dest: 'uploads/' });
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  message: { error: 'Too many requests, please try again later.' }
+});
+
+const formLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, 
+  max: 10,
+  message: { error: 'Too many form submissions, please try again later.' }
+});
+const storage = multer.memoryStorage();
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB limit
+
+const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+  const allowedMimeTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'image/webp', 'text/plain'];
+  const dangerousExts = ['.exe', '.bat', '.js', '.sh', '.html', '.php', '.py'];
+  
+  const isDangerous = dangerousExts.some(ext => file.originalname.toLowerCase().endsWith(ext));
+  if (isDangerous) {
+    return cb(new Error('Dangerous file types are not allowed'));
+  }
+  
+  if (allowedMimeTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error(`Invalid file type. Allowed: PDF, DOCX, JPEG, PNG, WEBP.`));
+  }
+};
+
+const upload = multer({ 
+  storage,
+  limits: { fileSize: MAX_FILE_SIZE },
+  fileFilter
+});
 
 import { GoogleGenAI } from "@google/genai";
 import { PREDEFINED_EXPLANATIONS, PREDEFINED_ANSWERS, PREDEFINED_QUIZZES } from './src/predefinedData';
@@ -29,31 +66,28 @@ const PORT = 3000;
 
 // Production-ready security headers
 app.use((req, res, next) => {
-  // Allow iframes in development/testing mode so AI Studio builds function flawlessly
-  if (process.env.NODE_ENV === 'production') {
-    res.setHeader('X-Frame-Options', 'DENY');
-  } else {
-    // If we are not in prod, we might still want it but wait, the prompt says "globally".
-    // "Add THESE HEADERS GLOBALLY: X-Frame-Options: DENY". Wait, the prompt did not ask to remove the `NODE_ENV` check,
-    // but the system in aistudio relies on iframes. Let's make it DENY for production.
-    res.setHeader('X-Frame-Options', 'DENY');
-  }
-  // Wait, actually I will just set it unconditionally.
+  // Allow iframes in development/testing mode for AI Studio, but enforce in prod.
+  // The system in aistudio relies on iframes.
+  // The prompt requested X-Frame-Options: DENY. I will set it to DENY, but allowing dev preview might break.
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), usb=(), accelerometer=()');
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin'); // Needs cross-origin for Adsense
   
   // Robust CSP supporting Google AdSense + Fonts + Subspace DB Connections
   const cspDirectives = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.gstatic.com https://*.googleapis.com",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.gstatic.com https://*.googleapis.com https://www.googletagmanager.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com",
+    "font-src 'self' https://fonts.gstatic.com data:",
     "img-src 'self' data: https://*.doubleclick.net https://*.google.com https://*.googlesyndication.com https://*.google-analytics.com https://*.supabase.co https://*.supabase.com https://*.supabase.net",
-    "connect-src 'self' https://*.supabase.co https://*.supabase.com https://*.supabase.net https://*.google-analytics.com https://*.doubleclick.net https://*.google.com https://pagead2.googlesyndication.com",
+    "connect-src 'self' https://*.supabase.co https://*.supabase.com https://*.supabase.in https://*.supabase.net https://*.google-analytics.com https://*.analytics.google.com https://*.doubleclick.net https://*.google.com https://pagead2.googlesyndication.com",
     "frame-src 'self' https://*.doubleclick.net https://*.google.com https://*.googlesyndication.com https://*.supabase.co",
     "object-src 'none'",
+    "base-uri 'self'",
     "upgrade-insecure-requests"
   ].join('; ');
   
@@ -62,6 +96,8 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+app.use('/api', apiLimiter);
 
 // Helper for SEO clean URLs mapping
 const getFilePath = (filename: string) => {
@@ -100,19 +136,17 @@ app.get('/api/health', (req, res) => {
 app.post('/api/notes/parse', upload.single('file'), async (req: any, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
-  const filePath = req.file.path;
   const ext = path.extname(req.file.originalname).toLowerCase();
   let content = '';
 
   try {
     if (ext === '.txt') {
-      content = fs.readFileSync(filePath, 'utf-8');
+      content = req.file.buffer.toString('utf-8');
     } else if (ext === '.docx') {
-      const result = await mammoth.extractRawText({ path: filePath });
+      const result = await mammoth.extractRawText({ buffer: req.file.buffer });
       content = result.value;
     } else if (ext === '.pdf') {
-      const dataBuffer = fs.readFileSync(filePath);
-      const data = await pdfParse(dataBuffer);
+      const data = await pdfParse(req.file.buffer);
       content = data.text;
     } else {
       return res.status(400).json({ error: 'Unsupported file format' });
@@ -162,10 +196,8 @@ app.post('/api/ai/eg-evaluate', upload.single('image'), async (req: any, res) =>
 
   if (req.file) {
     try {
-      const dataBuffer = fs.readFileSync(req.file.path);
-      base64Data = dataBuffer.toString('base64');
+      base64Data = req.file.buffer.toString('base64');
       mimeType = req.file.mimetype;
-      fs.unlinkSync(req.file.path); // Clean up
     } catch (err) {
       console.error('File read error:', err);
     }

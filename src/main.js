@@ -557,6 +557,34 @@ function initTheme() {
 }
 
 function initCookieConsent() {
+    const initGA4 = () => {
+        if (document.getElementById('ga-script')) return;
+        const script = document.createElement('script');
+        script.id = 'ga-script';
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+        script.async = true;
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        
+        // IP anonymization & consent mode
+        gtag('config', 'G-XXXXXXXXXX', { 
+            anonymize_ip: true,
+            cookie_flags: 'SameSite=None;Secure'
+        });
+    };
+
+    if (localStorage.getItem('cookie-consent')) {
+        const consent = localStorage.getItem('cookie-consent');
+        if (consent === 'all' || (consent.includes('analytics') && JSON.parse(consent).analytics)) {
+            initGA4();
+        }
+        return; // Consent already given
+    }
+
     // Create the HTML representation
     const consentDiv = document.createElement('div');
     consentDiv.id = 'cookie-consent-banner';
@@ -632,6 +660,7 @@ function initCookieConsent() {
         setTimeout(() => {
             consentDiv.remove();
         }, 300);
+        localStorage.setItem('cookie-consent', consentType);
     };
 
     rejectBtn.addEventListener('click', (e) => {
@@ -649,8 +678,10 @@ function initCookieConsent() {
         
         if (analytics && adsense) {
             closeBanner('all');
+            initGA4();
         } else {
             closeBanner(JSON.stringify({ analytics, adsense }));
+            if (analytics) initGA4();
         }
 
         if (typeof window.showSuccessToast === 'function') {

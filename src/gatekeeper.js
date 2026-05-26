@@ -107,16 +107,16 @@ function showPremiumFeaturePreview(filename) {
     
     // Overwrite body with a beautiful preview overlay
     const modalHTML = `
-        <div class="fixed inset-0 z-[99999] flex items-center justify-center bg-slate-50/90 dark:bg-slate-900/95 backdrop-blur-xl p-4">
-            <div class="max-w-lg w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-2xl text-center transform transition-all">
-                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        <div class="fixed inset-0 z-[99999] flex items-center justify-center bg-[#F8FAFC]/95 backdrop-blur-xl p-4">
+            <div class="max-w-lg w-full bg-[#FFFFFF] border border-[#E2E8F0] rounded-[24px] p-8 shadow-2xl text-center shadow-black/5 transform transition-all">
+                <div class="w-16 h-16 bg-[#EFF6FF] rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-7 h-7 text-[#2563EB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
-                <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-2">${currentFeature.title}</h2>
-                <p class="text-slate-600 dark:text-slate-400 font-medium mb-8">${currentFeature.desc}</p>
+                <h2 class="text-[24px] font-black text-[#0F172A] mb-3 tracking-tight font-['Space_Grotesk']">${currentFeature.title}</h2>
+                <p class="text-[#475569] leading-relaxed text-[15px] font-medium mb-8">${currentFeature.desc}</p>
                 <div class="flex flex-col gap-3">
-                    <a href="/auth.html?redirect=${encodeURIComponent(window.location.pathname)}" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-500/20">Create Free Account</a>
-                    <a href="/" class="w-full py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-semibold transition-colors">Return to Directory</a>
+                    <a href="/auth.html?redirect=${encodeURIComponent(window.location.pathname)}" class="w-full py-4 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-[14px] font-bold transition-all shadow-lg shadow-blue-500/20 hover:-translate-y-0.5">Create Free Account</a>
+                    <a href="/" class="w-full py-3 text-[#64748B] hover:text-[#0F172A] font-bold transition-colors">Return to Directory</a>
                 </div>
             </div>
         </div>
@@ -157,18 +157,18 @@ function applySmartContentLock() {
         const lockCTA = document.createElement('div');
         lockCTA.className = "absolute top-10 left-0 right-0 z-10 flex justify-center w-full px-4";
         lockCTA.innerHTML = `
-            <div class="max-w-xl w-full bg-white dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-8 rounded-3xl shadow-2xl text-center">
-                <div class="inline-flex py-1 px-3 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-widest mb-4">
+            <div class="max-w-xl w-full bg-[#FFFFFF] border border-[#E2E8F0] p-8 rounded-[24px] shadow-2xl text-center shadow-black/5">
+                <div class="inline-flex py-1 px-3 rounded-full bg-[#EFF6FF] text-[#2563EB] text-[11px] font-black uppercase tracking-widest mb-4">
                     Guest Preview Limit
                 </div>
-                <h3 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white mb-3">Continue Learning on EngiPrepHub</h3>
-                <p class="text-slate-500 dark:text-slate-400 font-medium text-sm mb-6">
+                <h3 class="text-[20px] md:text-[24px] font-black text-[#0F172A] mb-3 leading-tight tracking-tight mt-2 font-['Space_Grotesk']">Continue Learning on EngiPrepHub</h3>
+                <p class="text-[#475569] font-medium text-[15px] mb-8 leading-relaxed max-w-sm mx-auto">
                     You've unlocked the topic introduction and visual explanations. Create a free account to access complete notes, PYQ solutions, AI tools, and interactive simulations.
                 </p>
-                <a href="/auth.html?redirect=${encodeURIComponent(window.location.pathname)}" class="inline-block w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/20 transition-transform hover:scale-105">
+                <a href="/auth.html?redirect=${encodeURIComponent(window.location.pathname)}" class="inline-block w-full sm:w-auto px-8 py-3.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-[14px] font-bold shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5">
                     Continue For Free
                 </a>
-                <p class="mt-4 text-[10px] text-slate-400 uppercase font-black tracking-widest">Takes exactly 12 seconds</p>
+                <p class="mt-5 text-[10px] text-[#64748B] font-bold uppercase tracking-widest">Secure • Subject Aligned • Guaranteed Exam Focus</p>
             </div>
         `;
         
