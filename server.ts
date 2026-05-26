@@ -86,6 +86,11 @@ app.get('/c-programming-cheat-sheet', (req, res) => {
   res.sendFile(getFilePath('cheat-sheets.html'));
 });
 
+app.get('/privacy', (req, res) => res.sendFile(getFilePath('privacy-policy.html')));
+app.get('/privacy/', (req, res) => res.sendFile(getFilePath('privacy-policy.html')));
+app.get('/terms', (req, res) => res.sendFile(getFilePath('terms-conditions.html')));
+app.get('/terms/', (req, res) => res.sendFile(getFilePath('terms-conditions.html')));
+
 app.get('/api/health', (req, res) => {
   const hasKey = !!process.env.GEMINI_API_KEY;
   console.log('Health check:', { hasKey });

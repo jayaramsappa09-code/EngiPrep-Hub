@@ -355,6 +355,41 @@ window.showAchievementToast = showAchievementToast;
     document.documentElement.setAttribute('data-page-context', pageContext);
 })();
 
+function initBreadcrumbs() {
+    const fn = window.location.pathname;
+    const isEducationalPage = fn.includes('unit-') || fn.includes('notes') || fn.includes('pyq') || fn.includes('cheat-sheet');
+    if (!isEducationalPage) return;
+
+    if (document.getElementById('eeat-breadcrumbs')) return;
+
+    const mainContainer = document.querySelector('main');
+    if (!mainContainer) return;
+
+    let pageTitle = document.querySelector('h1')?.innerText || 'Academic Notes';
+    let subject = "Engineering Resources";
+    
+    if (fn.includes('physics')) subject = "Physics";
+    if (fn.includes('chemistry')) subject = "Chemistry";
+    if (fn.includes('mathematics') || fn.includes('maths')) subject = "Mathematics";
+    if (fn.includes('programming') || fn.includes('c-fundamentals')) subject = "Programming";
+    if (fn.includes('electrical') || fn.includes('beee')) subject = "Electrical Engineering";
+
+    const breadcrumb = document.createElement('nav');
+    breadcrumb.id = 'eeat-breadcrumbs';
+    breadcrumb.className = 'mb-6 md:mb-8 flex items-center text-[12px] font-medium text-[#64748B] dark:text-slate-500 overflow-x-auto whitespace-nowrap pb-2';
+    breadcrumb.innerHTML = `
+        <a href="/" class="hover:text-[#2563EB] dark:hover:text-blue-400 transition-colors">Home</a>
+        <span class="mx-2 text-[#E2E8F0] dark:text-slate-700">/</span>
+        <a href="/semester-1.html" class="hover:text-[#2563EB] dark:hover:text-blue-400 transition-colors">Semester 1</a>
+        <span class="mx-2 text-[#E2E8F0] dark:text-slate-700">/</span>
+        <span class="text-[#475569] dark:text-slate-300 font-semibold">${subject}</span>
+        <span class="mx-2 text-[#E2E8F0] dark:text-slate-700">/</span>
+        <span class="text-[#0F172A] dark:text-white font-bold truncate max-w-[200px] sm:max-w-none">${pageTitle}</span>
+    `;
+
+    mainContainer.prepend(breadcrumb);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initCookieConsent();
@@ -368,7 +403,51 @@ document.addEventListener('DOMContentLoaded', () => {
     initGamification();
     initAcademicNavigator();
     initLiveActivities();
+    initBreadcrumbs();
+    initAuthorBox();
 });
+
+function initAuthorBox() {
+    const fn = window.location.pathname;
+    const isEducationalPage = fn.includes('unit-') || fn.includes('notes') || fn.includes('pyq') || fn.includes('cheat-sheet');
+    if (!isEducationalPage) return;
+
+    if (document.getElementById('eeat-author-box')) return;
+
+    const mainContainer = document.querySelector('main');
+    if (!mainContainer) return;
+
+    const authorBox = document.createElement('div');
+    authorBox.id = 'eeat-author-box';
+    authorBox.className = 'mt-16 mb-8 p-6 md:p-8 bg-[#F8FAFC] dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-800 shadow-sm rounded-2xl flex flex-col md:flex-row gap-6 items-center md:items-start';
+    
+    authorBox.innerHTML = `
+        <div class="w-20 h-20 shrink-0 bg-white dark:bg-slate-950 rounded-2xl flex items-center justify-center border border-[#E2E8F0] dark:border-slate-800">
+            <span class="text-3xl">🎓</span>
+        </div>
+        <div class="flex-1 text-center md:text-left">
+            <div class="inline-block px-3 py-1 bg-[#EFF6FF] dark:bg-blue-900/20 text-[#2563EB] dark:text-blue-400 text-[11px] font-black uppercase tracking-widest rounded-full mb-3">
+                Verified Academic Content
+            </div>
+            <h4 class="text-lg font-black text-[#0F172A] dark:text-white font-['Space_Grotesk'] mb-2">Prepared by EngiPrepHub Academic Team</h4>
+            <p class="text-[14px] text-[#475569] dark:text-slate-400 leading-relaxed max-w-2xl mb-4">
+                Our academic team consists of top-tier university scholars, engineers, and educational experts specializing in the JNTUK curriculum framework. This content has been rigorously peer-reviewed for accuracy, syllabic alignment, and examination relevance to ensure high-yield study sessions.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                <span class="flex items-center gap-1.5 text-xs font-semibold text-[#64748B] dark:text-slate-500">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    JNTUK R23 Aligned
+                </span>
+                <span class="flex items-center gap-1.5 text-xs font-semibold text-[#64748B] dark:text-slate-500">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    Last Modified: ${new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                </span>
+            </div>
+        </div>
+    `;
+
+    mainContainer.appendChild(authorBox);
+}
 
 // Theme Management & Custom Multi-Theme System
 function applyTheme(themeName) {
@@ -481,61 +560,42 @@ function initCookieConsent() {
     // Create the HTML representation
     const consentDiv = document.createElement('div');
     consentDiv.id = 'cookie-consent-banner';
-    consentDiv.className = 'fixed bottom-4 right-4 left-4 md:left-auto md:w-[380px] z-[9999] p-5 rounded-2xl shadow-2xl transition-all duration-300 transform translate-y-12 opacity-0 border';
-    consentDiv.style.backgroundColor = 'var(--surface-color)';
-    consentDiv.style.borderColor = 'var(--border-color)';
-    consentDiv.style.backdropFilter = 'blur(12px)';
+    consentDiv.className = 'fixed bottom-6 right-6 z-[9999] p-6 rounded-3xl shadow-2xl transition-all duration-300 transform translate-y-0 opacity-100 border border-slate-100 max-w-sm';
+    consentDiv.style.backgroundColor = '#FFFFFF';
+    consentDiv.style.color = '#0F172A';
 
     consentDiv.innerHTML = `
-        <div class="flex flex-col gap-3">
-            <div class="flex items-start gap-3">
-                <div class="p-2 rounded-xl" style="background-color: rgba(var(--theme-primary-rgb, 139, 92, 246), 0.1); color: var(--theme-primary, #6366F1);">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path>
-                    </svg>
-                </div>
-                <div class="flex-1">
-                    <h4 class="text-[14px] font-bold tracking-tight text-text-main" style="color: var(--text-main, #ffffff)">Cookie Consent</h4>
-                    <p class="text-[11px] mt-1 text-slate-400 font-sans leading-relaxed">
-                        We use cookies to personalize academic notes, analyze traffic flow, and deliver compliant JNTUK high-yield ads.
-                        <span id="read-cookie-policy-btn" class="underline cursor-pointer text-blue-500 hover:text-blue-400">Read Policy</span>
-                    </p>
-                </div>
-            </div>
+        <div class="flex flex-col gap-4">
+            <h4 class="text-sm font-black text-[#0F172A] tracking-tight">We Value Your Privacy 🍪</h4>
+            <p class="text-[13px] text-[#475569] leading-relaxed">
+                We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies as described in our <a href="/cookie-policy.html" target="_blank" class="text-[#2563EB] hover:underline font-medium">Privacy Policy</a> and <a href="/cookie-policy.html" target="_blank" class="text-[#2563EB] hover:underline font-medium">Cookie Policy</a>.
+            </p>
 
             <!-- Preferences Panel -->
-            <div id="cookie-prefs-panel" class="hidden flex-col gap-2 p-3 rounded-lg text-[11px] select-none" style="background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color);">
+            <div id="cookie-prefs-panel" class="hidden flex-col gap-2 p-4 rounded-2xl text-[12px] bg-[#F1F5F9] border border-[#E2E8F0]">
                 <label class="flex items-center justify-between cursor-pointer">
-                    <span class="font-semibold" style="color: var(--text-main, #ffffff)">Strictly Necessary</span>
-                    <input type="checkbox" disabled checked class="accent-[var(--theme-primary)]">
+                    <span class="font-semibold text-[#0F172A]">Strictly Necessary</span>
+                    <input type="checkbox" disabled checked class="accent-[#2563EB]">
                 </label>
-                <div class="h-[1px] bg-slate-800/40 my-1 font-sans"></div>
                 <label class="flex items-center justify-between cursor-pointer">
-                    <div class="flex flex-col">
-                        <span class="font-semibold" style="color: var(--text-main, #ffffff)">Analytics & Performance</span>
-                        <span class="text-[9px] text-slate-500">Track study times & navigation</span>
-                    </div>
-                    <input type="checkbox" id="cookie-pref-analytics" checked style="accent-color: var(--theme-primary, #6366F1);">
+                    <span class="text-[#475569]">Analytics & Performance</span>
+                    <input type="checkbox" id="cookie-pref-analytics" checked class="accent-[#2563EB]">
                 </label>
-                <div class="h-[1px] bg-slate-800/40 my-1 font-sans"></div>
                 <label class="flex items-center justify-between cursor-pointer">
-                    <div class="flex flex-col">
-                        <span class="font-semibold" style="color: var(--text-main, #ffffff)">Google AdSense</span>
-                        <span class="text-[9px] text-slate-500">Deliver highly targeted premium ads</span>
-                    </div>
-                    <input type="checkbox" id="cookie-pref-adsense" checked style="accent-color: var(--theme-primary, #6366F1);">
+                    <span class="text-[#475569]">Google AdSense</span>
+                    <input type="checkbox" id="cookie-pref-adsense" checked class="accent-[#2563EB]">
                 </label>
             </div>
 
-            <div class="flex items-center justify-end gap-2 text-[11px] mt-1">
-                <button id="cookie-btn-manage" class="px-2.5 py-1.5 font-bold rounded-lg text-slate-400 hover:text-white transition-colors cursor-pointer">
-                    Manage
-                </button>
-                <button id="cookie-btn-reject" class="px-3 py-1.5 font-semibold text-slate-400 border rounded-xl hover:text-white transition-all cursor-pointer" style="border-color: var(--border-color);">
-                    Reject
-                </button>
-                <button id="cookie-btn-accept" class="px-4 py-1.5 font-bold text-white rounded-xl transition-all hover:scale-[1.02] cursor-pointer" style="background: var(--theme-primary, #4F46E5);">
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+                <button id="cookie-btn-accept" class="px-5 py-2.5 font-bold text-white rounded-xl transition-all bg-[#2563EB] hover:bg-[#1D4ED8]">
                     Accept All
+                </button>
+                <button id="cookie-btn-reject" class="px-5 py-2.5 font-semibold text-[#475569] border border-[#E2E8F0] rounded-xl hover:bg-[#F1F5F9]">
+                    Reject All
+                </button>
+                <button id="cookie-btn-manage" class="px-4 py-2.5 font-semibold text-[#64748B] hover:text-[#0F172A]">
+                    Customize
                 </button>
             </div>
         </div>
