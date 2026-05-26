@@ -502,6 +502,7 @@ function initCookieConsent() {
                     <h4 class="text-[14px] font-bold tracking-tight text-text-main" style="color: var(--text-main, #ffffff)">Cookie Consent</h4>
                     <p class="text-[11px] mt-1 text-slate-400 font-sans leading-relaxed">
                         We use cookies to personalize academic notes, analyze traffic flow, and deliver compliant JNTUK high-yield ads.
+                        <span id="read-cookie-policy-btn" class="underline cursor-pointer text-blue-500 hover:text-blue-400">Read Policy</span>
                     </p>
                 </div>
             </div>
@@ -601,6 +602,17 @@ function initCookieConsent() {
             window.showSuccessToast('Your cookie preferences have been applied successfully.');
         }
     });
+
+    const readPolicyBtn = consentDiv.querySelector('#read-cookie-policy-btn');
+    if (readPolicyBtn) {
+        readPolicyBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof window.showCookiePolicyModal === 'function') {
+                window.showCookiePolicyModal();
+            }
+        });
+    }
 }
 
 // Sync UI on auth changes
@@ -650,8 +662,23 @@ async function updateAuthUI(providedUser = null) {
                         ${avatar}
                         <span class="text-[10px] font-black tracking-widest text-[#0d0d12] dark:text-white uppercase truncate max-w-[80px]">${displayName}</span>
                     </a>
+                    <button id="global-logout-btn" class="flex items-center justify-center p-2 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 text-red-500 transition-colors" title="Logout">
+                        <svg class="w-4 h-4 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        <span class="hidden md:block text-[10px] font-bold uppercase tracking-widest">Logout</span>
+                    </button>
                 </div>
             `;
+            setTimeout(() => {
+                const logoutBtn = document.getElementById('global-logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', async () => {
+                        if (confirm('Are you sure you want to log out?')) {
+                            await supabase.auth.signOut();
+                            window.location.href = '/';
+                        }
+                    });
+                }
+            }, 0);
         } else {
             navActions.innerHTML = `
                 <div class="flex items-center gap-4">
@@ -1492,3 +1519,62 @@ function initLiveActivities() {
     }
 }
 
+// Global Cookie Policy Modal
+window.showCookiePolicyModal = function() {
+    let modal = document.getElementById('cookie-policy-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'cookie-policy-modal';
+        modal.className = 'fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity';
+        modal.innerHTML = `
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+                <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
+                    <h2 class="text-lg font-bold text-slate-800 dark:text-white">Cookie Policy</h2>
+                    <button id="close-cookie-modal" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="p-6 overflow-y-auto text-sm text-slate-600 dark:text-slate-300 space-y-4">
+                    <p><strong>Last Updated: October 2023</strong></p>
+                    <h3 class="font-bold text-slate-800 dark:text-white mt-4">1. What are Cookies?</h3>
+                    <p>Cookies are small text files stored on your device by your browser to save site preferences, enhance personalization, and provide analytical data.</p>
+                    <h3 class="font-bold text-slate-800 dark:text-white mt-4">2. Types of Cookies We Use</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Essential Cookies:</strong> Required to enable core site functionality such as authentication and security features. Cannot be disabled.</li>
+                        <li><strong>Analytics & Performance:</strong> Help us understand how you interact with our platform by collecting information anonymously, so we can improve the student experience.</li>
+                        <li><strong>Advertising (Google AdSense):</strong> Used to deliver personalized JNTUK high-yield ads that are relevant to you. Google and its partners use these cookies to serve ads based on your visit to this and other sites.</li>
+                    </ul>
+                    <h3 class="font-bold text-slate-800 dark:text-white mt-4">3. Third-Party Services</h3>
+                    <p>We use third-party services like Google AdSense and Analytics. These providers may set their own cookies to track performance and serve personalized content. You can opt out of personalized advertising by visiting Google's <a href="https://myadcenter.google.com/" target="_blank" class="text-blue-500 hover:underline">Ads Settings</a>.</p>
+                    <h3 class="font-bold text-slate-800 dark:text-white mt-4">4. Managing Preferences</h3>
+                    <p>You can manage your cookie preferences at any time by clearing your browser cookies, which will prompt the consent banner to appear again, or by using the browser settings to block certain types of cookies.</p>
+                </div>
+                <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex justify-end">
+                    <button id="cookie-modal-ok" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-medium transition-colors">Understood</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        const closeHandler = () => {
+            modal.style.opacity = '0';
+            setTimeout(() => modal.remove(), 200);
+        };
+        
+        modal.querySelector('#close-cookie-modal').addEventListener('click', closeHandler);
+        modal.querySelector('#cookie-modal-ok').addEventListener('click', closeHandler);
+        modal.addEventListener('click', (ev) => {
+            if (ev.target === modal) closeHandler();
+        });
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Intercept all links to /cookie-policy.html
+    document.querySelectorAll('a[href="/cookie-policy.html"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.showCookiePolicyModal();
+        });
+    });
+});
