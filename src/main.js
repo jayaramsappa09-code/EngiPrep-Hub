@@ -7,6 +7,300 @@ import { supabase, getCurrentUser, getUserProfile } from './supabase'
 import { toggleBookmark } from './notes'
 import { toast, showEncouragingToast, showSuccessToast, showAchievementToast } from './utils/toast'
 
+// Inject dynamic CSS fallback rules for overlays when loaded on pages without Tailwind CSS
+(function() {
+    if (typeof document === 'undefined') return;
+    const styleId = 'engiprephub-dynamic-overlays';
+    if (document.getElementById(styleId)) return;
+    
+    const styleEl = document.createElement('style');
+    styleEl.id = styleId;
+    styleEl.textContent = `
+        #academic-navigator, .engiprep-canvas-fallback {
+            position: fixed !important;
+            bottom: 24px !important;
+            right: 24px !important;
+            z-index: 9999 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-end !important;
+            gap: 12px !important;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+            pointer-events: auto !important;
+        }
+        @media (min-width: 768px) {
+            #academic-navigator {
+                right: 32px !important;
+            }
+        }
+        #academic-navigator svg, 
+        #live-activity-host svg, 
+        #cookie-consent-banner svg {
+            width: 16px !important;
+            height: 16px !important;
+            display: inline-block !important;
+            vertical-align: middle !important;
+        }
+        #academic-navigator .w-2\\.5 {
+            width: 10px !important;
+            height: 10px !important;
+        }
+        #academic-nav-control-pill {
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            background-color: rgb(15 23 42 / 95%) !important;
+            border: 1px solid rgb(30 41 59) !important;
+            padding: 6px 12px !important;
+            border-radius: 9999px !important;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3) !important;
+        }
+        .dark #academic-nav-control-pill {
+            background-color: rgb(3 7 18 / 95%) !important;
+        }
+        #academic-nav-control-pill button,
+        #academic-nav-control-pill a {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 32px !important;
+            height: 32px !important;
+            min-width: 32px !important;
+            min-height: 32px !important;
+            border-radius: 9999px !important;
+            background-color: rgb(30 41 59) !important;
+            color: rgb(203 213 225) !important;
+            border: none !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            padding: 0 !important;
+        }
+        #academic-nav-control-pill button:hover,
+        #academic-nav-control-pill a:hover {
+            background-color: rgb(51 65 85) !important;
+            color: #ffffff !important;
+        }
+        #academic-nav-control-pill .bg-gradient-to-r {
+            background-image: linear-gradient(to right, rgb(37 99 235), rgb(79 70 229)) !important;
+            color: #ffffff !important;
+        }
+        #academic-nav-control-pill .bg-gradient-to-r:hover {
+            background-image: linear-gradient(to right, rgb(59 130 246), rgb(99 102 241)) !important;
+        }
+        #academic-nav-control-pill .w-\\[1px\\] {
+            width: 1px !important;
+            height: 16px !important;
+            background-color: rgb(51 65 85) !important;
+            display: inline-block !important;
+        }
+        #academic-nav-menu-toggle {
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 4px 12px !important;
+            background-color: rgb(30 41 59) !important;
+            color: rgb(226 232 240) !important;
+            font-size: 10px !important;
+            font-weight: 900 !important;
+            border-radius: 9999px !important;
+            text-transform: uppercase !important;
+            width: auto !important;
+            height: 28px !important;
+            cursor: pointer !important;
+            border: none !important;
+        }
+        #academic-navigator-menu {
+            background-color: #ffffff !important;
+            border: 1px solid rgb(226 232 240) !important;
+            border-radius: 16px !important;
+            padding: 16px !important;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1) !important;
+            width: 240px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 6px !important;
+            transform: translateY(16px);
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .dark #academic-navigator-menu {
+            background-color: rgb(3 7 18) !important;
+            border-color: rgb(30 41 59) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+        }
+        #academic-navigator-menu.hidden {
+            display: none !important;
+        }
+        #academic-navigator-menu:not(.hidden) {
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+        }
+        #academic-navigator-menu h4 {
+            font-size: 10px !important;
+            font-weight: 900 !important;
+            color: rgb(148 163 184) !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1.5px !important;
+            border-bottom: 1px solid rgb(241 245 249) !important;
+            padding-bottom: 8px !important;
+            margin-bottom: 6px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+        }
+        .dark #academic-navigator-menu h4 {
+            border-color: rgb(30 41 59) !important;
+            color: rgb(100 116 139) !important;
+        }
+        #academic-navigator-menu a {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 8px 12px !important;
+            border-radius: 12px !important;
+            text-decoration: none !important;
+            color: rgb(71 85 105) !important;
+            font-size: 12px !important;
+            font-weight: 800 !important;
+            transition: all 0.2s ease !important;
+        }
+        .dark #academic-navigator-menu a {
+            color: rgb(203 213 225) !important;
+        }
+        #academic-navigator-menu a:hover {
+            background-color: rgb(248 250 252) !important;
+            color: rgb(15 23 42) !important;
+        }
+        .dark #academic-navigator-menu a:hover {
+            background-color: rgb(22 28 45) !important;
+            color: #ffffff !important;
+        }
+        #academic-navigator-menu a span.text-base {
+            font-size: 16px !important;
+        }
+        #academic-navigator-menu a span.text-\[9px\] {
+            font-size: 9px !important;
+            font-family: inherit !important;
+            color: rgb(148 163 184) !important;
+            margin-left: auto !important;
+        }
+        #live-activity-host {
+            position: fixed !important;
+            bottom: 24px !important;
+            left: 24px !important;
+            z-index: 9998 !important;
+            max-width: 340px !important;
+            pointer-events: none !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 8px !important;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+        }
+        #live-activity-host > div {
+            pointer-events: auto !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 12px !important;
+            background-color: rgb(255 255 255 / 95%) !important;
+            border: 1px solid rgb(226 232 240) !important;
+            padding: 16px !important;
+            border-radius: 16px !important;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+            transform: translateY(32px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .dark #live-activity-host > div {
+            background-color: rgb(15 23 42 / 95%) !important;
+            border-color: rgb(30 41 59) !important;
+        }
+        #live-activity-host > div:not(.translate-y-8):not(.opacity-0) {
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+        }
+        #live-activity-host button {
+            background: transparent !important;
+            border: none !important;
+            padding: 4px !important;
+            margin: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            border-radius: 8px !important;
+        }
+        #live-activity-host button:hover {
+            background-color: rgb(241 245 249) !important;
+        }
+        .dark #live-activity-host button:hover {
+            background-color: rgb(30 41 59) !important;
+        }
+        #live-activity-host span.tracking-wider {
+            font-size: 9px !important;
+            font-weight: 900 !important;
+            text-transform: uppercase !important;
+            padding: 2px 6px !important;
+            border-radius: 6px !important;
+            background-color: rgb(239 246 255) !important;
+            color: rgb(37 99 235) !important;
+            display: inline-block !important;
+        }
+        .dark #live-activity-host span.tracking-wider {
+            background-color: rgb(30 41 59) !important;
+            color: rgb(96 165 250) !important;
+        }
+        #live-activity-host span.tracking-widest {
+            font-size: 10px !important;
+            font-weight: 800 !important;
+            color: rgb(148 163 184) !important;
+            letter-spacing: 1.5px !important;
+        }
+        #live-activity-host p {
+            font-size: 11px !important;
+            line-height: 1.5 !important;
+            color: rgb(71 85 105) !important;
+            margin-top: 4px !important;
+        }
+        .dark #live-activity-host p {
+            color: rgb(203 213 225) !important;
+        }
+        #live-activity-host strong {
+            color: rgb(15 23 42) !important;
+            font-weight: 800 !important;
+        }
+        .dark #live-activity-host strong {
+            color: #ffffff !important;
+        }
+        #cookie-consent-banner {
+            position: fixed !important;
+            bottom: 16px !important;
+            right: 16px !important;
+            left: 16px !important;
+            z-index: 99999 !important;
+            padding: 20px !important;
+            border-radius: 16px !important;
+            background-color: #ffffff !important;
+            border: 1px solid rgb(226 232 240) !important;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15) !important;
+            transition: all 0.3s ease !important;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+        }
+        .dark #cookie-consent-banner {
+            background-color: rgb(15 23 42) !important;
+            border-color: rgb(30 41 59) !important;
+        }
+        @media (min-width: 768px) {
+            #cookie-consent-banner {
+                left: auto !important;
+                width: 380px !important;
+                right: 16px !important;
+            }
+        }
+    `;
+    document.head.appendChild(styleEl);
+})();
+
 // Make toast globally available to inline scripts and other HTML pages
 window.showToast = toast.show.bind(toast);
 window.showEncouragingToast = showEncouragingToast;

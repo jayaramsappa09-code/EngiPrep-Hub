@@ -452,10 +452,10 @@ body::before {
 }
 
 .section-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
+  width: 32px; height: 32px;
+  border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.15rem;
+  font-size: 1rem;
   flex-shrink: 0;
 }
 
@@ -802,7 +802,7 @@ pre {
   align-items: flex-start;
   border-width: 1px;
 }
-.alert-icon { font-size: 1.2rem; flex-shrink: 0; }
+.alert-icon { font-size: 1rem; flex-shrink: 0; }
 .alert-body { flex: 1; line-height: 1.6; }
 .alert-body strong { display: block; margin-bottom: 4px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
 
@@ -1188,10 +1188,10 @@ pre {
       <span class="unit-num">V</span> Functions &amp; File Handling
     </button>
     <div class="unit-nav-title" style="margin-top:1rem;">Modes</div>
-    <button class="unit-btn" onclick="alert('📝 Exam Mode: Focus on ⭐ marked content and PYQ sections!')">
+    <button class="unit-btn" onclick="window.showEncouragingToast('📝 Exam Mode Activated', 'Focus on the ⭐ marked content and 🔥 PYQ sections to master the exam!')">
       <span class="unit-num" style="background:rgba(245,158,11,0.15);color:#f59e0b">📝</span> Exam Mode
     </button>
-    <button class="unit-btn" onclick="alert('⚡ Quick Revision: See the Revision sections in each unit!')">
+    <button class="unit-btn" onclick="window.showSuccessToast('⚡ Quick Revision Mode', 'Navigate straight to the key summary points and core revision cards!')">
       <span class="unit-num" style="background:rgba(239,68,68,0.15);color:#ef4444">⚡</span> Quick Revision
     </button>
   </nav>
@@ -1224,8 +1224,8 @@ pre {
     </div>
     <div class="mode-tabs">
       <button class="mode-tab active">Learn</button>
-      <button class="mode-tab" onclick="alert('Practice Mode: Try the MCQ sections in each unit!')">Practice</button>
-      <button class="mode-tab" onclick="alert('Exam Mode: Focus on ⭐ PYQ and Exam Focus sections!')">Exam</button>
+      <button class="mode-tab" onclick="window.showSuccessToast('🎯 Practice Mode Active', 'Interactive MCQ challenge options are now ready!')">Practice</button>
+      <button class="mode-tab" onclick="window.showEncouragingToast('🏆 Exam Mode Active', 'Highlighting ⭐ standard questions and 🔥 PYQs for focus study!')">Exam</button>
     </div>
   </div>
 
@@ -3008,7 +3008,7 @@ END</pre>
 </main><!-- /main -->
 
 <!-- FLOATING HELPER -->
-<div class="sticky-helper" onclick="alert('🤖 AI Tutor Tips:\n\n✅ Arrow keys to focus sections\n✅ Click tabs to switch content\n✅ Click section headers to expand/collapse\n✅ Use sidebar to jump units\n✅ MCQ sections have clickable options\n\n📝 Exam Tips:\n• 🔥 items are most-repeated PYQs\n• ⭐ items come frequently in exams\n• Study Quick Revision before exam day!')" title="AI Tutor Help">🤖</div>
+<div class="sticky-helper" onclick="window.showSuccessToast('🤖 AI Tutor Tips Loaded', 'Arrow keys focus sections. Click section headers to collapse/expand. MCQ options are clickable. Study 🔥 PYQs &amp; ⭐ priorities closest to the exams!')" title="AI Tutor Help">🤖</div>
 
 <script>
 // ─── UNIT NAVIGATION ───
@@ -3174,5 +3174,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupTocObserver();
 });
 </script>
+    <!-- Universal Academic Navigator & Active Live Alerts -->
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>

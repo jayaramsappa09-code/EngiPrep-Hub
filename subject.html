@@ -29,6 +29,34 @@
 
     
     
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const sub = params.get('sub');
+            if (sub) {
+                const subL = sub.toLowerCase();
+                if (subL.includes('c programming') || subL.includes('programming for problem solving') || subL === 'pps') {
+                    window.location.replace('/c-programming-notes.html');
+                } else if (subL.includes('physics') || subL.includes('ap102')) {
+                    window.location.replace('/physics-notes.html');
+                } else if (subL.includes('data structure')) {
+                    window.location.replace('/data-structures-basics.html');
+                } else if (subL.includes('chemistry')) {
+                    window.location.replace('/chemistry-topper-notes.html');
+                } else if (subL.includes('mathematics ii') || subL === 'm2' || subL.includes('maths ii') || subL.includes('maths 2') || subL.includes('math 2')) {
+                    window.location.replace('/engineering-mathematics-2.html');
+                } else if (subL.includes('mathematics i') || subL === 'm1' || subL.includes('maths i') || subL.includes('maths 1') || subL.includes('math 1')) {
+                    window.location.replace('/maths-1.html');
+                } else if (subL.includes('graphics') || subL === 'eg' || subL.includes('engineering graphics')) {
+                    window.location.replace('/engineering-graphics-lab.html');
+                } else if (subL.includes('english') || subL.includes('communicative')) {
+                    window.location.replace('/communicative-english.html');
+                } else if (subL.includes('electrical') || subL === 'beee' || subL.includes('basic electrical')) {
+                    window.location.replace('/beee-notes.html');
+                }
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="/src/style.css">
 
     <!-- Gatekeeper for Authentication -->
@@ -302,7 +330,9 @@
         const params = new URLSearchParams(window.location.search)
         const subject = params.get('sub') || 'Mathematics I'
         const subjLower = subject.toLowerCase();
-        if (subjLower.includes('physics') || subjLower.includes('ap102')) {
+        if (subjLower.includes('c programming') || subjLower.includes('programming for problem solving') || subjLower === 'pps') {
+            window.location.replace('/c-programming-notes.html');
+        } else if (subjLower.includes('physics') || subjLower.includes('ap102')) {
             window.location.replace('/physics-notes.html');
         } else if (subjLower.includes('data structure')) {
             window.location.replace('/data-structures-basics.html');
@@ -314,8 +344,6 @@
             window.location.replace('/maths-1.html');
         } else if (subjLower.includes('graphics') || subjLower === 'eg' || subjLower.includes('engineering graphics')) {
             window.location.replace('/engineering-graphics-lab.html');
-        } else if (subjLower.includes('programming for problem solving') || subjLower === 'pps') {
-            window.location.replace('/subject.html?sub=C%20Programming');
         } else if (subjLower.includes('english') || subjLower.includes('communicative')) {
             window.location.replace('/communicative-english.html');
         } else if (subjLower.includes('electrical') || subjLower === 'beee' || subjLower.includes('basic electrical')) {
