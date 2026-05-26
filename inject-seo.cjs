@@ -232,6 +232,43 @@ htmlFiles.forEach(file => {
         }
     }
 
+    // 5.5 Inject Footer and Author Box
+    const footer = `
+<footer class="bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
+    <a href="/about.html" class="hover:text-white">About</a>
+    <a href="/contact.html" class="hover:text-white">Contact</a>
+    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq.html" class="hover:text-white">FAQ</a>
+  </div>
+  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+</footer>
+`;
+    const authorBox = `
+<section class="max-w-4xl mx-auto my-16 p-8 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center gap-6">
+  <img src="/public/logo.png" alt="EngiPrepHub Logo" class="w-20 h-20 rounded-full border border-slate-700">
+  <div>
+    <h3 class="text-lg font-bold text-white">About the Author</h3>
+    <p class="text-slate-300 text-sm mt-2">EngiPrepHub is an academic initiative aimed at providing high-quality, verified, and structured JNTUK R23 study notes, PYQs, and interactive tools for engineering students. Our materials are reviewed by expert students and engineers to ensure syllabus alignment.</p>
+  </div>
+</section>
+`;
+
+    if (content.includes('</body>')) {
+        let enhancedContent = content;
+        if (!content.includes('<!-- Footer -->')) {
+             enhancedContent = enhancedContent.replace('</body>', `\n${footer}\n</body>`);
+             modified = true;
+        }
+        if (isNotes && !content.includes('<!-- AuthorBox -->')) {
+             enhancedContent = enhancedContent.replace(footer, `\n<!-- AuthorBox -->\n${authorBox}\n${footer}`);
+             modified = true;
+        }
+        content = enhancedContent;
+    }
+
     // 6. Structured Schema: Course block for notes, FAQPage block for pyqs, and EducationalOrganization + webSite for homepage
     content = content.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/gi, ''); // Wipe old schemas safely
 
