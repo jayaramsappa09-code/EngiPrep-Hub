@@ -15,6 +15,7 @@
     
     
     
+    
 
     
     
@@ -92,6 +93,16 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/ai-professor">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/ai-professor">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -287,11 +298,13 @@
                     <p class="text-slate-500 dark:text-slate-400 font-medium">Empower your preparation with highly accurate target estimates and adaptive survival simulations.</p>
                 </div>
                 <!-- Mini Tab Navigation bar -->
-                <div class="flex flex-wrap gap-2 p-1.5 border border-slate-200 dark:border-slate-800 rounded-2xl w-fit">
-                    <button onclick="switchAIPanel('professor')" id="tab-professor" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm transition-all">👨‍🏫 AI Professor</button>
-                    <button onclick="switchAIPanel('predictor')" id="tab-predictor" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all">🔥 AI Exam Predictor</button>
-                    <button onclick="switchAIPanel('flashcards')" id="tab-flashcards" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all">🎴 Flash Trainer</button>
-                    <button onclick="switchAIPanel('transformer')" id="tab-transformer" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all">⚙ Auto Notes</button>
+                <div class="flex flex-wrap gap-1.5 p-1.5 border border-slate-200 dark:border-slate-800 rounded-2xl w-fit max-w-full">
+                    <button onclick="switchAIPanel('professor')" id="tab-professor" class="px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm transition-all">👨‍🏫 AI Professor</button>
+                    <button onclick="switchAIPanel('predictor')" id="tab-predictor" class="px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all">🔥 Predictor</button>
+                    <button onclick="switchAIPanel('flashcards')" id="tab-flashcards" class="px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all">🎴 Flashcards</button>
+                    <button onclick="switchAIPanel('transformer')" id="tab-transformer" class="px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all">⚙ Auto Notes</button>
+                    <button onclick="switchAIPanel('clab')" id="tab-clab" class="px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all">💻 C AI Lab</button>
+                    <button onclick="switchAIPanel('eglab')" id="tab-eglab" class="px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all">📐 EG & AutoCAD Lab</button>
                 </div>
             </div>
         </header>
@@ -754,6 +767,247 @@
             </div>
         </div>
 
+        <!-- PANEL 5: C Programming AI Lab (Recursion & Memory visualizer) -->
+        <div id="panel-clab" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-up">
+            <!-- Left Side: Code Console & Step controls -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="bento-card p-6 border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                        <div>
+                            <h3 class="text-sm font-black uppercase tracking-widest text-slate-800 dark:text-slate-200">C AI Lab Controller</h3>
+                            <p class="text-[9.5px] text-indigo-600 dark:text-indigo-400 font-extrabold uppercase tracking-widest">Compiler-Like Trace Workspace</p>
+                        </div>
+                        <span class="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 text-[8.5px] font-black rounded-lg border border-indigo-200/20 uppercase tracking-widest select-none animate-pulse">
+                            ● Offline Host Mode
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-slate-400 mb-1.5">Select Interactive Program</label>
+                            <select id="clab-program-selector" onchange="loadCLabProgram()" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 w-full rounded-xl px-4 py-2.5 text-xs font-black focus:outline-none focus:ring-1 focus:ring-indigo-600 cursor-pointer">
+                                <option value="factorial">Recursive Factorial (Stack Frame Stack)</option>
+                                <option value="fibonacci">Recursive Fibonacci Sequence (Calls Tree Trace)</option>
+                                <option value="pointers">Call-by-Reference Swapping (Pointers direct mutation)</option>
+                                <option value="struct_vs_union">Struct cumulative vs Union overlapping sizes</option>
+                            </select>
+                        </div>
+
+                        <!-- Speed Slider -->
+                        <div>
+                            <div class="flex items-center justify-between text-[10px] font-black text-slate-400 mb-1.5 uppercase">
+                                <span>Automation Speeds</span>
+                                <span id="clab-delay-val">600ms</span>
+                            </div>
+                            <input type="range" id="clab-speed" min="200" max="2500" value="600" oninput="document.getElementById('clab-delay-val').innerText = this.value + 'ms'" class="w-full accent-indigo-600 cursor-pointer">
+                        </div>
+
+                        <!-- Step controls -->
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="startCLabSimulation()" class="py-2.5 bg-indigo-600 hover:bg-indigo-750 text-white font-black text-[10px] uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 col-span-2">▶ Play Tracing</button>
+                            <button onclick="stepCLabSimulation()" class="py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-extrabold text-[10px] uppercase tracking-wider rounded-xl transition-all border border-slate-200 dark:border-slate-700">⤵ Step</button>
+                            <button onclick="resetCLabSimulation()" class="py-2.5 bg-rose-50 dark:bg-rose-950/20 hover:bg-rose-100 text-rose-600 dark:text-rose-400 font-extrabold text-[10px] uppercase tracking-wider rounded-xl transition-all border border-rose-200/20">🔄 Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Styled Compiler Code viewer -->
+                <div class="bento-card p-6 border border-slate-200 dark:border-slate-800 bg-[#09090d] text-slate-200 font-mono text-xs overflow-hidden leading-relaxed shadow-2xl relative select-none">
+                    <div class="absolute top-2 right-4 flex items-center gap-1">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                    </div>
+                    <div class="border-b border-slate-850 pb-2.5 mb-3 flex items-center gap-2 select-text">
+                        <span class="text-[9px] text-slate-500 font-black tracking-widest uppercase">source_main.c</span>
+                        <span class="text-[8.5px] px-1.5 py-0.5 bg-slate-800 text-slate-400 rounded">GCC 13.2</span>
+                    </div>
+                    <div id="clab-code-container" class="space-y-1.5 font-semibold text-[11.5px]">
+                        <!-- Dynamic code rows with highlighting lines injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Interactive Visualizers -->
+            <div class="lg:col-span-7 space-y-6">
+                <!-- Stack Frame / Memory Visualizer -->
+                <div class="bento-card p-6 border border-slate-200 dark:border-slate-800">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Active Memory Allocation Frame</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 min-h-[340px]">
+                        
+                        <!-- Stack frames diagram -->
+                        <div class="p-4 bg-slate-50 dark:bg-slate-950/30 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[9px] font-black uppercase tracking-wider text-slate-400 block mb-3">Call Stack Allocation (LIFO)</span>
+                                <div id="clab-stack-frames" class="space-y-2 flex flex-col-reverse justify-end min-h-[220px]">
+                                    <!-- Dynamic frame blocks stack up hierarchically -->
+                                    <div class="text-center text-xs text-slate-400 py-16">Stack Empty. Press Play to execute.</div>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t border-slate-200 dark:border-slate-800/80 text-[10px] text-slate-400 font-semibold tracking-tight uppercase flex items-center justify-between select-none">
+                                <span>Memory Limit: 1024KB</span>
+                                <span id="clab-stack-counter" class="text-indigo-500 font-bold">Stack Depth: 0</span>
+                            </div>
+                        </div>
+
+                        <!-- Data cell addresses (Pointers tracking block) -->
+                        <div class="p-4 bg-slate-50 dark:bg-slate-950/30 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[9px] font-black uppercase tracking-wider text-slate-400 block mb-3">RAM Cells & Pointer Dereferences</span>
+                                <div id="clab-register-cells" class="space-y-2.5">
+                                    <!-- Real CPU variable grid addresses -->
+                                    <div class="text-center text-xs text-slate-400 py-16">Variables map uninitialized.</div>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t border-slate-200 dark:border-slate-800/80 text-[10px] text-slate-400 font-semibold tracking-tight uppercase flex items-center justify-between select-none">
+                                <span>Pointer Scope: local</span>
+                                <span class="text-emerald-500 font-bold">0 Segfaults</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step explanation panel -->
+                <div class="bento-card p-5 border border-indigo-200/20 bg-indigo-50/10 dark:bg-indigo-950/5 relative overflow-hidden select-none">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 dark:bg-indigo-400/5 rounded-full blur-2xl"></div>
+                    <div class="relative z-10 flex items-start gap-3">
+                        <span class="text-xl">💡</span>
+                        <div>
+                            <h4 class="text-xs font-black text-[#5046e5] uppercase tracking-wide">AI Trace Insights Summary</h4>
+                            <p id="clab-step-explain" class="text-xs text-slate-700 dark:text-slate-300 font-semibold leading-relaxed mt-1">Select a program on control bank and press Play to witness stack tracing execution and pointer adjustments in real-time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 6: Engineering Graphics & AutoCAD CLI Command Lab -->
+        <div id="panel-eglab" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-up">
+            <!-- Left inputs panel: Guides + CLI Terminal -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="bento-card p-6 border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center justify-between mb-4 flex-wrap gap-2 select-none">
+                        <div>
+                            <h3 class="text-sm font-black uppercase tracking-widest text-slate-800 dark:text-[#f8fafc]">AutoCAD Draw Coach</h3>
+                            <p class="text-[9.5px] text-indigo-600 dark:text-indigo-400 font-black uppercase tracking-widest leading-none">Engineering Drawing Simulator</p>
+                        </div>
+                        <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 text-[8.5px] font-black rounded-lg border border-emerald-250/20 uppercase tracking-widest">
+                            ⚡ Coordinate Guide Active
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-slate-400 mb-1.5">Select Graphics Projection Problem</label>
+                            <select id="eglab-problem-selector" onchange="loadEGProblem()" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 w-full rounded-xl px-4 py-2.5 text-xs font-black focus:outline-none focus:ring-1 focus:ring-indigo-600 cursor-pointer">
+                                <option value="point_first_quadrant">Projection of Point in First Quadrant (Above HP, In front of VP)</option>
+                                <option value="line_inclined_hp">Projection of Straight Line Inclined to HP by angle theta</option>
+                                <option value="conic_involute">Conic curves: Involute of a Circle (String unrolling)</option>
+                                <option value="solid_prism">Projection of Solids: Triangular Prism resting on HP</option>
+                            </select>
+                        </div>
+
+                        <!-- Current Step Guide -->
+                        <div class="p-3 bg-indigo-50/50 dark:bg-slate-950/25 border border-indigo-150/15 rounded-xl select-none">
+                            <span class="text-[8.5px] font-black uppercase text-indigo-600 tracking-wider block mb-1">Interactive Command Guide</span>
+                            <p id="eglab-step-instruction" class="text-xs text-slate-900 dark:text-[#f1f5f9] font-black leading-snug">Initiate grounding axis XY. Type **L** in the command terminal to load Line Tool!</p>
+                        </div>
+
+                        <!-- AutoCAD Command Cockpit Terminal -->
+                        <div class="bg-black text-[12px] text-zinc-300 rounded-xl p-4 font-mono space-y-2 select-text border border-zinc-800 shadow-2xl relative">
+                            <span class="absolute top-2 right-3 text-[8.5px] font-black text-rose-500 tracking-widest uppercase">Command Line</span>
+                            <div id="eglab-terminal-log" class="space-y-1.5 h-[130px] overflow-y-auto text-xs font-semibold pr-1">
+                                <div class="text-[#22c55e]">AutoCAD(R) Command Interpreter Engine</div>
+                                <div>Command: _AISTUDIO_DRAW</div>
+                                <div id="eglab-terminal-prompt" class="text-indigo-400">Specify command first [L for Line, C for Circle]:</div>
+                            </div>
+                            <form onsubmit="submitEGTerminalCommand(event)" class="pt-2 border-t border-zinc-800 flex items-center gap-2 select-none">
+                                <span class="text-[#22c55e] font-bold text-xs select-none">Command:</span>
+                                <input type="text" id="eglab-cli-input" placeholder="e.g. L (Press Enter)" class="bg-transparent text-white border-0 outline-none text-xs flex-1 font-mono focus:ring-0 p-0" autocomplete="off" />
+                                <button type="submit" class="p-1 px-3 bg-zinc-800 text-white rounded font-bold text-[10px] hover:bg-zinc-700 active:scale-95">Enter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complete command sheet ready to copy -->
+                <div class="bento-card p-5 border border-slate-200 dark:border-slate-800 space-y-3.5 select-text">
+                    <h4 class="text-xs font-black uppercase text-slate-400">AutoCAD Terminal Matrix Clipboard</h4>
+                    <p class="text-[10px] text-slate-500 leading-normal font-semibold">Copy and paste these exact coordinate strings into AutoCAD terminal command prompt to generate the shape immediately:</p>
+                    <div class="p-3 bg-zinc-950 text-emerald-400 rounded-xl font-mono text-[11px] leading-relaxed select-all">
+                        <code id="eglab-clipboard-output">
+L -> 0,150 -> 400,150 [XY Ref Line]<br>
+LAYER -> Green [Projection Rays]<br>
+L -> 100,150 -> 100,50 [Front View 100mm above]<br>
+L -> 100,150 -> 100,225 [Top View 75mm below]
+                        </code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right side: Live Graphics drawing stage -->
+            <div class="lg:col-span-7 space-y-6">
+                <!-- SVG Stage Canvas -->
+                <div class="bento-card p-6 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4 flex-wrap gap-2 select-none">
+                        <div>
+                            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Live AutoCAD 2D Drawing Stage</h3>
+                            <p class="text-[8px] text-slate-450 uppercase tracking-widest font-semibold">Coordinate bounds: (0,0) to (400,300)</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-[#4f46e5]">
+                            <span class="w-1.5 h-1.5 bg-[#4f46e5] rounded-full animate-ping"></span>
+                            Interactive Grid Rendering
+                        </div>
+                    </div>
+
+                    <!-- Canvas Box -->
+                    <div class="bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-center p-3 relative" style="aspect-ratio: 4/3;">
+                        <svg id="eg-svg-stage" class="w-full h-full bg-[#0a0a10]" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Injected drawing variables: Grid lines, XY axis, Projected arrows & Labels -->
+                        </svg>
+                        
+                        <!-- Mini cursor position indicator coordinate overlay -->
+                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur border border-zinc-800 text-[10px] font-mono p-1 px-2.5 rounded-lg text-slate-400 select-none">
+                            X: <span id="svg-mouse-x">120</span> px | Y: <span id="svg-mouse-y">150</span> px
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rotation sliders and projection angle modifier -->
+                <div class="bento-card p-6 border border-slate-200 dark:border-slate-800 select-none space-y-5">
+                    <div class="flex items-center justify-between flex-wrap gap-3">
+                        <div>
+                            <h4 class="text-xs font-black uppercase tracking-widest text-slate-400">Projection Angle & Distance Modulators</h4>
+                            <p class="text-[10px] text-slate-500 mt-0.5 font-semibold">Manipulate parameters to see front and top projections rotate reactively</p>
+                        </div>
+                        <span id="projection-quadrant-badge" class="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-[8.5px] font-black rounded-md tracking-wider border border-indigo-200/20 uppercase">
+                            1st Quadrant Active
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                        <!-- Projection distance (Above HP) -->
+                        <div>
+                            <div class="flex items-center justify-between text-[10px] font-black text-slate-450 uppercase mb-1.5">
+                                <span id="eg-slider1-label">Distance Above HP (da)</span>
+                                <span id="eg-slider1-output" class="text-indigo-500 font-bold">40 mm</span>
+                            </div>
+                            <input type="range" id="eg-slider-d1" min="10" max="110" value="40" oninput="updateEGInteractiveSliders()" class="w-full accent-indigo-600 cursor-pointer">
+                        </div>
+
+                        <!-- Projection distance (In front of VP or Slope Angle theta) -->
+                        <div>
+                            <div class="flex items-center justify-between text-[10px] font-black text-slate-450 uppercase mb-1.5">
+                                <span id="eg-slider2-label">Distance in front of VP (db)</span>
+                                <span id="eg-slider2-output" class="text-indigo-500 font-bold">60 mm</span>
+                            </div>
+                            <input type="range" id="eg-slider-d2" min="10" max="110" value="60" oninput="updateEGInteractiveSliders()" class="w-full accent-indigo-600 cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Lab Viva Sheets Selection Component -->
@@ -1116,13 +1370,24 @@
 
         // Global switcher
         window.switchAIPanel = function(panelId) {
-            const panels = ['professor', 'predictor', 'flashcards', 'transformer']
+            const panels = ['professor', 'predictor', 'flashcards', 'transformer', 'clab', 'eglab']
             panels.forEach(p => {
-                document.getElementById(`panel-${p}`).classList.add('hidden')
-                document.getElementById(`tab-${p}`).className = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all"
-            })
-            document.getElementById(`panel-${panelId}`).classList.remove('hidden')
-            document.getElementById(`tab-${panelId}`).className = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm transition-all"
+                const pEl = document.getElementById(`panel-${p}`);
+                const tEl = document.getElementById(`tab-${p}`);
+                if (pEl) pEl.classList.add('hidden');
+                if (tEl) tEl.className = "px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 transition-all";
+            });
+            const targetPEl = document.getElementById(`panel-${panelId}`);
+            const targetTEl = document.getElementById(`tab-${panelId}`);
+            if (targetPEl) targetPEl.classList.remove('hidden');
+            if (targetTEl) targetTEl.className = "px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm transition-all";
+            
+            // Re-render relevant canvas/interactive components depending on target panel active
+            if (panelId === 'clab') {
+                loadCLabProgram();
+            } else if (panelId === 'eglab') {
+                loadEGProblem();
+            }
         }
 
         // Heatmap Grid generator
@@ -1932,10 +2197,930 @@
             };
         }
 
+        // ==========================================
+        // C AI LABORATORY SIMULATION ENGINE (OFFLINE)
+        // ==========================================
+        const CLAB_DATA = {
+            factorial: {
+                title: "Recursive Factorial Stack Trace",
+                code: [
+                    "int factorial(int n) {",
+                    "    if (n <= 1)",
+                    "        return 1;",
+                    "    return n * factorial(n - 1);",
+                    "}"
+                ],
+                steps: [
+                    { line: 0, stack: ["main()"], regs: { n: 3 }, text: "The CPU starts execution. main() calls factorial(3). Initial stack frame allocated on the call stack." },
+                    { line: 1, stack: ["main()", "factorial(3)"], regs: { n: 3 }, text: "Conditional check: Is n (3) <= 1? This evaluates to false. Proceeding to recursive block." },
+                    { line: 3, stack: ["main()", "factorial(3)"], regs: { n: 3 }, text: "Recursive step: factorial(3) needs to compute 3 * factorial(2). Preparing sub-call." },
+                    { line: 0, stack: ["main()", "factorial(3)", "factorial(2)"], regs: { n: 2 }, text: "Fresh frame factorial(2) is allocated on top of call stack. n inside this scope is 2." },
+                    { line: 1, stack: ["main()", "factorial(3)", "factorial(2)"], regs: { n: 2 }, text: "Conditional check: Is n (2) <= 1? False. Prepping tertiary frame call." },
+                    { line: 3, stack: ["main()", "factorial(3)", "factorial(2)"], regs: { n: 2 }, text: "Recursive step: factorial(2) needs to compute 2 * factorial(1)." },
+                    { line: 0, stack: ["main()", "factorial(3)", "factorial(2)", "factorial(1)"], regs: { n: 1 }, text: "Top-most frame factorial(1) pushed. Local register n holds value 1." },
+                    { line: 1, stack: ["main()", "factorial(3)", "factorial(2)", "factorial(1)"], regs: { n: 1 }, text: "Conditional check: Is n (1) <= 1? True! The base case condition is successfully triggered." },
+                    { line: 2, stack: ["main()", "factorial(3)", "factorial(2)", "factorial(1)"], regs: { n: 1, returned: 1 }, text: "Base case returning value 1. Top stack frame begins popping out from memory." },
+                    { line: 3, stack: ["main()", "factorial(3)", "factorial(2)"], regs: { n: 2, returned_prev: 1 }, text: "Control returns to factorial(2). Computing: 2 * (returned value 1) = 2. Deallocating frame." },
+                    { line: 3, stack: ["main()", "factorial(3)"], regs: { n: 3, returned_prev: 2 }, text: "Control returns to factorial(3). Computing: 3 * (returned value 2) = 6." },
+                    { line: 3, stack: ["main()"], regs: { result: 6 }, text: "Stack execution complete! Output 6 is yielded to original caller. All call frames freed smoothly." }
+                ]
+            },
+            fibonacci: {
+                title: "Recursive Fibonacci Calls Tree",
+                code: [
+                    "int fib(int n) {",
+                    "    if (n <= 1)",
+                    "        return n;",
+                    "    return fib(n - 1) + fib(n - 2);",
+                    "}"
+                ],
+                steps: [
+                    { line: 0, stack: ["main()"], regs: { n: 2 }, text: "main() requests 2nd Fibonacci value. Pushing parent frame." },
+                    { line: 1, stack: ["main()", "fib(2)"], regs: { n: 2 }, text: "Checking if n (2) <= 1. Evaluates to False. Preparing branches." },
+                    { line: 3, stack: ["main()", "fib(2)"], regs: { n: 2 }, text: "Preparing left recursive subtree calling fib(2 - 1) = fib(1)." },
+                    { line: 0, stack: ["main()", "fib(2)", "fib(1)"], regs: { n: 1 }, text: "Left branch fib(1) frame allocated on the stack." },
+                    { line: 1, stack: ["main()", "fib(2)", "fib(1)"], regs: { n: 1 }, text: "Check: Is 1 <= 1? True! Returns value 1 directly." },
+                    { line: 3, stack: ["main()", "fib(2)"], regs: { n: 2, left_returned: 1 }, text: "Left branch complete. Saving intermediate result 1. Prepping right branch fib(2 - 2) = fib(0)." },
+                    { line: 0, stack: ["main()", "fib(2)", "fib(0)"], regs: { n: 0 }, text: "Right branch fib(0) frame pushed onto stack." },
+                    { line: 1, stack: ["main()", "fib(2)", "fib(0)"], regs: { n: 0 }, text: "Check: Is 0 <= 1? True! Returns 0 directly to parent caller frame." },
+                    { line: 3, stack: ["main()"], regs: { result: 1 }, text: "Adding results: left (1) + right (0) = 1. Stack cleared. Value 1 returned." }
+                ]
+            },
+            pointers: {
+                title: "Pointer Address Mutation Workspace",
+                code: [
+                    "void swap(int *px, int *py) {",
+                    "    int temp = *px;",
+                    "    *px = *py;",
+                    "    *py = temp;",
+                    "}"
+                ],
+                steps: [
+                    { line: 0, stack: ["main()"], regs: { a: 10, b: 20 }, text: "Stack variables 'a' stored at address 0x20F4 (val=10) and 'b' at 0x20F8 (val=20)." },
+                    { line: 0, stack: ["main()", "swap()"], regs: { px: "0x20F4", py: "0x20F8", a: 10, b: 20 }, text: "Calling swap(&a, &b). px receives address of 'a'; py receives address of 'b'." },
+                    { line: 1, stack: ["main()", "swap()"], regs: { px: "0x20F4", py: "0x20F8", temp: 10, a: 10, b: 20 }, text: "Dereferencing *px (reading from address 0x20F4) gathers value 10, copied directly into local register 'temp'." },
+                    { line: 2, stack: ["main()", "swap()"], regs: { px: "0x20F4", py: "0x20F8", temp: 10, a: 20, b: 20 }, text: "Dereferencing *py (value 20) and writing directly into px memory space. Notice 'a' cell turns 20!" },
+                    { line: 3, stack: ["main()", "swap()"], regs: { px: "0x20F4", py: "0x20F8", temp: 10, a: 20, b: 10 }, text: "Taking local 'temp' (10) and writing to py address 0x20F8. Cell 'b' now turns to 10." },
+                    { line: 4, stack: ["main()"], regs: { a: 20, b: 10 }, text: "Function exits. The parameters of caller's main stand fully swapped in original RAM addresses!" }
+                ]
+            },
+            struct_vs_union: {
+                title: "Cumulative Struct vs Shared Union size",
+                code: [
+                    "struct SomeStruct { char c; int i; };",
+                    "union  SomeUnion  { char c; int i; };",
+                    "// struct size: 8 bytes (cumulative)",
+                    "// union size:  4 bytes (overlapping)"
+                ],
+                steps: [
+                    { line: 0, stack: ["main()"], regs: { "Struct c address": "0x4000", "Struct i address": "0x4004 (accumulated)" }, text: "Struct allocates sequential slots on RAM. Member 'c' is at block start, member 'i' at block + 4. Sizes sum up cumulative." },
+                    { line: 1, stack: ["main()"], regs: { "Union c address": "0x5000", "Union i address": "0x5000 (overlapping)" }, text: "Union shares identical origin address block! Both variables start at 0x5000. It only allocates RAM of its largest member." },
+                    { line: 2, stack: ["main()"], regs: { "Active Union use": "Assigning 'i' overrides 'c' bits!" }, text: "Writing variable 'i' overwrites variable 'c' cell bits directly! One active member can exist safely at a time." }
+                ]
+            }
+        };
+
+        window.currentCLabProgram = "factorial";
+        window.currentCLabStep = 0;
+        window.clabAnimationTimer = null;
+
+        window.loadCLabProgram = function() {
+            window.resetCLabSimulation();
+            const programKey = document.getElementById("clab-program-selector").value;
+            window.currentCLabProgram = programKey;
+            
+            const pData = CLAB_DATA[programKey];
+            if (!pData) return;
+
+            // Render program code block
+            const codeContainer = document.getElementById("clab-code-container");
+            codeContainer.innerHTML = pData.code.map((line, idx) => `
+                <div id="clab-line-${idx}" class="py-1 px-3.5 rounded transition-all flex items-start gap-4">
+                    <span class="text-[9px] text-[#4f46e5] font-extrabold select-none opacity-60 w-3">${idx+1}</span>
+                    <span class="select-text whitespace-pre leading-none">${line}</span>
+                </div>
+            `).join("");
+
+            // Clear stack & registers visual preview
+            document.getElementById("clab-stack-frames").innerHTML = `<div class="text-center text-xs text-slate-400 py-16">Press play to witness execution trace steps.</div>`;
+            document.getElementById("clab-register-cells").innerHTML = `<div class="text-center text-xs text-slate-400 py-16">Variables map uninitialized.</div>`;
+            document.getElementById("clab-step-explain").innerHTML = `Syllabus topic <strong>${pData.title}</strong> loaded. Press Play or Step to tracing local execution.`;
+            document.getElementById("clab-stack-counter").innerText = "Stack Depth: 0";
+        };
+
+        window.stepCLabSimulation = function() {
+            if (window.clabAnimationTimer) {
+                clearInterval(window.clabAnimationTimer);
+                window.clabAnimationTimer = null;
+            }
+            executeCLabStep();
+        };
+
+        window.startCLabSimulation = function() {
+            if (window.clabAnimationTimer) clearInterval(window.clabAnimationTimer);
+            const speed = parseInt(document.getElementById("clab-speed").value) || 600;
+            
+            window.clabAnimationTimer = setInterval(() => {
+                const finished = executeCLabStep();
+                if (finished) {
+                    clearInterval(window.clabAnimationTimer);
+                    window.clabAnimationTimer = null;
+                }
+            }, speed);
+        };
+
+        window.resetCLabSimulation = function() {
+            if (window.clabAnimationTimer) {
+                clearInterval(window.clabAnimationTimer);
+                window.clabAnimationTimer = null;
+            }
+            window.currentCLabStep = 0;
+            
+            // Clear selections
+            document.querySelectorAll("#clab-code-container > div").forEach(div => {
+                div.className = "py-1 px-3.5 rounded transition-all flex items-start gap-4";
+            });
+        };
+
+        function executeCLabStep() {
+            const pKey = window.currentCLabProgram;
+            const pData = CLAB_DATA[pKey];
+            if (!pData) return true;
+
+            const steps = pData.steps;
+            if (window.currentCLabStep >= steps.length) {
+                window.currentCLabStep = 0; // loop
+            }
+
+            const step = steps[window.currentCLabStep];
+            
+            // Highlight source code line
+            document.querySelectorAll("#clab-code-container > div").forEach(div => {
+                div.className = "py-1 px-3.5 rounded transition-all flex items-start gap-4 text-slate-350";
+            });
+            const activeLineDiv = document.getElementById(`clab-line-${step.line}`);
+            if (activeLineDiv) {
+                activeLineDiv.className = "py-1 px-3.5 rounded transition-all flex items-start gap-4 bg-indigo-500/15 border-l-2 border-indigo-500 font-extrabold text-[#38bdf8]";
+            }
+
+            // Render stack frames block
+            const stackBlock = document.getElementById("clab-stack-frames");
+            stackBlock.innerHTML = step.stack.map((frameName, index) => `
+                <div class="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-center shadow-md animate-fade-up flex items-center justify-between">
+                    <span class="text-xs font-black dark:text-slate-50">${frameName}</span>
+                    <span class="text-[9px] text-indigo-500 font-black tracking-widest uppercase">Depth: S${index}</span>
+                </div>
+            `).join("");
+            document.getElementById("clab-stack-counter").innerText = `Stack Depth: ${step.stack.length}`;
+
+            // Render local register address grid
+            const registerBlock = document.getElementById("clab-register-cells");
+            registerBlock.innerHTML = Object.entries(step.regs).map(([k, v], idx) => `
+                <div class="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm flex items-center justify-between gap-4 animate-fade-up relative overflow-hidden group">
+                    <div class="absolute inset-y-0 left-0 w-1 bg-emerald-500"></div>
+                    <div>
+                        <span class="text-[8.5px] font-black text-slate-400 block tracking-tight uppercase">Variable Name</span>
+                        <span class="text-xs font-black text-slate-800 dark:text-slate-50 font-mono">${k}</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[8.5px] font-black text-slate-400 block tracking-tight uppercase">Assigned Address/Value</span>
+                        <span class="text-xs font-mono font-black text-emerald-600 dark:text-emerald-400 select-all">${v}</span>
+                    </div>
+                </div>
+            `).join("");
+
+            // Explain text brief
+            document.getElementById("clab-step-explain").innerHTML = step.text;
+
+            // Trigger XP on finishing trace
+            if (window.currentCLabStep === steps.length - 1) {
+                if (typeof window.triggerXP === 'function') {
+                    window.triggerXP(25, `Traced execution of ${pData.title}`);
+                } else if (localStorage.getItem('user_xp')) {
+                    // Update fallback localStorage
+                    let xp = parseInt(localStorage.getItem('user_xp') || '0');
+                    xp += 25;
+                    localStorage.setItem('user_xp', xp.toString());
+                    const navXPEl = document.getElementById('nav-xp');
+                    if (navXPEl) navXPEl.textContent = `${xp} XP`;
+                }
+            }
+
+            window.currentCLabStep++;
+            return window.currentCLabStep >= steps.length;
+        }
+
+
+        // ==========================================
+        // ENGINEERING GRAPHICS & AUTOCAD COMMAND LAB
+        // ==========================================
+        const EG_PROBLEMS = {
+            point_first_quadrant: {
+                title: "Projection of Points (1st Quadrant)",
+                clipboard: "L -> 0,150 -> 400,150 [ground line XY]\nL -> 120,150 -> 120,80 [front projection vertical delta]\nL -> 120,150 -> 120,230 [top projection]",
+                instructions: [
+                    "We will draw the projections of Point P situated 40mm above HP and 60mm in front of VP. Step 1: Initialize ground axis XY. Type **L** in AutoCAD terminal prompt below.",
+                    "Ground axis endpoint specify. Type coordinate **0,150** to start reference coordinate dot:",
+                    "Now complete ground axis line XY. Type coordinate **400,150** to draw reference horizontal boundary:",
+                    "Excellent axis built! Now draw vertical projectors. Type **L** to load Line tool again:",
+                    "Specify projection point on XY axis line. Type coordinate **120,150**:",
+                    "Above HP projection (Front View P'). Type coordinate **120,110** (SVG inverse vertical: 150 - 40):",
+                    "Below VP projection (Top View P). Type coordinate **120,210** (Y vertical: 150 + 60):",
+                    "Projection fully rendered! You can now adjust Above HP / Front VP distances using sliders to watch lines expand!"
+                ],
+                cli_checkpoints: ["L", "0,150", "400,150", "L", "120,150", "120,110", "120,210"],
+                generator: function(da, db) {
+                    // da: above HP, db: in front of VP
+                    return `
+                        <!-- Ground line axis XY -->
+                        <line x1="10" y1="150" x2="390" y2="150" stroke="#f1f5f9" stroke-width="2.5" />
+                        <text x="20" y="140" fill="#94a3b8" font-size="10" font-family="monospace" font-weight="bold">X</text>
+                        <text x="375" y="140" fill="#94a3b8" font-size="10" font-family="monospace" font-weight="bold">Y</text>
+                        <text x="20" y="170" fill="#64748b" font-size="9" font-family="monospace">VP (First angle)</text>
+                        <text x="20" y="190" fill="#64748b" font-size="9" font-family="monospace">HP</text>
+
+                        <!-- Projector lines -->
+                        <line x1="120" y1="150" x2="120" y2="${150 - da}" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="3,3" />
+                        <line x1="120" y1="150" x2="120" y2="${150 + db}" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="3,3" />
+
+                        <!-- Projector points -->
+                        <circle cx="120" cy="${150 - da}" r="4" fill="#f43f5e" />
+                        <text x="130" y="${155 - da}" fill="#f43f5e" font-size="10" font-family="monospace" font-weight="black">p' (Front View - ${da}mm above)</text>
+
+                        <circle cx="120" cy="${150 + db}" r="4" fill="#38bdf8" />
+                        <text x="130" y="${155 + db}" fill="#38bdf8" font-size="10" font-family="monospace" font-weight="black">p (Top View - ${db}mm below)</text>
+
+                        <circle cx="120" cy="150" r="3" fill="#22c55e" />
+                        <text x="130" y="145" fill="#22c55e" font-size="9" font-family="monospace">projector intersection o</text>
+                    `;
+                }
+            },
+            line_inclined_hp: {
+                title: "Line AB Inclined to HP",
+                clipboard: "L -> 50,150 -> 350,150\nL -> 100,110 -> 240,60 [front projection inclined length]\nL -> 100,210 -> 240,210 [top projected span]",
+                instructions: [
+                    "A line AB 100mm long is inclined at theta to HP. Step 1: Draw grounding coordinate line. Type **L** in terminal below:",
+                    "Set start reference: Type **0,150**:",
+                    "Set end reference: Type **400,150**:",
+                    "Draw projection. Type **L**:",
+                    "Specify line start vertical projectors: Type coordinate **100,150**:",
+                    "Render inclination slope projection above XY reference axis. Type coordinate **100,110**:",
+                    "Compute sloping projections. Type coordinate **260,110**:",
+                    "Excellent! Line projects foreshortened top reflection projection below axis XY. Try adjusting angles inside modulator sliders!"
+                ],
+                cli_checkpoints: ["L", "0,150", "400,150", "L", "100,150", "100,110", "260,110"],
+                generator: function(da, db) {
+                    const angleRad = (da / 110) * (Math.PI / 2.5); // scale sliders to realistic radians
+                    const length = 150;
+                    const endX = 100 + length * Math.cos(angleRad);
+                    const endY = 110 - length * Math.sin(angleRad);
+                    
+                    return `
+                        <!-- XY ground -->
+                        <line x1="10" y1="150" x2="390" y2="150" stroke="#f1f5f9" stroke-width="2.5" />
+                        
+                        <!-- True inclined line front view -->
+                        <line x1="100" y1="110" x2="${endX}" y2="${endY}" stroke="#f43f5e" stroke-width="3" />
+                        <text x="85" y="110" fill="#f43f5e" font-size="10" font-family="monospace" font-weight="black">a'</text>
+                        <text x="${endX + 8}" y="${endY}" fill="#f43f5e" font-size="10" font-family="monospace" font-weight="black">b'</text>
+
+                        <!-- Projector connectors dashed -->
+                        <line x1="100" y1="110" x2="100" y2="210" stroke="#4f46e5" stroke-width="1" stroke-dasharray="4,4" />
+                        <line x1="${endX}" y1="${endY}" x2="${endX}" y2="210" stroke="#4f46e5" stroke-width="1" stroke-dasharray="4,4" />
+
+                        <!-- Foreshortened Top View representation -->
+                        <line x1="100" y1="210" x2="${endX}" y2="210" stroke="#38bdf8" stroke-width="3" />
+                        <text x="85" y="215" fill="#38bdf8" font-size="10" font-family="monospace" font-weight="black">a</text>
+                        <text x="${endX + 8}" y="215" fill="#38bdf8" font-size="10" font-family="monospace" font-weight="black">b (foreshortened)</text>
+
+                        <!-- Inclination annotation arc -->
+                        <path d="M 140 110 A 40 40 0 0 0 100 110" fill="none" stroke="#eab308" stroke-width="1.5" />
+                        <text x="145" y="105" fill="#eab308" font-size="9" font-family="monospace">theta: ${Math.round((angleRad * 180)/Math.PI)} deg</text>
+                    `;
+                }
+            },
+            conic_involute: {
+                title: "Conic Curves: Involute of a Circle",
+                clipboard: "CIRCLE -> 200,150 -> radius=40\nL -> 200,110 -> 325,110 [tangent string unwound]\nSPIRAL -> 12 points locus generation path",
+                instructions: [
+                    "Tracing the locus of unwinding wire off circular drum. Step 1: Draw circular profile drum first. Type **C** below:",
+                    "Specify circle center points coordinates. Type **200,150**:",
+                    "Circle radius specify. Type size **40**:",
+                    "Now draw initial string tangent. Type **L**:",
+                    "Specify starting tangent vector on upper circular crown. Type coordinate **200,110**:",
+                    "Tangent length projection (Circumference: 2 * pi * R). Type coordinate **325,110**:",
+                    "Unrolling starts! Try sliding modulators to dynamically watch circle string locus traces!"
+                ],
+                cli_checkpoints: ["C", "200,150", "40", "L", "200,110", "325,110"],
+                generator: function(da, db) {
+                    const radius = 35;
+                    const centerX = 200;
+                    const centerY = 150;
+                    const valFactor = da / 110; // sliders progress 0 to 1
+                    
+                    let pathPoints = [];
+                    const maxTheta = valFactor * 2 * Math.PI;
+                    
+                    for (let th = 0; th <= maxTheta; th += 0.2) {
+                        const x = centerX + radius * (Math.cos(th) + th * Math.sin(th));
+                        const y = centerY + radius * (Math.sin(th) - th * Math.cos(th));
+                        pathPoints.push(`${x},${y}`);
+                    }
+                    const dStr = pathPoints.length > 0 ? `M 235,150 L ` + pathPoints.join(' ') : 'M 235,150';
+
+                    // Tangent string pointer vector lines
+                    const tx = centerX + radius * (Math.cos(maxTheta) + maxTheta * Math.sin(maxTheta));
+                    const ty = centerY + radius * (Math.sin(maxTheta) - maxTheta * Math.cos(maxTheta));
+
+                    const tangentBaseX = centerX + radius * Math.cos(maxTheta);
+                    const tangentBaseY = centerY + radius * Math.sin(maxTheta);
+
+                    return `
+                        <!-- Circular generator drum -->
+                        <circle cx="${centerX}" cy="${centerY}" r="${radius}" fill="none" stroke="#94a3b8" stroke-width="2" />
+                        <line x1="${centerX}" y1="${centerY}" x2="${centerX + radius}" y2="${centerY}" stroke="#475569" stroke-width="1.5" />
+                        <text x="${centerX + 5}" y="${centerY - 5}" fill="#94a3b8" font-size="8">r=35</text>
+
+                        <!-- Unwound string tangent vector line -->
+                        <line x1="${tangentBaseX}" y1="${tangentBaseY}" x2="${tx}" y2="${ty}" stroke="#a855f7" stroke-width="2" />
+                        <circle cx="${tx}" cy="${ty}" r="4.5" fill="#f43f5e" />
+
+                        <!-- Locus path -->
+                        <path d="${dStr}" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" />
+                        <text x="${tx + 8}" y="${ty - 5}" fill="#22c55e" font-size="10" font-family="monospace" font-weight="black">Involute Locus</text>
+                        <text x="20" y="270" fill="#94a3b8" font-size="9" font-family="monospace">Circumference projection trace: 2 * pi * R = 219mm</text>
+                    `;
+                }
+            },
+            solid_prism: {
+                title: "Projection of Solids (Triangular Prism)",
+                clipboard: "POLYGON -> 3 sides [draw triangular base]\nL -> heights extruded above reference axis XY",
+                instructions: [
+                    "A triangular prism rests on HP. Step 1: Draw horizontal boundaries line XY projection coordinates. Type **L** prompt below:",
+                    "XY coordinate first specify. Type coordinate **0,150**:",
+                    "XY axis end specify. Type coordinate **400,150**:",
+                    "Generate prism base polygon vectors. Type **POLYGON**:",
+                    "Specify side values size count size. Type **3** sides count details:",
+                    "Extrude prism corners up. Draw vertical connectors. Type **L**:",
+                    "Rendering complete. Adjust Heights and orientation slanted offsets dynamically with sliders!"
+                ],
+                cli_checkpoints: ["L", "0,150", "400,150", "POLYGON", "3", "L"],
+                generator: function(da, db) {
+                    const h = da; // heighten faces dynamically
+                    const slant = db - 40; // slant rotation offset
+                    
+                    return `
+                        <!-- XY Ground reference line -->
+                        <line x1="10" y1="150" x2="390" y2="150" stroke="#f1f5f9" stroke-width="2.5" />
+                        
+                        <!-- Top view projection triangular base resting on flat HP -->
+                        <polygon points="${130 + slant},210 ${190 + slant},210 ${160 + slant},260" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+                        <text x="${120 + slant}" y="205" fill="#38bdf8" font-size="9" font-family="monospace">a</text>
+                        <text x="${195 + slant}" y="205" fill="#38bdf8" font-size="9" font-family="monospace">b</text>
+                        <text x="${155 + slant}" y="275" fill="#38bdf8" font-size="9" font-family="monospace">c (Top View resting on HP)</text>
+
+                        <!-- Slant/Vertical connectors projections -->
+                        <line x1="${130 + slant}" y1="150" x2="${130 + slant}" y2="${150 - h}" stroke="#4f46e5" stroke-dasharray="3,3" />
+                        <line x1="${190 + slant}" y1="150" x2="${190 + slant}" y2="${150 - h}" stroke="#4f46e5" stroke-dasharray="3,3" />
+                        <line x1="${160 + slant}" y1="150" x2="${160 + slant}" y2="${150 - h}" stroke="#10b981" stroke-dasharray="3,3" />
+
+                        <!-- Front view projections extruded vertical height above HP -->
+                        <rect x="${130 + slant}" y="${150 - h}" width="60" height="${h}" fill="none" stroke="#f43f5e" stroke-width="2.5" />
+                        <!-- Central slanted lateral edge wire -->
+                        <line x1="${160 + slant}" y1="${150 - h}" x2="${160 + slant}" y2="150" stroke="#f43f5e" stroke-width="2" />
+                        
+                        <text x="${110 + slant}" y="${145 - h}" fill="#f43f5e" font-size="9" font-family="monospace">a' (Front view height: ${h}mm)</text>
+                        <text x="${195 + slant}" y="${145 - h}" fill="#f43f5e" font-size="9" font-family="monospace">b'</text>
+                    `;
+                }
+            }
+        };
+
+        window.currentEGProblem = "point_first_quadrant";
+        window.currentEGStep = 0;
+
+        window.loadEGProblem = function() {
+            window.currentEGStep = 0;
+            const probKey = document.getElementById("eglab-problem-selector").value;
+            window.currentEGProblem = probKey;
+
+            const data = EG_PROBLEMS[probKey];
+            if(!data) return;
+
+            document.getElementById("eglab-clipboard-output").innerHTML = data.clipboard.replace(/\n/g, '<br>');
+            document.getElementById("eglab-step-instruction").innerText = data.instructions[0];
+            document.getElementById("eglab-terminal-log").innerHTML = `
+                <div class="text-[#22c55e]">AutoCAD(R) Command Interpreter Engine</div>
+                <div>Command: _AISTUDIO_DRAW</div>
+                <div id="eglab-terminal-prompt" class="text-indigo-400">Specify command first [L for Line, C for Circle, POLYGON for Shape]:</div>
+            `;
+
+            // Adjust sliders labels for specific problems
+            if(probKey === "point_first_quadrant") {
+                document.getElementById("eg-slider1-label").innerText = "Distance Above HP (da)";
+                document.getElementById("eg-slider2-label").innerText = "Distance in front of VP (db)";
+                document.getElementById("eg-slider-d1").value = 40;
+                document.getElementById("eg-slider-d2").value = 60;
+                document.getElementById("eg-slider1-output").innerText = "40 mm";
+                document.getElementById("eg-slider2-output").innerText = "60 mm";
+            } else if (probKey === "line_inclined_hp") {
+                document.getElementById("eg-slider1-label").innerText = "Inclination slope (theta)";
+                document.getElementById("eg-slider2-label").innerText = "Position shift offset";
+                document.getElementById("eg-slider-d1").value = 30; // degrees represented
+                document.getElementById("eg-slider-d2").value = 100;
+                document.getElementById("eg-slider1-output").innerText = "30 deg";
+                document.getElementById("eg-slider2-output").innerText = "100 mm";
+            } else if (probKey === "conic_involute") {
+                document.getElementById("eg-slider1-label").innerText = "String Unrolling factor (%)";
+                document.getElementById("eg-slider2-label").innerText = "Core Circle radius size";
+                document.getElementById("eg-slider-d1").value = 75; // percent progress
+                document.getElementById("eg-slider-d2").value = 35;
+                document.getElementById("eg-slider1-output").innerText = "75 %";
+                document.getElementById("eg-slider2-output").innerText = "35 mm";
+            } else {
+                document.getElementById("eg-slider1-label").innerText = "Solid Base height (h)";
+                document.getElementById("eg-slider2-label").innerText = "Slanted lateral shift";
+                document.getElementById("eg-slider-d1").value = 90;
+                document.getElementById("eg-slider-d2").value = 40;
+                document.getElementById("eg-slider1-output").innerText = "90 mm";
+                document.getElementById("eg-slider2-output").innerText = "40 mm";
+            }
+
+            window.updateEGInteractiveSliders();
+        };
+
+        window.submitEGTerminalCommand = function(event) {
+            event.preventDefault();
+            const inputEl = document.getElementById("eglab-cli-input");
+            const cmd = inputEl.value.trim();
+            if(!cmd) return;
+
+            inputEl.value = "";
+            const data = EG_PROBLEMS[window.currentEGProblem];
+            if(!data) return;
+
+            const log = document.getElementById("eglab-terminal-log");
+            log.innerHTML += `<div>Command: <span class="text-white font-bold font-mono">${cmd}</span></div>`;
+
+            // Validate step by step command inputs matching predefined checkpoints
+            const targetCheckpoint = data.cli_checkpoints[window.currentEGStep];
+            if(cmd.toUpperCase() === (targetCheckpoint || '').toUpperCase() || cmd === targetCheckpoint) {
+                window.currentEGStep++;
+                
+                // Add success feedback step
+                log.innerHTML += `<div class="text-[#22c55e]">✔ Point/line register successfully committed: SPECIFY OK</div>`;
+                
+                // Load next instructions
+                if(window.currentEGStep < data.instructions.length) {
+                    document.getElementById("eglab-step-instruction").innerText = data.instructions[window.currentEGStep];
+                    log.innerHTML += `<div class="text-indigo-400">${data.instructions[window.currentEGStep].substring(0,60)}...</div>`;
+                } else {
+                    document.getElementById("eglab-step-instruction").innerHTML = "🎉 All steps successfully drawn! Play with Modulator sliders to watch dimensions change dynamically!";
+                    log.innerHTML += `<div class="text-emerald-400 font-extrabold pb-1 animate-pulse">🎯 CONGRATULATIONS! AutoCAD problem vector parameters trace is complete!</div>`;
+                    if (typeof window.triggerXP === 'function') {
+                        window.triggerXP(50, `Mastered sectioning program of ${data.title}`);
+                    }
+                }
+            } else {
+                // Command failed, prompt hint
+                log.innerHTML += `<div class="text-[#f43f5e]">⚠ Syntax Error. Expected standard input coordinate line value: **${targetCheckpoint || 'End of tracing'}**</div>`;
+            }
+
+            log.scrollTop = log.scrollHeight;
+        };
+
+        window.updateEGInteractiveSliders = function() {
+            const d1 = parseInt(document.getElementById("eg-slider-d1").value);
+            const d2 = parseInt(document.getElementById("eg-slider-d2").value);
+            
+            const probKey = window.currentEGProblem;
+            const data = EG_PROBLEMS[probKey];
+            if(!data) return;
+
+            // Render dynamic slide parameter indicators
+            if(probKey === "point_first_quadrant") {
+                document.getElementById("eg-slider1-output").innerText = d1 + " mm";
+                document.getElementById("eg-slider2-output").innerText = d2 + " mm";
+            } else if (probKey === "line_inclined_hp") {
+                document.getElementById("eg-slider1-output").innerText = d1 + " deg";
+                document.getElementById("eg-slider2-output").innerText = d2 + " mm";
+            } else if (probKey === "conic_involute") {
+                document.getElementById("eg-slider1-output").innerText = d1 + " %";
+                document.getElementById("eg-slider2-output").innerText = d2 + " mm";
+            } else {
+                document.getElementById("eg-slider1-output").innerText = d1 + " mm";
+                document.getElementById("eg-slider2-output").innerText = d2 + " mm";
+            }
+
+            // Draw final SVG output using generator routine
+            const svgStage = document.getElementById("eg-svg-stage");
+            svgStage.innerHTML = data.generator(d1, d2);
+        };
+
+        // Attach SVG canvas mouse movement position indicator
+        setTimeout(() => {
+            const svgEl = document.getElementById("eg-svg-stage");
+            if (svgEl) {
+                svgEl.addEventListener("mousemove", (event) => {
+                    const rect = svgEl.getBoundingClientRect();
+                    const scaleX = 400 / rect.width;
+                    const scaleY = 300 / rect.height;
+                    const x = Math.round((event.clientX - rect.left) * scaleX);
+                    const y = Math.round((event.clientY - rect.top) * scaleY);
+                    
+                    const mx = document.getElementById("svg-mouse-x");
+                    const my = document.getElementById("svg-mouse-y");
+                    if (mx) mx.innerText = x;
+                    if (my) my.innerText = y;
+                });
+            }
+        }, 1500);
+
+
+        // ==========================================
+        // TEXT-TO-SPEECH (TTS) ROAD NOTES VOICE ENGINE
+        // ==========================================
+        window.activeTTSUtterance = null;
+        window.speechSynthesizingState = false;
+
+        window.toggleSpeechDemoNotes = function(text, containerElement) {
+            const synth = window.speechSynthesis;
+            if(!synth) {
+                alert("Browser Speech synthesis engine is not supported by your viewport.");
+                return;
+            }
+
+            const playIcon = containerElement.querySelector('.tts-icon-play');
+            const bars = containerElement.querySelectorAll('.tts-wave-bar');
+
+            if(window.speechSynthesizingState) {
+                synth.cancel();
+                window.speechSynthesizingState = false;
+                if(playIcon) playIcon.innerText = "🔊 Read Notes Outloud";
+                if(bars) bars.forEach(b => b.classList.remove('animate-pulse'));
+                return;
+            }
+
+            // Clean clean text off HTML tags & math formatting keys
+            const cleanText = text
+                .replace(/<[^>]*>/g, '')
+                .replace(/\$/g, '')
+                .replace(/\\text\{([^}]*)\}/g, '$1')
+                .replace(/\\/g, '');
+
+            const utter = new SpeechSynthesisUtterance(cleanText);
+            
+            // Speed adjustments
+            const speedType = window.professorTypeSelected || 'strict';
+            if(speedType === 'coach') {
+                utter.rate = 1.35; // Fast Revision Coaching speed run!
+            } else if (speedType === 'strict') {
+                utter.rate = 0.92; // Slow strict, assertive authoritative Rao style!
+            } else {
+                utter.rate = 1.1; // Friendly Senior style
+            }
+
+            // Target appropriate English vocal timbre
+            const voices = synth.getVoices();
+            const preferredVoice = voices.find(v => v.lang.includes('en-IN') || v.lang.includes('en-GB') || v.lang.includes('en-US'));
+            if(preferredVoice) utter.voice = preferredVoice;
+
+            utter.onend = function() {
+                window.speechSynthesizingState = false;
+                if(playIcon) playIcon.innerText = "🔊 Read Notes Outloud";
+                if(bars) bars.forEach(b => b.classList.remove('animate-pulse'));
+            };
+
+            utter.onerror = function() {
+                window.speechSynthesizingState = false;
+                if(playIcon) playIcon.innerText = "🔊 Read Notes Outloud";
+                if(bars) bars.forEach(b => b.classList.remove('animate-pulse'));
+            };
+
+            window.activeTTSUtterance = utter;
+            window.speechSynthesizingState = true;
+            if(playIcon) playIcon.innerText = "⏹ Shut Audio Reader";
+            if(bars) bars.forEach(b => b.classList.add('animate-pulse'));
+            
+            synth.speak(utter);
+        };
+
+
+        // ==========================================
+        // ADVANCED ONLINE HYBRID LOOKUP CHAT ENGINE
+        // ==========================================
+        window.sendProfessorMessage = async function(presetPayloadKey = null) {
+            let text = '';
+            if (presetPayloadKey) {
+                text = TECHNICAL_TERMS_DB[presetPayloadKey]?.term || "Cayley-Hamilton Theorem";
+            } else {
+                const inputEl = document.getElementById("prof-chat-input");
+                if (!inputEl) return;
+                text = inputEl.value.trim();
+                if (!text) return;
+                inputEl.value = "";
+            }
+
+            const dialogContainer = document.getElementById("professor-chat-messages");
+            if (!dialogContainer) return;
+
+            // Render USER bubble
+            dialogContainer.innerHTML += `
+                <div class="chat-message flex items-start justify-end gap-3 select-text">
+                    <div class="bg-indigo-600 border border-indigo-700 text-white rounded-l-2xl rounded-br-2xl p-4 max-w-[85%] text-xs font-semibold shadow">
+                        ${text}
+                    </div>
+                </div>
+            `;
+            dialogContainer.scrollTop = dialogContainer.scrollHeight;
+
+            const loadingBubbleId = "chat-loading-" + Date.now();
+            const av = { strict: "👹", senior: "🎓", coach: "🏃‍♂️", viva: "🧐" }[window.professorTypeSelected || "strict"];
+            const profTitle = { strict: "Prof. Rao", senior: "Venkat", coach: "Coach", viva: "Examiner" }[window.professorTypeSelected || "strict"];
+
+            dialogContainer.innerHTML += `
+                <div id="${loadingBubbleId}" class="chat-message flex items-start gap-3 select-none animate-pulse">
+                    <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow border border-slate-200 dark:border-slate-800">${av}</div>
+                    <div class="bg-indigo-50/50 dark:bg-slate-950/20 border border-slate-200 dark:border-slate-800 rounded-r-2xl rounded-bl-2xl p-4 text-xs italic text-slate-400">
+                        Analyzing curriculum and compiling exam notes...
+                    </div>
+                </div>
+            `;
+            dialogContainer.scrollTop = dialogContainer.scrollHeight;
+
+            // Simulated net load delays
+            setTimeout(async () => {
+                const loader = document.getElementById(loadingBubbleId);
+                if (loader) loader.remove();
+
+                // 1. FUZZY TOKENIZED SEARCH ACROSS KNOWLEDGE BANK
+                let matchedTermKey = null;
+                const normText = text.toLowerCase();
+                
+                // Direct or token matching across PREDEFINED_TOPICS_DB keys and fields
+                for (const [key, data] of Object.entries(PREDEFINED_TOPICS_DB)) {
+                    if (normText.includes(key.replace(/_/g, ' ')) || 
+                        normText.includes(data.title.toLowerCase()) || 
+                        data.subject.toLowerCase().includes(normText) ||
+                        (data.revision && data.revision.bullets.some(b => normText.includes(b.toLowerCase())))) {
+                        matchedTermKey = key;
+                        break;
+                    }
+                }
+
+                // Or fallback check inside TECHNICAL_TERMS_DB
+                if (!matchedTermKey) {
+                    for (const [key, tData] of Object.entries(TECHNICAL_TERMS_DB)) {
+                        if (normText.includes(key.replace(/-/g, ' ')) || normText.includes(tData.term.toLowerCase())) {
+                            matchedTermKey = key;
+                            break;
+                        }
+                    }
+                }
+
+                let responseHtml = "";
+                const profMode = window.professorTypeSelected || 'strict';
+                const containerId = "tts-card-" + Date.now();
+
+                if (matchedTermKey && PREDEFINED_TOPICS_DB[matchedTermKey]) {
+                    const data = PREDEFINED_TOPICS_DB[matchedTermKey];
+                    const narr = getProfessorFeedbackBrief(profMode, 'explain', data.title);
+
+                    // Ultimate Interactive Multi-Tab concept card layout!
+                    responseHtml = `
+                        <div class="space-y-4" id="${containerId}">
+                            <div class="border-b border-indigo-250/30 dark:border-slate-800 pb-2 flex items-center justify-between flex-wrap gap-2">
+                                <div>
+                                    <h4 class="text-xs font-black dark:text-white uppercase tracking-tight">${data.title}</h4>
+                                    <span class="text-[8.5px] text-[#4f46e5] font-extrabold uppercase tracking-widest">${data.subject}</span>
+                                </div>
+                                <button onclick="window.toggleSpeechDemoNotes(document.getElementById('${containerId}-tabs-text').innerText, this)" class="px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/40 text-[9px] text-[#4f46e5] rounded-xl border border-indigo-200/20 font-black leading-none uppercase shrink-0">
+                                    <span class="tts-icon-play">🔊 Read Notes Outloud</span>
+                                    <span class="tts-wave-bar inline-block w-1 h-2 bg-indigo-500 rounded-sm ml-1 transform origin-bottom scale-y-50"></span>
+                                </button>
+                            </div>
+
+                            <p class="text-xs italic text-slate-600 dark:text-slate-400 font-semibold leading-relaxed">"${narr.intro}"</p>
+
+                            <!-- Interactive tab buttons -->
+                            <div class="flex flex-wrap gap-1.5 border-b border-slate-200 dark:border-slate-800/80 pb-1.5">
+                                <button onclick="switchChatTab('${containerId}', 'blueprint')" class="px-3 py-1 bg-indigo-600 text-white rounded-lg text-[9px] font-black uppercase tracking-wider chat-tab-btn" data-tab="blueprint">Exam Blueprint</button>
+                                <button onclick="switchChatTab('${containerId}', 'topper')" class="px-3 py-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 rounded-lg text-[9px] font-black uppercase tracking-wider chat-tab-btn" data-tab="topper">Topper Summary</button>
+                                <button onclick="switchChatTab('${containerId}', 'mental')" class="px-3 py-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 rounded-lg text-[9px] font-black uppercase tracking-wider chat-tab-btn" data-tab="mental">Mental Model</button>
+                                <button onclick="switchChatTab('${containerId}', 'viva')" class="px-3 py-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 rounded-lg text-[9px] font-black uppercase tracking-wider chat-tab-btn" data-tab="viva">Viva Test</button>
+                            </div>
+
+                            <!-- Tab Contents Container -->
+                            <div class="min-h-[160px] text-xs leading-relaxed select-text font-medium" id="${containerId}-tabs-text">
+                                <!-- Blueprint tab default -->
+                                <div class="space-y-3.5 chat-sub-tab" data-tab-content="blueprint">
+                                    <div class="p-3.5 bg-indigo-50/50 dark:bg-indigo-950/10 border border-indigo-200/20 rounded-xl">
+                                        <b class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-[9.5px] block mb-1">Passable Step Sequence to score 10/10:</b>
+                                        <ul class="space-y-1">
+                                            ${data.answer.steps.map((st, i) => `<li><b>S${i+1}:</b> ${st}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    <div class="p-3 bg-[#0d0d12] text-teal-400 rounded-xl font-mono text-center border border-slate-850">
+                                        <span class="text-slate-400 font-bold block mb-1 uppercase text-[8.5px]">Main Formula Stack</span>
+                                        ${data.summarize.formulas[0] || 'A x = lambda x'}
+                                    </div>
+                                </div>
+
+                                <!-- Topper summary -->
+                                <div class="space-y-2.5 hidden chat-sub-tab" data-tab-content="topper">
+                                    <div class="p-3.5 bg-emerald-50/50 dark:bg-emerald-950/10 border border-emerald-200/20 rounded-xl">
+                                        <b class="text-emerald-600 dark:text-emerald-400 uppercase tracking-widest text-[9.5px] block mb-1">5 High-Yield Academic Review Points:</b>
+                                        <ul class="list-disc pl-4 space-y-1">
+                                            ${data.summarize.points.map(pt => `<li>${pt}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    <div class="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                                        <b class="text-[#4f46e5] text-[9.5px] uppercase tracking-widest block mb-1">Syllabus Frequent Repeated PYQs:</b>
+                                        <p class="font-black text-rose-500">${data.summarize.pyqs[0]}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Mental analogy -->
+                                <div class="space-y-2.5 hidden chat-sub-tab" data-tab-content="mental">
+                                    <div class="p-4 bg-amber-50/40 dark:bg-amber-950/5 border border-amber-200/20 rounded-xl italic font-black text-slate-800 dark:text-slate-200">
+                                        💡 "${data.analogy.core}"
+                                    </div>
+                                    <div class="p-3.5 bg-rose-50/50 dark:bg-rose-950/10 border border-rose-220/20 rounded-xl">
+                                        <b class="text-rose-500 text-[9px] uppercase tracking-widest block mb-0.5">Evaluation Caution:</b>
+                                        <p class="font-bold text-slate-700 dark:text-slate-300">${data.explain.trap}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Viva Qs tab -->
+                                <div class="space-y-2 hidden chat-sub-tab" data-tab-content="viva">
+                                    <span class="text-[9px] font-black uppercase tracking-wider text-slate-400 block mb-1">Click to reveal expected answer verdicts</span>
+                                    ${data.viva_qs.map((vq, idx) => `
+                                        <div onclick="this.querySelector('.viva-sub-ans').classList.toggle('hidden')" class="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl cursor-pointer hover:border-indigo-650 flex flex-col gap-1.5 transition-colors select-none">
+                                            <p class="font-black flex items-start gap-1">
+                                                <span class="text-indigo-600 dark:text-indigo-400">Q${idx+1}:</span>
+                                                <span class="text-slate-800 dark:text-[#f3f4f6]">${vq.q}</span>
+                                            </p>
+                                            <p class="viva-sub-ans hidden font-extrabold text-emerald-600 dark:text-emerald-400 pt-1.5 border-t border-slate-150 text-[11px] select-text">
+                                                Expected Answer: ${vq.a}
+                                            </p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <p class="text-[9.5px] font-extrabold text-slate-400 uppercase tracking-wide border-t border-slate-200 dark:border-slate-800 pt-2.5">
+                                ${narr.outro}
+                            </p>
+                        </div>
+                    `;
+                } else if (matchedTermKey && TECHNICAL_TERMS_DB[normText] || TECHNICAL_TERMS_DB[matchedTermKey]) {
+                    // Match fallback detail decoded
+                    const t = TECHNICAL_TERMS_DB[matchedTermKey];
+                    responseHtml = `
+                        <div class="space-y-4" id="${containerId}">
+                            <div class="border-b border-indigo-250/30 dark:border-slate-800 pb-2 flex items-center justify-between flex-wrap gap-2">
+                                <div>
+                                    <h4 class="text-xs font-black dark:text-white uppercase tracking-tight">${t.term}</h4>
+                                    <span class="text-[8.5px] text-[#4f46e5] font-extrabold uppercase tracking-widest">Diagnostic Code Reader</span>
+                                </div>
+                                <button onclick="window.toggleSpeechDemoNotes(document.getElementById('${containerId}-tabs-text').innerText, this)" class="px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/40 text-[9px] text-[#4f46e5] rounded-xl border border-indigo-200/20 font-black leading-none uppercase shrink-0">
+                                    <span class="tts-icon-play">🔊 Read Notes Outloud</span>
+                                    <span class="tts-wave-bar inline-block w-1 h-2 bg-indigo-500 rounded-sm ml-1 transform origin-bottom scale-y-50"></span>
+                                </button>
+                            </div>
+
+                            <div id="${containerId}-tabs-text" class="space-y-3 font-semibold select-text">
+                                <p class="text-xs leading-relaxed text-slate-800 dark:text-slate-200"><b>Axiom Definition:</b> ${t.definition}</p>
+                                <div class="p-3 bg-[#0d0d12] text-sky-400 rounded-xl font-mono text-center">
+                                    <span class="text-[8px] text-slate-500 uppercase block mb-1">Standard Formula</span>
+                                    ${t.formula}
+                                </div>
+                                <div class="p-3.5 bg-yellow-50/50 dark:bg-yellow-950/10 border border-yellow-250/20 rounded-xl text-slate-700 dark:text-slate-300">
+                                    <b>💡 Analogous Analogy:</b> ${t.analogy}
+                                </div>
+                                <div class="p-3.5 bg-rose-50/50 dark:bg-rose-950/10 border border-rose-250/20 rounded-xl text-rose-600 dark:text-rose-400">
+                                    <b>⚠️ Grading Caution:</b> ${t.exam_focus}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Generative Syllabus Answer Engine - Smart heuristics!
+                    // If the keyword doesn't exist, we synthesize a dynamic response!
+                    const generatedTopic = text;
+                    let calculatedSubject = "Engineering Core Concepts";
+                    let formulaPlaceholder = "H(x) \\Psi = E \\Psi";
+                    let syllabusOutline = ["Understand foundational prerequisite equations.", "Check boundary values continuous limits.", "Maintain clean coordinate drawings.", "List physical applications in solid/energy mechanics."];
+                    let analogyStp = "Think of a balance beam system - shifting values on one side demands symmetric actions on the opposing terminal to maintain absolute equilibrium.";
+                    
+                    if (normText.includes("matrix") || normText.includes("eigen") || normText.includes("integral") || normText.includes("derivative")) {
+                        calculatedSubject = "Engineering Mathematics I";
+                        formulaPlaceholder = "\\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} \\quad \\implies \\quad Y = [A] \\cdot X";
+                    } else if (normText.includes("pointer") || normText.includes("array") || normText.includes("recursive") || normText.includes("function") || normText.includes("loop") || normText.includes("memory")) {
+                        calculatedSubject = "PPS C Programming";
+                        formulaPlaceholder = "int *ptr = &variable_address; \\quad sizeof(struct) \\approx additive";
+                    } else if (normText.includes("hardness") || normText.includes("cell") || normText.includes("battery") || normText.includes("water") || normText.includes("chemistry")) {
+                        calculatedSubject = "Engineering Chemistry";
+                        formulaPlaceholder = "E_{cell} = E^0 - \\frac{0.0591}{n} \\log Q \\quad \\text{hardness} = mg/L";
+                    } else if (normText.includes("laser") || normText.includes("fringe") || normText.includes("optics") || normText.includes("emission") || normText.includes("light")) {
+                        calculatedSubject = "Engineering Physics";
+                        formulaPlaceholder = "N_2 / N_1 = e^{-\\Delta E / kT}";
+                    } else if (normText.includes("circuit") || normText.includes("current") || normText.includes("voltage") || normText.includes("loop") || normText.includes("power") || normText.includes("impedance")) {
+                        calculatedSubject = "BEEE (Electric Circuits)";
+                        formulaPlaceholder = "V = I \\cdot Z \\quad P = V I \\cos \\phi";
+                    }
+
+                    responseHtml = `
+                        <div class="space-y-4" id="${containerId}">
+                            <div class="border-b border-indigo-250/30 dark:border-slate-800 pb-2 flex items-center justify-between flex-wrap gap-2">
+                                <div>
+                                    <h4 class="text-xs font-black dark:text-white uppercase tracking-tight">${generatedTopic}</h4>
+                                    <span class="text-[8.5px] text-[#4f46e5] font-extrabold uppercase tracking-widest">${calculatedSubject} Syllabus Brief</span>
+                                </div>
+                                <button onclick="window.toggleSpeechDemoNotes(document.getElementById('${containerId}-tabs-text').innerText, this)" class="px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/40 text-[9px] text-[#4f46e5] rounded-xl border border-indigo-200/20 font-black leading-none uppercase shrink-0">
+                                    <span class="tts-icon-play">🔊 Read Notes Outloud</span>
+                                    <span class="tts-wave-bar inline-block w-1 h-2 bg-indigo-500 rounded-sm ml-1 transform origin-bottom scale-y-50"></span>
+                                </button>
+                            </div>
+
+                            <p class="text-xs italic text-slate-500 dark:text-slate-400">Offline Knowledge brief compiled under ${calculatedSubject} standards:</p>
+
+                            <div id="${containerId}-tabs-text" class="space-y-3 select-text font-semibold">
+                                <div class="p-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl">
+                                    <b class="text-indigo-600 dark:text-indigo-400 text-[10px] block uppercase mb-1">Passable Step Sequence to score full mark:</b>
+                                    <ol class="list-decimal pl-4 text-xs select-text space-y-1">
+                                        ${syllabusOutline.map(p => `<li>${p}</li>`).join('')}
+                                    </ol>
+                                </div>
+                                <div class="p-3 bg-[#0d0d12] text-indigo-400 rounded-xl font-mono text-center">
+                                    <span class="text-slate-500 text-[8px] uppercase block mb-1">Axiomatic Formula</span>
+                                    ${formulaPlaceholder}
+                                </div>
+                                <div class="p-3.5 bg-amber-50/50 dark:bg-slate-950/20 border border-amber-250/20 rounded-2xl">
+                                    <b class="text-amber-500 text-[9.5px] uppercase tracking-wider block mb-1">💡 Memory Analogy Hook:</b>
+                                    <p class="text-xs">${analogyStp}</p>
+                                </div>
+                                <div class="p-3.5 bg-rose-50/45 dark:bg-rose-950/10 border border-rose-220/20 rounded-2xl">
+                                    <b class="text-rose-500 text-[10px] uppercase block mb-1">⚠️ Warning Grading Pitfall:</b>
+                                    <p class="text-[11px] font-black text-rose-700 dark:text-rose-400">Double check calculations boundaries and append constants identities where required! Leaving final grid scalar parameters alone creates a subtraction of 2 marks.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Append response to conversation messages grid
+                dialogContainer.innerHTML += `
+                    <div class="chat-message flex items-start gap-3 select-text animate-fade-up">
+                        <div class="w-8 h-8 bg-indigo-50 dark:bg-indigo-950/40 rounded-lg flex items-center justify-center text-xs shadow-md border border-slate-200 dark:border-slate-800 select-none">${av}</div>
+                        <div class="bg-[#fcfcff] dark:bg-[#111116] border border-slate-200 dark:border-slate-800 rounded-r-2xl rounded-bl-2xl p-5 max-w-[85%] text-xs shadow-xl space-y-4">
+                            <div class="border-b border-slate-200 dark:border-slate-800 pb-2.5">
+                                <span class="text-[9px] font-black text-rose-500 uppercase tracking-widest block mb-0.5">Response Mode: ${profTitle}</span>
+                                <span class="text-[8.5px] font-black text-slate-400 tracking-wider">PREMIUM OFFLINE ENGINE</span>
+                            </div>
+                            
+                            ${responseHtml}
+                        </div>
+                    </div>
+                `;
+                dialogContainer.scrollTop = dialogContainer.scrollHeight;
+            }, 600);
+        };
+
+        // Chat sub tab switching
+        window.switchChatTab = function(containerId, tabKey) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Update buttons styling
+            container.querySelectorAll('.chat-tab-btn').forEach(btn => {
+                const btnTab = btn.getAttribute('data-tab');
+                if(btnTab === tabKey) {
+                    btn.className = "px-3 py-1 bg-indigo-600 text-white rounded-lg text-[9px] font-black uppercase tracking-wider chat-tab-btn";
+                } else {
+                    btn.className = "px-3 py-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 rounded-lg text-[9px] font-black uppercase tracking-wider chat-tab-btn";
+                }
+            });
+
+            // Update contents display
+            container.querySelectorAll('[data-tab-content]').forEach(div => {
+                const divTab = div.getAttribute('data-tab-content');
+                if(divTab === tabKey) {
+                    div.classList.remove('hidden');
+                } else {
+                    div.classList.add('hidden');
+                }
+            });
+        };
+
         init()
     </script>
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/ai-widget.ts"></script>
+
+
+
+
 
 
 
