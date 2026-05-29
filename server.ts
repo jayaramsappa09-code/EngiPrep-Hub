@@ -99,9 +99,11 @@ app.use(express.json());
 
 app.use('/api', apiLimiter);
 
+const isProduction = process.env.NODE_ENV === 'production' && !process.argv[1]?.endsWith('server.ts');
+
 // Helper for SEO clean URLs mapping
 const getFilePath = (filename: string) => {
-  const folder = process.env.NODE_ENV === 'production' ? 'dist' : '';
+  const folder = isProduction ? 'dist' : '';
   return path.join(process.cwd(), folder, filename);
 };
 
@@ -1063,7 +1065,7 @@ You MUST respond strictly with a single JSON object containing the following key
 
 // Vite Middleware for development
 async function setupVite() {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!isProduction) {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'mpa',
