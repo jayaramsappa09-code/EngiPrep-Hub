@@ -15,6 +15,17 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -55,6 +66,116 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/semester-2">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/semester-2">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -295,33 +416,137 @@
             }
         }
 
+        function getSubjectColorClasses(sub) {
+            const title = (sub.title || '').toLowerCase();
+            const code = (sub.code || '').toLowerCase();
+            
+            let textClass = 'text-blue-600 dark:text-blue-400';
+            let hoverTextClass = 'group-hover:text-blue-600 dark:group-hover:text-blue-400';
+            let borderClass = 'border-blue-100 dark:border-blue-900/30';
+            let bgClass = 'bg-blue-500/10';
+            let circleClass = 'bg-blue-50/50 dark:bg-blue-950/20 group-hover:bg-blue-100/50 dark:group-hover:bg-blue-900/30';
+            
+            if (title.includes('mathematics') || title.includes('maths') || code === 'm1' || code === 'm2') {
+                textClass = 'text-purple-600 dark:text-purple-400';
+                hoverTextClass = 'group-hover:text-purple-600 dark:group-hover:text-purple-400';
+                borderClass = 'border-purple-100 dark:border-purple-900/30';
+                bgClass = 'bg-purple-500/10';
+                circleClass = 'bg-purple-50/50 dark:bg-purple-950/20 group-hover:bg-purple-100/50 dark:group-hover:bg-purple-900/30';
+            } else if (title.includes('chemistry') || code === 'ch') {
+                textClass = 'text-emerald-500 dark:text-emerald-400';
+                hoverTextClass = 'group-hover:text-emerald-500 dark:group-hover:text-emerald-400';
+                borderClass = 'border-emerald-100 dark:border-emerald-900/30';
+                bgClass = 'bg-emerald-500/10';
+                circleClass = 'bg-emerald-50/50 dark:bg-emerald-950/20 group-hover:bg-emerald-100/50 dark:group-hover:bg-emerald-900/30';
+            } else if (title.includes('english') || code === 'en') {
+                textClass = 'text-amber-500 dark:text-amber-450';
+                hoverTextClass = 'group-hover:text-amber-500 dark:group-hover:text-amber-400';
+                borderClass = 'border-amber-100 dark:border-amber-900/30';
+                bgClass = 'bg-amber-500/10';
+                circleClass = 'bg-amber-50/50 dark:bg-amber-950/15 group-hover:bg-amber-100/50 dark:group-hover:bg-amber-900/25';
+            } else if (title.includes('programming') || title.includes('data structure') || code === 'c' || code === 'ds') {
+                textClass = 'text-emerald-500 dark:text-emerald-450';
+                hoverTextClass = 'group-hover:text-emerald-500 dark:group-hover:text-emerald-400';
+                borderClass = 'border-emerald-100 dark:border-emerald-900/30';
+                bgClass = 'bg-emerald-500/10';
+                circleClass = 'bg-emerald-50/50 dark:bg-emerald-950/20 group-hover:bg-emerald-100/50 dark:group-hover:bg-emerald-900/30';
+            } else if (title.includes('electrical') || title.includes('beee')) {
+                textClass = 'text-orange-500 dark:text-orange-400';
+                hoverTextClass = 'group-hover:text-orange-500 dark:group-hover:text-orange-400';
+                borderClass = 'border-orange-100 dark:border-orange-900/30';
+                bgClass = 'bg-orange-500/10';
+                circleClass = 'bg-orange-50/50 dark:bg-orange-950/15 group-hover:bg-orange-100/50 dark:group-hover:bg-orange-900/25';
+            } else if (title.includes('graphics') || title.includes('drawing') || code === 'eg') {
+                textClass = 'text-cyan-500 dark:text-cyan-400';
+                hoverTextClass = 'group-hover:text-cyan-500 dark:group-hover:text-cyan-400';
+                borderClass = 'border-cyan-100 dark:border-cyan-900/30';
+                bgClass = 'bg-cyan-500/10';
+                circleClass = 'bg-cyan-50/50 dark:bg-cyan-950/20 group-hover:bg-cyan-100/50 dark:group-hover:bg-cyan-900/30';
+            } else if (title.includes('civil') || title.includes('mechanical') || code === 'bcme') {
+                textClass = 'text-sky-505 dark:text-sky-400';
+                hoverTextClass = 'group-hover:text-sky-500 dark:group-hover:text-sky-400';
+                borderClass = 'border-sky-100 dark:border-sky-900/30';
+                bgClass = 'bg-sky-500/10';
+                circleClass = 'bg-sky-50/50 dark:bg-sky-950/20 group-hover:bg-sky-100/50 dark:group-hover:bg-sky-900/30';
+            }
+            return { textClass, hoverTextClass, borderClass, bgClass, circleClass };
+        }
+
         function renderSubjects() {
             if (!allSubjects || allSubjects.length === 0) {
                 grid.innerHTML = `<div class="col-span-full py-20 text-center text-slate-400 italic">Curating Semester 2 archives. Coming soon.</div>`;
                 return;
             }
 
-            grid.innerHTML = allSubjects.map((sub, idx) => `
+            grid.innerHTML = allSubjects.map((sub, idx) => {
+                const colors = getSubjectColorClasses(sub);
+                return `
                 <div class="glass-card p-8 group relative overflow-hidden animate-fade-up bg-white dark:bg-slate-900 shadow-sm" style="animation-delay: ${idx * 0.1}s">
+                    <div class="absolute top-0 right-0 w-32 h-32 ${colors.circleClass} rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150"></div>
                     <div class="relative z-10">
-                        <div class="w-14 h-14 bg-slate-50 dark:bg-slate-950 border border-slate-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                             <span class="text-xl font-black text-blue-600 uppercase dark:text-blue-400">${sub.code || 'ENG'}</span>
+                        <div class="w-14 h-14 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                             <span class="text-xl font-black ${colors.textClass} uppercase">${sub.code || 'ENG'}</span>
                         </div>
-                        <h3 class="text-2xl font-extrabold text-slate-900 dark:text-slate-50 mb-2 truncate group-hover:text-blue-600 transition-colors">${sub.title}</h3>
+                        <h3 class="text-2xl font-extrabold text-slate-900 dark:text-slate-50 mb-2 truncate ${colors.hoverTextClass} transition-colors">${sub.title}</h3>
                         <p class="text-slate-500 text-sm font-medium mb-10 line-clamp-2 dark:text-slate-400">${sub.description || 'Access precisely curated notes and exam resources.'}</p>
-                        <div class="flex items-center justify-between pt-6 border-t border-slate-100">
+                        <div class="flex items-center justify-between pt-6 border-t border-slate-105 dark:border-slate-800">
                             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">R23 Regulation</span>
-                            <a href="/subject.html?sub=${encodeURIComponent(sub.title)}" class="text-xs font-black text-blue-600 hover:translate-x-1 transition-transform dark:text-blue-400">Access Resources →</a>
+                            <a href="/subject.html?sub=${encodeURIComponent(sub.title)}" class="text-xs font-black ${colors.textClass} hover:translate-x-1 transition-transform">Access Resources →</a>
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         init();
     </script>
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/ai-widget.ts"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

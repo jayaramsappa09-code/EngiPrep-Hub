@@ -156,7 +156,55 @@ const cleanSubjectRoutes = [
   { path: '/basic-civil-and-mechanical-engineering', file: 'basic-civil-mechanical-engineering.html' }
 ];
 
+const restructuredUnitRoutes = [
+  { path: '/maths/unit-1', file: 'engineering-mathematics-unit-1.html' },
+  { path: '/maths/unit-2', file: 'engineering-mathematics-unit-2.html' },
+  { path: '/maths/unit-3', file: 'engineering-mathematics-unit-3.html' },
+  { path: '/maths/unit-4', file: 'engineering-mathematics-unit-4.html' },
+  { path: '/maths/unit-5', file: 'engineering-mathematics-unit-5.html' },
+  
+  { path: '/physics/wave-optics', file: 'engineering-physics-unit-1.html' },
+  { path: '/physics/lasers', file: 'engineering-physics-unit-2.html' },
+  { path: '/physics/unit-1', file: 'engineering-physics-unit-1.html' },
+  { path: '/physics/unit-2', file: 'engineering-physics-unit-2.html' },
+  { path: '/physics/unit-3', file: 'engineering-physics-unit-3.html' },
+  { path: '/physics/unit-4', file: 'engineering-physics-unit-4.html' },
+  { path: '/physics/unit-5', file: 'engineering-physics-unit-5.html' },
+  
+  { path: '/c-programming/structures-unions', file: 'c-programming-unit-1.html' },
+  { path: '/c-programming/pointers', file: 'c-programming-unit-2.html' },
+  { path: '/c-programming/unit-1', file: 'c-programming-unit-1.html' },
+  { path: '/c-programming/unit-2', file: 'c-programming-unit-2.html' },
+  { path: '/c-programming/unit-3', file: 'c-programming-unit-3.html' },
+  { path: '/c-programming/unit-4', file: 'c-programming-unit-4.html' },
+  { path: '/c-programming/unit-5', file: 'c-programming-unit-5.html' },
+  
+  { path: '/engineering-graphics/ellipse', file: 'engineering-graphics-lab.html' },
+  { path: '/engineering-graphics/projections', file: 'engineering-graphics-enter-lab.html' },
+  
+  { path: '/chemistry/water-demineralization', file: 'chemistry-unit-1.html' },
+  { path: '/chemistry/electrochemistry', file: 'chemistry-unit-2.html' },
+  { path: '/chemistry/unit-1', file: 'chemistry-unit-1.html' },
+  { path: '/chemistry/unit-2', file: 'chemistry-unit-2.html' },
+  { path: '/chemistry/unit-3', file: 'chemistry-unit-3.html' },
+  { path: '/chemistry/unit-4', file: 'chemistry-unit-4.html' },
+  { path: '/chemistry/unit-5', file: 'chemistry-unit-5.html' },
+  
+  { path: '/beee/superposition', file: 'basic-electrical-engineering-unit-1.html' },
+  { path: '/beee/power-factor', file: 'basic-electrical-engineering-unit-2.html' },
+  { path: '/beee/unit-1', file: 'basic-electrical-engineering-unit-1.html' },
+  { path: '/beee/unit-2', file: 'basic-electrical-engineering-unit-2.html' },
+  { path: '/beee/unit-3', file: 'basic-electrical-engineering-unit-3.html' },
+  { path: '/beee/unit-4', file: 'basic-electrical-engineering-unit-4.html' },
+  { path: '/beee/unit-5', file: 'basic-electrical-engineering-unit-5.html' }
+];
+
 cleanSubjectRoutes.forEach(route => {
+  app.get(route.path, (req, res) => res.sendFile(getFilePath(route.file)));
+  app.get(`${route.path}/`, (req, res) => res.sendFile(getFilePath(route.file)));
+});
+
+restructuredUnitRoutes.forEach(route => {
   app.get(route.path, (req, res) => res.sendFile(getFilePath(route.file)));
   app.get(`${route.path}/`, (req, res) => res.sendFile(getFilePath(route.file)));
 });

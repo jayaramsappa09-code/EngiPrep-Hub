@@ -1661,4 +1661,26 @@ document.addEventListener('DOMContentLoaded', () => {
             window.showCookiePolicyModal();
         });
     });
+
+    // Initialize the Local Command Palette
+    if (typeof window !== 'undefined' && window.COMMAND_PALETTE) {
+        window.COMMAND_PALETTE.init();
+    }
 });
+
+// Import and register advanced offline AI subsystems
+import { AI_ENGINE } from './ai/engine/coreEngine.js';
+import { AI_ROUTER } from './ai/router/router.js';
+import { FUZZY_SEARCH } from './ai/search/searchEngine.js';
+import { COMMAND_PALETTE } from './ai/search/commandPalette.js';
+import { AI_MEMORY } from './ai/memory/memory.js';
+
+if (typeof window !== 'undefined') {
+    window.AI_ENGINE = AI_ENGINE;
+    window.AI_ROUTER = AI_ROUTER;
+    window.FUZZY_SEARCH = FUZZY_SEARCH;
+    window.COMMAND_PALETTE = COMMAND_PALETTE;
+    window.AI_MEMORY = AI_MEMORY;
+}
+
+
