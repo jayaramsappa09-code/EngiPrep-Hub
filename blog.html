@@ -15,6 +15,20 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -61,6 +75,146 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/blog">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/blog">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -213,20 +367,68 @@
             </div>
         </section>
 
-        <!-- Categories Filter Pill Bar -->
-        <section class="mb-12">
-            <div class="flex flex-wrap items-center justify-center gap-3 border p-4 rounded-3xl max-w-3xl mx-auto bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                <button onclick="filterCategory('All')" id="cat-All" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-primary bg-primary transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer text-white">All Articles</button>
-                <button onclick="filterCategory('Programming')" id="cat-Programming" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">Programming</button>
-                <button onclick="filterCategory('Mathematics')" id="cat-Mathematics" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">Mathematics</button>
-                <button onclick="filterCategory('Exam Prep')" id="cat-Exam-Prep" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">Exam Prep</button>
-                <button onclick="filterCategory('General')" id="cat-General" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">General</button>
-            </div>
-        </section>
+        <!-- View Selection Tabs -->
+        <div class="flex items-center justify-center gap-4 mb-16 border-b border-slate-200 dark:border-slate-800 pb-1 max-w-xl mx-auto px-4" id="view-tabs-container">
+            <button onclick="switchView('articles')" id="tab-articles" class="px-6 py-3 text-xs font-black uppercase tracking-widest text-primary border-b-2 border-primary transition-all cursor-pointer focus:outline-none">Student Perspectives</button>
+            <button onclick="switchView('blueprints')" id="tab-blueprints" class="px-6 py-3 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer flex items-center gap-2 focus:outline-none">SEO Blueprints Vault <span class="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-full font-black">200</span></button>
+        </div>
 
-        <!-- Blog Grid -->
-        <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="col-span-full py-20 text-center text-slate-500 dark:text-slate-400 font-bold italic">Loading articles...</div>
+        <!-- CONTAINER 1: Active Student Articles View -->
+        <div id="view-articles" class="block">
+            <!-- Categories Filter Pill Bar -->
+            <section class="mb-12">
+                <div class="flex flex-wrap items-center justify-center gap-3 border p-4 rounded-3xl max-w-3xl mx-auto bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <button onclick="filterCategory('All')" id="cat-All" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-primary bg-primary transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer text-white">All Articles</button>
+                    <button onclick="filterCategory('Programming')" id="cat-Programming" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">Programming</button>
+                    <button onclick="filterCategory('Mathematics')" id="cat-Mathematics" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">Mathematics</button>
+                    <button onclick="filterCategory('Exam Prep')" id="cat-Exam-Prep" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">Exam Prep</button>
+                    <button onclick="filterCategory('General')" id="cat-General" class="px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest border bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:bg-slate-700/50 hover:border-white/10 transition-all duration-300 cursor-pointer border-slate-200 dark:border-slate-800">General</button>
+                </div>
+            </section>
+
+            <!-- Blog Grid -->
+            <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="col-span-full py-20 text-center text-slate-500 dark:text-slate-400 font-bold italic">Loading articles...</div>
+            </div>
+        </div>
+
+        <!-- CONTAINER 2: Interactive JNTUK R23 200 SEO Topic Blueprints Vault -->
+        <div id="view-blueprints" class="hidden">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 mb-12 shadow-sm">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-5">
+                        <label for="blueprint-search" class="sr-only">Search Blueprints</label>
+                        <input type="text" id="blueprint-search" oninput="onBlueprintFilterChanged()" placeholder="Search keywords, slug patterns, subtopics or titles..." class="w-full px-5 py-4 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-slate-800 dark:text-slate-100 placeholder-slate-400">
+                    </div>
+                    <div class="lg:col-span-4 flex flex-wrap gap-2 items-center">
+                        <span class="text-xs uppercase tracking-widest font-black text-slate-400 dark:text-slate-500 mr-2">Difficulty:</span>
+                        <button onclick="selectBlueprintDiff('All')" id="diff-All" class="px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-primary text-white border border-primary transition-all cursor-pointer">All</button>
+                        <button onclick="selectBlueprintDiff('Easy')" id="diff-Easy" class="px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-white transition-all cursor-pointer">Easy</button>
+                        <button onclick="selectBlueprintDiff('Medium')" id="diff-Medium" class="px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-white transition-all cursor-pointer">Medium</button>
+                        <button onclick="selectBlueprintDiff('Hard')" id="diff-Hard" class="px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-white transition-all cursor-pointer">Hard</button>
+                    </div>
+                    <div class="lg:col-span-3 text-right">
+                        <span id="blueprint-count" class="text-xs font-black text-primary uppercase tracking-widest">Loading content matrix...</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800/80">
+                    <span class="text-xs uppercase tracking-widest font-black text-slate-400 dark:text-slate-500 block mb-4">SEO Content Categories:</span>
+                    <div class="flex flex-wrap gap-2" id="blueprint-categories-selector">
+                        <!-- Filled dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paginated blueprints container grid -->
+            <div id="blueprints-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Filled dynamically -->
+            </div>
+
+            <!-- Pagination controls -->
+            <div id="blueprints-pagination" class="flex items-center justify-center gap-6 mt-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl max-w-md mx-auto shadow-sm">
+                <!-- Filled dynamically -->
+            </div>
         </div>
 
         <!-- Academic Writers & Contributors -->
@@ -288,6 +490,23 @@
 
     <script type="module">
         import { supabase } from './src/supabase.js'
+        import { getBlogTopics } from './src/predefinedBlogs.ts'
+
+        // Predefined Blueprints logic
+        const rawTopics = getBlogTopics();
+        let currentBlueprintCategory = "All";
+        let currentBlueprintDiff = "All";
+        let blueprintPage = 1;
+        const blueprintPerPage = 9;
+
+        // Custom list of blueprint categories based on requirements
+        const blueprintCategoriesList = [
+            "All", "Notes", "PYQs", "Exam Prep", "Viva Questions", 
+            "Formulas", "Career", "Coding", "AI Search Optimized", "Calculator Pages", "High Traffic Evergreen Topics"
+        ];
+
+        // Speech instance container
+        let currentUtteranceObj = null;
 
         // Bulletproof high-quality fallback articles synced with the db seeds
         const fallbackPosts = [
@@ -348,12 +567,15 @@
             }
 
             renderPosts(allPosts);
+            initBlueprints();
         }
 
         function renderPosts(posts) {
             const grid = document.getElementById('blog-grid');
-            if (!posts || posts.length === 0) {
-                grid.innerHTML = '<div class="col-span-full py-20 text-center text-slate-500 dark:text-slate-400 font-bold italic">No articles found in this category. Check back soon!</div>';
+            if (!grid || posts.length === 0) {
+                if (grid) {
+                    grid.innerHTML = '<div class="col-span-full py-20 text-center text-slate-500 dark:text-slate-400 font-bold italic">No articles found in this category. Check back soon!</div>';
+                }
                 return;
             }
 
@@ -424,11 +646,375 @@
             }
         };
 
+        // --- Tab Switching Navigation System ---
+        window.switchView = function(view) {
+            const articlesTab = document.getElementById('tab-articles');
+            const blueprintsTab = document.getElementById('tab-blueprints');
+            const articlesView = document.getElementById('view-articles');
+            const blueprintsView = document.getElementById('view-blueprints');
+
+            if (view === 'articles') {
+                articlesTab.className = "px-6 py-3 text-xs font-black uppercase tracking-widest text-primary border-b-2 border-primary transition-all cursor-pointer focus:outline-none";
+                blueprintsTab.className = "px-6 py-3 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer flex items-center gap-2 focus:outline-none";
+                articlesView.style.display = 'block';
+                blueprintsView.style.display = 'none';
+            } else {
+                blueprintsTab.className = "px-6 py-3 text-xs font-black uppercase tracking-widest text-primary border-b-2 border-primary transition-all cursor-pointer flex items-center gap-2 focus:outline-none";
+                articlesTab.className = "px-6 py-3 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer focus:outline-none";
+                articlesView.style.display = 'none';
+                blueprintsView.style.display = 'block';
+                renderBlueprints();
+            }
+        };
+
+        // --- Blueprints Feature Methods ---
+        function initBlueprints() {
+            // Render Blueprint categories bar
+            const bar = document.getElementById('blueprint-categories-selector');
+            if (bar) {
+                bar.innerHTML = blueprintCategoriesList.map(cat => {
+                    const isSelected = cat === currentBlueprintCategory;
+                    const btnClass = isSelected 
+                        ? "px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-xl bg-primary text-white border border-primary transition-all cursor-pointer"
+                        : "px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 transition-all cursor-pointer";
+                    return `<button onclick="filterBlueprintCategory('${cat}')" id="bluecat-${cat.replace(/\s+/g, '-')}" class="${btnClass}">${cat}</button>`;
+                }).join('');
+            }
+            renderBlueprints();
+        }
+
+        window.filterBlueprintCategory = function(cat) {
+            currentBlueprintCategory = cat;
+            blueprintPage = 1;
+            
+            // Highlight categories
+            blueprintCategoriesList.forEach(c => {
+                const btn = document.getElementById(`bluecat-${c.replace(/\s+/g, '-')}`);
+                if (btn) {
+                    if (c === cat) {
+                        btn.className = "px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-xl bg-primary text-white border border-primary transition-all cursor-pointer";
+                    } else {
+                        btn.className = "px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 transition-all cursor-pointer";
+                    }
+                }
+            });
+            renderBlueprints();
+        };
+
+        window.selectBlueprintDiff = function(diff) {
+            currentBlueprintDiff = diff;
+            blueprintPage = 1;
+
+            ['All', 'Easy', 'Medium', 'Hard'].forEach(d => {
+                const btn = document.getElementById(`diff-${d}`);
+                if (btn) {
+                    if (d === diff) {
+                        btn.className = "px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-primary text-white border border-primary transition-all cursor-pointer";
+                    } else {
+                        btn.className = "px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-white border border-transparent transition-all cursor-pointer";
+                    }
+                }
+            });
+            renderBlueprints();
+        };
+
+        window.onBlueprintFilterChanged = function() {
+            blueprintPage = 1;
+            renderBlueprints();
+        };
+
+        // Clip board helper
+        window.copyTextToClipboard = function(text, elId) {
+            navigator.clipboard.writeText(text).then(() => {
+                const tip = document.getElementById(elId);
+                if (tip) {
+                    const original = tip.innerText;
+                    tip.innerText = "COPIED!";
+                    tip.classList.add('text-emerald-500');
+                    setTimeout(() => {
+                        tip.innerText = original;
+                        tip.classList.remove('text-emerald-500');
+                    }, 1200);
+                }
+            });
+        };
+
+        // Text-To-Speech lesson playback engine
+        window.playBlueprintTTS = function(text, buttonId) {
+            const btn = document.getElementById(buttonId);
+            if (!btn) return;
+
+            // Stop if already speaking
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                if (currentUtteranceObj) {
+                    btn.innerHTML = `<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg> Read Outline`;
+                    btn.classList.remove('bg-emerald-500/20', 'text-emerald-500');
+                    currentUtteranceObj = null;
+                    return;
+                }
+            }
+
+            // Normalise structural text to clean sentence flow
+            const cleanText = text.replace(/[\d\.\-\#\*]/g, ' ').replace(/\s+/g, ' ');
+            const prefix = "This is a study outline blueprint powered by EngiPrep Hub content strategy: ";
+            
+            const utterance = new SpeechSynthesisUtterance(prefix + cleanText);
+            utterance.rate = 1.05;
+            utterance.pitch = 1.0;
+
+            utterance.onend = () => {
+                btn.innerHTML = `<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg> Read Outline`;
+                btn.classList.remove('bg-emerald-500/20', 'text-emerald-500');
+                currentUtteranceObj = null;
+            };
+
+            currentUtteranceObj = utterance;
+            btn.innerHTML = `<svg class="w-4 h-4 mr-2 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> PAUSE AUDIO`;
+            btn.classList.add('bg-emerald-500/20', 'text-emerald-500');
+            window.speechSynthesis.speak(utterance);
+        };
+
+        // Accordion visibility toggle
+        window.toggleBlueprintAccordion = function(contentId) {
+            const body = document.getElementById(contentId);
+            const icon = document.getElementById(`${contentId}-icon`);
+            if (body && icon) {
+                if (body.classList.contains('hidden')) {
+                    body.classList.remove('hidden');
+                    icon.style.transform = "rotate(180deg)";
+                } else {
+                    body.classList.add('hidden');
+                    icon.style.transform = "rotate(0deg)";
+                }
+            }
+        };
+
+        function renderBlueprints() {
+            const sQueryEl = document.getElementById('blueprint-search');
+            const searchQuery = sQueryEl ? sQueryEl.value.toLowerCase() : "";
+            
+            // Filter
+            const filtered = rawTopics.filter(t => {
+                const matchesCategory = (currentBlueprintCategory === "All" || t.category === currentBlueprintCategory);
+                const matchesDiff = (currentBlueprintDiff === "All" || t.difficulty === currentBlueprintDiff);
+                const matchesSearch = !searchQuery || 
+                    t.title.toLowerCase().includes(searchQuery) || 
+                    t.primaryKeyword.toLowerCase().includes(searchQuery) || 
+                    t.metaDescription.toLowerCase().includes(searchQuery) ||
+                    t.slug.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesDiff && matchesSearch;
+            });
+
+            // Set counter helper text
+            const textEl = document.getElementById('blueprint-count');
+            if (textEl) {
+                textEl.innerText = `SHOWN: ${filtered.length} OF ${rawTopics.length} METRICS`;
+            }
+
+            // Pagination boundaries
+            const total = filtered.length;
+            const totalPages = Math.ceil(total / blueprintPerPage);
+            if (blueprintPage > totalPages) blueprintPage = Math.max(1, totalPages);
+
+            const startIdx = (blueprintPage - 1) * blueprintPerPage;
+            const paginated = filtered.slice(startIdx, startIdx + blueprintPerPage);
+
+            const grid = document.getElementById('blueprints-grid');
+            if (!grid) return;
+
+            if (paginated.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-20 text-center text-slate-500 dark:text-slate-400 font-bold italic bg-white dark:bg-slate-900 border border-dashed rounded-3xl border-slate-200 dark:border-slate-800 p-6">No blueprint blueprints found matching your current filter and search conditions. Try extending your search!</div>`;
+                const pagControls = document.getElementById('blueprints-pagination');
+                if (pagControls) pagControls.innerHTML = "";
+                return;
+            }
+
+            // Design tokens mapped to standard human values
+            const categoryAccentColors = {
+                "Notes": "text-blue-500 dark:text-blue-400 bg-blue-500/10 border-blue-500/20",
+                "PYQs": "text-fuchsia-500 dark:text-fuchsia-400 bg-fuchsia-500/10 border-fuchsia-500/20",
+                "Exam Prep": "text-amber-500 dark:text-amber-400 bg-amber-500/10 border-amber-500/20",
+                "Viva Questions": "text-indigo-500 dark:text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
+                "Formulas": "text-purple-500 dark:text-purple-400 bg-purple-500/10 border-purple-500/20",
+                "Career": "text-sky-500 dark:text-sky-400 bg-sky-500/10 border-sky-500/20",
+                "Coding": "text-emerald-500 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+                "AI Search Optimized": "text-cyan-500 dark:text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
+                "Calculator Pages": "text-pink-500 dark:text-pink-400 bg-pink-500/10 border-pink-500/20",
+                "High Traffic Evergreen Topics": "text-teal-500 dark:text-teal-400 bg-teal-500/10 border-teal-500/20"
+            };
+
+            const difficultyColors = {
+                "Easy": "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/10 border-emerald-100 dark:border-emerald-900/20",
+                "Medium": "text-amber-600 bg-amber-50 dark:bg-amber-900/10 border-amber-100 dark:border-amber-900/20",
+                "Hard": "text-red-500 bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20"
+            };
+
+            grid.innerHTML = paginated.map((b, idx) => {
+                const colorTheme = categoryAccentColors[b.category] || "text-primary bg-primary/10 border-primary/20";
+                const diffTheme = difficultyColors[b.difficulty] || "text-slate-500 bg-slate-50";
+                const absoluteIndex = startIdx + idx + 1;
+                const dynamicCardId = `blueprint-card-${absoluteIndex}`;
+                const utteranceButtonId = `play-audio-btn-${absoluteIndex}`;
+
+                return `
+                    <div class="glass-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 hover:shadow-lg transition-all duration-300 flex flex-col justify-between" id="${dynamicCardId}">
+                        <div>
+                            <!-- Header Info row -->
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border ${colorTheme}">${b.category}</span>
+                                <span class="text-[10px] uppercase font-black tracking-widest text-slate-400 dark:text-slate-500">Row #${absoluteIndex}</span>
+                            </div>
+
+                            <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-3 leading-snug hover:text-primary transition-colors">${b.title}</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs mb-5 line-clamp-2 leading-relaxed">${b.metaDescription}</p>
+
+                            <!-- SEO metadata parameters table -->
+                            <div class="space-y-2 mb-5 border-t border-slate-100 dark:border-slate-800/80 pt-4">
+                                <div class="flex items-center justify-between text-[11px]">
+                                    <span class="text-slate-400 font-semibold uppercase tracking-wider">Primary Keyword:</span>
+                                    <button onclick="copyTextToClipboard('${b.primaryKeyword}', 'copy-kw-${idx}')" class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors font-mono font-medium flex items-center gap-1 cursor-pointer">
+                                        <span id="copy-kw-${idx}" class="font-mono">${b.primaryKeyword}</span>
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px]">
+                                    <span class="text-slate-400 font-semibold uppercase tracking-wider">URL Slug Pattern:</span>
+                                    <button onclick="copyTextToClipboard('${b.slug}', 'copy-slug-${idx}')" class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors font-mono font-medium text-xs max-w-[170px] truncate flex items-center justify-end gap-1 cursor-pointer">
+                                        <span id="copy-slug-${idx}" class="font-mono">${b.slug}</span>
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px]">
+                                    <span class="text-slate-400 font-semibold uppercase tracking-wider">Difficulty & Traffic:</span>
+                                    <div class="flex items-center gap-1.5 text-xs text-slate-700 dark:text-slate-300">
+                                        <span class="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border ${diffTheme}">${b.difficulty}</span>
+                                        <span class="font-mono">${b.trafficPotential}</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px]">
+                                    <span class="text-slate-400 font-semibold uppercase tracking-wider">Search Intent & Schema:</span>
+                                    <div class="flex items-center gap-1.5 font-mono text-slate-700 dark:text-slate-300">
+                                        <span>${b.searchIntent}</span>
+                                        <span>•</span>
+                                        <span>${b.schemaType}</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px]">
+                                    <span class="text-slate-400 font-semibold uppercase tracking-wider">Target JNTU Page:</span>
+                                    <a href="${b.internalLinks[0]}" class="text-primary hover:underline font-bold inline-flex items-center gap-1">
+                                        Silo Link
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Accordion Study Outline Section -->
+                        <div class="border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-2">
+                            <button onclick="toggleBlueprintAccordion('outline-body-${absoluteIndex}')" class="w-full flex items-center justify-between text-xs font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-primary transition-colors focus:outline-none cursor-pointer">
+                                <span>Study Roadmap Outline</span>
+                                <svg id="outline-body-${absoluteIndex}-icon" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            
+                            <div id="outline-body-${absoluteIndex}" class="hidden mt-4 pt-3 border-t border-slate-50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl overflow-y-auto max-h-[190px]">
+                                <pre class="text-[10px] leading-relaxed font-mono text-slate-600 dark:text-slate-300 whitespace-pre-wrap">${b.outline}</pre>
+                                
+                                <div class="mt-4 flex items-center justify-end">
+                                    <button id="${utteranceButtonId}" onclick="playBlueprintTTS(\`${b.outline.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`, '${utteranceButtonId}')" class="inline-flex items-center px-3 py-1.5 text-[9px] font-black uppercase tracking-widest bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg hover:bg-emerald-500 hover:text-slate-950 transition-all cursor-pointer">
+                                        <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg> Read Outline
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Render pagination controls
+            const pagEl = document.getElementById('blueprints-pagination');
+            if (pagEl) {
+                let ctrlsHtml = `
+                    <button onclick="changeBlueprintPage(${blueprintPage - 1})" class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-black uppercase tracking-wider text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed" ${blueprintPage === 1 ? 'disabled' : ''}>PREV</button>
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Page ${blueprintPage} of ${totalPages || 1}</span>
+                    <button onclick="changeBlueprintPage(${blueprintPage + 1})" class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-black uppercase tracking-wider text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed" ${blueprintPage >= totalPages ? 'disabled' : ''}>NEXT</button>
+                `;
+                pagEl.innerHTML = ctrlsHtml;
+            }
+        }
+
+        window.changeBlueprintPage = function(page) {
+            blueprintPage = page;
+            renderBlueprints();
+            
+            // Scroll back up to the blueprints search row for comfortable reading
+            const searchRow = document.getElementById('view-tabs-container');
+            if (searchRow) {
+                searchRow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+
         loadBlogPosts();
     </script>
     <script type="module" src="/src/ai-widget.ts"></script>
     <!-- Universal Academic Navigator & Active Live Alerts -->
     <script type="module" src="/src/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
