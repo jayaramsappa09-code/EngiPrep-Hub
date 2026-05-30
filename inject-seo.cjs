@@ -179,13 +179,33 @@ htmlFiles.forEach(file => {
         'terms-conditions.html': '/terms-and-conditions',
         'faq.html': '/faq',
         'blog.html': '/blog',
+        'blogs.html': '/blog',
         'tools.html': '/tools',
         'notes.html': '/notes',
         'cheat-sheets.html': '/cheat-sheets',
         'ai-professor.html': '/ai-professor-jntuk-study-assistant',
         'semester-1.html': '/jntuk-r23-semester-1',
         'semester-2.html': '/jntuk-r23-semester-2',
+        'tasks.html': '/tasks',
+        'exam-survival.html': '/exam-survival',
+        'contribute.html': '/contribute',
+        'dashboard.html': '/dashboard',
+        'quiz.html': '/quiz',
+        'bookmarks.html': '/bookmarks',
+        'profile.html': '/profile',
+        'admin.html': '/admin',
+        'auth.html': '/auth',
+        'reset-password.html': '/reset-password',
+        'notifications.html': '/notifications',
+        'disclaimer.html': '/disclaimer',
+        'videos.html': '/videos',
+        'all-subjects.html': '/all-subjects',
+        'subject.html': '/subject',
+        'note-viewer.html': '/note-viewer',
+        'beee-exam-prep.html': '/beee-exam-prep',
         'maths-1.html': '/engineering-mathematics-1-notes-jntuk-r23',
+        'engineering-mathematics-2.html': '/engineering-mathematics-2',
+        'unit-1-c-fundamentals.html': '/unit-1-c-fundamentals',
         'engineering-mathematics-unit-1.html': '/engineering-mathematics-unit-1-differential-equations',
         'engineering-mathematics-unit-2.html': '/engineering-mathematics-unit-2-higher-order-differential-equations',
         'engineering-mathematics-unit-3.html': '/engineering-mathematics-unit-3-partial-differential-equations',
@@ -238,6 +258,48 @@ htmlFiles.forEach(file => {
         'engineering-graphics-enter-lab.html': '/engineering-graphics-lab',
         'jntuk-r23-previous-question-papers.html': '/jntuk-r23-previous-question-papers'
     };
+
+    // 2.1 Link Sanitation: Replace all raw .html filenames and legacy paths inside href="..." attributes
+    const legacyPathReplacements = [
+        { from: '/engineering-physics', to: '/engineering-physics-notes-jntuk-r23' },
+        { from: '/engineering-chemistry', to: '/engineering-chemistry-notes-jntuk-r23' },
+        { from: '/engineering-mathematics', to: '/engineering-mathematics-1-notes-jntuk-r23' },
+        { from: '/engineering-graphics', to: '/engineering-graphics-notes' },
+        { from: '/communicative-english', to: '/communicative-english-notes' },
+        { from: '/basic-electrical-engineering', to: '/basic-electrical-engineering-notes' },
+        { from: '/c-programming', to: '/c-programming-notes-jntuk-r23' },
+        { from: '/data-structures', to: '/data-structures-notes-jntuk-r23' },
+        { from: '/basic-civil-and-mechanical-engineering', to: '/basic-civil-mechanical-engineering-notes' },
+        { from: '/privacy', to: '/privacy-policy' },
+        { from: '/terms', to: '/terms-and-conditions' },
+        { from: '/ai-professor', to: '/ai-professor-jntuk-study-assistant' },
+        { from: '/pyqs', to: '/jntuk-r23-previous-question-papers' }
+    ];
+
+    let contentBeforeSanitation = content;
+
+    // Quick Syntax Healing: Recover nested double-quotes inside onclick and href="javascript:..." attributes
+    content = content.replace(/onclick=["']window\.location\.href=["']\/([a-zA-Z0-9_-]+)["']["']/g, 'onclick="window.location.href=\'/$1\'"');
+    content = content.replace(/href=["']javascript:history\.length > 1 \? history\.back\(\) : window\.location\.href=["']\/([a-zA-Z0-9_-]+)["']["']/g, 'href="javascript:history.length > 1 ? history.back() : window.location.href=\'/$1\'"');
+
+    // First replace all legacy path prefixes preserving single/double quote delimiters
+    legacyPathReplacements.forEach(rep => {
+        const regexExact = new RegExp(`(href=["'])${rep.from}/?([\"'#])`, 'g');
+        content = content.replace(regexExact, `$1${rep.to}$2`);
+    });
+
+    // Replace exact filename matches preserving matched single or double quote style to prevent syntax breaks
+    for (const [rawFile, cleanUrl] of Object.entries(fileToCleanUrlMapping)) {
+        const regex = new RegExp(`(href=)(["'])(?:\\.\\/|\\/)?` + rawFile.replace('.', '\\.') + `(?:\\/)?(#.*?)?\\2`, 'g');
+        content = content.replace(regex, (match, prefix, quote, anchor) => {
+            const dest = cleanUrl + (anchor || '');
+            return `href=${quote}${dest}${quote}`;
+        });
+    }
+
+    if (content !== contentBeforeSanitation) {
+        modified = true;
+    }
 
     const cleanPath = fileToCleanUrlMapping[baseName] || (baseName === 'index.html' ? '/' : `/${baseName.replace('.html', '')}`);
     const canonicalUrl = `${domain}${cleanPath === '/' ? '' : cleanPath}`;
@@ -306,12 +368,12 @@ htmlFiles.forEach(file => {
 <!-- EngiPrepHubFooter -->
 <footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
   <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
-    <a href="/about.html" class="hover:text-white">About</a>
-    <a href="/contact.html" class="hover:text-white">Contact</a>
-    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
-    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
-    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
-    <a href="/faq.html" class="hover:text-white">FAQ</a>
+    <a href="/about" class="hover:text-white">About</a>
+    <a href="/contact" class="hover:text-white">Contact</a>
+    <a href="/privacy-policy" class="hover:text-white">Privacy</a>
+    <a href="/terms-and-conditions" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq" class="hover:text-white">FAQ</a>
   </div>
   <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
 </footer>

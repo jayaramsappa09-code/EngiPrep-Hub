@@ -326,12 +326,32 @@ const newCoreRoutes = [
   { path: '/terms-and-conditions', file: 'terms-conditions.html' },
   { path: '/faq', file: 'faq.html' },
   { path: '/blog', file: 'blog.html' },
+  { path: '/blogs', file: 'blog.html' },
   { path: '/tools', file: 'tools.html' },
   { path: '/notes', file: 'notes.html' },
   { path: '/cheat-sheets', file: 'cheat-sheets.html' },
   { path: '/ai-professor-jntuk-study-assistant', file: 'ai-professor.html' },
   { path: '/jntuk-r23-semester-1', file: 'semester-1.html' },
-  { path: '/jntuk-r23-semester-2', file: 'semester-2.html' }
+  { path: '/jntuk-r23-semester-2', file: 'semester-2.html' },
+  { path: '/tasks', file: 'tasks.html' },
+  { path: '/exam-survival', file: 'exam-survival.html' },
+  { path: '/contribute', file: 'contribute.html' },
+  { path: '/dashboard', file: 'dashboard.html' },
+  { path: '/quiz', file: 'quiz.html' },
+  { path: '/bookmarks', file: 'bookmarks.html' },
+  { path: '/profile', file: 'profile.html' },
+  { path: '/admin', file: 'admin.html' },
+  { path: '/auth', file: 'auth.html' },
+  { path: '/reset-password', file: 'reset-password.html' },
+  { path: '/notifications', file: 'notifications.html' },
+  { path: '/disclaimer', file: 'disclaimer.html' },
+  { path: '/videos', file: 'videos.html' },
+  { path: '/engineering-mathematics-2', file: 'engineering-mathematics-2.html' },
+  { path: '/unit-1-c-fundamentals', file: 'unit-1-c-fundamentals.html' },
+  { path: '/all-subjects', file: 'all-subjects.html' },
+  { path: '/subject', file: 'subject.html' },
+  { path: '/note-viewer', file: 'note-viewer.html' },
+  { path: '/beee-exam-prep', file: 'beee-exam-prep.html' }
 ];
 
 cleanSubjectRoutes.forEach(route => {
