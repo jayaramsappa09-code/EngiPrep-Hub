@@ -35,6 +35,7 @@ import { supabase } from './supabase.js';
 export async function enforceAuthentication() {
     const pathname = window.location.pathname;
     const filename = pathname.substring(pathname.lastIndexOf('/') + 1) || 'index.html';
+    const normalizedFilename = filename.includes('.') ? filename : filename + '.html';
     
     // Define exact protected pages
     const protectedPages = [
@@ -47,14 +48,14 @@ export async function enforceAuthentication() {
         'ai-professor.html'
     ];
     
-    const isProtected = protectedPages.some(page => filename === page);
-    const isNotePage = filename.includes('unit-') || 
-                       filename.includes('-unit') || 
-                       filename === 'engineering-graphics-lab.html' || 
-                       filename.includes('-notes.html') ||
-                       (filename.includes('mathematics') && filename.endsWith('.html')) ||
-                       (filename.includes('physics') && filename.endsWith('.html')) ||
-                       (filename.includes('chemistry') && filename.endsWith('.html'));
+    const isProtected = protectedPages.some(page => normalizedFilename === page);
+    const isNotePage = normalizedFilename.includes('unit-') || 
+                       normalizedFilename.includes('-unit') || 
+                       normalizedFilename === 'engineering-graphics-lab.html' || 
+                       normalizedFilename.includes('-notes.html') ||
+                       (normalizedFilename.includes('mathematics') && normalizedFilename.endsWith('.html')) ||
+                       (normalizedFilename.includes('physics') && normalizedFilename.endsWith('.html')) ||
+                       (normalizedFilename.includes('chemistry') && normalizedFilename.endsWith('.html'));
     
     const { data: { session } } = await supabase.auth.getSession();
     
