@@ -694,7 +694,7 @@ window.addEventListener("DOMContentLoaded", () => {
   if (!mount) return;
 
   // Identify Subject & Unit from pathname
-  // e.g., "/engineering-mathematics-unit-1.html" or "/data-structures-unit-3"
+  // e.g., "/engineering-mathematics-unit-1-matrices-and-cayley-hamilton-jntuk-r23" or "/data-structures-unit-3"
   const pathname = window.location.pathname;
   const filename = pathname.substring(pathname.lastIndexOf("/") + 1).replace(/\.html$/, "");
   
@@ -713,6 +713,25 @@ window.addEventListener("DOMContentLoaded", () => {
       subjectSlug = regexMatch[1];
       unitId = regexMatch[2];
     }
+  }
+
+  // Normalize Subject Slug for precise DATABASE mapping
+  if (subjectSlug === "engineering-chemistry" || subjectSlug === "chemistry-topper-notes") {
+    subjectSlug = "chemistry";
+  } else if (subjectSlug === "beee-notes" || subjectSlug === "basic-electrical-engineering" || subjectSlug === "basic-electrical-engineering-beee-notes-jntuk-r23") {
+    subjectSlug = "beee";
+  } else if (subjectSlug === "c-programming-notes" || subjectSlug === "pps" || subjectSlug === "programming" || subjectSlug === "c-programming-notes-pps-jntuk-r23") {
+    subjectSlug = "c-programming";
+  } else if (subjectSlug === "data-structures-basics" || subjectSlug === "dsa" || subjectSlug === "data-structures-notes-jntuk-r23") {
+    subjectSlug = "data-structures";
+  } else if (subjectSlug === "maths-1" || subjectSlug === "engineering-mathematics-unit" || subjectSlug === "engineering-mathematics-1-notes-jntuk-r23") {
+    subjectSlug = "engineering-mathematics";
+  }
+
+  // Normalize Unit ID to extract only the core identifier (e.g., "unit-1-wave..." -> "unit-1")
+  const unitDigitMatch = unitId.match(/unit-([1-5])/);
+  if (unitDigitMatch) {
+    unitId = `unit-${unitDigitMatch[1]}`;
   }
 
   // Load appropriate questions or load generic

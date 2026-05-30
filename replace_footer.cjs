@@ -49,7 +49,7 @@ const newFooterHtml = `<!-- Global Footer -->
                     <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-8">Resources</h4>
                     <ul class="text-sm text-slate-400 dark:text-slate-400 space-y-4">
                         <li><a href="/notes.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Study Notes PDF</a></li>
-                        <li><a href="/jntuk-r23-previous-question-papers" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">JNTUK Solved PYQs</a></li>
+                        <li><a href="/pyqs.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">JNTUK Solved PYQs</a></li>
                         <li><a href="/cheat-sheets.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Formula Sheets</a></li>
                         <li><a href="/tools.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">SGPA Calculators</a></li>
                     </ul>

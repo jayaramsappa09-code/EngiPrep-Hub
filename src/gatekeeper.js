@@ -33,46 +33,61 @@ import { supabase } from './supabase.js';
 })();
 
 export async function enforceAuthentication() {
-    const pathname = window.location.pathname;
-    const filename = pathname.substring(pathname.lastIndexOf('/') + 1) || 'index.html';
-    
-    // Define exact protected pages
-    const protectedPages = [
-        'dashboard.html',
-        'profile.html',
-        'bookmarks.html',
-        'tasks.html',
-        'admin.html',
-        'notifications.html',
-        'ai-professor.html'
-    ];
-    
-    const isProtected = protectedPages.some(page => filename === page);
-    const isNotePage = filename.includes('unit-') || 
-                       filename.includes('-unit') || 
-                       filename === 'engineering-graphics-lab.html' || 
-                       filename.includes('-notes.html') ||
-                       (filename.includes('mathematics') && filename.endsWith('.html')) ||
-                       (filename.includes('physics') && filename.endsWith('.html')) ||
-                       (filename.includes('chemistry') && filename.endsWith('.html'));
-    
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    // If authenticated, just show the page
-    if (session) {
-        document.documentElement.style.display = '';
-        return;
-    }
+    try {
+        const pathname = window.location.pathname;
+        const filename = pathname.substring(pathname.lastIndexOf('/') + 1) || 'index.html';
+        const normalizedFilename = filename.includes('.') ? filename : filename + '.html';
+        
+        // Define exact protected pages
+        const protectedPages = [
+            'dashboard.html',
+            'profile.html',
+            'bookmarks.html',
+            'tasks.html',
+            'admin.html',
+            'notifications.html',
+            'ai-professor.html'
+        ];
+        
+        const isProtected = protectedPages.some(page => normalizedFilename === page);
+        const isNotePage = normalizedFilename.includes('unit-') || 
+                           normalizedFilename.includes('-unit') || 
+                           normalizedFilename === 'engineering-graphics-lab.html' || 
+                           normalizedFilename.includes('-notes.html') ||
+                           (normalizedFilename.includes('mathematics') && normalizedFilename.endsWith('.html')) ||
+                           (normalizedFilename.includes('physics') && normalizedFilename.endsWith('.html')) ||
+                           (normalizedFilename.includes('chemistry') && normalizedFilename.endsWith('.html'));
+        
+        let session = null;
+        try {
+            const sessionResult = await supabase.auth.getSession();
+            if (sessionResult && sessionResult.data) {
+                session = sessionResult.data.session;
+            }
+        } catch (e) {
+            console.warn('[GATEKEEPER] Supabase auth check failed, falling back to guest mode:', e);
+        }
+        
+        // If authenticated, just show the page
+        if (session) {
+            document.documentElement.style.display = '';
+            return;
+        }
 
-    if (isProtected) {
-        // Feature Preview Modals instead of instant redirect
-        document.documentElement.style.display = '';
-        showPremiumFeaturePreview(filename);
-    } else if (isNotePage) {
-        // Smart Partial Content Blur for guests
-        document.documentElement.style.display = '';
-        applySmartContentLock();
-    } else {
+        if (isProtected) {
+            // Feature Preview Modals instead of instant redirect
+            document.documentElement.style.display = '';
+            showPremiumFeaturePreview(filename);
+        } else if (isNotePage) {
+            // Smart Partial Content Blur for guests
+            document.documentElement.style.display = '';
+            applySmartContentLock();
+        } else {
+            document.documentElement.style.display = '';
+        }
+    } catch (err) {
+        console.error('[GATEKEEPER] Critical gatekeeper error:', err);
+        // Fail-safe: always make sure the page is visible to the student
         document.documentElement.style.display = '';
     }
 }

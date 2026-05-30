@@ -49,7 +49,7 @@ const seoMapping = {
         title: 'JNTUK R23 Verified Notes & Reference Docs | EngiPrepHub',
         desc: 'Search fully verified topper lecture notes for JNTUK R23 engineering subjects. Instant visual diagrams and exact university marking formulas.'
     },
-    'jntuk-r23-previous-question-papers.html': {
+    'pyqs.html': {
         title: 'JNTUK R23 Solved Previous Year Papers (PYQs) | EngiPrepHub',
         desc: 'Boost your engineering scores. Navigate repeated JNTUK R23 exam questions, detailed answer steps, and standard marking sheets.'
     },
@@ -340,7 +340,7 @@ htmlFiles.forEach(file => {
     }
     </script>
 `;
-    } else if (baseName === 'jntuk-r23-previous-question-papers.html') {
+    } else if (baseName === 'pyqs.html') {
         schema = `
     <script type="application/ld+json">
     {

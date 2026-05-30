@@ -405,6 +405,583 @@ document.addEventListener('DOMContentLoaded', () => {
     initLiveActivities();
     initBreadcrumbs();
     initAuthorBox();
+    
+    // Core Link and Navigation Repair systems (Phases 3, 4, 5, 6, 7 & 10)
+    repairAndCanonicalizeLinks();
+    applyIntelligentTextLinks();
+    setupStudyCompanionPanel();
+});
+
+// 1. Client-Side Link Repair and Canonicalization (Phase 4 & Phase 10)
+const JNTUK_UNIT_SLUGS = {
+  'physics': [
+    'wave-optics-and-interference',
+    'lasers-and-fiber-optics',
+    'quantum-mechanics',
+    'semiconductor-physics-and-led',
+    'superconductivity-and-nanomaterials'
+  ],
+  'chemistry': [
+    'water-technology-and-demineralization',
+    'electrochemistry-and-batteries',
+    'polymer-chemistry-and-plastics',
+    'instrumental-methods-and-spectroscopy',
+    'energy-sources-and-fuels'
+  ],
+  'maths-1': [
+    'matrices-and-cayley-hamilton',
+    'mean-value-theorems',
+    'multivariable-calculus-and-jacobians',
+    'multiple-integrals-volume',
+    'special-functions-beta-gamma'
+  ],
+  'c-programming': [
+    'structures-and-unions-memory-padding',
+    'pointers-and-dynamic-memory-allocation',
+    'control-statements-and-loops',
+    'functions-and-recursive-algorithms',
+    'file-handling-and-command-line-args'
+  ],
+  'beee': [
+    'dc-circuits-and-theorems',
+    'ac-circuits-and-power-factor',
+    'transformers-and-motors',
+    'dc-machines-and-alternators',
+    'safety-and-fuses'
+  ],
+  'bcme': [
+    'civil-materials-and-surveying',
+    'building-components-and-stresses',
+    'alloys-welding-and-casting',
+    'gears-and-power-transmission',
+    'thermal-engineering-and-ic-engines'
+  ],
+  'english': [
+    'verbal-grammar-rules',
+    'listening-comprehension-methods',
+    'speaking-and-presentation-skills',
+    'essay-and-paragraph-writing-structure',
+    'professional-correspondence-emails'
+  ],
+  'dsa': [
+    'introduction-algorithms-and-complexities',
+    'linear-linked-records',
+    'stacks-and-queues-expression-parsing',
+    'nonlinear-trees-and-graphs',
+    'sorting-searching-and-hashing'
+  ]
+};
+
+function resolveSeoSubjectUrl(subjectName) {
+    const name = subjectName.toLowerCase();
+    if (name.includes('physics')) return '/engineering-physics-notes-jntuk-r23';
+    if (name.includes('chemistry')) return '/engineering-chemistry-notes-jntuk-r23';
+    if (name.includes('mathematics-2') || name.includes('mathematics ii') || name.includes('maths-2') || name.includes('maths ii')) return '/engineering-mathematics-2-notes-jntuk-r23';
+    if (name.includes('mathematics') || name.includes('maths')) return '/engineering-mathematics-1-notes-jntuk-r23';
+    if (name.includes('graphics')) return '/engineering-graphics-tutorials-autocad-jntuk-r23';
+    if (name.includes('english') || name.includes('communicative')) return '/communicative-english-verbal-notes-jntuk-r23';
+    if (name.includes('electrical') || name.includes('beee')) return '/basic-electrical-engineering-beee-notes-jntuk-r23';
+    if (name.includes('programming') || name.includes('pps')) return '/c-programming-notes-pps-jntuk-r23';
+    if (name.includes('data-structure') || name.includes('dsa')) return '/data-structures-notes-jntuk-r23';
+    if (name.includes('civil') || name.includes('mechanical') || name.includes('bcme')) return '/basic-civil-mechanical-engineering-bcme-notes-jntuk-r23';
+    return '/all-subjects.html';
+}
+
+function resolveSeoUnitUrl(subjectName, unitNum) {
+    const name = subjectName.toLowerCase();
+    let key = '';
+    let prefix = '';
+    
+    if (name.includes('physics')) { key = 'physics'; prefix = 'engineering-physics'; }
+    else if (name.includes('chemistry')) { key = 'chemistry'; prefix = 'engineering-chemistry'; }
+    else if (name.includes('mathematics-2') || name.includes('mathematics ii') || name.includes('maths-2') || name.includes('maths ii')) {
+        return '/engineering-mathematics-2-notes-jntuk-r23';
+    }
+    else if (name.includes('mathematics') || name.includes('maths')) { key = 'maths-1'; prefix = 'engineering-mathematics'; }
+    else if (name.includes('programming') || name.includes('pps')) { key = 'c-programming'; prefix = 'c-programming'; }
+    else if (name.includes('electrical') || name.includes('beee')) { key = 'beee'; prefix = 'basic-electrical-engineering'; }
+    else if (name.includes('civil') || name.includes('mechanical') || name.includes('bcme')) { key = 'bcme'; prefix = 'basic-civil-and-mechanical-engineering'; }
+    else if (name.includes('english') || name.includes('communicative')) { key = 'english'; prefix = 'communicative-english'; }
+    else if (name.includes('data-structure') || name.includes('dsa')) { key = 'dsa'; prefix = 'data-structures'; }
+    
+    if (key && unitNum >= 1 && unitNum <= 5) {
+        const slug = JNTUK_UNIT_SLUGS[key][unitNum - 1];
+        return `/${prefix}-unit-${unitNum}-${slug}-jntuk-r23`;
+    }
+    return resolveSeoSubjectUrl(name);
+}
+
+function repairAndCanonicalizeLinks() {
+    document.querySelectorAll('a').forEach(anchor => {
+        let href = anchor.getAttribute('href');
+        if (!href) return;
+        
+        // Convert old subject.html?sub=X path links to canonical SEO-friendly URLs on the fly
+        if (href.includes('subject.html?')) {
+            try {
+                const urlObj = new URL(href, window.location.origin);
+                const sub = (urlObj.searchParams.get('sub') || urlObj.searchParams.get('slug') || '').toLowerCase();
+                if (sub) {
+                    href = resolveSeoSubjectUrl(sub);
+                }
+            } catch(e) {}
+        }
+        
+        // Convert old note-viewer.html?subject=X&unit=Y path links to canonical SEO-friendly URLs on the fly
+        if (href.includes('note-viewer.html?')) {
+            try {
+                const urlObj = new URL(href, window.location.origin);
+                const subject = (urlObj.searchParams.get('subject') || urlObj.searchParams.get('sub') || '').toLowerCase();
+                const unit = parseInt(urlObj.searchParams.get('unit'));
+                const slug = urlObj.searchParams.get('slug');
+                
+                if (subject && unit) {
+                    href = resolveSeoUnitUrl(subject, unit);
+                } else if (slug) {
+                    if (slug.startsWith('m1-')) href = resolveSeoUnitUrl('mathematics', 1);
+                    else if (slug.startsWith('physics-')) href = resolveSeoUnitUrl('physics', 1);
+                    else if (slug.startsWith('chemistry-')) href = resolveSeoUnitUrl('chemistry', 1);
+                    else if (slug.startsWith('c-')) href = resolveSeoUnitUrl('c-programming', 1);
+                }
+            } catch(e) {}
+        }
+        
+        // Convert raw file extensions endpoints (.html)
+        if (href.endsWith('.html') || href.includes('.html?')) {
+            const urlParts = href.split('?');
+            let pathPart = urlParts[0];
+            const params = urlParts[1] || '';
+            const filename = pathPart.substring(pathPart.lastIndexOf('/') + 1);
+            
+            const fileMappings = {
+                'index.html': '/',
+                'physics-notes.html': '/engineering-physics-notes-jntuk-r23',
+                'chemistry-topper-notes.html': '/engineering-chemistry-notes-jntuk-r23',
+                'maths-1.html': '/engineering-mathematics-1-notes-jntuk-r23',
+                'engineering-mathematics-2.html': '/engineering-mathematics-2-notes-jntuk-r23',
+                'engineering-graphics-lab.html': '/engineering-graphics-tutorials-autocad-jntuk-r23',
+                'communicative-english.html': '/communicative-english-verbal-notes-jntuk-r23',
+                'beee-notes.html': '/basic-electrical-engineering-beee-notes-jntuk-r23',
+                'c-programming-notes.html': '/c-programming-notes-pps-jntuk-r23',
+                'data-structures-basics.html': '/data-structures-notes-jntuk-r23',
+                'basic-civil-mechanical-engineering.html': '/basic-civil-mechanical-engineering-bcme-notes-jntuk-r23',
+                'dashboard.html': '/dashboard',
+                'profile.html': '/profile',
+                'about.html': '/about',
+                'contact.html': '/contact',
+                'bookmarks.html': '/bookmarks',
+                'quiz.html': '/quiz',
+                'tasks.html': '/tasks',
+                'notifications.html': '/notifications',
+                'blog.html': '/blog',
+                'blogs.html': '/blog',
+                'pyqs.html': '/jntuk-r23-previous-question-papers',
+                'cheat-sheets.html': '/engineering-cheat-sheets'
+            };
+            
+            if (fileMappings[filename]) {
+                href = fileMappings[filename];
+                if (params) href += '?' + params;
+            } else if (filename.endsWith('-unit-1.html') || filename.endsWith('-unit-2.html') || filename.endsWith('-unit-3.html') || filename.endsWith('-unit-4.html') || filename.endsWith('-unit-5.html')) {
+                let name = filename.replace('.html', '');
+                let unitNum = parseInt(name.slice(-1));
+                let subName = name.slice(0, -7); // e.g. "engineering-physics"
+                if (subName.startsWith('chemistry')) subName = 'chemistry';
+                href = resolveSeoUnitUrl(subName, unitNum);
+                if (params) href += '?' + params;
+            }
+        }
+
+        // Canonicalize basic unit layouts e.g. /engineering-physics-unit-1 to dynamic seo unit url
+        const basicUnitRegex = /^\/([a-z-]+)-unit-([1-5])$/;
+        const pathOnly = href.split('?')[0];
+        const unitMatch = pathOnly.match(basicUnitRegex);
+        if (unitMatch) {
+            const subjectPrefix = unitMatch[1];
+            const unitNum = parseInt(unitMatch[2]);
+            const canonicalized = resolveSeoUnitUrl(subjectPrefix, unitNum);
+            const queryParams = href.includes('?') ? '?' + href.split('?')[1] : '';
+            href = canonicalized + queryParams;
+        }
+        
+        anchor.setAttribute('href', href);
+    });
+}
+
+// 2. Intelligent Text URL Linker Node Walker (Phase 3)
+function applyIntelligentTextLinks() {
+    const textMatchingRules = [
+        { pattern: /\bEngineering Mathematics Unit ([1-5])\b/gi, url: '/engineering-mathematics-unit-$1' },
+        { pattern: /\bEngineering Mathematics I Unit ([1-5])\b/gi, url: '/engineering-mathematics-unit-$1' },
+        { pattern: /\bM1 Unit ([1-5])\b/gi, url: '/engineering-mathematics-unit-$1' },
+        { pattern: /\bMathematics Unit ([1-5])\b/gi, url: '/engineering-mathematics-unit-$1' },
+        { pattern: /\bChemistry Unit ([1-5])\b/gi, url: '/engineering-chemistry-unit-$1' },
+        { pattern: /\bEngineering Chemistry Unit ([1-5])\b/gi, url: '/engineering-chemistry-unit-$1' },
+        { pattern: /\bEngineering Physics Unit ([1-5])\b/gi, url: '/engineering-physics-unit-$1' },
+        { pattern: /\bPhysics Unit ([1-5])\b/gi, url: '/engineering-physics-unit-$1' },
+        { pattern: /\bC Programming Unit ([1-5])\b/gi, url: '/c-programming-unit-$1' },
+        { pattern: /\bC Unit ([1-5])\b/gi, url: '/c-programming-unit-$1' },
+        { pattern: /\bBasic Electrical Engineering Unit ([1-5])\b/gi, url: '/basic-electrical-engineering-unit-$1' },
+        { pattern: /\bBEEE Unit ([1-5])\b/gi, url: '/basic-electrical-engineering-unit-$1' },
+        { pattern: /\bBasic Civil and Mechanical Engineering Unit ([1-5])\b/gi, url: '/basic-civil-and-mechanical-engineering-unit-$1' },
+        { pattern: /\bBCME Unit ([1-5])\b/gi, url: '/basic-civil-and-mechanical-engineering-unit-$1' },
+        { pattern: /\bCommunicative English Unit ([1-5])\b/gi, url: '/communicative-english-unit-$1' },
+        { pattern: /\bEnglish Unit ([1-5])\b/gi, url: '/communicative-english-unit-$1' },
+        { pattern: /\bData Structures Unit ([1-5])\b/gi, url: '/data-structures-unit-$1' },
+        { pattern: /\bDS Unit ([1-5])\b/gi, url: '/data-structures-unit-$1' },
+        
+        { pattern: /\bEngineering Mathematics I\b/gi, url: '/engineering-mathematics' },
+        { pattern: /\bEngineering Mathematics II\b/gi, url: '/engineering-mathematics-2' },
+        { pattern: /\bEngineering Physics\b/gi, url: '/engineering-physics' },
+        { pattern: /\bApplied Physics\b/gi, url: '/engineering-physics' },
+        { pattern: /\bEngineering Chemistry\b/gi, url: '/engineering-chemistry' },
+        { pattern: /\bC Programming\b/gi, url: '/c-programming' },
+        { pattern: /\bBasic Electrical Engineering\b/gi, url: '/basic-electrical-engineering' },
+        { pattern: /\bBasic Civil and Mechanical Engineering\b/gi, url: '/basic-civil-and-mechanical-engineering' },
+        { pattern: /\bCommunicative English\b/gi, url: '/communicative-english' },
+        { pattern: /\bData Structures\b/gi, url: '/data-structures' },
+        { pattern: /\bEngineering Graphics\b/gi, url: '/engineering-graphics' }
+    ];
+
+    const skipElements = new Set(['A', 'BUTTON', 'SCRIPT', 'STYLE', 'INPUT', 'TEXTAREA', 'CODE', 'PRE', 'NOSCRIPT']);
+    
+    function walk(node) {
+        if (!node) return;
+        if (skipElements.has(node.nodeName)) return;
+        
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.nodeValue;
+            let replaced = false;
+            let parent = node.parentNode;
+            
+            if (parent && (skipElements.has(parent.nodeName) || parent.classList.contains('auto-linked'))) return;
+            
+            for (const rule of textMatchingRules) {
+                if (rule.pattern.test(text)) {
+                    rule.pattern.lastIndex = 0;
+                    
+                    const span = document.createElement('span');
+                    span.className = 'auto-linked-container';
+                    
+                    const htmlContent = text.replace(rule.pattern, (match, unitNum) => {
+                        let finalUrl = rule.url;
+                        if (unitNum) {
+                            finalUrl = finalUrl.replace('$1', unitNum);
+                        }
+                        return `<a href="${finalUrl}" class="auto-linked text-blue-600 dark:text-blue-400 hover:underline font-semibold" style="cursor: pointer;">${match}</a>`;
+                    });
+                    
+                    span.innerHTML = htmlContent;
+                    parent.replaceChild(span, node);
+                    replaced = true;
+                    break;
+                }
+            }
+            if (replaced) return;
+        } else {
+            const children = Array.from(node.childNodes);
+            for (const child of children) {
+                walk(child);
+            }
+        }
+    }
+    
+    const contentContainers = document.querySelectorAll('main, #notes-view, #notes-content, .note-body, article, .text-slate-300');
+    if (contentContainers.length > 0) {
+        contentContainers.forEach(container => walk(container));
+    } else {
+        const containers = document.querySelectorAll('body > div, body > section');
+        containers.forEach(container => {
+            if (container.id !== 'navbar' && container.id !== 'footer') {
+                walk(container);
+            }
+        });
+    }
+}
+
+// 3. Subject and Unit Resolver for Active Page Content (Phase 6 & 7)
+function getPageSubjectAndUnit() {
+    const path = window.location.pathname.toLowerCase();
+    const title = document.title.toLowerCase();
+    
+    let subject = '';
+    let subjectUrl = '';
+    let unitNum = 0;
+    
+    if (path.includes('physics') || title.includes('physics')) {
+        subject = 'Engineering Physics';
+        subjectUrl = resolveSeoSubjectUrl('physics');
+    } else if (path.includes('chemistry') || title.includes('chemistry')) {
+        subject = 'Engineering Chemistry';
+        subjectUrl = resolveSeoSubjectUrl('chemistry');
+    } else if (path.includes('mathematics-2') || title.includes('mathematics ii') || title.includes('maths-2') || title.includes('maths ii')) {
+        subject = 'Engineering Mathematics II';
+        subjectUrl = resolveSeoSubjectUrl('mathematics ii');
+    } else if (path.includes('mathematics') || title.includes('mathematics') || path.includes('maths') || title.includes('maths')) {
+        subject = 'Engineering Mathematics I';
+        subjectUrl = resolveSeoSubjectUrl('mathematics');
+    } else if (path.includes('c-programming') || title.includes('c programming') || path.includes('pps') || title.includes('pps')) {
+        subject = 'PPS C Programming';
+        subjectUrl = resolveSeoSubjectUrl('c programming');
+    } else if (path.includes('electrical') || title.includes('electrical') || path.includes('beee') || title.includes('beee')) {
+        subject = 'Basic Electrical Engineering';
+        subjectUrl = resolveSeoSubjectUrl('beee');
+    } else if (path.includes('civil') || title.includes('civil') || path.includes('mechanical') || title.includes('mechanical') || path.includes('bcme') || title.includes('bcme')) {
+        subject = 'Basic Civil and Mechanical Engineering';
+        subjectUrl = resolveSeoSubjectUrl('bcme');
+    } else if (path.includes('english') || title.includes('english') || title.includes('communicative english')) {
+        subject = 'Communicative English';
+        subjectUrl = resolveSeoSubjectUrl('english');
+    } else if (path.includes('data-structure') || title.includes('data structure') || path.includes('dsa') || title.includes('dsa')) {
+        subject = 'Data Structures';
+        subjectUrl = resolveSeoSubjectUrl('dsa');
+    }
+    
+    const unitMatch = path.match(/unit-([1-5])/i) || title.match(/unit\s*([1-5])/i);
+    if (unitMatch) {
+        unitNum = parseInt(unitMatch[1]);
+    }
+    
+    return { subject, subjectUrl, unitNum };
+}
+
+// 4. Interactive Floating Study Companion Resources Panel (Phase 5, 6, 7 & 11)
+function setupStudyCompanionPanel() {
+    const { subject, subjectUrl, unitNum } = getPageSubjectAndUnit();
+    if (!subject || unitNum === 0) return;
+    
+    if (document.getElementById('study-companion-panel')) return;
+    
+    const companion = document.createElement('div');
+    companion.id = 'study-companion-panel';
+    companion.className = 'fixed bottom-24 right-6 z-[9990] max-w-sm w-80 bg-slate-900/95 dark:bg-slate-950/95 border border-slate-800 rounded-3xl shadow-2xl p-5 text-white transform translate-y-4 opacity-0 transition-all duration-500 font-sans text-xs flex flex-col gap-4';
+    companion.style.pointerEvents = 'auto';
+    
+    const prevUnitUrl = unitNum > 1 ? resolveSeoUnitUrl(subject, unitNum - 1) : subjectUrl;
+    const nextUnitUrl = unitNum < 5 ? resolveSeoUnitUrl(subject, unitNum + 1) : '/jntuk-r23-previous-question-papers';
+    
+    const relatedUnits = [];
+    for (let u = 1; u <= 5; u++) {
+        if (u === unitNum) continue;
+        const matchedRoute = GLOBAL_SEARCH_INDEX.find(r => r.subtitle.includes(subject) && r.subtitle.includes(`Unit ${u}`));
+        const topicName = matchedRoute ? matchedRoute.title : `Syllabus Unit ${u}`;
+        relatedUnits.push({
+            num: u,
+            title: topicName,
+            url: resolveSeoUnitUrl(subject, u)
+        });
+    }
+    
+    companion.innerHTML = `
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+            <div>
+                <span class="text-[9px] font-black uppercase text-blue-400 tracking-widest pl-0.5">Study Companion</span>
+                <h4 class="text-xs font-bold text-slate-100 truncate max-w-[170px]">${subject}</h4>
+            </div>
+            <div class="flex gap-1.5">
+                <button id="minimize-companion-btn" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors text-slate-300 hover:text-white cursor-pointer select-none border-0">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="flex flex-col gap-3.5" id="companion-content-body">
+            <div class="bg-gradient-to-r from-blue-900/40 to-indigo-900/40 border border-blue-500/10 rounded-2xl p-3 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-blue-500 text-white font-black text-xs flex items-center justify-center">U${unitNum}</div>
+                <div>
+                     <div class="text-[9px] uppercase font-black text-blue-400 tracking-tight">Active Learning Unit</div>
+                     <div class="font-bold text-slate-100 italic" id="active-unit-title">Loading unit topic...</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2">
+                <button id="companion-bookmark-btn" class="flex items-center justify-center gap-1.5 py-2 px-3 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors font-bold cursor-pointer select-none text-slate-200 border-0">
+                    <svg class="w-3.5 h-3.5 text-yellow-500" id="bookmark-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Save Note</span>
+                </button>
+                <button id="companion-share-btn" class="flex items-center justify-center gap-1.5 py-2 px-3 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors font-bold cursor-pointer select-none text-slate-200 border-0">
+                    <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                    <span>Share Note</span>
+                </button>
+            </div>
+            
+            <div class="flex justify-between items-center gap-2 bg-slate-800/30 p-2 rounded-xl">
+                <a href="${prevUnitUrl}" class="flex items-center gap-1 hover:text-blue-400 transition-colors font-semibold py-1 px-2.5 bg-slate-800 rounded-lg no-underline text-white">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    <span>Prev</span>
+                </a>
+                <a href="${subjectUrl}" class="text-[10px] text-slate-400 hover:text-white uppercase font-black no-underline pl-0.5">Subject Hub</a>
+                <a href="${nextUnitUrl}" class="flex items-center gap-1 hover:text-blue-400 transition-colors font-semibold py-1 px-2.5 bg-slate-800 rounded-lg no-underline text-white">
+                    <span>Next</span>
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+            </div>
+            
+            <div class="space-y-1.5">
+                <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Related Syllabus Units</div>
+                <div class="flex flex-col gap-1 max-h-24 overflow-y-auto pr-1">
+                    ${relatedUnits.map(ru => `
+                        <a href="${ru.url}" class="flex items-center gap-2 p-1.5 hover:bg-slate-800/80 rounded-lg text-[11px] hover:text-blue-400 transition-colors no-underline text-slate-300">
+                            <span class="w-4 h-4 rounded-md bg-slate-800 text-[9px] font-black flex items-center justify-center text-slate-400">U${ru.num}</span>
+                            <span class="truncate pr-1">${ru.title}</span>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-2.5 flex justify-end gap-3 text-[10px] font-semibold text-slate-400">
+                <a href="/pyqs" class="hover:text-blue-400 flex items-center gap-1 no-underline text-slate-400">
+                    <svg class="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.168.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.168.477-4.5 1.253"/></svg>
+                    <span>Related PYQs</span>
+                </a>
+                <a href="${subject.includes('Programming') || subject.includes('Mathematics') ? '/c-programming-cheat-sheet' : '/tools.html'}" class="hover:text-blue-400 flex items-center gap-1 no-underline text-slate-400">
+                    <svg class="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    <span>Cheat Sheet</span>
+                </a>
+            </div>
+        </div>
+        
+        <button id="companion-minimized-bubble" class="absolute inset-0 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center font-bold text-xs shadow-xl min-w-10 min-h-10 cursor-pointer select-none text-white hidden border-0">
+            <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.168.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.168.477-4.5 1.253"/></svg>
+        </button>
+    `;
+    
+    document.body.appendChild(companion);
+    
+    setTimeout(() => {
+        companion.classList.remove('translate-y-4', 'opacity-0');
+    }, 150);
+    
+    const matchingUnitRoute = GLOBAL_SEARCH_INDEX.find(r => r.subtitle.includes(subject) && r.subtitle.includes(`Unit ${unitNum}`));
+    if (matchingUnitRoute) {
+        document.getElementById('active-unit-title').innerText = matchingUnitRoute.title;
+    } else {
+        document.getElementById('active-unit-title').innerText = 'JNTUK Syllabus Unit Topic';
+    }
+    
+    const isBookmarked = () => {
+        const saved = JSON.parse(localStorage.getItem('studyPlanner')) || [];
+        return saved.some(i => i.id === `${slugPrefix}_u${unitNum}`);
+    };
+    
+    const updateBookmarkButtonState = () => {
+        const pathHeart = document.getElementById('bookmark-heart');
+        const btnText = document.querySelector('#companion-bookmark-btn span');
+        if (isBookmarked()) {
+            pathHeart.classList.add('text-yellow-400', 'fill-yellow-400');
+            btnText.innerText = 'Saved!';
+        } else {
+            pathHeart.classList.remove('text-yellow-400', 'fill-yellow-400');
+            btnText.innerText = 'Save Note';
+        }
+    };
+    
+    updateBookmarkButtonState();
+    
+    const minimizeBtn = document.getElementById('minimize-companion-btn');
+    const bubble = document.getElementById('companion-minimized-bubble');
+    const bBody = document.getElementById('companion-content-body');
+    
+    minimizeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        companion.style.width = '48px';
+        companion.style.height = '48px';
+        companion.style.padding = '0';
+        companion.style.borderRadius = '9999px';
+        
+        bBody.classList.add('hidden');
+        minimizeBtn.classList.add('hidden');
+        document.querySelector('#study-companion-panel h4').parentNode.classList.add('hidden');
+        bubble.classList.remove('hidden');
+        
+        companion.className = 'fixed bottom-24 right-6 z-[9990] w-12 h-12 bg-blue-600 hover:bg-blue-700 shadow-2xl transition-all duration-300 rounded-full flex items-center justify-center border border-transparent';
+    });
+    
+    companion.addEventListener('click', () => {
+        if (!bubble.classList.contains('hidden')) {
+            companion.style.width = '';
+            companion.style.height = '';
+            companion.style.padding = '';
+            companion.style.borderRadius = '';
+            
+            bBody.classList.remove('hidden');
+            minimizeBtn.classList.remove('hidden');
+            document.querySelector('#study-companion-panel h4').parentNode.classList.remove('hidden');
+            bubble.classList.add('hidden');
+            
+            companion.className = 'fixed bottom-24 right-6 z-[9990] max-w-sm w-80 bg-slate-900/95 dark:bg-slate-950/95 border border-slate-800 rounded-3xl shadow-2xl p-5 text-white transition-all duration-300 font-sans text-xs flex flex-col gap-4';
+        }
+    });
+    
+    document.getElementById('companion-share-btn').addEventListener('click', async (e) => {
+        e.stopPropagation();
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            toast('Success', 'Share link copied to clipboard!');
+            if (typeof window.triggerXP === 'function') {
+                window.triggerXP(5, 'Shared Note with Friends');
+            }
+        } catch (err) {
+            toast('Success', 'Link copied!');
+        }
+    });
+    
+    document.getElementById('companion-bookmark-btn').addEventListener('click', async (e) => {
+        e.stopPropagation();
+        
+        let saved = JSON.parse(localStorage.getItem('studyPlanner')) || [];
+        const itemId = `${slugPrefix}_u${unitNum}`;
+        const itemObj = {
+            id: itemId,
+            title: matchingUnitRoute ? matchingUnitRoute.title : `${subject} Unit ${unitNum}`,
+            subject: subject,
+            slug: slugPrefix + `-unit-` + unitNum
+        };
+        
+        if (isBookmarked()) {
+            saved = saved.filter(i => i.id !== itemId);
+            localStorage.setItem('studyPlanner', JSON.stringify(saved));
+            updateBookmarkButtonState();
+            toast('Info', 'Removed from your bookmarks planner');
+        } else {
+            saved.push(itemObj);
+            localStorage.setItem('studyPlanner', JSON.stringify(saved));
+            updateBookmarkButtonState();
+            
+            if (typeof showAchievementToast === 'function') {
+                showAchievementToast('Saved! Bookmarked in Local Planner');
+            } else {
+                toast('Success', 'Saved to local study planner!');
+            }
+            
+            if (typeof window.triggerXP === 'function') {
+                window.triggerXP(10, 'Bookmarked Unit Note');
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    initCookieConsent();
+    initMobileMenu();
+    initActiveNavLinks();
+    initSearch();
+    initCopyButtons();
+    initSmoothScroll();
+    initStudyPlanner();
+    updateAuthUI();
+    initGamification();
+    initAcademicNavigator();
+    initLiveActivities();
+    initBreadcrumbs();
+    initAuthorBox();
+    
+    // Core Link and Navigation Repair systems (Phases 3, 4, 5, 6, 7 & 10)
+    repairAndCanonicalizeLinks();
+    applyIntelligentTextLinks();
+    setupStudyCompanionPanel();
 });
 
 function initAuthorBox() {
@@ -1050,7 +1627,7 @@ function initMobileMenu() {
                     <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                     <span>Notes</span>
                 </a>
-                <a href="/jntuk-r23-previous-question-papers" class="quick-link ${activeClass('/jntuk-r23-previous-question-papers')}">
+                <a href="/pyqs.html" class="quick-link ${activeClass('/pyqs.html')}">
                     <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                     <span>PYQs</span>
                 </a>
@@ -1120,76 +1697,151 @@ function initMobileMenu() {
     }
 }
 
+// GLOBAL SEARCH CATALOG INDEX (Phase 8 site-wide index)
+const GLOBAL_SEARCH_INDEX = [
+  // 1. Subjects
+  { title: "Engineering Physics", subtitle: "Physics Complete Hub", url: "/engineering-physics", keywords: ["physics", "applied physics", "wave optics", "lasers", "quantum", "semiconductor", "superconductivity"] },
+  { title: "Engineering Chemistry", subtitle: "Chemistry Complete Hub", url: "/engineering-chemistry", keywords: ["chemistry", "water", "electrochemistry", "batteries", "polymer", "spectroscopy", "fuels"] },
+  { title: "Engineering Mathematics I", subtitle: "M-I Complete Hub", url: "/engineering-mathematics", keywords: ["math", "maths", "maths 1", "maths i", "m1", "matrices", "calculus", "rolle", "lagrange", "taylor", "beta", "gamma"] },
+  { title: "Engineering Mathematics II", subtitle: "M-II Complete Hub", url: "/engineering-mathematics-2", keywords: ["maths 2", "maths ii", "m2", "differential equations", "laplace", "transforms", "multiple integrals", "vector calculus"] },
+  { title: "Engineering Graphics", subtitle: "Drawing & CAD Hub", url: "/engineering-graphics", keywords: ["graphics", "drawing", "ellipse", "scales", "involute", "projections", "solids", "autocad", "cad", "isometric"] },
+  { title: "Communicative English", subtitle: "English & Verbal Hub", url: "/communicative-english", keywords: ["english", "vocabulary", "grammar", "writing", "listening", "gd", "presentation", "verbal"] },
+  { title: "Basic Electrical Engineering", subtitle: "BEEE Complete Hub", url: "/basic-electrical-engineering", keywords: ["electrical", "beee", "circuits", "superposition", "thevenin", "power factor", "transformer", "induction motor", "dc machine", "alternator"] },
+  { title: "PPS C Programming", subtitle: "PPS Complete Hub", url: "/c-programming", keywords: ["c", "cpp", "programming", "pps", "struct", "union", "pointers", "pointers", "loops", "functions", "recursion", "file handling"] },
+  { title: "Data Structures", subtitle: "Data Structures Complete Hub", url: "/data-structures", keywords: ["dsa", "ds", "data structures", "arrays", "lists", "stacks", "queues", "trees", "graphs", "sorting", "searching"] },
+  { title: "Basic Civil and Mechanical Engineering", subtitle: "BCME Complete Hub", url: "/basic-civil-and-mechanical-engineering", keywords: ["civil", "mechanical", "bcme", "surveying", "building", "casting", "gears", "thermal", "engines"] },
+
+  // 2. Physics Units
+  { title: "Wave Optics & Newton's Rings", subtitle: "Engineering Physics • Unit 1", url: "/engineering-physics-unit-1", keywords: ["wave optics", "newtons rings", "newton rings", "interference", "wedge", "diffraction", "polarization", "stokes"] },
+  { title: "Lasers & Holography", subtitle: "Engineering Physics • Unit 2", url: "/engineering-physics-unit-2", keywords: ["lasers", "einstein coefficients", "stimulated emission", "ruby laser", "he-ne", "semiconductor laser", "holography", "inversion"] },
+  { title: "Quantum Mechanics & Schrodinger", subtitle: "Engineering Physics • Unit 3", url: "/engineering-physics-unit-3", keywords: ["quantum", "schrodinger", "de broglie", "wave function", "davisson", "uncertainty", "blackbody", "photoelectric"] },
+  { title: "Semiconductor Physics", subtitle: "Engineering Physics • Unit 4", url: "/engineering-physics-unit-4", keywords: ["semiconductor", "fermi level", "hall effect", "drift", "diffusion", "led", "photodiode", "intrinsic", "extrinsic"] },
+  { title: "Superconductivity & Nanomaterials", subtitle: "Engineering Physics • Unit 5", url: "/engineering-physics-unit-5", keywords: ["superconductivity", "nanomaterials", "meissner", "cooper pair", "josephson", "sol-gel", "carbon nanotubes", "cnt"] },
+
+  // 3. Chemistry Units
+  { title: "Water Demineralization & Boiler", subtitle: "Engineering Chemistry • Unit 1", url: "/engineering-chemistry-unit-1", keywords: ["water", "demineralization", "ion exchange", "zeolite", "boiler", "scale", "sludge", "priming", "foaming", "hardness"] },
+  { title: "Electrochemistry, Batteries & Corrosion", subtitle: "Engineering Chemistry • Unit 2", url: "/engineering-chemistry-unit-2", keywords: ["electrochemistry", "corrosion", "battery", "batteries", "lead acid", "lithium ion", "cathode", "anode", "galvanic", "nernst"] },
+  { title: "Polymer Chemistry & Plastics", subtitle: "Engineering Chemistry • Unit 3", url: "/engineering-chemistry-unit-3", keywords: ["polymer", "plastics", "bakelite", "elastomers", "vulcanization", "teflon", "nylon", "pvc", "addition", "condensation"] },
+  { title: "Instrumental Methods & Spectroscopy", subtitle: "Engineering Chemistry • Unit 4", url: "/engineering-chemistry-unit-4", keywords: ["instrumental", "spectroscopy", "uv-vis", "ir", "nmr", "beer-lambert", "electromagnetic", "vibrational"] },
+  { title: "Energy Sources & Fuels", subtitle: "Engineering Chemistry • Unit 5", url: "/engineering-chemistry-unit-5", keywords: ["energy", "fuels", "coal", "petroleum", "octane", "cetane", "gaseous fuels", "calorific value", "bomb calorimeter"] },
+
+  // 4. Maths Units
+  { title: "Matrices & Cayley-Hamilton", subtitle: "Engineering Mathematics I • Unit 1", url: "/engineering-mathematics-unit-1", keywords: ["matrices", "matrix", "eigenvalues", "eigenvectors", "cayley hamilton", "rank", "echelon", "unitary", "orthogonal", "quadratic"] },
+  { title: "Mean Value Theorems", subtitle: "Engineering Mathematics I • Unit 2", url: "/engineering-mathematics-unit-2", keywords: ["rolle", "rolle's", "mean value", "lagrange", "cauchy", "lmvt", "cmvt", "taylor", "maclaurin"] },
+  { title: "Multivariable Calculus", subtitle: "Engineering Mathematics I • Unit 3", url: "/engineering-mathematics-unit-3", keywords: ["multivariable", "partial differentiation", "total derivative", "jacobian", "maxima", "minima", "lagrange multipliers"] },
+  { title: "Multiple Integrals", subtitle: "Engineering Mathematics I • Unit 4", url: "/engineering-mathematics-unit-4", keywords: ["multiple integrals", "double integral", "triple integral", "change of order", "area", "volume", "polar"] },
+  { title: "Special Functions: Beta-Gamma", subtitle: "Engineering Mathematics I • Unit 5", url: "/engineering-mathematics-unit-5", keywords: ["special functions", "beta", "gamma", "factorial", "symmetrical relationship", "integral"] },
+
+  // 5. C Programming Units
+  { title: "Structures & Unions", subtitle: "C Programming • Unit 1", url: "/c-programming-unit-1", keywords: ["structures", "unions", "struct", "union", "padding", "memory alignment", "sizeof"] },
+  { title: "Pointers & References", subtitle: "C Programming • Unit 2", url: "/c-programming-unit-2", keywords: ["pointers", "pointer arithmetic", "dynamic memory", "malloc", "calloc", "realloc", "free", "dereference", "address", "null"] },
+  { title: "Control Structures & Loops", subtitle: "C Programming • Unit 3", url: "/c-programming-unit-3", keywords: ["control structures", "loops", "if-else", "switch", "while", "for", "do-while", "break", "continue"] },
+  { title: "Functions & Recursion", subtitle: "C Programming • Unit 4", url: "/c-programming-unit-4", keywords: ["functions", "recursion", "call by value", "call by reference", "scope", "storage class", "static", "register", "auto", "extern"] },
+  { title: "File Handling & CLI", subtitle: "C Programming • Unit 5", url: "/c-programming-unit-5", keywords: ["file handling", "files", "fopen", "fclose", "fread", "fwrite", "fscanf", "fprintf", "command line", "argc", "argv"] },
+
+  // 6. BEEE Units
+  { title: "Superposition & DC Circuits", subtitle: "Basic Electrical • Unit 1", url: "/basic-electrical-engineering-unit-1", keywords: ["superposition", "thevenin", "norton", "kirchhoff", "kvl", "kcl", "mesh", "nodal", "dc circuits"] },
+  { title: "Power Factor & AC Circuits", subtitle: "Basic Electrical • Unit 2", url: "/basic-electrical-engineering-unit-2", keywords: ["power factor", "ac circuits", "rms", "average value", "impedance", "resonance", "series rlc", "phase angle"] },
+  { title: "Transformers & Induction Motors", subtitle: "Basic Electrical • Unit 3", url: "/basic-electrical-engineering-unit-3", keywords: ["transformer", "emf equation", "losses", "efficiency", "regulation", "induction motor", "slip", "torque"] },
+  { title: "DC Machines & Alternators", subtitle: "Basic Electrical • Unit 4", url: "/basic-electrical-engineering-unit-4", keywords: ["dc machine", "dc generator", "dc motor", "back emf", "torque equation", "alternator", "synchronous generator"] },
+  { title: "Electrical Safety & Batteries", subtitle: "Basic Electrical • Unit 5", url: "/basic-electrical-engineering-unit-5", keywords: ["electrical safety", "fuses", "earthing", "mcb", "batteries", "lead-acid", "nimh", "li-ion"] },
+
+  // 7. BCME Units
+  { title: "Civil Materials & Surveying", subtitle: "Civil & Mechanical • Unit 1", url: "/basic-civil-and-mechanical-engineering-unit-1", keywords: ["civil materials", "bricks", "cement", "concrete", "timber", "surveying", "leveling", "chain surveying", "compass"] },
+  { title: "Building Components & Structures", subtitle: "Civil & Mechanical • Unit 2", url: "/basic-civil-and-mechanical-engineering-unit-2", keywords: ["building components", "foundation", "superstructure", "roofing", "masonry", "damp proofing", "stress", "strain"] },
+  { title: "Mechanical Engineering Materials", subtitle: "Civil & Mechanical • Unit 3", url: "/basic-civil-and-mechanical-engineering-unit-3", keywords: ["mechanical materials", "metals", "alloys", "plastics", "composites", "casting", "sand casting", "forging", "welding"] },
+  { title: "Power Transmission & Gears", subtitle: "Civil & Mechanical • Unit 4", url: "/basic-civil-and-mechanical-engineering-unit-4", keywords: ["power transmission", "belt drive", "rope drive", "gear drive", "gear trains", "spur", "helical", "bevel", "worm"] },
+  { title: "Thermal Engineering & IC Engines", subtitle: "Civil & Mechanical • Unit 5", url: "/basic-civil-and-mechanical-engineering-unit-5", keywords: ["thermal engineering", "ic engines", "four stroke", "two stroke", "petrol engine", "diesel engine", "refrigeration", "air conditioning"] },
+
+  // Auxiliary
+  { title: "Syllabus PYQ Repository", subtitle: "All Subject Papers", url: "/pyqs", keywords: ["pyq", "pyqs", "previous papers", "important questions", "board papers"] },
+  { title: "AI Professor Classroom", subtitle: "Academic Tutor Hub", url: "/ai-professor.html", keywords: ["professor", "ai", "viva", "simulation", "roadmap", "class", "weak topics", "classroom"] },
+  { title: "C Programming Cheat Sheet", subtitle: "Revision Cards", url: "/c-programming-cheat-sheet", keywords: ["cheat sheet", "revision sheet", "summary cards", "formulas"] }
+];
+
 async function initSearch() {
-    const searchInput = document.getElementById('main-search');
-    const searchResults = document.getElementById('search-results');
+    const inputsList = ['main-search', 'hero-search', 'smart-search-input'];
     
-    if (searchInput && searchResults) {
+    inputsList.forEach(id => {
+        const inputEl = document.getElementById(id);
+        if (!inputEl) return;
+        
+        let resultsBox;
+        if (id === 'main-search') {
+            resultsBox = document.getElementById('search-results');
+        } else if (id === 'smart-search-input') {
+            resultsBox = document.getElementById('search-results-box');
+        } else if (id === 'hero-search') {
+            resultsBox = document.getElementById('hero-search-results-box');
+            if (!resultsBox) {
+                resultsBox = document.createElement('div');
+                resultsBox.id = 'hero-search-results-box';
+                resultsBox.className = 'absolute left-0 right-0 top-full mt-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 max-h-60 overflow-y-auto hidden divide-y divide-slate-100 dark:divide-slate-800';
+                inputEl.parentNode.appendChild(resultsBox);
+            }
+        }
+        
+        if (!resultsBox) return;
+        
         let searchTimeout;
-        searchInput.addEventListener('input', (e) => {
-            clearTimeout(searchTimeout)
-            const query = e.target.value.trim()
+        inputEl.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.toLowerCase().trim();
             
             if (query.length < 2) {
-                searchResults.classList.add('hidden')
-                return
+                resultsBox.classList.add('hidden');
+                return;
             }
-
+            
             searchTimeout = setTimeout(async () => {
-                try {
-                    // Manual fetch for now to avoid circular deps if needed, 
-                    // or just use common logic
-                    const { data: notes } = await supabase
-                        .from('notes')
-                        .select('title, slug, subject, type')
-                        .ilike('title', `%${query}%`)
-                        .limit(5)
-                    
-                    const { data: subjects } = await supabase
-                        .from('subjects')
-                        .select('title, code')
-                        .ilike('title', `%${query}%`)
-                        .limit(3)
-                    
-                    if ((!notes || notes.length === 0) && (!subjects || subjects.length === 0)) {
-                        searchResults.innerHTML = '<div class="p-6 text-center text-gray-500 text-sm italic">No resources found. Try another keyword.</div>'
-                    } else {
-                        searchResults.innerHTML = `
-                            ${(subjects || []).map(s => `
-                                <a href="/subject.html?sub=${encodeURIComponent(s.title)}" class="flex items-center gap-4 p-4 hover:bg-white/5 border-b border-white/5 transition-all group">
-                                    <div class="w-10 h-10 bg-primary/10 text-primary rounded-lg flex items-center justify-center font-black text-xs group-hover:scale-110 transition-transform">${s.code}</div>
-                                    <div>
-                                        <div class="text-sm font-bold text-white">${s.title}</div>
-                                        <div class="text-[10px] text-gray-500 uppercase font-black">Subject Archive</div>
-                                    </div>
-                                </a>
-                            `).join('')}
-                            ${(notes || []).map(n => `
-                                <a href="/note-viewer.html?slug=${n.slug}" class="flex items-center gap-4 p-4 hover:bg-white/5 border-b border-white/5 last:border-0 transition-all group">
-                                    <div class="w-10 h-10 bg-white/5 text-gray-500 rounded-lg flex items-center justify-center text-xs group-hover:text-primary transition-colors">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                    </div>
-                                    <div>
-                                        <div class="text-sm font-bold text-white">${n.title}</div>
-                                        <div class="text-[10px] text-gray-500 uppercase font-black tracking-tight">${n.subject} • ${n.type}</div>
-                                    </div>
-                                </a>
-                            `).join('')}
-                        `
-                    }
-                    searchResults.classList.remove('hidden')
-                } catch (e) { 
-                    console.error('Search failed:', e) 
+                // Fuzzy terms matching from site catalog
+                const results = GLOBAL_SEARCH_INDEX.filter(item => {
+                    const matchTitle = item.title.toLowerCase().includes(query);
+                    const matchSub = item.subtitle.toLowerCase().includes(query);
+                    const matchKeywords = item.keywords.some(kw => kw.toLowerCase().includes(query) || query.includes(kw.toLowerCase()));
+                    return matchTitle || matchSub || matchKeywords;
+                }).slice(0, 5);
+                
+                if (results.length === 0) {
+                    resultsBox.innerHTML = '<div class="p-6 text-center text-gray-500 text-xs italic">No matching units found. Try another path.</div>';
+                } else {
+                    resultsBox.innerHTML = results.map(item => `
+                        <a href="${item.url}" class="flex items-center gap-3 p-3.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group cursor-pointer text-left block">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black group-hover:scale-105 transition-transform">📚</div>
+                            <div class="truncate">
+                                <div class="font-bold text-slate-800 dark:text-slate-100 truncate">${item.title}</div>
+                                <div class="text-[9px] text-slate-400 dark:text-slate-400 uppercase font-bold tracking-tight">${item.subtitle}</div>
+                            </div>
+                        </a>
+                    `).join('');
                 }
-            }, 300)
-        })
-
-        document.addEventListener('click', (e) => {
-            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-                searchResults.classList.add('hidden')
+                
+                resultsBox.classList.remove('hidden');
+            }, 250);
+        });
+        
+        // Listen on Enter key to open top-matching path immediately
+        inputEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const query = inputEl.value.toLowerCase().trim();
+                const matched = GLOBAL_SEARCH_INDEX.find(item => {
+                    const matchTitle = item.title.toLowerCase().includes(query);
+                    const matchKeywords = item.keywords.some(kw => kw.toLowerCase() === query || query.includes(kw.toLowerCase()));
+                    return matchTitle || matchKeywords;
+                });
+                
+                if (matched) {
+                    window.location.href = matched.url;
+                }
             }
-        })
-    }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!inputEl.contains(e.target) && !resultsBox.contains(e.target)) {
+                resultsBox.classList.add('hidden');
+            }
+        });
+    });
 }
 
 function initCopyButtons() {
@@ -1331,7 +1983,7 @@ function initAcademicNavigator() {
                     <span class="flex-1">Syllabus Notes PDF</span>
                     <span class="text-[9px] font-mono text-slate-400/90">NOTES</span>
                 </a>
-                <a href="/jntuk-r23-previous-question-papers" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
+                <a href="/pyqs.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
                     <span class="text-base select-none">📝</span>
                     <span class="flex-1">Solved PYQs Archive</span>
                     <span class="text-[9px] font-mono text-slate-400/90">PAPERS</span>
