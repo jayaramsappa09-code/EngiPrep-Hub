@@ -413,6 +413,104 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 1. Client-Side Link Repair and Canonicalization (Phase 4 & Phase 10)
+const JNTUK_UNIT_SLUGS = {
+  'physics': [
+    'wave-optics-and-interference',
+    'lasers-and-fiber-optics',
+    'quantum-mechanics',
+    'semiconductor-physics-and-led',
+    'superconductivity-and-nanomaterials'
+  ],
+  'chemistry': [
+    'water-technology-and-demineralization',
+    'electrochemistry-and-batteries',
+    'polymer-chemistry-and-plastics',
+    'instrumental-methods-and-spectroscopy',
+    'energy-sources-and-fuels'
+  ],
+  'maths-1': [
+    'matrices-and-cayley-hamilton',
+    'mean-value-theorems',
+    'multivariable-calculus-and-jacobians',
+    'multiple-integrals-volume',
+    'special-functions-beta-gamma'
+  ],
+  'c-programming': [
+    'structures-and-unions-memory-padding',
+    'pointers-and-dynamic-memory-allocation',
+    'control-statements-and-loops',
+    'functions-and-recursive-algorithms',
+    'file-handling-and-command-line-args'
+  ],
+  'beee': [
+    'dc-circuits-and-theorems',
+    'ac-circuits-and-power-factor',
+    'transformers-and-motors',
+    'dc-machines-and-alternators',
+    'safety-and-fuses'
+  ],
+  'bcme': [
+    'civil-materials-and-surveying',
+    'building-components-and-stresses',
+    'alloys-welding-and-casting',
+    'gears-and-power-transmission',
+    'thermal-engineering-and-ic-engines'
+  ],
+  'english': [
+    'verbal-grammar-rules',
+    'listening-comprehension-methods',
+    'speaking-and-presentation-skills',
+    'essay-and-paragraph-writing-structure',
+    'professional-correspondence-emails'
+  ],
+  'dsa': [
+    'introduction-algorithms-and-complexities',
+    'linear-linked-records',
+    'stacks-and-queues-expression-parsing',
+    'nonlinear-trees-and-graphs',
+    'sorting-searching-and-hashing'
+  ]
+};
+
+function resolveSeoSubjectUrl(subjectName) {
+    const name = subjectName.toLowerCase();
+    if (name.includes('physics')) return '/engineering-physics-notes-jntuk-r23';
+    if (name.includes('chemistry')) return '/engineering-chemistry-notes-jntuk-r23';
+    if (name.includes('mathematics-2') || name.includes('mathematics ii') || name.includes('maths-2') || name.includes('maths ii')) return '/engineering-mathematics-2-notes-jntuk-r23';
+    if (name.includes('mathematics') || name.includes('maths')) return '/engineering-mathematics-1-notes-jntuk-r23';
+    if (name.includes('graphics')) return '/engineering-graphics-tutorials-autocad-jntuk-r23';
+    if (name.includes('english') || name.includes('communicative')) return '/communicative-english-verbal-notes-jntuk-r23';
+    if (name.includes('electrical') || name.includes('beee')) return '/basic-electrical-engineering-beee-notes-jntuk-r23';
+    if (name.includes('programming') || name.includes('pps')) return '/c-programming-notes-pps-jntuk-r23';
+    if (name.includes('data-structure') || name.includes('dsa')) return '/data-structures-notes-jntuk-r23';
+    if (name.includes('civil') || name.includes('mechanical') || name.includes('bcme')) return '/basic-civil-mechanical-engineering-bcme-notes-jntuk-r23';
+    return '/all-subjects.html';
+}
+
+function resolveSeoUnitUrl(subjectName, unitNum) {
+    const name = subjectName.toLowerCase();
+    let key = '';
+    let prefix = '';
+    
+    if (name.includes('physics')) { key = 'physics'; prefix = 'engineering-physics'; }
+    else if (name.includes('chemistry')) { key = 'chemistry'; prefix = 'engineering-chemistry'; }
+    else if (name.includes('mathematics-2') || name.includes('mathematics ii') || name.includes('maths-2') || name.includes('maths ii')) {
+        return '/engineering-mathematics-2-notes-jntuk-r23';
+    }
+    else if (name.includes('mathematics') || name.includes('maths')) { key = 'maths-1'; prefix = 'engineering-mathematics'; }
+    else if (name.includes('programming') || name.includes('pps')) { key = 'c-programming'; prefix = 'c-programming'; }
+    else if (name.includes('electrical') || name.includes('beee')) { key = 'beee'; prefix = 'basic-electrical-engineering'; }
+    else if (name.includes('civil') || name.includes('mechanical') || name.includes('bcme')) { key = 'bcme'; prefix = 'basic-civil-and-mechanical-engineering'; }
+    else if (name.includes('english') || name.includes('communicative')) { key = 'english'; prefix = 'communicative-english'; }
+    else if (name.includes('data-structure') || name.includes('dsa')) { key = 'dsa'; prefix = 'data-structures'; }
+    
+    if (key && unitNum >= 1 && unitNum <= 5) {
+        const slug = JNTUK_UNIT_SLUGS[key][unitNum - 1];
+        return `/${prefix}-unit-${unitNum}-${slug}-jntuk-r23`;
+    }
+    return resolveSeoSubjectUrl(name);
+}
+
 function repairAndCanonicalizeLinks() {
     document.querySelectorAll('a').forEach(anchor => {
         let href = anchor.getAttribute('href');
@@ -424,16 +522,7 @@ function repairAndCanonicalizeLinks() {
                 const urlObj = new URL(href, window.location.origin);
                 const sub = (urlObj.searchParams.get('sub') || urlObj.searchParams.get('slug') || '').toLowerCase();
                 if (sub) {
-                    if (sub.includes('physics')) href = '/engineering-physics';
-                    else if (sub.includes('chemistry')) href = '/engineering-chemistry';
-                    else if (sub.includes('mathematics-2') || sub === 'm2' || sub.includes('maths-2') || sub.includes('maths ii')) href = '/engineering-mathematics-2';
-                    else if (sub.includes('mathematics') || sub === 'm1' || sub.includes('maths i') || sub.includes('maths 1')) href = '/engineering-mathematics';
-                    else if (sub.includes('graphics') || sub === 'eg' || sub.includes('engineering graphics')) href = '/engineering-graphics';
-                    else if (sub.includes('english') || sub.includes('communicative')) href = '/communicative-english';
-                    else if (sub.includes('electrical') || sub === 'beee' || sub.includes('basic electrical')) href = '/basic-electrical-engineering';
-                    else if (sub.includes('c programming') || sub.includes('pps')) href = '/c-programming';
-                    else if (sub.includes('data structure')) href = '/data-structures';
-                    else if (sub.includes('civil') || sub.includes('mechanical') || sub.includes('bcme')) href = '/basic-civil-and-mechanical-engineering';
+                    href = resolveSeoSubjectUrl(sub);
                 }
             } catch(e) {}
         }
@@ -443,28 +532,16 @@ function repairAndCanonicalizeLinks() {
             try {
                 const urlObj = new URL(href, window.location.origin);
                 const subject = (urlObj.searchParams.get('subject') || urlObj.searchParams.get('sub') || '').toLowerCase();
-                const unit = urlObj.searchParams.get('unit');
+                const unit = parseInt(urlObj.searchParams.get('unit'));
                 const slug = urlObj.searchParams.get('slug');
                 
                 if (subject && unit) {
-                    let prefix = '';
-                    if (subject.includes('physics')) prefix = 'engineering-physics';
-                    else if (subject.includes('chemistry')) prefix = 'engineering-chemistry';
-                    else if (subject.includes('mathematics') || subject === 'm1' || subject.includes('math')) prefix = 'engineering-mathematics';
-                    else if (subject.includes('c programming') || subject.includes('pps')) prefix = 'c-programming';
-                    else if (subject.includes('electrical') || subject.includes('beee')) prefix = 'basic-electrical-engineering';
-                    else if (subject.includes('civil') || subject.includes('mechanical')) prefix = 'basic-civil-and-mechanical-engineering';
-                    else if (subject.includes('english') || subject.includes('communicative')) prefix = 'communicative-english';
-                    else if (subject.includes('data structure')) prefix = 'data-structures';
-                    
-                    if (prefix) {
-                        href = `/${prefix}-unit-${unit}`;
-                    }
+                    href = resolveSeoUnitUrl(subject, unit);
                 } else if (slug) {
-                    if (slug.startsWith('m1-')) href = '/engineering-mathematics-unit-1';
-                    else if (slug.startsWith('physics-')) href = '/engineering-physics-unit-1';
-                    else if (slug.startsWith('chemistry-')) href = '/engineering-chemistry-unit-1';
-                    else if (slug.startsWith('c-')) href = '/c-programming-unit-1';
+                    if (slug.startsWith('m1-')) href = resolveSeoUnitUrl('mathematics', 1);
+                    else if (slug.startsWith('physics-')) href = resolveSeoUnitUrl('physics', 1);
+                    else if (slug.startsWith('chemistry-')) href = resolveSeoUnitUrl('chemistry', 1);
+                    else if (slug.startsWith('c-')) href = resolveSeoUnitUrl('c-programming', 1);
                 }
             } catch(e) {}
         }
@@ -478,16 +555,16 @@ function repairAndCanonicalizeLinks() {
             
             const fileMappings = {
                 'index.html': '/',
-                'physics-notes.html': '/engineering-physics',
-                'chemistry-topper-notes.html': '/engineering-chemistry',
-                'maths-1.html': '/engineering-mathematics',
-                'engineering-mathematics-2.html': '/engineering-mathematics-2',
-                'engineering-graphics-lab.html': '/engineering-graphics',
-                'communicative-english.html': '/communicative-english',
-                'beee-notes.html': '/basic-electrical-engineering',
-                'c-programming-notes.html': '/c-programming',
-                'data-structures-basics.html': '/data-structures',
-                'basic-civil-mechanical-engineering.html': '/basic-civil-and-mechanical-engineering',
+                'physics-notes.html': '/engineering-physics-notes-jntuk-r23',
+                'chemistry-topper-notes.html': '/engineering-chemistry-notes-jntuk-r23',
+                'maths-1.html': '/engineering-mathematics-1-notes-jntuk-r23',
+                'engineering-mathematics-2.html': '/engineering-mathematics-2-notes-jntuk-r23',
+                'engineering-graphics-lab.html': '/engineering-graphics-tutorials-autocad-jntuk-r23',
+                'communicative-english.html': '/communicative-english-verbal-notes-jntuk-r23',
+                'beee-notes.html': '/basic-electrical-engineering-beee-notes-jntuk-r23',
+                'c-programming-notes.html': '/c-programming-notes-pps-jntuk-r23',
+                'data-structures-basics.html': '/data-structures-notes-jntuk-r23',
+                'basic-civil-mechanical-engineering.html': '/basic-civil-mechanical-engineering-bcme-notes-jntuk-r23',
                 'dashboard.html': '/dashboard',
                 'profile.html': '/profile',
                 'about.html': '/about',
@@ -498,8 +575,8 @@ function repairAndCanonicalizeLinks() {
                 'notifications.html': '/notifications',
                 'blog.html': '/blog',
                 'blogs.html': '/blog',
-                'pyqs.html': '/pyqs',
-                'cheat-sheets.html': '/c-programming-cheat-sheet'
+                'pyqs.html': '/jntuk-r23-previous-question-papers',
+                'cheat-sheets.html': '/engineering-cheat-sheets'
             };
             
             if (fileMappings[filename]) {
@@ -507,12 +584,24 @@ function repairAndCanonicalizeLinks() {
                 if (params) href += '?' + params;
             } else if (filename.endsWith('-unit-1.html') || filename.endsWith('-unit-2.html') || filename.endsWith('-unit-3.html') || filename.endsWith('-unit-4.html') || filename.endsWith('-unit-5.html')) {
                 let name = filename.replace('.html', '');
-                if (name.startsWith('chemistry-unit-')) {
-                    name = name.replace('chemistry-unit-', 'engineering-chemistry-unit-');
-                }
-                href = '/' + name;
+                let unitNum = parseInt(name.slice(-1));
+                let subName = name.slice(0, -7); // e.g. "engineering-physics"
+                if (subName.startsWith('chemistry')) subName = 'chemistry';
+                href = resolveSeoUnitUrl(subName, unitNum);
                 if (params) href += '?' + params;
             }
+        }
+
+        // Canonicalize basic unit layouts e.g. /engineering-physics-unit-1 to dynamic seo unit url
+        const basicUnitRegex = /^\/([a-z-]+)-unit-([1-5])$/;
+        const pathOnly = href.split('?')[0];
+        const unitMatch = pathOnly.match(basicUnitRegex);
+        if (unitMatch) {
+            const subjectPrefix = unitMatch[1];
+            const unitNum = parseInt(unitMatch[2]);
+            const canonicalized = resolveSeoUnitUrl(subjectPrefix, unitNum);
+            const queryParams = href.includes('?') ? '?' + href.split('?')[1] : '';
+            href = canonicalized + queryParams;
         }
         
         anchor.setAttribute('href', href);
@@ -621,31 +710,31 @@ function getPageSubjectAndUnit() {
     
     if (path.includes('physics') || title.includes('physics')) {
         subject = 'Engineering Physics';
-        subjectUrl = '/engineering-physics';
+        subjectUrl = resolveSeoSubjectUrl('physics');
     } else if (path.includes('chemistry') || title.includes('chemistry')) {
         subject = 'Engineering Chemistry';
-        subjectUrl = '/engineering-chemistry';
+        subjectUrl = resolveSeoSubjectUrl('chemistry');
     } else if (path.includes('mathematics-2') || title.includes('mathematics ii') || title.includes('maths-2') || title.includes('maths ii')) {
         subject = 'Engineering Mathematics II';
-        subjectUrl = '/engineering-mathematics-2';
+        subjectUrl = resolveSeoSubjectUrl('mathematics ii');
     } else if (path.includes('mathematics') || title.includes('mathematics') || path.includes('maths') || title.includes('maths')) {
         subject = 'Engineering Mathematics I';
-        subjectUrl = '/engineering-mathematics';
+        subjectUrl = resolveSeoSubjectUrl('mathematics');
     } else if (path.includes('c-programming') || title.includes('c programming') || path.includes('pps') || title.includes('pps')) {
         subject = 'PPS C Programming';
-        subjectUrl = '/c-programming';
+        subjectUrl = resolveSeoSubjectUrl('c programming');
     } else if (path.includes('electrical') || title.includes('electrical') || path.includes('beee') || title.includes('beee')) {
         subject = 'Basic Electrical Engineering';
-        subjectUrl = '/basic-electrical-engineering';
+        subjectUrl = resolveSeoSubjectUrl('beee');
     } else if (path.includes('civil') || title.includes('civil') || path.includes('mechanical') || title.includes('mechanical') || path.includes('bcme') || title.includes('bcme')) {
         subject = 'Basic Civil and Mechanical Engineering';
-        subjectUrl = '/basic-civil-and-mechanical-engineering';
+        subjectUrl = resolveSeoSubjectUrl('bcme');
     } else if (path.includes('english') || title.includes('english') || title.includes('communicative english')) {
         subject = 'Communicative English';
-        subjectUrl = '/communicative-english';
+        subjectUrl = resolveSeoSubjectUrl('english');
     } else if (path.includes('data-structure') || title.includes('data structure') || path.includes('dsa') || title.includes('dsa')) {
         subject = 'Data Structures';
-        subjectUrl = '/data-structures';
+        subjectUrl = resolveSeoSubjectUrl('dsa');
     }
     
     const unitMatch = path.match(/unit-([1-5])/i) || title.match(/unit\s*([1-5])/i);
@@ -668,18 +757,8 @@ function setupStudyCompanionPanel() {
     companion.className = 'fixed bottom-24 right-6 z-[9990] max-w-sm w-80 bg-slate-900/95 dark:bg-slate-950/95 border border-slate-800 rounded-3xl shadow-2xl p-5 text-white transform translate-y-4 opacity-0 transition-all duration-500 font-sans text-xs flex flex-col gap-4';
     companion.style.pointerEvents = 'auto';
     
-    let slugPrefix = 'engineering-physics';
-    if (subject.includes('chemistry')) slugPrefix = 'engineering-chemistry';
-    else if (subject.includes('mathematics-2') || subject.includes('mathematics ii')) slugPrefix = 'engineering-mathematics-2';
-    else if (subject.includes('mathematics')) slugPrefix = 'engineering-mathematics';
-    else if (subject.includes('c-programming') || subject.includes('pps')) slugPrefix = 'c-programming';
-    else if (subject.includes('electrical') || subject.includes('beee')) slugPrefix = 'basic-electrical-engineering';
-    else if (subject.includes('civil') || subject.includes('mechanical') || subject.includes('bcme')) slugPrefix = 'basic-civil-and-mechanical-engineering';
-    else if (subject.includes('english') || subject.includes('communicative')) slugPrefix = 'communicative-english';
-    else if (subject.includes('data-structure') || subject.includes('dsa')) slugPrefix = 'data-structures';
-    
-    const prevUnitUrl = unitNum > 1 ? `/${slugPrefix}-unit-${unitNum - 1}` : subjectUrl;
-    const nextUnitUrl = unitNum < 5 ? `/${slugPrefix}-unit-${unitNum + 1}` : '/pyqs';
+    const prevUnitUrl = unitNum > 1 ? resolveSeoUnitUrl(subject, unitNum - 1) : subjectUrl;
+    const nextUnitUrl = unitNum < 5 ? resolveSeoUnitUrl(subject, unitNum + 1) : '/jntuk-r23-previous-question-papers';
     
     const relatedUnits = [];
     for (let u = 1; u <= 5; u++) {
@@ -689,7 +768,7 @@ function setupStudyCompanionPanel() {
         relatedUnits.push({
             num: u,
             title: topicName,
-            url: `/${slugPrefix}-unit-${u}`
+            url: resolveSeoUnitUrl(subject, u)
         });
     }
     
