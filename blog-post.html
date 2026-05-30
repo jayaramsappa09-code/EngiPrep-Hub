@@ -16,6 +16,11 @@
     
     
     
+    
+    
+    
+    
+    
 
     
     
@@ -69,6 +74,56 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/blog-post">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/blog-post">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -371,9 +426,16 @@
 
         async function loadPost() {
             const params = new URLSearchParams(window.location.search)
-            const slug = params.get('slug')
+            let slug = params.get('slug')
+            if (!slug) {
+                const pathParts = window.location.pathname.split('/');
+                const blogIdx = pathParts.indexOf('blog');
+                if (blogIdx !== -1 && pathParts[blogIdx + 1]) {
+                    slug = pathParts[blogIdx + 1];
+                }
+            }
 
-            if (!slug) return window.location.href = '/blog.html'
+            if (!slug) return window.location.href = '/blog'
 
             let postData = null;
             let profileData = null;
@@ -588,6 +650,26 @@
     <script type="module" src="/src/ai-widget.ts"></script>
     <!-- Universal Academic Navigator & Active Live Alerts -->
     <script type="module" src="/src/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
