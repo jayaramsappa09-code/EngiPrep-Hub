@@ -151,7 +151,7 @@ export const ROUTES = [
     keywords: ["question", "papers", "exam", "jntuk", "nov", "may", "model", "r23"],
     intentTags: ["sheet", "test"],
     difficulty: "Medium",
-    url: "/pyqs.html"
+    url: "/jntuk-r23-previous-question-papers"
   },
   {
     id: "cheat_sheets",

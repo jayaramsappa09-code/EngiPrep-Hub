@@ -1050,7 +1050,7 @@ function initMobileMenu() {
                     <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                     <span>Notes</span>
                 </a>
-                <a href="/pyqs.html" class="quick-link ${activeClass('/pyqs.html')}">
+                <a href="/jntuk-r23-previous-question-papers" class="quick-link ${activeClass('/jntuk-r23-previous-question-papers')}">
                     <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                     <span>PYQs</span>
                 </a>
@@ -1331,7 +1331,7 @@ function initAcademicNavigator() {
                     <span class="flex-1">Syllabus Notes PDF</span>
                     <span class="text-[9px] font-mono text-slate-400/90">NOTES</span>
                 </a>
-                <a href="/pyqs.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
+                <a href="/jntuk-r23-previous-question-papers" class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
                     <span class="text-base select-none">📝</span>
                     <span class="flex-1">Solved PYQs Archive</span>
                     <span class="text-[9px] font-mono text-slate-400/90">PAPERS</span>

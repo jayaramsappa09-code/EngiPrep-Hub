@@ -210,11 +210,19 @@ restructuredUnitRoutes.forEach(route => {
 });
 
 app.get('/pyqs', (req, res) => {
-  res.sendFile(getFilePath('pyqs.html'));
+  res.redirect(301, '/jntuk-r23-previous-question-papers');
+});
+
+app.get('/pyqs.html', (req, res) => {
+  res.redirect(301, '/jntuk-r23-previous-question-papers');
+});
+
+app.get('/jntuk-r23-previous-question-papers', (req, res) => {
+  res.sendFile(getFilePath('jntuk-r23-previous-question-papers.html'));
 });
 
 app.get('/engineering-physics-pyqs', (req, res) => {
-  res.sendFile(getFilePath('pyqs.html'));
+  res.sendFile(getFilePath('jntuk-r23-previous-question-papers.html'));
 });
 
 app.get('/semester-1/beee-important-questions', (req, res) => {

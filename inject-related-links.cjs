@@ -22,7 +22,7 @@ function getHtmlFiles(dir) {
 
 const htmlFiles = getHtmlFiles(publicDir);
 const subjectLinks = [
-    { title: "PYQs Predictor", href: "/pyqs.html" },
+    { title: "PYQs Predictor", href: "/jntuk-r23-previous-question-papers" },
     { title: "Exam Survival Sheets", href: "/exam-survival.html" },
     { title: "Mathematics Notes", href: "/maths-1.html" },
     { title: "Physics Unit 2", href: "/engineering-physics-unit-2" },
