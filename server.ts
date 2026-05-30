@@ -702,9 +702,9 @@ const getSeoHtml = (
 
 // Bind all SEO and thematic routes
 programRoutes.forEach(route => {
-  const requestHandler = (req: any, res: any) => {
+  const requestHandler = async (req: any, res: any) => {
     try {
-      const seoHtml = getSeoHtml(
+      let seoHtml = getSeoHtml(
         route.file,
         route.title,
         route.description,
@@ -713,6 +713,9 @@ programRoutes.forEach(route => {
         route.schemaType,
         route.schemaData
       );
+      if (!isProduction && viteInstance) {
+        seoHtml = await viteInstance.transformIndexHtml(req.originalUrl, seoHtml);
+      }
       res.setHeader('Content-Type', 'text/html');
       res.send(seoHtml);
     } catch (e: any) {
@@ -1063,14 +1066,16 @@ You MUST respond strictly with a single JSON object containing the following key
   }
 });
 
+let viteInstance: any = null;
+
 // Vite Middleware for development
 async function setupVite() {
   if (!isProduction) {
-    const vite = await createViteServer({
+    viteInstance = await createViteServer({
       server: { middlewareMode: true },
       appType: 'mpa',
     });
-    app.use(vite.middlewares);
+    app.use(viteInstance.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
