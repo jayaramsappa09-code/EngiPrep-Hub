@@ -101,8 +101,11 @@ app.use('/api', apiLimiter);
 
 // Helper for SEO clean URLs mapping
 const getFilePath = (filename: string) => {
-  const folder = process.env.NODE_ENV === 'production' ? 'dist' : '';
-  return path.join(process.cwd(), folder, filename);
+  const distPath = path.join(process.cwd(), 'dist', filename);
+  if (fs.existsSync(distPath)) {
+    return distPath;
+  }
+  return path.join(process.cwd(), filename);
 };
 
 // SEO Clean URLs mapping for elite searchindexing
@@ -213,11 +216,19 @@ app.get('/pyqs', (req, res) => {
   res.redirect(301, '/jntuk-r23-previous-question-papers');
 });
 
+app.get('/pyqs/', (req, res) => {
+  res.redirect(301, '/jntuk-r23-previous-question-papers');
+});
+
 app.get('/pyqs.html', (req, res) => {
   res.redirect(301, '/jntuk-r23-previous-question-papers');
 });
 
 app.get('/jntuk-r23-previous-question-papers', (req, res) => {
+  res.sendFile(getFilePath('jntuk-r23-previous-question-papers.html'));
+});
+
+app.get('/jntuk-r23-previous-question-papers/', (req, res) => {
   res.sendFile(getFilePath('jntuk-r23-previous-question-papers.html'));
 });
 
