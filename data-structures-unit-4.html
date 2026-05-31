@@ -16,6 +16,7 @@
     
     
     
+    
     <meta name="description" content="Ultimate JNTUK R23 Data Structures Unit IV guide. Master FIFO queues, linear and circular queues, boundary pointers, applications, and C codes.">
     <link rel="stylesheet" href="/src/style.css">
 
@@ -233,6 +234,19 @@
     
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+
+
     <meta property="og:title" content="Premium JNTUK Study Notes | EngiPrepHub">
     <meta property="og:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
     <meta property="og:url" content="https://engiprephub.in/data-structures-unit-4">
@@ -267,7 +281,7 @@
     </script>
 
 </head>
-<body class="bg-[#030308] text-slate-350 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-[#030308] text-slate-350 min-h-screen bg-gradient-to-tr from-[#020208] via-[#03030b] to-[#04081c] font-sans antialiased selection:bg-primary selection:text-white">
 
     <!-- Toast message system -->
     <div id="toast-notif" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-2.5 bg-[#090b1e]/90 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl backdrop-blur-md font-sans text-xs font-bold pointer-events-none">
@@ -284,16 +298,16 @@
                     <span class="relative z-10 text-white font-black text-lg">EP</span>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-white leading-none font-sans">EngiPrep <span class="text-blue-500">Hub</span></span>
-                    <span class="text-[6.5px] font-black uppercase tracking-[0.22em] text-blue-500 mt-1">JNTUK R23 Regulation Workspace</span>
+                    <span class="text-xl font-black tracking-tighter text-white leading-none font-sans">EngiPrep <span class="text-primary">Hub</span></span>
+                    <span class="text-[6.5px] font-black uppercase tracking-[0.22em] text-primary mt-1">JNTUK R23 Regulation Workspace</span>
                 </div>
             </a>
             
             <div class="flex items-center gap-4">
-                <a href="/data-structures-basics.html" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase text-slate-350 transition-all">
+                <a href="/data-structures" class="px-4 py-2 border border-slate-800 rounded-xl bg-slate-900/40 text-xs font-bold uppercase text-slate-350 transition-all">
                     Syllabus Hub
                 </a>
-                <a href="/dashboard.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-white">Dashboard</a>
+                <a href="/dashboard" class="px-5 py-2.5 bg-primary hover:opacity-90 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-white">Dashboard</a>
             </div>
         </div>
     </nav>
@@ -304,13 +318,13 @@
         <!-- Breadcrumbs -->
         <nav class="flex text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider" aria-label="Breadcrumb">
             <ol class="flex items-center gap-2">
-                <li><a href="/" class="hover:text-blue-500">Home</a></li>
+                <li><a href="/" class="hover:text-primary">Home</a></li>
                 <li>/</li>
-                <li><a href="/semester-2.html" class="hover:text-blue-500">Sem 2</a></li>
+                <li><a href="/semester-2" class="hover:text-primary">Sem 2</a></li>
                 <li>/</li>
-                <li><a href="/data-structures-basics.html" class="hover:text-blue-500">Data Structures</a></li>
+                <li><a href="/data-structures" class="hover:text-primary">Data Structures</a></li>
                 <li>/</li>
-                <li class="text-blue-500" aria-current="page">Unit IV: Queues</li>
+                <li class="text-primary" aria-current="page">Unit IV: Queues</li>
             </ol>
         </nav>
 
@@ -330,7 +344,7 @@
                         Unlock First-In-First-Out (FIFO) queue states. Master pointer-shifts indices across linear arrays and dynamic linked nodes, with deep highlights on circular array recycling logic.
                     </p>
                     <div class="flex flex-wrap gap-2.5 mt-5">
-                        <a href="#solved-papers" class="px-3 py-1.5 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-600/20 text-blue-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
+                        <a href="#solved-papers" class="px-3 py-1.5 border border-primary/30 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
                             Solve Core Programs 💻
                         </a>
                         <a href="#viva" class="px-3 py-1.5 border border-purple-500/30 bg-purple-500/10 hover:bg-purple-600/20 text-purple-400 rounded-lg text-[9.5px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer">
@@ -385,46 +399,46 @@
                     <div class="p-3 text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-blue-950/30">Table of Contents</div>
                     
                     <a href="#intro" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">01</span> Introduction to the Data Structure
+                        <span class="text-xs text-primary font-mono">01</span> Introduction to the Data Structure
                     </a>
                     <a href="#core-principles" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">02</span> Core Theory Concepts
+                        <span class="text-xs text-primary font-mono">02</span> Core Theory Concepts
                     </a>
                     <a href="#definitions" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">03</span> Operations &amp; Time Complexity
+                        <span class="text-xs text-primary font-mono">03</span> Operations &amp; Time Complexity
                     </a>
                     <a href="#derivations" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">04</span> Algorithms &amp; Working Logic
+                        <span class="text-xs text-primary font-mono">04</span> Algorithms &amp; Working Logic
                     </a>
                     <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">05</span> Code Implementations
+                        <span class="text-xs text-primary font-mono">05</span> Code Implementations
                     </a>
                     <a href="#numericals" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">06</span> Step-by-Step Dry Runs
+                        <span class="text-xs text-primary font-mono">06</span> Step-by-Step Dry Runs
                     </a>
                     <a href="#calculator" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">07</span> Visual Simulations
+                        <span class="text-xs text-primary font-mono">07</span> Visual Simulations
                     </a>
                     <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">08</span> Important Interview Programs
+                        <span class="text-xs text-primary font-mono">08</span> Important Interview Programs
                     </a>
                     <a href="#solved-papers" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">09</span> JNTUK PYQs &amp; Repeated Questions
+                        <span class="text-xs text-primary font-mono">09</span> JNTUK PYQs &amp; Repeated Questions
                     </a>
                     <a href="#predictor" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">10</span> Most Expected Exam Problems
+                        <span class="text-xs text-primary font-mono">10</span> Most Expected Exam Problems
                     </a>
                     <a href="#viva" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">11</span> Viva &amp; Lab Questions
+                        <span class="text-xs text-primary font-mono">11</span> Viva &amp; Lab Questions
                     </a>
                     <a href="#revision-sheets" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">12</span> Quick Revision Notes
+                        <span class="text-xs text-primary font-mono">12</span> Quick Revision Notes
                     </a>
                     <a href="#formula-sheet" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">13</span> Complexity Cheat Sheet
+                        <span class="text-xs text-primary font-mono">13</span> Complexity Cheat Sheet
                     </a>
                     <a href="#mnemonics" onclick="highlightNav(this)" class="nav-anchor-lnk flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/40 transition-all">
-                        <span class="text-xs text-blue-400 font-mono">14</span> Memory Tricks &amp; Patterns
+                        <span class="text-xs text-primary font-mono">14</span> Memory Tricks &amp; Patterns
                     </a>
                 </div>
             </aside>
@@ -435,12 +449,12 @@
                 <!-- 01 FIFO Queue Mechanics -->
                 <section id="intro" class="glass-card p-8 leading-relaxed scroll-mt-24">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">01</span>
+                        <span class="text-xl font-bold text-primary font-mono">01</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight">First-In-First-Out (FIFO) Queue Mechanics</h2>
                     </div>
                     <div class="space-y-4 text-xs font-medium text-slate-400">
                         <p>
-                            A <b>Queue</b> is a linear structure based on the <b>First In First Out (FIFO)</b> principle. Elements are inserted at the back end (<code class="text-blue-400">rear</code>) and removed from the front boundary (<code class="text-blue-400">front</code>).
+                            A <b>Queue</b> is a linear structure based on the <b>First In First Out (FIFO)</b> principle. Elements are inserted at the back end (<code class="text-primary">rear</code>) and removed from the front boundary (<code class="text-primary">front</code>).
                         </p>
                         <ul class="list-disc list-inside space-y-2 text-slate-350 bg-[#050616] p-4 rounded-xl border border-blue-950">
                             <li><b class="text-white">Enqueue:</b> Appends a data value at the <code class="text-[#0dffc0]">rear</code> of the queue.</li>
@@ -459,7 +473,7 @@
                 <!-- 02 Array vs List Queues -->
                 <section id="core-principles" class="glass-card p-8 scroll-mt-24">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">02</span>
+                        <span class="text-xl font-bold text-primary font-mono">02</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight font-sans">Array vs List Queue Representations</h2>
                     </div>
                     <div class="space-y-4 text-xs font-medium text-slate-400 leading-relaxed font-sans">
@@ -468,7 +482,7 @@
                         </p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-1.5">
-                                <span class="text-blue-400 font-bold uppercase text-[9.5px]">Sequential Array Storage</span>
+                                <span class="text-primary font-bold uppercase text-[9.5px]">Sequential Array Storage</span>
                                 <p class="text-slate-400 text-[11px] leading-relaxed">
                                     Maintains dual indexes: <code class="text-[#0dffc0]">front</code> and <code class="text-[#0dffc0]">rear</code>. Access operations are constant-time $\mathcal{O}(1)$, but the fixed array size limits the queue's capacity.
                                 </p>
@@ -492,7 +506,7 @@
                 <!-- 03 False Overflow boundaries -->
                 <section id="definitions" class="glass-card p-8 scroll-mt-24">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">03</span>
+                        <span class="text-xl font-bold text-primary font-mono">03</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight">The False Overflow Problem</h2>
                     </div>
                     <div class="space-y-5 text-xs text-slate-400 leading-relaxed font-sans">
@@ -525,7 +539,7 @@
                 <!-- 04 Core Queue Enqueue/Dequeue code -->
                 <section id="derivations" class="glass-card p-8 scroll-mt-24 border-l-4 border-l-blue-500 font-sans">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">04</span>
+                        <span class="text-xl font-bold text-primary font-mono">04</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight">Core Circular Queue Enqueue/Dequeue Code</h2>
                     </div>
                     <div class="space-y-6 text-xs text-slate-400 leading-relaxed">
@@ -579,7 +593,7 @@ int dequeue() {
                         <p>Quick operational cost reference chart for Circular and Linear Queue structures:</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono">
                             <div class="p-4 bg-slate-950 border border-slate-900 rounded-xl">
-                                <span class="text-blue-400 font-bold block text-[9px] uppercase">Enqueue &amp; Dequeue Operations</span>
+                                <span class="text-primary font-bold block text-[9px] uppercase">Enqueue &amp; Dequeue Operations</span>
                                 <h4 class="text-white font-extrabold text-sm mt-1">Time complexity: $\mathcal{O}(1)$</h4>
                                 <p class="text-[10px] text-slate-500 font-sans mt-1">Pointers (front/rear) are updated directly using constant-time calculations.</p>
                             </div>
@@ -606,8 +620,8 @@ int dequeue() {
                             <h2 class="text-xl font-black text-white uppercase tracking-tight">Interactive Queue Simulator</h2>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button onclick="switchQueueType('linear')" id="qtype-linear-btn" class="px-2.5 py-1 rounded bg-[#3b82f6]/25 text-blue-400 border border-blue-505/15 hover:bg-blue-600/10 text-[9px] uppercase font-black cursor-pointer">Linear Queue</button>
-                            <button onclick="switchQueueType('circular')" id="qtype-circular-btn" class="px-2.5 py-1 rounded bg-[#030308] text-slate-400 border border-blue-950 hover:bg-blue-600/10 text-[9px] uppercase font-black cursor-pointer">Circular Queue</button>
+                            <button onclick="switchQueueType('linear')" id="qtype-linear-btn" class="px-2.5 py-1 rounded bg-[#3b82f6]/25 text-primary border border-blue-505/15 hover:bg-primary/10 text-[9px] uppercase font-black cursor-pointer">Linear Queue</button>
+                            <button onclick="switchQueueType('circular')" id="qtype-circular-btn" class="px-2.5 py-1 rounded bg-[#030308] text-slate-400 border border-blue-950 hover:bg-primary/10 text-[9px] uppercase font-black cursor-pointer">Circular Queue</button>
                         </div>
                     </div>
 
@@ -619,7 +633,7 @@ int dequeue() {
                                     <input type="number" id="q-sim-input" value="10" class="px-3 py-1.5 bg-[#030308] border border-blue-950 rounded text-xs text-center text-white font-mono w-20">
                                 </div>
                                 <div class="flex gap-2 mt-4">
-                                    <button onclick="simulateQueue('enqueue')" class="px-3 py-1.5 bg-blue-600/20 text-blue-400 border border-blue-650/20 hover:bg-blue-600/35 text-xs font-black uppercase rounded cursor-pointer transition-all">Enqueue</button>
+                                    <button onclick="simulateQueue('enqueue')" class="px-3 py-1.5 bg-primary/20 text-primary border border-blue-650/20 hover:bg-primary/35 text-xs font-black uppercase rounded cursor-pointer transition-all">Enqueue</button>
                                     <button onclick="simulateQueue('dequeue')" class="px-3 py-1.5 bg-rose-600/20 text-rose-450 border border-rose-650/20 hover:bg-rose-600/35 text-xs font-black uppercase rounded cursor-pointer transition-all">Dequeue</button>
                                 </div>
                             </div>
@@ -627,7 +641,7 @@ int dequeue() {
                             <!-- Tracking pointers feedback indicators -->
                             <div class="flex gap-4 font-mono text-[10.5px]">
                                 <div class="px-3 py-1.5 bg-slate-950/60 border border-slate-900 rounded">
-                                    <span class="text-blue-400 font-bold block text-[8px] uppercase">FRONT PTR</span>
+                                    <span class="text-primary font-bold block text-[8px] uppercase">FRONT PTR</span>
                                     <span id="q-ptr-front" class="text-white font-extrabold">-1</span>
                                 </div>
                                 <div class="p-3 bg-slate-950/60 border border-[#101530] rounded px-3 py-1.5">
@@ -732,7 +746,7 @@ int isCircularQueueFull() {
                 <!-- 10 Lab Concept Viva Cards -->
                 <section id="viva" class="glass-card p-8 scroll-mt-24 font-sans">
                     <div class="flex items-center gap-3 mb-6 border-b border-blue-950/55 pb-3">
-                        <span class="text-xl font-bold text-blue-500 font-mono">10</span>
+                        <span class="text-xl font-bold text-primary font-mono">10</span>
                         <h2 class="text-xl font-black text-white uppercase tracking-tight">Lab Concept Viva Cards</h2>
                     </div>
                     <p class="text-xs text-slate-400 mb-6 font-sans">Flip and verify concepts verbal prep instantly:</p>
@@ -803,7 +817,7 @@ int isCircularQueueFull() {
                             <span class="text-[9px] font-black uppercase text-yellow-500 tracking-widest font-mono font-sans">FIFO BUS LINE MNEMONIC</span>
                             <p class="text-slate-350">
                                 <b>"Join at Rear, exit from Front!"</b><br>
-                                Imagine a queue of passengers waiting to board a bus. New passengers join the line at the very back (<code class="text-blue-400">rear</code>), while passengers who arrived first exit from the very front (<code class="text-blue-400">front</code>). No cutting in line allowed!
+                                Imagine a queue of passengers waiting to board a bus. New passengers join the line at the very back (<code class="text-primary">rear</code>), while passengers who arrived first exit from the very front (<code class="text-primary">front</code>). No cutting in line allowed!
                             </p>
                         </div>
                         <div class="pt-2">
@@ -903,7 +917,7 @@ int isCircularQueueFull() {
                 statusText.className = 'text-[10px] font-black text-rose-500 font-sans';
             } else if (percentage < 40) {
                 statusText.innerText = 'FIFO TRAINEE 🛠️';
-                statusText.className = 'text-[10px] font-black text-blue-450 font-sans';
+                statusText.className = 'text-[10px] font-black text-primary font-sans';
             } else if (percentage < 85) {
                 statusText.innerText = 'SHIFTER DEQUEUING 🧠';
                 statusText.className = 'text-[10px] font-black text-indigo-400 font-sans';
@@ -970,14 +984,14 @@ int isCircularQueueFull() {
             const feed = document.getElementById('q-logs-feed');
 
             if (mode === 'linear') {
-                btnLinear.classList.add('bg-[#3b82f6]/25', 'text-blue-400');
-                btnCir.classList.remove('bg-[#3b82f6]/25', 'text-blue-400', 'bg-purple-500/25', 'text-purple-400');
+                btnLinear.classList.add('bg-[#3b82f6]/25', 'text-primary');
+                btnCir.classList.remove('bg-[#3b82f6]/25', 'text-primary', 'bg-purple-500/25', 'text-purple-400');
                 btnCir.classList.add('text-slate-400');
                 
                 feed.innerHTML = "Switched to standard <b>Linear Queue</b>. Track Front and Rear indices values to watch False Overflow errors occur!";
             } else {
                 btnCir.classList.add('bg-[#a855f7]/25', 'text-purple-400');
-                btnLinear.classList.remove('bg-[#3b82f6]/25', 'text-blue-400');
+                btnLinear.classList.remove('bg-[#3b82f6]/25', 'text-primary');
                 btnLinear.classList.add('text-slate-400');
 
                 feed.innerHTML = "Switched to recycled <b>Circular Queue</b>. Indices wrap around the buffer seamlessly using modulus arithmetic: <code class='text-purple-450'>(rear+1)%MAX</code>!";
@@ -1010,7 +1024,7 @@ int isCircularQueueFull() {
                 if (isFront && isRear) {
                     cell.className += " ring-2 ring-indigo-500 scale-105";
                 } else if (isFront) {
-                    cell.className += " border-blue-500 scale-105";
+                    cell.className += " border-primary scale-105";
                 } else if (isRear) {
                     cell.className += " border-[#f59e0b] scale-105";
                 }
@@ -1021,7 +1035,7 @@ int isCircularQueueFull() {
                     <span class="text-[7.5px] text-slate-550 pt-1 font-sans">idx: ${idx}</span>
                     <span class="font-extrabold text-[#0dffc0] text-sm pb-1">${dataDisp}</span>
                     <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 flex gap-0.5 whitespace-nowrap text-[7px] font-bold">
-                        ${isFront ? '<span class="text-blue-400 uppercase tracking-tighter">F</span>' : ''}
+                        ${isFront ? '<span class="text-primary uppercase tracking-tighter">F</span>' : ''}
                         ${isRear ? '<span class="text-[#f59e0b] uppercase tracking-tighter">R</span>' : ''}
                     </div>
                 `;
@@ -1132,6 +1146,14 @@ int isCircularQueueFull() {
 
 
 
+
+
+
+
+
+
+
+
 <!-- EngiPrepAuthorBox -->
 <section class="max-w-4xl mx-auto my-16 p-8 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center gap-6">
   <img src="/public/logo.png" alt="EngiPrepHub Logo" class="w-20 h-20 rounded-full border border-slate-700">
@@ -1146,12 +1168,12 @@ int isCircularQueueFull() {
 <!-- EngiPrepHubFooter -->
 <footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
   <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
-    <a href="/about.html" class="hover:text-white">About</a>
-    <a href="/contact.html" class="hover:text-white">Contact</a>
-    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
-    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
-    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
-    <a href="/faq.html" class="hover:text-white">FAQ</a>
+    <a href="/about" class="hover:text-white">About</a>
+    <a href="/contact" class="hover:text-white">Contact</a>
+    <a href="/privacy" class="hover:text-white">Privacy</a>
+    <a href="/terms" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq" class="hover:text-white">FAQ</a>
   </div>
   <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
 </footer>

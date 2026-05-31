@@ -143,92 +143,315 @@ app.get('/subject.html', (req, res, next) => {
   next();
 });
 
-const cleanSubjectRoutes = [
-  { path: '/engineering-physics', file: 'physics-notes.html' },
-  { path: '/engineering-chemistry', file: 'chemistry-topper-notes.html' },
-  { path: '/engineering-mathematics', file: 'maths-1.html' },
-  { path: '/engineering-mathematics-2', file: 'engineering-mathematics-2.html' },
-  { path: '/engineering-graphics', file: 'engineering-graphics-lab.html' },
-  { path: '/communicative-english', file: 'communicative-english.html' },
-  { path: '/basic-electrical-engineering', file: 'beee-notes.html' },
-  { path: '/c-programming', file: 'c-programming-notes.html' },
-  { path: '/data-structures', file: 'data-structures-basics.html' },
-  { path: '/basic-civil-and-mechanical-engineering', file: 'basic-civil-mechanical-engineering.html' }
-];
 
-const restructuredUnitRoutes = [
-  { path: '/maths/unit-1', file: 'engineering-mathematics-unit-1.html' },
-  { path: '/maths/unit-2', file: 'engineering-mathematics-unit-2.html' },
-  { path: '/maths/unit-3', file: 'engineering-mathematics-unit-3.html' },
-  { path: '/maths/unit-4', file: 'engineering-mathematics-unit-4.html' },
-  { path: '/maths/unit-5', file: 'engineering-mathematics-unit-5.html' },
-  
-  { path: '/physics/wave-optics', file: 'engineering-physics-unit-1.html' },
-  { path: '/physics/lasers', file: 'engineering-physics-unit-2.html' },
-  { path: '/physics/unit-1', file: 'engineering-physics-unit-1.html' },
-  { path: '/physics/unit-2', file: 'engineering-physics-unit-2.html' },
-  { path: '/physics/unit-3', file: 'engineering-physics-unit-3.html' },
-  { path: '/physics/unit-4', file: 'engineering-physics-unit-4.html' },
-  { path: '/physics/unit-5', file: 'engineering-physics-unit-5.html' },
-  
-  { path: '/c-programming/structures-unions', file: 'c-programming-unit-1.html' },
-  { path: '/c-programming/pointers', file: 'c-programming-unit-2.html' },
-  { path: '/c-programming/unit-1', file: 'c-programming-unit-1.html' },
-  { path: '/c-programming/unit-2', file: 'c-programming-unit-2.html' },
-  { path: '/c-programming/unit-3', file: 'c-programming-unit-3.html' },
-  { path: '/c-programming/unit-4', file: 'c-programming-unit-4.html' },
-  { path: '/c-programming/unit-5', file: 'c-programming-unit-5.html' },
-  
-  { path: '/engineering-graphics/ellipse', file: 'engineering-graphics-lab.html' },
-  { path: '/engineering-graphics/projections', file: 'engineering-graphics-enter-lab.html' },
-  
-  { path: '/chemistry/water-demineralization', file: 'chemistry-unit-1.html' },
-  { path: '/chemistry/electrochemistry', file: 'chemistry-unit-2.html' },
-  { path: '/chemistry/unit-1', file: 'chemistry-unit-1.html' },
-  { path: '/chemistry/unit-2', file: 'chemistry-unit-2.html' },
-  { path: '/chemistry/unit-3', file: 'chemistry-unit-3.html' },
-  { path: '/chemistry/unit-4', file: 'chemistry-unit-4.html' },
-  { path: '/chemistry/unit-5', file: 'chemistry-unit-5.html' },
-  
-  { path: '/beee/superposition', file: 'basic-electrical-engineering-unit-1.html' },
-  { path: '/beee/power-factor', file: 'basic-electrical-engineering-unit-2.html' },
-  { path: '/beee/unit-1', file: 'basic-electrical-engineering-unit-1.html' },
-  { path: '/beee/unit-2', file: 'basic-electrical-engineering-unit-2.html' },
-  { path: '/beee/unit-3', file: 'basic-electrical-engineering-unit-3.html' },
-  { path: '/beee/unit-4', file: 'basic-electrical-engineering-unit-4.html' },
-  { path: '/beee/unit-5', file: 'basic-electrical-engineering-unit-5.html' }
-];
+// ==================== SEO CLEAN REWRITE ROUTING MATRIX ====================
+const masterMappings: Record<string, string[]> = {
+  "index.html": [
+    "/"
+  ],
+  "about.html": [
+    "/about"
+  ],
+  "contact.html": [
+    "/contact"
+  ],
+  "privacy-policy.html": [
+    "/privacy",
+    "/privacy-policy"
+  ],
+  "terms-conditions.html": [
+    "/terms",
+    "/terms-conditions"
+  ],
+  "disclaimer.html": [
+    "/disclaimer"
+  ],
+  "cookie-policy.html": [
+    "/cookie-policy"
+  ],
+  "faq.html": [
+    "/faq"
+  ],
+  "contribute.html": [
+    "/contribute"
+  ],
+  "admin.html": [
+    "/admin"
+  ],
+  "reset-password.html": [
+    "/reset-password"
+  ],
+  "auth.html": [
+    "/auth"
+  ],
+  "dashboard.html": [
+    "/dashboard"
+  ],
+  "profile.html": [
+    "/profile"
+  ],
+  "notifications.html": [
+    "/notifications"
+  ],
+  "tasks.html": [
+    "/tasks"
+  ],
+  "bookmarks.html": [
+    "/bookmarks"
+  ],
+  "ai-professor.html": [
+    "/ai-professor"
+  ],
+  "quiz.html": [
+    "/quiz"
+  ],
+  "tools.html": [
+    "/tools"
+  ],
+  "videos.html": [
+    "/videos"
+  ],
+  "m1-eigen-values.html": [
+    "/tools/m1-eigen-values",
+    "/m1-eigen-values"
+  ],
+  "cheat-sheets.html": [
+    "/cheat-sheets",
+    "/c-programming-cheat-sheet"
+  ],
+  "exam-survival.html": [
+    "/exam-survival"
+  ],
+  "beee-exam-prep.html": [
+    "/beee-exam-prep",
+    "/semester-1/beee-important-questions"
+  ],
+  "note-viewer.html": [
+    "/note-viewer"
+  ],
+  "all-subjects.html": [
+    "/all-subjects"
+  ],
+  "semester-1.html": [
+    "/semester-1"
+  ],
+  "semester-2.html": [
+    "/semester-2"
+  ],
+  "subject.html": [
+    "/subject"
+  ],
+  "notes.html": [
+    "/notes"
+  ],
+  "pyqs.html": [
+    "/pyqs",
+    "/engineering-physics-pyqs"
+  ],
+  "blogs.html": [
+    "/blogs"
+  ],
+  "blog.html": [
+    "/blog"
+  ],
+  "blog-post.html": [
+    "/blog-post"
+  ],
+  "physics-notes.html": [
+    "/engineering-physics"
+  ],
+  "chemistry-topper-notes.html": [
+    "/engineering-chemistry"
+  ],
+  "maths-1.html": [
+    "/engineering-mathematics"
+  ],
+  "engineering-mathematics-1.html": [
+    "/engineering-mathematics-1"
+  ],
+  "engineering-mathematics-2.html": [
+    "/engineering-mathematics-2"
+  ],
+  "engineering-graphics-lab.html": [
+    "/engineering-graphics"
+  ],
+  "communicative-english.html": [
+    "/communicative-english"
+  ],
+  "beee-notes.html": [
+    "/basic-electrical-engineering",
+    "/beee-notes"
+  ],
+  "c-programming-notes.html": [
+    "/c-programming"
+  ],
+  "data-structures-basics.html": [
+    "/data-structures"
+  ],
+  "basic-civil-mechanical-engineering.html": [
+    "/basic-civil-and-mechanical-engineering"
+  ],
+  "engineering-mathematics-unit-1.html": [
+    "/maths/unit-1"
+  ],
+  "engineering-mathematics-unit-2.html": [
+    "/maths/unit-2"
+  ],
+  "engineering-mathematics-unit-3.html": [
+    "/maths/unit-3"
+  ],
+  "engineering-mathematics-unit-4.html": [
+    "/maths/unit-4"
+  ],
+  "engineering-mathematics-unit-5.html": [
+    "/maths/unit-5"
+  ],
+  "engineering-physics-unit-1.html": [
+    "/physics/unit-1",
+    "/physics/wave-optics"
+  ],
+  "engineering-physics-unit-2.html": [
+    "/physics/unit-2",
+    "/physics/lasers"
+  ],
+  "engineering-physics-unit-3.html": [
+    "/physics/unit-3"
+  ],
+  "engineering-physics-unit-4.html": [
+    "/physics/unit-4"
+  ],
+  "engineering-physics-unit-5.html": [
+    "/physics/unit-5"
+  ],
+  "chemistry-unit-1.html": [
+    "/chemistry/unit-1",
+    "/chemistry/water-demineralization"
+  ],
+  "chemistry-unit-2.html": [
+    "/chemistry/unit-2",
+    "/chemistry/electrochemistry"
+  ],
+  "chemistry-unit-3.html": [
+    "/chemistry/unit-3"
+  ],
+  "chemistry-unit-4.html": [
+    "/chemistry/unit-4"
+  ],
+  "chemistry-unit-5.html": [
+    "/chemistry/unit-5"
+  ],
+  "c-programming-unit-1.html": [
+    "/c-programming/unit-1",
+    "/c-programming/structures-unions"
+  ],
+  "c-programming-unit-2.html": [
+    "/c-programming/unit-2",
+    "/c-programming/pointers"
+  ],
+  "c-programming-unit-3.html": [
+    "/c-programming/unit-3"
+  ],
+  "c-programming-unit-4.html": [
+    "/c-programming/unit-4"
+  ],
+  "c-programming-unit-5.html": [
+    "/c-programming/unit-5"
+  ],
+  "unit-1-c-fundamentals.html": [
+    "/c-programming/unit-1-fundamentals",
+    "/c-programming/unit-1-c-fundamentals"
+  ],
+  "data-structures-unit-1.html": [
+    "/data-structures/unit-1"
+  ],
+  "data-structures-unit-2.html": [
+    "/data-structures/unit-2"
+  ],
+  "data-structures-unit-3.html": [
+    "/data-structures/unit-3"
+  ],
+  "data-structures-unit-4.html": [
+    "/data-structures/unit-4"
+  ],
+  "data-structures-unit-5.html": [
+    "/data-structures/unit-5"
+  ],
+  "basic-electrical-engineering-unit-1.html": [
+    "/beee/unit-1",
+    "/beee/superposition"
+  ],
+  "basic-electrical-engineering-unit-2.html": [
+    "/beee/unit-2",
+    "/beee/power-factor"
+  ],
+  "basic-electrical-engineering-unit-3.html": [
+    "/beee/unit-3"
+  ],
+  "basic-electrical-engineering-unit-4.html": [
+    "/beee/unit-4"
+  ],
+  "basic-electrical-engineering-unit-5.html": [
+    "/beee/unit-5"
+  ],
+  "communicative-english-unit-1.html": [
+    "/english/unit-1"
+  ],
+  "communicative-english-unit-2.html": [
+    "/english/unit-2"
+  ],
+  "communicative-english-unit-3.html": [
+    "/english/unit-3"
+  ],
+  "communicative-english-unit-4.html": [
+    "/english/unit-4"
+  ],
+  "communicative-english-unit-5.html": [
+    "/english/unit-5"
+  ],
+  "basic-civil-and-mechanical-engineering-unit-1.html": [
+    "/basic-civil-mechanical/unit-1"
+  ],
+  "basic-civil-and-mechanical-engineering-unit-2.html": [
+    "/basic-civil-mechanical/unit-2"
+  ],
+  "basic-civil-and-mechanical-engineering-unit-3.html": [
+    "/basic-civil-mechanical/unit-3"
+  ],
+  "basic-civil-and-mechanical-engineering-unit-4.html": [
+    "/basic-civil-mechanical/unit-4"
+  ],
+  "basic-civil-and-mechanical-engineering-unit-5.html": [
+    "/basic-civil-mechanical/unit-5"
+  ],
+  "engineering-graphics-enter-lab.html": [
+    "/engineering-graphics/projections"
+  ],
+  "404.html": [
+    "/404"
+  ]
+};
 
-cleanSubjectRoutes.forEach(route => {
-  app.get(route.path, (req, res) => res.sendFile(getFilePath(route.file)));
-  app.get(`${route.path}/`, (req, res) => res.sendFile(getFilePath(route.file)));
+// 1. Core rewrites serving the files cleanly for HTTP 200
+Object.entries(masterMappings).forEach(([file, paths]) => {
+  paths.forEach(routePath => {
+    app.get(routePath, (req, res) => res.sendFile(getFilePath(file)));
+    if (routePath !== '/' && !routePath.endsWith('/')) {
+      app.get(`${routePath}/`, (req, res) => res.sendFile(getFilePath(file)));
+    }
+  });
 });
 
-restructuredUnitRoutes.forEach(route => {
-  app.get(route.path, (req, res) => res.sendFile(getFilePath(route.file)));
-  app.get(`${route.path}/`, (req, res) => res.sendFile(getFilePath(route.file)));
+// 2. HTTP 301 Redirects for index.html or legacy page.html URLs to protect ranking power
+app.get('/:page.html', (req, res, next) => {
+  const pageFile = req.params.page + '.html';
+  if (masterMappings[pageFile]) {
+    const primarySlug = masterMappings[pageFile][0];
+    return res.redirect(301, primarySlug);
+  }
+  next();
 });
+// ==========================================================================
 
-app.get('/pyqs', (req, res) => {
-  res.sendFile(getFilePath('pyqs.html'));
-});
-
-app.get('/engineering-physics-pyqs', (req, res) => {
-  res.sendFile(getFilePath('pyqs.html'));
-});
-
-app.get('/semester-1/beee-important-questions', (req, res) => {
-  res.sendFile(getFilePath('beee-exam-prep.html'));
-});
-
-app.get('/c-programming-cheat-sheet', (req, res) => {
-  res.sendFile(getFilePath('cheat-sheets.html'));
-});
-
-app.get('/privacy', (req, res) => res.sendFile(getFilePath('privacy-policy.html')));
-app.get('/privacy/', (req, res) => res.sendFile(getFilePath('privacy-policy.html')));
-app.get('/terms', (req, res) => res.sendFile(getFilePath('terms-conditions.html')));
-app.get('/terms/', (req, res) => res.sendFile(getFilePath('terms-conditions.html')));
 
 app.get('/api/health', (req, res) => {
   const hasKey = !!process.env.GEMINI_API_KEY;

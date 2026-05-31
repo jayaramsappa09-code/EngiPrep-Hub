@@ -15,6 +15,7 @@
     
     
     
+    
 
     
     
@@ -158,6 +159,16 @@
     
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+
+
     <meta property="og:title" content="Premium JNTUK Study Notes | EngiPrepHub">
     <meta property="og:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
     <meta property="og:url" content="https://engiprephub.in/notifications">
@@ -171,13 +182,13 @@
 <body class="bg-[#0a0a0f] text-slate-900 dark:text-slate-50">
     <nav class="border-b bg-black/50 backdrop-blur-md sticky top-0 z-50 px-6 py-4 border-slate-200 dark:border-slate-800 border">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="/blogs.html" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
-                <a href="/tasks.html" class="hidden md:block px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Tasks</a>
-                <a href="/dashboard.html" class="flex items-center gap-3">
+            <a href="/blogs" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all">Daily Blogs</a>
+                <a href="/tasks" class="hidden md:block px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Tasks</a>
+                <a href="/dashboard" class="flex items-center gap-3">
                 <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-black">E</div>
                 <span class="font-black text-lg tracking-tight uppercase">EngiPrep <span class="text-primary italic">Hub</span></span>
             </a>
-            <a href="/dashboard.html" class="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 transition-all">← Back to Dashboard</a>
+            <a href="/dashboard" class="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-50 transition-all">← Back to Dashboard</a>
         </div>
     </nav>
 
@@ -203,7 +214,7 @@
 
         async function load() {
             const user = await getCurrentUser()
-            if (!user) return window.location.href = '/auth.html'
+            if (!user) return window.location.href = "/auth"
 
             const list = await getNotifications()
             const container = document.getElementById('notifications-container')
@@ -275,15 +286,19 @@
 
 
 
+
+
+
+
 <!-- EngiPrepHubFooter -->
 <footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
   <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
-    <a href="/about.html" class="hover:text-white">About</a>
-    <a href="/contact.html" class="hover:text-white">Contact</a>
-    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
-    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
-    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
-    <a href="/faq.html" class="hover:text-white">FAQ</a>
+    <a href="/about" class="hover:text-white">About</a>
+    <a href="/contact" class="hover:text-white">Contact</a>
+    <a href="/privacy" class="hover:text-white">Privacy</a>
+    <a href="/terms" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq" class="hover:text-white">FAQ</a>
   </div>
   <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
 </footer>
