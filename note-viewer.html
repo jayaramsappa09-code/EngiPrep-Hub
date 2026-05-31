@@ -15,6 +15,7 @@
     
     
     
+    
 
     
     
@@ -134,6 +135,16 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/note-viewer">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/note-viewer">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -497,7 +508,8 @@
                 document.getElementById('nav-title').innerText = note.title
                 document.getElementById('note-type').innerText = note.type
                 document.getElementById('main-title').innerText = note.title
-                document.getElementById('pub-date').innerText = new Date(note.created_at).toLocaleDateString('en-US', { month: 'SHORT', day: 'numeric' }).toUpperCase()
+                const createdDate = note.created_at ? new Date(note.created_at) : new Date();
+                document.getElementById('pub-date').innerText = createdDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase()
                 
                 // Content Injection with Marked and KaTeX
                 const contentEl = document.getElementById('content')
@@ -902,6 +914,10 @@
     <script type="module" src="/src/ai-widget.ts"></script>
     <!-- Universal Academic Navigator & Active Live Alerts -->
     <script type="module" src="/src/main.js"></script>
+
+
+
+
 
 
 
