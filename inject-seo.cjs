@@ -49,7 +49,7 @@ const seoMapping = {
         title: 'JNTUK R23 Verified Notes & Reference Docs | EngiPrepHub',
         desc: 'Search fully verified topper lecture notes for JNTUK R23 engineering subjects. Instant visual diagrams and exact university marking formulas.'
     },
-    'jntuk-r23-previous-question-papers.html': {
+    'pyqs.html': {
         title: 'JNTUK R23 Solved Previous Year Papers (PYQs) | EngiPrepHub',
         desc: 'Boost your engineering scores. Navigate repeated JNTUK R23 exam questions, detailed answer steps, and standard marking sheets.'
     },
@@ -170,139 +170,8 @@ htmlFiles.forEach(file => {
     }
 
     // 2. Add Canonical URL
-    const fileToCleanUrlMapping = {
-        'index.html': '/',
-        'about.html': '/about',
-        'contact.html': '/contact',
-        'privacy-policy.html': '/privacy-policy',
-        'cookie-policy.html': '/cookie-policy',
-        'terms-conditions.html': '/terms-and-conditions',
-        'faq.html': '/faq',
-        'blog.html': '/blog',
-        'blogs.html': '/blog',
-        'tools.html': '/tools',
-        'notes.html': '/notes',
-        'cheat-sheets.html': '/cheat-sheets',
-        'ai-professor.html': '/ai-professor-jntuk-study-assistant',
-        'semester-1.html': '/jntuk-r23-semester-1',
-        'semester-2.html': '/jntuk-r23-semester-2',
-        'tasks.html': '/tasks',
-        'exam-survival.html': '/exam-survival',
-        'contribute.html': '/contribute',
-        'dashboard.html': '/dashboard',
-        'quiz.html': '/quiz',
-        'bookmarks.html': '/bookmarks',
-        'profile.html': '/profile',
-        'admin.html': '/admin',
-        'auth.html': '/auth',
-        'reset-password.html': '/reset-password',
-        'notifications.html': '/notifications',
-        'disclaimer.html': '/disclaimer',
-        'videos.html': '/videos',
-        'all-subjects.html': '/all-subjects',
-        'subject.html': '/subject',
-        'note-viewer.html': '/note-viewer',
-        'beee-exam-prep.html': '/beee-exam-prep',
-        'maths-1.html': '/engineering-mathematics-1-notes-jntuk-r23',
-        'engineering-mathematics-2.html': '/engineering-mathematics-2',
-        'unit-1-c-fundamentals.html': '/unit-1-c-fundamentals',
-        'engineering-mathematics-unit-1.html': '/engineering-mathematics-unit-1-differential-equations',
-        'engineering-mathematics-unit-2.html': '/engineering-mathematics-unit-2-higher-order-differential-equations',
-        'engineering-mathematics-unit-3.html': '/engineering-mathematics-unit-3-partial-differential-equations',
-        'engineering-mathematics-unit-4.html': '/engineering-mathematics-unit-4-vector-differentiation',
-        'engineering-mathematics-unit-5.html': '/engineering-mathematics-unit-5-vector-integration',
-        'physics-notes.html': '/engineering-physics-notes-jntuk-r23',
-        'engineering-physics-unit-1.html': '/engineering-physics-unit-1-wave-optics',
-        'engineering-physics-unit-2.html': '/engineering-physics-unit-2-lasers-and-fiber-optics',
-        'engineering-physics-unit-3.html': '/engineering-physics-unit-3-quantum-mechanics',
-        'engineering-physics-unit-4.html': '/engineering-physics-unit-4-semiconductor-physics',
-        'engineering-physics-unit-5.html': '/engineering-physics-unit-5-modern-physics',
-        'chemistry-topper-notes.html': '/engineering-chemistry-notes-jntuk-r23',
-        'chemistry-unit-1.html': '/engineering-chemistry-unit-1-structure-and-bonding',
-        'chemistry-unit-2.html': '/engineering-chemistry-unit-2-modern-engineering-materials',
-        'chemistry-unit-3.html': '/engineering-chemistry-unit-3-electrochemistry',
-        'chemistry-unit-4.html': '/engineering-chemistry-unit-4-polymer-chemistry',
-        'chemistry-unit-5.html': '/engineering-chemistry-unit-5-water-technology',
-        'c-programming-notes.html': '/c-programming-notes-jntuk-r23',
-        'c-programming-unit-1.html': '/c-programming-unit-1-fundamentals',
-        'c-programming-unit-2.html': '/c-programming-unit-2-control-statements',
-        'c-programming-unit-3.html': '/c-programming-unit-3-functions-and-arrays',
-        'c-programming-unit-4.html': '/c-programming-unit-4-pointers-and-structures',
-        'c-programming-unit-5.html': '/c-programming-unit-5-files-and-dynamic-memory',
-        'data-structures-basics.html': '/data-structures-notes-jntuk-r23',
-        'data-structures-unit-1.html': '/data-structures-unit-1-introduction',
-        'data-structures-unit-2.html': '/data-structures-unit-2-linked-lists',
-        'data-structures-unit-3.html': '/data-structures-unit-3-stacks-and-queues',
-        'data-structures-unit-4.html': '/data-structures-unit-4-trees',
-        'data-structures-unit-5.html': '/data-structures-unit-5-graphs-and-hashing',
-        'beee-notes.html': '/basic-electrical-engineering-notes',
-        'basic-electrical-engineering-unit-1.html': '/basic-electrical-engineering-unit-1-electrical-fundamentals',
-        'basic-electrical-engineering-unit-2.html': '/basic-electrical-engineering-unit-2-dc-circuits',
-        'basic-electrical-engineering-unit-3.html': '/basic-electrical-engineering-unit-3-ac-circuits',
-        'basic-electrical-engineering-unit-4.html': '/basic-electrical-engineering-unit-4-transformers',
-        'basic-electrical-engineering-unit-5.html': '/basic-electrical-engineering-unit-5-electrical-machines',
-        'basic-civil-mechanical-engineering.html': '/basic-civil-mechanical-engineering-notes',
-        'basic-civil-and-mechanical-engineering-unit-1.html': '/basic-civil-mechanical-unit-1-construction-materials',
-        'basic-civil-and-mechanical-engineering-unit-2.html': '/basic-civil-mechanical-unit-2-surveying',
-        'basic-civil-and-mechanical-engineering-unit-3.html': '/basic-civil-mechanical-unit-3-building-planning',
-        'basic-civil-and-mechanical-engineering-unit-4.html': '/basic-civil-mechanical-unit-4-thermodynamics',
-        'basic-civil-and-mechanical-engineering-unit-5.html': '/basic-civil-mechanical-unit-5-manufacturing-processes',
-        'communicative-english.html': '/communicative-english-notes',
-        'communicative-english-unit-1.html': '/communicative-english-unit-1-language-skills',
-        'communicative-english-unit-2.html': '/communicative-english-unit-2-reading-comprehension',
-        'communicative-english-unit-3.html': '/communicative-english-unit-3-writing-skills',
-        'communicative-english-unit-4.html': '/communicative-english-unit-4-professional-communication',
-        'communicative-english-unit-5.html': '/communicative-english-unit-5-presentation-skills',
-        'engineering-graphics-notes.html': '/engineering-graphics-notes',
-        'engineering-graphics-lab.html': '/engineering-graphics-notes',
-        'engineering-graphics-enter-lab.html': '/engineering-graphics-lab',
-        'jntuk-r23-previous-question-papers.html': '/jntuk-r23-previous-question-papers'
-    };
-
-    // 2.1 Link Sanitation: Replace all raw .html filenames and legacy paths inside href="..." attributes
-    const legacyPathReplacements = [
-        { from: '/engineering-physics', to: '/engineering-physics-notes-jntuk-r23' },
-        { from: '/engineering-chemistry', to: '/engineering-chemistry-notes-jntuk-r23' },
-        { from: '/engineering-mathematics', to: '/engineering-mathematics-1-notes-jntuk-r23' },
-        { from: '/engineering-graphics', to: '/engineering-graphics-notes' },
-        { from: '/communicative-english', to: '/communicative-english-notes' },
-        { from: '/basic-electrical-engineering', to: '/basic-electrical-engineering-notes' },
-        { from: '/c-programming', to: '/c-programming-notes-jntuk-r23' },
-        { from: '/data-structures', to: '/data-structures-notes-jntuk-r23' },
-        { from: '/basic-civil-and-mechanical-engineering', to: '/basic-civil-mechanical-engineering-notes' },
-        { from: '/privacy', to: '/privacy-policy' },
-        { from: '/terms', to: '/terms-and-conditions' },
-        { from: '/ai-professor', to: '/ai-professor-jntuk-study-assistant' },
-        { from: '/pyqs', to: '/jntuk-r23-previous-question-papers' }
-    ];
-
-    let contentBeforeSanitation = content;
-
-    // Quick Syntax Healing: Recover nested double-quotes inside onclick and href="javascript:..." attributes
-    content = content.replace(/onclick=["']window\.location\.href=["']\/([a-zA-Z0-9_-]+)["']["']/g, 'onclick="window.location.href=\'/$1\'"');
-    content = content.replace(/href=["']javascript:history\.length > 1 \? history\.back\(\) : window\.location\.href=["']\/([a-zA-Z0-9_-]+)["']["']/g, 'href="javascript:history.length > 1 ? history.back() : window.location.href=\'/$1\'"');
-
-    // First replace all legacy path prefixes preserving single/double quote delimiters
-    legacyPathReplacements.forEach(rep => {
-        const regexExact = new RegExp(`(href=["'])${rep.from}/?([\"'#])`, 'g');
-        content = content.replace(regexExact, `$1${rep.to}$2`);
-    });
-
-    // Replace exact filename matches preserving matched single or double quote style to prevent syntax breaks
-    for (const [rawFile, cleanUrl] of Object.entries(fileToCleanUrlMapping)) {
-        const regex = new RegExp(`(href=)(["'])(?:\\.\\/|\\/)?` + rawFile.replace('.', '\\.') + `(?:\\/)?(#.*?)?\\2`, 'g');
-        content = content.replace(regex, (match, prefix, quote, anchor) => {
-            const dest = cleanUrl + (anchor || '');
-            return `href=${quote}${dest}${quote}`;
-        });
-    }
-
-    if (content !== contentBeforeSanitation) {
-        modified = true;
-    }
-
-    const cleanPath = fileToCleanUrlMapping[baseName] || (baseName === 'index.html' ? '/' : `/${baseName.replace('.html', '')}`);
-    const canonicalUrl = `${domain}${cleanPath === '/' ? '' : cleanPath}`;
+    const parsePath = baseName === 'index.html' ? '' : baseName.replace('.html', '');
+    const canonicalUrl = `${domain}/${parsePath}`;
     
     // Clean old canonicals and inject perfectly
     content = content.replace(/<link rel="canonical".*?>/gi, '');
@@ -368,12 +237,12 @@ htmlFiles.forEach(file => {
 <!-- EngiPrepHubFooter -->
 <footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
   <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
-    <a href="/about" class="hover:text-white">About</a>
-    <a href="/contact" class="hover:text-white">Contact</a>
-    <a href="/privacy-policy" class="hover:text-white">Privacy</a>
-    <a href="/terms-and-conditions" class="hover:text-white">Terms</a>
-    <a href="/cookie-policy" class="hover:text-white">Cookie Policy</a>
-    <a href="/faq" class="hover:text-white">FAQ</a>
+    <a href="/about.html" class="hover:text-white">About</a>
+    <a href="/contact.html" class="hover:text-white">Contact</a>
+    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq.html" class="hover:text-white">FAQ</a>
   </div>
   <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
 </footer>
@@ -471,7 +340,7 @@ htmlFiles.forEach(file => {
     }
     </script>
 `;
-    } else if (baseName === 'jntuk-r23-previous-question-papers.html') {
+    } else if (baseName === 'pyqs.html') {
         schema = `
     <script type="application/ld+json">
     {

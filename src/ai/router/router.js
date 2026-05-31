@@ -49,7 +49,7 @@ export const AI_ROUTER = {
       if (topRoute.id === 'graphics_u1') return '/engineering-graphics/ellipse';
       if (topRoute.id === 'graphics_u2') return '/engineering-graphics/projections';
       
-      if (topRoute.id === 'pyqs') return '/jntuk-r23-previous-question-papers';
+      if (topRoute.id === 'pyqs') return '/pyqs.html';
       if (topRoute.id === 'cheat_sheets') return '/c-programming-cheat-sheet';
       if (topRoute.id === 'ai_professor') return '/ai-professor.html';
 

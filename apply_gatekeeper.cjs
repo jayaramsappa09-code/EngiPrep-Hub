@@ -24,7 +24,7 @@ const protectedFiles = [
     'engineering-physics-unit-3.html',
     'engineering-physics-unit-4.html',
     'engineering-physics-unit-5.html',
-    'jntuk-r23-previous-question-papers.html',
+    'pyqs.html',
     'quiz.html',
     'semester-1.html',
     'semester-2.html',

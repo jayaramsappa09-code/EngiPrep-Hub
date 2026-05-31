@@ -92,7 +92,7 @@ export const COMMAND_PALETTE = {
                     <div class="text-[9px] text-slate-405 leading-none">Interactive simulations & multi-mode chatbot</div>
                   </div>
                 </a>
-                <a href="/jntuk-r23-previous-question-papers" class="engi-destination-item">
+                <a href="/pyqs.html" class="engi-destination-item">
                   <span class="text-sm">🎯</span>
                   <div>
                     <div class="text-xs font-bold leading-normal">Syllabus PYQ Repository</div>

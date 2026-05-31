@@ -101,11 +101,8 @@ app.use('/api', apiLimiter);
 
 // Helper for SEO clean URLs mapping
 const getFilePath = (filename: string) => {
-  const distPath = path.join(process.cwd(), 'dist', filename);
-  if (fs.existsSync(distPath)) {
-    return distPath;
-  }
-  return path.join(process.cwd(), filename);
+  const folder = process.env.NODE_ENV === 'production' ? 'dist' : '';
+  return path.join(process.cwd(), folder, filename);
 };
 
 // SEO Clean URLs mapping for elite searchindexing
@@ -113,245 +110,93 @@ app.get('/subject.html', (req, res, next) => {
   const sub = (req.query.sub || req.query.slug || '').toString().toLowerCase();
   if (sub) {
     if (sub.includes('physics') || sub.includes('ap102')) {
-      return res.redirect(301, '/engineering-physics-notes-jntuk-r23');
+      return res.redirect(301, '/engineering-physics');
     }
     if (sub.includes('chemistry')) {
-      return res.redirect(301, '/engineering-chemistry-notes-jntuk-r23');
+      return res.redirect(301, '/engineering-chemistry');
     }
     if (sub.includes('mathematics ii') || sub === 'm2' || sub.includes('maths ii') || sub.includes('maths 2')) {
       return res.redirect(301, '/engineering-mathematics-2');
     }
     if (sub.includes('mathematics i') || sub === 'm1' || sub.includes('maths i') || sub.includes('maths 1')) {
-      return res.redirect(301, '/engineering-mathematics-1-notes-jntuk-r23');
+      return res.redirect(301, '/engineering-mathematics');
     }
     if (sub.includes('graphics') || sub === 'eg' || sub.includes('engineering graphics')) {
-      return res.redirect(301, '/engineering-graphics-notes');
+      return res.redirect(301, '/engineering-graphics');
     }
     if (sub.includes('english') || sub.includes('communicative')) {
-      return res.redirect(301, '/communicative-english-notes');
+      return res.redirect(301, '/communicative-english');
     }
     if (sub.includes('electrical') || sub === 'beee' || sub.includes('basic electrical')) {
-      return res.redirect(301, '/basic-electrical-engineering-notes');
+      return res.redirect(301, '/basic-electrical-engineering');
     }
     if (sub.includes('c programming') || sub.includes('pps') || sub.includes('problem solving')) {
-      return res.redirect(301, '/c-programming-notes-jntuk-r23');
+      return res.redirect(301, '/c-programming');
     }
     if (sub.includes('data structure')) {
-      return res.redirect(301, '/data-structures-notes-jntuk-r23');
+      return res.redirect(301, '/data-structures');
     }
     if (sub.includes('civil') || sub.includes('mechanical') || sub.includes('bcme')) {
-      return res.redirect(301, '/basic-civil-mechanical-engineering-notes');
+      return res.redirect(301, '/basic-civil-and-mechanical-engineering');
     }
   }
   next();
 });
 
-const legacyRedirects = [
-  { from: '/engineering-physics', to: '/engineering-physics-notes-jntuk-r23' },
-  { from: '/engineering-physics/', to: '/engineering-physics-notes-jntuk-r23' },
-  { from: '/engineering-chemistry', to: '/engineering-chemistry-notes-jntuk-r23' },
-  { from: '/engineering-chemistry/', to: '/engineering-chemistry-notes-jntuk-r23' },
-  { from: '/engineering-mathematics', to: '/engineering-mathematics-1-notes-jntuk-r23' },
-  { from: '/engineering-mathematics/', to: '/engineering-mathematics-1-notes-jntuk-r23' },
-  { from: '/engineering-graphics', to: '/engineering-graphics-notes' },
-  { from: '/engineering-graphics/', to: '/engineering-graphics-notes' },
-  { from: '/communicative-english', to: '/communicative-english-notes' },
-  { from: '/communicative-english/', to: '/communicative-english-notes' },
-  { from: '/basic-electrical-engineering', to: '/basic-electrical-engineering-notes' },
-  { from: '/basic-electrical-engineering/', to: '/basic-electrical-engineering-notes' },
-  { from: '/c-programming', to: '/c-programming-notes-jntuk-r23' },
-  { from: '/c-programming/', to: '/c-programming-notes-jntuk-r23' },
-  { from: '/data-structures', to: '/data-structures-notes-jntuk-r23' },
-  { from: '/data-structures/', to: '/data-structures-notes-jntuk-r23' },
-  { from: '/basic-civil-and-mechanical-engineering', to: '/basic-civil-mechanical-engineering-notes' },
-  { from: '/basic-civil-and-mechanical-engineering/', to: '/basic-civil-mechanical-engineering-notes' },
-  { from: '/privacy', to: '/privacy-policy' },
-  { from: '/privacy/', to: '/privacy-policy' },
-  { from: '/privacy-policy/', to: '/privacy-policy' },
-  { from: '/privacy-policy.html', to: '/privacy-policy' },
-  { from: '/terms', to: '/terms-and-conditions' },
-  { from: '/terms/', to: '/terms-and-conditions' },
-  { from: '/terms-conditions.html', to: '/terms-and-conditions' },
-  { from: '/cookie-policy.html', to: '/cookie-policy' },
-  { from: '/about.html', to: '/about' },
-  { from: '/contact.html', to: '/contact' },
-  { from: '/faq.html', to: '/faq' },
-  { from: '/blog.html', to: '/blog' },
-  { from: '/tools.html', to: '/tools' },
-  { from: '/notes.html', to: '/notes' },
-  { from: '/cheat-sheets.html', to: '/cheat-sheets' },
-  { from: '/ai-professor.html', to: '/ai-professor-jntuk-study-assistant' },
-  { from: '/ai-professor', to: '/ai-professor-jntuk-study-assistant' },
-  { from: '/semester-1.html', to: '/jntuk-r23-semester-1' },
-  { from: '/semester-2.html', to: '/jntuk-r23-semester-2' },
-  { from: '/pyqs', to: '/jntuk-r23-previous-question-papers' },
-  { from: '/pyqs/', to: '/jntuk-r23-previous-question-papers' },
-  { from: '/pyqs.html', to: '/jntuk-r23-previous-question-papers' },
-  
-  // Maths unit redirects
-  { from: '/maths/unit-1', to: '/engineering-mathematics-unit-1-differential-equations' },
-  { from: '/maths/unit-2', to: '/engineering-mathematics-unit-2-higher-order-differential-equations' },
-  { from: '/maths/unit-3', to: '/engineering-mathematics-unit-3-partial-differential-equations' },
-  { from: '/maths/unit-4', to: '/engineering-mathematics-unit-4-vector-differentiation' },
-  { from: '/maths/unit-5', to: '/engineering-mathematics-unit-5-vector-integration' },
-
-  // Physics unit redirects
-  { from: '/physics/unit-1', to: '/engineering-physics-unit-1-wave-optics' },
-  { from: '/physics/wave-optics', to: '/engineering-physics-unit-1-wave-optics' },
-  { from: '/physics/unit-2', to: '/engineering-physics-unit-2-lasers-and-fiber-optics' },
-  { from: '/physics/lasers', to: '/engineering-physics-unit-2-lasers-and-fiber-optics' },
-  { from: '/physics/unit-3', to: '/engineering-physics-unit-3-quantum-mechanics' },
-  { from: '/physics/unit-4', to: '/engineering-physics-unit-4-semiconductor-physics' },
-  { from: '/physics/unit-5', to: '/engineering-physics-unit-5-modern-physics' },
-
-  // Chemistry unit redirects
-  { from: '/chemistry/unit-1', to: '/engineering-chemistry-unit-1-structure-and-bonding' },
-  { from: '/chemistry/water-demineralization', to: '/engineering-chemistry-unit-1-structure-and-bonding' },
-  { from: '/chemistry/unit-2', to: '/engineering-chemistry-unit-2-modern-engineering-materials' },
-  { from: '/chemistry/electrochemistry', to: '/engineering-chemistry-unit-2-modern-engineering-materials' },
-  { from: '/chemistry/unit-3', to: '/engineering-chemistry-unit-3-electrochemistry' },
-  { from: '/chemistry/unit-4', to: '/engineering-chemistry-unit-4-polymer-chemistry' },
-  { from: '/chemistry/unit-5', to: '/engineering-chemistry-unit-5-water-technology' },
-
-  // C programming unit redirects
-  { from: '/c-programming/unit-1', to: '/c-programming-unit-1-fundamentals' },
-  { from: '/c-programming/structures-unions', to: '/c-programming-unit-1-fundamentals' },
-  { from: '/c-programming/unit-2', to: '/c-programming-unit-2-control-statements' },
-  { from: '/c-programming/pointers', to: '/c-programming-unit-2-control-statements' },
-  { from: '/c-programming/unit-3', to: '/c-programming-unit-3-functions-and-arrays' },
-  { from: '/c-programming/unit-4', to: '/c-programming-unit-4-pointers-and-structures' },
-  { from: '/c-programming/unit-5', to: '/c-programming-unit-5-files-and-dynamic-memory' },
-
-  // Data Structures unit redirects
-  { from: '/data-structures/unit-1', to: '/data-structures-unit-1-introduction' },
-  { from: '/data-structures/unit-2', to: '/data-structures-unit-2-linked-lists' },
-  { from: '/data-structures/unit-3', to: '/data-structures-unit-3-stacks-and-queues' },
-  { from: '/data-structures/unit-4', to: '/data-structures-unit-4-trees' },
-  { from: '/data-structures/unit-5', to: '/data-structures-unit-5-graphs-and-hashing' },
-
-  // BEEE unit redirects
-  { from: '/beee/unit-1', to: '/basic-electrical-engineering-unit-1-electrical-fundamentals' },
-  { from: '/beee/superposition', to: '/basic-electrical-engineering-unit-1-electrical-fundamentals' },
-  { from: '/beee/unit-2', to: '/basic-electrical-engineering-unit-2-dc-circuits' },
-  { from: '/beee/power-factor', to: '/basic-electrical-engineering-unit-2-dc-circuits' },
-  { from: '/beee/unit-3', to: '/basic-electrical-engineering-unit-3-ac-circuits' },
-  { from: '/beee/unit-4', to: '/basic-electrical-engineering-unit-4-transformers' },
-  { from: '/beee/unit-5', to: '/basic-electrical-engineering-unit-5-electrical-machines' }
-];
-
-legacyRedirects.forEach(redir => {
-  app.get(redir.from, (req, res) => res.redirect(301, redir.to));
-});
-
 const cleanSubjectRoutes = [
-  { path: '/engineering-physics-notes-jntuk-r23', file: 'physics-notes.html' },
-  { path: '/engineering-chemistry-notes-jntuk-r23', file: 'chemistry-topper-notes.html' },
-  { path: '/engineering-mathematics-1-notes-jntuk-r23', file: 'maths-1.html' },
+  { path: '/engineering-physics', file: 'physics-notes.html' },
+  { path: '/engineering-chemistry', file: 'chemistry-topper-notes.html' },
+  { path: '/engineering-mathematics', file: 'maths-1.html' },
   { path: '/engineering-mathematics-2', file: 'engineering-mathematics-2.html' },
-  { path: '/engineering-graphics-notes', file: 'engineering-graphics-lab.html' },
-  { path: '/engineering-graphics-lab', file: 'engineering-graphics-enter-lab.html' },
-  { path: '/engineering-graphics-autocad-tutorials', file: 'engineering-graphics-lab.html' },
-  { path: '/engineering-graphics-important-questions', file: 'engineering-graphics-lab.html' },
-  { path: '/engineering-graphics-viva-questions', file: 'engineering-graphics-lab.html' },
-  { path: '/communicative-english-notes', file: 'communicative-english.html' },
-  { path: '/basic-electrical-engineering-notes', file: 'beee-notes.html' },
-  { path: '/c-programming-notes-jntuk-r23', file: 'c-programming-notes.html' },
-  { path: '/data-structures-notes-jntuk-r23', file: 'data-structures-basics.html' },
-  { path: '/basic-civil-mechanical-engineering-notes', file: 'basic-civil-mechanical-engineering.html' }
+  { path: '/engineering-graphics', file: 'engineering-graphics-lab.html' },
+  { path: '/communicative-english', file: 'communicative-english.html' },
+  { path: '/basic-electrical-engineering', file: 'beee-notes.html' },
+  { path: '/c-programming', file: 'c-programming-notes.html' },
+  { path: '/data-structures', file: 'data-structures-basics.html' },
+  { path: '/basic-civil-and-mechanical-engineering', file: 'basic-civil-mechanical-engineering.html' }
 ];
 
 const restructuredUnitRoutes = [
-  // Mathematics
-  { path: '/engineering-mathematics-unit-1-differential-equations', file: 'engineering-mathematics-unit-1.html' },
-  { path: '/engineering-mathematics-unit-2-higher-order-differential-equations', file: 'engineering-mathematics-unit-2.html' },
-  { path: '/engineering-mathematics-unit-3-partial-differential-equations', file: 'engineering-mathematics-unit-3.html' },
-  { path: '/engineering-mathematics-unit-4-vector-differentiation', file: 'engineering-mathematics-unit-4.html' },
-  { path: '/engineering-mathematics-unit-5-vector-integration', file: 'engineering-mathematics-unit-5.html' },
+  { path: '/maths/unit-1', file: 'engineering-mathematics-unit-1.html' },
+  { path: '/maths/unit-2', file: 'engineering-mathematics-unit-2.html' },
+  { path: '/maths/unit-3', file: 'engineering-mathematics-unit-3.html' },
+  { path: '/maths/unit-4', file: 'engineering-mathematics-unit-4.html' },
+  { path: '/maths/unit-5', file: 'engineering-mathematics-unit-5.html' },
   
-  // Physics
-  { path: '/engineering-physics-unit-1-wave-optics', file: 'engineering-physics-unit-1.html' },
-  { path: '/engineering-physics-unit-2-lasers-and-fiber-optics', file: 'engineering-physics-unit-2.html' },
-  { path: '/engineering-physics-unit-3-quantum-mechanics', file: 'engineering-physics-unit-3.html' },
-  { path: '/engineering-physics-unit-4-semiconductor-physics', file: 'engineering-physics-unit-4.html' },
-  { path: '/engineering-physics-unit-5-modern-physics', file: 'engineering-physics-unit-5.html' },
-
-  // Chemistry
-  { path: '/engineering-chemistry-unit-1-structure-and-bonding', file: 'chemistry-unit-1.html' },
-  { path: '/engineering-chemistry-unit-2-modern-engineering-materials', file: 'chemistry-unit-2.html' },
-  { path: '/engineering-chemistry-unit-3-electrochemistry', file: 'chemistry-unit-3.html' },
-  { path: '/engineering-chemistry-unit-4-polymer-chemistry', file: 'chemistry-unit-4.html' },
-  { path: '/engineering-chemistry-unit-5-water-technology', file: 'chemistry-unit-5.html' },
-
-  // C Programming
-  { path: '/c-programming-unit-1-fundamentals', file: 'c-programming-unit-1.html' },
-  { path: '/c-programming-unit-2-control-statements', file: 'c-programming-unit-2.html' },
-  { path: '/c-programming-unit-3-functions-and-arrays', file: 'c-programming-unit-3.html' },
-  { path: '/c-programming-unit-4-pointers-and-structures', file: 'c-programming-unit-4.html' },
-  { path: '/c-programming-unit-5-files-and-dynamic-memory', file: 'c-programming-unit-5.html' },
-
-  // Data Structures
-  { path: '/data-structures-unit-1-introduction', file: 'data-structures-unit-1.html' },
-  { path: '/data-structures-unit-2-linked-lists', file: 'data-structures-unit-2.html' },
-  { path: '/data-structures-unit-3-stacks-and-queues', file: 'data-structures-unit-3.html' },
-  { path: '/data-structures-unit-4-trees', file: 'data-structures-unit-4.html' },
-  { path: '/data-structures-unit-5-graphs-and-hashing', file: 'data-structures-unit-5.html' },
-
-  // BEEE
-  { path: '/basic-electrical-engineering-unit-1-electrical-fundamentals', file: 'basic-electrical-engineering-unit-1.html' },
-  { path: '/basic-electrical-engineering-unit-2-dc-circuits', file: 'basic-electrical-engineering-unit-2.html' },
-  { path: '/basic-electrical-engineering-unit-3-ac-circuits', file: 'basic-electrical-engineering-unit-3.html' },
-  { path: '/basic-electrical-engineering-unit-4-transformers', file: 'basic-electrical-engineering-unit-4.html' },
-  { path: '/basic-electrical-engineering-unit-5-electrical-machines', file: 'basic-electrical-engineering-unit-5.html' },
-
-  // Civil & Mechanical
-  { path: '/basic-civil-mechanical-unit-1-construction-materials', file: 'basic-civil-and-mechanical-engineering-unit-1.html' },
-  { path: '/basic-civil-mechanical-unit-2-surveying', file: 'basic-civil-and-mechanical-engineering-unit-2.html' },
-  { path: '/basic-civil-mechanical-unit-3-building-planning', file: 'basic-civil-and-mechanical-engineering-unit-3.html' },
-  { path: '/basic-civil-mechanical-unit-4-thermodynamics', file: 'basic-civil-and-mechanical-engineering-unit-4.html' },
-  { path: '/basic-civil-mechanical-unit-5-manufacturing-processes', file: 'basic-civil-and-mechanical-engineering-unit-5.html' },
-
-  // English
-  { path: '/communicative-english-unit-1-language-skills', file: 'communicative-english-unit-1.html' },
-  { path: '/communicative-english-unit-2-reading-comprehension', file: 'communicative-english-unit-2.html' },
-  { path: '/communicative-english-unit-3-writing-skills', file: 'communicative-english-unit-3.html' },
-  { path: '/communicative-english-unit-4-professional-communication', file: 'communicative-english-unit-4.html' },
-  { path: '/communicative-english-unit-5-presentation-skills', file: 'communicative-english-unit-5.html' }
-];
-
-const newCoreRoutes = [
-  { path: '/about', file: 'about.html' },
-  { path: '/contact', file: 'contact.html' },
-  { path: '/privacy-policy', file: 'privacy-policy.html' },
-  { path: '/cookie-policy', file: 'cookie-policy.html' },
-  { path: '/terms-and-conditions', file: 'terms-conditions.html' },
-  { path: '/faq', file: 'faq.html' },
-  { path: '/blog', file: 'blog.html' },
-  { path: '/blogs', file: 'blog.html' },
-  { path: '/tools', file: 'tools.html' },
-  { path: '/notes', file: 'notes.html' },
-  { path: '/cheat-sheets', file: 'cheat-sheets.html' },
-  { path: '/ai-professor-jntuk-study-assistant', file: 'ai-professor.html' },
-  { path: '/jntuk-r23-semester-1', file: 'semester-1.html' },
-  { path: '/jntuk-r23-semester-2', file: 'semester-2.html' },
-  { path: '/tasks', file: 'tasks.html' },
-  { path: '/exam-survival', file: 'exam-survival.html' },
-  { path: '/contribute', file: 'contribute.html' },
-  { path: '/dashboard', file: 'dashboard.html' },
-  { path: '/quiz', file: 'quiz.html' },
-  { path: '/bookmarks', file: 'bookmarks.html' },
-  { path: '/profile', file: 'profile.html' },
-  { path: '/admin', file: 'admin.html' },
-  { path: '/auth', file: 'auth.html' },
-  { path: '/reset-password', file: 'reset-password.html' },
-  { path: '/notifications', file: 'notifications.html' },
-  { path: '/disclaimer', file: 'disclaimer.html' },
-  { path: '/videos', file: 'videos.html' },
-  { path: '/engineering-mathematics-2', file: 'engineering-mathematics-2.html' },
-  { path: '/unit-1-c-fundamentals', file: 'unit-1-c-fundamentals.html' },
-  { path: '/all-subjects', file: 'all-subjects.html' },
-  { path: '/subject', file: 'subject.html' },
-  { path: '/note-viewer', file: 'note-viewer.html' },
-  { path: '/beee-exam-prep', file: 'beee-exam-prep.html' }
+  { path: '/physics/wave-optics', file: 'engineering-physics-unit-1.html' },
+  { path: '/physics/lasers', file: 'engineering-physics-unit-2.html' },
+  { path: '/physics/unit-1', file: 'engineering-physics-unit-1.html' },
+  { path: '/physics/unit-2', file: 'engineering-physics-unit-2.html' },
+  { path: '/physics/unit-3', file: 'engineering-physics-unit-3.html' },
+  { path: '/physics/unit-4', file: 'engineering-physics-unit-4.html' },
+  { path: '/physics/unit-5', file: 'engineering-physics-unit-5.html' },
+  
+  { path: '/c-programming/structures-unions', file: 'c-programming-unit-1.html' },
+  { path: '/c-programming/pointers', file: 'c-programming-unit-2.html' },
+  { path: '/c-programming/unit-1', file: 'c-programming-unit-1.html' },
+  { path: '/c-programming/unit-2', file: 'c-programming-unit-2.html' },
+  { path: '/c-programming/unit-3', file: 'c-programming-unit-3.html' },
+  { path: '/c-programming/unit-4', file: 'c-programming-unit-4.html' },
+  { path: '/c-programming/unit-5', file: 'c-programming-unit-5.html' },
+  
+  { path: '/engineering-graphics/ellipse', file: 'engineering-graphics-lab.html' },
+  { path: '/engineering-graphics/projections', file: 'engineering-graphics-enter-lab.html' },
+  
+  { path: '/chemistry/water-demineralization', file: 'chemistry-unit-1.html' },
+  { path: '/chemistry/electrochemistry', file: 'chemistry-unit-2.html' },
+  { path: '/chemistry/unit-1', file: 'chemistry-unit-1.html' },
+  { path: '/chemistry/unit-2', file: 'chemistry-unit-2.html' },
+  { path: '/chemistry/unit-3', file: 'chemistry-unit-3.html' },
+  { path: '/chemistry/unit-4', file: 'chemistry-unit-4.html' },
+  { path: '/chemistry/unit-5', file: 'chemistry-unit-5.html' },
+  
+  { path: '/beee/superposition', file: 'basic-electrical-engineering-unit-1.html' },
+  { path: '/beee/power-factor', file: 'basic-electrical-engineering-unit-2.html' },
+  { path: '/beee/unit-1', file: 'basic-electrical-engineering-unit-1.html' },
+  { path: '/beee/unit-2', file: 'basic-electrical-engineering-unit-2.html' },
+  { path: '/beee/unit-3', file: 'basic-electrical-engineering-unit-3.html' },
+  { path: '/beee/unit-4', file: 'basic-electrical-engineering-unit-4.html' },
+  { path: '/beee/unit-5', file: 'basic-electrical-engineering-unit-5.html' }
 ];
 
 cleanSubjectRoutes.forEach(route => {
@@ -364,36 +209,12 @@ restructuredUnitRoutes.forEach(route => {
   app.get(`${route.path}/`, (req, res) => res.sendFile(getFilePath(route.file)));
 });
 
-newCoreRoutes.forEach(route => {
-  app.get(route.path, (req, res) => res.sendFile(getFilePath(route.file)));
-  app.get(`${route.path}/`, (req, res) => res.sendFile(getFilePath(route.file)));
+app.get('/pyqs', (req, res) => {
+  res.sendFile(getFilePath('pyqs.html'));
 });
 
-// Blog posts dynamic pathing support
-app.get('/blog/:slug', (req, res) => {
-  res.sendFile(getFilePath('blog-post.html'));
-});
-
-app.get('/jntuk-r23-previous-question-papers', (req, res) => {
-  res.sendFile(getFilePath('jntuk-r23-previous-question-papers.html'));
-});
-app.get('/jntuk-r23-previous-question-papers/', (req, res) => {
-  res.sendFile(getFilePath('jntuk-r23-previous-question-papers.html'));
-});
-
-// Anchor redirects for specific PYQ subjects
-const pyqSubjects = [
-  { path: '/jntuk-r23-mathematics-pyqs', anchor: '#maths' },
-  { path: '/jntuk-r23-physics-pyqs', anchor: '#physics' },
-  { path: '/jntuk-r23-chemistry-pyqs', anchor: '#chemistry' },
-  { path: '/jntuk-r23-c-programming-pyqs', anchor: '#c-programming' },
-  { path: '/jntuk-r23-data-structures-pyqs', anchor: '#data-structures' }
-];
-
-pyqSubjects.forEach(sub => {
-  app.get(sub.path, (req, res) => {
-    res.redirect(301, `/jntuk-r23-previous-question-papers${sub.anchor}`);
-  });
+app.get('/engineering-physics-pyqs', (req, res) => {
+  res.sendFile(getFilePath('pyqs.html'));
 });
 
 app.get('/semester-1/beee-important-questions', (req, res) => {
@@ -401,8 +222,13 @@ app.get('/semester-1/beee-important-questions', (req, res) => {
 });
 
 app.get('/c-programming-cheat-sheet', (req, res) => {
-  res.redirect(301, '/cheat-sheets');
+  res.sendFile(getFilePath('cheat-sheets.html'));
 });
+
+app.get('/privacy', (req, res) => res.sendFile(getFilePath('privacy-policy.html')));
+app.get('/privacy/', (req, res) => res.sendFile(getFilePath('privacy-policy.html')));
+app.get('/terms', (req, res) => res.sendFile(getFilePath('terms-conditions.html')));
+app.get('/terms/', (req, res) => res.sendFile(getFilePath('terms-conditions.html')));
 
 app.get('/api/health', (req, res) => {
   const hasKey = !!process.env.GEMINI_API_KEY;
