@@ -56,23 +56,28 @@ export async function enforceAuthentication() {
                        (filename.includes('physics') && filename.endsWith('.html')) ||
                        (filename.includes('chemistry') && filename.endsWith('.html'));
     
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    // If authenticated, just show the page
-    if (session) {
-        document.documentElement.style.display = '';
-        return;
-    }
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        // If authenticated, just show the page
+        if (session) {
+            document.documentElement.style.display = '';
+            return;
+        }
 
-    if (isProtected) {
-        // Feature Preview Modals instead of instant redirect
-        document.documentElement.style.display = '';
-        showPremiumFeaturePreview(filename);
-    } else if (isNotePage) {
-        // Smart Partial Content Blur for guests
-        document.documentElement.style.display = '';
-        applySmartContentLock();
-    } else {
+        if (isProtected) {
+            // Feature Preview Modals instead of instant redirect
+            document.documentElement.style.display = '';
+            showPremiumFeaturePreview(filename);
+        } else if (isNotePage) {
+            // Smart Partial Content Blur for guests
+            document.documentElement.style.display = '';
+            applySmartContentLock();
+        } else {
+            document.documentElement.style.display = '';
+        }
+    } catch (err) {
+        console.error('Gatekeeper error, forcing display visible:', err);
         document.documentElement.style.display = '';
     }
 }
