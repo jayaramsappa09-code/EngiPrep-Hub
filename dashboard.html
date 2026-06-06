@@ -8,6 +8,12 @@
     
     
     
+    
+    
+    
+    
+    
+    
     <meta name="description" content="Your personalized engineering mastery dashboard. Track your academic streak, review weak topics, and dominate JNTUK exams.">
     <link rel="stylesheet" href="/src/style.css">
     <!-- Chart.js for mastery visualizations -->
@@ -15,6 +21,66 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/dashboard">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/dashboard">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -76,90 +142,134 @@
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-24">
         
         <!-- Header Section & Streak -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="flex flex-col xl:flex-row xl:items-end justify-between gap-6 mb-12">
             <div>
-                <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 font-['Space_Grotesk'] tracking-tight mb-2">Welcome back, Scholar.</h1>
-                <p class="text-lg text-slate-500 dark:text-slate-400">Let's continue building your academic momentum.</p>
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 font-['Space_Grotesk'] tracking-tight mb-2">My Study Dashboard.</h1>
+                <p class="text-lg text-slate-500 dark:text-slate-400">Level up your JNTUK preparation. Track, revise, and crush exams.</p>
             </div>
             
-            <div class="flex items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="flex flex-wrap items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm animate-fade-down">
                 <div class="flex flex-col px-4 border-r border-slate-100 dark:border-slate-800">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Current Streak</span>
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Current Streak</span>
                     <div class="flex items-center gap-2">
                         <span class="text-2xl">🔥</span>
-                        <span class="text-2xl font-black text-slate-900 dark:text-slate-50" id="dash-streak">0 Days</span>
+                        <span class="text-2xl font-black text-slate-900 dark:text-slate-50" id="dash-streak">0</span>
+                    </div>
+                </div>
+                <div class="flex flex-col px-4 border-r border-slate-100 dark:border-slate-800">
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Longest Streak</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-2xl text-amber-500">🏆</span>
+                        <span class="text-2xl font-black text-slate-900 dark:text-slate-50" id="dash-best-streak">0</span>
+                    </div>
+                </div>
+                <div class="flex flex-col px-4 border-r border-slate-100 dark:border-slate-800">
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Days Active</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-2xl text-emerald-500">📅</span>
+                        <span class="text-2xl font-black text-slate-900 dark:text-slate-50" id="dash-days-active">0</span>
                     </div>
                 </div>
                 <div class="flex flex-col px-4">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Total XP</span>
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Total XP</span>
                     <div class="flex items-center gap-2">
                         <span class="text-2xl text-blue-500">⚡</span>
-                        <span class="text-2xl font-black text-slate-900 dark:text-slate-50" id="dash-xp">0</span>
+                        <span class="text-2xl font-black text-blue-600 dark:text-blue-400" id="dash-xp">0</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Left Column: Main Progress & Daily Challenges -->
-            <div class="lg:col-span-2 space-y-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+            <!-- Left Column: Main Progress & Continue -->
+            <div class="lg:col-span-8 space-y-8">
                 
                 <!-- Level Progress -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-                    <div class="relative z-10 flex justify-between items-end mb-4">
-                        <div>
-                            <p class="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1" id="dash-level-title">Level 1: Fresh Scholar</p>
-                            <h2 class="text-2xl font-black text-slate-900 dark:text-slate-50">Academic Progress</h2>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-8 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-blue-500/20 transition-colors"></div>
+                    <div class="relative z-10">
+                        <p class="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-2" id="dash-level-title">Level 1 - Fresher</p>
+                        <h2 class="text-3xl font-black text-slate-900 dark:text-slate-50 font-['Space_Grotesk'] tracking-tight">Academic Journey</h2>
+                        <div class="flex gap-2 mt-4">
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[9px] font-black uppercase tracking-widest rounded-lg">Study XP</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[9px] font-black uppercase tracking-widest rounded-lg">Level Up</span>
                         </div>
-                        <span class="text-sm font-bold text-slate-500" id="dash-xp-progress">0 / 500 XP to next level</span>
                     </div>
-                    <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-4 mb-4 overflow-hidden relative z-10">
-                        <div id="dash-progress-bar" class="bg-gradient-to-r from-blue-600 to-indigo-500 h-4 rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+                    <div class="relative z-10 w-full md:w-1/2 flex flex-col items-end">
+                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3" id="dash-xp-progress">0 / 500 XP to next level</span>
+                        <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-3 overflow-hidden p-0.5">
+                            <div id="dash-progress-bar" class="bg-gradient-to-r from-blue-600 to-indigo-500 h-full rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Smart Revision Engine & Exam Mode -->
+                <!-- Continue Learning & Daily Planner -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Smart Revision -->
-                    <div class="bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 rounded-3xl p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 flex items-center gap-2">
-                                <span>🧠</span> Smart Revision
-                            </h3>
-                            <span class="px-2.5 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 text-xs font-black uppercase rounded-lg">AI Generated</span>
+                    <!-- Continue Learning Card -->
+                    <div class="bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 rounded-[2rem] p-8 flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 flex items-center gap-2 font-['Space_Grotesk']">
+                                    <span>▶️</span> Continue Learning
+                                </h3>
+                                <div class="w-8 h-8 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">→</div>
+                            </div>
+                            <p class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-1" id="dash-last-subject">Maths I</p>
+                            <h4 class="text-xl font-bold text-slate-800 dark:text-slate-200" id="dash-last-topic">Matrices & Eigen Values</h4>
+                            <p class="text-xs text-slate-500 mt-2">Unit 1 • Last viewed 2 hours ago</p>
                         </div>
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">Based on your recent activity, we recommend reviewing these weak topics today.</p>
-                        <div class="space-y-3" id="dash-weak-topics">
-                            <a href="/physics-notes.html" class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-400 transition-colors group">
-                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">Quantum Mechanics PYQs</span>
-                                <span class="text-xs text-slate-400">Viewed 3 days ago</span>
-                            </a>
-                            <a href="/data-structures-basics.html" class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-400 transition-colors group">
-                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">Binary Search Trees</span>
-                                <span class="text-xs text-slate-400">Low Quiz Score</span>
-                            </a>
-                        </div>
+                        <a href="/pyqs.html" class="mt-6 w-full py-3 bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-xl text-center hover:bg-indigo-700 transition-colors shadow-md shadow-indigo-600/20">Resume Session</a>
                     </div>
 
-                    <!-- Exam Modes -->
-                    <div class="bg-rose-50/50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-3xl p-6 aspect-auto flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-lg font-black text-rose-900 dark:text-rose-100 flex items-center gap-2">
-                                    <span>🚨</span> Emergency Exam Mode
-                                </h3>
+                    <!-- Revision Planner -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-8 pt-6">
+                        <div class="flex flex-wrap items-center justify-between mb-6 pb-4 border-b border-slate-100 dark:border-slate-800 gap-4">
+                            <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 font-['Space_Grotesk'] tracking-tight">Revision Planner</h3>
+                            <div class="flex gap-2 bg-slate-50 dark:bg-slate-950 p-1 rounded-xl">
+                                <button class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-[9px] font-black uppercase rounded-lg shadow-sm">Today</button>
+                                <button class="px-3 py-1 text-slate-500 dark:text-slate-400 text-[9px] font-black uppercase rounded-lg hover:text-slate-800 dark:hover:text-slate-200 transition-colors">Tomorrow</button>
                             </div>
-                            <p class="text-sm text-rose-700 dark:text-rose-300/80 mb-6 font-medium">Activate focused sprints when exams are near.</p>
                         </div>
-                        <div class="space-y-2">
-                            <button onclick="activateExamMode('7day')" class="w-full p-3 bg-white dark:bg-rose-950 border border-rose-200 dark:border-rose-900/50 rounded-xl text-sm font-bold text-rose-700 dark:text-rose-400 hover:bg-rose-600 hover:text-white transition-colors text-left flex justify-between items-center group">
-                                7-Day Exam Sprint <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                            </button>
-                            <button onclick="activateExamMode('1day')" class="w-full p-3 bg-white dark:bg-rose-950 border border-rose-200 dark:border-rose-900/50 rounded-xl text-sm font-bold text-rose-700 dark:text-rose-400 hover:bg-rose-600 hover:text-white transition-colors text-left flex justify-between items-center group">
-                                1-Day Survival Mode <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                            </button>
+                        <div class="space-y-4">
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <input type="checkbox" class="mt-0.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 pointer-events-none" checked>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 transition-colors line-through opacity-50">Review Cayley Hamilton Theorem</p>
+                                    <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-0.5">Maths I</p>
+                                </div>
+                            </label>
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <input type="checkbox" class="mt-0.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600">
+                                <div>
+                                    <p class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">Solve 5 pointers PYQs</p>
+                                    <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-0.5">C Programming</p>
+                                </div>
+                            </label>
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <input type="checkbox" class="mt-0.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600">
+                                <div>
+                                    <p class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">Memorize He-Ne Laser Diagram</p>
+                                    <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-0.5">Engineering Physics</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weak Topic Detector -->
+                <div class="bg-rose-50/50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-[2rem] p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-lg font-black text-rose-900 dark:text-rose-100 flex items-center gap-2 font-['Space_Grotesk']">
+                                <span>🚨</span> Weak Topic Detector
+                            </h3>
+                            <p class="text-[10px] font-bold text-rose-700 dark:text-rose-400 uppercase tracking-widest mt-1">Based on quiz & PYQ accuracy</p>
+                        </div>
+                        <a href="/pyqs.html" class="hidden sm:inline-block px-4 py-2 bg-rose-600 text-white text-[10px] font-black uppercase rounded-lg hover:bg-rose-700 transition">Practice Now</a>
+                    </div>
+                    <div class="space-y-3" id="dash-weak-topics">
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                            <span class="text-xs text-slate-500 italic">Play more quizzes to activate the weakness detector.</span>
                         </div>
                     </div>
                 </div>
@@ -188,75 +298,88 @@
             </div>
 
             <!-- Right Column: Stats, Subjects & Social -->
-            <div class="space-y-8">
+            <div class="lg:col-span-4 space-y-8">
                 
-                <!-- Subject Mastery -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6">
-                    <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-6 font-['Space_Grotesk']">Subject Mastery Focus</h3>
-                    
-                    <div class="space-y-5">
-                        <!-- Subject 1 -->
+                <!-- Exam Readiness Score -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-black dark:to-slate-900 border border-slate-800 rounded-[2rem] p-8 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay max-w-full"></div>
+                    <span class="text-3xl mb-4 block relative z-10">🎯</span>
+                    <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1 relative z-10">Exam Readiness</h4>
+                    <div class="relative w-32 h-32 mx-auto my-6 z-10 flex items-center justify-center">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                            <circle class="text-slate-700 stroke-current" stroke-width="8" cx="50" cy="50" r="40" fill="transparent"></circle>
+                            <circle class="text-emerald-500 stroke-current drop-shadow-md" stroke-width="8" stroke-linecap="round" cx="50" cy="50" r="40" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="100.48"></circle>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center flex-col">
+                            <span class="text-3xl font-black text-white font-['Space_Grotesk'] tracking-tighter" id="dash-readiness">60%</span>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-slate-300 font-bold uppercase tracking-widest relative z-10">Solve more PYQs to improve</p>
+                </div>
+
+                <!-- Comprehensive Subject Mastery Tracker -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-8">
+                    <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-6 font-['Space_Grotesk'] tracking-tight">Subject Progress</h3>
+                    <div class="space-y-5" id="dash-subject-progress">
+                        <!-- Mathematical -->
                         <div>
                             <div class="flex justify-between items-end mb-2">
-                                <span class="text-sm font-bold text-slate-700 dark:text-slate-300">Engineering Physics</span>
-                                <span class="text-xs font-black text-blue-600 dark:text-blue-400">75%</span>
+                                <span class="text-[11px] font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Maths I</span>
+                                <span class="text-[10px] font-black text-blue-600 dark:text-blue-400">75%</span>
                             </div>
-                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
-                                <div class="bg-blue-500 h-2 rounded-full subject-mastery-bar" style="width: 75%"></div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-blue-500 h-full rounded-full subject-mastery-bar progress-math" style="width: 75%"></div>
                             </div>
                         </div>
-                        <!-- Subject 2 -->
+                        <!-- C Prog -->
                         <div>
                             <div class="flex justify-between items-end mb-2">
-                                <span class="text-sm font-bold text-slate-700 dark:text-slate-300">C Programming</span>
-                                <span class="text-xs font-black text-emerald-600 dark:text-emerald-400">40%</span>
+                                <span class="text-[11px] font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">C Programming</span>
+                                <span class="text-[10px] font-black text-emerald-600 dark:text-emerald-400">40%</span>
                             </div>
-                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
-                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 40%"></div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-emerald-500 h-full rounded-full progress-c" style="width: 40%"></div>
                             </div>
-                            <p class="text-[10px] text-emerald-600 dark:text-emerald-400 mt-1 font-bold">Priority: Requires Revision</p>
                         </div>
-                        <!-- Subject 3 -->
+                        <!-- Physics -->
                         <div>
                             <div class="flex justify-between items-end mb-2">
-                                <span class="text-sm font-bold text-slate-700 dark:text-slate-300">Mathematics 1</span>
-                                <span class="text-xs font-black text-purple-600 dark:text-purple-400">90%</span>
+                                <span class="text-[11px] font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Physics</span>
+                                <span class="text-[10px] font-black text-purple-600 dark:text-purple-400">90%</span>
                             </div>
-                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
-                                <div class="bg-purple-500 h-2 rounded-full" style="width: 90%"></div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-purple-500 h-full rounded-full progress-phy" style="width: 90%"></div>
                             </div>
-                            <p class="text-[10px] text-purple-600 dark:text-purple-400 mt-1 font-bold">Strong Area</p>
+                        </div>
+                        <!-- Chem -->
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-[11px] font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Chemistry</span>
+                                <span class="text-[10px] font-black text-rose-600 dark:text-rose-400">15%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-rose-500 h-full rounded-full progress-chem" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        <!-- Eng Graphics -->
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-[11px] font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Eng Graphics</span>
+                                <span class="text-[10px] font-black text-amber-600 dark:text-amber-400">0%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-amber-500 h-full rounded-full progress-eg" style="width: 0%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Recent Badges / Achievements -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6">
-                    <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-4 font-['Space_Grotesk']">Recent Achievements</h3>
-                    <div class="flex flex-wrap gap-3" id="badges-container">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-8">
+                    <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-6 font-['Space_Grotesk'] tracking-tight">Achievements</h3>
+                    <div class="flex flex-wrap gap-2" id="badges-container">
                         <!-- Rendered by JS -->
-                        <div class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center gap-2">
-                            <span class="text-lg">📚</span>
-                            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">First Note</span>
-                        </div>
-                        <div class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center gap-2 opacity-50 grayscale">
-                            <span class="text-lg">⚔️</span>
-                            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">7-Day Streak</span>
-                        </div>
-                        <div class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center gap-2 opacity-50 grayscale">
-                            <span class="text-lg">👑</span>
-                            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Maths Legend</span>
-                        </div>
                     </div>
-                </div>
-
-                <!-- Motivation Engine -->
-                <div class="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-black dark:to-slate-900 border border-slate-700 rounded-3xl p-6 text-white text-center">
-                    <span class="text-3xl mb-3 block">⏳</span>
-                    <h4 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-1">JNTUK Semester Exams</h4>
-                    <p class="text-3xl font-black font-['Space_Grotesk'] text-white tracking-tighter mb-4">42 Days Left</p>
-                    <div class="h-px w-12 bg-slate-700 mx-auto mb-4"></div>
-                    <p class="text-sm text-slate-300 italic font-medium">"Discipline is choosing between what you want now, and what you want most. Open a book."</p>
                 </div>
 
             </div>
@@ -270,7 +393,10 @@
             setTimeout(() => {
                 const xpDetails = window.engiprep ? window.engiprep.getGamificationState() : { xp: 0, streak: 0, level: 1, levelName: 'Fresh Scholar', progress: 0, xpToNext: 50, weakTopics: [], unlockedAchievements: [], stats: {} };
                 
-                document.getElementById('dash-streak').textContent = xpDetails.streak + ' Days';
+                document.getElementById('dash-streak').textContent = xpDetails.streak;
+                document.getElementById('dash-best-streak').textContent = xpDetails.bestStreak || xpDetails.streak;
+                document.getElementById('dash-days-active').textContent = xpDetails.daysActive || 0;
+
                 document.getElementById('dash-xp').textContent = xpDetails.xp;
                 document.getElementById('dash-level-title').textContent = 'Level ' + xpDetails.level + ': ' + xpDetails.levelName;
                 
@@ -278,26 +404,55 @@
                 document.getElementById('dash-xp-progress').textContent = xpDetails.xp + ' / ' + nextLvlXp + ' XP to next level';
                 document.getElementById('dash-progress-bar').style.width = xpDetails.progress + '%';
 
+                // Render Continue Learning
+                if(xpDetails.recentTopics && xpDetails.recentTopics.length > 0) {
+                    const lastRec = xpDetails.recentTopics[0];
+                    document.getElementById('dash-last-topic').textContent = lastRec.title || 'Recent Topic';
+                    const linkBtn = document.querySelector('a[href="/pyqs.html"].w-full.py-3');
+                    if(linkBtn) linkBtn.href = lastRec.path;
+                }
+
                 // Render Weak Topics
                 const weakContainer = document.getElementById('dash-weak-topics');
                 if(weakContainer && xpDetails.weakTopics && xpDetails.weakTopics.length > 0) {
                     weakContainer.innerHTML = '';
-                    xpDetails.weakTopics.forEach(t => {
-                        weakContainer.innerHTML += \`
-                            <a href="\${t.path}" class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-400 transition-colors group">
-                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">\${t.title}</span>
-                                <span class="text-xs text-slate-400">\${t.reason}</span>
+                    xpDetails.weakTopics.slice(0, 3).forEach(t => {
+                        weakContainer.innerHTML += `
+                            <a href="${t.path}" class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-rose-400 transition-colors group">
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-rose-600 transition-colors">${t.title}</span>
+                                <span class="text-[9px] font-black uppercase text-rose-500 bg-rose-50 dark:bg-rose-950 px-2 py-1 rounded">${t.reason}</span>
                             </a>
-                        \`;
+                        `;
                     });
                 }
 
+                // Update Readiness Score
+                const dashReadiness = document.getElementById('dash-readiness');
+                if(dashReadiness) {
+                    let readinessCalc = Math.min(100, Math.max(15, (xpDetails.stats?.pyqsSolved * 2) + Math.floor(xpDetails.xp / 100)));
+                    if(xpDetails.level > 3) readinessCalc = Math.max(readinessCalc, 50);
+                    if(xpDetails.level > 5) readinessCalc = Math.max(readinessCalc, 85);
+                    dashReadiness.textContent = readinessCalc + '%';
+                }
+
                 // Render Progress Areas pseudo-randomly driven by global stats to match the visual mock
-                const masteryBars = document.querySelectorAll('.subject-mastery-bar');
-                if (masteryBars.length > 0) {
-                   const progressCalc = Math.min(100, Math.max(10, (xpDetails.stats.notesRead || 0) * 10));
-                   masteryBars[0].style.width = (progressCalc) + '%';
-                   masteryBars[0].parentElement.previousElementSibling.lastElementChild.textContent = progressCalc + '%';
+                const progressMath = document.querySelector('.progress-math');
+                const progressC = document.querySelector('.progress-c');
+                const progressPhy = document.querySelector('.progress-phy');
+                if (progressMath) {
+                   const mProg = Math.min(100, Math.max(10, (xpDetails.stats?.notesRead || 0) * 15));
+                   progressMath.style.width = mProg + '%';
+                   progressMath.parentElement.previousElementSibling.lastElementChild.textContent = mProg + '%';
+                }
+                if (progressC) {
+                   const cProg = Math.min(100, Math.max(0, (xpDetails.stats?.challengesDone || 0) * 20));
+                   progressC.style.width = cProg + '%';
+                   progressC.parentElement.previousElementSibling.lastElementChild.textContent = cProg + '%';
+                }
+                if (progressPhy) {
+                    const phyProg = Math.min(100, Math.max(5, Math.floor(xpDetails.xp / 50)));
+                    progressPhy.style.width = phyProg + '%';
+                    progressPhy.parentElement.previousElementSibling.lastElementChild.textContent = phyProg + '%';
                 }
 
                 // Render Achievements
@@ -305,22 +460,27 @@
                 if(badgesContainer && xpDetails.unlockedAchievements) {
                     const allBadges = [
                         { id: 'first_note', icon: '📚', name: 'First Note' },
-                        { id: 'pyq_novice', icon: '📜', name: 'PYQ Novice' },
-                        { id: 'quiz_taker', icon: '🧠', name: 'Quiz Taker' },
+                        { id: 'first_pyq', icon: '📜', name: 'PYQ Starter' },
                         { id: '7_day_streak', icon: '⚔️', name: '7-Day Streak' },
-                        { id: '30_day_streak', icon: '👑', name: '30-Day Streak' }
+                        { id: '30_day_streak', icon: '👑', name: '30-Day Streak' },
+                        { id: '100_day_streak', icon: '🔥', name: '100-Day Streak' },
+                        { id: '100_questions', icon: '⚡', name: '100 PYQs' },
+                        { id: 'unit_master', icon: '🎯', name: 'Unit Master' },
+                        { id: 'exam_ready', icon: '🎓', name: 'Exam Ready' }
                     ];
                     
                     badgesContainer.innerHTML = '';
                     allBadges.forEach(b => {
                         const isUnlocked = xpDetails.unlockedAchievements.includes(b.id);
-                        const opacityClass = isUnlocked ? '' : 'opacity-50 grayscale';
-                        badgesContainer.innerHTML += \`
-                            <div class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center gap-2 \${opacityClass}">
-                                <span class="text-lg">\${b.icon}</span>
-                                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">\${b.name}</span>
-                            </div>
-                        \`;
+                        if(isUnlocked || b.id === '7_day_streak' || b.id === 'unit_master' || b.id === 'first_note' || b.id === 'first_pyq') {
+                            const opacityClass = isUnlocked ? 'border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-500' : 'opacity-50 grayscale border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300';
+                            badgesContainer.innerHTML += `
+                                <div class="px-3 py-2 border rounded-xl flex items-center gap-2 ${opacityClass}">
+                                    <span class="text-lg">${b.icon}</span>
+                                    <span class="text-[10px] font-black uppercase tracking-widest">${b.name}</span>
+                                </div>
+                            `;
+                        }
                     });
                 }
             }, 100);
@@ -343,6 +503,30 @@
         }
     </script>
     <script type="module" src="/src/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1987,10 +1987,15 @@ const Gamification = {
         };
 
         if(this.state.stats.notesRead >= 1) unlock('first_note', 'First Note Completed', 'You took your first step towards mastery.');
+        if(this.state.stats.pyqsSolved >= 1) unlock('first_pyq', 'First PYQ Solved', 'Diving into past papers.');
         if(this.state.stats.pyqsSolved >= 5) unlock('pyq_novice', 'PYQ Novice', 'Solved 5 Previous Year Questions.');
+        if(this.state.stats.pyqsSolved >= 100) unlock('100_questions', '100 Questions Solved', 'You are a machine!');
         if(this.state.stats.quizzesAttempted >= 3) unlock('quiz_taker', 'Quiz Taker', 'Attempted 3 Quizzes.');
         if(this.state.streak >= 7) unlock('7_day_streak', '7-Day Streak', 'Studied for 7 days in a row!');
         if(this.state.streak >= 30) unlock('30_day_streak', '30-Day Streak', 'Incredible dedication!');
+        if(this.state.streak >= 100) unlock('100_day_streak', '100-Day Streak', 'EngiPrepHub Legend.');
+        if(this.state.level >= 3) unlock('unit_master', 'Unit Master', 'Reached Level 3.');
+        if(this.state.level >= 5) unlock('exam_ready', 'Exam Ready', 'You are ready to crush the papers.');
     },
 
     checkStreak() {
@@ -2023,15 +2028,17 @@ const Gamification = {
     },
 
     getLevelName(level) {
-        if (level < 5) return 'Fresh Scholar';
-        if (level < 10) return 'Unit Master';
-        if (level < 20) return 'Semester Warrior';
-        if (level < 30) return 'Exam Crusher';
-        return 'Topper Elite';
+        if (level === 1) return 'Fresher';
+        if (level === 2) return 'Learner';
+        if (level === 3) return 'Unit Master';
+        if (level === 4) return 'Semester Warrior';
+        if (level === 5) return 'Exam Crusher';
+        if (level === 6) return 'Rank Hunter';
+        return 'Topper';
     },
 
     calculateNextLevelXP(level) {
-        return level * 100 + (level > 10 ? level * 50 : 0);
+        return level * 100 + (level > 3 ? level * 50 : 0);
     },
 
     checkLevelUp() {
@@ -2064,7 +2071,8 @@ const Gamification = {
             ...this.state,
             levelName: this.getLevelName(this.state.level),
             progress: Math.floor((this.state.xp / nextReq) * 100),
-            xpToNext: nextReq
+            xpToNext: nextReq,
+            daysActive: Math.max(this.state.bestStreak || 0, Math.ceil(this.state.xp / 40))
         };
     },
 
