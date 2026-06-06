@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Path Roadmap | EngiPrepHub</title>
+    <link rel="canonical" href="https://engiprephub.in/roadmap">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: {} }
+        }
+    </script>
+
+    <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/roadmap">
+    <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/roadmap">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    <meta property="og:title" content="Premium JNTUK Study Notes | EngiPrepHub">
+    <meta property="og:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
+    <meta property="og:url" content="https://engiprephub.in/roadmap">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="EngiPrep Hub">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Premium JNTUK Study Notes | EngiPrepHub">
+    <meta name="twitter:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
+
+</head>
+<body class="bg-slate-50 dark:bg-[#030306] text-slate-800 dark:text-gray-300 antialiased">
+    <header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-[#030306]/85 border-b border-slate-200 dark:border-slate-800">
+        <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30">
+                    <span class="font-black text-xl text-white">E</span>
+                </div>
+                <span class="text-xl font-black tracking-tighter uppercase text-slate-900 dark:text-slate-50">EngiPrep <span class="text-blue-600 italic">Hub</span></span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="/dashboard.html" class="px-4 py-2 text-slate-600 hover:text-blue-600 font-bold text-sm">Dashboard</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pt-32 pb-24">
+        <h1 class="text-4xl font-black mb-2">Learning Path Roadmap</h1>
+        <p class="text-slate-500 mb-12">Track your progress and unlock milestones.</p>
+        
+        <div id="roadmap-container" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Roadmap will be rendered here -->
+        </div>
+
+        <section class="mt-20">
+            <h2 class="text-3xl font-black mb-10 flex items-center gap-3">
+                <span class="text-blue-500 text-3xl">🏆</span> Study Milestones
+            </h2>
+            <div id="milestones-container" class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const roadmapData = {
+            'C Programming': ['Basics', 'Control Flow', 'Functions', 'Arrays', 'Pointers'],
+            'Engineering Graphics': ['Projection of Points', 'Projection of Lines', 'Projection of Planes', 'Solids'],
+            'Engineering Mathematics': ['Matrices', 'Eigen Values', 'Differential Equations', 'Calculus']
+        };
+
+        let progress = JSON.parse(localStorage.getItem('engiprep_roadmap_progress')) || {};
+
+        function saveProgress() {
+            localStorage.setItem('engiprep_roadmap_progress', JSON.stringify(progress));
+            renderRoadmap();
+            checkMilestones();
+        }
+
+        function toggleUnit(subject, unit) {
+            if (!progress[subject]) progress[subject] = {};
+            progress[subject][unit] = !progress[subject][unit];
+            saveProgress();
+        }
+
+        function renderRoadmap() {
+            const container = document.getElementById('roadmap-container');
+            container.innerHTML = '';
+            
+            for (const [subject, units] of Object.entries(roadmapData)) {
+                const subjectProgress = (Object.values(progress[subject] || {}).filter(Boolean).length / units.length) * 100;
+                
+                const card = document.createElement('div');
+                card.className = 'bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow';
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-black">${subject}</h3>
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 rounded-full">${Math.round(subjectProgress)}%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-3 mb-8 overflow-hidden">
+                        <div class="bg-blue-600 h-3 rounded-full transition-all duration-700 ease-out" style="width: ${subjectProgress}%"></div>
+                    </div>
+                    <div class="space-y-4">
+                        ${units.map(unit => `
+                            <label class="flex items-center gap-4 cursor-pointer group">
+                                <div class="relative flex items-center justify-center">
+                                    <input type="checkbox" ${progress[subject]?.[unit] ? 'checked' : ''} onchange="toggleUnit('${subject}', '${unit}')" class="peer h-6 w-6 rounded-lg border-2 border-slate-300 dark:border-slate-700 checked:bg-blue-600 checked:border-blue-600 transition-all focus:ring-0">
+                                    <svg class="absolute w-4 h-4 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <span class="text-sm font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-600 transition-colors ${progress[subject]?.[unit] ? 'line-through text-slate-400' : ''}">${unit}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        function checkMilestones() {
+            const container = document.getElementById('milestones-container');
+            const milestones = [
+                { name: 'C Foundation', condition: () => (progress['C Programming'] && Object.values(progress['C Programming']).filter(Boolean).length >= 3), emoji: '🚀' },
+                { name: 'Graphic Pro', condition: () => (progress['Engineering Graphics'] && Object.values(progress['Engineering Graphics']).filter(Boolean).length >= 4), emoji: '📐' },
+                { name: 'Maths Wizard', condition: () => (progress['Engineering Mathematics'] && Object.values(progress['Engineering Mathematics']).filter(Boolean).length >= 4), emoji: '🔢' }
+            ];
+
+            container.innerHTML = milestones.map(m => `
+                <div class="p-8 rounded-[2rem] border-2 transition-all duration-300 ${m.condition() ? 'bg-amber-50 dark:bg-amber-900/10 border-amber-400 shadow-amber-500/10 shadow-lg' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800'}">
+                    <div class="text-5xl mb-4 text-center">${m.condition() ? m.emoji : '🔒'}</div>
+                    <div class="font-black text-center text-sm uppercase tracking-wider ${m.condition() ? 'text-amber-700 dark:text-amber-500' : 'text-slate-400'}">${m.name}</div>
+                </div>
+            `).join('');
+        }
+
+        renderRoadmap();
+        checkMilestones();
+    </script>
+
+
+
+
+    <!-- Universal Academic Navigator & Active Live Alerts -->
+    <script type="module" src="/src/main.js"></script>
+
+
+<!-- EngiPrepHubFooter -->
+<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
+    <a href="/about.html" class="hover:text-white">About</a>
+    <a href="/contact.html" class="hover:text-white">Contact</a>
+    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq.html" class="hover:text-white">FAQ</a>
+  </div>
+  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
