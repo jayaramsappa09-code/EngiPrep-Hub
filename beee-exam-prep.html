@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JNTUK R23 BEEE 1-Day Before Exam Prep | EngiPrep Hub</title>
+    <meta name="description" content="Ultimate BEEE exam-eve survival guide for JNTUK R23. Master circuit theorems, DC/AC rotating machinery, and semiconductor diodes in 24 hours.">
+    <link rel="canonical" href="https://engiprephub.in/semester-1/beee-important-questions">
+    
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        @reference "./src/style.css";
+        .survival-glass {
+            @apply bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-[2rem] p-6 sm:p-8 hover:border-rose-500/20 hover:shadow-2xl hover:shadow-rose-500/5 transition-all duration-300;
+        }
+        .theorem-active-tab {
+            @apply bg-gradient-to-r from-rose-500 to-amber-500 text-white border-transparent shadow-lg shadow-rose-500/20;
+        }
+    </style>
+    <script>document.documentElement.style.display = 'none';</script>
+    <script type="module" src="/src/gatekeeper.js"></script>
+</head>
+<body class="bg-[#050508] text-slate-300 min-h-screen font-sans leading-relaxed antialiased">
+    
+    <!-- Header Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-[#050508]/85 backdrop-blur-md border-b border-slate-800/50 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3 group" aria-label="EngiPrep Hub Homepage">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-300"></div>
+                    <svg class="relative z-10 w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tighter text-white leading-none">EngiPrep <span class="text-blue-500">Hub</span></span>
+                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-500 mt-1">Prepare • Practice • Perform</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="/all-subjects.html" class="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-white transition-all">Syllabus</a>
+                <a href="/exam-survival.html" class="px-5 py-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 rounded-xl text-xs font-black uppercase tracking-widest transition-all">Survival Code</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-6 pt-32 pb-24">
+        <!-- Hero Section -->
+        <header class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-rose-500/10 border border-rose-500/20 rounded-full text-[10px] font-black uppercase tracking-widest text-rose-400">
+                <span class="w-1.5 h-1.5 bg-rose-500 rounded-full animate-ping"></span> 1-Day Before Survival Matrix
+            </div>
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-white uppercase italic">
+                Basic Electrical <span class="text-rose-500">&amp; Electronics</span> Engineering
+            </h1>
+            <p class="text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
+                Welcome to the curated high-yield vault. Skip the fluff and master 80% of the board exam in under a few hours using interactive derivation helpers, circuit solving guides, and board-level PYQs.
+            </p>
+        </header>
+
+        <!-- Sprint Core Board -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left 2 Columns: Core Focus Modules -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Quick Solver: Interactive Circuit Theorems Calculator -->
+                <section class="survival-glass space-y-6">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">⚡</span>
+                        <div>
+                            <h2 class="text-xl font-bold text-white uppercase">Circuit Matrix Solver</h2>
+                            <p class="text-xs text-slate-500">Visualize Superposition and Maximum Power Transfer immediately.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tabs switcher -->
+                    <div class="flex gap-2 border-b border-slate-800 pb-4">
+                        <button id="tab-superposition" onclick="switchBeeeTab('superposition')" class="px-4 py-2 text-xs font-bold uppercase tracking-wider border border-slate-800 rounded-xl transition-all hover:bg-slate-800 text-slate-300 bg-slate-950">
+                            Superposition
+                        </button>
+                        <button id="tab-mpt" onclick="switchBeeeTab('mpt')" class="px-4 py-2 text-xs font-bold uppercase tracking-wider border border-slate-800 rounded-xl transition-all hover:bg-slate-800 text-slate-300 bg-slate-950">
+                            Max Power Transfer
+                        </button>
+                    </div>
+
+                    <!-- Superposition Tab Content -->
+                    <div id="content-superposition" class="space-y-4">
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            <strong>Superposition Theorem Statement:</strong> In a linear bilateral network containing multiple independent active sources, the response (current or voltage) in any branch is equal to the algebraic sum of individual responses computed with one source active at a time, keeping other sources deactivated (V-sources short-circuited, I-sources open-circuited).
+                        </p>
+                        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 space-y-4">
+                            <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+                                <div>
+                                    <label class="block text-slate-500 mb-1">Source E1 (Volts)</label>
+                                    <input type="number" id="beee-v1" value="12" class="w-full bg-slate-900 border border-slate-800 focus:border-blue-500 rounded-xl p-2.5 text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-500 mb-1">Source E2 (Volts)</label>
+                                    <input type="number" id="beee-v2" value="6" class="w-full bg-slate-900 border border-slate-800 focus:border-blue-500 rounded-xl p-2.5 text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-500 mb-1">R1 (Ohms)</label>
+                                    <input type="number" id="beee-r1" value="4" class="w-full bg-slate-900 border border-slate-800 focus:border-blue-500 rounded-xl p-2.5 text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-500 mb-1">RL (Load, Ohms)</label>
+                                    <input type="number" id="beee-rl" value="2" class="w-full bg-slate-900 border border-slate-800 focus:border-blue-500 rounded-xl p-2.5 text-white">
+                                </div>
+                            </div>
+                            <button onclick="calculateSuperposition()" class="w-full py-3 bg-rose-600 hover:bg-rose-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all">
+                                Solve Circuit Branches
+                            </button>
+                            <div id="superposition-results" class="hidden p-4 rounded-xl border border-slate-800 bg-slate-900 font-mono text-xs text-slate-400 space-y-2">
+                                <!-- Dynamically updated -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MPT Tab Content -->
+                    <div id="content-mpt" class="hidden space-y-4">
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            <strong>Max Power Transfer Theorem:</strong> A resistive load connected to a active linear bipartite network receives maximum power from the source when the load resistance $R_L$ is equal to the internal resistance $R_{th}$ of the source as seen from the load terminals.
+                        </p>
+                        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 space-y-4">
+                            <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+                                <div>
+                                    <label class="block text-slate-500 mb-1">Thevenin Vth (Volts)</label>
+                                    <input type="number" id="mpt-vth" value="24" class="w-full bg-slate-900 border border-slate-800 focus:border-blue-500 rounded-xl p-2.5 text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-500 mb-1">Thevenin Rth (Ohms)</label>
+                                    <input type="number" id="mpt-rth" value="8" class="w-full bg-slate-900 border border-slate-800 focus:border-blue-500 rounded-xl p-2.5 text-white">
+                                </div>
+                            </div>
+                            <div class="h-40 bg-slate-900/40 rounded-xl border border-slate-800 flex items-center justify-center font-mono text-xs overflow-hidden relative">
+                                <svg class="w-48 h-32" viewBox="0 0 100 80">
+                                    <circle cx="20" cy="40" r="6" fill="none" stroke="#2563eb" stroke-width="2"/>
+                                    <text x="17" y="44" font-size="8" fill="#2563eb">+</text>
+                                    <path d="M20 10h15 M20 70h15 M35 10 h10v10h10v-10h10" fill="none" stroke="currentColor"/>
+                                    <text x="42" y="30" font-size="6" fill="currentColor">Rth</text>
+                                    <path d="M65 10 h15v20v10h5v-5v10h-5v5 M80 70h-60" fill="none" stroke="currentColor"/>
+                                    <text x="82" y="44" font-size="6" fill="#f59e0b">RL</text>
+                                </svg>
+                            </div>
+                            <button onclick="calculateMPT()" class="w-full py-3 bg-amber-600 hover:bg-amber-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all">
+                                Calculate Maximum Load Power
+                            </button>
+                            <div id="mpt-results" class="hidden p-4 rounded-xl border border-slate-800 bg-slate-900 font-mono text-xs text-slate-400 space-y-2">
+                                <!-- Dynamically updated -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Core Derivations matrix for JNTUK R23 -->
+                <section class="survival-glass space-y-6">
+                    <h2 class="text-xl font-bold text-white uppercase italic flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Crucial Equation Derivations
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="border border-slate-800 rounded-2xl p-5 bg-slate-950/55 space-y-3">
+                            <span class="text-[9px] font-black uppercase text-amber-500 tracking-widest bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">UNIT 3: TRANSFOMERS</span>
+                            <h3 class="text-sm font-bold text-white">Transformer EMF Equation derivation</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Let $\phi_m$ be the maximum value of core flux in webers, $f$ be supply frequency in Hz, and $N$ be the number of primary winding turns.
+                            </p>
+                            <div class="p-3.5 bg-slate-950 rounded-xl font-mono text-[11px] text-slate-300 leading-relaxed">
+                                Flux increases from 0 to $\phi_m$ in Quarter Cycle ($t = 1/4f$ seconds). <br>
+                                Average Rate of change of Flux = $\phi_m / (1 / 4f) = 4f\phi_m$ Wb/s.<br>
+                                Average Induced EMF per turn = $4f\phi_m$ Volts.<br>
+                                For sinusoidal AC, Form Factor ($K_f$) = RMS Value / Average Value = $1.11$.<br>
+                                <strong>RMS Value of EMF inductions ($E_1$)</strong> = $1.11 \times 4f\phi_m N_1 = 4.44 f \phi_m N_1$ Volts.
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-800 rounded-2xl p-5 bg-slate-950/55 space-y-3">
+                            <span class="text-[9px] font-black uppercase text-pink-500 tracking-widest bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 rounded">UNIT 4: ROTATIONAL CORE</span>
+                            <h3 class="text-sm font-bold text-white">DC Generator Induced EMF Formula</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Let $P$ be number of poles, $\phi$ be flux per pole in Webers, $Z$ be total armature conductors, and $N$ be speed in rpm.
+                            </p>
+                            <div class="p-3.5 bg-slate-950 rounded-xl font-mono text-[11px] text-slate-300 leading-relaxed">
+                                Flux cut by 1 conductor in 1 rotation ($d\phi$) = $P \times \phi$ Webers.<br>
+                                Time taken for 1 rotation ($dt$) = $60 / N$ seconds.<br>
+                                Average EMF induced in 1 conductor = $d\phi / dt = (P\phi N) / 60$ Volts.<br>
+                                For parallel paths $A$ (where $A = 2$ for wave-windings and $A = P$ for lap-windings):<br>
+                                <strong>Armature EMF Generated ($E_g$)</strong> = $\frac{P \phi Z N}{60 A}$ Volts.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+
+            <!-- Right Column: Exam Strategy & Flash Study Cards -->
+            <div class="space-y-8">
+                
+                <!-- BEEE High-Yield Chapter Weights -->
+                <div class="bg-gradient-to-br from-rose-950/40 to-slate-900 border border-rose-900/30 rounded-3xl p-6 space-y-4">
+                    <h3 class="text-sm font-black uppercase tracking-widest text-rose-400">Exam-Eve Strategy Matrix</h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex justify-between items-center bg-slate-900/40 p-3 rounded-xl">
+                            <span>Theorems & AC laws</span>
+                            <span class="font-bold text-rose-500">22 Marks (Unit 1, 2)</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-900/40 p-3 rounded-xl">
+                            <span>Transformer maths</span>
+                            <span class="font-bold text-rose-500">14 Marks (Unit 3)</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-900/40 p-3 rounded-xl">
+                            <span>AC/DC Machines</span>
+                            <span class="font-bold text-rose-500">18 Marks (Unit 4)</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-900/40 p-3 rounded-xl">
+                            <span>Diodes & Transistors</span>
+                            <span class="font-bold text-[#10b981]">16 Marks (Unit 5)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fast Viva Recall Cards -->
+                <div class="survival-glass space-y-6">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-[#64748b]">Board Viva Mock Cards</h3>
+                    <div class="space-y-4">
+                        
+                        <!-- Card 1 -->
+                        <div class="border border-slate-800 rounded-2xl p-4 bg-slate-950 hover:bg-slate-900 transition-colors pointer-cursor" onclick="toggleBeeeViva(this)">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[9px] font-black uppercase tracking-widest text-amber-500">Question</span>
+                                <span class="text-[8px] font-black bg-slate-800 px-1.5 py-0.5 rounded text-slate-400">TAP TO SHOW ANSWER</span>
+                            </div>
+                            <h4 class="text-xs font-bold text-white">Why are Transformer cores laminated?</h4>
+                            <p class="answer text-xs text-[#10b981] font-medium hidden mt-2.5 pt-2 border-t border-slate-800">
+                                To minimize Eddy Current loss. Laminations break the path of circulating eddy currents, reducing the $I^2 R$ heat loss in the core.
+                            </p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="border border-slate-800 rounded-2xl p-4 bg-slate-950 hover:bg-slate-900 transition-colors pointer-cursor" onclick="toggleBeeeViva(this)">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[9px] font-black uppercase tracking-widest text-amber-500">Question</span>
+                                <span class="text-[8px] font-black bg-slate-800 px-1.5 py-0.5 rounded text-slate-400">TAP TO SHOW ANSWER</span>
+                            </div>
+                            <h4 class="text-xs font-bold text-white">What is the condition for maximum efficiency of a transformer?</h4>
+                            <p class="answer text-xs text-[#10b981] font-medium hidden mt-2.5 pt-2 border-t border-slate-800">
+                                Copper Loss ($P_{cu}$) is exactly equal to Iron Loss ($P_i$). Variable loss = Constant loss.
+                            </p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="border border-slate-800 rounded-2xl p-4 bg-slate-950 hover:bg-slate-900 transition-colors pointer-cursor" onclick="toggleBeeeViva(this)">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[9px] font-black uppercase tracking-widest text-amber-500">Question</span>
+                                <span class="text-[8px] font-black bg-slate-800 px-1.5 py-0.5 rounded text-slate-400">TAP TO SHOW ANSWER</span>
+                            </div>
+                            <h4 class="text-xs font-bold text-white">What is a ripple factor? Give values for half &amp; full wave rectifier.</h4>
+                            <p class="answer text-xs text-[#10b981] font-medium hidden mt-2.5 pt-2 border-t border-slate-800">
+                                Ripple factor measures the AC components present in the rectified output. For Half Wave Rectifier: 1.21. For Full Wave Rectifier: 0.48.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="pt-16 pb-8 border-t border-slate-800 bg-[#050508] text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-6 space-y-4">
+            <p>© 2026 EngiPrep Hub. Hand-tailored educational resources under JNTUK R23 framework regulations.</p>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <a href="/privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="/terms-conditions.html" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="/cookie-policy.html" class="hover:text-white transition-colors">Cookie Policy</a>
+                <a href="/faq.html" class="hover:text-white transition-colors">Help FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive script triggers -->
+    <script>
+        function switchBeeeTab(tab) {
+            const tabs = ['superposition', 'mpt'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('tab-' + t);
+                const block = document.getElementById('content-' + t);
+                if (t === tab) {
+                    btn.classList.add('theorem-active-tab');
+                    block.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('theorem-active-tab');
+                    block.classList.add('hidden');
+                }
+            });
+        }
+
+        // Initialize default active tab
+        switchBeeeTab('superposition');
+
+        function calculateSuperposition() {
+            const v1 = parseFloat(document.getElementById('beee-v1').value) || 0;
+            const v2 = parseFloat(document.getElementById('beee-v2').value) || 0;
+            const r1 = parseFloat(document.getElementById('beee-r1').value) || 1;
+            const rl = parseFloat(document.getElementById('beee-rl').value) || 1;
+
+            // Simplified superposition logic
+            const i1_only = v1 / (r1 + rl);
+            const i2_only = -v2 / (r1 + rl); // opposite direction
+            const total = i1_only + i2_only;
+
+            const resDiv = document.getElementById('superposition-results');
+            resDiv.innerHTML = `
+                <p class="font-bold text-white text-xs mb-2">⚡ Stage Solving Breakdown:</p>
+                <p>1. Only E1 Active (E2 shorted): I_1 = E1 / (R1+RL) = ${v1} / (${r1}+${rl}) = ${i1_only.toFixed(2)} A.</p>
+                <p>2. Only E2 Active (E1 shorted): I_2 = -E2 / (R1+RL) = -${v2} / (${r1}+${rl}) = ${i2_only.toFixed(2)} A.</p>
+                <p class="font-extrabold text-[#10b981] mt-2 border-t border-slate-800 pt-2">Total Branch Current (IL) = I_1 + I_2 = ${total.toFixed(2)} Amperes.</p>
+            `;
+            resDiv.classList.remove('hidden');
+
+            try {
+                if (typeof window.incrementXP === 'function') {
+                    window.incrementXP(20, document.getElementById('superposition-results'));
+                }
+            } catch(e) {}
+        }
+
+        function calculateMPT() {
+            const vth = parseFloat(document.getElementById('mpt-vth').value) || 0;
+            const rth = parseFloat(document.getElementById('mpt-rth').value) || 1;
+
+            // Max power condition RL = Rth
+            const rl = rth;
+            const pmax = (vth * vth) / (4 * rth);
+
+            const resDiv = document.getElementById('mpt-results');
+            resDiv.innerHTML = `
+                <p class="font-bold text-white text-xs mb-2">📈 Calculated Maximum Output:</p>
+                <p>Condition: Load RL = Thevenin Rth = ${rl} Ω.</p>
+                <p>Formula: P_max = Vth² / 4Rth = ${vth}² / (4 × ${rth}).</p>
+                <p class="font-extrabold text-amber-500 mt-2 border-t border-slate-800 pt-2">Max Power Transferred (Pmax) = ${pmax.toFixed(2)} Watts.</p>
+            `;
+            resDiv.classList.remove('hidden');
+
+            try {
+                if (typeof window.incrementXP === 'function') {
+                    window.incrementXP(20, document.getElementById('mpt-results'));
+                }
+            } catch(e) {}
+        }
+
+        function toggleBeeeViva(card) {
+            const ans = card.querySelector('.answer');
+            ans.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

@@ -108,10 +108,23 @@ function getDeepContent(subject, unit) {
             `Toppers Choice: Verified handwritten lecture series notes mapped to R23 regulations, EngiPrepHub academic database.`
         ],
         
-        internalLinks: [
-            { label: "Full Syllabus Overview", url: "/all-subjects.html" },
-            { label: `${escapeHTML(subject.replace(/-/g, ' '))} notes folder`, url: `/${subject}` }
-        ]
+        internalLinks: (() => {
+            const subjectPageMap = {
+                "engineering-physics": "/physics-notes.html",
+                "engineering-mathematics": "/maths-1.html",
+                "data-structures": "/data-structures-basics.html",
+                "chemistry": "/chemistry-topper-notes.html",
+                "communicative-english": "/communicative-english.html",
+                "basic-civil-and-mechanical-engineering": "/basic-civil-mechanical-engineering.html",
+                "c-programming": "/c-programming-notes.html",
+                "basic-electrical-engineering": "/beee-notes.html"
+            };
+            const targetUrl = subjectPageMap[subject] || `/${subject}.html`;
+            return [
+                { label: "Full Syllabus Overview", url: "/all-subjects.html" },
+                { label: `${escapeHTML(subject.replace(/-/g, ' '))} notes folder`, url: targetUrl }
+            ];
+        })()
     };
 }
 
