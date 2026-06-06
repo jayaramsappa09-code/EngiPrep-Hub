@@ -15,6 +15,11 @@
     
     
     
+    
+    
+    
+    
+    
 
     
     
@@ -170,6 +175,56 @@
     
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
     <meta property="og:title" content="Premium JNTUK Study Notes | EngiPrepHub">
     <meta property="og:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
     <meta property="og:url" content="https://engiprephub.in/blog-post">
@@ -201,11 +256,21 @@
                 <h1 id="post-title" class="text-5xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1]">...</h1>
                 <p id="post-excerpt" class="text-xl text-slate-500 dark:text-slate-400 italic mb-10 leading-relaxed">...</p>
                 
-                <div id="author-section" class="flex items-center gap-4 py-8 border-y border-slate-200 dark:border-slate-800 border">
-                    <div id="author-initials-placeholder" class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary font-bold text-xl uppercase">?</div>
-                    <div>
-                        <div id="author-name" class="text-sm font-black uppercase tracking-widest text-slate-900 dark:text-slate-50">...</div>
-                        <div id="author-bio" class="text-[10px] text-slate-500 dark:text-slate-400 max-w-md mt-1 italic">...</div>
+                <!-- Premium E-E-A-T Academic Author block -->
+                <div id="author-section" class="flex flex-col md:flex-row md:items-center justify-between gap-6 py-8 border-y border-slate-200 dark:border-slate-800 border my-8">
+                    <div class="flex items-center gap-4">
+                        <div id="author-initials-placeholder" class="w-12 h-12 bg-blue-500/15 text-blue-500 rounded-full flex items-center justify-center font-bold text-lg shrink-0 uppercase">ETH</div>
+                        <div>
+                            <div class="text-[9px] uppercase font-black text-slate-400 tracking-wider">Academic Content Author</div>
+                            <a href="/author/engiprephub-academic-team" id="author-name-link" class="text-sm font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 hover:underline">EngiPrepHub Academic Team</a>
+                            <div id="author-bio" class="text-[10px] text-slate-500 dark:text-slate-400 max-w-md mt-1 font-mono">Expert pedagogical resources reviewed by Academic Quality Review Board.</div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl max-w-xs md:max-w-md">
+                        <div class="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest">
+                            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span> Verified Syllabus Compliance
+                        </div>
+                        <p class="text-[9px] text-slate-500 dark:text-slate-450 mt-1 leading-normal font-medium">Cross-checked against JNTUK R23 Regulation Syllabi, standard academic textbooks, and past physical exam blueprints.</p>
                     </div>
                 </div>
             </header>
@@ -422,17 +487,18 @@
             }
 
             // Update Author info
-            if (profileData) {
-                document.getElementById('author-name').innerText = profileData.full_name || 'Anonymous Author'
-                document.getElementById('author-bio').innerText = profileData.bio || 'Technical Editor at EngiPrep'
-                
-                if (profileData.full_name) {
-                    document.getElementById('author-initials-placeholder').innerText = profileData.full_name.charAt(0).toUpperCase()
-                }
-            } else {
-                document.getElementById('author-name').innerText = 'Technical Editor'
-                document.getElementById('author-bio').innerText = 'Senior Developer & Educator at EngiPrep Hub'
-                document.getElementById('author-initials-placeholder').innerText = 'E'
+            const nameLink = document.getElementById('author-name-link');
+            const bioEl = document.getElementById('author-bio');
+            const initialsEl = document.getElementById('author-initials-placeholder');
+
+            if (nameLink) {
+                nameLink.innerText = 'EngiPrepHub Academic Team';
+            }
+            if (bioEl) {
+                bioEl.innerText = 'Verified pedagogical resource reviewed by the Academic Quality Review Board and Editorial Team.';
+            }
+            if (initialsEl) {
+                initialsEl.innerText = 'ETH';
             }
 
             loadComments();
@@ -595,17 +661,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- EngiPrepHubFooter -->
-<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
-  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
-    <a href="/about.html" class="hover:text-white">About</a>
-    <a href="/contact.html" class="hover:text-white">Contact</a>
-    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
-    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
-    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
-    <a href="/faq.html" class="hover:text-white">FAQ</a>
+<footer class="engi-injected-footer bg-[#050508] border-t border-slate-900 text-center p-8 mt-20">
+  <div class="flex justify-center flex-wrap gap-4 text-xs font-semibold text-slate-400">
+    <a href="/about.html" class="hover:text-blue-500 transition-colors">About Us</a>
+    <a href="/contact.html" class="hover:text-blue-500 transition-colors">Contact</a>
+    <a href="/privacy-policy.html" class="hover:text-blue-500 transition-colors">Privacy Policy</a>
+    <a href="/terms-conditions.html" class="hover:text-blue-500 transition-colors">Terms &amp; Conditions</a>
+    <a href="/cookie-policy.html" class="hover:text-blue-500 transition-colors">Cookie Policy</a>
+    <a href="/disclaimer.html" class="hover:text-blue-500 transition-colors">Disclaimer</a>
+    <a href="/faq.html" class="hover:text-blue-500 transition-colors">FAQ</a>
   </div>
-  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+  <p class="text-slate-650 mt-4 text-[10px] font-mono leading-none">© 2026 EngiPrepHub Academic Trust Network. All rights reserved.</p>
 </footer>
 
 </body>
