@@ -70,7 +70,10 @@
         </section>
     </main>
 
-    <script>
+    <script type="module">
+        import { AchievementManager } from '/src/achievement-manager.js';
+        const achievementManager = new AchievementManager();
+
         const roadmapData = {
             'C Programming': ['Basics', 'Control Flow', 'Functions', 'Arrays', 'Pointers'],
             'Engineering Graphics': ['Projection of Points', 'Projection of Lines', 'Projection of Planes', 'Solids'],
@@ -133,6 +136,8 @@
                 { name: 'Graphic Pro', condition: () => (progress['Engineering Graphics'] && Object.values(progress['Engineering Graphics']).filter(Boolean).length >= 4), emoji: '📐' },
                 { name: 'Maths Wizard', condition: () => (progress['Engineering Mathematics'] && Object.values(progress['Engineering Mathematics']).filter(Boolean).length >= 4), emoji: '🔢' }
             ];
+
+            milestones.forEach(m => achievementManager.checkMilestone(m.name, m.condition, m.emoji));
 
             container.innerHTML = milestones.map(m => `
                 <div class="p-8 rounded-[2rem] border-2 transition-all duration-300 ${m.condition() ? 'bg-amber-50 dark:bg-amber-900/10 border-amber-400 shadow-amber-500/10 shadow-lg' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800'}">

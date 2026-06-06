@@ -259,4 +259,5 @@ export const QUESTION_DATABASE: Question[] = [
     relatedQuestions: ["BEEE-U2-Q002"],
     expectedInExam2026: true,
     slug: "apply-thevenins-theorem"
-  },
+  }
+];
