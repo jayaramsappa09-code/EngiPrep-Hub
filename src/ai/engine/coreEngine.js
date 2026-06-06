@@ -113,6 +113,34 @@ export const AI_ENGINE = {
         keys: ["feeling down", "depressed", "sad", "unhappy", "frustrated", "tired", "exhausted", "burnout", "mental fatigue"]
       },
       {
+        intent: "exam_preparation",
+        keys: ["exam prep", "how to prepare", "prepare for exam", "study strategy", "exam strategy"]
+      },
+      {
+        intent: "one_day_before",
+        keys: ["one day before", "last minute", "tonight", "exam tomorrow", "1 day prep", "night before exam"]
+      },
+      {
+        intent: "pyq_request",
+        keys: ["pyq", "previous year", "past papers", "old questions", "repeated questions", "frequently asked"]
+      },
+      {
+        intent: "important_questions",
+        keys: ["important questions", "imp topics", "high weightage", "must read", "sure shot questions"]
+      },
+      {
+        intent: "memory_trick",
+        keys: ["memory trick", "how to remember", "shortcut", "mnemonic", "analogy", "trick to learn"]
+      },
+      {
+        intent: "numerical_problem",
+        keys: ["numerical", "solve", "problem", "calculate", "find the value", "numerical problem"]
+      },
+      {
+        intent: "lab_query",
+        keys: ["lab record", "lab experiment", "lab manual", "practical exam", "experiment setup"]
+      },
+      {
         intent: "roadmap_query",
         keys: ["roadmap", "study plan", "where to start", "syllabus path", "preparation tips", "jntuk pass marks", "checksheet", "marks checklist"]
       },
@@ -744,6 +772,69 @@ export const AI_ENGINE = {
                   <div><b>3. Step-by-Step Derivation lines (4 Marks):</b> Never skip algebra! Write brief comments explaining every transition step.</div>
               </div>
               <p class="text-[10px] text-slate-400 font-extrabold uppercase">Type "viva" followed by subject name to do quick self-evaluations!</p>
+          </div>
+        `
+      };
+    }
+
+    if (intent === "exam_preparation" || intent === "one_day_before") {
+      return {
+        intent,
+        html: `
+          <div class="space-y-3">
+              <h4 class="text-xs font-black uppercase text-[#ef4444] tracking-wider">🚨 One-Day Exam Crash Strategy</h4>
+              <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed">
+                  Only highly repetitive PYQs matter 24 hours before the exam. To survive JNTUK evaluators, memorize exactly the rigid derivations and box final outputs.
+              </p>
+              <div class="p-3 bg-red-500/10 border border-red-500/30 rounded-xl space-y-2 text-[11px] font-bold text-red-600 dark:text-red-400">
+                  <div class="flex items-start gap-1"><span class="shrink-0">1.</span> <span>Do not read generic paragraphs. Only read bulleted lists.</span></div>
+                  <div class="flex items-start gap-1"><span class="shrink-0">2.</span> <span>Draw one neat diagram with scales, evaluators check diagrams before reading text.</span></div>
+                  <div class="flex items-start gap-1"><span class="shrink-0">3.</span> <span>In numericals, explicitly write "Given variables: ...", "Formula to be used: ...", "Calculation: ...".</span></div>
+              </div>
+          </div>
+        `
+      };
+    }
+
+    if (intent === "pyq_request") {
+      return {
+        intent,
+        html: `
+          <div class="space-y-3">
+              <h4 class="text-xs font-black uppercase text-amber-500 tracking-wider">🎯 High-Weightage PYQ Extractor</h4>
+              <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed">
+                  Please specify a topic! Try replying: <b>"PYQs for Cayley Hamilton"</b> or <b>"Previous questions for C structures"</b>.
+              </p>
+              <p class="text-[10px] font-medium italic text-slate-400">I cross-reference 5 years of JNTUK database frequencies to output only the highest probability questions.</p>
+          </div>
+        `
+      };
+    }
+
+    if (intent === "memory_trick") {
+      return {
+        intent,
+        html: `
+          <div class="space-y-3">
+              <h4 class="text-xs font-black uppercase text-indigo-500 tracking-wider">🧠 Cognitive Memory Trick Engine</h4>
+              <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed">
+                  I can generate story-based mnemonics and visualization analogies for complex topics. Tell me what topic you want to remember, e.g., <b>"trick to remember eigen vector derivation"</b> or <b>"analogy for memory allocation"</b>.
+              </p>
+          </div>
+        `
+      };
+    }
+
+    if (intent === "numerical_problem") {
+      return {
+        intent,
+        html: `
+          <div class="space-y-3">
+              <h4 class="text-xs font-black uppercase text-emerald-500 tracking-wider">📐 Solved Numerical Assistant</h4>
+              <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed">
+                  Working out maths or physics numbers? Enter the parameters, and I'll lay down the exact 3-step formula sequence to secure full marks.
+                  Make sure to state if it's <i>Math M1 matrices</i> or <i>Physics optics</i>!
+              </p>
           </div>
         `
       };
