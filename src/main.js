@@ -6,6 +6,11 @@
 import { supabase, getCurrentUser, getUserProfile } from './supabase'
 import { toggleBookmark } from './notes'
 import { toast, showEncouragingToast, showSuccessToast, showAchievementToast } from './utils/toast'
+import { initInternalLinkingSystem } from './internalLinking'
+
+if (typeof window !== 'undefined') {
+    window.showAchievementToast = showAchievementToast;
+}
 
 // Inject dynamic CSS fallback rules for overlays when loaded on pages without Tailwind CSS
 (function() {
@@ -355,41 +360,6 @@ window.showAchievementToast = showAchievementToast;
     document.documentElement.setAttribute('data-page-context', pageContext);
 })();
 
-function initBreadcrumbs() {
-    const fn = window.location.pathname;
-    const isEducationalPage = fn.includes('unit-') || fn.includes('notes') || fn.includes('pyq') || fn.includes('cheat-sheet');
-    if (!isEducationalPage) return;
-
-    if (document.getElementById('eeat-breadcrumbs')) return;
-
-    const mainContainer = document.querySelector('main');
-    if (!mainContainer) return;
-
-    let pageTitle = document.querySelector('h1')?.innerText || 'Academic Notes';
-    let subject = "Engineering Resources";
-    
-    if (fn.includes('physics')) subject = "Physics";
-    if (fn.includes('chemistry')) subject = "Chemistry";
-    if (fn.includes('mathematics') || fn.includes('maths')) subject = "Mathematics";
-    if (fn.includes('programming') || fn.includes('c-fundamentals')) subject = "Programming";
-    if (fn.includes('electrical') || fn.includes('beee')) subject = "Electrical Engineering";
-
-    const breadcrumb = document.createElement('nav');
-    breadcrumb.id = 'eeat-breadcrumbs';
-    breadcrumb.className = 'mb-6 md:mb-8 flex items-center text-[12px] font-medium text-[#64748B] dark:text-slate-500 overflow-x-auto whitespace-nowrap pb-2';
-    breadcrumb.innerHTML = `
-        <a href="/" class="hover:text-[#2563EB] dark:hover:text-blue-400 transition-colors">Home</a>
-        <span class="mx-2 text-[#E2E8F0] dark:text-slate-700">/</span>
-        <a href="/semester-1.html" class="hover:text-[#2563EB] dark:hover:text-blue-400 transition-colors">Semester 1</a>
-        <span class="mx-2 text-[#E2E8F0] dark:text-slate-700">/</span>
-        <span class="text-[#475569] dark:text-slate-300 font-semibold">${subject}</span>
-        <span class="mx-2 text-[#E2E8F0] dark:text-slate-700">/</span>
-        <span class="text-[#0F172A] dark:text-white font-bold truncate max-w-[200px] sm:max-w-none">${pageTitle}</span>
-    `;
-
-    mainContainer.prepend(breadcrumb);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initCookieConsent();
@@ -403,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initGamification();
     initAcademicNavigator();
     initLiveActivities();
-    initBreadcrumbs();
+    initInternalLinkingSystem();
     initAuthorBox();
 });
 
