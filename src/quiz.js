@@ -254,4 +254,15 @@ function showResults() {
     const percentage = Math.round((score / currentQuiz.length) * 100);
     document.getElementById('final-score').innerText = `${percentage}%`;
     document.getElementById('correct-count').innerText = `${score}/${currentQuiz.length}`;
+
+    if (window.engiprep && window.engiprep.triggerXP) {
+        window.engiprep.triggerXP(score * 10, 'Completed Quiz');
+        if (window.engiprep.trackAction) window.engiprep.trackAction('quiz_attempt');
+        
+        // Log weak topic if score is less than 60%
+        if (percentage < 60 && window.engiprep.logWeakTopic && document.title) {
+            const title = document.title.split('|')[0].trim();
+            window.engiprep.logWeakTopic(title, window.location.pathname, `Scored ${percentage}% in Quiz`);
+        }
+    }
 }

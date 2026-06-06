@@ -3,315 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Dashboard JNTUK R23 Notes | Engi Prep Hub</title>
+    <title>Smart Student Dashboard | EngiPrepHub</title>
     <link rel="canonical" href="https://engiprephub.in/dashboard">
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    <meta name="description" content="Access Dashboard JNTUK R23 notes, PYQs, formulas, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal.">
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    <script>
-        // Init dark mode immediately from local storage
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
+    <meta name="description" content="Your personalized engineering mastery dashboard. Track your academic streak, review weak topics, and dominate JNTUK exams.">
     <link rel="stylesheet" href="/src/style.css">
-    <style>
-        @reference "./src/style.css";
-        
-        /* Glassmorphism Styles */
-        .glass-panel {
-            @apply bg-white/70 dark:bg-slate-900 backdrop-blur-xl border border-slate-200 dark:border-slate-800/50 dark:border-slate-800/40 shadow-sm transition-all duration-300;
-        }
-        .glass-panel:hover {
-            @apply border-slate-800 dark:border-blue-400/20 shadow-lg shadow-blue-500/5;
-        }
-        
-        .xp-bar-fill {
-            @apply h-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 rounded-full transition-all duration-500;
-        }
-        
-        @keyframes gold-shimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .animate-gold {
-            background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
-            background-size: 200% auto;
-            animation: gold-shimmer 3s ease infinite;
-        }
-
-        /* Floating XP animation styling */
-        @keyframes float-xp {
-            0% { opacity: 0; transform: translateY(0); }
-            15% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(-40px); }
-        }
-        .xp-float {
-            position: absolute;
-            animation: float-xp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            font-family: inherit;
-            pointer-events: none;
-            z-index: 999;
-        }
-        
-        /* Interactive Card Hover effects */
-        .premium-hover {
-            @apply hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/5 hover:border-blue-400/40 transition-all duration-300;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            @apply bg-slate-950;
-        }
-        ::-webkit-scrollbar-thumb {
-            @apply bg-slate-200 dark:bg-slate-800 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700;
-        }
-    </style>
-
-    <!-- Gatekeeper for Authentication -->
-    <script>document.documentElement.style.display = 'none';</script>
-    <script type="module" src="/src/gatekeeper.js"></script>
-    <script type="module" src="/src/dashboard-features.ts"></script>
-
-    
-    
-    
-    
-    
-
+    <!-- Chart.js for mastery visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/dashboard">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/dashboard">
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
 
 
     
@@ -354,1730 +57,292 @@
     <meta name="twitter:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
 
 </head>
-<body class="bg-slate-50 dark:bg-[#0B1020] text-slate-900 dark:text-[#F3F4F6] selection:bg-blue-100 dark:selection:bg-blue-950 leading-loose antialiased">
-    
-    <!-- Sync Loading Screen -->
-    <div id="loading-overlay" class="fixed inset-0 z-[100] bg-slate-50 dark:bg-[#0B1020] flex flex-col items-center justify-center transition-opacity duration-500">
-        <div class="relative w-16 h-16 mb-4">
-            <div class="absolute inset-0 border-4 border-blue-50 dark:border-blue-950/40 rounded-full"></div>
-            <div class="absolute inset-0 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
-        </div>
-        <p class="text-xs font-bold uppercase tracking-[0.25em] text-slate-400 animate-pulse">Initializing Engineering Core...</p>
-    </div>
-
-    <!-- Main Navigation Bar -->
-    <nav class="fixed top-0 w-full z-40 bg-white/80 dark:bg-[#0B1020]/85 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6">
-        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="relative w-10 h-10 flex items-center justify-center">
-                    <div class="absolute inset-0 from-blue-600 to-indigo-700 rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-xl shadow-blue-500/10 hover:border-blue-500/40 duration-300 bg-slate-900"></div>
-                    <svg class="relative z-10 w-5 h-5 text-slate-900 dark:text-slate-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                    </svg>
+<body class="bg-slate-50 dark:bg-[#030306] text-slate-800 dark:text-gray-300 antialiased selection:bg-blue-200 dark:selection:bg-blue-900 selection:text-blue-900 dark:selection:text-blue-100">
+    <!-- Navbar injected dynamically or assume global navbar format -->
+    <header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-[#030306]/85 border-b border-slate-200 dark:border-slate-800">
+        <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30">
+                    <span class="font-black text-xl text-white">E</span>
                 </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-blue-600 dark:text-blue-400">Hub</span></span>
-                    <span class="text-[6px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Prepare • Practice • Perform</span>
-                </div>
+                <span class="text-xl font-black tracking-tighter uppercase text-slate-900 dark:text-slate-50">EngiPrep <span class="text-blue-600 italic">Hub</span></span>
             </a>
-            
-            <div class="flex items-center gap-4">
-                <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-primary transition-all active:scale-95">
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                </button>
-                <div class="hidden md:flex items-center gap-3 px-4 py-2 bg-blue-50 dark:bg-slate-900 border border-slate-800 rounded-full border-blue-100 dark:border-blue-900/20">
-                    <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Streak: <span id="nav-streak">3</span> Days 🔥</span>
-                </div>
-                <div class="flex items-center gap-3 cursor-pointer group" onclick="window.location.href='/profile.html'">
-                    <div class="text-right hidden sm:block">
-                        <p id="nav-username" class="text-xs font-bold text-slate-800 dark:text-slate-100">Scholar</p>
-                        <p id="nav-xp" class="text-xs text-slate-400 dark:text-slate-400 uppercase tracking-widest font-black">280 XP</p>
-                    </div>
-                    <div id="nav-avatar-ring" class="w-10 h-10 rounded-xl bg-blue-600 p-0.5 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-xs font-black shadow-lg shadow-blue-500/10 text-slate-50">
-                        <img loading="lazy" decoding="async" id="nav-avatar-img" src="https://api.dicebear.com/7.x/bottts/svg?seed=cyber&backgroundColor=b6e3f4" class="w-full h-full rounded-lg object-cover">
-                    </div>
-                </div>
+            <div class="flex items-center gap-4" id="nav-actions">
+                <a href="/dashboard.html" class="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-sm font-bold shadow-sm">Dashboard</a>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-6 pt-28 pb-32">
+    <main class="max-w-7xl mx-auto px-6 pt-32 pb-24">
         
-        <!-- Premium Live Feedback Banner Container -->
-        <div id="toast-container" class="fixed top-24 right-6 z-50 pointer-events-none"></div>
-
-        <!-- Hero Section featuring Greeting & Smart Preset Avatars -->
-        <header class="mb-10 p-8 glass-panel rounded-[2.5rem] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 animate-fade-up">
-            <div class="flex items-center gap-6 flex-wrap sm:flex-nowrap">
-                <div class="relative group">
-                    <div id="hero-avatar-ring" class="w-24 h-24 rounded-[2rem] bg-gradient-to-br from-blue-600 to-indigo-700 p-1 flex items-center justify-center text-slate-900 dark:text-slate-50 text-3xl font-black shadow-2xl shadow-blue-500/10 rotate-3 transition-transform group-hover:rotate-0 duration-500">
-                        <img loading="lazy" decoding="async" id="hero-avatar-img" src="https://api.dicebear.com/7.x/bottts/svg?seed=cyber&backgroundColor=b6e3f4" class="w-full h-full rounded-[1.8rem] object-cover bg-white dark:bg-slate-900">
-                    </div>
-                    <span class="absolute -bottom-1 -right-1 bg-amber-500 text-slate-900 dark:text-slate-50 text-xs font-black w-6 h-6 rounded-lg flex items-center justify-center border-2 border-white dark:border-slate-900 shadow">Lvl 1</span>
-                </div>
-                <div>
-                    <h1 id="greeting-text" class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 leading-none">Good Morning, Engineer! ⚡</h1>
-                    <p id="motivation-text" class="text-slate-400 dark:text-slate-400 text-xs mt-2 font-medium max-w-lg">Ready to master your JNTUK R23 curriculum? Track memory limits or clear expected final-hour targets below.</p>
-                    
-                    <!-- Preset Avatars Inline Shelf -->
-                    <div class="mt-4 flex items-center gap-2">
-                        <span class="text-xs font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest mr-1">Switch Engine Core:</span>
-                        <div class="flex gap-1.5" id="presets-container">
-                            <!-- Preset options loaded dynamically -->
-                        </div>
-                    </div>
-                </div>
+        <!-- Header Section & Streak -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 font-['Space_Grotesk'] tracking-tight mb-2">Welcome back, Scholar.</h1>
+                <p class="text-lg text-slate-500 dark:text-slate-400">Let's continue building your academic momentum.</p>
             </div>
-
-            <!-- Smart search bento container -->
-            <div class="w-full lg:w-96 relative">
-                <span class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest pl-1.5 block mb-1.5">Smart Curriculum Search</span>
-                <div class="relative">
-                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-                    <input type="text" id="smart-search-input" placeholder="Type a subject or Note (e.g. He-Ne Laser)..." class="input-field pl-11 py-3 text-xs rounded-2xl glass-panel w-full hover:border-blue-500/40 transition-all duration-300 bg-slate-900">
-                </div>
-                <!-- Dynamic Results Menu -->
-                <div id="search-results-box" class="absolute left-0 right-0 top-full mt-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 max-h-60 overflow-y-auto hidden hover:border-blue-500/40 transition-all duration-300">
-                    <div class="p-3 text-xs text-slate-400 uppercase font-bold tracking-wider select-none border-b border-slate-100 dark:border-slate-800">Matching Syllabus Units</div>
-                    <div id="search-results-list" class="divide-y divide-slate-150/45 dark:divide-slate-800">
-                        <!-- matching results dynamically injected -->
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Dynamic Toggle Panel (Normal State vs Panic Emergency State) -->
-        <div id="dashboard-default-panels" class="grid grid-cols-1 md:grid-cols-12 gap-6">
             
-            <!-- LEFT PANEL: High Weightage Countdown & Level Trackers -->
-            <div class="md:col-span-4 space-y-6">
-                
-                <!-- Exam Countdown & Mode Toggle -->
-                <div class="glass-panel rounded-[2rem] p-6 relative overflow-hidden flex flex-col justify-between h-56">
-                    <div class="absolute right-3 top-3">
-                        <span class="px-2.5 py-1 bg-rose-50 dark:bg-slate-900 border border-slate-800 border-rose-100 dark:border-rose-900/30 rounded-full text-rose-600 dark:text-rose-400 text-xs font-black uppercase tracking-wider">JNTUK Semester R23</span>
-                    </div>
-                    <div>
-                        <span class="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest block mb-1">Time until Examination Session</span>
-                        <div id="digital-countdown" class="text-3xl font-black font-mono text-slate-900 dark:text-slate-50 flex items-center gap-1.5 mt-1">
-                            <span id="cd-days">12</span><span class="text-sm font-bold text-slate-405 lowercase">d :</span>
-                            <span id="cd-hours">07</span><span class="text-sm font-bold text-slate-405 lowercase">h :</span>
-                            <span id="cd-minutes">42</span><span class="text-sm font-bold text-slate-405 lowercase">m :</span>
-                            <span id="cd-seconds">15</span><span class="text-sm font-bold text-slate-405 lowercase">s</span>
-                        </div>
-                        <p class="text-xs text-slate-400 dark:text-slate-400 font-semibold mt-1">Countdown configured for JNTUK First Year Core examinations.</p>
-                    </div>
-
-                    <div class="border-t dark:border-slate-800/50 pt-4 mt-3">
-                        <button onclick="togglePanicModeDashboard()" id="panic-toggle-btn" class="w-full px-4 py-2.5 bg-red-600 hover:bg-red-700 text-slate-900 dark:text-slate-50 font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-red-500/10 active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
-                            <span class="w-2 h-2 rounded-full bg-white dark:bg-slate-900 animate-pulse"></span>
-                            Activate Panic Mode (Pass Strategy)
-                        </button>
+            <div class="flex items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div class="flex flex-col px-4 border-r border-slate-100 dark:border-slate-800">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Current Streak</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-2xl">🔥</span>
+                        <span class="text-2xl font-black text-slate-900 dark:text-slate-50" id="dash-streak">0 Days</span>
                     </div>
                 </div>
-
-                <!-- XP & Game Status Progress -->
-                <div class="glass-panel rounded-[2rem] p-6 flex flex-col justify-between h-56 relative overflow-hidden">
-                    <div class="absolute right-0 top-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl"></div>
-                    <div>
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Global Ranking Status</span>
-                            <span id="user-level" class="text-xs font-black text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-900 border border-slate-800 px-2.5 py-0.5 rounded-full border-blue-100 dark:border-blue-900/20">LEVEL 1</span>
-                        </div>
-                        <div class="text-4xl font-extrabold text-slate-800 dark:text-slate-50" id="total-xp-display">280 <span class="text-xs text-slate-400 font-bold uppercase">XP</span></div>
-                        <p class="text-xs text-slate-400 dark:text-slate-400 font-semibold mt-1">Unlock verify badges on reaching 500 XP goal weight.</p>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between text-xs font-bold mb-1.5">
-                            <span id="xp-milestone-text" class="text-slate-400">Next Level: 280 / 500</span>
-                            <span class="text-blue-600 dark:text-blue-400" id="xp-achievement-percent">56%</span>
-                        </div>
-                        <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                            <div id="xp-progress-bar" class="xp-bar-fill" style="width: 56%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Study Streak Tracker -->
-                <div class="glass-panel rounded-[2rem] p-6 flex flex-col justify-between h-48 relative overflow-hidden">
-                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-xl"></div>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-200/50 flex items-center justify-center text-2xl animate-pulse">🔥</div>
-                        <div>
-                            <span class="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest block">Daily Streak Lock</span>
-                            <h4 id="streak-count-title" class="text-2xl font-black text-slate-900 dark:text-slate-50">3 Days Consistent</h4>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-400 dark:text-slate-400 font-medium leading-normal">Keep reading unit-wise notes daily to lock in multipliers. Do not let your level break!</p>
-                    <div class="grid grid-cols-7 gap-1 mt-2">
-                        <span class="h-1.5 rounded-full bg-amber-500"></span>
-                        <span class="h-1.5 rounded-full bg-amber-500"></span>
-                        <span class="h-1.5 rounded-full bg-amber-500"></span>
-                        <span class="h-1.5 rounded-full bg-slate-200 dark:bg-slate-800"></span>
-                        <span class="h-1.5 rounded-full bg-slate-200 dark:bg-slate-800"></span>
-                        <span class="h-1.5 rounded-full bg-slate-200 dark:bg-slate-800"></span>
-                        <span class="h-1.5 rounded-full bg-slate-200 dark:bg-slate-800"></span>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- RIGHT PANEL: Continue Learning, Heatmap, expected questions -->
-            <div class="md:col-span-8 space-y-6">
-                
-                <!-- Smart Revision / Exam Survival Panel -->
-                <div class="glass-panel border-blue-500/20 bg-gradient-to-br from-blue-900/10 to-indigo-900/10 rounded-[2.5rem] p-8 shadow-[0_0_40px_rgba(37,99,235,0.05)] relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHxwYXRoIGQ9Ik01OSs1OWgxVjBoLTF2NTl6TTAgNTloNjB2MUgwdnwtdi0xeiIgZmlsbD0iI2ZmZmZmZiIgZmlsbC1vcGFjaXR5PSIwLjA1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=')] opacity-20 group-hover:scale-105 transition-transform duration-700"></div>
-                    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="bg-blue-600 text-[10px] font-black uppercase text-white px-2 py-1 rounded">Pro Engine</span>
-                                <span class="text-rose-500 font-bold text-xs uppercase tracking-widest flex items-center gap-1 animate-pulse">🔥 High Priority Phase</span>
-                            </div>
-                            <h2 class="text-2xl font-black text-slate-900 dark:text-slate-50 tracking-tight">Smart Revision Mode</h2>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm">AI-generated compressed modules focused purely on securing passing marks and top-tier grades.</p>
-                        </div>
-                        <div class="flex flex-col gap-2 w-full md:w-auto">
-                            <button onclick="window.location.href='/tasks.html'" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-lg hover:shadow-blue-500/25 active:scale-95 flex items-center justify-center gap-2">
-                                ⚡ Start 15-Min Revision
-                            </button>
-                            <button onclick="window.location.href='/pyqs.html'" class="px-6 py-3 bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-300 font-black text-xs uppercase tracking-widest rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2">
-                                🎯 PYQ Predictor
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gamification Badges Section -->
-                <div class="glass-panel rounded-[2.5rem] p-8">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">🏆</span>
-                            <div>
-                                <h3 class="text-lg font-black text-slate-900 dark:text-slate-50">Achievements</h3>
-                                <p class="text-xs text-indigo-500 font-extrabold uppercase tracking-widest">Mastery unlocked</p>
-                            </div>
-                        </div>
-                        <span class="text-xs font-bold text-slate-400">2 / 12 Unlocked</span>
-                    </div>
-                    <div class="flex gap-4 overflow-x-auto custom-scrollbar pb-2">
-                        <div class="shrink-0 w-24 flex flex-col items-center gap-2 p-3 bg-slate-50 dark:bg-slate-900/50 border border-amber-500/30 rounded-2xl relative">
-                            <div class="absolute -top-1 -right-1 flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span></div>
-                            <div class="text-3xl filter drop-shadow-md">🔥</div>
-                            <div class="text-[9px] font-black uppercase text-center text-slate-700 dark:text-slate-300">7-Day<br>Streak</div>
-                        </div>
-                        <div class="shrink-0 w-24 flex flex-col items-center gap-2 p-3 bg-slate-50 dark:bg-slate-900/50 border border-blue-500/30 rounded-2xl">
-                            <div class="text-3xl filter drop-shadow-md">🧠</div>
-                            <div class="text-[9px] font-black uppercase text-center text-slate-700 dark:text-slate-300">Formula<br>Wizard</div>
-                        </div>
-                        <div class="shrink-0 w-24 flex flex-col items-center gap-2 p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl opacity-50 grayscale hover:grayscale-0 transition-all cursor-not-allowed">
-                            <div class="text-3xl filter drop-shadow-md">⚡</div>
-                            <div class="text-[9px] font-black uppercase text-center text-slate-700 dark:text-slate-300">PYQ<br>Hunter</div>
-                        </div>
-                        <div class="shrink-0 w-24 flex flex-col items-center gap-2 p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl opacity-50 grayscale hover:grayscale-0 transition-all cursor-not-allowed">
-                            <div class="text-3xl filter drop-shadow-md">🔬</div>
-                            <div class="text-[9px] font-black uppercase text-center text-slate-700 dark:text-slate-300">Derivation<br>Master</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Continue Learning Modules Grid -->
-                <div class="glass-panel rounded-[2.5rem] p-8">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">📚</span>
-                            <div>
-                                <h3 class="text-lg font-black text-slate-900 dark:text-slate-50">Continue Learning</h3>
-                                <p class="text-xs text-blue-600 dark:text-blue-400 font-extrabold uppercase tracking-widest">Resuming JNTUK Semester-1 Curriculum</p>
-                            </div>
-                        </div>
-                        <a href="/notes.html" class="text-xs font-black text-blue-600 dark:text-blue-400 hover:underline">View Folders</a>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="continue-learning-grid">
-                        <!-- loaded via system script fallbacks -->
-                    </div>
-                </div>
-
-                <!-- Memory Heatmap Recall Grid (Core edtech interaction) -->
-                <div id="memory-heatmap-card" class="glass-panel rounded-[2.5rem] p-8 relative">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">🧠</span>
-                            <div>
-                                <h3 class="text-lg font-black text-slate-900 dark:text-slate-50">Memory Recall Strength Heatmap</h3>
-                                <p class="text-xs text-indigo-500 font-extrabold uppercase tracking-widest">Track cognitive retention & recall gaps</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Weak</span>
-                            <div class="flex gap-0.5">
-                                <span class="w-2.5 h-2.5 bg-slate-100 rounded"></span>
-                                <span class="w-2.5 h-2.5 bg-blue-150 rounded"></span>
-                                <span class="w-2.5 h-2.5 bg-blue-305 rounded"></span>
-                                <span class="w-2.5 h-2.5 bg-blue-500 rounded"></span>
-                                <span class="w-2.5 h-2.5 bg-indigo-650 rounded"></span>
-                            </div>
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Mastered</span>
-                        </div>
-                    </div>
-                    
-                    <p class="text-[11px] text-slate-400 dark:text-slate-400 mb-6 leading-loose">Each cell represents a unit-level engineering recall state. Hover to view detailed focus topics, or click any grid coordinate to test memory retention!</p>
-
-                    <div class="flex justify-center overflow-x-auto pb-2">
-                        <!-- Heatmap Grid -->
-                        <div id="heatmap-grid" class="grid grid-flow-col grid-rows-7 gap-1 mx-auto min-w-[340px]">
-                            <!-- 7 rows, 15 columns cells loaded by script -->
-                        </div>
-                    </div>
-
-                    <!-- Sandbox interactive popup / callout area inside the card -->
-                    <div id="recall-popover" class="mt-6 p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hidden animate-fade-up hover:border-blue-500/40 transition-all duration-300">
-                        <div class="flex items-start justify-between gap-4 mb-2">
-                            <div>
-                                <span class="px-2 py-0.5 bg-indigo-50 dark:bg-slate-900 border border-slate-800 border-indigo-100 dark:border-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-[8.5px] font-black uppercase rounded tracking-wider" id="recall-meta">Week 5 • PPS</span>
-                                <h4 class="text-xs font-black text-slate-900 dark:text-slate-50 mt-1" id="recall-topic">Structures Union Byte Diagrams</h4>
-                            </div>
-                            <button onclick="closeRecallPopover()" class="text-slate-400 hover:text-slate-600 dark:text-slate-400 text-xs">✕</button>
-                        </div>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 italic mb-3">Self-Test: <span id="recall-prompt" class="font-bold font-sans">Can you detail how Union shares its base address compared to Structs?</span></p>
-                        
-                        <div class="p-3 bg-white dark:bg-slate-950 rounded-xl border border-dashed border-indigo-200/50 dark:border-indigo-900/30 text-[10.5px] font-mono leading-loose mb-3 text-slate-400 hidden dark:text-slate-400" id="recall-answer-box">
-                            Answer Key: <span id="recall-answer" class="text-slate-700 dark:text-slate-300">"struct Allocates SUM of all element sizes. Union allocates ONLY the maximum of largest member byte space."</span>
-                        </div>
-
-                        <div class="flex gap-2 flex-wrap" id="recall-actions">
-                            <button id="btn-show-key" onclick="showRecallKey()" class="px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-250 dark:border-slate-700 text-xs font-black text-slate-700 dark:text-slate-305 uppercase rounded-xl transition-all cursor-pointer">Show Answer Key 👁️</button>
-                            <button id="btn-recalled" onclick="claimRecallXP(true)" class="px-3 py-1.5 bg-indigo-650 hover:bg-indigo-750 text-xs font-black uppercase rounded-xl transition-all cursor-pointer shadow-md shadow-indigo-500/10 text-slate-50">I Recalled This (+50 XP) ✓</button>
-                            <button id="btn-weak" onclick="claimRecallXP(false)" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-black uppercase rounded-xl transition-all cursor-pointer">Needs Revision 🔄</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- ROW: Trending Before Exams & AI Recommendations -->
-            <div class="md:col-span-6 animate-fade-up">
-                <div class="glass-panel rounded-[2.5rem] p-8 h-full">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="text-2xl">📈</span>
-                        <div>
-                            <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Trending Before Exams</h3>
-                            <p class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">Active batch vectors on EngiPrep Hub</p>
-                        </div>
-                    </div>
-                    <!-- Trending items list -->
-                    <div class="space-y-4" id="trending-list-container">
-                        <!-- dynamic high quality mock engineering parameters -->
+                <div class="flex flex-col px-4">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Total XP</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-2xl text-blue-500">⚡</span>
+                        <span class="text-2xl font-black text-slate-900 dark:text-slate-50" id="dash-xp">0</span>
                     </div>
                 </div>
             </div>
-
-            <div class="md:col-span-6 animate-fade-up" style="animation-delay: 0.1s">
-                <div class="glass-panel rounded-[2.5rem] p-8 h-full">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="text-2xl text-blue-500">🤖</span>
-                        <div>
-                            <h3 class="text-base font-black text-slate-900 dark:text-slate-50">AI Recommendations</h3>
-                            <p class="text-xs text-blue-600 dark:text-blue-400 font-extrabold uppercase tracking-widest">Adaptive suggestions to patch gaps</p>
-                        </div>
-                    </div>
-                    <!-- Adaptive Recommendations list -->
-                    <div class="space-y-4" id="recommendation-list-container">
-                        <!-- loaded dynamic or premium fallbacks -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- FULL ROW: Switchable Syllabus checklist tracker & progress -->
-            <div class="md:col-span-12 animate-fade-up" style="animation-delay: 0.15s">
-                <div class="glass-panel rounded-[2.5rem] p-8">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">🗺️</span>
-                            <div>
-                                <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Interactive Syllabus Completion Tracker</h3>
-                                <p class="text-xs text-indigo-500 font-extrabold uppercase tracking-widest">Dynamically record unit revisions to earn XP</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5" id="syl-pill-container">
-                            <button onclick="changeSyllabusSubject('PPS')" id="syl-pill-PPS" class="px-3.5 py-1.5 bg-indigo-600 rounded-xl text-xs font-black uppercase transition-all cursor-pointer text-slate-50">PPS</button>
-                            <button onclick="changeSyllabusSubject('M1')" id="syl-pill-M1" class="px-3.5 py-1.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-400 rounded-xl text-xs font-black uppercase transition-all cursor-pointer dark:text-slate-400">M1</button>
-                            <button onclick="changeSyllabusSubject('Physics')" id="syl-pill-Physics" class="px-3.5 py-1.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-400 rounded-xl text-xs font-black uppercase transition-all cursor-pointer dark:text-slate-400">Physics</button>
-                            <button onclick="changeSyllabusSubject('Chemistry')" id="syl-pill-Chemistry" class="px-3.5 py-1.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-400 rounded-xl text-xs font-black uppercase transition-all cursor-pointer dark:text-slate-400">Chemistry</button>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                        <div class="lg:col-span-8 space-y-3" id="syl-checklist-container">
-                            <!-- Injected checkboxes -->
-                        </div>
-
-                        <!-- Progress Circle Gauge -->
-                        <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900 border border-slate-800 border-slate-200 dark:border-slate-800 rounded-2xl hover:border-blue-500/40 transition-all duration-300">
-                            <div class="relative w-36 h-36 flex items-center justify-center">
-                                <svg viewBox="0 0 144 144" class="absolute inset-0 w-full h-full rotate-[-90deg] max-w-full overflow-hidden">
-                                    <circle cx="72" cy="72" r="62" class="stroke-slate-100 dark:stroke-slate-850" stroke-width="8" fill="none"></circle>
-                                    <circle id="syl-progress-ring" cx="72" cy="72" r="62" stroke-dasharray="389.5" stroke-dashoffset="389.5" class="stroke-indigo-600 transition-all duration-500" stroke-width="8" stroke-linecap="round" fill="none"></circle>
-                                </svg>
-                                <div class="text-center">
-                                    <span id="syl-progress-percent" class="text-3xl font-black text-slate-900 dark:text-slate-50">0%</span>
-                                    <span class="block text-[7.5px] font-black text-slate-405 uppercase tracking-[0.25em] mt-1">Syllabus Done</span>
-                                </div>
-                            </div>
-                            <p class="text-xs text-slate-400 text-center mt-4 dark:text-slate-400">Check off units on the left dynamically as you finish revisions. Saves progress instantly.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ROW: Bookmarks & Recently Viewed Hist -->
-            <div class="md:col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6 pb-6 animate-fade-up">
-                
-                <!-- Saved Bookmarks glassmorphism card -->
-                <div class="glass-panel rounded-[2.5rem] p-8">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">🔖</span>
-                            <div>
-                                <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Saved notes</h3>
-                                <p class="text-xs text-slate-400 dark:text-slate-400 font-extrabold uppercase tracking-widest">Quick Revision access</p>
-                            </div>
-                        </div>
-                        <a href="/bookmarks.html" class="text-xs font-black text-blue-605 hover:underline">Manage Bookmarks</a>
-                    </div>
-                    <div id="saved-notes-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
-                        <!-- Bookmarked content links dynamic -->
-                    </div>
-                </div>
-
-                <!-- Recently Viewed glassmorphism -->
-                <div class="glass-panel rounded-[2.5rem] p-8">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">⏳</span>
-                            <div>
-                                <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Recently Viewed</h3>
-                                <p class="text-xs text-slate-400 dark:text-slate-400 font-extrabold uppercase tracking-widest">Resume where you left off</p>
-                            </div>
-                        </div>
-                        <button id="clear-recent-btn" class="text-xs font-black uppercase tracking-wider text-rose-500 hover:text-rose-600 transition-all cursor-pointer">Clear History</button>
-                    </div>
-                    <div id="recently-viewed-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
-                        <!-- Loaded through localStorage -->
-                    </div>
-                </div>
-
-            </div>
-
         </div>
 
-        <!-- EMERGENCY PANIC DASHBOARD LAYER -->
-        <div id="dashboard-panic-panels" class="hidden space-y-8 animate-fade-up">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- Panic mode warning alert bar -->
-            <div class="relative overflow-hidden bg-gradient-to-br from-red-650 to-rose-950 text-slate-900 dark:text-slate-50 rounded-[2.5rem] p-8 border border-slate-800 shadow-2xl">
-                <div class="absolute -right-20 -top-20 w-64 h-64 bg-red-600/10 rounded-full blur-3xl"></div>
-                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div class="flex items-center gap-4">
-                        <span class="text-4xl animate-bounce">🚨</span>
-                        <div>
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-200 dark:bg-slate-700/50 text-red-200 text-xs font-black uppercase tracking-wider rounded-full border mb-2 border-slate-200 dark:border-slate-800">
-                                <span class="w-1.5 h-1.5 bg-red-400 rounded-full animate-pulse"></span>
-                                Survival Mode Engaged
-                            </span>
-                            <h2 class="text-2xl lg:text-3xl font-black tracking-tight leading-none text-slate-900 dark:text-slate-50">Exam Tomorrow Morning?</h2>
-                            <p class="text-xs text-red-200/80 font-semibold mt-1">We filtered out 80% fluff. Master the core 20% expected questions to pass safely.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex flex-col items-center md:items-end bg-slate-900 backdrop-blur-xl bg-slate-950/80 px-6 py-4 rounded-3xl border min-w-[220px] border-slate-200 dark:border-slate-800">
-                        <span class="text-xs font-black uppercase tracking-[0.2em] text-red-300">Morning Exam Session Starts In</span>
-                        <span id="panic-countdown" class="text-2xl font-black font-mono tracking-wider text-slate-900 dark:text-slate-50 mt-1">08h 15m 30s</span>
-                        <span class="text-xs font-extrabold text-red-400 uppercase mt-1">Countdown Enabled ⌛</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Subject selective pills -->
-            <div class="glass-panel rounded-[2rem] p-5">
-                <label class="block text-xs font-black text-rose-500 uppercase tracking-widest mb-3 pl-1">Target Curriculum Selection</label>
-                <div class="flex flex-wrap gap-2" id="panic-subject-selector">
-                    <button onclick="changePanicSubject('PPS')" id="panic-pill-PPS" class="px-5 py-2.5 bg-red-600 text-slate-900 dark:text-slate-50 rounded-xl text-xs font-black uppercase transition-all shadow-md shadow-red-500/15 cursor-pointer">PPS (C Programming)</button>
-                    <button onclick="changePanicSubject('M1')" id="panic-pill-M1" class="px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border dark:border-slate-800 text-slate-400 rounded-xl text-xs font-black uppercase transition-all cursor-pointer dark:text-slate-400">Mathematics I</button>
-                    <button onclick="changePanicSubject('Physics')" id="panic-pill-Physics" class="px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border dark:border-slate-800 text-slate-400 rounded-xl text-xs font-black uppercase transition-all cursor-pointer dark:text-slate-400">Applied Physics</button>
-                    <button onclick="changePanicSubject('Chemistry')" id="panic-pill-Chemistry" class="px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border dark:border-slate-800 text-slate-400 rounded-xl text-xs font-black uppercase transition-all cursor-pointer dark:text-slate-400">Engineering Chemistry</button>
-                    <button onclick="changePanicSubject('BEEE')" id="panic-pill-BEEE" class="px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border dark:border-slate-800 text-slate-400 rounded-xl text-xs font-black uppercase transition-all cursor-pointer dark:text-slate-400">BEEE (Basic Electrical)</button>
-                </div>
-            </div>
-
-            <!-- Columns layout inside Panic mode -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Left Column: Main Progress & Daily Challenges -->
+            <div class="lg:col-span-2 space-y-8">
                 
-                <!-- Main Strategy Columns -->
-                <div class="lg:col-span-8 space-y-6">
-                    
-                    <!-- Passing Strategy card -->
-                    <div class="glass-panel border-red-100 dark:border-red-950/20 bg-gradient-to-br from-red-50/10 to-amber-50/5 dark:from-red-950/5 rounded-3xl p-6">
-                        <div class="flex items-center gap-3 mb-4">
-                            <span class="text-2xl">🛡️</span>
-                            <div>
-                                <h3 class="text-base font-black text-rose-800 dark:text-red-400">Emergency Passing Strategy Recipe</h3>
-                                <p class="text-xs text-rose-500 font-extrabold uppercase tracking-widest">Fail-safe JNTUK guidance</p>
-                            </div>
+                <!-- Level Progress -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                    <div class="relative z-10 flex justify-between items-end mb-4">
+                        <div>
+                            <p class="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1" id="dash-level-title">Level 1: Fresh Scholar</p>
+                            <h2 class="text-2xl font-black text-slate-900 dark:text-slate-50">Academic Progress</h2>
                         </div>
-                        <div id="panic-recipe-box" class="text-slate-700 dark:text-slate-300 text-xs leading-loose space-y-2 font-medium">
-                            <!-- Injected dynamically based on subject -->
-                        </div>
+                        <span class="text-sm font-bold text-slate-500" id="dash-xp-progress">0 / 500 XP to next level</span>
                     </div>
-
-                    <!-- Expected Board list -->
-                    <div class="glass-panel rounded-3xl p-6 lg:p-8 space-y-6">
-                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/60 pb-4">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xl">🎯</span>
-                                <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Hot Expected Exam Questions</h3>
-                            </div>
-                            <span class="px-2.5 py-1 bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 text-xs font-black uppercase tracking-widest rounded-lg border border-red-200/20 animate-pulse">High Probability</span>
-                        </div>
-                        <div id="panic-questions-list" class="space-y-4">
-                            <!-- Injected dynamically based on active panic subject -->
-                        </div>
+                    <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-4 mb-4 overflow-hidden relative z-10">
+                        <div id="dash-progress-bar" class="bg-gradient-to-r from-blue-600 to-indigo-500 h-4 rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
                     </div>
                 </div>
 
-                <!-- Secondary Formulas & Chill card inside Panic mode -->
-                <div class="lg:col-span-4 space-y-6">
-                    <div class="glass-panel rounded-3xl p-6 bg-slate-950 border border-slate-800 text-slate-900 dark:text-slate-50 relative overflow-hidden">
-                        <div class="absolute -right-16 -bottom-16 w-32 h-32 bg-red-700/5 rounded-full blur-2xl"></div>
-                        <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
-                            <span>⚡</span> Last-Minute Formulas Key
-                        </h3>
-                        <div id="panic-formula-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
-                            <!-- Injected dynamically -->
+                <!-- Smart Revision Engine & Exam Mode -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Smart Revision -->
+                    <div class="bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 rounded-3xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 flex items-center gap-2">
+                                <span>🧠</span> Smart Revision
+                            </h3>
+                            <span class="px-2.5 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 text-xs font-black uppercase rounded-lg">AI Generated</span>
                         </div>
-                    </div>
-
-                    <!-- Dopamine Stress Free flip card selector -->
-                    <div class="glass-panel bg-gradient-to-br from-[#1e1b4b] to-[#0f172a] text-slate-900 dark:text-slate-50 rounded-3xl p-6 border border-indigo-900/40 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent)]"></div>
-                        <span class="text-xs font-black uppercase tracking-wider text-indigo-300 block mb-1">Dopamine booster</span>
-                        <h4 class="text-sm font-black mb-4 flex items-center gap-1.5 text-indigo-200">🧘 Stress-free Exam Hack</h4>
-                        
-                        <div id="panic-affirmation-container" onclick="flipPanicAffirmation()" class="relative w-full h-[140px] cursor-pointer [perspective:1000px]">
-                            <div id="affirmation-card-inner" class="relative w-full h-full text-center transition-transform duration-500 [transform-style:preserve-3d]">
-                                <div class="absolute inset-0 w-full h-full bg-slate-900 backdrop-blur-xl bg-slate-950/80 rounded-2xl p-4 flex flex-col justify-between [backface-visibility:hidden] border border-slate-200 dark:border-slate-800 hover:border-blue-500/40 transition-all duration-300">
-                                    <p id="affirmation-front-label" class="text-[8.5px] font-black text-indigo-300 uppercase tracking-widest text-left">Exam Hack #1</p>
-                                    <p id="affirmation-front-text" class="text-xs font-bold leading-loose text-slate-100 flex-1 flex items-center justify-center">80% of any engineering paper is pure psychological confidence. Calm down.</p>
-                                    <p class="text-xs font-black text-indigo-400 uppercase tracking-widest text-center animate-pulse">Tap to Reveal Hack 🔄</p>
-                                </div>
-                                <div class="absolute inset-0 w-full h-full rounded-2xl p-4 flex flex-col justify-between [backface-visibility:hidden] [transform:rotateY(180deg)] border border-indigo-700/35 text-slate-50 hover:border-blue-500/40 transition-all duration-300 bg-slate-900">
-                                    <p class="text-[8.5px] font-black text-indigo-200 uppercase tracking-widest text-left">Actionable Hack</p>
-                                    <p id="affirmation-back-text" class="text-xs font-bold leading-loose text-indigo-100 flex-1 flex items-center justify-center">Sleep at least 6 hours tonight. Cramming while sleep-deprived drops recall by up to 40%.</p>
-                                    <p class="text-xs font-black text-indigo-200 uppercase tracking-widest text-center">Tap to Spin Back</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Mini controls -->
-                        <div class="flex items-center justify-between mt-4 border-t border-indigo-950 pt-3">
-                            <button onclick="prevPanicAffirmation(event)" class="text-xs font-black text-indigo-300 hover:text-slate-900 dark:text-slate-50 transition-all uppercase tracking-wider">← Prev</button>
-                            <span id="affirmation-dots" class="text-xs text-indigo-300 font-extrabold">1 / 4</span>
-                            <button onclick="nextPanicAffirmation(event)" class="text-xs font-black text-indigo-300 hover:text-slate-900 dark:text-slate-50 transition-all uppercase tracking-wider">Next →</button>
-                        </div>
-                    </div>
-
-                    <!-- Viral shared helper component -->
-                    <div class="glass-panel bg-gradient-to-r from-red-600/5 to-rose-600/5 border border-red-200/20 rounded-3xl p-6">
-                        <h4 class="text-xs font-black uppercase tracking-wider text-rose-500 mb-2 flex items-center gap-1.5 select-none">
-                            <span>🤝</span> Share & Save Batchmates
-                        </h4>
-                        <p class="text-[11px] text-slate-400 dark:text-slate-400 leading-loose mb-4">Save your batch mates! Share this emergency JNTUK passing path on your WhatsApp group.</p>
-                        <div class="flex gap-2">
-                            <button onclick="copySurvivalClipboard()" class="flex-1 py-1.5 bg-slate-900 hover:bg-slate-900 dark:bg-slate-50 text-slate-900 dark:text-slate-50 text-xs font-black uppercase tracking-widest rounded-xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
-                                Copy Invite
-                            </button>
-                            <a href="https://t.me/share/url?url=https%3D%2%2Fengiprephub.com&text=Bro%2C%20our%20exam%20is%20tomorrow!" target="_blank" class="py-1.5 px-4 bg-slate-950 hover:bg-slate-950 text-slate-900 dark:text-slate-50 text-xs font-black uppercase tracking-widest rounded-xl transition-all flex items-center justify-center shadow-sm">
-                                Telegram
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">Based on your recent activity, we recommend reviewing these weak topics today.</p>
+                        <div class="space-y-3" id="dash-weak-topics">
+                            <a href="/physics-notes.html" class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-400 transition-colors group">
+                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">Quantum Mechanics PYQs</span>
+                                <span class="text-xs text-slate-400">Viewed 3 days ago</span>
+                            </a>
+                            <a href="/data-structures-basics.html" class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-400 transition-colors group">
+                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">Binary Search Trees</span>
+                                <span class="text-xs text-slate-400">Low Quiz Score</span>
                             </a>
                         </div>
                     </div>
 
+                    <!-- Exam Modes -->
+                    <div class="bg-rose-50/50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-3xl p-6 aspect-auto flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-lg font-black text-rose-900 dark:text-rose-100 flex items-center gap-2">
+                                    <span>🚨</span> Emergency Exam Mode
+                                </h3>
+                            </div>
+                            <p class="text-sm text-rose-700 dark:text-rose-300/80 mb-6 font-medium">Activate focused sprints when exams are near.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <button onclick="activateExamMode('7day')" class="w-full p-3 bg-white dark:bg-rose-950 border border-rose-200 dark:border-rose-900/50 rounded-xl text-sm font-bold text-rose-700 dark:text-rose-400 hover:bg-rose-600 hover:text-white transition-colors text-left flex justify-between items-center group">
+                                7-Day Exam Sprint <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                            </button>
+                            <button onclick="activateExamMode('1day')" class="w-full p-3 bg-white dark:bg-rose-950 border border-rose-200 dark:border-rose-900/50 rounded-xl text-sm font-bold text-rose-700 dark:text-rose-400 hover:bg-rose-600 hover:text-white transition-colors text-left flex justify-between items-center group">
+                                1-Day Survival Mode <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Challenges -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8">
+                    <h3 class="text-xl font-black text-slate-900 dark:text-slate-50 mb-6 font-['Space_Grotesk']">Daily Engineering Challenges</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Challenge 1 -->
+                        <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-2xl flex flex-col justify-between bg-slate-50/50 dark:bg-slate-950/50 relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-3 opacity-50 group-hover:opacity-100 transition-opacity"><span class="text-xs font-black text-amber-500 bg-amber-100 dark:bg-amber-900/30 px-2 py-1 rounded">+50 XP</span></div>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Daily PYQ Challenge</h4>
+                            <p class="text-xs text-slate-500 mb-4">Solve 3 previous year questions from M1 Matrices.</p>
+                            <button onclick="completeChallenge(this, 50)" class="w-full py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold rounded-xl hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white transition-colors">Start Challenge</button>
+                        </div>
+                        <!-- Challenge 2 -->
+                        <div class="p-5 border border-slate-200 dark:border-slate-800 rounded-2xl flex flex-col justify-between bg-slate-50/50 dark:bg-slate-950/50 relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-3 opacity-50 group-hover:opacity-100 transition-opacity"><span class="text-xs font-black text-amber-500 bg-amber-100 dark:bg-amber-900/30 px-2 py-1 rounded">+30 XP</span></div>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Coding Ninja</h4>
+                            <p class="text-xs text-slate-500 mb-4">Write a complete C-program for Bubble Sort without looking.</p>
+                            <button onclick="completeChallenge(this, 30)" class="w-full py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold rounded-xl hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white transition-colors">Start Challenge</button>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
-        </div>
+            <!-- Right Column: Stats, Subjects & Social -->
+            <div class="space-y-8">
+                
+                <!-- Subject Mastery -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6">
+                    <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-6 font-['Space_Grotesk']">Subject Mastery Focus</h3>
+                    
+                    <div class="space-y-5">
+                        <!-- Subject 1 -->
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-sm font-bold text-slate-700 dark:text-slate-300">Engineering Physics</span>
+                                <span class="text-xs font-black text-blue-600 dark:text-blue-400">75%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full subject-mastery-bar" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <!-- Subject 2 -->
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-sm font-bold text-slate-700 dark:text-slate-300">C Programming</span>
+                                <span class="text-xs font-black text-emerald-600 dark:text-emerald-400">40%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 40%"></div>
+                            </div>
+                            <p class="text-[10px] text-emerald-600 dark:text-emerald-400 mt-1 font-bold">Priority: Requires Revision</p>
+                        </div>
+                        <!-- Subject 3 -->
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-sm font-bold text-slate-700 dark:text-slate-300">Mathematics 1</span>
+                                <span class="text-xs font-black text-purple-600 dark:text-purple-400">90%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                            <p class="text-[10px] text-purple-600 dark:text-purple-400 mt-1 font-bold">Strong Area</p>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Recent Badges / Achievements -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6">
+                    <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-4 font-['Space_Grotesk']">Recent Achievements</h3>
+                    <div class="flex flex-wrap gap-3" id="badges-container">
+                        <!-- Rendered by JS -->
+                        <div class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center gap-2">
+                            <span class="text-lg">📚</span>
+                            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">First Note</span>
+                        </div>
+                        <div class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center gap-2 opacity-50 grayscale">
+                            <span class="text-lg">⚔️</span>
+                            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">7-Day Streak</span>
+                        </div>
+                        <div class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center gap-2 opacity-50 grayscale">
+                            <span class="text-lg">👑</span>
+                            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Maths Legend</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Motivation Engine -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-black dark:to-slate-900 border border-slate-700 rounded-3xl p-6 text-white text-center">
+                    <span class="text-3xl mb-3 block">⏳</span>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-1">JNTUK Semester Exams</h4>
+                    <p class="text-3xl font-black font-['Space_Grotesk'] text-white tracking-tighter mb-4">42 Days Left</p>
+                    <div class="h-px w-12 bg-slate-700 mx-auto mb-4"></div>
+                    <p class="text-sm text-slate-300 italic font-medium">"Discipline is choosing between what you want now, and what you want most. Open a book."</p>
+                </div>
+
+            </div>
+        </div>
     </main>
 
-    <!-- Footer of SaaS Engine -->
-    <!-- Global Footer -->
-    <footer class="pt-24 pb-12 px-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-850 transition-colors" aria-label="Academic Resource Footer">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20 text-left">
-                <div>
-                    <a href="/" class="flex items-center gap-3 mb-6" aria-label="EngiPrep Hub Homepage Link">
-                        <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/10 text-slate-50">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                            </svg>
-                        </div>
-                        <span class="text-xl font-black text-slate-900 dark:text-slate-50 tracking-tighter">EngiPrep Hub</span>
-                    </a>
-                    <p class="text-sm text-slate-400 dark:text-slate-400 leading-loose mb-8 font-medium">
-                        The ultimate JNTUK R23 engineering academic ecosystem. Built for future scholars, by university toppers.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="mailto:engiprephub@gmail.com" class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Send us an Email at engiprephub@gmail.com">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.433-.232 3.01.765.577-1 .577-2.338 0-3.338-.577-1-1.864-1.341-3.01-.768l-.01.005c-1.146.573-1.488 1.861-.915 3.01s1.861 1.488 3.01.915c1.146-.573 1.488-1.861.915-3.01l-.01.005z"/></svg>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-8">Resources</h4>
-                    <ul class="text-sm text-slate-400 dark:text-slate-400 space-y-4">
-                        <li><a href="/notes.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Study Notes PDF</a></li>
-                        <li><a href="/pyqs.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">JNTUK Solved PYQs</a></li>
-                        <li><a href="/cheat-sheets.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Formula Sheets</a></li>
-                        <li><a href="/tools.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">SGPA Calculators</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-8">Organization</h4>
-                    <ul class="text-sm text-slate-400 dark:text-slate-400 space-y-4">
-                        <li><a href="/about.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">About Us</a></li>
-                        <li><a href="/faq.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">FAQ</a></li>
-                        <li><a href="/blog.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Academic Blog</a></li>
-                        <li><a href="/contribute.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Become a Contributor</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-8">Security & Legal</h4>
-                    <ul class="text-sm text-slate-400 dark:text-slate-400 space-y-4">
-                        <li><a href="/privacy-policy.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Privacy Policy</a></li>
-                        <li><a href="/cookie-policy.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Cookie Policy</a></li>
-                        <li><a href="/terms-conditions.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Terms & Conditions</a></li>
-                        <li><a href="/contact.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="pt-12 border-t border-slate-100 dark:border-slate-850 flex flex-col md:flex-row items-center justify-between gap-6">
-                <p class="text-slate-400 dark:text-slate-500 text-xs font-semibold">© 2026 EngiPrep Hub. All rights reserved.</p>
-                <p class="text-slate-400 dark:text-slate-500 text-xs font-semibold italic tracking-tight">Engineered for Academic Excellence</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Interactive JS Core script -->
-    <script type="module">
-        import { supabase, requireProfile } from './src/supabase.js'
-        import { signOut } from './src/auth.js'
-        import { getGreeting, getMotivation } from './src/platform-constants.js'
-        import { fetchAdaptiveRecommendations, fetchAllNotes, getBookmarks, removeBookmark } from './src/notes.js'
-        import { AVATARS } from './src/avatars.js'
-
-        const navUsername = document.getElementById('nav-username')
-        const navXP = document.getElementById('nav-xp')
-        const navStreak = document.getElementById('nav-streak')
-        const navAvatarImg = document.getElementById('nav-avatar-img')
-        const heroAvatarImg = document.getElementById('hero-avatar-img')
-        const greetingText = document.getElementById('greeting-text')
-        const motivationText = document.getElementById('motivation-text')
-        const logoutBtn = document.getElementById('logout-btn')
-
-        const totalXPDisplay = document.getElementById('total-xp-display')
-        const xpMilestoneText = document.getElementById('xp-milestone-text')
-        const xpAchievementPercent = document.getElementById('xp-achievement-percent')
-        const xpProgressBar = document.getElementById('xp-progress-bar')
-        const levelBadge = document.getElementById('user-level')
-        const streakDisplay = document.getElementById('streak-count-title')
-
-        let currentUser = null
-        let currentProfile = null
-
-        // System Constants for Mock Data
-        const TRENDING_VECTORS = [
-            { id: 1, title: "He-Ne Gas Laser Population Inversion", category: "Applied Physics", velocity: "98% Velocity 🔥", views: "1.2k views this morning", slug: "physics-notes" },
-            { id: 2, title: "Cayley-Hamilton Characteristic Matrix Inverse", category: "Mathematics I", velocity: "94% Velocity 📈", views: "980 views today", slug: "m1-eigen-values" },
-            { id: 3, title: "Structures vs Unions Bit Allocation", category: "C Programming", velocity: "91% Velocity ⚡", views: "840 views", slug: "c-programming-notes" },
-            { id: 4, title: "EDTA Titration Hard Water Calculations", category: "Engineering Chemistry", velocity: "87% Velocity 📚", views: "710 views", slug: "chemistry-topper-notes" },
-            { id: 5, title: "Superposition Mesh Calculation Loops", category: "BEEE", velocity: "83% Velocity 🎯", views: "650 views", slug: "beee-exam-prep" }
-        ];
-
-        const AI_RECOMMENDATIONS = [
-            { id: 101, title: "Newton's Rings Film Derivation Guide", category: "Applied Physics", tag: "HIGH YIELD 🔥", reason: "Fills in Heatmap Week 7 gap", slug: "physics-notes" },
-            { id: 102, title: "Extreme Value Jacobians rt - s² Conditions", category: "Mathematics I", tag: "HIGH YIELD 🎯", reason: "Often repeated JNTUK R23 question", slug: "maths-1" },
-            { id: 103, title: "Param Passing: value vs reference pointers", category: "C Programming", tag: "ESSENTIAL ✔️", reason: "Guaranteed 10 marks topic", slug: "c-programming-notes" },
-            { id: 104, title: "Sacrificial Anode Cathodic Shielding", category: "Engineering Chemistry", tag: "ESSENTIAL 👍", reason: "Based on recent search velocity", slug: "chemistry-topper-notes" }
-        ];
-
-        // Heatmap Focus Topics List
-        const HEATMAP_TOPICS = [
-            { topic: "Matrix characteristic equations", prompt: "What is det(A - λI) = 0 called?", answer: "The Characteristic Equation of Matrix A.", class: "bg-indigo-650" },
-            { topic: "Lagrange Mean Value verify", prompt: "State the mathematical equation representing LMVT theorem.", answer: "f'(c) = (f(b)-f(a))/(b-a) on interval [a,b].", class: "bg-blue-500" },
-            { topic: "BEEE Op-Amp Non-Inverting gains", prompt: "What represents the closed loop gain of a standard non-inverting Op-Amp?", answer: "Av = 1 + (Rf / Ri).", class: "bg-slate-100 dark:bg-slate-800/40" },
-            { topic: "Structures Unions shared sizes", prompt: "How do structures and unions allocate space in active RAM?", answer: "Structures get total space, unions get space of largest element.", class: "bg-indigo-650" },
-            { topic: "He-Ne gas laser pump cycles", prompt: "What are Helium atoms used for in gas lasers?", answer: "To transfer impact kinetic energy to Neon atoms by collisions.", class: "bg-blue-305" },
-            { topic: "EDTA hardness soft water titration", prompt: "Convert 1 ml of 0.01M EDTA to equivalents of CaCO3.", answer: "1 ml of EDTA = 1 mg of CaCO3 equivalent.", class: "bg-blue-500" },
-            { topic: "Superposition mesh loops", prompt: "Can you list deactivated conditions for voltage & current sources?", answer: "Short circuit voltage sources; Open circuit current sources.", class: "bg-blue-150" },
-            { topic: "Schrödingers boundary quantization", prompt: "State the Schrödinger time-independent formulation.", answer: "d²ψ/dx² + 8π²m/h² * (E - V)ψ = 0.", class: "bg-blue-305" }
-        ];
-
-        async function init() {
-            const overlay = document.getElementById('loading-overlay')
-            
-            try {
-                // Check login & profile setup
-                const result = await requireProfile();
-                if (!result) return; 
-
-                const { user, profile } = result;
-                currentUser = user;
-                currentProfile = profile;
-
-                // Sync username and initials
-                let displayName = profile.username || profile.full_name || user.email.split('@')[0];
-                let currentXP = profile.xp || parseInt(localStorage.getItem('user_xp') || '280');
-                let currentStreak = profile.streak || parseInt(localStorage.getItem('user_streak') || '3');
-                let userAvatar = profile.avatar_url || localStorage.getItem('user_avatar') || 'https://api.dicebear.com/7.x/bottts/svg?seed=cyber&backgroundColor=b6e3f4';
-
-                // Save fallback stats down
-                localStorage.setItem('user_xp', currentXP);
-                localStorage.setItem('user_streak', currentStreak);
-                localStorage.setItem('user_avatar', userAvatar);
-
-                // Update text metrics
-                navUsername.textContent = displayName;
-                greetingText.innerHTML = `Welcome back, ${displayName}! 🚀`;
+    <!-- Client-side logic for the dashboard specifically -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // We rely on main.js for global gamification objects like window.engiprep.getXP()
+            setTimeout(() => {
+                const xpDetails = window.engiprep ? window.engiprep.getGamificationState() : { xp: 0, streak: 0, level: 1, levelName: 'Fresh Scholar', progress: 0, xpToNext: 50, weakTopics: [], unlockedAchievements: [], stats: {} };
                 
-                // Update Avatars UI representation
-                navAvatarImg.src = userAvatar;
-                heroAvatarImg.src = userAvatar;
-
-                // Trigger Streak titles
-                streakDisplay.textContent = `${currentStreak} Days Consistent 🔥`;
-                navStreak.textContent = currentStreak;
-
-                // Render dynamic XP levels
-                updateLevelUI(currentXP);
-
-                // Render Preset Avatars Shelf
-                renderPresetAvatarsShelf(userAvatar);
-
-                // Load Learning units progress
-                await loadContinueLearning();
-
-                // Render Dynamic Heatmap
-                renderMemoryHeatmap();
-
-                // Load Bookmarks and recently viewed lists
-                await loadDashboardBookmarks();
-                loadRecentlyViewed();
-
-                // Render Trending & AI recommended tabs
-                renderTrendingBeforeExams();
-                renderAIRecommendations();
-
-                // Load interactive Syllabus
-                renderSyllabusChecklist();
-
-                // Start clocks
-                startExamDaysCountdown();
-
-                // Hide overlay
-                overlay.style.opacity = '0'
-                setTimeout(() => overlay.remove(), 400)
-            } catch (err) {
-                console.error('Init failure, falling back to mock UI session', err)
-                overlay.style.opacity = '0'
-                setTimeout(() => overlay.remove(), 400)
+                document.getElementById('dash-streak').textContent = xpDetails.streak + ' Days';
+                document.getElementById('dash-xp').textContent = xpDetails.xp;
+                document.getElementById('dash-level-title').textContent = 'Level ' + xpDetails.level + ': ' + xpDetails.levelName;
                 
-                // Mock execution trigger fallback
-                fallbackToMockSession();
-            }
-        }
+                const nextLvlXp = window.engiprep ? window.engiprep.calculateNextLevelXP(xpDetails.level) : 100;
+                document.getElementById('dash-xp-progress').textContent = xpDetails.xp + ' / ' + nextLvlXp + ' XP to next level';
+                document.getElementById('dash-progress-bar').style.width = xpDetails.progress + '%';
 
-        function fallbackToMockSession() {
-            let displayName = localStorage.getItem('user_username') || 'Scholar';
-            let currentXP = parseInt(localStorage.getItem('user_xp') || '280');
-            let currentStreak = parseInt(localStorage.getItem('user_streak') || '3');
-            let userAvatar = localStorage.getItem('user_avatar') || 'https://api.dicebear.com/7.x/bottts/svg?seed=cyber&backgroundColor=b6e3f4';
+                // Render Weak Topics
+                const weakContainer = document.getElementById('dash-weak-topics');
+                if(weakContainer && xpDetails.weakTopics && xpDetails.weakTopics.length > 0) {
+                    weakContainer.innerHTML = '';
+                    xpDetails.weakTopics.forEach(t => {
+                        weakContainer.innerHTML += \`
+                            <a href="\${t.path}" class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-400 transition-colors group">
+                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 transition-colors">\${t.title}</span>
+                                <span class="text-xs text-slate-400">\${t.reason}</span>
+                            </a>
+                        \`;
+                    });
+                }
 
-            navUsername.textContent = displayName;
-            greetingText.innerHTML = `Welcome back, ${displayName}! 🚀`;
-            navAvatarImg.src = userAvatar;
-            heroAvatarImg.src = userAvatar;
-            streakDisplay.textContent = `${currentStreak} Days Consistent 🔥`;
-            navStreak.textContent = currentStreak;
+                // Render Progress Areas pseudo-randomly driven by global stats to match the visual mock
+                const masteryBars = document.querySelectorAll('.subject-mastery-bar');
+                if (masteryBars.length > 0) {
+                   const progressCalc = Math.min(100, Math.max(10, (xpDetails.stats.notesRead || 0) * 10));
+                   masteryBars[0].style.width = (progressCalc) + '%';
+                   masteryBars[0].parentElement.previousElementSibling.lastElementChild.textContent = progressCalc + '%';
+                }
 
-            updateLevelUI(currentXP);
-            renderPresetAvatarsShelf(userAvatar);
-            loadContinueLearning();
-            renderMemoryHeatmap();
-            loadDashboardBookmarks();
-            loadRecentlyViewed();
-            renderTrendingBeforeExams();
-            renderAIRecommendations();
-            renderSyllabusChecklist();
-            startExamDaysCountdown();
-        }
-
-        // ==========================================
-        // DYNAMIC GAME XP PROGRESS SYSTEM
-        // ==========================================
-        function updateLevelUI(xp) {
-            const level = Math.floor(xp / 500) + 1;
-            const xpInLevel = xp % 500;
-            const percentage = Math.round((xpInLevel / 500) * 100);
-
-            levelBadge.textContent = `LEVEL ${level}`;
-            totalXPDisplay.innerHTML = `${xp} <span class="text-xs text-slate-400 font-bold uppercase ml-1">XP</span>`;
-            xpMilestoneText.textContent = `Next Level: ${xpInLevel} / 500`;
-            xpAchievementPercent.textContent = `${percentage}%`;
-            xpProgressBar.style.width = `${Math.max(5, percentage)}%`;
-
-            // Sync with Supabase on background
-            if (currentUser && currentProfile) {
-                supabase.from('profiles').update({ xp: xp }).eq('id', currentUser.id).then();
-            }
-        }
-
-        window.incrementXP = function(amount, eventElement) {
-            let currentXP = parseInt(localStorage.getItem('user_xp') || '280');
-            currentXP += amount;
-            localStorage.setItem('user_xp', currentXP);
-            
-            // Render beautiful float XP toast effect
-            if (eventElement) {
-                const rect = eventElement.getBoundingClientRect();
-                const floater = document.createElement('div');
-                floater.className = "text-[#4f46e5] font-black text-xs font-mono tracking-widest xp-float";
-                floater.innerHTML = `+${amount} XP 🔥`;
-                floater.style.left = `${window.scrollX + rect.left + rect.width / 2 - 10}px`;
-                floater.style.top = `${window.scrollY + rect.top - 15}px`;
-                document.body.appendChild(floater);
-                setTimeout(() => floater.remove(), 1200);
-            }
-
-            // Update local display values
-            updateLevelUI(currentXP);
-            const navXPText = document.getElementById('nav-xp');
-            if (navXPText) navXPText.textContent = `${currentXP} XP`;
-
-            // Give a quick feedback toast
-            showNotification(`XP Gained! Successfully locked in +${amount} points.`);
-        }
-
-        // ==========================================
-        // SYSTEM PRESET AVATARS SELECTION
-        // ==========================================
-        function renderPresetAvatarsShelf(currentAvatarUrl) {
-            const presetsContainer = document.getElementById('presets-container');
-            if (!presetsContainer) return;
-
-            presetsContainer.innerHTML = AVATARS.map(av => {
-                const isActive = av.url === currentAvatarUrl;
-                return `
-                    <button onclick="changeDashboardAvatar('${av.url}', '${av.name}', this)" class="w-8 h-8 rounded-lg cursor-pointer border-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center p-0.5 ${isActive ? 'border-indigo-600 dark:border-indigo-400 scale-105 bg-indigo-50/20' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'}" title="${av.name}">
-                        <img loading="lazy" decoding="async" src="${av.url}" class="w-full h-full rounded object-cover">
-                    </button>
-                `;
-            }).join('');
-        }
-
-        window.changeDashboardAvatar = async function(url, name, btnElement) {
-            localStorage.setItem('user_avatar', url);
-            navAvatarImg.src = url;
-            heroAvatarImg.src = url;
-
-            // highlight selection
-            const siblings = btnElement.parentElement.children;
-            for (let sib of siblings) {
-                sib.className = sib.className.replace('border-indigo-600 dark:border-indigo-400 scale-105 bg-indigo-50/20', 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900');
-            }
-            btnElement.className = "w-8 h-8 rounded-lg cursor-pointer border-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center p-0.5 border-indigo-600 dark:border-indigo-400 scale-105 bg-indigo-50/20";
-
-            // Save database
-            if (currentUser) {
-                await supabase.from('profiles').update({ avatar_url: url }).eq('id', currentUser.id);
-            }
-
-            showNotification(`Updated Avatar Core: Hello ${name}! 👋`);
-            incrementXP(10, btnElement);
-        }
-
-        // ==========================================
-        // CONTINUE LEARNING PROGRESS FEEDER
-        // ==========================================
-        async function loadContinueLearning() {
-            const container = document.getElementById('continue-learning-grid');
-            if (!container) return;
-
-            // Highly realistic mock learning data compiled perfectly for JNTUK Subjects
-            const subjectDetails = [
-                { title: "Engineering Mathematics I", sub: "M1", progName: "Jacobians Extrema", code: "M-1", progress: 60, notesLeft: 4, slug: "maths-1", class: "bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-300" },
-                { title: "Programming with C", sub: "PPS", progName: "Unions vs Structs", code: "PPS", progress: 80, notesLeft: 2, slug: "c-programming-notes", class: "bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-300" },
-                { title: "Applied Physics", sub: "EP", progName: "Laser Transitions", code: "EP", progress: 40, notesLeft: 6, slug: "physics-notes", class: "bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-300" },
-                { title: "Engineering Chemistry", sub: "EC", progName: "Water Demineral", code: "EC", progress: 20, notesLeft: 8, slug: "chemistry-topper-notes", class: "bg-emerald-100 dark:bg-slate-900 border border-slate-800 text-emerald-600 dark:text-emerald-300" }
-            ];
-
-            container.innerHTML = subjectDetails.map(item => `
-                <div class="glass-panel rounded-2xl p-5 hover:-translate-y-0.5 premium-hover cursor-pointer hover:border-blue-500/40 transition-all duration-300 bg-slate-900" onclick="window.location.href='/${item.slug}.html'">
-                    <div class="flex items-center gap-4 mb-3">
-                        <div class="w-10 h-10 ${item.class} rounded-xl flex items-center justify-center font-extrabold text-xs shadow-inner">
-                            ${item.code}
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <h4 class="font-black text-slate-900 dark:text-slate-50 text-xs truncate">${item.title}</h4>
-                            <p class="text-xs text-[#2563eb] font-bold uppercase tracking-wider">${item.progName}</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-between text-xs font-bold mb-1">
-                        <span class="text-slate-400 dark:text-slate-500">Syllabus Covered</span>
-                        <span class="text-slate-900 dark:text-slate-50">${item.progress}%</span>
-                    </div>
-                    <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-blue-600 rounded-full" style="width: ${item.progress}%"></div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ==========================================
-        // MEMORY RECALL HEATMAP BUILDER
-        // ==========================================
-        function renderMemoryHeatmap() {
-            const grid = document.getElementById('heatmap-grid');
-            if (!grid) return;
-
-            // Generate 15 columns representing 15 calendar weeks, each column having 7 small days squares
-            let heatmapHTML = '';
-            
-            for (let week = 1; week <= 15; week++) {
-                heatmapHTML += `<div class="grid grid-rows-7 gap-1">`;
-                
-                for (let day = 1; day <= 7; day++) {
-                    // Seed randomized high-yield color values based on visual balance
-                    const ranIndex = Math.floor(Math.random() * HEATMAP_TOPICS.length);
-                    const selTopic = HEATMAP_TOPICS[ranIndex];
+                // Render Achievements
+                const badgesContainer = document.getElementById('badges-container');
+                if(badgesContainer && xpDetails.unlockedAchievements) {
+                    const allBadges = [
+                        { id: 'first_note', icon: '📚', name: 'First Note' },
+                        { id: 'pyq_novice', icon: '📜', name: 'PYQ Novice' },
+                        { id: 'quiz_taker', icon: '🧠', name: 'Quiz Taker' },
+                        { id: '7_day_streak', icon: '⚔️', name: '7-Day Streak' },
+                        { id: '30_day_streak', icon: '👑', name: '30-Day Streak' }
+                    ];
                     
-                    heatmapHTML += `
-                        <button onclick="openRecallTest(${ranIndex}, ${week}, ${day}, this)" 
-                                class="w-3.5 h-3.5 rounded-sm hover:-translate-y-0.5 active:scale-90 transition-all cursor-pointer ${selTopic.class}" 
-                                title="Week ${week}, Day ${day}: ${selTopic.topic}">
-                        </button>
-                    `;
-                }
-                heatmapHTML += '</div>';
-            }
-            grid.innerHTML = heatmapHTML;
-        }
-
-        let activeRecallIndex = null;
-        window.openRecallTest = function(topicIdx, week, day, element) {
-            activeRecallIndex = topicIdx;
-            const data = HEATMAP_TOPICS[topicIdx];
-            
-            const popover = document.getElementById('recall-popover');
-            const meta = document.getElementById('recall-meta');
-            const topic = document.getElementById('recall-topic');
-            const prompt = document.getElementById('recall-prompt');
-            const ansKey = document.getElementById('recall-answer');
-            const ansBox = document.getElementById('recall-answer-box');
-            
-            meta.innerText = `Week ${week}, Day ${day} • Memory Target`;
-            topic.innerText = data.topic;
-            prompt.innerText = data.prompt;
-            ansKey.innerText = data.answer;
-            
-            ansBox.classList.add('hidden');
-            popover.classList.remove('hidden');
-            
-            // Scroll to popover elements
-            popover.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        window.closeRecallPopover = function() {
-            document.getElementById('recall-popover').classList.add('hidden');
-        }
-
-        window.showRecallKey = function() {
-            document.getElementById('recall-answer-box').classList.toggle('hidden');
-        }
-
-        window.claimRecallXP = function(isSuccess) {
-            const btn = document.getElementById('recall-actions');
-            if (isSuccess) {
-                incrementXP(50, btn);
-                showNotification("Fabulous! Cognitive retention confirmed. +50 XP saved! 🌟");
-            } else {
-                incrementXP(10, btn);
-                showNotification("Marked! Topic added to your recommended syllabus study. +10 XP comfort points.");
-            }
-            closeRecallPopover();
-        }
-
-        // ==========================================
-        // TRENDING BEFORE EXAMS RENDERER
-        // ==========================================
-        function renderTrendingBeforeExams() {
-            const list = document.getElementById('trending-list-container');
-            if (!list) return;
-
-            list.innerHTML = TRENDING_VECTORS.map(item => `
-                <div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl hover:border-amber-400 group cursor-pointer transition-all hover:border-blue-500/40 duration-300" onclick="window.location.href='/${item.slug}.html'">
-                    <div class="min-w-0 pr-3">
-                        <span class="text-xs font-black uppercase tracking-wider text-amber-600 bg-amber-50 dark:bg-slate-900 border border-slate-800 px-2 py-0.5 rounded border-amber-100/10">${item.category}</span>
-                        <h4 class="text-xs font-black text-slate-905 dark:text-slate-100 truncate mt-1.5 group-hover:text-blue-600 transition-colors">${item.title}</h4>
-                        <p class="text-xs text-slate-400 font-medium leading-none mt-1">${item.views}</p>
-                    </div>
-                    <span class="text-xs font-black text-amber-500 whitespace-nowrap pl-2">${item.velocity}</span>
-                </div>
-            `).join('');
-        }
-
-        // ==========================================
-        // AI RECOMMENDATIONS BOARD
-        // ==========================================
-        function renderAIRecommendations() {
-            const list = document.getElementById('recommendation-list-container');
-            if (!list) return;
-
-            list.innerHTML = AI_RECOMMENDATIONS.map(item => `
-                <div class="flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-850 rounded-2xl hover:border-blue-500 group cursor-pointer transition-all hover:border-blue-500/40 duration-300" onclick="window.location.href='/${item.slug}.html'">
-                    <div class="min-w-0 pr-3">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="text-xs font-black tracking-widest text-[#2563eb] dark:text-blue-400 bg-blue-50 dark:bg-slate-900 border border-slate-800 px-2 py-0.5 rounded border-blue-100/10">${item.tag}</span>
-                            <span class="text-xs text-emerald-500 font-extrabold uppercase bg-emerald-50 dark:bg-slate-900 border border-slate-800 px-2 py-0.5 rounded">${item.category}</span>
-                        </div>
-                        <h4 class="text-xs font-black text-slate-905 dark:text-slate-100 truncate mt-1.5 group-hover:text-blue-600 transition-colors">${item.title}</h4>
-                        <p class="text-xs text-slate-400 dark:text-slate-400 font-medium mt-1">Reason: ${item.reason}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ==========================================
-        // INTERACTIVE SYLLABUS TRACKER
-        // ==========================================
-        window.activeSyllabusSubject = 'PPS';
-        const syllabusUnitDatabase = {
-            PPS: [
-                "Unit 1: Computer Hardware & C Basics",
-                "Unit 2: Controls, Conditions & Loops",
-                "Unit 3: Arrays & String Actions",
-                "Unit 4: Functions & Pointer Arithmetic",
-                "Unit 5: Structures, Unions & Files"
-            ],
-            M1: [
-                "Unit 1: Matrices Char Values & Rank",
-                "Unit 2: Mean Value Theorems (LMVT)",
-                "Unit 3: Multivariable Maxima & Jacobians",
-                "Unit 4: Double & Triple Integrals",
-                "Unit 5: Special Functions (Beta)"
-            ],
-            Physics: [
-                "Unit 1: Newton's Rings Interference",
-                "Unit 2: Optical Laser Cohesions",
-                "Unit 3: Schrodingers Wave Functions",
-                "Unit 4: Semiconductor Hall Drift",
-                "Unit 5: Superconductors Properties"
-            ],
-            Chemistry: [
-                "Unit 1: Hardness Demineralizations",
-                "Unit 2: Corrosion Electrochemistry",
-                "Unit 3: Batteries Fuel Elements",
-                "Unit 4: Bakelite Polymer Syntheses",
-                "Unit 5: Green Method Principles"
-            ]
-        };
-
-        window.changeSyllabusSubject = function(sub) {
-            window.activeSyllabusSubject = sub;
-            document.querySelectorAll(`button[onclick*="changeSyllabusSubject"]`).forEach(btn => {
-                btn.className = "px-3.5 py-1.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-400 rounded-xl text-xs font-black uppercase transition-all cursor-pointer";
-            });
-            const activeBtn = document.getElementById(`syl-pill-${sub}`);
-            if(activeBtn) {
-                activeBtn.className = "px-3.5 py-1.5 bg-indigo-650 text-slate-900 dark:text-slate-50 rounded-xl text-xs font-black uppercase transition-all cursor-pointer shadow";
-            }
-            renderSyllabusChecklist();
-        }
-
-        window.renderSyllabusChecklist = function() {
-            const container = document.getElementById('syl-checklist-container');
-            if(!container) return;
-            const list = syllabusUnitDatabase[window.activeSyllabusSubject] || [];
-            const checkedCacheKey = `syl-checked-${window.activeSyllabusSubject}`;
-            const checkedSet = new Set(JSON.parse(localStorage.getItem(checkedCacheKey) || '[]'));
-
-            container.innerHTML = list.map((unitTitle, index) => {
-                const isChecked = checkedSet.has(index);
-                return `
-                    <div class="flex items-center justify-between p-3.5 dark:bg-slate-900 border border-slate-800 border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-300 transition-all animate-fade-up">
-                        <span class="text-xs font-bold text-slate-800 dark:text-slate-300 font-sans pl-1">${unitTitle}</span>
-                        <input type="checkbox" onchange="toggleSyllabusUnitCheck(${index}, this.checked, this)" ${isChecked ? 'checked' : ''} class="w-5 h-5 accent-indigo-650 cursor-pointer rounded border-slate-200 dark:border-slate-800-color">
-                    </div>
-                `;
-            }).join('');
-
-            updateSyllabusProgressGauge();
-        }
-
-        window.toggleSyllabusUnitCheck = function(index, checked, inputElement) {
-            const checkedCacheKey = `syl-checked-${window.activeSyllabusSubject}`;
-            let checkedArr = JSON.parse(localStorage.getItem(checkedCacheKey) || '[]');
-            
-            if(checked) {
-                if(!checkedArr.includes(index)) {
-                    checkedArr.push(index);
-                    incrementXP(20, inputElement);
-                }
-            } else {
-                checkedArr = checkedArr.filter(i => i !== index);
-            }
-            localStorage.setItem(checkedCacheKey, JSON.stringify(checkedArr));
-            updateSyllabusProgressGauge();
-        }
-
-        function updateSyllabusProgressGauge() {
-            const totalUnits = 5;
-            const checkedCacheKey = `syl-checked-${window.activeSyllabusSubject}`;
-            const checkedArr = JSON.parse(localStorage.getItem(checkedCacheKey) || '[]');
-            const checkedCount = checkedArr.length;
-            const percent = Math.round((checkedCount / totalUnits) * 100);
-            
-            const percentEl = document.getElementById('syl-progress-percent');
-            if(percentEl) percentEl.innerText = `${percent}%`;
-
-            const ring = document.getElementById('syl-progress-ring');
-            const circumference = 2 * Math.PI * 62;
-            const dashOffset = circumference - (circumference * percent) / 100;
-            if(ring) {
-                ring.setAttribute('stroke-dasharray', circumference);
-                ring.setAttribute('stroke-dashoffset', dashOffset);
-            }
-        }
-
-        // ==========================================
-        // SMART SYLLABUS SEARCH ENGINE
-        // ==========================================
-        const MOCK_NOTES_SITES = [
-            { title: "Matrices Cayley-Hamilton Proof", subject: "Mathematics I", slug: "m1-eigen-values", type: "Revision" },
-            { title: "Lagrange Mean Value verification problems", subject: "Mathematics I", slug: "maths-1", type: "PYQ" },
-            { title: "Computer hardware C compile pipelines", subject: "C Programming", slug: "unit-1-c-fundamentals", type: "Revision" },
-            { title: "Functions pointer arithmetic mechanics", subject: "C Programming", slug: "c-programming-notes", type: "Cheat Sheet" },
-            { title: "Newton's rings concentric circles derivation", subject: "Applied Physics", slug: "physics-notes", type: "Important Qs" },
-            { title: "Laser system energy diagrams", subject: "Applied Physics", slug: "physics-unit-1", type: "Revision" },
-            { title: "EDTA Hard water Softening chemistry", subject: "Engineering Chemistry", slug: "chemistry-topper-notes", type: "PYQ" },
-            { title: "Superposition mesh theorem loop proofs", subject: "Basic Electrical (BEEE)", slug: "beee-exam-prep", type: "Emergency strategy" }
-        ];
-
-        const searchInput = document.getElementById('smart-search-input');
-        const resultsBox = document.getElementById('search-results-box');
-        const resultsList = document.getElementById('search-results-list');
-
-        if (searchInput) {
-            searchInput.addEventListener('input', (event) => {
-                const query = event.target.value.toLowerCase().trim();
-                if (!query) {
-                    resultsBox.classList.add('hidden');
-                    return;
-                }
-
-                const matches = MOCK_NOTES_SITES.filter(note => 
-                    note.title.toLowerCase().includes(query) || 
-                    note.subject.toLowerCase().includes(query)
-                );
-
-                if (matches.length === 0) {
-                    resultsList.innerHTML = `
-                        <div class="p-4 text-xs text-slate-400 italic text-center">
-                            No exact matches. Try typing 'Laser' or 'Matrices'...
-                        </div>
-                    `;
-                } else {
-                    resultsList.innerHTML = matches.map(match => `
-                        <a href="/${match.slug}.html" class="flex items-center justify-between p-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer group">
-                            <div>
-                                <h5 class="text-xs font-black text-slate-900 dark:text-slate-50 group-hover:text-blue-600 transition-colors">${match.title}</h5>
-                                <span class="text-xs text-slate-400 font-extrabold uppercase tracking-wider">${match.subject}</span>
+                    badgesContainer.innerHTML = '';
+                    allBadges.forEach(b => {
+                        const isUnlocked = xpDetails.unlockedAchievements.includes(b.id);
+                        const opacityClass = isUnlocked ? '' : 'opacity-50 grayscale';
+                        badgesContainer.innerHTML += \`
+                            <div class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center gap-2 \${opacityClass}">
+                                <span class="text-lg">\${b.icon}</span>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">\${b.name}</span>
                             </div>
-                            <span class="text-xs font-black uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-900 border border-slate-800 px-2 py-0.5 rounded leading-none">${match.type}</span>
-                        </a>
-                    `).join('');
+                        \`;
+                    });
                 }
-                resultsBox.classList.remove('hidden');
-            });
+            }, 100);
+        });
 
-            // Close results on external tap
-            document.addEventListener('click', (event) => {
-                if (!searchInput.contains(event.target) && !resultsBox.contains(event.target)) {
-                    resultsBox.classList.add('hidden');
-                }
-            });
-        }
-
-        // ==========================================
-        // EXAM TIMERS & RECENT LOGS
-        // ==========================================
-        function startExamDaysCountdown() {
-            const cdDays = document.getElementById('cd-days');
-            const cdHours = document.getElementById('cd-hours');
-            const cdMinutes = document.getElementById('cd-minutes');
-            const cdSeconds = document.getElementById('cd-seconds');
-
-            if (!cdDays) return;
-
-            // Target Exam Date: June 15th, 2026 (JNTUK First Year Semester Core)
-            const examTarget = new Date('2026-06-15T09:00:00Z').getTime();
-
-            setInterval(() => {
-                const now = new Date().getTime();
-                const dist = examTarget - now;
-
-                if (dist < 0) {
-                    return;
-                }
-
-                const days = Math.floor(dist / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((dist % (1000 * 60)) / 1000);
-
-                cdDays.innerText = days.toString().padStart(2, '0');
-                cdHours.innerText = hours.toString().padStart(2, '0');
-                cdMinutes.innerText = minutes.toString().padStart(2, '0');
-                cdSeconds.innerText = seconds.toString().padStart(2, '0');
-            }, 1000);
-        }
-
-        // ==========================================
-        // EXAM TOMORROW? (PANIC MODE) ENGINE
-        // ==========================================
-        const panicDatabase = {
-            PPS: {
-                recipe: `
-                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate C Programming Recovery Roadmap:</p>
-                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
-                        <li><strong>Study structures vs unions (Unit 5) immediately.</strong> It's a guaranteed 10-mark question in Part B.</li>
-                        <li><strong>Memorize parameter passing (Unit 4).</strong> Difference between call-by-value and call-by-reference is guaranteed for 7-8 marks.</li>
-                        <li><strong>Pick the 2D Array multiplication routine.</strong> Write it out 2 times on paper.</li>
-                        <li>Skip file advanced pointers if pressed for time. Lock in the basic input/output loop structures first!</li>
-                    </ul>
-                `,
-                questions: [
-                    { q: "1. Define structures and explain difference between unions and structures in detail with byte representation diagrams.", weight: "10 Marks", expected: "95% Probability" },
-                    { q: "2. Detail call-by-value and call-by-reference parameter passing with tracing code blocks.", weight: "10 Marks", expected: "91% Probability" },
-                    { q: "3. Write a program to read two 2-dimensional matrices, multiply them, and print results.", weight: "8 Marks", expected: "89% Probability" },
-                    { q: "4. Differentiate between text and binary file operations with fopen mode attributes.", weight: "5 Marks", expected: "84% Probability" }
-                ],
-                formulas: [
-                    { title: "Dynamic Memory Block", formula: "(int*)malloc(n * sizeof(int))" },
-                    { title: "String Terminator Character", formula: "'\\0' (indicates final byte index)" },
-                    { title: "Structure Keyword", formula: "struct Person { char name[50]; int age; };" },
-                    { title: "Recursive Factorial", formula: "int fact(int n) { if(n<=1) return 1; return n * fact(n-1); }" }
-                ]
-            },
-            M1: {
-                recipe: `
-                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate Mathematics I Recovery Roadmap:</p>
-                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
-                        <li><strong>Practice the Cayley-Hamilton inverse routine (Unit 1).</strong> This is a highly mechanical 10-mark topic.</li>
-                        <li><strong>Learn Lagrange Mean Value Theorem (Unit 2).</strong> Know the definition $f'(c) = \\frac{f(b)-f(a)}{b-a}$ and verify it on interval $[a,b]$.</li>
-                        <li><strong>Review Extreme value Jacobians (Unit 3).</strong> Check condition $rt - s^2 > 0$ to get local extrema.</li>
-                        <li>Skip lengthy integration proofs. Master Beta-Gamma conversions to score 5-mark units instantly.</li>
-                    </ul>
-                `,
-                questions: [
-                    { q: "1. State Cayley-Hamilton Theorem. Compute characteristic equation and inverse of matrix A = [[1,2,0],[2,-1,0],[0,0,1]].", weight: "10 Marks", expected: "96% Probability" },
-                    { q: "2. Verify Lagrange Mean Value Theorem for f(x) = (x-1)(x-2)(x-3) on [0, 4] bounds.", weight: "10 Marks", expected: "92% Probability" },
-                    { q: "3. Locate maximum and minimum coordinates of the bivariate function f(x,y) = x^3 + y^3 - 3axy.", weight: "8 Marks", expected: "87% Probability" },
-                    { q: "4. Evaluate double integral of r^3 sin(theta) over polar region boundaries.", weight: "5 Marks", expected: "82% Probability" }
-                ],
-                formulas: [
-                    { title: "Characteristic Determinant", formula: "det(A - λI) = 0" },
-                    { title: "3x3 Polynomial Equation Shortcut", formula: "λ³ - S₁λ² + S₂λ - |A| = 0" },
-                    { title: "Lagrange Mean Value theorem", formula: "f'(c) = (f(b) - f(a)) / (b - a)" },
-                    { title: "Extrema Maxima Condition", formula: "rt - s² > 0 and r < 0 (maximum)" }
-                ]
-            },
-            Physics: {
-                recipe: `
-                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate Applied Physics Recovery Roadmap:</p>
-                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
-                        <li><strong>Draw Newton's Rings apparatus diagram 3 times.</strong> It represents guaranteed 10 marks in Unit 1.</li>
-                        <li><strong>Master construction of He-Ne Gas Lasers (Unit 2).</strong> Label energy levels (pumping, collision states, Ground).</li>
-                        <li><strong>Check Schrödinger's 1D time independent model (Unit 3).</strong> Write the equation and state boundary limits.</li>
-                        <li>Lock in Hall Effect definitions; it yields quick marks in semiconductor units.</li>
-                    </ul>
-                `,
-                questions: [
-                    { q: "1. Explain interference in thin wedge film and derive formula representing diameter of dark Newton rings.", weight: "10 Marks", expected: "94% Probability" },
-                    { q: "2. Draw and describe construction and working interface of Helium-Neon (He-Ne) gas lasers with energy chart maps.", weight: "10 Marks", expected: "90% Probability" },
-                    { q: "3. Derive Schrödinger's 1D time-independent wave equation. Apply it to determine energy quantization in a 1D box.", weight: "8 Marks", expected: "85% Probability" },
-                    { q: "4. State Hall Effect. Derive the equation for Hall Coefficient and describe physical applications.", weight: "8 Marks", expected: "81% Probability" }
-                ],
-                formulas: [
-                    { title: "Dark Newton Ring Diameter", formula: "Dn² = 4nλR (R = curvature radius)" },
-                    { title: "Einstein Emission ratio", formula: "N2 / N1 = e^(-hν/kT)" },
-                    { title: "Schrödinger Time-Independent wave", formula: "d²ψ/dx² + 8π²m/h² * (E - V)ψ = 0" },
-                    { title: "Hall Coefficient calculation", formula: "R_H = 1 / (n * e)" }
-                ]
-            },
-            Chemistry: {
-                recipe: `
-                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate Engineering Chemistry Recovery Roadmap:</p>
-                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
-                        <li><strong>Demineralization ion resin exchange (Unit 1) is guaranteed.</strong> Draw the cation and anion columns.</li>
-                        <li><strong>Learn Lithium-ion battery working (Unit 3).</strong> Memorize anode (graphite-Li) and cathode (LiCoO2) reactions.</li>
-                        <li><strong>Write down 5 principles of Green Chemistry (Unit 5).</strong> Specialize on Atom Economy percentage index.</li>
-                        <li>Review Cathodic protection sacrificial anode scheme to lock in electrochemical corrosion points.</li>
-                    </ul>
-                `,
-                questions: [
-                    { q: "1. Detail demineralization/ion-exchange water softening scheme with complete reaction equations.", weight: "10 Marks", expected: "95% Probability" },
-                    { q: "2. Outline the battery chemistry, charge, and discharge equations of modern Lithium-Ion systems.", weight: "10 Marks", expected: "91% Probability" },
-                    { q: "3. State the 12 Principles of Green Chemistry. Formulate Atom Economy calculation benchmarks.", weight: "8 Marks", expected: "88% Probability" },
-                    { q: "4. Explain electrochemical corrosion mechanism and describe Sacrificial Anode cathodic safeguarding.", weight: "8 Marks", expected: "83% Probability" }
-                ],
-                formulas: [
-                    { title: "EDTA Titration CaCO3 Softening", formula: "1 ml of EDTA = 1 mg of CaCO3 equivalent" },
-                    { title: "Atom Economy Percentage Index", formula: "(MW of target / sum of all MW reactants) * 100" },
-                    { title: "Nernst Potential Equation", formula: "E = E° - (R*T / n*F) * ln(Q)" },
-                    { title: "Sacrificial Anode Material", formula: "Zinc (Zn) or Magnesium (Mg) over iron structures" }
-                ]
-            },
-            BEEE: {
-                recipe: `
-                    <p class="font-extrabold text-[#991b1b] dark:text-red-400 mb-2">🔥 Ultimate BEEE Recovery Roadmap:</p>
-                    <ul class="list-decimal list-inside space-y-1.5 font-semibold pl-1 text-[11px]">
-                        <li><strong>Lock in Superposition Theorem (Unit 1).</strong> Know how to solve branch current by shorting voltage sources.</li>
-                        <li><strong>Differentiate single phase vs three phase transformers (Unit 3).</strong> Write EMF induced formulas.</li>
-                        <li><strong>Verify Op-Amp Inverting vs Non-Inverting gains.</strong> These are clean, high-scoring derivations.</li>
-                        <li>Focus on solving simple node loops first instead of multi-mesh complex layouts.</li>
-                    </ul>
-                `,
-                questions: [
-                    { q: "1. State Superposition Theorem. Determine active branch currents in a bilateral bridge network with two supplies.", weight: "10 Marks", expected: "93% Probability" },
-                    { q: "2. Explain operational principles and derive exact EMF equation of a single-phase transformer.", weight: "10 Marks", expected: "89% Probability" },
-                    { q: "3. Formulate circuit diagram and closed loop gain equations of an Inverting Operational Amplifier (Op-Amp).", weight: "8 Marks", expected: "86% Probability" },
-                    { q: "4. State differences between DC motors and alternators winding layout controls.", weight: "5 Marks", expected: "81% Probability" }
-                ],
-                formulas: [
-                    { title: "EMF Induced Equation", formula: "E = 4.44 * f * N * Φm" },
-                    { title: "Inverting Op-Amp Closed gain", formula: "Av = -R_feedback / R_input" },
-                    { title: "Active Network Power index", formula: "P = V * I * cos(φ) (Watts)" },
-                    { title: "Thevenin Equivalent Resistance", formula: "Rth = open-circuit-voltage / short-circuit-current" }
-                ]
-            }
-        };
-
-        const panicAffirmations = [
-            {
-                label: "Stress-Free Guide #1",
-                front: "80% of any engineering exam is about pure psychological confidence. Calm down.",
-                back: "Sleep at least 6 hours tonight. Cramming while sleep-deprived drops recall rate by up to 40%."
-            },
-            {
-                label: "Stress-Free Guide #2",
-                front: "Examiners review hundreds of papers. Presentation is everything.",
-                back: "Draw clean block charts. Put clean boxes around your final math equations. Clear headings get signed off fast!"
-            },
-            {
-                label: "Stress-Free Guide #3",
-                front: "Got a calculation wrong? Do NOT stress out or scribble heavily.",
-                back: "Put a neat single line through it. Elegant presentation still scores massive step marks in JNTUK R23."
-            },
-            {
-                label: "Stress-Free Guide #4",
-                front: "Don't stare at a blank sheet if you forget a specific derivation.",
-                back: "First write down the starting formula and write: 'Considering standard cartesian coordinate bounds...'. Step-by-step logic scores partial credit."
-            }
-        ];
-
-        let countdownTimerInterval = null;
-        function startPanicCountdown() {
-            if(countdownTimerInterval) clearInterval(countdownTimerInterval);
-            
-            let hours = 8, minutes = 15, seconds = 30
-            const countdownEl = document.getElementById('panic-countdown')
-            if (!countdownEl) return;
-            
-            countdownTimerInterval = setInterval(() => {
-                seconds--
-                if(seconds < 0) { seconds = 59; minutes-- }
-                if(minutes < 0) { minutes = 59; hours-- }
-                if(hours < 0) { hours = 8; minutes = 15; seconds = 30 } // Loop
-                
-                const hStr = hours.toString().padStart(2, '0')
-                const mStr = minutes.toString().padStart(2, '0')
-                const sStr = seconds.toString().padStart(2, '0')
-                if(countdownEl) countdownEl.innerHTML = `${hStr}h ${mStr}m ${sStr}s`
-            }, 1000)
-        }
-
-        window.togglePanicModeDashboard = function() {
-            const isPanic = localStorage.getItem('panic-mode') === 'active'
-            const defaultPanels = document.getElementById('dashboard-default-panels')
-            const panicPanels = document.getElementById('dashboard-panic-panels')
-            const body = document.body
-            const toggleBtn = document.getElementById('panic-toggle-btn')
-
-            if(isPanic) {
-                localStorage.setItem('panic-mode', 'inactive')
-                body.classList.remove('panic-mode-active')
-                
-                if (defaultPanels) defaultPanels.classList.remove('hidden')
-                if (panicPanels) panicPanels.classList.add('hidden')
-                
-                if (toggleBtn) {
-                    toggleBtn.innerHTML = `
-                        <span class="w-1.5 h-1.5 rounded-full bg-white dark:bg-slate-900 animate-pulse"></span>
-                        Activate Panic Mode
-                    `
-                    toggleBtn.className = "w-full px-4 py-2.5 bg-red-655 hover:bg-red-700 text-slate-900 dark:text-slate-50 font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-                }
-                if (countdownTimerInterval) {
-                    clearInterval(countdownTimerInterval);
-                    countdownTimerInterval = null;
-                }
-                showNotification("Deactivated Panic Mode. Returned to standard curriculum study path list.");
-            } else {
-                localStorage.setItem('panic-mode', 'active')
-                body.classList.add('panic-mode-active')
-                
-                if (defaultPanels) defaultPanels.classList.add('hidden')
-                if (panicPanels) panicPanels.classList.remove('hidden')
-                
-                if (toggleBtn) {
-                    toggleBtn.innerHTML = `
-                        <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
-                        Deactivate Panic Mode
-                    `
-                    toggleBtn.className = "w-full px-4 py-2.5 bg-white dark:bg-slate-905 border border-red-500 hover:bg-rose-50 dark:hover:bg-slate-900 border border-slate-800 text-red-600 dark:text-red-400 font-black text-xs uppercase tracking-wider rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-                }
-
-                const activeSub = localStorage.getItem('panic-active-subject') || 'PPS'
-                changePanicSubject(activeSub)
-                
-                startPanicCountdown()
-                showNotification("🚨 Panic Mode Active! High-yield survival roadmap engaged.");
+        function completeChallenge(btn, xp) {
+            btn.textContent = "Completed! 🎉";
+            btn.classList.remove('bg-slate-900', 'dark:bg-white', 'text-white', 'dark:text-slate-900', 'hover:bg-blue-600', 'dark:hover:bg-blue-500');
+            btn.classList.add('bg-emerald-100', 'text-emerald-700', 'dark:bg-emerald-900/40', 'dark:text-emerald-400', 'cursor-not-allowed', 'border-0');
+            btn.disabled = true;
+            if(window.engiprep && window.engiprep.triggerXP) {
+                window.engiprep.trackAction('challenge_done');
+                window.engiprep.triggerXP(xp, 'Completed Daily Challenge');
+                setTimeout(() => location.reload(), 1500);
             }
         }
 
-        window.changePanicSubject = function(subCode) {
-            localStorage.setItem('panic-active-subject', subCode)
-            
-            const subjects = ['PPS', 'M1', 'Physics', 'Chemistry', 'BEEE']
-            subjects.forEach(s => {
-                const btn = document.getElementById(`panic-pill-${s}`)
-                if(btn) {
-                    if(s === subCode) {
-                        btn.className = "px-5 py-2.5 bg-red-600 text-slate-900 dark:text-slate-50 rounded-xl text-xs font-black uppercase transition-all shadow-md shadow-red-500/15 cursor-pointer"
-                    } else {
-                        btn.className = "px-5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-205 dark:border-slate-800 text-slate-505 rounded-xl text-xs font-black uppercase transition-all cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/80"
-                    }
-                }
-            })
-            
-            const data = panicDatabase[subCode]
-            if(!data) return;
-            
-            const recipeBox = document.getElementById('panic-recipe-box')
-            if(recipeBox) recipeBox.innerHTML = data.recipe
-            
-            const questionsList = document.getElementById('panic-questions-list')
-            if(questionsList) {
-                questionsList.innerHTML = data.questions.map((q, idx) => `
-                    <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-800 border-slate-100 dark:border-slate-850 rounded-2xl hover:border-red-500 transition-all hover:border-blue-500/40 duration-300">
-                        <div class="flex items-center justify-between gap-4 flex-wrap mb-1">
-                            <span class="inline-flex items-center gap-1.5 text-xs font-black text-rose-500 uppercase tracking-widest bg-rose-50 dark:bg-slate-900 border border-slate-800 px-2 py-0.5 rounded border-rose-100/10">${q.expected}</span>
-                            <span class="text-xs text-slate-400 font-extrabold uppercase">${q.weight}</span>
-                        </div>
-                        <h4 class="text-xs font-black text-slate-955 dark:text-slate-50 leading-normal">${q.q}</h4>
-                        <div class="mt-3">
-                            <button onclick="togglePanicAnswerReveal(this)" class="px-3 py-1.5 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-black uppercase tracking-wider text-red-600 rounded-lg transition-colors border border-slate-250 dark:border-slate-700 cursor-pointer">Reveal Answer keys & hints</button>
-                            <div class="hidden p-3 bg-white dark:bg-slate-900 border border-slate-800 rounded-xl border-dashed border-red-200/30 text-[11px] leading-loose mt-2 text-slate-600 dark:text-slate-400 space-y-1">
-                                <p class="font-bold text-red-700 dark:text-red-400 uppercase tracking-wider text-xs">Survival Guideline:</p>
-                                <p class="font-semibold text-slate-700 dark:text-slate-300">${data.questions[idx].q}</p>
-                            </div>
-                        </div>
-                    </div>
-                `).join('')
-            }
-            
-            const formulaList = document.getElementById('panic-formula-list')
-            if(formulaList) {
-                formulaList.innerHTML = data.formulas.map(f => `
-                    <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl hover:border-slate-800 transition-colors">
-                        <span class="text-xs text-[#f43f5e] font-black uppercase tracking-wider block leading-none mb-1.5">${f.title}</span>
-                        <code class="text-[10.5px] text-slate-50 font-mono font-bold leading-normal block select-all bg-slate-100 px-2 py-1 rounded w-full border border-slate-800">${f.formula}</code>
-                    </div>
-                `).join('')
-            }
+        function activateExamMode(mode) {
+            alert(mode + ' exam sprint activated. Your dashboard will now prioritize PYQs and high-weightage topics.');
         }
-
-        window.togglePanicAnswerReveal = function(btn) {
-            const el = btn.nextElementSibling
-            if(el) {
-                el.classList.toggle('hidden')
-                btn.innerText = el.classList.contains('hidden') ? "Reveal Answer keys & hints" : "Hide Keys"
-            }
-        }
-
-        let activeAffirmationIndex = 0;
-        window.flipPanicAffirmation = function() {
-            const inner = document.getElementById('affirmation-card-inner')
-            if (inner) inner.classList.toggle('panic-card-flipped')
-        }
-        
-        window.prevPanicAffirmation = function(event) {
-            if(event) { event.stopPropagation(); event.preventDefault(); }
-            const inner = document.getElementById('affirmation-card-inner')
-            if(inner) inner.classList.remove('panic-card-flipped')
-            
-            activeAffirmationIndex--
-            if(activeAffirmationIndex < 0) activeAffirmationIndex = panicAffirmations.length - 1
-            setTimeout(() => {
-                renderAffirmationIndex()
-            }, 100)
-        }
-        
-        window.nextPanicAffirmation = function(event) {
-            if(event) { event.stopPropagation(); event.preventDefault(); }
-            const inner = document.getElementById('affirmation-card-inner')
-            if(inner) inner.classList.remove('panic-card-flipped')
-            
-            activeAffirmationIndex = (activeAffirmationIndex + 1) % panicAffirmations.length
-            setTimeout(() => {
-                renderAffirmationIndex()
-            }, 100)
-        }
-        
-        function renderAffirmationIndex() {
-            const card = panicAffirmations[activeAffirmationIndex]
-            const fLabel = document.getElementById('affirmation-front-label')
-            const fText = document.getElementById('affirmation-front-text')
-            const bText = document.getElementById('affirmation-back-text')
-            const dots = document.getElementById('affirmation-dots')
-            
-            if(fLabel) fLabel.innerText = card.label
-            if(fText) fText.innerText = card.front
-            if(bText) bText.innerText = card.back
-            if(dots) dots.innerText = `${activeAffirmationIndex + 1} / ${panicAffirmations.length}`
-        }
-
-        window.copySurvivalClipboard = function() {
-            const textToCopy = `Bro, our exam is tomorrow! 🚨 I found the ultimate JNTUK R23 escape roadmap on EngiPrep Hub: expected questions, repeated formulas, and passing shortcuts are live. Let's pass together: ${window.location.origin}/dashboard.html`
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                showNotification("Invite script copied! Send it to your WhatsApp group now. 🔥");
-            }).catch(err => {
-                prompt("Copy survival invite link below:", textToCopy)
-            })
-        }
-
-        // ==========================================
-        // BOOKMARKS & RECENT VIEWED LOGGER
-        // ==========================================
-        async function loadDashboardBookmarks() {
-            try {
-                const listEl = document.getElementById('saved-notes-list')
-                if (!listEl) return;
-
-                const bookmarks = await getBookmarks()
-                if (!bookmarks || bookmarks.length === 0) {
-                    listEl.innerHTML = `
-                        <div class="py-10 text-center text-slate-400 dark:text-slate-400 text-xs italic">
-                            No saved content. Click the bookmark icon in any study notes page to save for active revision!
-                        </div>
-                    `
-                    return
-                }
-
-                listEl.innerHTML = bookmarks.map(bm => {
-                    const note = bm.notes
-                    if (!note) return ''
-                    return `
-                        <div class="flex items-center justify-between p-3.5 dark:bg-slate-900 border border-slate-800 border-slate-110/30 dark:border-slate-800/80 rounded-2xl group hover:border-blue-200 dark:hover:border-blue-900/50 dark:hover:bg-slate-900 transition-all hover:border-blue-500/40 duration-300">
-                            <div class="flex-1 min-w-0 pr-3">
-                                <span class="px-2 py-0.5 bg-blue-50 dark:bg-slate-900 border border-slate-800 text-blue-600 dark:text-blue-400 text-xs font-black uppercase rounded tracking-widest border-blue-100/20">
-                                    ${note.subject}
-                                </span>
-                                <h4 class="text-xs font-black text-slate-900 dark:text-slate-100 truncate mt-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">${note.title}</h4>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <a href="/note-viewer.html?slug=${note.slug}" class="py-1.5 px-3 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-900 border border-slate-800 text-slate-700 dark:text-slate-305 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl border-slate-150 dark:border-slate-700 transition-all text-xs font-black shadow-sm flex items-center justify-center whitespace-nowrap">
-                                    Open
-                                </a>
-                                <button onclick="window.dashboardRemoveBookmark('${note.id}', event)" class="p-2 bg-white dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-rose-500 rounded-xl border-slate-150 dark:border-slate-700 transition-all flex items-center justify-center cursor-pointer shadow-sm">
-                                    🗑️
-                                </button>
-                            </div>
-                        </div>
-                    `
-                }).join('')
-            } catch (err) { console.error('Error loading dashboard bookmarks', err) }
-        }
-
-        window.dashboardRemoveBookmark = async (noteId, event) => {
-            event.preventDefault()
-            event.stopPropagation()
-            if (confirm('Verify: Remove this bookmarked notes guide?')) {
-                const success = await removeBookmark(noteId)
-                if (success) {
-                    await loadDashboardBookmarks();
-                    showNotification("Bookmark removed successfully.");
-                }
-            }
-        }
-
-        function loadRecentlyViewed() {
-            try {
-                const listEl = document.getElementById('recently-viewed-list')
-                if (!listEl) return;
-
-                const viewed = JSON.parse(localStorage.getItem('recently_viewed') || '[]')
-                if (!viewed || viewed.length === 0) {
-                    listEl.innerHTML = `
-                        <div class="py-10 text-center text-slate-400 dark:text-slate-400 text-xs italic">
-                            No history yet. Study guides you open will automatically appear here!
-                        </div>
-                    `
-                    return
-                }
-
-                listEl.innerHTML = viewed.slice(0, 5).map(item => {
-                    return `
-                        <a href="/note-viewer.html?slug=${item.slug}" class="flex items-center justify-between p-3.5 dark:bg-slate-900 border border-slate-800 border-slate-110/30 dark:border-slate-800/80 rounded-2xl group hover:border-indigo-200 dark:hover:border-indigo-900/50 dark:hover:bg-slate-900 transition-all hover:border-blue-500/40 duration-300">
-                            <div class="flex-1 min-w-0 pr-3">
-                                <span class="px-2 py-0.5 bg-indigo-50 dark:bg-slate-900 border border-slate-800 text-indigo-600 dark:text-indigo-300 text-xs font-black uppercase rounded tracking-wider border-indigo-100/10">
-                                    ${item.type || 'note'}
-                                </span>
-                                <h4 class="text-xs font-black text-slate-955 dark:text-slate-100 truncate mt-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${item.title}</h4>
-                                <p class="text-xs text-slate-400 mt-1 uppercase font-black tracking-widest leading-none">${item.subject}</p>
-                            </div>
-                            <div class="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pr-2">
-                                Resume →
-                            </div>
-                        </a>
-                    `
-                }).join('')
-            } catch (err) { console.error('Error loading recently viewed history', err) }
-        }
-
-        const clearRecentBtn = document.getElementById('clear-recent-btn')
-        if (clearRecentBtn) {
-            clearRecentBtn.addEventListener('click', () => {
-                if (confirm('Verify: Clear all recently viewed study history?')) {
-                    localStorage.removeItem('recently_viewed')
-                    loadRecentlyViewed()
-                    showNotification("Recent history cleared.");
-                }
-            })
-        }
-
-        // ==========================================
-        // FEEDBACK UTILS & TOAST NOTIFICATION
-        // ==========================================
-        function showNotification(message) {
-            const container = document.getElementById('toast-container');
-            if(!container) return;
-
-            const toast = document.createElement('div');
-            toast.className = "mb-3 p-4 bg-slate-900 text-slate-900 dark:text-slate-50 rounded-2xl shadow-xl backdrop-blur-xl bg-slate-950/80 border border-slate-700 text-xs font-semibold flex items-center justify-between gap-4 pointer-events-auto transition-all duration-300 transform translate-x-20 opacity-0 min-w-[280px]";
-            toast.innerHTML = `
-                <span>${message}</span>
-                <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-900 dark:text-slate-50">✕</button>
-            `;
-
-            container.appendChild(toast);
-            
-            // Slide in
-            setTimeout(() => {
-                toast.classList.remove('translate-x-20', 'opacity-0');
-            }, 50);
-
-            // Auto dismiss after 4 seconds
-            setTimeout(() => {
-                toast.classList.add('translate-x-20', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
-        }
-
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', async () => {
-                if (confirm('Verify: Terminate session?')) {
-                    await signOut()
-                }
-            })
-        }
-
-        // Active State Restorer on DOM loads
-        if(localStorage.getItem('panic-mode') === 'active') {
-            localStorage.setItem('panic-mode', 'inactive')
-            togglePanicModeDashboard()
-        }
-
-        init();
     </script>
     <script type="module" src="/src/main.js"></script>
-    <script type="module" src="/src/ai-widget.ts"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

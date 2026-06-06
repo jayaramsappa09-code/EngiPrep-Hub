@@ -116,6 +116,14 @@ export const fetchNoteBySlug = async (slug) => {
 
 // Progress management
 export const updateProgress = async (userId, noteId, status) => {
+  if (window.engiprep && window.engiprep.triggerXP) {
+      if (status === 'completed') {
+          window.engiprep.triggerXP(50, 'Completed Note');
+          if (window.engiprep.trackAction) window.engiprep.trackAction('note_read');
+      }
+      else window.engiprep.triggerXP(10, 'Studied Note');
+  }
+
   const { data, error } = await supabase
     .from('user_progress')
     .upsert({ user_id: userId, note_id: noteId, status, updated_at: new Date() })

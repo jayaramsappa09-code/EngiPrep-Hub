@@ -8,6 +8,13 @@ import { toggleBookmark } from './notes'
 import { toast, showEncouragingToast, showSuccessToast, showAchievementToast } from './utils/toast'
 import { initInternalLinkingSystem } from './internalLinking'
 
+// Import and register advanced offline AI subsystems
+import { AI_ENGINE } from './ai/engine/coreEngine.js';
+import { AI_ROUTER } from './ai/router/router.js';
+import { FUZZY_SEARCH } from './ai/search/searchEngine.js';
+import { COMMAND_PALETTE } from './ai/search/commandPalette.js';
+import { AI_MEMORY } from './ai/memory/memory.js';
+
 if (typeof window !== 'undefined') {
     window.showAchievementToast = showAchievementToast;
 }
@@ -1836,14 +1843,263 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window !== 'undefined' && window.COMMAND_PALETTE) {
         window.COMMAND_PALETTE.init();
     }
+
+    // Initialize Gamification Engine
+    if (typeof window !== 'undefined' && window.engiprep && window.engiprep.initGamification) {
+        window.engiprep.initGamification();
+    }
 });
 
-// Import and register advanced offline AI subsystems
-import { AI_ENGINE } from './ai/engine/coreEngine.js';
-import { AI_ROUTER } from './ai/router/router.js';
-import { FUZZY_SEARCH } from './ai/search/searchEngine.js';
-import { COMMAND_PALETTE } from './ai/search/commandPalette.js';
-import { AI_MEMORY } from './ai/memory/memory.js';
+// Gamification Engine for Study Streaks and XP
+const Gamification = {
+    state: { 
+        xp: 0, 
+        streak: 0, 
+        bestStreak: 0,
+        level: 1, 
+        lastVisit: null,
+        stats: { notesRead: 0, pyqsSolved: 0, quizzesAttempted: 0, challengesDone: 0 },
+        recentTopics: [], // [{ title, path, date }]
+        weakTopics: [],   // [{ title, path, reason }]
+        unlockedAchievements: [] // Array of string IDs
+    },
+
+    initGamification() {
+        this.loadState();
+        this.checkStreak();
+        this.injectNavbarWidget();
+        this.trackCurrentPage();
+        
+        // Award 10 XP for returning daily (first visit)
+        const today = new Date().toDateString();
+        if (localStorage.getItem('engiprep_daily_visit') !== today) {
+            localStorage.setItem('engiprep_daily_visit', today);
+            this.triggerXP(10, 'Daily Login');
+        }
+    },
+
+    loadState() {
+        const stored = localStorage.getItem('engiprep_gamification_v2');
+        if (stored) {
+            try { 
+                const parsed = JSON.parse(stored);
+                this.state = { ...this.state, ...parsed }; 
+                
+                // Initialize nested objects if they were missing from earlier versions
+                if(!this.state.stats) this.state.stats = { notesRead: 0, pyqsSolved: 0, quizzesAttempted: 0, challengesDone: 0 };
+                if(!this.state.recentTopics) this.state.recentTopics = [];
+                if(!this.state.weakTopics) this.state.weakTopics = [];
+                if(!this.state.unlockedAchievements) this.state.unlockedAchievements = [];
+                if(this.state.bestStreak === undefined) this.state.bestStreak = this.state.streak || 0;
+            } catch (e) { console.error(e); }
+        } else {
+            // Check for v1 migration
+            const oldStored = localStorage.getItem('engiprep_gamification');
+            if(oldStored) {
+                try {
+                    const parsed = JSON.parse(oldStored);
+                    this.state.xp = parsed.xp || 0;
+                    this.state.streak = parsed.streak || 0;
+                    this.state.level = parsed.level || 1;
+                    this.state.lastVisit = parsed.lastVisit || null;
+                    this.state.bestStreak = this.state.streak;
+                } catch(e) {}
+            }
+        }
+    },
+
+    saveState() {
+        localStorage.setItem('engiprep_gamification_v2', JSON.stringify(this.state));
+    },
+
+    trackCurrentPage() {
+        if(typeof window !== 'undefined' && document.title) {
+            const title = document.title.split('|')[0].trim();
+            const path = window.location.pathname;
+            
+            // Ignore generic pages or dashboard
+            if(path === '/' || path.includes('dashboard') || path.includes('tools')) return;
+
+            // Remove existing entry for same path
+            this.state.recentTopics = this.state.recentTopics.filter(t => t.path !== path);
+            
+            // Add to start
+            this.state.recentTopics.unshift({
+                title,
+                path,
+                date: new Date().toISOString()
+            });
+
+            // Keep only latest 10
+            if(this.state.recentTopics.length > 10) {
+                this.state.recentTopics.pop();
+            }
+            this.saveState();
+        }
+    },
+
+    trackAction(actionType, detail = '') {
+        if(!this.state.stats) this.state.stats = { notesRead: 0, pyqsSolved: 0, quizzesAttempted: 0, challengesDone: 0 };
+        
+        switch(actionType) {
+            case 'note_read':
+                this.state.stats.notesRead++;
+                this.checkAchievements();
+                break;
+            case 'pyq_solved':
+                this.state.stats.pyqsSolved++;
+                this.checkAchievements();
+                break;
+            case 'quiz_attempt':
+                this.state.stats.quizzesAttempted++;
+                this.checkAchievements();
+                break;
+            case 'challenge_done':
+                this.state.stats.challengesDone++;
+                break;
+        }
+        this.saveState();
+    },
+
+    logWeakTopic(title, path, reason = 'Low Quiz Score') {
+        const existing = this.state.weakTopics.find(t => t.path === path);
+        if(!existing) {
+            this.state.weakTopics.unshift({ title, path, reason, date: new Date().toISOString() });
+            // keep top 5 target weak topics
+            if(this.state.weakTopics.length > 5) this.state.weakTopics.pop();
+            this.saveState();
+        }
+    },
+
+    removeWeakTopic(path) {
+        this.state.weakTopics = this.state.weakTopics.filter(t => t.path !== path);
+        this.saveState();
+    },
+
+    checkAchievements() {
+        const unlock = (id, msg, subtitle) => {
+            if(!this.state.unlockedAchievements.includes(id)) {
+                this.state.unlockedAchievements.push(id);
+                if (typeof window.showAchievementToast === 'function') {
+                    window.showAchievementToast(msg, subtitle, '🌟');
+                }
+            }
+        };
+
+        if(this.state.stats.notesRead >= 1) unlock('first_note', 'First Note Completed', 'You took your first step towards mastery.');
+        if(this.state.stats.pyqsSolved >= 5) unlock('pyq_novice', 'PYQ Novice', 'Solved 5 Previous Year Questions.');
+        if(this.state.stats.quizzesAttempted >= 3) unlock('quiz_taker', 'Quiz Taker', 'Attempted 3 Quizzes.');
+        if(this.state.streak >= 7) unlock('7_day_streak', '7-Day Streak', 'Studied for 7 days in a row!');
+        if(this.state.streak >= 30) unlock('30_day_streak', '30-Day Streak', 'Incredible dedication!');
+    },
+
+    checkStreak() {
+        const now = new Date();
+        const todayStr = now.toDateString();
+        
+        if (!this.state.lastVisit) {
+            this.state.streak = 1;
+            this.state.bestStreak = 1;
+            this.state.lastVisit = todayStr;
+        } else if (this.state.lastVisit !== todayStr) {
+            const lastDate = new Date(this.state.lastVisit);
+            // Ignore time, compare dates
+            const diffTime = Math.abs(now.setHours(0,0,0,0) - lastDate.setHours(0,0,0,0));
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) {
+                // Consecutive day
+                this.state.streak++;
+                if(this.state.streak > this.state.bestStreak) this.state.bestStreak = this.state.streak;
+                this.state.lastVisit = todayStr;
+                this.checkAchievements();
+            } else if (diffDays > 1) {
+                // Streak broken
+                this.state.streak = 1;
+                this.state.lastVisit = todayStr;
+            }
+        }
+        this.saveState();
+    },
+
+    getLevelName(level) {
+        if (level < 5) return 'Fresh Scholar';
+        if (level < 10) return 'Unit Master';
+        if (level < 20) return 'Semester Warrior';
+        if (level < 30) return 'Exam Crusher';
+        return 'Topper Elite';
+    },
+
+    calculateNextLevelXP(level) {
+        return level * 100 + (level > 10 ? level * 50 : 0);
+    },
+
+    checkLevelUp() {
+        let nextLvlReq = this.calculateNextLevelXP(this.state.level);
+        while (this.state.xp >= nextLvlReq) {
+            this.state.xp -= nextLvlReq; // carry over xp
+            this.state.level++;
+            nextLvlReq = this.calculateNextLevelXP(this.state.level);
+            
+            if (typeof showAchievementToast === 'function') {
+                showAchievementToast('Level Up! You reached Level ' + this.state.level, this.getLevelName(this.state.level), '🏆');
+            }
+        }
+    },
+
+    triggerXP(amount, reason = "Studying") {
+        this.state.xp += amount;
+        this.checkLevelUp();
+        this.saveState();
+        this.updateNavbarWidget();
+        
+        if (typeof showSuccessToast === 'function') {
+            showSuccessToast('+' + amount + ' XP', reason);
+        }
+    },
+
+    getGamificationState() {
+        const nextReq = this.calculateNextLevelXP(this.state.level);
+        return {
+            ...this.state,
+            levelName: this.getLevelName(this.state.level),
+            progress: Math.floor((this.state.xp / nextReq) * 100),
+            xpToNext: nextReq
+        };
+    },
+
+    injectNavbarWidget() {
+        const navActions = document.getElementById('nav-actions');
+        if (!navActions) return;
+
+        if (!document.getElementById('nav-streak-widget')) {
+            const widget = document.createElement('a');
+            widget.href = '/dashboard.html';
+            widget.id = 'nav-streak-widget';
+            widget.className = 'hidden sm:flex items-center gap-2 px-3 py-1.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-100 dark:border-rose-900/50 rounded-lg hover:border-rose-300 transition-colors cursor-pointer mr-2';
+            widget.innerHTML = `
+                <span class="text-sm">🔥</span>
+                <span class="text-xs font-black text-rose-600 dark:text-rose-400 font-['Space_Grotesk'] tracking-wide uppercase">
+                    <span id="nav-streak-val">${this.state.streak}</span> Day
+                </span>
+            `;
+            navActions.insertBefore(widget, navActions.firstChild);
+        }
+    },
+
+    updateNavbarWidget() {
+        const streakVal = document.getElementById('nav-streak-val');
+        if (streakVal) streakVal.textContent = this.state.streak;
+    }
+};
+
+window.engiprep = window.engiprep || {};
+window.engiprep.initGamification = Gamification.initGamification.bind(Gamification);
+window.engiprep.triggerXP = Gamification.triggerXP.bind(Gamification);
+window.engiprep.getGamificationState = Gamification.getGamificationState.bind(Gamification);
+window.engiprep.calculateNextLevelXP = Gamification.calculateNextLevelXP.bind(Gamification);
+window.engiprep.trackAction = Gamification.trackAction.bind(Gamification);
+window.engiprep.logWeakTopic = Gamification.logWeakTopic.bind(Gamification);
 
 if (typeof window !== 'undefined') {
     window.AI_ENGINE = AI_ENGINE;
