@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complete C Programming Guide for JNTUK R23 | EngiPrepHub</title>
-    <link rel="canonical" href="https://engiprephub.in/complete-c-programming-guide.html">
-    <meta name="description" content="From basic syntax to advanced pointers, file handling, and memory allocations. Master C programming with this definitive engineering cornerstone guide.">
+    <link rel="canonical" href="https://engiprephub.in/complete-c-programming-guide">
+    <meta name="description" content="Master C Programming under JNTUK R23 with this massive 4500+ word study guide. Covers logic compilation, complex pointers, dynamic memory, structs, unions, and file streams.">
     <link rel="stylesheet" href="/src/style.css">
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/complete-c-programming-guide.html">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/complete-c-programming-guide.html">
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-gray-300">
     <!-- Navbar -->
@@ -32,55 +39,345 @@
     <main class="max-w-4xl mx-auto py-32 px-6 lg:px-8">
         <span class="text-[10px] font-black uppercase text-blue-600 tracking-[0.3em] block mb-4">CORNERSTONE AUTHORITY GUIDE</span>
         <h1 class="text-5xl md:text-6xl font-black text-slate-900 dark:text-slate-50 mb-7 font-['Space_Grotesk'] leading-tight tracking-tight">Complete C Programming Guide for JNTUK R23</h1>
-        <p class="text-xl text-slate-500 dark:text-slate-400 mb-12 leading-relaxed border-l-4 border-blue-600 pl-6 py-2 bg-blue-50/50 dark:bg-slate-900/50 rounded-r-xl">Coding Fundamentals & Memory Architectures</p>
+        <p class="text-xl text-slate-500 dark:text-slate-400 mb-12 leading-relaxed border-l-4 border-blue-600 pl-6 py-2 bg-blue-50/50 dark:bg-slate-900/50 rounded-r-xl">Coding Fundamentals, Storage Classes, Pointers, Arrays, Strings, Unions & File Systems</p>
         
-        <div class="prose prose-slate dark:prose-invert max-w-none space-y-8 leading-loose text-sm sm:text-base">
-            <p>Welcome to the definitive cornerstone index for <strong>Complete C Programming Guide for JNTUK R23</strong> under the JNTUK R23 curriculum. This exhaustive blueprint outlines every critical aspect of the domain required to excel academically and structurally organize your study sessions.</p>
+        <div class="prose prose-slate dark:prose-invert max-w-none space-y-12 leading-loose text-base sm:text-lg text-slate-800 dark:text-gray-300">
+            <section class="border-b border-slate-200 dark:border-slate-800 pb-10">
+                <span class="text-xs font-black text-blue-600 uppercase tracking-widest bg-blue-100 dark:bg-slate-900 px-3 py-1 rounded">Module 1</span>
+                <h2 class="text-3xl font-black text-slate-950 dark:text-slate-50 mt-4 mb-6">Introduction to Computers, Software Design & Compiler Slices</h2>
+                
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3">1.1 Computer Anatomy & Program Design Fundamentals</h3>
+                <p class="mb-4">Computers operate entirely on binary representations. Software application development bridges human logic with machine executing hardware blocks. Program design tools such as algorithms (orderly step-by-step logic), pseudo-code (independent mock structures), and flowcharts (visual path layouts using shapes) guide engineers before writing compiler statements.</p>
+                <p class="mb-4">An algorithm must comply with five mandatory conditions: finiteness (terminates after limited steps), definiteness (each statement is unambiguous), input (zero or more definitions), output (generates at least one outcome), and effectiveness (operations must be basic enough to run on target platforms).</p>
+                <p class="mb-4">When designing code for complex programs, engineers write explicit pseudo-code as an intermediate step. Pseudo-code has no strict syntax but uses standard programming structures (like IF-ELSE, WHILE, FOR) to represent control paths. This ensures that the logical flow of the application can be audited for correctness before writing actual C code.</p>
 
-            <h2>1. Structural Breakdown & Regulations</h2>
-            <p>The academic course structure dictates the primary grading weightage constraints and external/internal margin boundaries. To master these, students must strictly align their daily productivity cycles with the official syllabus directives and laboratory components.</p>
-            
-            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 my-8 shadow-sm">
-                <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-4 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">Central Focus Areas</h3>
-                <ul class="space-y-3">
-                    <li class="flex items-start gap-3">
-                        <span class="text-blue-600 mt-1">●</span>
-                        <span>Unit 1 and Unit 2 theoretical mapping</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-blue-600 mt-1">●</span>
-                        <span>PYQ historical board paper evaluations</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-blue-600 mt-1">●</span>
-                        <span>Practical assignment and viva vocal execution guidelines</span>
-                    </li>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">1.2 Software-to-Hardware Compilation Pipeline</h3>
+                <p class="mb-4">C is a middle-level, structurally-focused computer language that serves as the basis for system programming and compiler architectures. A standard C script undergoes a strict multi-stage translation phase before generating final machine binaries:</p>
+                
+                <div class="my-6 overflow-x-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-sm">
+                    <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
+                        <li><strong>1. Preprocessing (Pre-processor):</strong> Expands directives starting with <code>#</code>. Replaces macro symbols (<code>#define</code>), imports file blocks (<code>#include</code>), and processes conditional checks (<code>#ifdef</code>). Outputs a <code>.i</code> expanded source file. Included system libraries such as <code>stdio.h</code> provide essential input-output prototypes while <code>stdlib.h</code> manages system utility routines.</li>
+                        <li><strong>2. Compilation (Compiler):</strong> Translates expanded source code into equivalent assembly language instructions matching the machine target. Outputs a <code>.s</code> assembly file. Syntax errors, missing parameters, and type incompatibilities are identified at this stage.</li>
+                        <li><strong>3. Assembly (Assembler):</strong> Converts assembly statements into relocating binary sequences of machine instructions. Outputs a <code>.o</code> or <code>.obj</code> file containing object code matching the processor's architecture.</li>
+                        <li><strong>4. Linking (Linker):</strong> Resolves library dependencies (such as linking <code>printf</code> to system output routines), and configures relative memory offsets. Combines separate object components into a consolidated executable binary file.</li>
+                    </ul>
+                </div>
+
+                <p class="mb-4">During preprocessing, C macros are expanded literally as a search-and-replace operation. For example, if you define <code>#define PI 3.14159</code>, the preprocessor replaces every occurrence of the identifier <code>PI</code> with the literal value. This saves translation overhead during compilation. However, because it is a simple text replacement, macros can sometimes introduce subtle bugs if parenthetical boundaries are ignored.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">1.3 Basic Elements & Variable Taxonomy</h3>
+                <p class="mb-4">Variables represent explicit memory locations labeled with precise type constraints: <code>char</code> (1 byte, ranging from -128 to 127 in signed systems), <code>int</code> (typically 4 bytes, allowing ranges up to 2 billion), <code>float</code> (4 bytes, providing single precision margins), and <code>double</code> (8 bytes, holding double-precision values). Operators manipulate variables: arithmetic operators (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>), relational operators (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>), and bitwise operators (<code>&amp;</code>, <code>|</code>, <code>^</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code>) working directly on raw bit representations.</p>
+                <p class="mb-4">Variable names (identifiers) in C must adhere to strict naming conventions: they can contain letters, digits, and underscores, but must begin with a letter or underscore, and are case-sensitive. Keywords such as <code>int</code>, <code>char</code>, and <code>return</code> are reserved by the compiler and cannot be used as variable identifiers.</p>
+                
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    #include &lt;stdio.h&gt;<br>
+                    <br>
+                    int main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;int studentAge = 19;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;float semesterGPA = 8.75;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;char primaryInitial = 'A';<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf("Initial: %c, Age: %d, GPA: %.2f\n", primaryInitial, studentAge, semesterGPA);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+                    }
+                </div>
+            </section>
+
+            <section class="border-b border-slate-200 dark:border-slate-800 pb-10">
+                <span class="text-xs font-black text-blue-600 uppercase tracking-widest bg-blue-100 dark:bg-slate-900 px-3 py-1 rounded">Module 2</span>
+                <h2 class="text-3xl font-black text-slate-950 dark:text-slate-50 mt-4 mb-6">Control Statements, Logic Branching & Iteration Loops</h2>
+                
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3">2.1 Branching Decision Structures</h3>
+                <p class="mb-4">Conditional logic forms the basis of flow control. The <code>if-else</code> statement evaluates boolean outcomes. The 'switch-case' construction provides an optimized multi-way jump table for discrete key sets. Standard cases require a <code>break</code> statement; failing to include it causes execution to "fall through" into subsequent cases. Operators like ternary conditions (<code>condition ? value_if_true : value_if_false</code>) provide compact, elegant alternatives to verbose blocks.</p>
+                <p class="mb-4">Nested branching allows checking multiple independent criteria sequentially. For example, we can check if a student has registered, whether they have paid fees, and if they meet attendance requirements before authorizing exam ticket generation. The C compiler evaluates logical expressions using short-circuiting: if the first operand of an <code>&amp;&amp;</code> (AND) operation is false, the remaining conditions are skipped entirely, saving execution cycles.</p>
+                
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    #include &lt;stdio.h&gt;<br>
+                    <br>
+                    void evaluateGrade(int marks) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (marks &gt;= 90) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Grade: O (Outstanding)\n");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else if (marks &gt;= 80) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Grade: S (Excellent)\n");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else if (marks &gt;= 70) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Grade: A (Very Good)\n");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else if (marks &gt;= 60) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Grade: B (Good)\n");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else if (marks &gt;= 40) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Grade: Passed\n");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Grade: F (Failed)\n");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">2.2 Iterative Loops & Jump Statements</h3>
+                <p class="mb-4">Loops repeat code blocks based on conditional checks:</p>
+                <ul class="list-disc pl-6 space-y-3 mb-6">
+                    <li><strong>while:</strong> An entry-controlled structure that checks the termination condition before executing the loop body.</li>
+                    <li><strong>do-while:</strong> An exit-controlled loop that executes the body once before checking the condition, guaranteeing at least one execution. This is ideal for console menus that must display at least once before taking input.</li>
+                    <li><strong>for:</strong> An entry-controlled loop that groups initialisation, condition checking, and increment/decrement expressions into a single line. This is the most popular loop structure for iterating over array indices.</li>
                 </ul>
-            </div>
+                <p class="mb-4">Jump statements alter standard sequence flows: <code>break</code> immediately exits the nearest enclosing loop or switch construct; <code>continue</code> skips remaining lines and triggers the next iteration test; <code>goto</code> redirects execution to a local labeled line. Because <code>goto</code> bypasses structured programming logic, its usage is discouraged as it can make code difficult to maintain.</p>
+                <p class="mb-4">Understanding loop termination conditions is critical to prevent infinite loops, which occur when the conditional test never evaluates to false. These loops run indefinitely, consuming 100% of the allocated CPU thread until terminated by the operating system.</p>
+            </section>
 
-            <h2>2. Essential Topics & Mastery</h2>
-            <p>Mastery requires moving beyond rote memorization into active recall and cognitive structural building. Follow this roadmap:</p>
-            <ul>
-                <li>Review the standard university-authorized textbooks before proceeding to shortcuts.</li>
-                <li>Actively solve all derivation and mathematical problem sequences in a standardized notebook.</li>
-                <li>Utilize the <a href="/tools.html" class="font-bold text-blue-600 dark:text-blue-400">SGPA Calculators</a> to identify specific module scoring targets to ensure a grade.</li>
-            </ul>
+            <section class="border-b border-slate-200 dark:border-slate-800 pb-10">
+                <span class="text-xs font-black text-blue-600 uppercase tracking-widest bg-blue-100 dark:bg-slate-900 px-3 py-1 rounded">Module 3</span>
+                <h2 class="text-3xl font-black text-slate-950 dark:text-slate-50 mt-4 mb-6">Arrays, String manipulations & Scope Storage Classes</h2>
+                
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3">3.1 Contiguous Multi-dimensional Arrays</h3>
+                <p class="mb-4">Arrays are continuous blocks of memory allocated for elements of uniform data types. The memory offset address of element <em>A[i]</em> in a 1D array is computed as:</p>
+                <div class="bg-blue-50/50 dark:bg-slate-900/50 p-4 rounded-xl text-center font-mono my-4">
+                    Address(A[i]) = Base_Address + i &times; sizeof(Data_Type)
+                </div>
+                <p class="mb-4">This contiguous layout explains why indexing starts at <code>0</code>, as the base address represents index <code>0</code> offset from the beginning of the block.</p>
+                <p class="mb-4">For a 2D array, element addresses are mapped either in row-major or column-major order to translate coordinates into a linear address space, ensuring processor caching benefits remaining active.</p>
+                <p class="mb-4">Row-major order stores elements row-by-row, which is the native mapping system used by C compilers. When traversing matrices, nesting the outer loop to run along rows and the inner loop to run along columns aligns with this contiguous layout, speeding up memory access.</p>
 
-            <h2>3. Interactive Tools & Related Resoures</h2>
-            <p>Enhance your reading comprehension by utilizing our core utilities across the site. We provide real-time calculation simulators and step-by-step interactive drawing templates.</p>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">3.2 String Operators and Library Formations</h3>
+                <p class="mb-4">Strings in C are character arrays that terminate with a null character (<code>'\0'</code>), signaling the end of the text block. Standard string library functions inside <code>string.h</code> include: <code>strlen()</code> to measure size, <code>strcpy()</code> to copy characters, <code>strcat()</code> to concatenate strings, and <code>strcmp()</code> to compare strings character-by-character.</p>
+                <p class="mb-4">Custom implementations of string functions help students understand index manipulation. For example, to find a string's length, we can increment a counter variable in a loop until we reach the null character:</p>
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    int customStrlen(char str[]) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;int count = 0;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;while (str[count] != '\0') {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count++;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return count;<br>
+                    }
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">3.3 Variable Scope, Visibility and Storage Classes</h3>
+                <p class="mb-4">Storage classes specify the scope, visibility, and lifetime of a variable inside memory structures:</p>
+                <ul class="list-disc pl-6 space-y-3 mb-6">
+                    <li><strong>auto:</strong> Default local variables. Stored on the stack. Default value is garbage.</li>
+                    <li><strong>register:</strong> Stored in CPU registers for fast access. Limited in size and cannot take address operator pointers using <code>&amp;</code>.</li>
+                    <li><strong>static:</strong> Retains its value even after exiting its local scope. Initialized only once.</li>
+                    <li><strong>extern:</strong> Global scope, referenceable across multiple compilation units.</li>
+                </ul>
+            </section>
+
+            <section class="border-b border-slate-200 dark:border-slate-800 pb-10">
+                <span class="text-xs font-black text-blue-600 uppercase tracking-widest bg-blue-100 dark:bg-slate-900 px-3 py-1 rounded">Module 4</span>
+                <h2 class="text-3xl font-black text-slate-950 dark:text-slate-50 mt-4 mb-6">Pointers, Memory Calculations, Recursion & Heap Allocas</h2>
+                
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3">4.1 Pointer Arithmetic and Operators</h3>
+                <p class="mb-4">A pointer is a variable that stores the memory address of another variable. The address-of operator (<code>&amp;</code>) extracts pointers, and the dereference operator (<code>*</code>) accesses values at pointer targets. Pointer arithmetic is scaled based on the size of the underlying data type:</p>
+                <div class="bg-blue-50/50 dark:bg-slate-900/50 p-4 rounded-xl text-center font-mono my-4">
+                    ptr + 1 = ptr + 1 &times; sizeof(*ptr)
+                </div>
+                <p class="mb-4">Double pointers (<code>char **argv</code>) store the address of another pointer, which is essential for managing dynamic arrays or pointer tables.</p>
+                <p class="mb-4">Understanding the distinction between an array name and a pointer variable is key. An array name acts as a constant address that cannot be reassigned (e.g., <code>arr = ptr</code> is invalid), whereas a pointer variable can be updated to point to different memory locations.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">4.2 Functions, Pointers Passing Models & Recursion</h3>
+                <p class="mb-4">Functions isolate computational logic. Parameters can be passed by value (passing variable copies) or by reference (passing memory pointers). Recursion occurs when a function calls itself, requiring a clear base condition to prevent stack overflow errors.</p>
+                <p class="mb-4">A recursion must always define a base condition to terminate execution. Consider the classic factorial calculation written recursively:</p>
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    long factorial(int n) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (n &lt;= 1) return 1; // Base case<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return n * factorial(n - 1);<br>
+                    }
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">4.3 Dynamic Memory Allocation (DMA)</h3>
+                <p class="mb-4">Heap memory can be allocated at runtime using these standard functions from <code>&lt;stdlib.h&gt;</code>:</p>
+                <ul class="list-disc pl-6 space-y-3 mb-6">
+                    <li><code>malloc(size)</code>: Allocates raw contiguous blocks. Leaves memory uninitialized with garbage data.</li>
+                    <li><code>calloc(num, size)</code>: Allocates memory and sets all bytes to <code>0</code>, protecting against uninitialized pointer bugs.</li>
+                    <li><code>realloc(ptr, new_size)</code>: Resizes previously allocated heap memory blocks.</li>
+                    <li><code>free(ptr)</code>: Returns heap space back to the system, preventing memory leaks and improving program stability.</li>
+                </ul>
+
+                <p class="mb-4">Here is a complete demonstration allocating and managing a 2D matrix on the heap:</p>
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    #include &lt;stdio.h&gt;<br>
+                    #include &lt;stdlib.h&gt;<br>
+                    <br>
+                    int main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;int rows = 3, cols = 4;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;int **matrix = (int **)malloc(rows * sizeof(int *));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;for (int i = 0; i &lt; rows; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix[i] = (int *)malloc(cols * sizeof(int));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// Populating values<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;for (int i = 0; i &lt; rows; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (int j = 0; j &lt; cols; j++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matrix[i][j] = i + j;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// Freeing heap segments<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;for (int i = 0; i &lt; rows; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free(matrix[i]);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;free(matrix);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+                    }
+                </div>
+            </section>
+
+            <section class="border-b border-slate-200 dark:border-slate-800 pb-10">
+                <span class="text-xs font-black text-blue-600 uppercase tracking-widest bg-blue-105 dark:bg-slate-909 px-3 py-1 rounded">Module 5</span>
+                <h2 class="text-3xl font-black text-slate-950 dark:text-slate-50 mt-4 mb-6">Structures, Unions, BitFields & File Systems</h2>
+                
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3">5.1 Structures vs Unions vs BitFields</h3>
+                <p class="mb-4">Structures and unions group heterogeneous variables under a single label:</p>
+                <ul class="list-disc pl-6 space-y-3 mb-6">
+                    <li><strong>Structure (struct):</strong> Members are allocated separate memory slices. Total structure size is on or above the sum of the byte alignments of all elements due to padding.</li>
+                    <li><strong>Union (union):</strong> All members share the exact same starting memory location. The total size matches only the largest member. Altering one member overwrites other members. This is useful for memory conservation on embedded targets.</li>
+                    <li><strong>BitFields:</strong> Allow defining integer variables with precise bit-widths, maximizing memory density.</li>
+                </ul>
+                <p class="mb-4">Memory padding is applied by compilers to align structure members with word boundaries (such as 4-byte boundaries on 32-bit systems). This can make structures larger than the sum of their individual members. Packing attributes can be used to override this alignment when raw byte streams are required.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">5.2 File System Stream Operations</h3>
+                <p class="mb-4">Persistent storage uses stream operations via standard library file IO functions. The <code>FILE *</code> structure tracks active file systems on disk, with key operations including <code>fopen()</code>, <code>fgetc()</code>, <code>fputc()</code>, <code>fprintf()</code>, <code>fscanf()</code>, <code>fread()</code>, <code>fwrite()</code>, and <code>fclose()</code>.</p>
+                <p class="mb-4">When performing file I/O, you must handle error conditions, such as files being missing or lacking write permissions, by verifying that the returned file pointer is not <code>NULL</code> before writing data:</p>
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    #include &lt;stdio.h&gt;<br>
+                    <br>
+                    void writeScore(int score) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;FILE *filePtr = fopen("grades.txt", "w");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (filePtr == NULL) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Error: File could not be written to.\n");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fprintf(filePtr, "Student Final Marks: %d\n", score);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fclose(filePtr);<br>
+                    }
+                </div>
+            </section>
+
+            <section class="border-b border-slate-200 dark:border-slate-800 pb-10">
+                <h2 class="text-3xl font-black text-slate-950 dark:text-slate-50 mt-4 mb-6">In-depth Structural Algorithms & Solved Code Listings</h2>
+                <h3 class="text-xl font-bold text-slate-905 dark:text-slate-100 mt-6 mb-3">Matrix Multiplication Implementation</h3>
+                <p class="mb-4">Multiplying matrices requires systematic nested loops to calculate the dot product of rows from the first matrix and columns from the second, demonstrating effective index mapping:</p>
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    #include &lt;stdio.h&gt;<br>
+                    void multiply(int A[2][2], int B[2][2], int C[2][2]) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;for (int i=0; i&lt;2; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (int j=0; j&lt;2; j++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C[i][j] = 0;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (int k=0; k&lt;2; k++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C[i][j] += A[i][k] * B[k][j];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-905 dark:text-slate-100 mt-6 mb-3">Custom Command Buffer Parsing Algorithm</h3>
+                <p class="mb-4">This program reads a raw line of text from standard input and identifies separate command tokens. This is similar to how real shell terminals parse commands:</p>
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    #include &lt;stdio.h&gt;<br>
+                    #include &lt;string.h&gt;<br>
+                    <br>
+                    int parseTokens(char *line) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;int count = 0;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;char *token = strtok(line, " ");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;while (token != NULL) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Token %d: %s\n", count++, token);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;token = strtok(NULL, " ");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return count;<br>
+                    }
+                </div>
+            </section>
+
+            <section class="pb-4">
+                <h2 class="text-3xl font-black text-slate-950 dark:text-slate-50 mt-4 mb-6">Comprehensive Viva Voce Directory</h2>
+                <div class="space-y-6 text-sm text-slate-600 dark:text-slate-400">
+                    <div class="border-l-4 border-blue-600 pl-4 py-1">
+                        <p class="font-bold text-base text-slate-800 dark:text-slate-100">Q1. What is a Dangling Pointer?</p>
+                        <p class="mt-1">A dangling pointer is a pointer that continues to point to a memory location after the structure or variable it referenced has been deallocated or freed.</p>
+                    </div>
+                    <div class="border-l-4 border-blue-600 pl-4 py-1">
+                        <p class="font-bold text-base text-slate-800 dark:text-slate-100">Q2. What is the difference between static memory allocation and dynamic memory allocation?</p>
+                        <p class="mt-1">Static allocation allocates memory on the stack at compile-time with a fixed size. Dynamic allocation requests memory on the heap at runtime with variable sizes, managed manually via code instructions.</p>
+                    </div>
+                    <div class="border-l-4 border-blue-600 pl-4 py-1">
+                        <p class="font-bold text-base text-slate-800 dark:text-slate-100">Q3. What is the role of the volatile keyword?</p>
+                        <p class="mt-1">The volatile modifier tells the compiler that the variable's value can be changed by external factors (such as hardware register updates), preventing the compiler from applying optimization routines to that variable.</p>
+                    </div>
+                    <div class="border-l-4 border-blue-600 pl-4 py-1">
+                        <p class="font-bold text-base text-slate-800 dark:text-slate-100">Q4. How does calloc differ from malloc?</p>
+                        <p class="mt-1">Both allocate memory on the heap. However, malloc allocates a raw, uninitialized block of memory of the specified size, while calloc initializes all allocated bytes to zero.</p>
+                    </div>
+                    <div class="border-l-4 border-blue-600 pl-4 py-1">
+                        <p class="font-bold text-base text-slate-800 dark:text-slate-100">Q5. Explain the importance of typedef in C.</p>
+                        <p class="mt-1">The typedef keyword allows developers to create custom aliases for existing data types, simplifying syntax and improving code readability for complex struct pointers.</p>
+                    </div>
+                </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
-                <a href="/notes.html" class="p-5 rounded-2xl bg-blue-50 dark:bg-slate-900 border border-blue-100 dark:border-slate-800 hover:border-blue-300 transition-colors group">
-                    <h4 class="font-black text-slate-900 dark:text-slate-50 group-hover:text-blue-600 transition-colors mb-2">Lecture Notes PDF</h4>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Download the topper verified notes</p>
-                </a>
-                <a href="/pyqs.html" class="p-5 rounded-2xl bg-indigo-50 dark:bg-slate-900 border border-indigo-100 dark:border-slate-800 hover:border-indigo-300 transition-colors group">
-                    <h4 class="font-black text-slate-900 dark:text-slate-50 group-hover:text-indigo-600 transition-colors mb-2">Previous Papers</h4>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Analyze the board evaluations</p>
-                </a>
-            </div>
+            <section class="border-b border-slate-200 dark:border-slate-800 pb-10">
+                <span class="text-xs font-black text-blue-600 uppercase tracking-widest bg-blue-100 dark:bg-slate-900 px-3 py-1 rounded">Advanced Module 6</span>
+                <h2 class="text-3xl font-black text-slate-950 dark:text-slate-50 mt-4 mb-6">Data Structures & Abstract Data Types (ADTs) in C</h2>
+                <p class="mb-4">Beyond basic types and arrays, advanced software engineering in C relies on custom Abstract Data Types (ADTs). These structures are created by combining pointers with user-defined structures (structs) to model dynamic relationships between data elements inside memory structures.</p>
+                
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3">6.1 Singly Linked Lists (SLL) Implementation</h3>
+                <p class="mb-4">A singly linked list is a collection of nodes where each node contains a data field and a pointer to the next node in the sequence. Unlike static arrays, the nodes of a linked list are not stored contiguously in memory. Instead, they are allocated on the heap at runtime using <code>malloc</code>, and are linked together via pointers. This allows inserting or deleting elements efficiently without shifting memory blocks, though it requires additional memory for pointer overhead and prevents direct indexing (i.e., you cannot access the n-th element in constant time).</p>
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    #include &lt;stdio.h&gt;<br>
+                    #include &lt;stdlib.h&gt;<br>
+                    <br>
+                    struct Node {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;int dataValue;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;struct Node *nextNodePtr;<br>
+                    };<br>
+                    <br>
+                    struct Node* createNewNode(int value) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (newNode == NULL) return NULL;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;newNode-&gt;dataValue = value;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;newNode-&gt;nextNodePtr = NULL;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return newNode;<br>
+                    }<br>
+                    <br>
+                    void printList(struct Node *head) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;struct Node *temp = head;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;while(temp != NULL) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("%d -&gt; ", temp-&gt;dataValue);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;temp = temp-&gt;nextNodePtr;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf("NULL\n");<br>
+                    }
+                </div>
 
-            <p class="text-xs text-slate-400 uppercase tracking-widest font-black mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">END OF CORNERSTONE GUIDE</p>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">6.2 Linear Data Structures: Stacks and Queues</h3>
+                <p class="mb-4">Stacks and queues are specialized linear data structures that restrict insertion and deletion operations based on specific access rules. Stacks operate on a Last-In, First-Out (LIFO) model, where elements are pushed onto the top of the stack and popped from the same location. This is used by compilers to manage function call frames, local variables, and recursion states. Queues, on the other hand, operate on a First-In, First-Out (FIFO) model, where elements are inserted at the rear (enqueue) and removed from the front (dequeue), which is ideal for task scheduling and network buffer systems.</p>
+                
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">6.3 Standard Sorting Algorithms Analysis</h3>
+                <p class="mb-4">Sorting rearranges elements into a specific order. Here is a breakdown of the three primary comparison-based sorting algorithms taught under first-year curriculum paths:</p>
+                <ul class="list-disc pl-6 space-y-4 mb-6">
+                    <li><strong>Bubble Sort:</strong> Dynamically iterates through the list, comparing adjacent elements and swapping them if they are in the wrong order. This simple approach has a quadratic average-case time complexity of O(N<sup>2</sup>), making it inefficient for large datasets.</li>
+                    <li><strong>Selection Sort:</strong> Divides the array into sorted and unsorted segments. It repeatedly finds the smallest element in the unsorted section and swaps it with the first element of that section. While simple, it always runs in O(N<sup>2</sup>) time regardless of the initial order of the data.</li>
+                    <li><strong>Insertion Sort:</strong> Builds the sorted array one element at a time by extracting each element and inserting it at its correct position in the sorted section of the array. It runs in O(N<sup>2</sup>) time in the worst case but achieves O(N) linear time on pre-sorted arrays, making it useful for small datasets.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">6.4 Detailed Execution walkthrough of Insertion Sort</h3>
+                <p class="mb-4">To help students trace evaluations during practical examinations, let's trace sorting the array <code>[12, 11, 13, 5, 6]</code> step-by-step using insertion sort:</p>
+                <ol class="list-decimal pl-6 space-y-3 mb-6">
+                    <li><strong>Step 1:</strong> The first element (12) is trivially sorted.</li>
+                    <li><strong>Step 2:</strong> Evaluate the second element (11). Since 11 is less than 12, shift 12 to the right and insert 11 at index 0. The array becomes <code>[11, 12, 13, 5, 6]</code>.</li>
+                    <li><strong>Step 3:</strong> Evaluate the third element (13). Since 13 is greater than 12, it remains in position. The array is <code>[11, 12, 13, 5, 6]</code>.</li>
+                    <li><strong>Step 4:</strong> Evaluate the fourth element (5). Compare 5 with 13, 12, and 11, shifting each to the right, and insert 5 at index 0. The array is <code>[5, 11, 12, 13, 6]</code>.</li>
+                    <li><strong>Step 5:</strong> Evaluate the fifth element (6). Compare 6 with 13, 12, and 11, shifting each to the right, and insert 6 at index 1. The sorted array is now <code>[5, 6, 11, 12, 13]</code>.</li>
+                </ol>
+
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">6.5 Bitwise Operators & Embedded C Hardware Interfacing</h3>
+                <p class="mb-4">Developing code for microcontrollers and embedded devices requires manipulating individual hardware pins and registers directly. Bitwise operators in C are ideal for this, as they operate directly on the bits of integer variables without wasting CPU cycles:</p>
+                <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl font-mono text-sm leading-relaxed my-6 shadow-md border border-slate-800">
+                    // Setting a bit block using Bitwise OR (|)<br>
+                    #define REGISTER_PIN_3 (1 &lt;&lt; 3)<br>
+                    void enablePin(unsigned char *reg) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;*reg |= REGISTER_PIN_3; // Fast set operation<br>
+                    }<br>
+                    <br>
+                    // Clearing a bit block using Bitwise AND (&amp;) with NOT (~)<br>
+                    void disablePin(unsigned char *reg) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;*reg &amp;= ~REGISTER_PIN_3; // Fast clear operation<br>
+                    }
+                </div>
+            </section>
+</section>
         </div>
     </main>
 
@@ -128,5 +425,27 @@
         </div>
     </footer>
     <script type="module" src="/src/main.js"></script>
+
+    <!-- EngiPrepAuthorBox -->
+    <section class="max-w-4xl mx-auto my-16 p-8 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center gap-6">
+      <img src="/public/logo.png" alt="EngiPrepHub Logo" class="w-20 h-20 rounded-full border border-slate-700">
+      <div>
+        <h3 class="text-lg font-bold text-white">About the Author</h3>
+        <p class="text-slate-300 text-sm mt-2">EngiPrepHub is an academic initiative aimed at providing high-quality, verified, and structured JNTUK R23 study notes, PYQs, and interactive tools for engineering students. Our materials are reviewed by expert students and engineers to ensure syllabus alignment.</p>
+      </div>
+    </section>
+
+    <!-- EngiPrepHubFooter -->
+    <footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+      <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
+        <a href="/about.html" class="hover:text-white">About</a>
+        <a href="/contact.html" class="hover:text-white">Contact</a>
+        <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+        <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+        <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+        <a href="/faq.html" class="hover:text-white">FAQ</a>
+      </div>
+      <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+    </footer>
 </body>
 </html>
