@@ -1,69 +1,731 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Predictor Hub | EngiPrepHub</title>
-    <link rel="stylesheet" href="/src/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>JNTUK R23 SGPA & CGPA Predictor & Attendance Center | EngiPrepHub</title>
+    <meta name="description" content="Calculate and predict your JNTUK R23 SGPA/CGPA with our exact credit weightage simulator. Learn JNTUK condonation rules, attendance thresholds, and grade point matrices.">
+    <link rel="canonical" href="https://engiprephub.in/predictor">
+    <link rel="stylesheet" href="/src/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    
+    <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/predictor">
+    <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/predictor">
+
+    <!-- CSS styles matching the modern, premium slate cosmic theme -->
+    <style>
+        :root {
+            --bg: #020617;
+            --bg2: #0f172a;
+            --bg3: #1e293b;
+            --text: #f8fafc;
+            --text2: #94a3b8;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --border: rgba(255, 255, 255, 0.08);
+            --font-sans: 'Inter', sans-serif;
+            --font-display: 'Outfit', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+        }
+        .text-display {
+            font-family: var(--font-display);
+        }
+        .text-mono {
+            font-family: var(--font-mono);
+        }
+    </style>
+
+    <!-- JSON-LD SEO Schemas -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "JNTUK R23 Academic Predictor Center",
+      "url": "https://engiprephub.in/predictor",
+      "description": "Premium online calculator for JNTUK R23 CGPA, SGPA, attendance, and grade points simulation.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 and Javascript support.",
+      "author": {
+        "@type": "Organization",
+        "name": "EngiPrepHub Academic Team"
+      }
+    }
+    </script>
 </head>
-<body class="bg-slate-50 dark:bg-[#030306] text-slate-800 dark:text-gray-300 antialiased">
-    <header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-[#030306]/85 border-b border-slate-200 dark:border-slate-800">
-        <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30">
-                    <span class="font-black text-xl text-white">E</span>
+<body class="bg-slate-950 text-slate-300 min-h-screen font-sans antialiased selection:bg-blue-500/30 selection:text-white">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800 px-6">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    <span class="text-white font-extrabold text-xl text-display">E</span>
                 </div>
-                <span class="text-xl font-black tracking-tighter uppercase text-slate-900 dark:text-slate-50">EngiPrep <span class="text-blue-600 italic">Hub</span></span>
+                <div>
+                    <span class="text-xl font-black text-slate-50 text-display">EngiPrep <span class="text-blue-500">Hub</span></span>
+                    <span class="hidden sm:block text-[9px] font-black tracking-widest text-slate-500 uppercase mt-0.5">Prepare · Practice · Perform</span>
+                </div>
             </a>
-            <div class="flex items-center gap-4">
-                <a href="/dashboard.html" class="px-4 py-2 text-slate-600 hover:text-blue-600 font-bold text-sm">Dashboard</a>
+            <div class="flex items-center gap-2">
+                <a href="/notes.html" class="px-3.5 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all uppercase tracking-wider">Notes</a>
+                <a href="/pyqs.html" class="px-3.5 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all uppercase tracking-wider">PYQs</a>
+                <a href="/tools.html" class="px-3.5 py-2 text-xs font-bold text-slate-400 hover:text-white transition-all uppercase tracking-wider">Tools</a>
+                <a href="/dashboard.html" class="ml-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-xl text-xs font-black uppercase text-white transition-all tracking-wider shadow-lg shadow-blue-500/10">Dashboard</a>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 pt-32 pb-24">
-        <h1 class="text-4xl font-black mb-12">Academic Predictor Center</h1>
+    <!-- MAIN GRID CONTAINER -->
+    <main class="max-w-7xl mx-auto px-6 pt-32 pb-40">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- SGPA Predictor -->
-            <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h2 class="text-2xl font-black mb-6">SGPA Predictor</h2>
-                <div class="space-y-4">
-                    <input type="text" id="subject-name" placeholder="Subject Name" class="w-full p-4 rounded-xl border dark:bg-slate-800">
-                    <input type="number" id="subject-marks" placeholder="Marks" class="w-full p-4 rounded-xl border dark:bg-slate-800">
-                    <button onclick="calculateSGPA()" class="w-full py-3 bg-blue-600 text-white rounded-xl font-black uppercase text-xs tracking-widest">Add Subject & Predict</button>
-                    <div id="sgpa-result" class="text-center font-black text-2xl mt-4 text-blue-600"></div>
+        <!-- INTRO HERO BANNER -->
+        <div class="relative p-8 md:p-12 border border-slate-800 rounded-2xl bg-slate-900/60 overflow-hidden mb-16 hover:border-blue-500/30 transition-all duration-300">
+            <div class="absolute right-0 top-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="max-w-3xl relative z-10 space-y-4">
+                <span class="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-black uppercase tracking-widest rounded-full">JNTUK R23 Standard</span>
+                <h1 class="text-4xl lg:text-6xl font-black text-slate-50 tracking-tight text-display">
+                    JNTUK R23 Academic <span class="text-blue-500">Predictor</span> &amp; Calculator Center
+                </h1>
+                <p class="text-slate-400 text-base md:text-lg leading-relaxed font-normal">
+                    Secure your academic trajectory. Simulate your Semester Grade Point Average (SGPA), keep track of attendance condonation limits, and plan a custom target study load to secure a prestigious 9.0+ CGPA easily.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#gpa-section" class="px-5 py-3 bg-blue-600 hover:bg-blue-500 text-slate-50 rounded-xl text-xs font-extrabold uppercase tracking-widest transition-all">GPA Calculator</a>
+                    <a href="#attendance-section" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-extrabold uppercase tracking-widest transition-all">Attendance Calculator</a>
+                    <a href="#theoretical-framework" class="px-5 py-3 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200 rounded-xl text-xs font-extrabold uppercase tracking-widest transition-all">R23 Regulations Guide</a>
                 </div>
+            </div>
+        </div>
+
+        <!-- TWO-COLUMN WORKSPACE: LEFT TOOLS, RIGHT THEORY -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            <!-- LEFT WORKSPACE: INTERACTIVE PREDICTOR MODULES -->
+            <div class="lg:col-span-8 space-y-12">
+                
+                <!-- MODULE 1: SGPA DYNAMIC CALCULATOR -->
+                <section id="gpa-section" class="p-6 md:p-8 border border-slate-800 rounded-2xl bg-slate-900/40 relative">
+                    <h2 class="text-2xl font-black text-slate-50 text-display mb-2 flex items-center gap-3">
+                        <span class="text-blue-500 font-mono">01.</span> JNTUK R23 SGPA Calculator
+                    </h2>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        Add your semester courses below, enter their credits, and input your internally projected or scored marks (mids + external combo out of 100) to retrieve your exact letter grades and calculated SGPA instantly.
+                    </p>
+
+                    <!-- Row input builders -->
+                    <div class="space-y-4 mb-6" id="subject-fields-container">
+                        <!-- Standard JNTUK First Year Semester-1 Default subjects initialized for convenience -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center p-4 bg-slate-950/50 rounded-xl border border-slate-800/60 subject-row">
+                            <div class="md:col-span-5">
+                                <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Subject Name</label>
+                                <input type="text" value="Mathematics-I" placeholder="e.g. Mathematics-I" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 placeholder-slate-600 focus:border-blue-500 focus:outline-none">
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Credits</label>
+                                <input type="number" min="1" max="4" value="3.0" step="0.5" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 focus:border-blue-500 focus:outline-none" style="text-align: center;">
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Estimated Marks (0-100)</label>
+                                <input type="number" min="0" max="100" value="85" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-101 focus:border-blue-500 focus:outline-none" style="text-align: center;">
+                            </div>
+                            <div class="md:col-span-1 text-center mt-4 md:mt-0">
+                                <button onclick="removeSubjectRow(this)" class="p-1 px-2 hover:bg-rose-500/10 text-rose-400 border border-transparent rounded-md text-xs transition duration-200">✕</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center p-4 bg-slate-950/50 rounded-xl border border-slate-800/60 subject-row">
+                            <div class="md:col-span-5">
+                                <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Subject Name</label>
+                                <input type="text" value="Engineering Physics" placeholder="e.g. Physics" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 placeholder-slate-600 focus:border-blue-500 focus:outline-none">
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Credits</label>
+                                <input type="number" min="1" max="4" value="3.0" step="0.5" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-101 focus:border-blue-500 focus:outline-none" style="text-align: center;">
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Estimated Marks (0-100)</label>
+                                <input type="number" min="0" max="100" value="78" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-101 focus:border-blue-500 focus:outline-none" style="text-align: center;">
+                            </div>
+                            <div class="md:col-span-1 text-center mt-4 md:mt-0">
+                                <button onclick="removeSubjectRow(this)" class="p-1 px-2 hover:bg-rose-500/10 text-rose-400 border border-transparent rounded-md text-xs transition duration-200">✕</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center p-4 bg-slate-950/50 rounded-xl border border-slate-800/60 subject-row">
+                            <div class="md:col-span-5">
+                                <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Subject Name</label>
+                                <input type="text" value="Introduction to Programming" placeholder="e.g. Basic IT" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 placeholder-slate-600 focus:border-blue-500 focus:outline-none">
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Credits</label>
+                                <input type="number" min="1" max="4" value="3.0" step="0.5" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-101 focus:border-blue-500 focus:outline-none" style="text-align: center;">
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Estimated Marks (0-100)</label>
+                                <input type="number" min="0" max="100" value="92" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-101 focus:border-blue-500 focus:outline-none" style="text-align: center;">
+                            </div>
+                            <div class="md:col-span-1 text-center mt-4 md:mt-0">
+                                <button onclick="removeSubjectRow(this)" class="p-1 px-2 hover:bg-rose-500/10 text-rose-400 border border-transparent rounded-md text-xs transition duration-200">✕</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions and Buttons -->
+                    <div class="flex flex-wrap gap-4 items-center justify-between pb-6 border-b border-slate-800/80">
+                        <button onclick="addSubjectRow()" class="px-4 py-2 border border-slate-800 hover:border-slate-750 hover:bg-slate-800 text-slate-300 rounded-xl text-xs font-black uppercase tracking-widest transition-all">
+                            ＋ Add Another Subject
+                        </button>
+                        <button onclick="calculateR23SGPA()" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-slate-100 rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-md shadow-blue-600/10">
+                            ⚡ Calculate SGPA Score
+                        </button>
+                    </div>
+
+                    <!-- Computed output dashboard card -->
+                    <div id="sgpa-result-card" class="mt-6 p-6 rounded-xl bg-slate-950/60 border border-slate-800/80 hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <h3 class="text-xs font-black uppercase tracking-wider text-slate-500">Predicted SGPA</h3>
+                                <p class="text-5xl font-black text-blue-500 text-display mt-1" id="final-sgpa-value">8.67</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-sm font-semibold text-slate-300">Total Registered Credits: <span class="text-white text-mono" id="total-sum-credits">9.0</span></p>
+                                <p class="text-sm font-semibold text-slate-300">Total Secured Points: <span class="text-white text-mono" id="total-sum-points">78.0</span></p>
+                                <p class="text-sm font-semibold text-slate-300">Projected Class Division: <span class="text-emerald-400 font-bold" id="class-division-val">First Class with Distinction</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Render itemized table grades output summary -->
+                        <div class="mt-6 overflow-x-auto">
+                            <table class="w-full text-left font-sans text-xs">
+                                <thead>
+                                    <tr class="text-slate-500 border-b border-slate-800">
+                                        <th class="pb-3 text-left">Course Name</th>
+                                        <th class="pb-3 text-center">Marks Score</th>
+                                        <th class="pb-3 text-center">Letter Grade</th>
+                                        <th class="pb-3 text-center">Grade Points</th>
+                                        <th class="pb-3 text-right">Secured Credit Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800/50" id="itemized-sgpa-output">
+                                    <!-- Dynamic elements filled on computation -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MODULE 2: ATTENDANCE TREND TRACKING & CONDONATION PLANNER -->
+                <section id="attendance-section" class="p-6 md:p-8 border border-slate-800 rounded-2xl bg-slate-900/40">
+                    <h2 class="text-2xl font-black text-slate-50 text-display mb-2 flex items-center gap-3">
+                        <span class="text-emerald-500 font-mono">02.</span> Attendance &amp; Detention Tracker
+                    </h2>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        Under JNTUK R23 rules, students must secure a minimum of <strong>75% attendance</strong> across all combined subjects to clear active semester registrations. Find out if you qualify, require condonation, or are at risk of detention.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="text-[10px] uppercase font-bold text-slate-500 block mb-2 tracking-widest">Total Classes Conducted</label>
+                            <input type="number" id="total-classes-conducted" value="180" class="w-full p-4 rounded-xl border border-slate-800 bg-slate-950 font-bold text-slate-100 focus:border-emerald-500 focus:outline-none">
+                            <span class="text-[10px] text-slate-500 mt-1 block">Usually ranges from 150 to 220 sessions per term.</span>
+                        </div>
+                        <div>
+                            <label class="text-[10px] uppercase font-bold text-slate-500 block mb-2 tracking-widest">Classes You Have Attended</label>
+                            <input type="number" id="total-classes-attended" value="142" class="w-full p-4 rounded-xl border border-slate-800 bg-slate-950 font-bold text-slate-110 focus:border-emerald-500 focus:outline-none">
+                            <span class="text-[10px] text-slate-500 mt-1 block">Make sure this count is less than or equal to classes conducted.</span>
+                        </div>
+                    </div>
+
+                    <button onclick="calculateR23Attendance()" class="w-full py-4.5 bg-emerald-600 hover:bg-emerald-500 text-slate-50 rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-md shadow-emerald-600/10 mb-6">
+                        📈 Calculate Attendance and Get Trend Report
+                    </button>
+
+                    <!-- Computed output dashboard card -->
+                    <div id="attendance-result-card" class="p-6 rounded-xl bg-slate-950/60 border border-slate-800/80 hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-6 border-b border-slate-800/50">
+                            <div>
+                                <h3 class="text-xs font-black uppercase tracking-wider text-slate-500">Your Attendance Percentage</h3>
+                                <p class="text-5xl font-black text-emerald-500 text-display mt-1" id="attendance-percentage-val">78.89%</p>
+                            </div>
+                            <div>
+                                <h3 class="text-xs font-black uppercase tracking-wider text-slate-500">Status Clearance</h3>
+                                <p class="text-sm font-bold uppercase mt-1 leading-relaxed" id="attendance-status-badge"></p>
+                            </div>
+                        </div>
+
+                        <!-- Recommendations & What-to-do section -->
+                        <div class="pt-6 space-y-4">
+                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Recommended Actions & Projection Matrix</h4>
+                            <div class="text-sm space-y-2.5 text-slate-400" id="attendance-projections-report">
+                                <!-- Projections filled dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MODULE 3: 9.0 GPA TARGET SIMULATOR -->
+                <section id="cgpa-target-section" class="p-6 md:p-8 border border-slate-800 rounded-2xl bg-slate-900/40">
+                    <h2 class="text-2xl font-black text-slate-50 text-display mb-2 flex items-center gap-3">
+                        <span class="text-indigo-500 font-mono">03.</span> 9.0+ CGPA Target Strategist
+                    </h2>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        Need a robust plan to cross the elite 9.0 CGPA line? Enter your current cumulative CGPA score and the numbers of semesters left to calculate exactly what SGPA you need to carry in the upcoming examinations.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="text-[10px] uppercase font-bold text-slate-500 block mb-2 tracking-widest">Your Current CGPA</label>
+                            <input id="current-gpa-val" type="number" step="0.01" min="0" max="10" value="8.24" class="w-full p-4 rounded-xl border border-slate-800 bg-slate-950 font-bold text-slate-100 focus:border-indigo-500 focus:outline-none">
+                            <span class="text-[10px] text-slate-500 mt-1 block">Set to 0.0 if you are currently in your first semester and have no prior grades.</span>
+                        </div>
+                        <div>
+                            <label class="text-[10px] uppercase font-bold text-slate-500 block mb-2 tracking-widest">Remaining Semesters</label>
+                            <input id="semesters-remaining" type="number" min="1" max="8" value="6" class="w-full p-4 rounded-xl border border-slate-800 bg-slate-950 font-bold text-slate-101 focus:border-indigo-500 focus:outline-none">
+                            <span class="text-[10px] text-slate-500 mt-1 block">Specify how many standard semesters are left to complete your degree.</span>
+                        </div>
+                    </div>
+
+                    <button onclick="calculate9GPATarget()" class="w-full py-4.5 bg-indigo-600 hover:bg-indigo-500 text-slate-50 rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-md shadow-indigo-600/10 mb-6">
+                        🎯 Simulate target Strategy
+                    </button>
+
+                    <div id="target-result-card" class="p-6 rounded-xl bg-slate-950/60 border border-slate-800/80 hidden">
+                        <h4 class="text-slate-200 font-bold text-lg mb-3">Academic Projection Breakdown</h4>
+                        <div class="space-y-3 text-sm text-slate-400" id="target-projection-explanation">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- COOPERATIVE ENGIPREPHUB VIVA CARDS & FAQS -->
+                <section class="p-6 md:p-8 border border-slate-800 rounded-2xl bg-slate-900/40 space-y-6">
+                    <h2 class="text-xl font-bold text-slate-50">Frequently Academic Questions (FAQs)</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-950/50 border border-slate-800 rounded-xl">
+                            <h3 class="text-slate-100 font-bold text-sm mb-2">Q.1 How are marks converted into JNTUK R23 letter grades?</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">
+                                JNTUK R23 represents an absolute grading frame. The continuous internal evaluation (CIE - 30M) and semester end evaluation (SEE - 70M) scores are added to retrieve a total score out of 100. Any score of 90% or higher maps to 'O' (Outstanding, 10 grade points), while scores below 40% will trigger an 'F' (Fail) grade. Refer to the table on the right panel for the complete coordinate matrix.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-slate-950/50 border border-slate-800 rounded-xl">
+                            <h3 class="text-slate-100 font-bold text-sm mb-2">Q.2 What is condonation in JNTUK attendance policy?</h3>
+                            <p class="text-slate-405 text-slate-400 text-xs leading-relaxed">
+                                If a student fails to meet the 75% attendance threshold but holds equal or greater than 65% total semester attendance, they can apply for Condonation of shortage of attendance by submitting valid proof of medical urgency or academic representation along with the university-prescribed payment of a condonation fee. If attendance is under 65%, condonation is impossible, and the student is detained.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-slate-950/50 border border-slate-800 rounded-xl">
+                            <h3 class="text-slate-101 font-bold text-sm mb-2">Q.3 Can I recover my CGPA if I suffer a backlog?</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">
+                                Yes. On clearing the backlog in supplementary examinations, the newly secured letter grade replaces the failing 'F' grade point in subsequent SGPA and CGPA math calculations. To secure an ultimate 9.0 CGPA, focus heavily on maximizing high-weightage core theory papers in intermediate semesters.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
             </div>
 
-            <!-- Attendance Predictor -->
-            <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h2 class="text-2xl font-black mb-6">Attendance Predictor</h2>
-                 <div class="space-y-4">
-                    <input type="number" id="total-classes" placeholder="Classes Conducted" class="w-full p-4 rounded-xl border dark:bg-slate-800">
-                    <input type="number" id="attended-classes" placeholder="Classes Attended" class="w-full p-4 rounded-xl border dark:bg-slate-800">
-                    <button onclick="calculateAttendance()" class="w-full py-3 bg-emerald-600 text-white rounded-xl font-black uppercase text-xs tracking-widest">Calculate Trend</button>
-                    <div id="attendance-result" class="text-center font-bold mt-4"></div>
+            <!-- RIGHT COLLATERAL PANEL: DETAILED R23 ACADEMIC RULESETS (AUTHORATIVE TEXTS) -->
+            <aside class="lg:col-span-4 space-y-8" id="theoretical-framework">
+                
+                <!-- GRADING SCHEME MATRIX CHEAT-SHEET -->
+                <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl hover:border-slate-700 transition duration-300">
+                    <h3 class="text-xs font-black uppercase text-slate-50 tracking-widest mb-4">Letter Grades &amp; Points</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs font-mono">
+                            <thead>
+                                <tr class="text-slate-500 border-b border-slate-800">
+                                    <th class="pb-2 text-left">Marks (Out of 100)</th>
+                                    <th class="pb-2 text-center">Grade</th>
+                                    <th class="pb-2 text-right">Points</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-804/50 text-slate-400">
+                                <tr>
+                                    <td class="py-2.5">90 - 100</td>
+                                    <td class="text-center font-bold text-blue-400">O (Outstanding)</td>
+                                    <td class="text-right text-white">10</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5">80 - 89</td>
+                                    <td class="text-center font-bold text-teal-400">S (Excellent)</td>
+                                    <td class="text-right text-white">9</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5">70 - 79</td>
+                                    <td class="text-center font-bold text-indigo-400">A (Very Good)</td>
+                                    <td class="text-right text-white">8</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5">60 - 69</td>
+                                    <td class="text-center font-bold text-amber-400">B (Good)</td>
+                                    <td class="text-right text-white">7</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5">50 - 59</td>
+                                    <td class="text-center font-bold text-emerald-400">C (Average)</td>
+                                    <td class="text-right text-white">6</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5">40 - 49</td>
+                                    <td class="text-center font-bold text-slate-400">D (Pass)</td>
+                                    <td class="text-right text-white">5</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5">&lt; 40</td>
+                                    <td class="text-center font-bold text-rose-500 font-black">F (Fail)</td>
+                                    <td class="text-right text-rose-500">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+
+                <!-- COGNITIVE KNOWLEDGE CARD: THE JNTUK CREDIT SYSTEMS EXPLAINED (1000+ words target) -->
+                <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl space-y-6">
+                    <h3 class="text-xs font-black uppercase text-slate-50 tracking-widest">R23 Regulation Brief</h3>
+                    
+                    <div class="prose prose-invert prose-xs text-xs text-slate-400 space-y-4">
+                        <h4 class="text-slate-100 font-bold">1. Semester Grade Point Average (SGPA) Integration</h4>
+                        <p>
+                            The JNTUK R23 system monitors student performance inside a single semester using SGPA. The SGPA represents the ratio of sum of product of credits and grade points secured across all registered subjects to the sum of total registered credits of that semester.
+                        </p>
+                        <p class="font-mono bg-slate-950 p-2.5 rounded border border-slate-800 text-[10px] text-sky-400">
+                            SGPA (Si) = Σ(Ci x Gi) / ΣCi
+                        </p>
+                        <p>
+                            Where <strong>Ci</strong> denotes the credits allocated for subject i, and <strong>Gi</strong> denotes the corresponding grade points scored. If you secure backlogs, credits are registered but Gi becomes 0.
+                        </p>
+
+                        <h4 class="text-slate-100 font-bold">2. Cumulative Grade Point Average (CGPA) Math</h4>
+                        <p>
+                            The aggregate progress across all studied semesters is compiled into the CGPA score. The formula divides total earned grade point sums over all semesters by total credits registered up to that academic semester point.
+                        </p>
+                        <p class="font-mono bg-slate-950 p-2.5 rounded border border-slate-800 text-[10px] text-indigo-400">
+                            CGPA = Σ(C_j x S_j) / ΣC_j
+                        </p>
+                        <p>
+                            Maintaining constant progress is key because credits are cumulative: scoring low points in large 3-credit or 4-credit papers heavily lowers your overall CGPA, making recovery exceptionally taxing later in the program.
+                        </p>
+
+                        <h4 class="text-slate-100 font-bold">3. JNTUK Class Division Classifications</h4>
+                        <p>
+                            Graduation degree certificates are awarded distinct class boundaries upon completion of B.Tech requirements based on the final achieved CGPA:
+                        </p>
+                        <ul class="list-disc pl-4 space-y-2 text-slate-400">
+                            <li><strong>CGPA &ge; 7.75:</strong> Awarded First Class with Distinction (conducted within the standard 4-year cycle).</li>
+                            <li><strong>6.5 &le; CGPA &lt; 7.75:</strong> Awarded First Class.</li>
+                            <li><strong>5.5 &le; CGPA &lt; 6.5:</strong> Awarded Second Class.</li>
+                            <li><strong>5.0 &le; CGPA &lt; 5.5:</strong> Awarded Pass Class.</li>
+                        </ul>
+
+                        <h4 class="text-slate-100 font-bold">4. Continuous Internal Evaluation (CIE) details</h4>
+                        <p>
+                            In the JNTUK R23 guidelines, CIE is allocated 30 marks out of 100. This is split into Midterm exams (20 Marks), class assessment quiz/assignments (5 Marks), and active attendance/viva indicators (5 Marks). A minimum of 40% combined target in both CIE +SEE is required to clear.
+                        </p>
+                        <p>
+                            Since SEE is evaluated externally, securing high CIE marks (at least 25 out of 30) gives you a substantial cushion. It ensures you only need 15-20 marks in the external SEE to clear, avoiding supplementary exam delays.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- GAMIFICATION COMPONENT LINK -->
+                <div class="p-6 bg-gradient-to-tr from-blue-900/40 to-indigo-900/45 border border-blue-500/30 rounded-2xl text-center space-y-4">
+                    <div class="text-2xl">🏆</div>
+                    <h3 class="text-sm font-black uppercase text-slate-50 tracking-widest">Achieve Elite Status</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Simulating your academic trajectory helps you optimize your preparation under the JNTUK credit framework.
+                    </p>
+                    <div class="text-[10px] bg-blue-500/20 text-blue-300 font-mono py-1 rounded-md">
+                        Earn 35 XP for completing your first semester prediction
+                    </div>
+                </div>
+
+            </aside>
             
-            <!-- 9.0 GPA Simulator -->
-            <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h2 class="text-2xl font-black mb-6">9.0 GPA Simulator</h2>
-                <p class="text-sm mb-4 text-slate-500">Enter your current CGPA and semesters remaining to see what you need for a 9.0.</p>
-                <input type="number" id="current-cgpa" placeholder="Current CGPA" class="w-full p-4 rounded-xl border dark:bg-slate-800 mb-2">
-                <button onclick="simulate9GPA()" class="w-full py-3 bg-indigo-600 text-white rounded-xl font-black uppercase text-xs tracking-widest">Simulate Strategy</button>
-                <div id="simulator-result" class="text-center mt-4 text-sm font-bold"></div>
-            </div>
         </div>
     </main>
 
+    <!-- FOOTER SECTION -->
+    <footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+        <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
+            <a href="/about.html" class="hover:text-white">About</a>
+            <a href="/contact.html" class="hover:text-white">Contact</a>
+            <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+            <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+            <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+            <a href="/faq.html" class="hover:text-white">FAQ</a>
+        </div>
+        <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+    </footer>
+
+    <!-- INTERACTIVE CALCULATOR ENGINE (JAVASCRIPT) -->
     <script>
-        function calculateSGPA() {
-            const marks = document.getElementById('sgpa-input').value;
-            const sgpa = (marks / 10).toFixed(2); // Mock logic
-            document.getElementById('sgpa-result').textContent = `Predicted SGPA: ${sgpa}`;
+        // Letter grade converter mapping
+        function getLetterGradeScore(marks) {
+            if (marks >= 90) return { grade: 'O', points: 10, label: 'Outstanding' };
+            if (marks >= 80) return { grade: 'S', points: 9, label: 'Excellent' };
+            if (marks >= 70) return { grade: 'A', points: 8, label: 'Very Good' };
+            if (marks >= 60) return { grade: 'B', points: 7, label: 'Good' };
+            if (marks >= 50) return { grade: 'C', points: 6, label: 'Average' };
+            if (marks >= 40) return { grade: 'D', points: 5, label: 'Pass' };
+            return { grade: 'F', points: 0, label: 'Fail' };
+        }
+
+        // Add a new row to the SGPA list container
+        function addSubjectRow() {
+            const container = document.getElementById('subject-fields-container');
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'grid grid-cols-1 md:grid-cols-12 gap-3 items-center p-4 bg-slate-950/50 rounded-xl border border-slate-800/60 subject-row';
+            rowDiv.innerHTML = `
+                <div class="md:col-span-5">
+                    <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Subject Name</label>
+                    <input type="text" placeholder="e.g. Chemistry Lab" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 focus:border-blue-500 focus:outline-none">
+                </div>
+                <div class="md:col-span-3">
+                    <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Credits</label>
+                    <input type="number" min="1" max="4" value="1.5" step="0.5" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-101 focus:border-blue-500 focus:outline-none" style="text-align: center;">
+                </div>
+                <div class="md:col-span-3">
+                    <label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Estimated Marks (0-100)</label>
+                    <input type="number" min="0" max="100" value="80" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-101 focus:border-blue-500 focus:outline-none" style="text-align: center;">
+                </div>
+                <div class="md:col-span-1 text-center mt-4 md:mt-0">
+                    <button onclick="removeSubjectRow(this)" class="p-1 px-2 hover:bg-rose-500/10 text-rose-400 border border-transparent rounded-md text-xs transition duration-200">✕</button>
+                </div>
+            `;
+            container.appendChild(rowDiv);
+        }
+
+        // Remove a subject row
+        function removeSubjectRow(button) {
+            const row = button.closest('.subject-row');
+            if (row) {
+                row.remove();
+            }
+        }
+
+        // Main SGPA calculator logic
+        function calculateR23SGPA() {
+            const rows = document.querySelectorAll('.subject-row');
+            let totalCredits = 0;
+            let earnedPointsSum = 0;
+            let itemizedHTML = '';
+
+            rows.forEach(row => {
+                const nameInput = row.querySelector('div:nth-child(1) input');
+                const creditsInput = row.querySelector('div:nth-child(2) input');
+                const marksInput = row.querySelector('div:nth-child(3) input');
+
+                const name = nameInput ? nameInput.value.trim() : 'Unnamed Subject';
+                const credits = creditsInput ? parseFloat(creditsInput.value) : 0;
+                const marks = marksInput ? parseInt(marksInput.value) : 0;
+
+                const mapping = getLetterGradeScore(marks);
+                const pointsValue = mapping.points * credits;
+
+                totalCredits += credits;
+                earnedPointsSum += pointsValue;
+
+                itemizedHTML += `
+                    <tr class="border-b border-slate-800/30 hover:bg-slate-900/30 transition">
+                        <td class="py-3 font-semibold text-slate-200">${name}</td>
+                        <td class="py-3 text-center text-slate-400">${marks} / 100</td>
+                        <td class="py-3 text-center transition font-bold ${mapping.grade === 'O' ? 'text-blue-400' : mapping.grade === 'S' || mapping.grade === 'A' ? 'text-teal-400 font-semibold' : mapping.grade === 'F' ? 'text-rose-500 font-black' : 'text-slate-300'}">${mapping.grade}</td>
+                        <td class="py-3 text-center font-mono text-slate-300">${mapping.points}</td>
+                        <td class="py-3 text-right font-mono text-slate-200">${pointsValue.toFixed(1)}</td>
+                    </tr>
+                `;
+            });
+
+            if (totalCredits <= 0) {
+                alert('Please add valid courses with credit weightage.');
+                return;
+            }
+
+            const sgpa = earnedPointsSum / totalCredits;
+            
+            // Determine class division categorization
+            let division = 'Pass Class';
+            if (sgpa >= 7.75) division = 'First Class with Distinction';
+            else if (sgpa >= 6.5) division = 'First Class';
+            else if (sgpa >= 5.5) division = 'Second Class';
+
+            // Show and fill result card
+            document.getElementById('final-sgpa-value').textContent = sgpa.toFixed(2);
+            document.getElementById('total-sum-credits').textContent = totalCredits.toFixed(1);
+            document.getElementById('total-sum-points').textContent = earnedPointsSum.toFixed(1);
+            document.getElementById('class-division-val').textContent = division;
+            document.getElementById('itemized-sgpa-output').innerHTML = itemizedHTML;
+            document.getElementById('sgpa-result-card').classList.remove('hidden');
+
+            // Trigger EngiPrepHub gamification XP (Priority #6 & User Rules)
+            if (typeof window.triggerXP === 'function') {
+                window.triggerXP(35, 'Predicted First SGPA');
+            }
+        }
+
+        // Main Attendance trends calculator logic
+        function calculateR23Attendance() {
+            const conducted = parseInt(document.getElementById('total-classes-conducted').value);
+            const attended = parseInt(document.getElementById('total-classes-attended').value);
+
+            if (isNaN(conducted) || isNaN(attended) || conducted <= 0 || attended < 0) {
+                alert('Please enter valid numeric attendance statistics.');
+                return;
+            }
+            if (attended > conducted) {
+                alert('Attended classes cannot exceed conducted classes.');
+                return;
+            }
+
+            const perc = (attended / conducted) * 100;
+            const card = document.getElementById('attendance-result-card');
+            const statusBadge = document.getElementById('attendance-status-badge');
+            const projectionsReport = document.getElementById('attendance-projections-report');
+
+            card.classList.remove('hidden');
+            document.getElementById('attendance-percentage-val').textContent = perc.toFixed(2) + '%';
+
+            // Check rules thresholds
+            if (perc >= 75) {
+                statusBadge.textContent = '✅ ELIGIBLE FOR EXAMS';
+                statusBadge.className = 'text-sm font-bold uppercase mt-1 leading-relaxed text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-md inline-block';
+                
+                // Calculate how many subsequent classes can be skipped
+                let skipClasses = 0;
+                let currentAttnd = attended;
+                let currentCond = conducted;
+                while (((currentAttnd) / (currentCond + 1)) * 100 >= 75) {
+                    skipClasses++;
+                    currentCond++;
+                }
+
+                projectionsReport.innerHTML = `
+                    <div class="p-4 bg-emerald-500/5 rounded-lg border border-emerald-500/10 text-emerald-400 font-medium">
+                        Your attendance exceeds the mandated 75% bar! You are completely cleared to receive your exam admit sheets automatically.
+                    </div>
+                    <p>✨ <strong>Skip Margin:</strong> You can safely miss up to <span class="text-white text-mono font-bold">${skipClasses}</span> consecutive future classes without dropping below the 75% eligibility line.</p>
+                `;
+            } else if (perc >= 65) {
+                statusBadge.textContent = '⚠️ CONDONATION REQUIRED';
+                statusBadge.className = 'text-sm font-bold uppercase mt-1 leading-relaxed text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-md inline-block';
+
+                // Calculate classes to attend consecutively to secure 75%
+                let neededClasses = 0;
+                let currentAttnd = attended;
+                let currentCond = conducted;
+                while ((currentAttnd / currentCond) * 100 < 75) {
+                    neededClasses++;
+                    currentAttnd++;
+                    currentCond++;
+                }
+
+                projectionsReport.innerHTML = `
+                    <div class="p-4 bg-amber-500/5 rounded-lg border border-amber-500/10 text-amber-400 font-medium text-xs leading-relaxed">
+                        Condonation range! You must pay the JNTUK Condonation Penalty Fee (prescribed by individual college boards, typically ₹500 to ₹1000) and present a medical certificate to secure clearance.
+                    </div>
+                    <p>🎯 <strong>Recovery target:</strong> You must attend the next <span class="text-white text-mono font-bold">${neededClasses}</span> classes consecutively without failing to reach the safe 75% clearance mark.</p>
+                `;
+            } else {
+                statusBadge.textContent = '❌ DETAINED';
+                statusBadge.className = 'text-sm font-bold uppercase mt-1 leading-relaxed text-rose-500 bg-rose-500/10 border border-rose-500/20 px-3 py-1 rounded-md inline-block font-black';
+
+                // Calculate classes needed to reach 65% or 75%
+                let classesTo65 = 0;
+                let currentAttnd = attended;
+                let currentCond = conducted;
+                while ((currentAttnd / currentCond) * 100 < 65) {
+                    classesTo65++;
+                    currentAttnd++;
+                    currentCond++;
+                }
+
+                let classesTo75 = 0;
+                currentAttnd = attended;
+                currentCond = conducted;
+                while ((currentAttnd / currentCond) * 100 < 75) {
+                    classesTo75++;
+                    currentAttnd++;
+                    currentCond++;
+                }
+
+                projectionsReport.innerHTML = `
+                    <div class="p-4 bg-rose-500/5 rounded-lg border border-rose-500/10 text-rose-400 font-medium text-xs leading-relaxed">
+                        High Detention Alert! Under JNTUK R23 rules, condonation is strictly barred for attendance scores under 65%. You risk repeating the semester next academic year.
+                    </div>
+                    <p>🚑 <strong>Critical attendance needed:</strong> You must attend the next <span class="text-rose-400 text-mono font-bold">${classesTo65}</span> lectures consecutively to lift your score to the condonation line (65%), and <span class="text-white text-mono font-bold">${classesTo75}</span> consecutive classes to secure absolute 75% clearance.</p>
+                `;
+            }
+        }
+
+        // Target SGPA simulator strategist
+        function calculate9GPATarget() {
+            const currentCgpa = parseFloat(document.getElementById('current-gpa-val').value);
+            const semsLeft = parseInt(document.getElementById('semesters-remaining').value);
+
+            if (isNaN(currentCgpa) || isNaN(semsLeft) || currentCgpa < 0 || currentCgpa > 10 || semsLeft <= 0) {
+                alert('Please input a valid CGPA range from 0 to 10 and real semesters remaining.');
+                return;
+            }
+
+            const totalSemesters = 8;
+            const completedSems = totalSemesters - semsLeft;
+            const card = document.getElementById('target-result-card');
+            const explanation = document.getElementById('target-projection-explanation');
+
+            card.classList.remove('hidden');
+
+            // Total accumulated point target to reach 9.0 CGPA over 8 semesters
+            // Sum(CGPA) = 9.0 * 8 = 72 total grade point sum
+            const targetPoints = 9.0 * totalSemesters;
+            const accumulatedPoints = currentCgpa * completedSems;
+            const neededPoints = targetPoints - accumulatedPoints;
+            const neededSgpa = neededPoints / semsLeft;
+
+            if (completedSems === 0) {
+                explanation.innerHTML = `
+                    <p class="text-slate-300">As a fresh first semester student, your path to a 9.0 CGPA is wide open!</p>
+                    <div class="p-4 bg-blue-500/5 border border-blue-500/10 rounded-lg text-blue-400">
+                        To maintain a stable status, you must aim for at least a <strong>9.00 SGPA</strong> in your upcoming first-year exams.
+                    </div>
+                `;
+            } else if (neededSgpa > 10.0) {
+                explanation.innerHTML = `
+                    <p class="text-slate-300">To reach an exact 9.0 Cumulative average across remaining semesters, you would theoretically need:</p>
+                    <div class="p-4 bg-rose-500/5 border border-rose-500/10 rounded-lg text-rose-400 font-extrabold text-lg text-center">
+                        ${neededSgpa.toFixed(2)} SGPA Required
+                    </div>
+                    <p class="text-xs text-rose-500">
+                        Warning: This result exceeds the maximum possible 10.0 grade limit. Adjust your target weightage or aim for a realistic first-class with distinction certificate.
+                    </p>
+                `;
+            } else if (neededSgpa < 5.0) {
+                explanation.innerHTML = `
+                    <p class="text-slate-300">You are currently in an exceptionally secure position!</p>
+                    <div class="p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-lg text-emerald-400">
+                        To lock in your final 9.0 CGPA, you only need to average a conservative <strong>${neededSgpa.toFixed(2)} SGPA</strong> across your remaining ${semsLeft} semesters.
+                    </div>
+                `;
+            } else {
+                explanation.innerHTML = `
+                    <p class="text-slate-300 font-semibold mb-2">Here is your customized strategy path:</p>
+                    <div class="p-4 bg-indigo-500/5 border border-indigo-500/10 rounded-lg text-indigo-400 font-black text-xl text-center">
+                        Average ${neededSgpa.toFixed(2)} SGPA Required
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed mt-2">
+                        To hit this target, seek to earn an 'O' or 'S' grade on all 3-credit or 4-credit mathematical/core programming papers. Balance lab grades with consistent marks above 80 on midterm portfolios.
+                    </p>
+                `;
+            }
         }
     </script>
 </body>
