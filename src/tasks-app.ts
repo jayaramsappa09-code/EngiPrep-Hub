@@ -276,10 +276,33 @@ function handleImportFile(file: File) {
 
 // Set up
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('task-form');
+    const form = document.getElementById('task-form') as HTMLFormElement;
     if (form) {
         form.addEventListener('submit', handleFormSubmit);
+
+        // Keyboard shortcuts for quick task entry
+        form.addEventListener('keydown', (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                form.requestSubmit();
+            }
+        });
     }
+    
+    // Quick add shortcut 'n' or 't' key
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+        const targetTag = (e.target as HTMLElement)?.tagName;
+        if (!['INPUT', 'TEXTAREA', 'SELECT'].includes(targetTag)) {
+            if (e.key.toLowerCase() === 'n' || e.key.toLowerCase() === 't') {
+                e.preventDefault();
+                const titleInput = document.getElementById('task-title') as HTMLInputElement;
+                if (titleInput) {
+                    titleInput.focus();
+                    showToast("Quick entry mode activated", "success");
+                }
+            }
+        }
+    });
     
     // Wire up backup buttons
     const exportBtn = document.getElementById('export-tasks-btn');
