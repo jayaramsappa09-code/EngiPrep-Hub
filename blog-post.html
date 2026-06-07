@@ -50,6 +50,9 @@
     
     
     
+    
+    
+    
 
     
     
@@ -103,6 +106,36 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/blog-post">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/blog-post">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -1462,6 +1495,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- EngiPrepHubFooter -->
 <footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
   <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
@@ -1475,5 +1520,59 @@
   <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
 </footer>
 
+
+<!-- Comprehensive Cookie Consent Widget -->
+    <div id="cookie-consent-banner" class="fixed bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl rounded-2xl p-6 z-[100] transform translate-y-[150%] transition-transform duration-500 flex flex-col gap-4">
+        <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+            </div>
+            <div class="flex-1">
+                <h3 class="font-bold text-slate-900 dark:text-white mb-1">We value your privacy</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.
+                </p>
+            </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <button id="cookie-accept" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors shadow-sm flex-1 sm:flex-none">Accept All</button>
+            <button id="cookie-reject" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition-colors flex-1 sm:flex-none">Reject All</button>
+            <button id="cookie-manage" class="px-5 py-2.5 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 rounded-xl text-xs font-semibold transition-colors mt-2 sm:mt-0 lg:ml-auto underline decoration-slate-300 dark:decoration-slate-700 underline-offset-4">Manage Preferences</button>
+        </div>
+    </div>
+
+    <!-- Script for handling cookie consent -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const consentBanner = document.getElementById('cookie-consent-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            const rejectBtn = document.getElementById('cookie-reject');
+            const manageBtn = document.getElementById('cookie-manage');
+            
+            // Check if consent already given or rejected
+            const cookieStatus = localStorage.getItem('engiprep_cookie_consent');
+            
+            if (!cookieStatus) {
+                // Show banner with small delay for animation
+                setTimeout(() => {
+                    consentBanner.classList.remove('translate-y-[150%]');
+                }, 1000);
+            }
+            
+            const hideBanner = (status) => {
+                localStorage.setItem('engiprep_cookie_consent', status);
+                consentBanner.classList.add('translate-y-[150%]');
+                setTimeout(() => {
+                    consentBanner.style.display = 'none';
+                }, 500);
+            };
+            
+            acceptBtn.addEventListener('click', () => hideBanner('accepted'));
+            rejectBtn.addEventListener('click', () => hideBanner('rejected'));
+            manageBtn.addEventListener('click', () => {
+                alert('Advanced cookie preferences management would open here. For now, defaulting settings.');
+            });
+        });
+    </script>
 </body>
 </html>

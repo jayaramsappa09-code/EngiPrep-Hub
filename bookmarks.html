@@ -23,6 +23,9 @@
     
     
     
+    
+    
+    
 
     
     
@@ -245,6 +248,36 @@
     
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
     <meta property="og:title" content="Premium JNTUK Study Notes | EngiPrepHub">
     <meta property="og:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
     <meta property="og:url" content="https://engiprephub.in/bookmarks">
@@ -256,27 +289,56 @@
 
 </head>
 <body class="bg-[#0a0a0f]">
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 border">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <a href="/index.html" class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-                    <span class="font-black text-xl">E</span>
+    <!-- Top Header (Trust + Navigation) -->
+    <header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-[#030306]/85 border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between" aria-label="Main Navigation">
+            <a href="/" class="flex items-center gap-4 group" aria-label="EngiPrep Hub Homepage">
+                <div class="relative w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-lg group-hover:scale-105 transition-transform">
+                    <svg class="relative z-10 w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
                 </div>
-                <span class="text-xl font-black tracking-tighter uppercase">EngiPrep <span class="text-primary italic">Hub</span></span>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-blue-600 dark:text-blue-400">Hub</span></span>
+                    <span class="text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-1">Engineering Concepts Made Simple & Practical</span>
+                </div>
             </a>
             
-            
-            
-            <div id="nav-actions" class="flex items-center gap-4">
-                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none" aria-label="Toggle Dark Mode">
+            <div class="hidden xl:flex items-center gap-6" id="dekstop-nav-menu">
+                <a href="/" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+                <a href="/notes.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Study Notes</a>
+                <a href="/cheat-sheets.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Formulas</a>
+                <a href="/pyqs.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Previous Papers</a>
+                <a href="/quiz.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Quizzes</a>
+                <a href="/tools.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Academic Tools</a>
+                <a href="/blog.html" class="nav-link text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Blog</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" type="button" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-500" aria-label="Toggle Dark Mode">
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                     <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 pointer-events-none" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                 </button>
-                <div class="skeleton w-20 h-8 opacity-20"></div>
+                <!-- Mobile Menu Button -->
+                <button class="xl:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" aria-label="Open Mobile Menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-4 absolute w-full left-0 top-full shadow-2xl">
+            <div class="flex flex-col space-y-2">
+                <a href="/" class="px-4 py-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300">Home</a>
+                <a href="/notes.html" class="px-4 py-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300">Study Notes</a>
+                <a href="/cheat-sheets.html" class="px-4 py-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300">Important Formulas</a>
+                <a href="/pyqs.html" class="px-4 py-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300">Previous Year Papers</a>
+                <a href="/quiz.html" class="px-4 py-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300">Practice Questions</a>
+                <a href="/tools.html" class="px-4 py-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300">Academic Tools</a>
             </div>
         </div>
-    </nav>
+    </header>
 
     <main class="max-w-7xl mx-auto px-4 pt-32 pb-20">
         <!-- Breadcrumbs -->
@@ -550,6 +612,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- EngiPrepHubFooter -->
 <footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
   <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
@@ -563,5 +637,59 @@
   <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
 </footer>
 
+
+<!-- Comprehensive Cookie Consent Widget -->
+    <div id="cookie-consent-banner" class="fixed bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl rounded-2xl p-6 z-[100] transform translate-y-[150%] transition-transform duration-500 flex flex-col gap-4">
+        <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+            </div>
+            <div class="flex-1">
+                <h3 class="font-bold text-slate-900 dark:text-white mb-1">We value your privacy</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.
+                </p>
+            </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <button id="cookie-accept" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors shadow-sm flex-1 sm:flex-none">Accept All</button>
+            <button id="cookie-reject" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition-colors flex-1 sm:flex-none">Reject All</button>
+            <button id="cookie-manage" class="px-5 py-2.5 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 rounded-xl text-xs font-semibold transition-colors mt-2 sm:mt-0 lg:ml-auto underline decoration-slate-300 dark:decoration-slate-700 underline-offset-4">Manage Preferences</button>
+        </div>
+    </div>
+
+    <!-- Script for handling cookie consent -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const consentBanner = document.getElementById('cookie-consent-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            const rejectBtn = document.getElementById('cookie-reject');
+            const manageBtn = document.getElementById('cookie-manage');
+            
+            // Check if consent already given or rejected
+            const cookieStatus = localStorage.getItem('engiprep_cookie_consent');
+            
+            if (!cookieStatus) {
+                // Show banner with small delay for animation
+                setTimeout(() => {
+                    consentBanner.classList.remove('translate-y-[150%]');
+                }, 1000);
+            }
+            
+            const hideBanner = (status) => {
+                localStorage.setItem('engiprep_cookie_consent', status);
+                consentBanner.classList.add('translate-y-[150%]');
+                setTimeout(() => {
+                    consentBanner.style.display = 'none';
+                }, 500);
+            };
+            
+            acceptBtn.addEventListener('click', () => hideBanner('accepted'));
+            rejectBtn.addEventListener('click', () => hideBanner('rejected'));
+            manageBtn.addEventListener('click', () => {
+                alert('Advanced cookie preferences management would open here. For now, defaulting settings.');
+            });
+        });
+    </script>
 </body>
 </html>
