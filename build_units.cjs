@@ -342,13 +342,20 @@ ${JSON.stringify(schemaObj, null, 4)}
 
                 <!-- 2. Blueprint & Detailed Explanations -->
                 <section id="blueprint-explanations" class="glass-card p-8 bg-white dark:bg-slate-900 shadow-sm border-l-4 border-blue-500">
+                    ${(() => {
+                        const articlePath = require('path').join(__dirname, 'src', 'articles', `${subjectSlug}-${unit.id}.html`);
+                        if (require('fs').existsSync(articlePath)) {
+                            return require('fs').readFileSync(articlePath, 'utf8');
+                        }
+                        return `
                     <h2 class="text-2xl font-black mb-4 text-slate-900 dark:text-slate-50 pb-2">Exam weightage Analysis</h2>
                     <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">${deep.weightageAnalysis}</p>
                     
                     <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4 pb-2 border-b border-slate-200 dark:border-slate-800">Complete Conceptual Breakdown</h3>
                     <div class="text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-sm md:text-base">
                         ${deep.topicExplanation}
-                    </div>
+                    </div>`;
+                    })()}
                 </section>
 
                 <!-- 3. Key Definitions -->
