@@ -180,11 +180,149 @@ function checkReminders() {
     if (updated) saveTasks(tasks);
 }
 
+// Set up Export / Import functionality
+function exportTasks() {
+    try {
+        const tasks = getTasks();
+        if (tasks.length === 0) {
+            showToast("No tasks found to export!", "warn");
+            return;
+        }
+
+        const jsonStr = JSON.stringify(tasks, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        
+        const timestamp = new Date().toISOString().slice(0, 10);
+        link.href = url;
+        link.download = `engiPrepHub-tasks-backup-${timestamp}.json`;
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        showToast("Tasks backup exported successfully!", "success");
+    } catch (err) {
+        console.error(err);
+        showToast("Failed to export tasks", "warn");
+    }
+}
+
+function handleImportFile(file: File) {
+    if (!file) return;
+    
+    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+        showToast("Please upload a valid .json file", "warn");
+        return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        try {
+            const raw = event.target?.result as string;
+            if (!raw) throw new Error("Empty file content");
+            
+            const imported = JSON.parse(raw);
+            
+            if (!Array.isArray(imported)) {
+                throw new Error("Invalid format: Backup must be a list of tasks");
+            }
+            
+            const validatedTasks: Task[] = [];
+            for (const item of imported) {
+                if (typeof item === 'object' && item !== null && 'title' in item && 'dueDate' in item) {
+                    validatedTasks.push({
+                        id: typeof item.id === 'string' ? item.id : crypto.randomUUID(),
+                        title: String(item.title).trim(),
+                        dueDate: String(item.dueDate),
+                        reminderMinutes: typeof item.reminderMinutes === 'number' ? item.reminderMinutes : 0,
+                        completed: Boolean(item.completed),
+                        notified: Boolean(item.notified),
+                        createdAt: typeof item.createdAt === 'string' ? item.createdAt : new Date().toISOString()
+                    });
+                }
+            }
+            
+            if (validatedTasks.length === 0) {
+                showToast("No valid tasks found in the uploaded file", "warn");
+                return;
+            }
+            
+            const existing = getTasks();
+            const existingIds = new Set(existing.map(t => t.id));
+            const newCount = validatedTasks.filter(t => !existingIds.has(t.id)).length;
+            
+            const combinedMap = new Map<string, Task>();
+            existing.forEach(t => combinedMap.set(t.id, t));
+            validatedTasks.forEach(t => combinedMap.set(t.id, t));
+            
+            const combinedList = Array.from(combinedMap.values());
+            saveTasks(combinedList);
+            
+            showToast(`Imported ${validatedTasks.length} tasks successfully!`, "success");
+            
+            const fileInput = document.getElementById('import-file-input') as HTMLInputElement;
+            if (fileInput) fileInput.value = '';
+            
+        } catch (err: any) {
+            console.error(err);
+            showToast(`Import failed: ${err.message || 'Invalid JSON content'}`, "warn");
+        }
+    };
+    reader.readAsText(file);
+}
+
 // Set up
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('task-form');
     if (form) {
         form.addEventListener('submit', handleFormSubmit);
+    }
+    
+    // Wire up backup buttons
+    const exportBtn = document.getElementById('export-tasks-btn');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', exportTasks);
+    }
+
+    const fileInput = document.getElementById('import-file-input') as HTMLInputElement;
+    if (fileInput) {
+        fileInput.addEventListener('change', () => {
+            const files = fileInput.files;
+            if (files && files.length > 0) {
+                handleImportFile(files[0]);
+            }
+        });
+    }
+
+    // Drag and drop Visual feedback for the custom Dropzone layout
+    const dropzone = document.getElementById('import-dropzone');
+    if (dropzone && fileInput) {
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropzone.classList.add('border-blue-500', 'bg-blue-100/10', 'dark:bg-blue-900/10');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropzone.classList.remove('border-blue-500', 'bg-blue-100/10', 'dark:bg-blue-900/10');
+            }, false);
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt?.files;
+            if (files && files.length > 0) {
+                handleImportFile(files[0]);
+            }
+        }, false);
     }
     
     // Check initial focus
