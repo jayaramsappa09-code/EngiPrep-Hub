@@ -59,6 +59,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:
 .nav-search input:focus{border-color:var(--accent);background:rgba(255,255,255,0.06);box-shadow:0 0 0 4px rgba(var(--accent-rgb, 59, 130, 246), 0.15)}
 .nav-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--text3)}
 .nav-badge{padding:8px 16px;background:var(--accent);color:#fff;border-radius:var(--r2);font-size:.75rem;font-weight:800;white-space:nowrap;box-shadow:0 4px 12px var(--accent-glow)}
+.nav-links{display:flex;align-items:center;gap:24px;margin-left:24px}
+.nl{color:var(--text2);text-decoration:none;font-size:0.9rem;font-weight:700;font-family:var(--font);transition:all 0.25s ease;text-transform:uppercase;letter-spacing:0.04em}
+.nl:hover{color:var(--accent);transform:translateY(-1px)}
+.nl.active{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:2px}
+@media(max-width:1240px){
+  .nav-links{display:none !important}
+}
 
 /* TABS */
 .subject-tabs{background:rgba(15,23,42,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:72px;z-index:190;overflow-x:auto}
@@ -314,13 +321,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#" class="logo">
+    <a href="/" class="logo">
       <div class="logo-icon">E</div>
       <div>
         <span class="logo-text">EngiPrep <span>Hub</span></span>
         <span class="logo-sub">Prepare · Practice · Perform</span>
       </div>
     </a>
+    
+    <div class="nav-links">
+      <a href="/notes.html" class="nl">Study Notes</a>
+      <a href="/pyqs.html" class="nl active">Solved PYQs</a>
+      <a href="/cheat-sheets.html" class="nl">Cheat Sheets</a>
+      <a href="/tools.html" class="nl">Academic Tools</a>
+      <a href="/tasks.html" class="nl">Tasks</a>
+    </div>
+
     <div class="nav-search">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
       <input type="text" id="globalSearch" placeholder="Search questions, topics…" oninput="handleGlobalSearch(this.value)"/>

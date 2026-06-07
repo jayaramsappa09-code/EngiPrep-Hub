@@ -2308,7 +2308,7 @@ export const getBlogTopics = (): BlogTopic[] => {
       metaDescription,
       primaryKeyword,
       searchIntent,
-      difficulty: item.difficulty,
+      difficulty: item.difficulty as 'Easy' | 'Medium' | 'Hard',
       trafficPotential,
       internalLinks: [item.link || "/semester-1.html", "/tools.html", "/notes.html", "/pyqs.html", "/ai-professor.html"],
       schemaType,
