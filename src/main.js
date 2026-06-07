@@ -7,6 +7,7 @@ import { supabase, getCurrentUser, getUserProfile } from './supabase'
 import { toggleBookmark } from './notes'
 import { toast, showEncouragingToast, showSuccessToast, showAchievementToast } from './utils/toast'
 import { initInternalLinkingSystem } from './internalLinking'
+import { inView, animate } from "motion"
 
 // Import and register advanced offline AI subsystems
 import { AI_ENGINE } from './ai/engine/coreEngine.js';
@@ -386,22 +387,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initScrollAnimations() {
-    const elements = document.querySelectorAll('.scroll-animate');
+    const elements = document.querySelectorAll('[data-motion-initial]');
     if (!elements.length) return;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-up');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
+    elements.forEach(el => {
+        const initial = JSON.parse(el.getAttribute('data-motion-initial'));
+        const whileInView = JSON.parse(el.getAttribute('data-motion-while-in-view'));
+        const viewport = JSON.parse(el.getAttribute('data-motion-viewport') || '{}');
+        const delay = el.getAttribute('data-delay') ? parseFloat(el.getAttribute('data-delay')) : 0;
 
-    elements.forEach(el => observer.observe(el));
+        // Apply initial state
+        if (initial.opacity !== undefined) el.style.opacity = initial.opacity;
+        if (initial.y !== undefined) el.style.transform = `translateY(${initial.y}px)`;
+
+        inView(el, (info) => {
+            animate(el, whileInView, {
+                duration: 0.8,
+                delay: delay,
+                easing: [0.17, 0.55, 0.55, 1]
+            });
+            return viewport.once ? undefined : () => {
+                animate(el, initial, { duration: 0.4 });
+            };
+        }, { margin: viewport.margin || "-50px" });
+    });
 }
 
 function initAuthorBox() {
