@@ -11,6 +11,9 @@
     
     
     
+    
+    
+    
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&display=swap');
 :root{--bg:#050810;--bg2:#080d1a;--bg3:#0c1225;--card:rgba(255,255,255,0.03);--card-border:rgba(255,255,255,0.07);--accent:#00d4ff;--accent2:#7c3aed;--accent3:#f59e0b;--accent4:#10b981;--text:#e2e8f0;--text2:#94a3b8;--text3:#475569;--red:#ef4444;--glow:0 0 30px rgba(0,212,255,0.15);--font:'Space Grotesk',sans-serif;--mono:'JetBrains Mono',monospace;--display:'Syne',sans-serif;--radius:16px;--radius-sm:8px}
@@ -111,7 +114,21 @@
 .viva-a{padding:14px 18px;font-size:0.84rem;color:var(--text2);line-height:1.7;display:none;border-top:1px solid var(--card-border);background:rgba(0,212,255,0.03)}
 .viva-a.open{display:block}
 .viva-chevron{transition:transform 0.2s;font-size:0.8rem;color:var(--text3)}
-.viva-item.open .viva-chevron{transform:rotate(180deg)}
+.svg-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.svg-icon.sm { width: 1rem; height: 1rem; stroke-width: 2; }
+.svg-icon.lg { width: 1.5rem; height: 1.5rem; stroke-width: 2.5; }
+.svg-icon.inline { display: inline-block; vertical-align: middle; margin-top: -2px; }
+
+.section-icon, .unit-num, .EngiPrepSubjectEEATWidgets { display: none !important; }
 .pyq-grid{display:grid;gap:12px}
 .pyq-card{background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:var(--radius-sm);padding:16px}
 .pyq-year{font-size:0.7rem;color:var(--accent3);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
@@ -291,6 +308,36 @@
     
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
     <meta property="og:title" content="Premium JNTUK Study Notes | EngiPrepHub">
     <meta property="og:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
     <meta property="og:url" content="https://engiprephub.in/engineering-graphics-enter-lab">
@@ -304,14 +351,20 @@
 <body>
 
 <div id="loader">
-  <div class="loader-logo">⚡ EngiPrepHub</div>
+  <div class="loader-logo">
+    <svg class="svg-icon lg inline" style="margin-right:8px" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    EngiPrepHub
+  </div>
   <div style="font-size:0.85rem;color:var(--text3)">Engineering Graphics Laboratory · JNTUK R23</div>
   <div class="loader-bar"><div class="loader-fill"></div></div>
   <div style="font-size:0.78rem;color:var(--text3);margin-top:8px" id="loader-msg">Initializing Laboratory...</div>
 </div>
 
 <nav id="topnav">
-  <div class="nav-brand" onclick="navigate('home')">⚡ EngiPrepHub</div>
+  <div class="nav-brand" onclick="navigate('home')">
+    <svg class="svg-icon inline" style="margin-right:4px" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    EngiPrepHub
+  </div>
   <div class="nav-links">
     <button class="nav-link active" onclick="navigate('home')">Home</button>
     <button class="nav-link" onclick="navigate('unit1')">Unit I</button>
@@ -323,7 +376,10 @@
     <button class="nav-link" onclick="navigate('exam')">Exam Mode</button>
   </div>
   <div style="display:flex;align-items:center;gap:10px">
-    <div class="xp-badge" id="xp-display">⭐ <span id="xp-val">0</span> XP</div>
+    <div class="xp-badge" id="xp-display">
+      <svg class="svg-icon sm inline" style="margin-right:4px" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span id="xp-val">0</span> XP
+    </div>
     <div class="hamburger" onclick="toggleSidebar()" id="ham">
       <span></span><span></span><span></span>
     </div>
@@ -395,13 +451,25 @@
 <!-- HOME PAGE -->
 <section class="page active" id="page-home">
   <div class="hero">
-    <div class="hero-tag">🎓 JNTUK R23 | Engineering Graphics Laboratory</div>
+    <div class="hero-tag">
+      <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      JNTUK R23 | Engineering Graphics Laboratory
+    </div>
     <h1>Master <span>Engineering Graphics</span><br>Like Never Before</h1>
     <p>Interactive animations, AutoCAD simulator, 3D projections, and exam preparation — all in one premium platform built for JNTUK R23 students.</p>
     <div class="hero-btns">
-      <button class="btn btn-primary" onclick="navigate('unit1')">🚀 Start Learning</button>
-      <button class="btn btn-outline" onclick="navigate('autocad')">⚙️ AutoCAD Lab</button>
-      <button class="btn btn-outline" onclick="navigate('exam')">📋 Exam Mode</button>
+      <button class="btn btn-primary" onclick="navigate('unit1')">
+        <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
+        Start Learning
+      </button>
+      <button class="btn btn-outline" onclick="navigate('autocad')">
+        <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        AutoCAD Lab
+      </button>
+      <button class="btn btn-outline" onclick="navigate('exam')">
+        <svg class="svg-icon sm inline" style="margin-right:4px" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M7 20h.01"/><path d="M17 20h.01"/><path d="M4 20h.01"/><path d="M20 20h.01"/><path d="M12 16v-4"/><path d="M12 8h.01"/><path d="M12 4v.01"/></svg>
+        Exam Mode
+      </button>
     </div>
   </div>
   <div style="padding:0 32px 32px">
@@ -521,9 +589,9 @@
     <div class="content-card">
       <h3><span class="dot"></span>PYQs — Scales</h3>
       <div class="pyq-grid">
-        <div class="pyq-card"><div class="pyq-year">JNTUK 2023</div><div class="pyq-q">Construct a plain scale to show km and hm when 1km = 3cm on drawing. Mark 3km 6hm.</div><div class="pyq-marks">📋 10 Marks</div></div>
-        <div class="pyq-card"><div class="pyq-year">JNTUK 2022</div><div class="pyq-q">Construct a diagonal scale of RF=1/4000 to show km, hm, dm up to 6km. Mark 4km 5hm 6dm.</div><div class="pyq-marks">📋 10 Marks</div></div>
-        <div class="pyq-card"><div class="pyq-year">JNTUK 2021</div><div class="pyq-q">Construct a Vernier scale RF=1/25, max 4m, to read metres, decimetres, centimetres. Mark 2m 3dm 7cm.</div><div class="pyq-marks">📋 10 Marks</div></div>
+        <div class="pyq-card"><div class="pyq-year">JNTUK 2023</div><div class="pyq-q">Construct a plain scale to show km and hm when 1km = 3cm on drawing. Mark 3km 6hm.</div><div class="pyq-marks"><svg class="svg-icon sm inline" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg> 10 Marks</div></div>
+        <div class="pyq-card"><div class="pyq-year">JNTUK 2022</div><div class="pyq-q">Construct a diagonal scale of RF=1/4000 to show km, hm, dm up to 6km. Mark 4km 5hm 6dm.</div><div class="pyq-marks"><svg class="svg-icon sm inline" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg> 10 Marks</div></div>
+        <div class="pyq-card"><div class="pyq-year">JNTUK 2021</div><div class="pyq-q">Construct a Vernier scale RF=1/25, max 4m, to read metres, decimetres, centimetres. Mark 2m 3dm 7cm.</div><div class="pyq-marks"><svg class="svg-icon sm inline" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg> 10 Marks</div></div>
       </div>
     </div>
   </div>
@@ -752,7 +820,10 @@
       </div>
       <div class="pyq-grid" style="margin-top:16px">
         <div class="pyq-card"><div class="pyq-year">JNTUK 2023</div><div class="pyq-q">A regular pentagon of 30mm side has surface inclined at 45° to HP. Draw projections when one side is in HP and perpendicular to VP.</div><div class="pyq-marks">📋 10 Marks</div></div>
-        <div class="pyq-card"><div class="pyq-year">JNTUK 2022</div><div class="pyq-q">A hexagonal plane of 25mm side is parallel to HP and 20mm above it. One side is parallel to VP. Draw projections.</div><div class="pyq-marks">📋 5 Marks</div></div>
+        <div class="pyq-card"><div class="pyq-year">JNTUK 2022</div><div class="pyq-q">A hexagonal plane of 25mm side is parallel to HP and 20mm above it. One side is parallel to VP. Draw projections.</div><div class="pyq-marks">
+            <svg class="svg-icon sm inline" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+            5 Marks
+          </div></div>
         <div class="pyq-card"><div class="pyq-year">JNTUK 2021</div><div class="pyq-q">A circular plate of 60mm diameter is inclined at 60° to VP, making 30° with HP. Draw projections.</div><div class="pyq-marks">📋 10 Marks</div></div>
       </div>
     </div>
@@ -788,11 +859,26 @@
     <div class="content-card">
       <h3><span class="dot"></span>Interactive 3D Solid Models</h3>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">
-        <button class="model-btn active" onclick="show3DSolid('cube',this)">🧊 Cube</button>
-        <button class="model-btn" onclick="show3DSolid('prism',this)">📦 Prism</button>
-        <button class="model-btn" onclick="show3DSolid('pyramid',this)">🔺 Pyramid</button>
-        <button class="model-btn" onclick="show3DSolid('cylinder',this)">🥫 Cylinder</button>
-        <button class="model-btn" onclick="show3DSolid('cone',this)">🔻 Cone</button>
+        <button class="model-btn active" onclick="show3DSolid('cube',this)">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+          Cube
+        </button>
+        <button class="model-btn" onclick="show3DSolid('prism',this)">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+          Prism
+        </button>
+        <button class="model-btn" onclick="show3DSolid('pyramid',this)">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M12 2 2 22h20L12 2Z"/></svg>
+          Pyramid
+        </button>
+        <button class="model-btn" onclick="show3DSolid('cylinder',this)">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          Cylinder
+        </button>
+        <button class="model-btn" onclick="show3DSolid('cone',this)">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><ellipse cx="12" cy="19" rx="9" ry="3"/><path d="M3 19 12 2l9 17"/></svg>
+          Cone
+        </button>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
         <div class="anim-container" style="margin-bottom:0">
@@ -819,8 +905,8 @@
     <div class="content-card">
       <h3><span class="dot"></span>Viva & PYQs</h3>
       <div class="viva-list">
-        <div class="viva-item" onclick="toggleViva(this)"><div class="viva-q">Prism vs Pyramid? <span class="viva-chevron">▼</span></div><div class="viva-a">Prism: Two identical parallel polygonal bases + rectangular lateral faces. Pyramid: One polygonal base + triangular faces meeting at apex.</div></div>
-        <div class="viva-item" onclick="toggleViva(this)"><div class="viva-q">FV and TV of cone with axis ⊥ HP? <span class="viva-chevron">▼</span></div><div class="viva-a">TV = circle (base) with centre mark (apex). FV = isosceles triangle with base = diameter, height = cone height.</div></div>
+        <div class="viva-item" onclick="toggleViva(this)"><div class="viva-q">Prism vs Pyramid? <svg class="svg-icon sm inline viva-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div><div class="viva-a">Prism: Two identical parallel polygonal bases + rectangular lateral faces. Pyramid: One polygonal base + triangular faces meeting at apex.</div></div>
+        <div class="viva-item" onclick="toggleViva(this)"><div class="viva-q">FV and TV of cone with axis ⊥ HP? <svg class="svg-icon sm inline viva-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div><div class="viva-a">TV = circle (base) with centre mark (apex). FV = isosceles triangle with base = diameter, height = cone height.</div></div>
       </div>
       <div class="pyq-grid" style="margin-top:16px">
         <div class="pyq-card"><div class="pyq-year">JNTUK 2023</div><div class="pyq-q">A pentagonal prism 30mm side, 60mm axis rests on one rectangular face on HP. Axis parallel to HP and VP. Draw projections.</div><div class="pyq-marks">📋 10 Marks</div></div>
@@ -852,7 +938,10 @@
         <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:var(--radius-sm);padding:16px"><div style="font-size:0.85rem;font-weight:700;color:var(--accent4);margin-bottom:8px">Three Axes</div><div style="font-size:0.83rem;color:var(--text2)">Vertical (Y), 30° right (X), 30° left (Z). All 120° apart.</div></div>
       </div>
       <div class="anim-container">
-        <div class="anim-header"><div class="anim-title">📐 Isometric Axes & Cube</div><div class="anim-controls"><button class="anim-btn play" onclick="animIsoAxes()">▶ Animate</button><button class="anim-btn reset" onclick="resetSVG('iso-axes-svg','ia-g','ia-info','Three axes at 120°')">↺ Reset</button></div></div>
+        <div class="anim-header"><div class="anim-title">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+          Isometric Axes & Cube
+        </div><div class="anim-controls"><button class="anim-btn play" onclick="animIsoAxes()">▶ Animate</button><button class="anim-btn reset" onclick="resetSVG('iso-axes-svg','ia-g','ia-info','Three axes at 120°')">↺ Reset</button></div></div>
         <svg id="iso-axes-svg" class="anim-canvas" viewBox="0 0 700 400" style="height:400px"><rect width="700" height="400" fill="#020408"/><g id="ia-g"></g></svg>
         <div class="anim-step-info" id="ia-info">Three isometric axes at 120° to each other</div>
       </div>
@@ -901,7 +990,10 @@
 <!-- AUTOCAD PAGE -->
 <section class="page" id="page-autocad">
   <div class="section-header">
-    <div class="section-title">⚙️ AutoCAD <span>Master Training</span></div>
+    <div class="section-title">
+      <svg class="svg-icon lg inline" style="margin-right:8px" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      AutoCAD <span>Master Training</span>
+    </div>
     <div class="section-desc">Live terminal simulator, 50+ commands, engineering applications</div>
   </div>
   <div class="tabs" id="autocad-tabs">
@@ -943,10 +1035,22 @@
       <h3><span class="dot"></span>Interactive Drawing Canvas</h3>
       <p>Click to place points and draw shapes. Select a tool below.</p>
       <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-        <button class="model-btn active" id="tool-line" onclick="setDrawTool('line',this)">✏️ Line</button>
-        <button class="model-btn" id="tool-circle" onclick="setDrawTool('circle',this)">⭕ Circle</button>
-        <button class="model-btn" id="tool-rect" onclick="setDrawTool('rect',this)">⬜ Rectangle</button>
-        <button class="model-btn" onclick="clearCanvas()">🗑️ Clear</button>
+        <button class="model-btn active" id="tool-line" onclick="setDrawTool('line',this)">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+          Line
+        </button>
+        <button class="model-btn" id="tool-circle" onclick="setDrawTool('circle',this)">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+          Circle
+        </button>
+        <button class="model-btn" id="tool-rect" onclick="setDrawTool('rect',this)">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+          Rectangle
+        </button>
+        <button class="model-btn" onclick="clearCanvas()">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+          Clear
+        </button>
       </div>
       <div class="autocad-canvas-wrap">
         <div class="autocad-grid"></div>
@@ -966,8 +1070,8 @@
         <div class="viva-item" onclick="toggleViva(this)"><div class="viva-q">What is a LAYER in AutoCAD and why is it used? <span class="viva-chevron">▼</span></div><div class="viva-a">Layers are like transparent overlays in AutoCAD. Objects on different layers can be shown/hidden, frozen, locked, or printed differently. In engineering drawings: separate layers for visible lines, hidden lines, centre lines, dimensions, text, etc. Follows BIS convention where each line type is on a different layer with appropriate color and lineweight.</div></div>
       </div>
       <div class="pyq-grid" style="margin-top:16px">
-        <div class="pyq-card"><div class="pyq-year">JNTUK Lab</div><div class="pyq-q">Draw an engineering drawing of a flange plate using AutoCAD. Include: 100mm circle, 4 holes of 10mm dia on PCD 70mm, centre lines, dimensions.</div><div class="pyq-marks">📋 Lab Task</div></div>
-        <div class="pyq-card"><div class="pyq-year">JNTUK Lab</div><div class="pyq-q">Using AutoCAD, draw the front view and top view of a cylinder (dia=50, height=80) with axis perpendicular to HP. Add all dimensions.</div><div class="pyq-marks">📋 Lab Task</div></div>
+        <div class="pyq-card"><div class="pyq-year">JNTUK Lab</div><div class="pyq-q">Draw an engineering drawing of a flange plate using AutoCAD. Include: 100mm circle, 4 holes of 10mm dia on PCD 70mm, centre lines, dimensions.</div><div class="pyq-marks"><svg class="svg-icon sm inline" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg> Lab Task</div></div>
+        <div class="pyq-card"><div class="pyq-year">JNTUK Lab</div><div class="pyq-q">Using AutoCAD, draw the front view and top view of a cylinder (dia=50, height=80) with axis perpendicular to HP. Add all dimensions.</div><div class="pyq-marks"><svg class="svg-icon sm inline" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg> Lab Task</div></div>
       </div>
     </div>
   </div>
@@ -976,7 +1080,10 @@
 <!-- EXAM PAGE -->
 <section class="page" id="page-exam">
   <div class="section-header">
-    <div class="section-title">📋 Exam <span>Survival Mode</span></div>
+    <div class="section-title">
+      <svg class="svg-icon lg inline" style="margin-right:8px" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M7 20h.01"/><path d="M17 20h.01"/><path d="M4 20h.01"/><path d="M20 20h.01"/><path d="M12 16v-4"/><path d="M12 8h.01"/><path d="M12 4v.01"/></svg>
+      Exam <span>Survival Mode</span>
+    </div>
     <div class="section-desc">Timed quizzes, quick revision, last-minute tips, and full paper practice</div>
   </div>
   <div class="tabs" id="exam-tabs">
@@ -998,7 +1105,9 @@
       </div>
       <div id="quiz-container">
         <div style="text-align:center;padding:40px;color:var(--text2)">
-          <div style="font-size:3rem;margin-bottom:16px">🎯</div>
+          <div style="font-size:3rem;margin-bottom:16px">
+            <svg class="svg-icon lg" style="width:50px;height:50px;margin:0 auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
           <div style="font-size:1.1rem;margin-bottom:8px">Ready to test your knowledge?</div>
           <div style="font-size:0.9rem">Select a unit and click to start the quiz!</div>
         </div>
@@ -1062,25 +1171,44 @@
   <div class="tab-content" id="exam-tab-tips">
     <div class="content-card">
       <h3><span class="dot"></span>Exam Tips & Common Mistakes</h3>
-      <div class="tip-box"><div class="tip-icon">✅</div><div class="tip-text"><strong>Always draw Reference Line (XY)</strong> first with proper labelling. Both HP and VP must be clearly indicated.</div></div>
-      <div class="tip-box"><div class="tip-icon">✅</div><div class="tip-text"><strong>Use correct line types:</strong> Visible = thick continuous, Hidden = thick dashed, Centre = chain thin, Dimension = thin continuous.</div></div>
-      <div class="tip-box"><div class="tip-icon">✅</div><div class="tip-text"><strong>Label all points</strong> with proper notation: FV points = a'b'c', TV points = abc, actual points = A,B,C.</div></div>
-      <div class="tip-box"><div class="tip-icon">✅</div><div class="tip-text"><strong>Projectors must be perpendicular to XY</strong> in orthographic projection. Never draw projectors at an angle.</div></div>
-      <div class="tip-box mistake"><div class="tip-icon">❌</div><div class="tip-text"><strong>MISTAKE:</strong> Forgetting to show hidden edges in dashed lines. All edges behind the visible surface must be shown as dashed.</div></div>
-      <div class="tip-box mistake"><div class="tip-icon">❌</div><div class="tip-text"><strong>MISTAKE:</strong> Drawing cycloid base line shorter than 2πR. Always calculate: base = πd (full circumference).</div></div>
-      <div class="tip-box mistake"><div class="tip-icon">❌</div><div class="tip-text"><strong>MISTAKE:</strong> Using actual scale instead of isometric scale when projection is asked. Iso scale = 0.816.</div></div>
-      <div class="tip-box mistake"><div class="tip-icon">❌</div><div class="tip-text"><strong>MISTAKE:</strong> Not writing RF value below scale drawing. Always write RF = 1/n and scale statement.</div></div>
+      <div class="tip-box"><div class="tip-icon">
+        <svg class="svg-icon sm inline" style="color:var(--accent4)" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div><div class="tip-text"><strong>Always draw Reference Line (XY)</strong> first with proper labelling. Both HP and VP must be clearly indicated.</div></div>
+      <div class="tip-box"><div class="tip-icon">
+        <svg class="svg-icon sm inline" style="color:var(--accent4)" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div><div class="tip-text"><strong>Use correct line types:</strong> Visible = thick continuous, Hidden = thick dashed, Centre = chain thin, Dimension = thin continuous.</div></div>
+      <div class="tip-box"><div class="tip-icon">
+        <svg class="svg-icon sm inline" style="color:var(--accent4)" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div><div class="tip-text"><strong>Label all points</strong> with proper notation: FV points = a'b'c', TV points = abc, actual points = A,B,C.</div></div>
+      <div class="tip-box"><div class="tip-icon">
+        <svg class="svg-icon sm inline" style="color:var(--accent4)" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div><div class="tip-text"><strong>Projectors must be perpendicular to XY</strong> in orthographic projection. Never draw projectors at an angle.</div></div>
+      <div class="tip-box mistake"><div class="tip-icon">
+        <svg class="svg-icon sm inline" style="color:var(--red)" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div><div class="tip-text"><strong>MISTAKE:</strong> Forgetting to show hidden edges in dashed lines. All edges behind the visible surface must be shown as dashed.</div></div>
+      <div class="tip-box mistake"><div class="tip-icon">
+        <svg class="svg-icon sm inline" style="color:var(--red)" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div><div class="tip-text"><strong>MISTAKE:</strong> Drawing cycloid base line shorter than 2πR. Always calculate: base = πd (full circumference).</div></div>
+      <div class="tip-box mistake"><div class="tip-icon">
+        <svg class="svg-icon sm inline" style="color:var(--red)" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div><div class="tip-text"><strong>MISTAKE:</strong> Using actual scale instead of isometric scale when projection is asked. Iso scale = 0.816.</div></div>
+      <div class="tip-box mistake"><div class="tip-icon">
+        <svg class="svg-icon sm inline" style="color:var(--red)" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div><div class="tip-text"><strong>MISTAKE:</strong> Not writing RF value below scale drawing. Always write RF = 1/n and scale statement.</div></div>
       <div style="margin-top:24px">
-        <h4 style="font-size:1rem;color:var(--accent);margin-bottom:12px">📊 Mark Distribution Strategy</h4>
+        <h4 style="font-size:1rem;color:var(--accent);margin-bottom:12px">
+          <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          Mark Distribution Strategy
+        </h4>
         <table class="marks-table">
           <tr><th>Question Type</th><th>Marks</th><th>Time</th><th>Priority</th></tr>
-          <tr><td>Scales (Plain/Diagonal)</td><td>10</td><td>20 min</td><td>🔥 High</td></tr>
-          <tr><td>Engineering Curves (Ellipse/Cycloid)</td><td>10</td><td>25 min</td><td>🔥 High</td></tr>
-          <tr><td>Projections of Lines</td><td>10</td><td>20 min</td><td>🔥 High</td></tr>
-          <tr><td>Projections of Planes</td><td>10</td><td>20 min</td><td>🔥 High</td></tr>
-          <tr><td>Projections of Solids</td><td>10</td><td>25 min</td><td>🔥 High</td></tr>
-          <tr><td>Isometric View</td><td>10</td><td>20 min</td><td>✅ Must do</td></tr>
-          <tr><td>Surface Development</td><td>10</td><td>20 min</td><td>✅ Must do</td></tr>
+          <tr><td>Scales (Plain/Diagonal)</td><td>10</td><td>20 min</td><td><svg class="svg-icon sm inline" style="color:var(--red);margin-right:4px" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.5 4 6.5 2 2 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> High</td></tr>
+          <tr><td>Engineering Curves (Ellipse/Cycloid)</td><td>10</td><td>25 min</td><td><svg class="svg-icon sm inline" style="color:var(--red);margin-right:4px" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.5 4 6.5 2 2 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> High</td></tr>
+          <tr><td>Projections of Lines</td><td>10</td><td>20 min</td><td><svg class="svg-icon sm inline" style="color:var(--red);margin-right:4px" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.5 4 6.5 2 2 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> High</td></tr>
+          <tr><td>Projections of Planes</td><td>10</td><td>20 min</td><td><svg class="svg-icon sm inline" style="color:var(--red);margin-right:4px" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.5 4 6.5 2 2 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> High</td></tr>
+          <tr><td>Projections of Solids</td><td>10</td><td>25 min</td><td><svg class="svg-icon sm inline" style="color:var(--red);margin-right:4px" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.5 4 6.5 2 2 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> High</td></tr>
+          <tr><td>Isometric View</td><td>10</td><td>20 min</td><td><svg class="svg-icon sm inline" style="color:var(--accent4);margin-right:4px" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Must do</td></tr>
+          <tr><td>Surface Development</td><td>10</td><td>20 min</td><td><svg class="svg-icon sm inline" style="color:var(--accent4);margin-right:4px" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Must do</td></tr>
         </table>
       </div>
     </div>
@@ -1109,7 +1237,10 @@
 <!-- PROGRESS PAGE -->
 <section class="page" id="page-progress">
   <div class="section-header">
-    <div class="section-title">📊 My <span>Progress Dashboard</span></div>
+    <div class="section-title">
+      <svg class="svg-icon lg inline" style="margin-right:8px" viewBox="0 0 24 24"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+      My <span>Progress Dashboard</span>
+    </div>
     <div class="section-desc">Track your learning journey and earn badges</div>
   </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
@@ -1137,15 +1268,33 @@
     <div class="content-card" style="grid-column:1/-1">
       <h3><span class="dot"></span>Achievement Badges</h3>
       <div class="badge-grid" id="badge-grid">
-        <div class="badge" id="badge-first-visit"><div class="badge-icon">🎯</div>First Visit</div>
-        <div class="badge" id="badge-unit1"><div class="badge-icon">📐</div>Unit I</div>
-        <div class="badge" id="badge-unit2"><div class="badge-icon">📏</div>Unit II</div>
-        <div class="badge" id="badge-unit3"><div class="badge-icon">🔷</div>Unit III</div>
-        <div class="badge" id="badge-unit4"><div class="badge-icon">🧊</div>Unit IV</div>
-        <div class="badge" id="badge-unit5"><div class="badge-icon">🌐</div>Unit V</div>
-        <div class="badge" id="badge-autocad"><div class="badge-icon">⚙️</div>AutoCAD</div>
-        <div class="badge" id="badge-quiz"><div class="badge-icon">🎓</div>Quiz Master</div>
-        <div class="badge" id="badge-explorer"><div class="badge-icon">🚀</div>Explorer</div>
+        <div class="badge" id="badge-first-visit"><div class="badge-icon">
+          <svg class="svg-icon lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>First Visit</div>
+        <div class="badge" id="badge-unit1"><div class="badge-icon">
+          <svg class="svg-icon lg" viewBox="0 0 24 24"><path d="M21 12H3"/><path d="M12 21V3"/></svg>
+        </div>Unit I</div>
+        <div class="badge" id="badge-unit2"><div class="badge-icon">
+          <svg class="svg-icon lg" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M7 20h.01"/><path d="M17 20h.01"/><path d="M4 20h.01"/><path d="M20 20h.01"/><path d="M12 16v-4"/><path d="M12 8h.01"/><path d="M12 4v.01"/></svg>
+        </div>Unit II</div>
+        <div class="badge" id="badge-unit3"><div class="badge-icon">
+          <svg class="svg-icon lg" viewBox="0 0 24 24"><path d="M12 2L2 12l10 10 10-10L12 2Z"/></svg>
+        </div>Unit III</div>
+        <div class="badge" id="badge-unit4"><div class="badge-icon">
+          <svg class="svg-icon lg" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+        </div>Unit IV</div>
+        <div class="badge" id="badge-unit5"><div class="badge-icon">
+          <svg class="svg-icon lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>Unit V</div>
+        <div class="badge" id="badge-autocad"><div class="badge-icon">
+          <svg class="svg-icon lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>AutoCAD</div>
+        <div class="badge" id="badge-quiz"><div class="badge-icon">
+          <svg class="svg-icon lg" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>Quiz Master</div>
+        <div class="badge" id="badge-explorer"><div class="badge-icon">
+          <svg class="svg-icon lg" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.5-1 4-4c2.17-1.87 3.5-3 5-3"/><path d="M15 11h5s1 .5 4 4c1.87 2.17 3 3.5 3 5"/></svg>
+        </div>Explorer</div>
       </div>
     </div>
   </div>
@@ -1154,7 +1303,10 @@
 <!-- PROJECTION SIMULATOR PAGE -->
 <section class="page" id="page-proj-sim">
   <div class="section-header">
-    <div class="section-title">🔭 Interactive <span>Projection Simulator</span></div>
+    <div class="section-title">
+      <svg class="svg-icon lg inline" style="margin-right:8px" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      Interactive <span>Projection Simulator</span>
+    </div>
     <div class="section-desc">Drag sliders to see real-time projection changes for lines and planes</div>
   </div>
   <div class="content-card">
@@ -1955,7 +2107,8 @@ function answerQuiz(chosen) {
   if(chosen === q.a){
     opts[chosen].classList.add('correct');
     fb.className='quiz-feedback show correct';
-    fb.textContent = '✅ Correct! ' + q.exp;
+    fb.textContent = 'Correct! ' + q.exp;
+    fb.innerHTML = '<svg class="svg-icon sm inline" style="color:var(--accent4)" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Correct! ' + q.exp;
     quizScore++;
   } else {
     opts[chosen].classList.add('wrong');
@@ -2069,18 +2222,7 @@ window.addEventListener('load',()=>{
 
 
 
-<!-- EngiPrepHubFooter -->
-<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
-  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
-    <a href="/about.html" class="hover:text-white">About</a>
-    <a href="/contact.html" class="hover:text-white">Contact</a>
-    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
-    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
-    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
-    <a href="/faq.html" class="hover:text-white">FAQ</a>
-  </div>
-  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
-</footer>
+
 
 
     <!-- Subscribe Modal -->
@@ -2103,6 +2245,29 @@ window.addEventListener('load',()=>{
             <p class="text-xs text-center mt-4 text-slate-500 dark:text-slate-500">We respect your inbox. No spam, ever.</p>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- EngiPrepHubFooter -->
+<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
+    <a href="/about.html" class="hover:text-white">About</a>
+    <a href="/contact.html" class="hover:text-white">Contact</a>
+    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq.html" class="hover:text-white">FAQ</a>
+  </div>
+  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+</footer>
 
 </body>
 </html>

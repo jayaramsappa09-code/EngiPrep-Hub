@@ -29,6 +29,7 @@
     
     
     
+    
 
     
     
@@ -79,7 +80,21 @@
   --unit4: #F59E0B;
   --unit5: #EF4444;
 }
-.section-icon, .unit-num, .logo-badge, .EngiPrepSubjectEEATWidgets { display: none !important; }
+.svg-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.svg-icon.sm { width: 1rem; height: 1rem; stroke-width: 2; }
+.svg-icon.lg { width: 1.5rem; height: 1.5rem; stroke-width: 2.5; }
+.svg-icon.inline { display: inline-block; vertical-align: middle; margin-top: -2px; }
+
+.section-icon, .unit-num, .EngiPrepSubjectEEATWidgets { display: none !important; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1251,6 +1266,16 @@ body.exam-mode .exam-grid {
     
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+
+
     <meta property="og:title" content="JNTUK R23 Engineering Graphics & AutoCAD Lab | EngiPrepHub">
     <meta property="og:description" content="Build 3D orthographic projections, isometric views, and learn standard AutoCAD command lines with step-by-step virtual drafter animations.">
     <meta property="og:url" content="https://engiprephub.in/engineering-graphics-lab">
@@ -1270,25 +1295,33 @@ body.exam-mode .exam-grid {
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-badge">⚡ Engi Prep Hub</div>
+    <div class="logo-badge">
+      <svg class="svg-icon inline sm" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Engi Prep Hub
+    </div>
     <div class="logo-sub">ENG GRAPHICS · JNTUK R23</div>
   </div>
   <nav class="unit-nav">
     <div class="unit-nav-title">Units</div>
     <button class="unit-btn active" data-unit="1" onclick="showUnit(1)">
-      <span class="unit-num">I</span> Drawing Basics & Curves
+      <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M7 20h.01"/><path d="M17 20h.01"/><path d="M4 20h.01"/><path d="M20 20h.01"/><path d="M12 16v-4"/><path d="M12 8h.01"/><path d="M12 4v.01"/></svg>
+      Drawing Basics & Curves
     </button>
     <button class="unit-btn" data-unit="2" onclick="showUnit(2)">
-      <span class="unit-num">II</span> Orthographic Proj.
+      <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M2 12h20"/><path d="M12 2v20"/><path d="M5 7l14 10"/><path d="M19 7L5 17"/></svg>
+      Orthographic Proj.
     </button>
     <button class="unit-btn" data-unit="3" onclick="showUnit(3)">
-      <span class="unit-num">III</span> Proj. of Solids
+      <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+      Proj. of Solids
     </button>
     <button class="unit-btn" data-unit="4" onclick="showUnit(4)">
-      <span class="unit-num">IV</span> Sections & Dev
+      <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      Sections & Dev
     </button>
     <button class="unit-btn" data-unit="5" onclick="showUnit(5)">
-      <span class="unit-num">V</span> Iso & AutoCAD
+      <svg class="svg-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Iso & AutoCAD
     </button>
   </nav>
   
@@ -1321,7 +1354,10 @@ body.exam-mode .exam-grid {
     <div class="mode-tabs">
       <button class="mode-tab active" onclick="setMode('study')">Learn</button>
       <button class="mode-tab" onclick="setMode('exam')">Exam</button>
-      <a href="engineering-graphics-enter-lab.html" class="mode-tab" style="background:#0F172A; color:#38BDF8; border-color:#38BDF8; font-weight:700; text-decoration:none;">Enter Lab 💻</a>
+      <a href="engineering-graphics-enter-lab.html" class="mode-tab" style="background:#0F172A; color:#38BDF8; border-color:#38BDF8; font-weight:700; text-decoration:none;">
+        <svg class="svg-icon sm inline" style="margin-right:4px" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+        Enter Lab
+      </a>
     </div>
   </div>
 
@@ -1332,7 +1368,8 @@ body.exam-mode .exam-grid {
   <p>An immersive, visual, AI-powered drafting studio. Master projections, curves, solids, and AutoCAD with guided step-by-step learning.</p>
   <div style="margin-top: 1.5rem; margin-bottom: 2.5rem; text-align: left;">
     <a href="engineering-graphics-enter-lab.html" style="display:inline-block; padding: 12px 24px; background: #0F172A; color: #38BDF8; font-weight: 700; border-radius: 8px; text-decoration: none; border: 1px solid #38BDF8; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4); font-family: 'Space Grotesk', sans-serif;">
-      <span style="margin-right:8px">💻</span> Enter AutoCAD Lab
+      <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+      Enter AutoCAD Lab
     </a>
   </div>
   <div class="unit-cards-grid">
@@ -1377,14 +1414,19 @@ body.exam-mode .exam-grid {
   <!-- LINES & LETTERING -->
   <div class="topic-block" id="lines">
     <div class="topic-header" onclick="toggleTopic(this)">
-      <div class="topic-icon" style="background:rgba(0,168,255,0.12);font-size:20px">📏</div>
+      <div class="topic-icon" style="background:rgba(0,168,255,0.12);font-size:20px">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
       <div class="topic-title">Lines, Lettering & Dimensioning</div>
       <span class="badge badge-imp">IMP</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content open">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">📐 Why This Drawing Matters</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+        <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><path d="m2 12 10 5 10-5"/><path d="m2 17 10 5 10-5"/><path d="M12 2 2 7l10 5 10-5-10-5Z"/></svg>
+        Why This Drawing Matters
+      </div><div class="sec-line"></div></div>
       <div class="box box-blue">
         <div class="box-title">Real-World Connection</div>
         Every blueprint, manufacturing drawing, and architectural plan uses standardized lines and lettering. Without this, a 5mm thick wall looks the same as a 500mm wall. Engineers speak through lines — you must speak their language.
@@ -1414,7 +1456,10 @@ body.exam-mode .exam-grid {
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Dimensioning Rules</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 20 20"/></svg>
+          Dimensioning Rules
+        </div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card">
           <div class="step-num">1</div>
@@ -1469,7 +1514,9 @@ body.exam-mode .exam-grid {
   <!-- GEOMETRICAL CONSTRUCTIONS -->
   <div class="topic-block" id="geom">
     <div class="topic-header" onclick="toggleTopic(this)">
-      <div class="topic-icon" style="background:rgba(0,255,168,0.12)">📐</div>
+      <div class="topic-icon" style="background:rgba(0,255,168,0.12)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M2 12h20"/><path d="M12 2v20"/><path d="M5 7l14 10"/><path d="M19 7L5 17"/></svg>
+      </div>
       <div class="topic-title">Geometrical Constructions & Regular Polygons</div>
       <span class="badge badge-hot">HOT</span>
       <div class="topic-chevron">▼</div>
@@ -1482,7 +1529,10 @@ body.exam-mode .exam-grid {
         <p>A regular polygon is like a perfectly fair shape — every side equal, every angle equal. Imagine slicing a circle into equal pieces like a pizza. Connect those cut points — that's your polygon! The more slices, the more it looks like a circle.</p>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Step-by-Step: Pentagon (5 sides) given side length</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 20 20"/></svg>
+          Step-by-Step: Pentagon (5 sides) given side length
+        </div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card">
           <div class="step-num">1</div>
@@ -1542,14 +1592,19 @@ body.exam-mode .exam-grid {
   <!-- CONIC SECTIONS -->
   <div class="topic-block" id="conic">
     <div class="topic-header" onclick="toggleTopic(this)">
-      <div class="topic-icon" style="background:rgba(199,125,255,0.12)">🌀</div>
+      <div class="topic-icon" style="background:rgba(199,125,255,0.12)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+      </div>
       <div class="topic-title">Conic Sections — Ellipse, Parabola & Hyperbola</div>
       <span class="badge badge-hot">HOT</span>
       <div class="topic-chevron">▼</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">📐 Why This Drawing Matters</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="m21 21-4.3-4.3"/><circle cx="11" cy="11" r="8"/></svg>
+          Why This Drawing Matters
+        </div><div class="sec-line"></div></div>
       <div class="info-grid">
         <div class="info-card">
           <div class="info-card-title">Ellipse Applications</div>
@@ -1571,14 +1626,20 @@ body.exam-mode .exam-grid {
         </div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">🧠 Conic Section Concept</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.79-2.79A2.5 2.5 0 0 1 2 12a2.5 2.5 0 0 1 2.25-2.48 2.5 2.5 0 0 1 2.79-2.79A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.79-2.79A2.5 2.5 0 0 0 22 12a2.5 2.5 0 0 0-2.25-2.48 2.5 2.5 0 0 0-2.79-2.79A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+          Conic Section Concept
+        </div><div class="sec-line"></div></div>
       <div class="imagination-block">
         <div class="imagination-label">Cone Slicing Visualization</div>
         <p>Imagine a double ice-cream cone. Now slice it with a flat plane at different angles. <strong style="color:var(--accent)">Horizontal cut = Circle.</strong> <strong style="color:var(--accent4)">Slight tilt = Ellipse.</strong> <strong style="color:var(--accent2)">Parallel to cone side = Parabola.</strong> <strong style="color:var(--accent3)">Steeper than cone side = Hyperbola.</strong> Every conic is just a cone being sliced!</p>
         <div class="formula">Eccentricity e: Circle=0, Ellipse &lt;1, Parabola=1, Hyperbola &gt;1</div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Ellipse — Concentric Circle Method</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 20 20"/></svg>
+          Ellipse — Concentric Circle Method
+        </div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Axes</div><div class="step-desc">Draw major axis AB and minor axis CD intersecting at center O. Major axis is the longer one.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Draw Two Circles</div><div class="step-desc">Draw two concentric circles: one with radius OA (major) and one with radius OC (minor).</div></div></div>
@@ -1587,7 +1648,10 @@ body.exam-mode .exam-grid {
         <div class="step-card"><div class="step-num">5</div><div class="step-body"><div class="step-title">Connect</div><div class="step-desc">Join all plotted points with a smooth freehand curve. Use French curve for precision.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Parabola — Rectangle Method</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+          <svg class="svg-icon sm inline" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 20 20"/></svg>
+          Parabola — Rectangle Method
+        </div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Enclosing Rectangle</div><div class="step-desc">Draw rectangle with width = span, height = rise of parabola. Mark vertex V at bottom center.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Divide Top Edge & Side</div><div class="step-desc">Divide the top half-width into equal parts (say 4). Divide height into same number of equal parts.</div></div></div>
@@ -2013,7 +2077,9 @@ TV is lowercase letters: a</div>
 
   <div class="topic-block" id="solids-proj">
     <div class="topic-header" onclick="toggleTopic(this)">
-      <div class="topic-icon" style="background:rgba(255,107,53,0.12)">📐</div>
+      <div class="topic-icon" style="background:rgba(255,107,53,0.12)">
+        <svg class="svg-icon lg" style="margin:0 auto" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+      </div>
       <div class="topic-title">Projections of Solids — Axis Perpendicular</div>
       <span class="badge badge-hot">HOT</span>
       <div class="topic-chevron">▼</div>
@@ -2025,21 +2091,30 @@ TV is lowercase letters: a</div>
         <p>The AXIS of a solid is its spine — the line through its center from base to apex/top. When the axis is <strong style="color:var(--accent)">perpendicular to HP</strong> (standing straight up), look from above → you see the BASE (true shape). Look from front → you see the HEIGHT (rectangle/triangle shape).<br><br>When the axis is <strong style="color:var(--accent2)">perpendicular to VP</strong> (lying flat pointing at you), look from front → you see the BASE. Look from above → you see the HEIGHT shape.</p>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Cylinder — Axis ⊥ to HP (Standing)</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+        <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+        Cylinder — Axis ⊥ to HP (Standing)
+      </div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Draw Top View</div><div class="step-desc">TV = Circle (diameter = D). This is the true shape of the base as seen from above. Circle represents both top and bottom base (coincide).</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Draw Front View</div><div class="step-desc">FV = Rectangle (width = D, height = H). Two vertical lines = extreme left and right generators. Two horizontal lines = top and bottom circles projected.</div></div></div>
         <div class="step-card"><div class="step-num">3</div><div class="step-body"><div class="step-title">Side View</div><div class="step-desc">SV (if required) = Rectangle same as FV (width = D, height = H). Cylinder looks same from all sides.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Cone — Axis ⊥ to HP (Standing)</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+        <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+        Cone — Axis ⊥ to HP (Standing)
+      </div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Top View</div><div class="step-desc">TV = Circle (base). Mark center as apex projection o. Draw circle of diameter D centered at o.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Front View</div><div class="step-desc">FV = Isosceles triangle. Base = D (horizontal line). Height = H. Apex at top center. Two slant lines = extreme generators.</div></div></div>
         <div class="step-card"><div class="step-num">3</div><div class="step-body"><div class="step-title">Hidden Lines</div><div class="step-desc">In FV, base circle is represented as a thick line at bottom. No hidden lines needed for simple standing cone.</div></div></div>
       </div>
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">✏️ Pentagonal Prism — Axis ⊥ to HP</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+        <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+        Pentagonal Prism — Axis ⊥ to HP
+      </div><div class="sec-line"></div></div>
       <div class="steps-container">
         <div class="step-card"><div class="step-num">1</div><div class="step-body"><div class="step-title">Top View = True Shape</div><div class="step-desc">Draw regular pentagon (side = given). Position it with one edge parallel to VP (nearest to observer) or as specified.</div></div></div>
         <div class="step-card"><div class="step-num">2</div><div class="step-body"><div class="step-title">Project FV</div><div class="step-desc">Project all vertices of pentagon upward. FV = rectangle H units tall. Visible faces show as rectangles, hidden as dashed lines.</div></div></div>
@@ -2047,7 +2122,10 @@ TV is lowercase letters: a</div>
       </div>
 
       <div class="box box-gold">
-        <div class="box-title">🎯 Golden Rule for Solid Projections</div>
+        <div class="box-title">
+          <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          Golden Rule for Solid Projections
+        </div>
         <ul class="styled-list">
           <li>Axis ⊥ HP → TV shows true base shape, FV shows height</li>
           <li>Axis ⊥ VP → FV shows true base shape, TV shows height</li>
@@ -2065,7 +2143,9 @@ TV is lowercase letters: a</div>
 
   <div class="topic-block" id="solids-inclined">
     <div class="topic-header" onclick="toggleTopic(this)">
-      <div class="topic-icon" style="background:rgba(255,107,53,0.12)">📐</div>
+      <div class="topic-icon" style="background:rgba(255,107,53,0.12)">
+        <svg class="svg-icon lg" style="margin:0 auto" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+      </div>
       <div class="topic-title">Inclined Solids — Axis Inclined to HP or VP</div>
       <span class="badge badge-hot">HOT</span>
       <div class="topic-chevron">▼</div>
@@ -2337,7 +2417,10 @@ Pyramid: Each triangular face uses TRUE LENGTH of slant edge</div>
     </div>
     <div class="topic-content">
 
-      <div class="sec"><div class="sec-line"></div><div class="sec-label">📐 Why AutoCAD Matters</div><div class="sec-line"></div></div>
+      <div class="sec"><div class="sec-line"></div><div class="sec-label">
+        <svg class="svg-icon sm inline" style="margin-right:8px" viewBox="0 0 24 24"><path d="m2 12 10 5 10-5"/><path d="m2 17 10 5 10-5"/><path d="M12 2 2 7l10 5 10-5-10-5Z"/></svg>
+        Why AutoCAD Matters
+      </div><div class="sec-line"></div></div>
       <div class="box box-blue">
         <div class="box-title">Industry Reality</div>
         100% of professional engineering firms use CAD software. AutoCAD is the global standard. Every drawing you do manually on paper — AutoCAD does it in seconds with PERFECT accuracy. This unit bridges your hand-drawing skills to the digital drafting world.
@@ -2945,6 +3028,10 @@ window.addEventListener('scroll', updateTOCHighlight, { passive: true });
             <p class="text-xs text-center mt-4 text-slate-500 dark:text-slate-500">We respect your inbox. No spam, ever.</p>
         </div>
     </div>
+
+
+
+
 
 
 
