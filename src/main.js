@@ -1795,7 +1795,7 @@ window.showCookiePolicyModal = function() {
                 <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
                     <h2 class="text-lg font-bold text-slate-800 dark:text-white">Cookie Policy</h2>
                     <button id="close-cookie-modal" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <svg class="svg-icon sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
                 <div class="p-6 overflow-y-auto text-sm text-slate-600 dark:text-slate-300 space-y-4">
