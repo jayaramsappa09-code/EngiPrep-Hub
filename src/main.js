@@ -382,7 +382,27 @@ document.addEventListener('DOMContentLoaded', () => {
     initLiveActivities();
     initInternalLinkingSystem();
     initAuthorBox();
+    initScrollAnimations();
 });
+
+function initScrollAnimations() {
+    const elements = document.querySelectorAll('.scroll-animate');
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-up');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    elements.forEach(el => observer.observe(el));
+}
 
 function initAuthorBox() {
     const fn = window.location.pathname;
