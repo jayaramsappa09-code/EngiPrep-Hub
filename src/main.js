@@ -9,12 +9,12 @@ import { toast, showEncouragingToast, showSuccessToast, showAchievementToast } f
 import { initInternalLinkingSystem } from './internalLinking'
 import { inView, animate } from "motion"
 
-// Import and register advanced offline AI subsystems
-import { AI_ENGINE } from './ai/engine/coreEngine.js';
-import { AI_ROUTER } from './ai/router/router.js';
-import { FUZZY_SEARCH } from './ai/search/searchEngine.js';
-import { COMMAND_PALETTE } from './ai/search/commandPalette.js';
-import { AI_MEMORY } from './ai/memory/memory.js';
+// Import and register advanced offline AI subsystems (lazy loaded below)
+// import { AI_ENGINE } from './ai/engine/coreEngine.js';
+// import { AI_ROUTER } from './ai/router/router.js';
+// import { FUZZY_SEARCH } from './ai/search/searchEngine.js';
+// import { COMMAND_PALETTE } from './ai/search/commandPalette.js';
+// import { AI_MEMORY } from './ai/memory/memory.js';
 import './unit-weightage-widget.ts';
 
 if (typeof window !== 'undefined') {
@@ -1869,10 +1869,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initialize the Local Command Palette
-    if (typeof window !== 'undefined' && window.COMMAND_PALETTE) {
-        window.COMMAND_PALETTE.init();
-    }
+    // Initialize the Local Command Palette (now handled in lazy load)
+    // if (typeof window !== 'undefined' && window.COMMAND_PALETTE) {
+    //     window.COMMAND_PALETTE.init();
+    // }
 
     // Initialize Gamification Engine
     if (typeof window !== 'undefined' && window.engiprep && window.engiprep.initGamification) {
@@ -2140,11 +2140,28 @@ window.engiprep.trackAction = Gamification.trackAction.bind(Gamification);
 window.engiprep.logWeakTopic = Gamification.logWeakTopic.bind(Gamification);
 
 if (typeof window !== 'undefined') {
-    window.AI_ENGINE = AI_ENGINE;
-    window.AI_ROUTER = AI_ROUTER;
-    window.FUZZY_SEARCH = FUZZY_SEARCH;
-    window.COMMAND_PALETTE = COMMAND_PALETTE;
-    window.AI_MEMORY = AI_MEMORY;
+    // Lazy load AI subsystems after initial paint for better LCP
+    setTimeout(() => {
+        Promise.all([
+            import('./ai/engine/coreEngine.js'),
+            import('./ai/router/router.js'),
+            import('./ai/search/searchEngine.js'),
+            import('./ai/search/commandPalette.js'),
+            import('./ai/memory/memory.js')
+        ]).then(([engineModule, routerModule, searchModule, cmdModule, memoryModule]) => {
+            window.AI_ENGINE = engineModule.AI_ENGINE;
+            window.AI_ROUTER = routerModule.AI_ROUTER;
+            window.FUZZY_SEARCH = searchModule.FUZZY_SEARCH;
+            window.COMMAND_PALETTE = cmdModule.COMMAND_PALETTE;
+            window.AI_MEMORY = memoryModule.AI_MEMORY;
+            
+            if (window.COMMAND_PALETTE && typeof window.COMMAND_PALETTE.init === 'function') {
+                window.COMMAND_PALETTE.init();
+            }
+        }).catch(err => {
+            console.error('Failed to lazily load AI subsystems:', err);
+        });
+    }, 500);
 }
 
 // Register custom PWA Service Worker for stable offline study notes and cheat sheets access

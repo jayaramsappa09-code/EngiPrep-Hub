@@ -18,6 +18,18 @@ export default defineConfig(({mode}) => {
     build: {
       rollupOptions: {
         input: inputMap,
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              // Extract large known modules
+              if (id.includes('@google/genai')) return 'genai';
+              if (id.includes('@supabase')) return 'supabase';
+              if (id.includes('framer-motion') || id.includes('motion')) return 'motion';
+              if (id.includes('react') || id.includes('react-dom')) return 'react-vendor';
+              return 'vendor'; // Default vendor chunk
+            }
+          }
+        }
       },
     },
     resolve: {

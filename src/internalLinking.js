@@ -435,7 +435,7 @@ export function initContinueLearning() {
 
     const widget = document.createElement('div');
     widget.id = 'continue-learning-widget';
-    widget.className = 'max-w-7xl mx-auto px-6 mt-28 mb-4 animate-fade-in-up';
+    widget.className = 'fixed top-24 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-3rem)] max-w-2xl animate-fade-in-up shadow-2xl';
     
     // Format dynamic label for last studied
     const minsAgo = Math.max(1, Math.floor((Date.now() - data.timestamp) / 60000));
