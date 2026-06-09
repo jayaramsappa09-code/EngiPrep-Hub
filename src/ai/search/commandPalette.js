@@ -42,7 +42,7 @@ export const COMMAND_PALETTE = {
           <!-- Defaults (shown initially) -->
           <div id="engi-palette-defaults" class="space-y-4">
             <!-- Weak Topics Suggestions -->
-            <div id="engi-palette-weak" class="hidden space-y-1.5">
+            <div id="engi-palette-weak" class="hidden md:block space-y-1.5">
               <h5 class="text-[10px] font-black uppercase text-rose-500 tracking-widest px-1 flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
                 Weak Topics Recovery Board
@@ -51,13 +51,13 @@ export const COMMAND_PALETTE = {
             </div>
 
             <!-- Recent Searches -->
-            <div id="engi-palette-recent" class="hidden space-y-1.5">
+            <div id="engi-palette-recent" class="hidden md:block space-y-1.5">
               <h5 class="text-[10px] font-black uppercase text-indigo-400 tracking-widest px-1">Recent Journeys</h5>
               <div id="engi-palette-recent-list" class="space-y-1"></div>
             </div>
 
             <!-- High Yield Trending searches -->
-            <div class="space-y-2">
+            <div class="hidden md:block space-y-2">
               <h5 class="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest px-1">Trending JNTUK Prep Queries</h5>
               <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 <button class="engi-palette-pill" data-query="m1 eigenvalues">
@@ -82,7 +82,7 @@ export const COMMAND_PALETTE = {
             </div>
             
             <!-- Quick Navigation Shortcuts -->
-            <div class="space-y-1.5">
+            <div class="hidden md:block space-y-1.5">
               <h5 class="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest px-1">Global Destinations</h5>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <a href="/ai-professor.html" class="engi-destination-item">

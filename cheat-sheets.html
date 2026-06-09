@@ -133,6 +133,14 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -930,6 +938,26 @@
     
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
     <meta property="og:title" content="Premium JNTUK Study Notes | EngiPrepHub">
     <meta property="og:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
     <meta property="og:url" content="https://engiprephub.in/cheat-sheets">
@@ -957,7 +985,7 @@
                 </div>
                 <div class="flex flex-col">
                     <span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-slate-50 leading-none">EngiPrep <span class="text-blue-600 dark:text-blue-400">Hub</span></span>
-                    <span class="text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-1">Engineering Concepts Made Simple & Practical</span>
+                    <span class="hidden md:inline-block text-[9px]  font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-1">Engineering Concepts Made Simple & Practical</span>
                 </div>
             </a>
             
@@ -1337,52 +1365,55 @@
                         // Render cards
                         let html = '';
                         Object.values(data).forEach(subject => {
-                            const formulasList = subject.formulas.map(f => `<li class="font-mono text-[10px] sm:text-xs text-blue-600 dark:text-blue-400 font-medium mb-2 pb-2 border-b border-slate-100 dark:border-slate-800 last:border-0 last:mb-0 last:pb-0 break-words">${f}</li>`).join('');
-                            const memoryList = subject.memory_tricks.map(m => `<li class="text-xs text-slate-600 dark:text-slate-400 mb-1 last:mb-0 flex items-start gap-2"><span class="text-amber-500 mt-0.5">💡</span><span>${m}</span></li>`).join('');
-                            const revisionList = subject.revision_points.map(r => `<li class="text-xs text-slate-600 dark:text-slate-400 mb-1 last:mb-0 flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span><span>${r}</span></li>`).join('');
+                            html += `
+                                <div class="mb-8">
+                                    <h3 class="text-xl font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight mb-4 pl-3 border-l-4 border-blue-500">${subject.title}</h3>
+                                    <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+                            `;
+                            
+                            const cardCount = Math.max(subject.formulas?.length || 0, subject.memory_tricks?.length || 0, subject.revision_points?.length || 0);
+
+                            for(let i=0; i<cardCount; i++) {
+                                const f = subject.formulas?.[i] || 'Concept review recommended.';
+                                const m = subject.memory_tricks?.[i] || 'Standard derivation applied.';
+                                const r = subject.revision_points?.[i] || 'Refer standard text.';
+
+                                html += `
+                                    <div class="snap-center shrink-0 w-[85vw] sm:w-80 md:w-96 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-lg flex flex-col animate-fade-up">
+                                        <div class="bg-blue-50 dark:bg-slate-800/50 p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Card ${i+1}</span>
+                                            <span class="text-[10px] font-black uppercase text-rose-500 bg-rose-50 dark:bg-rose-950/30 px-2 py-0.5 rounded-full">High PYQ Freq</span>
+                                        </div>
+                                        <div class="p-6 flex-1 flex flex-col gap-5">
+                                            <div>
+                                                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Formula / Key Point</h4>
+                                                <div class="bg-slate-50 dark:bg-slate-950/50 rounded-xl p-4 border border-slate-100 dark:border-slate-800/50 font-mono text-sm text-blue-600 dark:text-blue-400 font-bold break-words leading-relaxed">
+                                                    ${f}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 mt-2 flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Shortcut / Trick</h4>
+                                                <div class="text-sm text-slate-600 dark:text-slate-400 font-medium">
+                                                    ${m}
+                                                </div>
+                                            </div>
+                                            <div class="mt-auto pt-5 border-t border-slate-100 dark:border-slate-800">
+                                                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> Exam Tip</h4>
+                                                <div class="text-sm text-slate-600 dark:text-slate-400 font-medium">
+                                                    ${r}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }
 
                             html += `
-                                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-blue-400 group flex flex-col h-full animate-fade-up">
-                                    <div class="bg-blue-50 dark:bg-slate-800/50 p-5 border-b border-slate-100 dark:border-slate-800">
-                                        <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">${subject.title}</h3>
-                                    </div>
-                                    <div class="p-6 flex-1 flex flex-col gap-6">
-                                        <!-- Formulas -->
-                                        <div>
-                                            <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
-                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                                                Key Formulas
-                                            </h4>
-                                            <ul class="bg-slate-50 dark:bg-slate-950/50 rounded-xl p-4 border border-slate-100 dark:border-slate-800/50">
-                                                ${formulasList}
-                                            </ul>
-                                        </div>
-                                        
-                                        <!-- Memory Tricks -->
-                                        <div>
-                                            <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
-                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                                Memory Tricks
-                                            </h4>
-                                            <ul>
-                                                ${memoryList}
-                                            </ul>
-                                        </div>
-
-                                        <!-- Revision Points -->
-                                        <div class="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
-                                            <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
-                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                                                Quick-Revision
-                                            </h4>
-                                            <ul>
-                                                ${revisionList}
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             `;
                         });
+                        grid.className = "flex flex-col gap-4"; // Override original grid classes
                         grid.innerHTML = html;
                     }
                 })
@@ -1799,6 +1830,14 @@
 
 
 
+
+
+
+
+
+
+
+
 <!-- EngiPrepHubFooter -->
 <footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
   <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
@@ -1811,6 +1850,34 @@
   </div>
   <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
 </footer>
+
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="md:hidden fixed bottom-0 w-full z-[100] bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 pb-safe shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)] transition-colors">
+        <div class="flex items-center justify-around h-16 px-2">
+            <a href="/index.html" class="flex flex-col items-center justify-center w-full h-full text-slate-500 dark:text-slate-400 focus:text-blue-600 dark:focus:text-blue-400">
+                <svg class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span class="text-[10px] font-bold">Home</span>
+            </a>
+            <a href="/notes.html" class="flex flex-col items-center justify-center w-full h-full text-slate-500 dark:text-slate-400 focus:text-indigo-600 dark:focus:text-indigo-400">
+                <svg class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <span class="text-[10px] font-bold">Notes</span>
+            </a>
+            <a href="/pyqs.html" class="flex flex-col items-center justify-center w-full h-full text-slate-500 dark:text-slate-400 focus:text-rose-600 dark:focus:text-rose-400">
+                <svg class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                <span class="text-[10px] font-bold">PYQs</span>
+            </a>
+            <a href="/tools.html" class="flex flex-col items-center justify-center w-full h-full text-slate-500 dark:text-slate-400 focus:text-emerald-600 dark:focus:text-emerald-400">
+               <svg class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span class="text-[10px] font-bold">Tools</span>
+            </a>
+            <a href="/profile.html" class="flex flex-col items-center justify-center w-full h-full text-slate-500 dark:text-slate-400 focus:text-purple-600 dark:focus:text-purple-400">
+                <svg class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <span class="text-[10px] font-bold">Profile</span>
+            </a>
+        </div>
+    </nav>
+    <style>@media (max-width: 768px) { body { padding-bottom: 5rem; } }</style>
 
 </body>
 </html>
