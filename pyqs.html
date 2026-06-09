@@ -97,6 +97,14 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
 <meta name="description" content="Boost your engineering scores. Navigate repeated JNTUK R23 exam questions, detailed answer steps, and standard marking sheets."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
@@ -239,13 +247,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:
 .qbody.open{display:block;animation: slideDown .4s ease-out}
 @keyframes slideDown { from {opacity:0; transform:translateY(-10px)} to {opacity:1; transform:translateY(0)} }
 
-.sol-tabs{display:flex;background:rgba(15,23,42,0.5);border-bottom:1px solid var(--border);padding:0 12px}
-.sol-tab{padding:14px 20px;border:none;background:transparent;color:var(--text3);font-size:.8rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;transition:.3s;font-family:var(--font);text-transform:uppercase;letter-spacing:.08em}
-.sol-tab:hover{color:var(--text2)}
-.sol-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.sol-content{padding:24px}
-.sol-pane{display:none}
-.sol-pane.active{display:block}
+.sol-tabs{display:none !important}
+.sol-tab{display:none !important}
+.sol-content{padding:24px; display:flex; flex-direction:column; gap:24px;}
+.sol-pane{display:block !important; animation:none !important;}
 
 /* SOLUTION COMPONENTS */
 .step-box{background:rgba(255,255,255,0.02);border-left:4px solid var(--accent);padding:20px;border-radius:0 var(--r2) var(--r2) 0;margin-bottom:16px;box-shadow:inset 0 0 20px rgba(0,0,0,0.2)}
@@ -288,20 +293,27 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:
 }
 @media(max-width:640px){
   body { font-size: 16px; line-height: 1.8; }
-  .nav-inner{padding:0 12px}
-  .nav-search{display:none}
-  .content{padding:16px}
-  .sec-hero{padding:24px;flex-direction:column;text-align:center;gap:12px}
-  .sec-hero-icon{font-size:2.5rem}
-  .sec-hero h2{font-size:1.8rem}
+  .logo-sub { display: none !important; }
+  .logo-text { font-size: 1.2rem !important; }
+  .nav-badge { display: none !important; }
+  .nav-inner { padding:0 12px; justify-content: space-between; gap: 8px;}
+  .nav-search { display:flex !important; flex: 1; min-width: 0; margin-left: 8px; position: relative; }
+  .nav-search input { width: 100%; font-size: 0.85rem; padding-left: 32px; }
+  .nav-search svg { position: absolute; left: 8px; }
+  .content { padding:16px; margin-top: 10px; }
+  .sec-hero { padding:24px; flex-direction:column; text-align:center; gap:12px; border-radius: 12px; margin-bottom: 24px; }
+  .sec-hero-icon { font-size:2.5rem; }
+  .sec-hero-title { font-size:1.8rem; line-height: 1.2; }
+  .sec-hero-sub { font-size: 0.9rem; line-height: 1.4; color: var(--text2); }
   .qhdr{padding:16px;flex-direction:column;gap:12px;align-items:flex-start}
   .qnum{width:30px;height:30px;font-size:0.8rem;border-radius:8px;}
   .qacts{margin-top:0;width:100%;justify-content:flex-end}
   .qtxt{font-size:1rem;line-height:1.6}
   .badge{padding:4px 8px;font-size:0.65rem}
-  .sol-tabs{flex-wrap:wrap;}
-  .sec-hero-meta{margin:0 auto;justify-content:center}
-  .logo-text{font-size:1.1rem}
+  .sec-hero-meta{margin:0 auto;justify-content:center; flex-wrap: wrap; gap: 6px;}
+  #cookie-consent-banner { display: none !important; }
+  .top50-banner { display: none !important; }
+  #universal-alert-container { display: none !important; }
 }
 </style>
 
@@ -321,6 +333,32 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9357545069587539" crossorigin="anonymous"></script>
+
+
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -3190,18 +3228,7 @@ window.addEventListener('hashchange', handleURLRoute);
 
 
 
-<!-- EngiPrepHubFooter -->
-<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
-  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
-    <a href="/about.html" class="hover:text-white">About</a>
-    <a href="/contact.html" class="hover:text-white">Contact</a>
-    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
-    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
-    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
-    <a href="/faq.html" class="hover:text-white">FAQ</a>
-  </div>
-  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
-</footer>
+
 
 
     <!-- Mobile Bottom Navigation -->
@@ -3230,6 +3257,25 @@ window.addEventListener('hashchange', handleURLRoute);
         </div>
     </nav>
     <style>@media (max-width: 768px) { body { padding-bottom: 5rem; } }</style>
+
+
+
+
+
+
+
+<!-- EngiPrepHubFooter -->
+<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
+    <a href="/about.html" class="hover:text-white">About</a>
+    <a href="/contact.html" class="hover:text-white">Contact</a>
+    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq.html" class="hover:text-white">FAQ</a>
+  </div>
+  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
