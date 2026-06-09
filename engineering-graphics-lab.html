@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JNTUK R23 Engineering Graphics & AutoCAD Lab | EngiPrepHub</title>
     <link rel="canonical" href="https://engiprephub.in/engineering-graphics-lab">
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2563EB">
+    <link rel="apple-touch-icon" href="/logo.png">
     
     
     
@@ -1370,6 +1374,12 @@ body.exam-mode .exam-grid {
         Enter Lab
       </a>
     </div>
+    <div class="flex items-center gap-2 pr-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
+      <span class="mr-2 hidden sm:inline">⏱️ <span id="reading-time-val">8</span> mins read</span>
+      <button onclick="changeFontSize('down')" class="p-1 px-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 cursor-pointer" title="Decrease Font">A-</button>
+      <button onclick="changeFontSize('up')" class="p-1 px-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 cursor-pointer" title="Increase Font">A+</button>
+      <button id="focus-mode-btn" onclick="toggleFocusMode()" class="p-1.5 px-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 cursor-pointer" title="Toggle Focus">👁️ Focus</button>
+    </div>
   </div>
 
 <!-- HERO -->
@@ -1404,6 +1414,196 @@ body.exam-mode .exam-grid {
       <div class="unit-card-num">V</div>
       <div class="unit-card-title">Isometric & AutoCAD</div>
     </a>
+  </div>
+</section>
+
+<!-- ─── INTERACTIVE CAD GEOMETRY & AUTOCAD SANDBOX ─── -->
+<section id="interactive-graphics-sandbox" class="max-w-4xl mx-auto my-12 bg-slate-950 border border-slate-800 rounded-3xl p-6 md:p-8 text-left shadow-2xl overflow-hidden shadow-indigo-500/5 relative antialiased">
+  <div class="absolute -top-32 -right-32 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-32 -left-32 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+  
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 relative">
+    <div>
+      <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">EngiPrep Virtual CAD Studio</span>
+      <h2 class="text-2xl font-black text-white mt-1 font-sans">Interactive Drawing & drafting sandbox</h2>
+    </div>
+    <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-1.5 rounded-2xl">
+      <button onclick="setSandboxTab('conic')" id="sb-tab-conic" class="px-4 py-2 text-xs font-extrabold rounded-xl transition-all cursor-pointer bg-indigo-600 text-white border-0">📐 Conics</button>
+      <button onclick="setSandboxTab('proj')" id="sb-tab-proj" class="px-4 py-2 text-xs font-extrabold rounded-xl transition-all cursor-pointer text-slate-400 hover:text-white border-0 bg-transparent">📦 Projections</button>
+      <button onclick="setSandboxTab('cli')" id="sb-tab-cli" class="px-4 py-2 text-xs font-extrabold rounded-xl transition-all cursor-pointer text-slate-400 hover:text-white border-0 bg-transparent">🖥️ AutoCAD CLI</button>
+    </div>
+  </div>
+
+  <!-- CONICS CONTENT -->
+  <div id="sb-conic-content" class="sandbox-tab-content grid grid-cols-1 md:grid-cols-12 gap-6 relative">
+    <div class="md:col-span-4 flex flex-col justify-between">
+      <div>
+        <h3 class="text-base font-bold text-slate-100 flex items-center gap-2 mb-2">Cone Slicing & Eccentricity</h3>
+        <p class="text-xs text-slate-400 mb-6 leading-relaxed">Adjust the eccentricity slider to watch the slicing plane form different mathematical conics. Observe the standard focal and directrix relationships.</p>
+        
+        <div class="bg-slate-900/50 p-4 rounded-2xl border border-slate-800/80 mb-6">
+          <label class="text-[11px] font-extrabold uppercase tracking-wide text-indigo-300 flex justify-between mb-2">
+            <span>Eccentricity (e = PF/PD)</span>
+            <span id="label-ecc">e = 0.65</span>
+          </label>
+          <input type="range" id="slider-ecc" min="0" max="2" step="0.05" value="0.65" oninput="updateConicSandbox()" class="w-full accent-indigo-500 bg-slate-800 rounded-lg h-1.5 cursor-pointer">
+          <div class="text-[10px] text-slate-400 mt-2 flex justify-between font-semibold">
+            <span>Circle (e=0)</span>
+            <span>Ellipse (e&lt;1)</span>
+            <span>Parabola (e=1)</span>
+            <span>Hyperbola (e&gt;1)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div id="conic-math-summary" class="bg-slate-900 p-4 rounded-2xl border border-slate-800 text-[11px] space-y-2">
+        <div class="flex justify-between">
+          <span class="text-slate-400">Section Profile:</span>
+          <span id="conic-type-label" class="font-bold text-amber-400">ELLIPSE</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Standard Formula:</span>
+          <span id="conic-formula-label" class="font-mono text-indigo-300">x²/a² + y²/b² = 1</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Drawing Method:</span>
+          <span class="font-semibold text-slate-200">Focus-Directrix Method</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="md:col-span-8 bg-slate-900 rounded-2xl border border-slate-800 flex items-center justify-center p-4 min-h-[280px]">
+      <svg id="svg-conic-canvas" class="w-full h-auto max-h-[280px]" viewBox="-50 -50 300 300">
+        <!-- Axes -->
+        <line x1="0" y1="100" x2="220" y2="100" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3" />
+        <line x1="50" y1="-20" x2="50" y2="220" stroke="#ef4444" stroke-width="2" id="directrix" />
+        <text x="55" y="-5" class="text-[10px] font-extrabold fill-slate-400">Directrix (D-D')</text>
+        
+        <!-- Focal points / text -->
+        <circle cx="150" cy="100" r="4" fill="#3B82F6" />
+        <text x="145" y="118" class="text-[10px] fill-blue-400 font-black">Focus F</text>
+        
+        <!-- Conic Path -->
+        <path id="svg-conic-path" d="M 50 100 Q 150 50 200 -50" fill="none" stroke="#2563EB" stroke-width="3.5" />
+        <circle id="conic-point-p" cx="110" cy="70" r="5" fill="#10B981" />
+        <text id="conic-point-label" x="120" y="65" class="text-[9px] fill-emerald-400 font-bold">Point P</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- PROJECTIONS CONTENT -->
+  <div id="sb-proj-content" class="sandbox-tab-content grid grid-cols-1 md:grid-cols-12 gap-6 relative hidden">
+    <div class="md:col-span-4 flex flex-col justify-between">
+      <div>
+        <h3 class="text-base font-bold text-slate-100 flex items-center gap-2 mb-2">Orthographic Projection of Points</h3>
+        <p class="text-xs text-slate-400 mb-6 leading-relaxed">Alter coordinates with sliders to trace standard 1st angle projections (Above HP, In front of VP) onto the reference XY line.</p>
+        
+        <div class="space-y-4 mb-6">
+          <div class="bg-indigo-950/20 p-4 rounded-xl border border-indigo-900/40">
+            <label class="text-[10px] font-extrabold uppercase tracking-wide text-indigo-300 flex justify-between mb-2">
+              <span>Above HP (Front View a')</span>
+              <span id="label-above">35 mm</span>
+            </label>
+            <input type="range" id="slider-above" min="5" max="80" value="35" oninput="updateProjectionSandbox()" class="w-full accent-blue-500 bg-slate-800 rounded-lg h-1.5 cursor-pointer">
+          </div>
+          
+          <div class="bg-emerald-950/10 p-4 rounded-xl border border-emerald-900/20">
+            <label class="text-[10px] font-extrabold uppercase tracking-wide text-emerald-400 flex justify-between mb-2">
+              <span>In front of VP (Top View a)</span>
+              <span id="label-front">45 mm</span>
+            </label>
+            <input type="range" id="slider-front" min="5" max="80" value="45" oninput="updateProjectionSandbox()" class="w-full accent-emerald-500 bg-slate-800 rounded-lg h-1.5 cursor-pointer">
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 text-[11px] space-y-2">
+        <div class="flex justify-between">
+          <span class="text-slate-400">Projection Angle:</span>
+          <span class="font-bold text-slate-200">1st Angle Projection</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Front View Position:</span>
+          <span class="font-bold text-blue-400">Above XY line (a')</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Top View Position:</span>
+          <span class="font-bold text-emerald-400">Below XY line (a)</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="md:col-span-8 bg-slate-900 rounded-2xl border border-slate-800 flex items-center justify-center p-4 min-h-[280px]">
+      <svg id="svg-proj-canvas" class="w-full h-auto max-h-[280px]" viewBox="-50 -50 300 300">
+        <!-- XY Line -->
+        <line x1="-20" y1="100" x2="270" y2="100" stroke="#94A3B8" stroke-width="2.5" />
+        <text x="-40" y="104" class="text-[12px] font-black fill-slate-300">X</text>
+        <text x="278" y="104" class="text-[12px] font-black fill-slate-300">Y</text>
+        <text x="-40" y="80" class="text-[8px] tracking-wider fill-slate-500">V.P.</text>
+        <text x="-40" y="125" class="text-[8px] tracking-wider fill-slate-500">H.P.</text>
+        
+        <!-- Projector line -->
+        <line x1="120" y1="20" x2="120" y2="180" stroke="#F1F5F9" stroke-width="1.5" stroke-dasharray="3,3" id="projector-line" />
+        
+        <!-- Front view projection 'a' -->
+        <line x1="120" y1="100" x2="120" y2="65" stroke="#3B82F6" stroke-width="2" id="fv-line" />
+        <circle id="proj-fv-pt" cx="120" cy="65" r="4.5" fill="#3B82F6" />
+        <text id="proj-fv-lbl" x="130" y="68" class="text-[10px] fill-blue-400 font-extrabold">a' (Front View)</text>
+        
+        <!-- Top view projection 'a' -->
+        <line x1="120" y1="100" x2="120" y2="145" stroke="#10B981" stroke-width="2" id="tv-line" />
+        <circle id="proj-tv-pt" cx="120" cy="145" r="4.5" fill="#10B981" />
+        <text id="proj-tv-lbl" x="130" y="148" class="text-[10px] fill-emerald-400 font-extrabold">a (Top View)</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- CLI CONTENT -->
+  <div id="sb-cli-content" class="sandbox-tab-content grid grid-cols-1 md:grid-cols-12 gap-6 relative hidden">
+    <div class="md:col-span-5 flex flex-col justify-between">
+      <div>
+        <h3 class="text-base font-bold text-slate-100 flex items-center gap-2 mb-2">Simulated AutoCAD CLI Terminals</h3>
+        <p class="text-xs text-slate-400 mb-4 leading-relaxed">Learn AutoCAD syntax by typing commands below. Type coordinates or standard shortcuts to build lines, rectangles and custom layouts directly on our interactive map.</p>
+        
+        <div class="bg-indigo-950/20 p-4 rounded-xl border border-indigo-900/40 text-[11px] mb-4 space-y-2">
+          <p class="font-extrabold text-indigo-300 font-sans">Try these CLI commands:</p>
+          <ul class="space-y-1 text-slate-300 font-mono">
+            <li><span class="text-amber-400 font-bold">L 50 50 150 50</span> - Draw a line</li>
+            <li><span class="text-amber-400 font-bold">C 100 100 40</span> - Draw a circle</li>
+            <li><span class="text-amber-400 font-bold">REC 80 80 120 120</span> - Draw a rectangle</li>
+            <li><span class="text-red-400 font-bold">RESET</span> - Clear coordinate map</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- CLI INPUT -->
+      <div class="flex gap-2">
+        <input type="text" id="cli-terminal-input" placeholder="Enter AutoCAD command (e.g. L 50 50 150 50)..." onkeydown="if(event.key==='Enter') executeSandboxCLI()" class="flex-1 px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl focus:outline-none focus:border-indigo-500 text-xs font-mono text-slate-100">
+        <button onclick="executeSandboxCLI()" class="px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer border-0">DRAW</button>
+      </div>
+    </div>
+    
+    <div class="md:col-span-7 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col p-4">
+      <div class="flex-1 bg-slate-950 rounded-xl p-3 border border-slate-800/80 mb-3 min-h-[160px] flex items-center justify-center relative overflow-hidden">
+        <svg id="svg-cli-canvas" class="w-full max-w-[280px] aspect-square" viewBox="0 0 200 200">
+          <defs>
+            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1E293B" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="200" height="200" fill="url(#grid)" />
+          
+          <!-- CLI Dynamic elements go here -->
+          <g id="cli-drawings-group"></g>
+        </svg>
+      </div>
+      
+      <!-- Terminal scroll logs -->
+      <div id="cli-logs" class="bg-slate-950 p-3 rounded-xl border border-slate-800/60 font-mono text-[10px] text-slate-450 h-28 overflow-y-auto space-y-1">
+        <p class="text-indigo-400 font-bold">&gt; AutoCAD 2026 CLI Active.</p>
+        <p class="text-slate-500">Specify command or coordinates to generate Autodesk drafts.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2709,13 +2909,273 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Dynamic Sidebar TOC generator
+// Font size scaling
+let currentSizeMultiplier = 1.0;
+function changeFontSize(direction) {
+  if (direction === 'up' && currentSizeMultiplier < 1.3) {
+    currentSizeMultiplier += 0.05;
+  } else if (direction === 'down' && currentSizeMultiplier > 0.85) {
+    currentSizeMultiplier -= 0.05;
+  }
+  document.querySelectorAll('.topic-block p, .topic-block li, .topic-block td').forEach(el => {
+    el.style.fontSize = (13 * currentSizeMultiplier) + 'px';
+    el.style.lineHeight = (1.5 * currentSizeMultiplier) + 'em';
+  });
+}
+
+function toggleFocusMode() {
+  document.body.classList.toggle('focus-mode-active');
+  const btn = document.getElementById('focus-mode-btn');
+  if (btn) {
+    if (document.body.classList.contains('focus-mode-active')) {
+      btn.textContent = '👁️ Normal Mode';
+      btn.classList.add('bg-slate-900', 'text-indigo-400', 'border-indigo-500');
+    } else {
+      btn.textContent = '👁️ Focus';
+      btn.classList.remove('bg-slate-900', 'text-indigo-400', 'border-indigo-500');
+    }
+  }
+}
+
+// ─── INTERACTIVE SANDBOX ENGINE ───
+function setSandboxTab(tab) {
+  document.querySelectorAll('#interactive-graphics-sandbox .sandbox-tab-content').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('#interactive-graphics-sandbox button').forEach(el => {
+    el.classList.remove('bg-indigo-600', 'text-white');
+    el.classList.add('text-slate-400');
+  });
+  
+  const activeContent = document.getElementById('sb-' + tab + '-content');
+  if (activeContent) activeContent.classList.remove('hidden');
+  
+  const activeTabBtn = document.getElementById('sb-tab-' + tab);
+  if (activeTabBtn) {
+    activeTabBtn.classList.remove('text-slate-400');
+    activeTabBtn.classList.add('bg-indigo-600', 'text-white');
+  }
+  
+  if (tab === 'conic') {
+    updateConicSandbox();
+  } else if (tab === 'proj') {
+    updateProjectionSandbox();
+  }
+}
+
+function updateConicSandbox() {
+  const ecc = parseFloat(document.getElementById('slider-ecc').value);
+  const labelEcc = document.getElementById('label-ecc');
+  if (labelEcc) labelEcc.textContent = 'e = ' + ecc.toFixed(2);
+  
+  const path = document.getElementById('svg-conic-path');
+  const typeLabel = document.getElementById('conic-type-label');
+  const formulaLabel = document.getElementById('conic-formula-label');
+  const ptP = document.getElementById('conic-point-p');
+  const ptLabel = document.getElementById('conic-point-label');
+  
+  if (!path) return;
+  
+  let dStr = '';
+  let typeStr = 'ELLIPSE';
+  let formulaStr = 'x²/a² + y²/b² = 1';
+  let pX = 110, pY = 70;
+  
+  if (ecc === 0) {
+    typeStr = 'CIRCLE';
+    formulaStr = 'x² + y² = r²';
+    dStr = 'M 100 100 A 50 50 0 1 1 100 99 Z';
+    pX = 135; pY = 65;
+  } else if (ecc < 1) {
+    typeStr = 'ELLIPSE';
+    formulaStr = 'x²/a² + y²/b² = 1';
+    let pts = [];
+    for (let theta = -Math.PI/2; theta <= Math.PI/2; theta += 0.05) {
+      let x = 50 + 120 * Math.cos(theta) * (1 - ecc * 0.2);
+      let y = 100 + 80 * Math.sin(theta);
+      pts.push(`${x.toFixed(1)} ${y.toFixed(1)}`);
+    }
+    dStr = 'M ' + pts.join(' L ');
+    pX = 120; pY = 60;
+  } else if (ecc === 1) {
+    typeStr = 'PARABOLA';
+    formulaStr = 'y² = 4ax';
+    let pts = [];
+    for (let y = -40; y <= 240; y += 5) {
+      let x = 50 + Math.pow(y - 100, 2) / 120;
+      if (x < 250) pts.push(`${x.toFixed(1)} ${y.toFixed(1)}`);
+    }
+    dStr = 'M ' + pts.join(' L ');
+    pX = 103; pY = 180;
+  } else {
+    typeStr = 'HYPERBOLA';
+    formulaStr = 'x²/a² - y²/b² = 1';
+    let pts = [];
+    for (let y = -40; y <= 240; y += 5) {
+      let x = 50 + Math.pow(y - 100, 2) / 60;
+      if (x < 250) pts.push(`${x.toFixed(1)} ${y.toFixed(1)}`);
+    }
+    dStr = 'M ' + pts.join(' L ');
+    pX = 116; pY = 160;
+  }
+  
+  path.setAttribute('d', dStr);
+  if (typeLabel) typeLabel.textContent = typeStr;
+  if (formulaLabel) formulaLabel.textContent = formulaStr;
+  if (ptP) {
+    ptP.setAttribute('cx', pX);
+    ptP.setAttribute('cy', pY);
+  }
+}
+
+function updateProjectionSandbox() {
+  const above = parseInt(document.getElementById('slider-above').value);
+  const front = parseInt(document.getElementById('slider-front').value);
+  
+  document.getElementById('label-above').textContent = above + ' mm';
+  document.getElementById('label-front').textContent = front + ' mm';
+  
+  const fvLine = document.getElementById('fv-line');
+  const tvLine = document.getElementById('tv-line');
+  const fvPt = document.getElementById('proj-fv-pt');
+  const tvPt = document.getElementById('proj-tv-pt');
+  const fvLbl = document.getElementById('proj-fv-lbl');
+  const tvLbl = document.getElementById('proj-tv-lbl');
+  const projector = document.getElementById('projector-line');
+  
+  const baseline = 100;
+  const fvY = baseline - above;
+  const tvY = baseline + front;
+  
+  if (fvLine) {
+    fvLine.setAttribute('y1', baseline);
+    fvLine.setAttribute('y2', fvY);
+  }
+  if (tvLine) {
+    tvLine.setAttribute('y1', baseline);
+    tvLine.setAttribute('y2', tvY);
+  }
+  if (fvPt) fvPt.setAttribute('cy', fvY);
+  if (tvPt) tvPt.setAttribute('cy', tvY);
+  if (fvLbl) fvLbl.setAttribute('y', fvY + 3);
+  if (tvLbl) tvLbl.setAttribute('y', tvY + 3);
+  if (projector) {
+    projector.setAttribute('y1', fvY - 10);
+    projector.setAttribute('y2', tvY + 10);
+  }
+}
+
+let cliElements = [];
+function executeSandboxCLI() {
+  const inputEl = document.getElementById('cli-terminal-input');
+  const logEl = document.getElementById('cli-logs');
+  const groupEl = document.getElementById('cli-drawings-group');
+  
+  if (!inputEl || !logEl || !groupEl) return;
+  
+  const cmdText = inputEl.value.trim();
+  if (!cmdText) return;
+  
+  inputEl.value = '';
+  
+  const logMsg = document.createElement('p');
+  logMsg.className = 'text-indigo-300 font-bold';
+  logMsg.textContent = '> ' + cmdText;
+  logEl.appendChild(logMsg);
+  
+  const parts = cmdText.toUpperCase().split(/\s+/);
+  const cmd = parts[0];
+  
+  const outcomeMsg = document.createElement('p');
+  outcomeMsg.className = 'text-slate-300';
+  
+  if (cmd === 'RESET') {
+    groupEl.innerHTML = '';
+    cliElements = [];
+    outcomeMsg.textContent = 'Cleared AutoCAD drawing grid canvas.';
+  } else if (cmd === 'L') {
+    if (parts.length >= 5) {
+      const x1 = parseFloat(parts[1]);
+      const y1 = parseFloat(parts[2]);
+      const x2 = parseFloat(parts[3]);
+      const y2 = parseFloat(parts[4]);
+      
+      const elLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      elLine.setAttribute('x1', x1);
+      elLine.setAttribute('y1', y1);
+      elLine.setAttribute('x2', x2);
+      elLine.setAttribute('y2', y2);
+      elLine.setAttribute('stroke', '#38BDF8');
+      elLine.setAttribute('stroke-width', '2');
+      groupEl.appendChild(elLine);
+      
+      outcomeMsg.className = 'text-emerald-400 font-semibold';
+      outcomeMsg.textContent = `Completed LINE command from (${x1},${y1}) to (${x2},${y2}).`;
+    } else {
+      outcomeMsg.className = 'text-red-400';
+      outcomeMsg.textContent = 'Syntax Error! Standard usage: L x1 y1 x2 y2';
+    }
+  } else if (cmd === 'C') {
+    if (parts.length >= 4) {
+      const cx = parseFloat(parts[1]);
+      const cy = parseFloat(parts[2]);
+      const r = parseFloat(parts[3]);
+      
+      const elCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      elCircle.setAttribute('cx', cx);
+      elCircle.setAttribute('cy', cy);
+      elCircle.setAttribute('r', r);
+      elCircle.setAttribute('fill', 'none');
+      elCircle.setAttribute('stroke', '#A855F7');
+      elCircle.setAttribute('stroke-width', '2');
+      groupEl.appendChild(elCircle);
+      
+      outcomeMsg.className = 'text-emerald-400 font-semibold';
+      outcomeMsg.textContent = `Completed CIRCLE command at (${cx},${cy}) with radius ${r}.`;
+    } else {
+      outcomeMsg.className = 'text-red-400';
+      outcomeMsg.textContent = 'Syntax Error! Standard usage: C cx cy radius';
+    }
+  } else if (cmd === 'REC') {
+    if (parts.length >= 5) {
+      const x1 = parseFloat(parts[1]);
+      const y1 = parseFloat(parts[2]);
+      const x2 = parseFloat(parts[3]);
+      const y2 = parseFloat(parts[4]);
+      
+      const elRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      elRect.setAttribute('x', Math.min(x1, x2));
+      elRect.setAttribute('y', Math.min(y1, y2));
+      elRect.setAttribute('width', Math.abs(x2 - x1));
+      elRect.setAttribute('height', Math.abs(y2 - y1));
+      elRect.setAttribute('fill', 'none');
+      elRect.setAttribute('stroke', '#10B981');
+      elRect.setAttribute('stroke-width', '2');
+      groupEl.appendChild(elRect);
+      
+      outcomeMsg.className = 'text-emerald-400 font-semibold';
+      outcomeMsg.textContent = `Completed RECTANGLE command. Block drawn successfully.`;
+    } else {
+      outcomeMsg.className = 'text-red-400';
+      outcomeMsg.textContent = 'Syntax Error! Standard usage: REC x1 y1 x2 y2';
+    }
+  } else {
+    outcomeMsg.className = 'text-red-400';
+    outcomeMsg.textContent = 'Unknown Autodesk command. Try: L, C, REC or RESET.';
+  }
+  
+  logEl.appendChild(outcomeMsg);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+// Global active unit tracker
+let activeTocUnit = 1;
+
+// Dynamic Sidebar TOC Generator
 function buildSidebarTOC() {
   const container = document.getElementById('active-toc-items');
   if (!container) return;
   container.innerHTML = '';
   
-  const activeWrapper = document.querySelector('.unit-section-wrapper.active');
+  const activeWrapper = document.getElementById('unit-wrapper-' + activeTocUnit);
   if (!activeWrapper) return;
   
   const topics = activeWrapper.querySelectorAll('.topic-block');
@@ -2729,7 +3189,6 @@ function buildSidebarTOC() {
     a.href = '#' + id;
     a.className = 'toc-item';
     
-    // Clean string parsing
     let titleText = titleEl.textContent.trim().replace(/\s*▼\s*$/, '').replace(/IMP|HOT|NEW/g, '').trim();
     
     a.innerHTML = `
@@ -2750,16 +3209,17 @@ function buildSidebarTOC() {
 
 function updateTOCHighlight() {
   const items = document.querySelectorAll('.toc-item');
-  const activeWrapper = document.querySelector('.unit-section-wrapper.active');
-  if (!activeWrapper || items.length === 0) return;
+  if (items.length === 0) return;
+  
+  const activeWrapper = document.getElementById('unit-wrapper-' + activeTocUnit);
+  if (!activeWrapper) return;
   
   const topics = activeWrapper.querySelectorAll('.topic-block');
   let currentActiveId = '';
   
-  // Find currently active element by page offsets
   topics.forEach(topic => {
     const rect = topic.getBoundingClientRect();
-    if (rect.top <= 140) {
+    if (rect.top <= 160) {
       currentActiveId = topic.id;
     }
   });
@@ -2778,25 +3238,56 @@ function updateTOCHighlight() {
   });
 }
 
+// Robust ScrollSpy engine to detect active units and topics
+function initScrollSpy() {
+  window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY;
+    
+    // Find active unit by scroll bounds
+    let detectedUnitNum = 1;
+    for (let u = 5; u >= 1; u--) {
+      const uWrap = document.getElementById('unit-wrapper-' + u);
+      if (uWrap) {
+        const uTop = uWrap.offsetTop - 180;
+        if (scrollPos >= uTop) {
+          detectedUnitNum = u;
+          break;
+        }
+      }
+    }
+    
+    if (detectedUnitNum !== activeTocUnit) {
+      activeTocUnit = detectedUnitNum;
+      
+      // Highlight matching sidebar button
+      document.querySelectorAll('.unit-btn').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.unit) === activeTocUnit);
+      });
+      
+      // Highlight matching parent wrapper
+      document.querySelectorAll('.unit-section-wrapper').forEach((wrap, idx) => {
+        wrap.classList.toggle('active', (idx + 1) === activeTocUnit);
+      });
+      
+      // Update breadcrumb
+      const titles = {1:'Unit I', 2:'Unit II', 3:'Unit III', 4:'Unit IV', 5:'Unit V'};
+      const bc = document.getElementById('breadcrumb-unit');
+      if (bc) bc.textContent = titles[activeTocUnit];
+      
+      buildSidebarTOC();
+    } else {
+      updateTOCHighlight();
+    }
+  });
+}
+
 function showUnit(num) {
-  document.querySelectorAll('.unit-section-wrapper').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.unit-btn').forEach(el => el.classList.remove('active'));
-  
   const targetWrap = document.getElementById('unit-wrapper-' + num);
-  if (targetWrap) targetWrap.classList.add('active');
+  if (targetWrap) {
+    const offset = targetWrap.offsetTop - 120;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }
   
-  const targetBtn = document.querySelector('.unit-btn[data-unit="' + num + '"]');
-  if(targetBtn) targetBtn.classList.add('active');
-  
-  const titles = {1:'Unit I', 2:'Unit II', 3:'Unit III', 4:'Unit IV', 5:'Unit V'};
-  const bc = document.getElementById('breadcrumb-unit');
-  if(bc) bc.textContent = titles[num];
-  
-  window.scrollTo({ top: 0, behavior: 'instant' });
-
-  // Re-build Table of Contents for the active unit
-  buildSidebarTOC();
-
   if (window.innerWidth < 1024) {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.querySelector('.sidebar-overlay');
@@ -2808,15 +3299,8 @@ function showUnit(num) {
 function goto(id) {
   const el = document.getElementById(id);
   if (el) {
-    const parentUnit = el.closest('.unit-section-wrapper');
-    if (parentUnit) {
-      const match = parentUnit.id.match(/unit-wrapper-(\d)/);
-      if (match) showUnit(match[1]);
-    }
-    setTimeout(() => {
-      const topOffset = el.getBoundingClientRect().top + window.scrollY - 100;
-      window.scrollTo({ top: topOffset, behavior: 'smooth' });
-    }, 100);
+    const topOffset = el.getBoundingClientRect().top + window.scrollY - 130;
+    window.scrollTo({ top: topOffset, behavior: 'smooth' });
   }
 }
 
@@ -2856,12 +3340,17 @@ function toggleSidebar() {
   if(overlay) overlay.classList.toggle('open');
 }
 
-// Auto open first unit if none active
-if(!document.querySelector('.unit-section-wrapper.active')) {
-  showUnit(1);
-} else {
+// ─── INITIALIZATION ───
+document.addEventListener('DOMContentLoaded', () => {
+  // Set all wrappers as visible so seamless scrolling functions perfectly
+  document.querySelectorAll('.unit-section-wrapper').forEach(w => {
+    w.style.display = 'block';
+  });
+  
+  setSandboxTab('conic');
+  initScrollSpy();
   buildSidebarTOC();
-}
+});
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {

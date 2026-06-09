@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>JNTUK R23 C Programming Complete Text Notes | EngiPrepHub</title>
     <link rel="canonical" href="https://engiprephub.in/c-programming-notes">
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2563EB">
+    <link rel="apple-touch-icon" href="/logo.png">
     
     
     
@@ -1063,8 +1067,18 @@ pre {
 .exam-item.hot .star { color: var(--danger); }
 
 /* ── UNIT SECTION ── */
-.unit-section { display: none; }
-.unit-section.active { display: block; }
+.unit-section { display: block; margin-bottom: 5rem; scroll-margin-top: 100px; }
+
+/* ── FOCUS MODE STYLES ── */
+body.focus-mode-active .sidebar {
+  display: none !important;
+}
+body.focus-mode-active .main {
+  margin-left: 0 !important;
+  max-width: 900px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
@@ -1702,6 +1716,7 @@ body.study-mode-revision .section-block.has-revision-sheet .section-header {
 
 </head>
 <body>
+<div id="scroll-progress-bar" style="position:fixed; top:0; left:0; height:4px; width:0; background:linear-gradient(90deg, #3B82F6, #6366F1); z-index:9999; transition:width 0.1s ease;"></div>
 
 <!-- ─── SIDEBAR OVERLAY ─── -->
 <div class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
@@ -1843,6 +1858,12 @@ body.study-mode-revision .section-block.has-revision-sheet .section-header {
       <button class="mode-tab active" id="tab-mode-learn" onclick="setStudyMode('learn')">Learn</button>
       <button class="mode-tab" id="tab-mode-practice" onclick="setStudyMode('practice')">Practice</button>
       <button class="mode-tab" id="tab-mode-exam" onclick="setStudyMode('exam')">Exam</button>
+    </div>
+    <div class="flex items-center gap-2 pr-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
+      <span class="mr-2 hidden sm:inline">⏱️ <span id="reading-time-val">12</span> mins read</span>
+      <button onclick="changeFontSize('down')" class="p-1 px-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 cursor-pointer" title="Decrease Font">A-</button>
+      <button onclick="changeFontSize('up')" class="p-1 px-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 cursor-pointer" title="Increase Font">A+</button>
+      <button id="focus-mode-btn" onclick="toggleFocusMode()" class="p-1.5 px-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 cursor-pointer" title="Toggle Focus">👁️ Focus</button>
     </div>
   </div>
 
@@ -3671,6 +3692,71 @@ END</pre>
     </div>
   </div>
 
+  <!-- EngiPrepAuthorBox -->
+  <section class="max-w-4xl mx-auto my-16 p-8 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center gap-6">
+    <img src="/public/logo.png" alt="EngiPrepHub Logo" class="w-16 h-16 rounded-full border border-slate-700">
+    <div>
+      <h3 class="text-lg font-bold text-white">About the Author</h3>
+      <p class="text-slate-300 text-sm mt-2">EngiPrepHub is an academic initiative aimed at providing high-quality, verified, and structured JNTUK R23 study notes, PYQs, and interactive tools for engineering students. Our materials are reviewed by expert students and engineers to ensure syllabus alignment.</p>
+    </div>
+  </section>
+
+  <!-- EngiPrepHubFooter -->
+  <!-- Global Footer -->
+  <footer class="pt-16 pb-12 px-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-850 transition-colors" aria-label="Academic Resource Footer">
+      <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 text-left">
+              <div>
+                  <a href="/" class="flex items-center gap-3 mb-6" aria-label="EngiPrep Hub Homepage Link">
+                      <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/10 text-slate-50">
+                          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                          </svg>
+                      </div>
+                      <span class="text-xl font-black text-slate-900 dark:text-slate-50 tracking-tighter">EngiPrep Hub</span>
+                  </a>
+                  <p class="text-sm text-slate-400 dark:text-slate-450 leading-loose mb-6 font-medium">
+                      The ultimate JNTUK R23 engineering academic ecosystem. Built for future scholars, by university toppers.
+                  </p>
+              </div>
+
+              <div>
+                  <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-6">Resources</h4>
+                  <ul class="text-sm text-slate-400 dark:text-slate-455 space-y-3">
+                      <li><a href="/notes.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Study Notes PDF</a></li>
+                      <li><a href="/pyqs.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">JNTUK Solved PYQs</a></li>
+                      <li><a href="/cheat-sheets.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Formula Sheets</a></li>
+                      <li><a href="/tools.html" class="hover:text-blue-650 dark:hover:text-blue-400 font-semibold transition-colors">SGPA Calculators</a></li>
+                  </ul>
+              </div>
+
+              <div>
+                  <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-6">Organization</h4>
+                  <ul class="text-sm text-slate-400 dark:text-slate-455 space-y-3">
+                      <li><a href="/about.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">About Us</a></li>
+                      <li><a href="/faq.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">FAQ</a></li>
+                      <li><a href="/blog.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Academic Blog</a></li>
+                      <li><a href="/contribute.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Become a Contributor</a></li>
+                  </ul>
+              </div>
+
+              <div>
+                  <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-6">Security & Legal</h4>
+                  <ul class="text-sm text-slate-400 dark:text-slate-455 space-y-3">
+                      <li><a href="/privacy-policy.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Privacy Policy</a></li>
+                      <li><a href="/cookie-policy.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Cookie Policy</a></li>
+                      <li><a href="/terms-conditions.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Terms & Conditions</a></li>
+                      <li><a href="/contact.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Contact</a></li>
+                  </ul>
+              </div>
+          </div>
+          <div class="pt-6 border-t border-slate-100 dark:border-slate-850 flex flex-col md:flex-row items-center justify-between gap-6">
+              <p class="text-slate-455 dark:text-slate-500 text-xs font-semibold">© 2026 EngiPrep Hub. All rights reserved.</p>
+              <p class="text-slate-455 dark:text-slate-500 text-xs font-semibold italic tracking-tight">Engineered for Academic Excellence</p>
+          </div>
+      </div>
+  </footer>
+
 </main><!-- /main -->
 
 <!-- FLOATING HELPER -->
@@ -3678,13 +3764,22 @@ END</pre>
 
 <script>
 // ─── UNIT NAVIGATION ───
+let isScrolling = false;
+
 function showUnit(num) {
-  document.querySelectorAll('.unit-section').forEach(el => el.classList.remove('active'));
+  isScrolling = true;
   document.querySelectorAll('.unit-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('unit-' + num).classList.add('active');
-  document.querySelector('.unit-btn[data-unit="' + num + '"]').classList.add('active');
+  const targetBtn = document.querySelector('.unit-btn[data-unit="' + num + '"]');
+  if (targetBtn) targetBtn.classList.add('active');
+  
+  const targetEl = document.getElementById('unit-' + num);
+  if (targetEl) {
+    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  
   const titles = {1:'Unit I', 2:'Unit II', 3:'Unit III', 4:'Unit IV', 5:'Unit V'};
-  document.getElementById('breadcrumb-unit').textContent = titles[num];
+  const breadcrumb = document.getElementById('breadcrumb-unit');
+  if (breadcrumb) breadcrumb.textContent = titles[num];
   
   // Close mobile sidebar elegant transition
   const sidebar = document.querySelector('.sidebar');
@@ -3692,46 +3787,80 @@ function showUnit(num) {
   if (sidebar) sidebar.classList.remove('open');
   if (overlay) overlay.classList.remove('open');
   
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Dynamic rebuild TOC for the selected unit
+  buildTocForUnit(num);
   
-  // Re-generate TOC for newly active Unit!
-  buildTocForActiveUnit();
-  setupTocObserver();
+  setTimeout(() => {
+    isScrolling = false;
+  }, 1000);
 }
 
-// ─── MOBILE SIDEBAR TOGGLE ───
-function toggleMobileMenu() {
-  const sidebar = document.querySelector('.sidebar');
-  const overlay = document.querySelector('.sidebar-overlay');
-  if (sidebar) sidebar.classList.toggle('open');
-  if (overlay) overlay.classList.toggle('open');
+// ─── UNIVERSAL SCROLLSPY & HASH ENGINE ───
+function initScrollSpy() {
+  const options = {
+    root: null,
+    rootMargin: '-20% 0px -50% 0px',
+    threshold: 0
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    if (isScrolling) return; // avoid conflict with click scroll
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        const num = id.replace('unit-', '');
+        
+        // Highlight active sidebar unit button
+        document.querySelectorAll('.unit-btn').forEach(el => el.classList.remove('active'));
+        const btn = document.querySelector(`.unit-btn[data-unit="${num}"]`);
+        if (btn) btn.classList.add('active');
+        
+        // Dynamic breadcrumb
+        const titles = {1:'Unit I', 2:'Unit II', 3:'Unit III', 4:'Unit IV', 5:'Unit V'};
+        const breadcrumb = document.getElementById('breadcrumb-unit');
+        if (breadcrumb) breadcrumb.textContent = titles[num] || 'PPS';
+        
+        // Rebuild Table of Contents for this Unit!
+        buildTocForUnit(num);
+        
+        // Update URL hash without jumping/breaking scroll
+        history.replaceState(null, null, '#' + id);
+      }
+    });
+  }, options);
+
+  document.querySelectorAll('.unit-section').forEach(section => {
+    observer.observe(section);
+  });
 }
 
 // ─── DYNAMIC TABLE OF CONTENTS GENERATION ───
-function buildTocForActiveUnit() {
+let activeTocUnit = null;
+
+function buildTocForUnit(num) {
+  if (activeTocUnit === num) return;
+  activeTocUnit = num;
+  
   const container = document.getElementById('toc-items-container');
   if (!container) return;
   container.innerHTML = ''; // clear previous TOC items
   
-  const activeUnit = document.querySelector('.unit-section.active');
-  if (!activeUnit) return;
+  const unit = document.getElementById('unit-' + num);
+  if (!unit) return;
   
-  const blocks = activeUnit.querySelectorAll('.section-block');
+  const blocks = unit.querySelectorAll('.section-block');
   blocks.forEach((block, index) => {
     // Generate a unique ID if not present
     if (!block.id) {
-      block.id = 'sec-' + activeUnit.id + '-' + index;
+      block.id = 'sec-unit-' + num + '-' + index;
     }
     
-    // Find section title
     const titleEl = block.querySelector('.section-title');
     if (!titleEl) return;
     
-    // Extract raw text without badge labels like PYQ, EXAM
     let titleText = titleEl.textContent;
     titleText = titleText.replace(/PYQ|★|⭐|EXAM/g, '').trim();
     
-    // Create link for TOC
     const tocItem = document.createElement('a');
     tocItem.href = '#' + block.id;
     tocItem.className = 'toc-item';
@@ -3741,29 +3870,26 @@ function buildTocForActiveUnit() {
       <span class="toc-text" title="${titleText}">${titleText}</span>
     `;
     
-    // Click navigates smoothly and opens the panel automatically
     tocItem.addEventListener('click', (e) => {
       e.preventDefault();
       block.classList.add('open');
-      block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      
-      // Update highlights
-      document.querySelectorAll('.toc-item').forEach(el => el.classList.remove('active'));
-      tocItem.classList.add('active');
+      document.getElementById(block.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     
     container.appendChild(tocItem);
   });
+  
+  setupTocObserverForUnit(unit);
 }
 
-// ─── TOC SCROLL HIGHLIGHTING INTERSECTION OBSERVER ───
+// ─── TOC SCROLL HIGHLIGHTING INDEXER ───
 let tocObserver = null;
-function setupTocObserver() {
+function setupTocObserverForUnit(unit) {
   if (tocObserver) tocObserver.disconnect();
   
   const options = {
     root: null,
-    rootMargin: '-10% 0px -75% 0px',
+    rootMargin: '-15% 0px -70% 0px',
     threshold: 0
   };
   
@@ -3780,12 +3906,50 @@ function setupTocObserver() {
     });
   }, options);
   
-  const activeUnit = document.querySelector('.unit-section.active');
-  if (activeUnit) {
-    activeUnit.querySelectorAll('.section-block').forEach(block => {
-      tocObserver.observe(block);
-    });
+  unit.querySelectorAll('.section-block').forEach(block => {
+    tocObserver.observe(block);
+  });
+}
+
+// ─── READER CONTROLS ENGINE ───
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  const pb = document.getElementById('scroll-progress-bar');
+  if (pb) pb.style.width = progress + '%';
+});
+
+function changeFontSize(direction) {
+  const root = document.querySelector('.main');
+  if (!root) return;
+  const currentSize = parseFloat(window.getComputedStyle(root).fontSize);
+  const newSize = direction === 'up' ? currentSize + 1.5 : currentSize - 1.5;
+  if (newSize >= 12 && newSize <= 24) {
+    root.style.fontSize = newSize + 'px';
   }
+}
+
+function toggleFocusMode() {
+  document.body.classList.toggle('focus-mode-active');
+  const btn = document.getElementById('focus-mode-btn');
+  if (btn) {
+    if (document.body.classList.contains('focus-mode-active')) {
+      btn.innerHTML = '👁️ Exit Focus';
+      btn.classList.add('bg-indigo-600', 'text-white');
+    } else {
+      btn.innerHTML = '👁️ Focus';
+      btn.classList.remove('bg-indigo-600', 'text-white');
+    }
+  }
+}
+
+// ─── MOBILE SIDEBAR TOGGLE ───
+function toggleMobileMenu() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  if (sidebar) sidebar.classList.toggle('open');
+  if (overlay) overlay.classList.toggle('open');
 }
 
 // ─── SECTION TOGGLE ───
@@ -3992,7 +4156,7 @@ function setStudyMode(mode) {
   }
 
   // Rebuild the TOC to match current state
-  buildTocForActiveUnit();
+  if (activeTocUnit) buildTocForUnit(activeTocUnit);
 }
 
 window.setStudyMode = setStudyMode;
@@ -4000,12 +4164,15 @@ window.setStudyMode = setStudyMode;
 // ─── INITIALIZATION ───
 document.addEventListener('DOMContentLoaded', () => {
   // Expand first section of currently active unit automatically
-  document.querySelectorAll('.unit-section.active .section-block').forEach((block, idx) => {
-    if (idx === 0) block.classList.add('open');
-  });
+  const unit1 = document.getElementById('unit-1');
+  if (unit1) {
+    unit1.querySelectorAll('.section-block').forEach((block, idx) => {
+      if (idx === 0) block.classList.add('open');
+    });
+  }
   
-  buildTocForActiveUnit();
-  setupTocObserver();
+  initScrollSpy();
+  buildTocForUnit(1);
 });
 </script>
     <!-- Universal Academic Navigator & Active Live Alerts -->
@@ -4253,78 +4420,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-<!-- EngiPrepAuthorBox -->
-<section class="max-w-4xl mx-auto my-16 p-8 bg-slate-900 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center gap-6">
-  <img src="/public/logo.png" alt="EngiPrepHub Logo" class="w-20 h-20 rounded-full border border-slate-700">
-  <div>
-    <h3 class="text-lg font-bold text-white">About the Author</h3>
-    <p class="text-slate-300 text-sm mt-2">EngiPrepHub is an academic initiative aimed at providing high-quality, verified, and structured JNTUK R23 study notes, PYQs, and interactive tools for engineering students. Our materials are reviewed by expert students and engineers to ensure syllabus alignment.</p>
-  </div>
-</section>
-
-
-
-<!-- EngiPrepHubFooter -->
-<!-- Global Footer -->
-    <footer class="pt-24 pb-12 px-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-850 transition-colors" aria-label="Academic Resource Footer">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20 text-left">
-                <div>
-                    <a href="/" class="flex items-center gap-3 mb-6" aria-label="EngiPrep Hub Homepage Link">
-                        <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/10 text-slate-50">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                            </svg>
-                        </div>
-                        <span class="text-xl font-black text-slate-900 dark:text-slate-50 tracking-tighter">EngiPrep Hub</span>
-                    </a>
-                    <p class="text-sm text-slate-400 dark:text-slate-400 leading-loose mb-8 font-medium">
-                        The ultimate JNTUK R23 engineering academic ecosystem. Built for future scholars, by university toppers.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="mailto:engiprephub@gmail.com" class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Send us an Email at engiprephub@gmail.com">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.433-.232 3.01.765.577-1 .577-2.338 0-3.338-.577-1-1.864-1.341-3.01-.768l-.01.005c-1.146.573-1.488 1.861-.915 3.01s1.861 1.488 3.01.915c1.146-.573 1.488-1.861.915-3.01l-.01.005z"/></svg>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-8">Resources</h4>
-                    <ul class="text-sm text-slate-400 dark:text-slate-400 space-y-4">
-                        <li><a href="/notes.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Study Notes PDF</a></li>
-                        <li><a href="/pyqs.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">JNTUK Solved PYQs</a></li>
-                        <li><a href="/cheat-sheets.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Formula Sheets</a></li>
-                        <li><a href="/tools.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">SGPA Calculators</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-8">Organization</h4>
-                    <ul class="text-sm text-slate-400 dark:text-slate-400 space-y-4">
-                        <li><a href="/about.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">About Us</a></li>
-                        <li><a href="/faq.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">FAQ</a></li>
-                        <li><a href="/blog.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Academic Blog</a></li>
-                        <li><a href="/contribute.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Become a Contributor</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-xs font-black uppercase text-slate-900 dark:text-slate-50 tracking-widest mb-8">Security & Legal</h4>
-                    <ul class="text-sm text-slate-400 dark:text-slate-400 space-y-4">
-                        <li><a href="/privacy-policy.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Privacy Policy</a></li>
-                        <li><a href="/cookie-policy.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Cookie Policy</a></li>
-                        <li><a href="/terms-conditions.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Terms & Conditions</a></li>
-                        <li><a href="/contact.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-colors">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="pt-12 border-t border-slate-100 dark:border-slate-850 flex flex-col md:flex-row items-center justify-between gap-6">
-                <p class="text-slate-400 dark:text-slate-500 text-xs font-semibold">© 2026 EngiPrep Hub. All rights reserved.</p>
-                <p class="text-slate-400 dark:text-slate-500 text-xs font-semibold italic tracking-tight">Engineered for Academic Excellence</p>
-            </div>
-        </div>
-    </footer>
 
 </body>
 </html>
