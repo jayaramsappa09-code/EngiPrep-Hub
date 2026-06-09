@@ -114,6 +114,13 @@ html.dark, html.theme-dark, .dark, .theme-dark {
   --sidebar-active-bg: rgba(139, 92, 246, 0.1);
   --sidebar-active-border: #8B5CF6;
   --sidebar-active-text: var(--text-main-color);
+  --font-sans: 'Georgia', 'Times New Roman', serif;
+  --font-display: 'Georgia', 'Times New Roman', serif;
+}
+
+[data-subject-theme="mathematics"] .glass-card,
+[data-subject-theme="mathematics"] .cardBlock {
+  border-left: 4px solid var(--theme-primary) !important;
 }
 
 /* chemistry */
@@ -144,6 +151,41 @@ html.dark, html.theme-dark, .dark, .theme-dark {
   --sidebar-active-bg: rgba(16, 185, 129, 0.1);
   --sidebar-active-border: #10B981;
   --sidebar-active-text: var(--text-main-color);
+  
+  /* Developer Terminal Theme overrides */
+  --font-sans: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-display: 'JetBrains Mono', 'Fira Code', monospace;
+  --text-main-color: #10B981 !important;
+  --text-secondary: #34D399 !important;
+  --text-muted-color: #059669 !important;
+  --background-color: #000000 !important;
+  --surface-color: #050505 !important;
+  --surface-secondary: #0a0a0a !important;
+  --border-color: #10B981 !important;
+}
+
+[data-subject-theme="programming"] body {
+  background-color: #000000 !important;
+}
+
+[data-subject-theme="programming"] .glass-card, 
+[data-subject-theme="programming"] .bento-card, 
+[data-subject-theme="programming"] .cardBlock, 
+[data-subject-theme="programming"] .card,
+[data-subject-theme="programming"] .content-body {
+  border: 1px dashed var(--theme-primary) !important;
+  border-radius: 4px !important;
+  background-color: #050505 !important;
+  box-shadow: none !important;
+  padding: 24px;
+}
+
+html.dark [data-subject-theme="programming"] .glass-card, 
+html.dark [data-subject-theme="programming"] .bento-card, 
+html.dark [data-subject-theme="programming"] .cardBlock, 
+html.dark [data-subject-theme="programming"] .content-body,
+html.dark [data-subject-theme="programming"] .card {
+  background-color: #000000 !important;
 }
 
 /* beee */
@@ -164,6 +206,34 @@ html.dark, html.theme-dark, .dark, .theme-dark {
   --sidebar-active-bg: rgba(6, 182, 212, 0.1);
   --sidebar-active-border: #06B6D4;
   --sidebar-active-text: var(--text-main-color);
+  
+  /* Blueprint Theme overrides */
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --surface-color: rgba(14, 165, 233, 0.03);
+}
+
+[data-subject-theme="graphics"] body {
+  background-image: 
+    linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px) !important;
+  background-size: 20px 20px !important;
+}
+
+html.dark [data-subject-theme="graphics"] body {
+  background-image: 
+    linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px) !important;
+}
+
+[data-subject-theme="graphics"] .glass-card, 
+[data-subject-theme="graphics"] .bento-card, 
+[data-subject-theme="graphics"] .cardBlock, 
+[data-subject-theme="graphics"] .content-body,
+[data-subject-theme="graphics"] .card {
+  border: 2px solid var(--theme-primary) !important;
+  border-radius: 0px !important;
+  padding: 24px;
 }
 
 /* civil-mechanical */
