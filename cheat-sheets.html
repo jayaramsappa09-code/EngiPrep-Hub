@@ -125,6 +125,14 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -180,6 +188,26 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/cheat-sheets">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/cheat-sheets">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -1013,107 +1041,31 @@
                 </a>
             </div>
 
-            <header class="mb-12 animate-fade-up">
-                <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">Final hour summaries</div>
-                <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 tracking-tight mb-4">Smart <span class="text-blue-600 dark:text-blue-400">Formula Sheets</span> vault</h1>
-                <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-lg font-medium leading-relaxed">Derivations, integrals, circuit equations, and algorithmic metrics condensed into interactive copy-safe modules.</p>
-            </header>
-
-            <!-- Mode Tabs -->
-            <div class="flex flex-col md:flex-row md:justify-between border-b border-slate-200 dark:border-slate-800 mb-8 animate-fade-up gap-4 md:gap-0" style="animation-delay: 0.1s">
-                <div class="flex overflow-x-auto">
-                    <button onclick="switchFormulaTab('sheets')" id="tab-sheets" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab shrink-0">Interactive Formula Cards</button>
-                    <button onclick="switchFormulaTab('saved')" id="tab-saved" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab shrink-0">Saved Formula collection</button>
+            <header class="mb-12 animate-fade-up flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                <div>
+                    <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">Final hour summaries</div>
+                    <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 tracking-tight mb-4">Core <span class="text-blue-600 dark:text-blue-400">Cheat Sheets</span></h1>
+                    <p class="text-slate-500 dark:text-slate-400 max-w-2xl text-lg font-medium leading-relaxed">A one-page reference grid featuring key formulas, memory tricks, and quick-revision points for every subject.</p>
                 </div>
                 <!-- Action to enter revision mode -->
-                <button onclick="toggleRevisionMode()" class="px-5 md:mb-2 py-2 bg-zinc-900 dark:bg-zinc-100 text-slate-100 dark:text-slate-900 font-mono text-[10px] uppercase font-black tracking-widest border border-zinc-800 dark:border-zinc-300 rounded-lg transition-all shadow-xs shrink-0 inline-flex items-center gap-2 self-start md:self-center hover:scale-105">
+                <button onclick="toggleRevisionMode()" class="px-5 py-3 bg-zinc-900 dark:bg-zinc-100 text-slate-100 dark:text-slate-900 font-mono text-[10px] uppercase font-black tracking-widest border border-zinc-800 dark:border-zinc-300 rounded-lg transition-all shadow-xs shrink-0 inline-flex items-center gap-2 hover:scale-105">
                     <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
                     Enter Distraction-Free
                 </button>
+            </header>
+
+            <!-- Loading Skeleton -->
+            <div id="sheets-loading-skeleton" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
+                <div class="h-96 bg-slate-200 dark:bg-slate-800 rounded-3xl"></div>
+                <div class="h-96 bg-slate-200 dark:bg-slate-800 rounded-3xl"></div>
+                <div class="h-96 bg-slate-200 dark:bg-slate-800 rounded-3xl hidden lg:block"></div>
             </div>
 
-            <!-- Subject selections & Search -->
-            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-6 mb-8 animate-fade-up" id="subject-selector-toolbar">
-                <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 pl-1">Choose Curriculum Focus</label>
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <button onclick="loadFormulasBySubject('PPS')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-blue-600 text-white" id="btn-fs-PPS">PPS (C Programming)</button>
-                    <button onclick="loadFormulasBySubject('M1')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-M1">Mathematics I</button>
-                    <button onclick="loadFormulasBySubject('M2')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-M2">Mathematics II</button>
-                    <button onclick="loadFormulasBySubject('Physics')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-Physics">Applied Physics</button>
-                    <button onclick="loadFormulasBySubject('Chemistry')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-Chemistry">Engineering Chemistry</button>
-                    <button onclick="loadFormulasBySubject('BEEE')" class="form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400" id="btn-fs-BEEE">BEEE</button>
-                </div>
-                <input type="text" id="formula-search" oninput="searchFormulas(this.value)" placeholder="Search formulas..." class="w-full bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-medium">
+            <!-- Subject Cards Grid -->
+            <div id="subjects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+                <!-- Cards injected here via JS -->
             </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                
-                <!-- Main Grid -->
-                <div class="lg:col-span-8">
-                    <!-- Formulas list -->
-                    <div id="sheets-panel" class="formula-tab-panel grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Injected by JavaScript -->
-                    </div>
-
-                    <!-- Saved Formulas deck -->
-                    <div id="saved-panel" class="formula-tab-panel hidden space-y-4">
-                        <div class="bento-card p-8">
-                             <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 mb-4">Your Custom Saved Equations</h3>
-                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="saved-formulas-container">
-                                 <!-- Injected -->
-                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Guidance sidebar (Now Interactive Sandbox Solver) -->
-                <div class="lg:col-span-4 space-y-8 animate-fade-up" style="animation-delay: 0.2s">
-                    <div class="bg-slate-900 dark:bg-slate-900 text-white rounded-[2.5rem] p-8 overflow-hidden relative border border-slate-800 dark:border-slate-800">
-                        <div class="absolute -right-16 -top-16 w-32 h-32 bg-blue-600/10 rounded-full blur-2xl"></div>
-                        <div class="relative z-10 space-y-6">
-                            <span class="text-[8px] font-black uppercase text-blue-400 tracking-widest flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-ping"></span>
-                                R23 Interactive Solver
-                            </span>
-                            
-                            <div>
-                                <h3 class="text-xl font-black leading-snug">Formula Sandbox</h3>
-                                <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Instantly calculate and verify parameters for key JNTUK equations to bolster laboratory and theory learning.</p>
-                            </div>
-
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-[9px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Active Equation</label>
-                                    <select id="calc-formula-select" onchange="switchCalculatorEquation(this.value)" class="w-full bg-slate-800 border border-slate-750 rounded-xl px-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-blue-500">
-                                        <option value="nernst">Nernst Electrode Potential</option>
-                                        <option value="newton-rings">Newton's Rings Dark Diameter</option>
-                                        <option value="optical-na">Optical Fiber Numerical Aperture</option>
-                                        <option value="res-freq">RLC Circuit Resonance Frequency</option>
-                                        <option value="water-hardness">Hardness of Water CaCO3 eq</option>
-                                    </select>
-                                </div>
-
-                                <div id="calc-inputs-container" class="space-y-3">
-                                    <!-- Dynamic Inputs populated by JS -->
-                                </div>
-
-                                <button onclick="solveActiveFormula()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-xs font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer">
-                                    Compute Result Value
-                                </button>
-
-                                <div class="bg-slate-950 p-4 border border-slate-850 rounded-2xl">
-                                    <div class="text-[8px] uppercase tracking-widest text-slate-500 font-extrabold flex items-center justify-between">
-                                        <span>Output State</span>
-                                        <span class="font-mono text-[9px] text-blue-500" id="calc-formula-eq">E = E° - (0.0591/n) log(Q)</span>
-                                    </div>
-                                    <div id="calc-result-value" class="text-lg font-black text-emerald-400 mt-2 font-mono">--</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            
         </main>
     </div>
 
@@ -1370,329 +1322,81 @@
             }, 3000);
         }
 
-        window.activeFormulaTab = 'sheets';
-        window.activeSubject = 'PPS';
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch and render cheat sheets
+            fetch('/public/cheat-sheets.json')
+                .then(res => res.json())
+                .then(data => {
+                    const grid = document.getElementById('subjects-grid');
+                    const skeleton = document.getElementById('sheets-loading-skeleton');
+                    
+                    if(skeleton) skeleton.classList.add('hidden');
+                    if(grid) {
+                        grid.classList.remove('hidden');
+                        
+                        // Render cards
+                        let html = '';
+                        Object.values(data).forEach(subject => {
+                            const formulasList = subject.formulas.map(f => `<li class="font-mono text-[10px] sm:text-xs text-blue-600 dark:text-blue-400 font-medium mb-2 pb-2 border-b border-slate-100 dark:border-slate-800 last:border-0 last:mb-0 last:pb-0 break-words">${f}</li>`).join('');
+                            const memoryList = subject.memory_tricks.map(m => `<li class="text-xs text-slate-600 dark:text-slate-400 mb-1 last:mb-0 flex items-start gap-2"><span class="text-amber-500 mt-0.5">💡</span><span>${m}</span></li>`).join('');
+                            const revisionList = subject.revision_points.map(r => `<li class="text-xs text-slate-600 dark:text-slate-400 mb-1 last:mb-0 flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span><span>${r}</span></li>`).join('');
 
-        const formulasDatabase = {
-            PPS: [
-                { id: "pps-f1", title: "Pointer dereferencing syntax", desc: "Computes direct data values where memory tags coordinate.", formula: "int x = 10; int *p = &x; val = *p;" },
-                { id: "pps-f2", title: "Struct allocation offsets", desc: "Declares modular user defined containers standard byte rules.", formula: "struct User { int id; char code[10]; } u;" },
-                { id: "pps-f3", title: "Formatted file write prints", desc: "Forwards characters to standard file streams.", formula: "fprintf(fptr, \"%d %s\", u.id, u.code);" },
-                { id: "pps-f4", title: "Dynamic Memory Allocation", desc: "Allocates blocks on the heap dynamically preserving layout constraints.", formula: "int *arr = (int*)malloc(n * sizeof(int));" },
-                { id: "pps-f5", title: "Recursive Null string lookup", desc: "Iterates characters continuously until termination byte is reached.", formula: "while(*str != '\\0') { len++; str++; }" },
-                { id: "pps-f6", title: "Bitwise Masking Operation", desc: "Performs low-level bit toggling or inspection via logic gates.", formula: "int active = flags & (1 << pos);" }
-            ],
-            M1: [
-                { id: "m1-f1", title: "Cayley-Hamilton Identity", desc: "Substituting original matrix inside its characteristic equation rules.", formula: "a_n * A^n + a_n-1 * A^n-1 + ... + a_0 * I = [0]" },
-                { id: "m1-f2", title: "Multivariable Jacobian conversion", desc: "Row/Col differentiation determinants for cartesian swaps.", formula: "J = ∂(u,v)/∂(x,y) = (∂u/∂x * ∂v/∂y) - (∂u/∂y * ∂v/∂x)" },
-                { id: "m1-f3", title: "Beta-Gamma Symm relationship", desc: "Integral values mapping symmetrical relationships.", formula: "B(m, n) = [Γ(m) * Γ(n)] / Γ(m + n)" },
-                { id: "m1-f4", title: "Taylor Series Expansion 2D", desc: "Formulates approximation profiles of functions around specific coords.", formula: "f(x,y) = f(a,b) + [f_x(a,b)(x-a) + f_y(a,b)(y-b)] + o(h^2)" },
-                { id: "m1-f5", title: "Newton's Law of Cooling ODE", desc: "Models thermal energy dissipation in fluid containers.", formula: "dT/dt = -k(T - T_s)  ==>  T(t) = T_s + C * e^(-k*t)" }
-            ],
-            M2: [
-                { id: "m2-f1", title: "Newton-Raphson Iterative Root Finder", desc: "Rapidly converges to real roots of algebraic or transcendental functions.", formula: "x_n+1 = x_n - [f(x_n) / f'(x_n)]" },
-                { id: "m2-f2", title: "Runge-Kutta 4th Order Vector Equations", desc: "Solves standard ordinary differential equations with higher accuracy bounds.", formula: "y_n+1 = y_n + (1/6)*(k1 + 2*k2 + 2*k3 + k4)" },
-                { id: "m2-f3", title: "Integrating Factor (Linear 1st Order ODE)", desc: "Simplifies non-exact linear differential equations of format dy/dx + Py = Q.", formula: "I.F. = e^(∫ P dx)" },
-                { id: "m2-f4", title: "Laplace Transform Definition", desc: "Converts real-time integral equations into complex frequency domain parameter systems.", formula: "L{f(t)} = ∫[0 to ∞] e^(-s*t) * f(t) dt" },
-                { id: "m2-f5", title: "Inverse Laplace Convolution Theorem", desc: "Simplifies complicated reciprocal transform multiplication steps into standard time integrals.", formula: "L^-1{F(s)*G(s)} = ∫[0 to t] f(u) * g(t-u) du" }
-            ],
-            Physics: [
-                { id: "phy-f1", title: "Newton's dark ring diameter", desc: "Calculates ring boundary ratios under plano lens planes.", formula: "D_n^2 = 4 * n * R * λ" },
-                { id: "phy-f2", title: "Optical fibers acceptance angle", desc: "Max light acceptance angle under refractive indexes.", formula: "sin θ = √(n1^2 - n2^2) / n0" },
-                { id: "phy-f3", title: "Schrodinger wave equations", desc: "Determines coordinates probability wave models.", formula: "[-h^2 / 2m] * ∇^2Ψ + VΨ = EΨ" },
-                { id: "phy-f4", title: "Bragg's Law of Diffraction", desc: "Specifies constructive interference angles under crystal spacing lattice lines.", formula: "2d * sin θ = n * λ" },
-                { id: "phy-f5", title: "De Broglie Electron Wavelength", desc: "Relates wave-particle duality to electrical potentials.", formula: "λ = h / √(2 * m * e * V) ≈ 1.226 / √V nm" }
-            ],
-            Chemistry: [
-                { id: "chem-f1", title: "Nernst Equation for Electrode Potential", desc: "Calculates cell potentials under varying non-standard state concentration factors.", formula: "E = E° - (0.0591 / n) * log10([Products] / [Reactants])" },
-                { id: "chem-f2", title: "Equivalent Water Hardness Conversion in mg/L", desc: "Normalizes dissolved calcium and magnesium contents into solid CaCO3 equivalents.", formula: "CaCO3 eq (mg/L) = Mass of salts * (50 / Eq. wt. of salts)" },
-                { id: "chem-f3", title: "Fox Mixture Equation (Polymer Glass Tg)", desc: "Traces dynamic glass transition temperatures across physical copolymer compositions.", formula: "1 / Tg = w1 / Tg1 + w2 / Tg2" },
-                { id: "chem-f4", title: "Electrolyte Cell Specific Conductance", desc: "Calculates specific conductance of analytical solutions using measured resistance and cell factors.", formula: "κ = (1 / R) * (l / A) = G * G*" },
-                { id: "chem-f5", title: "Kohlrausch's Independent Migration Law", desc: "Models infinite dilution equivalent conductivity limits by summing ion dynamics.", formula: "Λ_m° = v_+ * λ_+° + v_- * λ_-°" }
-            ],
-            BEEE: [
-                { id: "beee-f1", title: "Series RLC resonant frequency", desc: "Locates state coordinates where reactive impedance values cancel out entirely.", formula: "f_r = 1 / (2 * π * √(L * C))" },
-                { id: "beee-f2", title: "RMS Voltage of AC Sinewave", desc: "Determines DC equivalent heating potentials of a standard alternating waveform.", formula: "V_rms = V_peak / √2 ≈ 0.707 * V_peak" },
-                { id: "beee-f3", title: "DC Voltage Dividers rule", desc: "Apportions relative electrical potential across connected resistor channels.", formula: "V_x = V_total * (R_x / R_total)" },
-                { id: "beee-f4", title: "Maximum Power Transfer Condition", desc: "Maximizes load power output by matching impedance values back to system thresholds.", formula: "R_L = R_th" },
-                { id: "beee-f5", title: "Three-Phase Active Electric Power", desc: "Calculates unified active energy output across multi-phase high capacity installations.", formula: "P = √3 * V_L * I_L * cos(φ)" }
-            ]
-        };
+                            html += `
+                                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-blue-400 group flex flex-col h-full animate-fade-up">
+                                    <div class="bg-blue-50 dark:bg-slate-800/50 p-5 border-b border-slate-100 dark:border-slate-800">
+                                        <h3 class="text-lg font-black text-slate-900 dark:text-slate-50 uppercase tracking-tight">${subject.title}</h3>
+                                    </div>
+                                    <div class="p-6 flex-1 flex flex-col gap-6">
+                                        <!-- Formulas -->
+                                        <div>
+                                            <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                                                Key Formulas
+                                            </h4>
+                                            <ul class="bg-slate-50 dark:bg-slate-950/50 rounded-xl p-4 border border-slate-100 dark:border-slate-800/50">
+                                                ${formulasList}
+                                            </ul>
+                                        </div>
+                                        
+                                        <!-- Memory Tricks -->
+                                        <div>
+                                            <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                                Memory Tricks
+                                            </h4>
+                                            <ul>
+                                                ${memoryList}
+                                            </ul>
+                                        </div>
 
-        window.switchFormulaTab = function(tabId) {
-            document.querySelectorAll('.formula-tab-panel').forEach(p => p.classList.add('hidden'));
-            document.getElementById(`${tabId}-panel`).classList.remove('hidden');
-
-            document.querySelectorAll(`button[onclick*="switchFormulaTab"]`).forEach(b => {
-                b.className = 'px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab';
-            });
-            const btn = document.getElementById(`tab-${tabId}`);
-            if(btn) btn.className = 'px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab';
-
-            window.activeFormulaTab = tabId;
-
-            if(tabId === 'saved') renderSavedFormulaDeck();
-        }
-
-        window.loadFormulasBySubject = function(subName) {
-            window.activeSubject = subName;
-            document.querySelectorAll('.form-subj-btn').forEach(b => {
-                b.className = "form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-slate-50 dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:text-slate-400";
-            });
-            const btn = document.getElementById(`btn-fs-${subName}`);
-            if(btn) btn.className = "form-subj-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-tight bg-blue-600 text-white";
-
-            renderFormulasList();
-        }
-
-        function renderFormulasList() {
-            const container = document.getElementById('sheets-panel');
-            const data = formulasDatabase[window.activeSubject] || [];
-
-            container.innerHTML = data.map(item => {
-                const savedArr = JSON.parse(localStorage.getItem('prep-saved-formulas')) || [];
-                const isSaved = savedArr.some(f => f.id === item.id);
-                const starIcon = isSaved ? '★' : '☆';
-
-                return `
-                    <div class="formula-card animate-fade-up">
-                        <div class="flex items-center justify-between mb-4">
-                             <span class="text-[9px] font-bold text-blue-600 bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded uppercase tracking-wide dark:text-blue-400">${window.activeSubject} Reference</span>
-                             <button onclick="bookmarkFormula('${item.id}')" class="text-lg text-amber-500 hover:scale-110 transition-transform">${starIcon}</button>
-                        </div>
-                        <h4 class="text-md font-black text-slate-800 dark:text-slate-50">${item.title}</h4>
-                        <p class="text-[11px] text-slate-500 mt-1 leading-relaxed dark:text-slate-400">${item.desc}</p>
-                        <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 mt-4 flex items-center justify-between gap-4 font-mono text-xs text-blue-600 dark:text-blue-400 font-bold overflow-hidden">
-                             <code class="whitespace-nowrap overflow-x-auto select-all" id="f-code-${item.id}">${item.formula}</code>
-                             <button onclick="copyFormulaSnippet('f-code-${item.id}')" class="text-[8px] bg-slate-200 dark:bg-slate-800 hover:bg-blue-600 hover:text-slate-900 dark:text-slate-50 text-slate-700 px-2 py-1 rounded transition-colors uppercase shrink-0">Copy</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        window.searchFormulas = function(query) {
-            const container = document.getElementById('sheets-panel');
-            let data = formulasDatabase[window.activeSubject] || [];
-            
-            const q = query.toLowerCase().trim();
-            if(q) {
-                data = data.filter(item => 
-                    item.title.toLowerCase().includes(q) || 
-                    item.desc.toLowerCase().includes(q) || 
-                    item.formula.toLowerCase().includes(q)
-                );
-            }
-
-            container.innerHTML = data.map(item => {
-                const savedArr = JSON.parse(localStorage.getItem('prep-saved-formulas')) || [];
-                const isSaved = savedArr.some(f => f.id === item.id);
-                const starIcon = isSaved ? '★' : '☆';
-
-                return `
-                    <div class="formula-card animate-fade-up">
-                        <div class="flex items-center justify-between mb-4">
-                             <span class="text-[9px] font-bold text-blue-600 bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded uppercase tracking-wide dark:text-blue-400">${window.activeSubject} Reference</span>
-                             <button onclick="bookmarkFormula('${item.id}')" class="text-lg text-amber-500 hover:scale-110 transition-transform">${starIcon}</button>
-                        </div>
-                        <h4 class="text-md font-black text-slate-800 dark:text-slate-50">${item.title}</h4>
-                        <p class="text-[11px] text-slate-500 mt-1 leading-relaxed dark:text-slate-400">${item.desc}</p>
-                        <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 mt-4 flex items-center justify-between gap-4 font-mono text-xs text-blue-600 dark:text-blue-400 font-bold overflow-hidden">
-                             <code class="whitespace-nowrap overflow-x-auto select-all" id="f-code-${item.id}">${item.formula}</code>
-                             <button onclick="copyFormulaSnippet('f-code-${item.id}')" class="text-[8px] bg-slate-200 dark:bg-slate-800 hover:bg-blue-600 hover:text-slate-900 dark:text-slate-50 text-slate-700 px-2 py-1 rounded transition-colors uppercase shrink-0">Copy</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            if (data.length === 0) {
-                 container.innerHTML = '<div class="col-span-full py-12 text-center text-slate-400 italic">No formulas match your search criteria.</div>';
-            }
-        }
-
-        window.bookmarkFormula = function(id) {
-            let found = null;
-            for (const key in formulasDatabase) {
-                const item = formulasDatabase[key].find(f => f.id === id);
-                if (item) { found = item; break; }
-            }
-            if(!found) return;
-
-            let savedArr = JSON.parse(localStorage.getItem('prep-saved-formulas')) || [];
-            if(savedArr.some(f => f.id === id)) {
-                // Remove
-                savedArr = savedArr.filter(f => f.id !== id);
-                window.showToast("Formula removed from saved collection.", "info");
-            } else {
-                savedArr.push(found);
-                window.showToast("⭐ Added to saved collection! 🔥 +10 XP earned.", "success");
-            }
-            localStorage.setItem('prep-saved-formulas', JSON.stringify(savedArr));
-            renderFormulasList();
-            renderSavedFormulaDeck();
-        }
-
-        function renderSavedFormulaDeck() {
-            const container = document.getElementById('saved-formulas-container');
-            if(!container) return;
-
-            const savedArr = JSON.parse(localStorage.getItem('prep-saved-formulas')) || [];
-            if(savedArr.length === 0) {
-                container.innerHTML = '<div class="col-span-full py-12 text-center text-slate-400 italic">No bookmarked equations yet. Press standard star icons to pin items.</div>';
-                return;
-            }
-
-            container.innerHTML = savedArr.map(item => `
-                <div class="formula-card animate-fade-up">
-                    <div class="flex items-center justify-between mb-4">
-                         <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded uppercase font-black">Saved formulas</span>
-                         <button onclick="bookmarkFormula('${item.id}')" class="text-lg text-amber-500">★</button>
-                    </div>
-                    <h4 class="text-md font-black text-slate-800 dark:text-slate-50">${item.title}</h4>
-                    <p class="text-[11px] text-slate-500 mt-1 dark:text-slate-400">${item.desc}</p>
-                    <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 mt-4 flex items-center justify-between gap-4 font-mono text-xs text-[#10b981] font-bold overflow-hidden">
-                         <code class="whitespace-nowrap overflow-x-auto select-all" id="f-save-code-${item.id}">${item.formula}</code>
-                         <button onclick="copyFormulaSnippet('f-save-code-${item.id}')" class="text-[8px] bg-slate-200 dark:bg-slate-800 hover:bg-emerald-600 hover:text-slate-900 dark:text-slate-50 text-slate-700 px-2 py-1 rounded transition-colors uppercase shrink-0">Copy</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        window.copyFormulaSnippet = function(nodeId) {
-            const txt = document.getElementById(nodeId).innerText;
-            navigator.clipboard.writeText(txt).then(() => {
-                window.showToast("📋 Equation copied directly to clipboard!", "success");
-            });
-        }
-
-        // 3. REAL-TIME MULTI-FORMULA SANDBOX SOLVABILITY DECK
-        window.switchCalculatorEquation = function(eqId) {
-            const container = document.getElementById('calc-inputs-container');
-            const formulaEq = document.getElementById('calc-formula-eq');
-            if (!container) return;
-
-            let html = '';
-            if (eqId === 'nernst') {
-                formulaEq.innerText = "E = E° - (0.0591 / n) * log10(Q)";
-                html = `
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">E° (Standard Potential in V)</label>
-                        <input type="number" id="inp-nernst-e0" value="0.76" step="0.01" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Transferred Electrons (n)</label>
-                        <input type="number" id="inp-nernst-n" value="2" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Quotient Q ([Prod] / [React])</label>
-                        <input type="number" id="inp-nernst-q" value="0.01" step="0.001" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                `;
-            } else if (eqId === 'newton-rings') {
-                formulaEq.innerText = "D_n² = 4 * n * R * λ";
-                html = `
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Dark Ring Order (n)</label>
-                        <input type="number" id="inp-nr-n" value="5" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Radius Curvature R (cm)</label>
-                        <input type="number" id="inp-nr-r" value="100" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Wavelength λ (nm)</label>
-                        <input type="number" id="inp-nr-lam" value="589" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                `;
-            } else if (eqId === 'optical-na') {
-                formulaEq.innerText = "N.A. = √(n1² - n2²)";
-                html = `
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Core Refraction Index n1</label>
-                        <input type="number" id="inp-na-n1" value="1.54" step="0.01" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Clad Refraction Index n2</label>
-                        <input type="number" id="inp-na-n2" value="1.50" step="0.01" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                `;
-            } else if (eqId === 'res-freq') {
-                formulaEq.innerText = "fr = 1 / (2 * π * √(L * C))";
-                html = `
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Inductance L (mH)</label>
-                        <input type="number" id="inp-rf-l" value="10" step="0.1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Capacitance C (μF)</label>
-                        <input type="number" id="inp-rf-c" value="4.7" step="0.1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                `;
-            } else if (eqId === 'water-hardness') {
-                formulaEq.innerText = "Hardness = Mass * (50 / EqWt)";
-                html = `
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Concentration of Salts (mg/L)</label>
-                        <input type="number" id="inp-wh-mass" value="12" step="0.5" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Salt Equivalent Weight (e.g. MgSO4=60)</label>
-                        <input type="number" id="inp-wh-eq" value="60" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:ring-1 focus:ring-blue-500">
-                    </div>
-                `;
-            }
-            container.innerHTML = html;
-        }
-
-        window.solveActiveFormula = function() {
-            const eqId = document.getElementById('calc-formula-select').value;
-            const resVal = document.getElementById('calc-result-value');
-            if(!resVal) return;
-
-            let result = 0;
-
-            try {
-                if (eqId === 'nernst') {
-                    const e0 = parseFloat(document.getElementById('inp-nernst-e0').value) || 0;
-                    const n = parseFloat(document.getElementById('inp-nernst-n').value) || 1;
-                    const q = parseFloat(document.getElementById('inp-nernst-q').value) || 1;
-                    if(q <= 0) throw new Error("Quotient Q must be > 0");
-                    const e = e0 - (0.0591 / n) * Math.log10(q);
-                    result = e.toFixed(4) + " V";
-                } else if (eqId === 'newton-rings') {
-                    const n = parseFloat(document.getElementById('inp-nr-n').value) || 1;
-                    const r = parseFloat(document.getElementById('inp-nr-r').value) || 1;
-                    const lam = parseFloat(document.getElementById('inp-nr-lam').value) || 589;
-                    const dSq = 4 * n * r * (lam * 1e-7);
-                    const d = Math.sqrt(dSq);
-                    result = d.toFixed(4) + " cm (D²: " + dSq.toExponential(3) + " cm²)";
-                } else if (eqId === 'optical-na') {
-                    const n1 = parseFloat(document.getElementById('inp-na-n1').value) || 1.5;
-                    const n2 = parseFloat(document.getElementById('inp-na-n2').value) || 1.4;
-                    if (n1 < n2) throw new Error("n1 must be > cladding index n2");
-                    const diff = n1*n1 - n2*n2;
-                    const na = Math.sqrt(diff);
-                    const theta = Math.asin(na) * (180 / Math.PI);
-                    result = na.toFixed(4) + " (Acceptance Angle α: " + theta.toFixed(2) + "°)";
-                } else if (eqId === 'res-freq') {
-                    const l = parseFloat(document.getElementById('inp-rf-l').value) || 1;
-                    const c = parseFloat(document.getElementById('inp-rf-c').value) || 1;
-                    if(l <= 0 || c <= 0) throw new Error("LC params must be non-zero");
-                    const res = 1 / (2 * Math.PI * Math.sqrt((l * 1e-3) * (c * 1e-6)));
-                    result = (res / 1000).toFixed(3) + " kHz (" + res.toFixed(1) + " Hz)";
-                } else if (eqId === 'water-hardness') {
-                    const mass = parseFloat(document.getElementById('inp-wh-mass').value) || 0;
-                    const eqwt = parseFloat(document.getElementById('inp-wh-eq').value) || 1;
-                    if(eqwt <= 0) throw new Error("Eq. weight must be positive number");
-                    const hardness = mass * (50 / eqwt);
-                    result = hardness.toFixed(2) + " mg/L as CaCO3 equivalent";
-                }
-            } catch (err) {
-                result = "Error: " + err.message;
-            }
-
-            resVal.innerText = result;
-        }
+                                        <!-- Revision Points -->
+                                        <div class="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
+                                            <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                                Quick-Revision
+                                            </h4>
+                                            <ul>
+                                                ${revisionList}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        grid.innerHTML = html;
+                    }
+                })
+                .catch(err => {
+                    console.error("Error loading cheat sheets data:", err);
+                    const grid = document.getElementById('subjects-grid');
+                    const skeleton = document.getElementById('sheets-loading-skeleton');
+                    if(skeleton) skeleton.classList.add('hidden');
+                    if(grid) {
+                        grid.classList.remove('hidden');
+                        grid.innerHTML = '<div class="col-span-full py-12 text-center text-rose-500 font-medium">Failed to load cheat sheets data. Please refresh the page.</div>';
+                    }
+                });
+        });
 
         // 4. REVISION MODE ACTIVATE LOGIC
         window.toggleRevisionMode = function() {
@@ -2024,6 +1728,14 @@
             <p class="text-xs text-center mt-4 text-slate-500 dark:text-slate-500">We respect your inbox. No spam, ever.</p>
         </div>
     </div>
+
+
+
+
+
+
+
+
 
 
 
