@@ -4,7 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Cheat Sheets JNTUK R23 Notes | Engi Prep Hub</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e293b">
+    <link rel="apple-touch-icon" href="/public/logo.png">
     <link rel="canonical" href="https://engiprephub.in/cheat-sheets">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -116,6 +180,166 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/cheat-sheets">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/cheat-sheets">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -796,9 +1020,16 @@
             </header>
 
             <!-- Mode Tabs -->
-            <div class="flex border-b border-slate-200 dark:border-slate-800 mb-8 animate-fade-up" style="animation-delay: 0.1s">
-                <button onclick="switchFormulaTab('sheets')" id="tab-sheets" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab">Interactive Formula Cards</button>
-                <button onclick="switchFormulaTab('saved')" id="tab-saved" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab">Saved Formula collection</button>
+            <div class="flex flex-col md:flex-row md:justify-between border-b border-slate-200 dark:border-slate-800 mb-8 animate-fade-up gap-4 md:gap-0" style="animation-delay: 0.1s">
+                <div class="flex overflow-x-auto">
+                    <button onclick="switchFormulaTab('sheets')" id="tab-sheets" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all active-tab shrink-0">Interactive Formula Cards</button>
+                    <button onclick="switchFormulaTab('saved')" id="tab-saved" class="px-6 py-3 border-b-2 font-bold text-xs uppercase tracking-widest transition-all inactive-tab shrink-0">Saved Formula collection</button>
+                </div>
+                <!-- Action to enter revision mode -->
+                <button onclick="toggleRevisionMode()" class="px-5 md:mb-2 py-2 bg-zinc-900 dark:bg-zinc-100 text-slate-100 dark:text-slate-900 font-mono text-[10px] uppercase font-black tracking-widest border border-zinc-800 dark:border-zinc-300 rounded-lg transition-all shadow-xs shrink-0 inline-flex items-center gap-2 self-start md:self-center hover:scale-105">
+                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                    Enter Distraction-Free
+                </button>
             </div>
 
             <!-- Subject selections & Search -->
@@ -1238,6 +1469,45 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        window.searchFormulas = function(query) {
+            const container = document.getElementById('sheets-panel');
+            let data = formulasDatabase[window.activeSubject] || [];
+            
+            const q = query.toLowerCase().trim();
+            if(q) {
+                data = data.filter(item => 
+                    item.title.toLowerCase().includes(q) || 
+                    item.desc.toLowerCase().includes(q) || 
+                    item.formula.toLowerCase().includes(q)
+                );
+            }
+
+            container.innerHTML = data.map(item => {
+                const savedArr = JSON.parse(localStorage.getItem('prep-saved-formulas')) || [];
+                const isSaved = savedArr.some(f => f.id === item.id);
+                const starIcon = isSaved ? '★' : '☆';
+
+                return `
+                    <div class="formula-card animate-fade-up">
+                        <div class="flex items-center justify-between mb-4">
+                             <span class="text-[9px] font-bold text-blue-600 bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded uppercase tracking-wide dark:text-blue-400">${window.activeSubject} Reference</span>
+                             <button onclick="bookmarkFormula('${item.id}')" class="text-lg text-amber-500 hover:scale-110 transition-transform">${starIcon}</button>
+                        </div>
+                        <h4 class="text-md font-black text-slate-800 dark:text-slate-50">${item.title}</h4>
+                        <p class="text-[11px] text-slate-500 mt-1 leading-relaxed dark:text-slate-400">${item.desc}</p>
+                        <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 mt-4 flex items-center justify-between gap-4 font-mono text-xs text-blue-600 dark:text-blue-400 font-bold overflow-hidden">
+                             <code class="whitespace-nowrap overflow-x-auto select-all" id="f-code-${item.id}">${item.formula}</code>
+                             <button onclick="copyFormulaSnippet('f-code-${item.id}')" class="text-[8px] bg-slate-200 dark:bg-slate-800 hover:bg-blue-600 hover:text-slate-900 dark:text-slate-50 text-slate-700 px-2 py-1 rounded transition-colors uppercase shrink-0">Copy</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            if (data.length === 0) {
+                 container.innerHTML = '<div class="col-span-full py-12 text-center text-slate-400 italic">No formulas match your search criteria.</div>';
+            }
         }
 
         window.bookmarkFormula = function(id) {
@@ -1731,18 +2001,7 @@
 
 
 
-<!-- EngiPrepHubFooter -->
-<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
-  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
-    <a href="/about.html" class="hover:text-white">About</a>
-    <a href="/contact.html" class="hover:text-white">Contact</a>
-    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
-    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
-    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
-    <a href="/faq.html" class="hover:text-white">FAQ</a>
-  </div>
-  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
-</footer>
+
 
 
     <!-- Subscribe Modal -->
@@ -1765,6 +2024,81 @@
             <p class="text-xs text-center mt-4 text-slate-500 dark:text-slate-500">We respect your inbox. No spam, ever.</p>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- EngiPrepHubFooter -->
+<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
+    <a href="/about.html" class="hover:text-white">About</a>
+    <a href="/contact.html" class="hover:text-white">Contact</a>
+    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq.html" class="hover:text-white">FAQ</a>
+  </div>
+  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+</footer>
 
 </body>
 </html>

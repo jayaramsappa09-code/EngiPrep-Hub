@@ -15,6 +15,7 @@ import { AI_ROUTER } from './ai/router/router.js';
 import { FUZZY_SEARCH } from './ai/search/searchEngine.js';
 import { COMMAND_PALETTE } from './ai/search/commandPalette.js';
 import { AI_MEMORY } from './ai/memory/memory.js';
+import './unit-weightage-widget.ts';
 
 if (typeof window !== 'undefined') {
     window.showAchievementToast = showAchievementToast;
