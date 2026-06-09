@@ -2146,4 +2146,17 @@ if (typeof window !== 'undefined') {
     window.AI_MEMORY = AI_MEMORY;
 }
 
+// Register custom PWA Service Worker for stable offline study notes and cheat sheets access
+if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => {
+                console.log('[PWA] Service Worker registered successfully, scope:', reg.scope);
+            })
+            .catch(err => {
+                console.warn('[PWA] Service Worker registration failed:', err);
+            });
+    });
+}
+
 

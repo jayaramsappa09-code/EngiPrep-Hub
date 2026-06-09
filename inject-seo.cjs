@@ -178,6 +178,15 @@ htmlFiles.forEach(file => {
     content = content.replace('</title>', `</title>\n    <link rel="canonical" href="${canonicalUrl}">`);
     modified = true;
 
+    // Clean old PWA manifest keys and inject fresh compliant PWA bindings
+    content = content.replace(/<link rel="manifest".*?>/gi, '');
+    content = content.replace(/<meta name="theme-color".*?>/gi, '');
+    content = content.replace(/<link rel="apple-touch-icon".*?>/gi, '');
+    const pwaTags = `    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e293b">
+    <link rel="apple-touch-icon" href="/public/logo.png">`;
+    content = content.replace('</title>', `</title>\n${pwaTags}`);
+
     // 3. Inject Hreflang and high-fidelity SEO localization keys
     if (!content.includes('hreflang="en-IN"')) {
         const hreflangs = `
