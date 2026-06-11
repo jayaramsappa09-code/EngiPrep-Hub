@@ -880,6 +880,16 @@ function initCookieConsent() {
     }
 }
 
+export function handlePostLoginRedirect() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectParams = urlParams.get('redirect');
+    if (redirectParams && redirectParams !== '/' && redirectParams !== '/index.html' && redirectParams !== '/auth.html') {
+        window.location.replace(decodeURIComponent(redirectParams));
+    } else {
+        window.location.replace('/dashboard.html');
+    }
+}
+
 // Sync UI on auth changes
 supabase.auth.onAuthStateChange(async (event, session) => {
     console.log('Auth State Change:', event, session?.user?.email);

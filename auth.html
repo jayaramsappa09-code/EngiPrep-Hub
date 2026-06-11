@@ -52,6 +52,22 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <meta name="description" content="Access JNTUK R23 notes, PYQs, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal.">
     
     <script>
@@ -101,6 +117,46 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/auth">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/auth">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -543,6 +599,7 @@
     <script type="module">
         import { signIn, signUp, signInWithGoogle, resetPassword, saveOnboardingProfile } from './src/auth.js'
         import { supabase, getCurrentUser, getUserProfile, updateUserProfile } from './src/supabase.js'
+        import { handlePostLoginRedirect } from './src/main.js'
         
         // Element caching
         const authContainer = document.getElementById('auth-container');
@@ -642,7 +699,7 @@
                     if (profile && profile.branch && profile.semester) {
                         // Onboarding complete! Perform redirectional lookup
                         analytics.trackEvent('AuthComplete', { method: user.app_metadata?.provider || 'saved_session', existingUser: true });
-                        completeProcessAndRedirect();
+                        handlePostLoginRedirect();
                     } else {
                         // Newly logged in but missing fields -> Immediately trigger onboarding takeover!
                         analytics.trackEvent('OnboardingOnSessionDetected', { userId: user.id });
@@ -786,24 +843,13 @@
                 onboardingNextBtn.className = 'w-full h-12 bg-emerald-700 text-white font-bold rounded-2xl text-xs uppercase tracking-wider text-center';
                 
                 setTimeout(() => {
-                    completeProcessAndRedirect();
+                    handlePostLoginRedirect();
                 }, 1000);
 
             } catch (err) {
                 console.error('Error finalising account onboarding:', err);
                 alert('We encountered an issue finalizing your profile. We will forward you to the dashboard next.');
-                completeProcessAndRedirect();
-            }
-        }
-
-        // Redirect logic post-login
-        function completeProcessAndRedirect() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const redirectParams = urlParams.get('redirect');
-            if (redirectParams && redirectParams !== '/' && redirectParams !== '/index.html' && redirectParams !== '/auth.html') {
-                window.location.replace(decodeURIComponent(redirectParams));
-            } else {
-                window.location.replace('/dashboard.html');
+                handlePostLoginRedirect();
             }
         }
 
@@ -863,7 +909,7 @@
                         const profile = await getUserProfile(loginData.user.id);
                         analytics.trackEvent('EmailLoginSuccess', { userId: loginData.user.id });
                         if (profile && profile.branch && profile.semester) {
-                            completeProcessAndRedirect();
+                            handlePostLoginRedirect();
                         } else {
                             showOnboardingTakeover(profile, email);
                         }
@@ -918,6 +964,22 @@
 
     <!-- Universal Academic Navigator & Active Live Alerts -->
     <script type="module" src="/src/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
