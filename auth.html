@@ -68,6 +68,18 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <meta name="description" content="Access JNTUK R23 notes, PYQs, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal.">
     
     <script>
@@ -117,6 +129,36 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/auth">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/auth">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -389,28 +431,6 @@
                         </p>
                     </div>
 
-                    <!-- SOCIAL LOGINS FIRST -->
-                    <div class="space-y-3.5 mb-6">
-                        <!-- Google Signup Button -->
-                        <button type="button" id="google-login-btn" class="w-full h-12 flex items-center justify-center gap-3 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/80 border border-slate-200 dark:border-slate-800 rounded-2xl text-slate-800 dark:text-slate-100 text-sm font-bold transition-all hover:-translate-y-0.5 shadow-sm active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <!-- SVG Google Icon -->
-                            <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
-                                <path fill="#EA4335" d="M12 5.04c1.62 0 3.08.56 4.22 1.64l3.15-3.15C17.45 1.74 14.9 1 12 1 7.35 1 3.39 3.65 1.5 7.5l3.6 2.8C6.01 7.37 8.75 5.04 12 5.04z"/>
-                                <path fill="#4285F4" d="M23.14 12.27c0-.81-.07-1.59-.2-2.36H12v4.47h6.24c-.27 1.41-1.07 2.61-2.27 3.41l3.5 2.72c2.05-1.9 3.23-4.69 3.23-8.24z"/>
-                                <path fill="#FBBC05" d="M5.1 14.7c-.24-.71-.38-1.47-.38-2.25s.14-1.54.38-2.25L1.5 7.4C.54 9.3 0 11.4 0 13.5s.54 4.2 1.5 6.1l3.6-2.9z"/>
-                                <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.5-2.72c-.97.65-2.22 1.04-4.46 1.04-3.25 0-5.99-2.33-6.9-5.46L1.5 15.8C3.39 19.65 7.35 23 12 23z"/>
-                            </svg>
-                            <span>Continue with Google</span>
-                        </button>
-                    </div>
-
-                    <!-- Divider -->
-                    <div class="relative flex items-center justify-center my-6">
-                        <div class="flex-grow border-t border-slate-200 dark:border-slate-800/80"></div>
-                        <span class="flex-shrink mx-4 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">OR</span>
-                        <div class="flex-grow border-t border-slate-200 dark:border-slate-800/80"></div>
-                    </div>
-
                     <!-- EMAIL SIGNIN / SIGNUP FORM -->
                     <form id="auth-form" class="space-y-4">
                         
@@ -597,7 +617,7 @@
 
     <!-- LOGIC INTEGRATION SCALING -->
     <script type="module">
-        import { signIn, signUp, signInWithGoogle, resetPassword, saveOnboardingProfile } from './src/auth.js'
+        import { signIn, signUp, resetPassword, saveOnboardingProfile } from './src/auth.js'
         import { supabase, getCurrentUser, getUserProfile, updateUserProfile } from './src/supabase.js'
         import { handlePostLoginRedirect } from './src/main.js'
         
@@ -853,22 +873,6 @@
             }
         }
 
-        // OAuth Logins click actions
-        document.getElementById('google-login-btn').addEventListener('click', async () => {
-            try {
-                errorDiv.classList.add('hidden');
-                analytics.trackEvent('OAuthClick', { provider: 'google' });
-                localStorage.setItem('engiprep_last_provider', 'google');
-                const urlParams = new URLSearchParams(window.location.search);
-                const redirect = urlParams.get('redirect') ? `?redirect=${urlParams.get('redirect')}` : '';
-                await signInWithGoogle(window.location.origin + '/auth.html' + redirect);
-            } catch (err) {
-                errorDiv.innerText = err.message || 'Connecting Google OAuth failed. Please retry.';
-                errorDiv.classList.remove('hidden');
-                analytics.trackEvent('OAuthError', { provider: 'google', error: err.message });
-            }
-        });
-
         // Email / Password Form submit
         formSubmit.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -964,6 +968,18 @@
 
     <!-- Universal Academic Navigator & Active Live Alerts -->
     <script type="module" src="/src/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

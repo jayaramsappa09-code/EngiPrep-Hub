@@ -25,17 +25,6 @@ export const signUp = async (email, password, fullName, username) => {
   return data
 }
 
-export const signInWithGoogle = async (redirectTo) => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo: redirectTo || window.location.origin + '/auth.html',
-    },
-  })
-  if (error) throw error
-  return data
-}
-
 export const saveOnboardingProfile = async (userId, { fullName, university, branch, semester, year, goals }) => {
   const profileData = {
     full_name: fullName,
