@@ -1,142 +1,224 @@
 {
   "mathematics": {
-    "title": "Mathematics",
+    "title": "Engineering Mathematics-I",
     "formulas": [
-      "Euler's Formula: e^(ix) = cos(x) + i * sin(x)",
-      "Rank of Matrix: Number of non-zero rows in Echelon form",
-      "Taylor Series: f(a) + f'(a)(x-a) + f''(a)(x-a)^2/2! + ..."
+      "Matrix Rank: ρ(A) is computed by converting Matrix A into Row Echelon Form using row operations: R_i → R_i - k * R_j. Count of non-zero rows equals Rank.",
+      "Eigenvalue Equation: det(A - λI) = 0. Solving this characteristic polynomial yields eigenvalues λ_1, λ_2, ..., λ_n. Trace = Σλ_i; det(A) = Πλ_i.",
+      "Cayley-Hamilton Theorem: Any square matrix A satisfies its own characteristic equation: c_n A^n + c_{n-1} A^{n-1} + ... + c_1 A + c_0 I = 0. Use to compute Inverse: A^{-1} = -1/c_0 * (c_n A^{n-1} + ... + c_1 I).",
+      "Rolle's Theorem: If f(x) is continuous in [a, b], differentiable in (a, b), and f(a) = f(b), then there exists a point c ∈ (a, b) such that f'(c) = 0.",
+      "Lagrange Mean Value Theorem (LMVT): If f(x) is continuous in [a,b] and differentiable in (a,b), then there exists c ∈ (a,b) such that f'(c) = [f(b) - f(a)] / [b - a].",
+      "Taylor Series Expansion: f(x) = f(a) + f'(a)(x-a) + f''(a)(x-a)^2 / 2! + f'''(a)(x-a)^3 / 3! + ... + f^(n)(a)(x-a)^n / n!.",
+      "Maclaurin Series (Taylor at a=0): f(x) = f(0) + f'(0)x + f''(0)x^2 / 2! + f'''(0)x^3 / 3! + ...",
+      "Lagrange Multipliers: To optimize f(x, y, z) subject to G(x, y, z) = 0, construct Lagrangian L = f + λG. Solve simultaneous system: ∇f = -λ∇G and G = 0."
     ],
     "memory_tricks": [
-      "Integration by parts: ILATE (Inverse, Logarithmic, Algebraic, Trigonometric, Exponential)"
+      "Rank definition: Rank is the dimension of the vector space spanned by its columns/rows. Row Echelon makes this visible directly by matching independent paths.",
+      "Eigen-sum identity: Sum of product eigenvalues equals trace (diagonal sum). Product of eigenvalues equal to determinant of matrix. Always verify with this!",
+      "Cayley-Hamilton shortcut: For 2x2 matrix, A^2 - Trace(A)*A + det(A)*I = 0. Instant polynomial check without solving det equation.",
+      "Rolle's peak logic: Continuous line starts and ends at same height must have at least one flat peak or trough where slope is zero (f'(c) = 0).",
+      "LMVT tangent parallel line: The instantaneous slope at some point 'c' must perfectly match the average slope connecting endpoints 'a' and 'b'.",
+      "Taylor's near-point approximation: Think of Taylor series like a local polynomial wrapper. To approximate values near 'a', use higher-order derivatives.",
+      "Lagrange gradient matchup: Gradients of the objective function and constraint function must point in parallel directions at optimum: ∇f || ∇G."
     ],
     "revision_points": [
-      "Always check boundary conditions in differential equations.",
-      "Matrix multiplication is NOT necessarily commutative."
+      "Always check if a matrix is non-singular (det ≠ 0) before performing standard inversion. Singular matrices do not possess a true mathematical inverse.",
+      "In Echelon reductions, only use ROW operations. Introducing column operations changes the column space and results in wild, invalid ranks.",
+      "For Rolle's, check all 3 criteria: continuity, differentiability, and boundary parity. If even one criterion fails, Rolle's is not guaranteed.",
+      "Taylor polynomial error remainder R_n(x) can be calculated using Lagrange's remainder form: R_n(x) = f^(n+1)(c) * (x-a)^{n+1} / (n+1)!.",
+      "Lagrange Multipliers apply only to smooth continuous gradients. Ensure constraint surfaces are not self-intersecting or singular at optimum points."
     ]
   },
   "physics": {
     "title": "Engineering Physics",
     "formulas": [
-      "Bragg's Law: 2d sin(θ) = nλ",
-      "De Broglie Wavelength: λ = h / p",
-      "Numerical Aperture: NA = √(n1² - n2²)"
+      "Interference (Newton's Rings): Diameter of m-th dark ring in reflected light d_m^2 = 4 * m * λ * R / μ, where R is curvature radius, μ is film index.",
+      "Diffraction Grating equation: (e + d) * sin(θ) = n * λ, where (e + d) is the grating element (lines/cm), θ is diffraction angle, n is order number.",
+      "Laser Population Kinematics: Einstein A & B coefficients relate spontaneous vs stimulated emission: B_{21} = B_{12} and A_{21} = (8π h ν^3 / c^3) * B_{21}.",
+      "Quantum Wave mechanics: Time-independent 1D Schrödinger equation: -ħ^2/(2m) * d^2ψ/dx^2 + V(x)ψ(x) = Eψ(x), where ħ is reduced Planck constant.",
+      "Numerical Aperture (NA) of fiber: NA = sin(θ_accept) = √(n1^2 - n2^2), where n1 is core index, n2 is cladding index. Fractional index difference Δ = (n1 - n2) / n1.",
+      "Acceptance Angle: θ_a = arcsin(√(n1^2 - n2^2) / n_0), where n_0 is refractive index of outside atmosphere air surrounding fiber lines."
     ],
     "memory_tricks": [
-      "VIBGYOR helps remember wavelength order (Violet shortest, Red longest)"
+      "Newton's Rings ring layout: Dark rings scale with root integers (1, 2, 3...) while bright rings scale with odd roots (1, 3, 5...). Reflected phase gets a 180° shift.",
+      "Grating element density: Grating constant is 1/N, where N is lines per unit length. (e+d) is simply the distance between two adjacent slit centers.",
+      "Stimulated emission trigger: Think of stimulated emission like dominoes. One incident photon triggers another identical clone photon to exit in phase.",
+      "Schrödinger conservation check: Kinetic Energy operator (-ħ^2/2m * d^2/dx^2) plus Potential Energy operator (V) matches total systemic energy (E).",
+      "NA Light Trap condition: High NA means wide acceptance cone. To trap more light, increase the refractive index contrast between core and cladding."
     ],
     "revision_points": [
-      "Lasers require population inversion.",
-      "Optical fibers work on Total Internal Reflection."
+      "Newton's Rings center is dark in reflected light due to phase change of π (destructive interference) at air-glass interface reflection.",
+      "Diffraction limit restricts optical systems: Resolving power of grating is RP = λ / dλ = n * N, where N is absolute illuminated slit lines.",
+      "Population inversion is a non-equilibrium state where more atoms reside in high metastable state than lower ground state. Necessary for laser.",
+      "Wavefunction ψ must be continuous, single-valued, and normalizable: ∫_{-∞}^{∞} |ψ|^2 dx = 1 to have valid physical probability meaning.",
+      "Optical fibers operate entirely on Total Internal Reflection (TIR). Incident angle must exceed the core-cladding critical angle: sin(θ_c) = n2 / n1."
     ]
   },
   "chemistry": {
     "title": "Engineering Chemistry",
     "formulas": [
-      "Nernst Equation: E = E° - (0.0592/n) * log(Q)",
-      "Hardness of Water: (Mass of hardness producing substance / Eq. wt of substance) * 50",
-      "Calorific Value: HCV = LCV + Latent heat of steam"
+      "Nernst Cell Potential: E_{cell} = E^0_{cell} - (R*T / n*F) * ln(Q). At standard T=298 K: E_{cell} = E^0_{cell} - (0.0592 / n) * log_{10}(Q).",
+      "Total Hardness calculation: Hardness in mg/L (as CaCO3) = [Vol of EDTA * Molarity of EDTA * 100 * 1000] / [Vol of water sample in mL].",
+      "Zeolite Hardness removal capacity: Exchange capacity of zeolite bed = [Volume of NaCl regenerated * Concentration of NaCl * CaCO3 equivalent factor].",
+      "Anodic Corrosion potential: Anodic reaction (Oxidation): M → M^{n+} + ne^-. Cathodic reaction (Reduction in acidic): 2H^+ + 2e^- → H_2.",
+      "Differential Aeration corrosion: Metal area under low oxygen concentration acts as Anode (corrodes: M → M^n+ + ne^-) while oxygenated area is Cathode.",
+      "Polymerization degree calculations: P = M_n / M_0, where M_n is basic average weight molecular size, M_0 is single monomer physical size weight."
     ],
     "memory_tricks": [
-      "OIL RIG (Oxidation Is Loss, Reduction Is Gain of electrons)",
-      "LEO the lion says GER (Lose Electrons = Oxidation, Gain Electrons = Reduction)"
+      "Nernst reduction layout: Q is standard products over reactants. Reactant concentration boosts cell potentials; product concentrations lower potentials.",
+      "Hardness units equivalence: 1 ppm = 1 mg/L = 0.07 Clark scale = 0.1 French scale. Remember Ca-carbonate standard weight is exactly 100 g/mol.",
+      "EDTA indicator color flip: EBT dye binds to free metal ions showing custom red. EDTA steals ions away, flipping indicator to true brilliant steel blue.",
+      "Corrosion wet rule: Corrosion occurs at anodic domains. Higher oxidation potential metals corrode preferentially. Protect using sacrificial zinc anodes.",
+      "Oxygen aeration paradox: More oxygen means less corrosion locally. Anode is the starved, deeply buried metal zone; cathode receives open air supply."
     ],
     "revision_points": [
-      "EDTA method requires EBT indicator at pH 9-10.",
-      "Anodic metal corrodes, cathodic metal is protected."
+      "Reference electrodes include Standard Hydrogen Electrode (SHE, E° = 0V) and Saturated Calomel Electrode (SCE, E = 0.242V). Use as reliable probes.",
+      "Temporary hardness is due to bicarbonates of Ca & Mg (removed easily by simple boiling); permanent is due to chlorides & sulfates.",
+      "Ion exchange demineralization produces distilled grade water since both cations and anions are completely replaced by H+ and OH-.",
+      "Cathodic protection can be sacrificial anode (galvanization using Zinc coating) or impressed current system (biasing metal negatively).",
+      "EDTA complexation must be performed under strict pH 10 buffering (NH4Cl + NH4OH mix) to stabilize Ca-EDTA and Mg-EDTA coordinate complexes."
     ]
   },
   "c_programming": {
-    "title": "C Programming",
+    "title": "C Programming & Data Structures",
     "formulas": [
-      "Array Size: sizeof(arr) / sizeof(arr[0])",
-      "Pointer to Array: int (*ptr)[10] = &arr",
-      "String Length: while(str[i] != '\\0') i++;"
+      "Array element direct address offset: Address(A[i][j]) = Base_A + [i * Column_Count + j] * sizeof(Array_Data_Type) (Row-Major format).",
+      "Pointer Dereferencing layout: if p = &x, then *p refers directly to the value of variable x. **p represents nested pointer dereference.",
+      "Dynamic Memory expansion: void* ptr = malloc(n * sizeof(type)) allocates uninitialized bytes. calloc(n, size) initializes all bytes to zero.",
+      "Structure Size with Padding: Total Size = Σ(Field Sizes) + Compiler Padding bytes dynamically aligned to the largest element boundary.",
+      "Recursive Factorial recursion trace: T(n) = T(n-1) + C. Time Complexity: O(n); Auxiliary stack space complexity overhead is O(n)."
     ],
     "memory_tricks": [
-      "Call by Value (Copy), Call by Reference (Address => Address modifies original)",
-      "malloc returns void*, must cast."
+      "Pointer vs Value syntax: '*' at declaration is 'I am a pointer'. '*' in execution is 'Go to the address inside me and read'. '&' is 'Get my RAM address'.",
+      "Precedence: ++*p increments the value pointed to. *p++ dereferences first, then increments the pointer index to the next cell block.",
+      "Structure Padding alignment: A 4-byte int must sit on an address divisible by 4. Arrange structure fields from largest to smallest to avoid wasted gaps.",
+      "Union layout overlap: All fields in a Union share the exact same starting byte. Writing to one field immediately overwrites values in all other fields.",
+      "Stack Overflow termination: Recursion is a ladder. If you forget your bottom exit base condition, you climb till you smash the limits of call stack RAM."
     ],
     "revision_points": [
-      "Arrays are zero-indexed.",
-      "Do not return pointers to local variables.",
-      "Strings must end with a null character '\\0'."
+      "A pointer must never be dereferenced if it is NULL or uninitialized. Doing so triggers instantaneous crash segmentation faults.",
+      "Always call free(ptr) to release dynamic buffers. Dangling pointers represent massive memory leaks that slow down system processes over time.",
+      "malloc returns void*. Always check if (ptr == NULL) to handle memory allocation failures gracefully before performing array writes.",
+      "Arrays decay to pointers when passed to functions. Therefore, sizeof(array_parameter) inside a function is size of address (4/8 bytes), not array size.",
+      "Unions allocate memory equivalent only to their single largest item, whereas structures allocate cumulative spaced memory for all items."
     ]
   },
   "beee": {
-    "title": "BEEE",
+    "title": "Basic Electrical Engineering",
     "formulas": [
-      "Ohm's Law: V = I * R",
-      "Power AC: P = V * I * cos(φ)",
-      "Resonance Freq: f0 = 1 / (2 * π * √(LC))"
+      "Kirchhoff's Laws (KVL/KCL): ΣV_{loop} = 0 (Conservation of Energy); ΣI_{node_in} = ΣI_{node_out} (Conservation of Charge).",
+      "Superposition Theorem: Current through a branch equals the algebraic sum of independent currents produced by each resource acting alone.",
+      "AC Power parameters: P_{active} = V_{rms} * I_{rms} * cos(φ) (Watts). Q_{reactive} = V_{rms} * I_{rms} * sin(φ) (VAR). S_{apparent} = V_{rms} * I_{rms} (VA).",
+      "Series RLC Resonance condition: X_L = X_C → ω L = 1 / (ω C). Resonant Frequency ω_r = 1 / √(L * C) rad/sec; f_r = 1 / [2 * π * √(L * C)] Hertz.",
+      "Quality Factor (Q-factor): Q = ω_r * L / R = 1 / [ω_r * C * R] = 1/R * √(L / C). Represents ratio of maximum energy stored to power loss.",
+      "Single Phase Transformer EMF: E = 4.44 * f * N * Φ_{max}, where f is supply frequency, N is winding turns, Φ_max is core flux density."
     ],
     "memory_tricks": [
-      "CIVIL (In a Capacitor (C), I leads V. In an Inductor (L), V leads I)"
+      "Ohm's Triangle: V at top, I and R at bottom. Cover the variable you need to calculate to get the math formula expression automatically.",
+      "CIVIL AC Phase check: In Capacitor (C), Current (I) leads Voltage (V). In Inductor (L), Voltage (V) leads Current (I). Instantly verify angles!",
+      "Superposition source replacement: Replace ideal voltage sources with Short Circuits (0V, 0Ω). Replace ideal current sources with Open Circuits (∞Ω).",
+      "Resonance impedance behavior: At series resonance, impedance is purely resistive and minimum (Z = R). Current is maximum (I = V/R) and in-phase.",
+      "Transformer turns rule: Voltage ratio matches turns ratio exactly: V1 / V2 = N1 / N2 = I2 / I1. Mutual induction requires transient field sweeps."
     ],
     "revision_points": [
-      "Series circuit: Current is same. Parallel circuit: Voltage is same.",
-      "Transformers only work on AC."
+      "Superposition does not apply directly to Power values (P = I^2*R) because power has non-linear quadratic dependencies on currents.",
+      "Thevenin Equivalent circuit consists of a single voltage source V_th in series with resistance R_th. Find R_th by deactivating independent sources.",
+      "Power Factor (PF) is cos(φ) = R / Z. Low lagging power cause high line losses. Improve power factors using parallel capacitor banks.",
+      "Quality factor dictates bandwidth: BW = f_r / Q. High Q-factor circuits are sharply selective with narrow band filters.",
+      "Transformers cannot step up or down DC voltages because constant currents produce static non-changing magnetic flux fields (dΦ/dt = 0)."
     ]
   },
   "data_structures": {
     "title": "Data Structures",
     "formulas": [
-      "Binary Tree Max Nodes: 2^(h+1) - 1",
-      "Array Indexing (1D to 2D Row Major): addr = base + w * (cols * i + j)",
-      "Hash Index: key % table_size"
+      "Asymptotic Bounds (Big-O): f(n) = O(g(n)) if there exist constants c, n_0 > 0 such that 0 ≤ f(n) ≤ c*g(n) for all n ≥ n_0.",
+      "Linked List pointer updates: Node Insertion after p: new_node->next = p->next; p->next = new_node; (Constant time complexity O(1)).",
+      "Circular Queue index mapping: Enqueue index: rear = (rear + 1) % Max_Size. Dequeue index: front = (front + 1) % Max_Size.",
+      "Max nodes in Binary Tree of height h: N = 2^{h+1} - 1. Height of a perfectly balanced Binary Tree with N nodes: h = ⌈log_{2}(N+1)⌉ - 1.",
+      "Merge Sort recurrences: T(n) = 2T(n/2) + O(n). Worst, average, and best-case complexity equal O(n log n). Space complexity equals O(n).",
+      "Hash Collision linear probing: h(k, i) = (h'(k) + i) % Table_Size. Quadratic probing: h(k, i) = (h'(k) + c1*i + c2*i^2) % Table_Size."
     ],
     "memory_tricks": [
-      "LIFO for Stacks (Plates in a cafeteria), FIFO for Queues (Line at a ticket counter)"
+      "LIFO vs FIFO logic: Stack is a cafeteria plate stack (LIFO - Last In First Out). Queue is a real retail ticket queue line (FIFO - First In First Out).",
+      "Infix to Postfix conversions: Operators are delayed symbols. Push operators to a stack, pop and output when lower precedence symbols appear.",
+      "BST left/right boundaries: In Binary Search Trees, left sub-tree values are strictly smaller than root; right sub-tree values are strictly larger.",
+      "Tree Traversal paths: Pre-Order is (Root, Left, Right). In-Order is (Left, Root, Right) - always outputs sorted keys for BST! Post-Order is (Left, Right, Root).",
+      "Quick Sort pivot lock: Quick Sort pivots work like partitions separating high and low domains. Average is O(n log n); unbalanced worst is O(n^2)."
     ],
     "revision_points": [
-      "Linked lists require sequential access; arrays allow random access.",
-      "Binary Search requires a sorted array. Time complexity: O(log n)."
+      "Sequential search is O(n); Binary Search is O(log n) but demands a fully sorted pre-allocated array dataset.",
+      "Doubly linked lists store previous node references, simplifying backward navigations at the cost of larger per-node memory parameters.",
+      "Queue overflow vs empty checks: Circular Queue is full when: (rear + 1) % Max_Size == front. It is empty when: rear == front.",
+      "A tree with N nodes always possesses exactly N - 1 edges. Removing any single edge breaks connectivity and forms disjoint graph components.",
+      "Chaining collision resolution handles overflow gracefully by appending dynamic storage lists to duplicate hash index locations."
     ]
   },
   "english": {
     "title": "Communicative English",
     "formulas": [
-      "Essay Structure: Introduction -> Body Paragraphs -> Conclusion",
-      "Email Format: Subject -> Salutation -> Body -> Sign-off",
-      "Active Voice: Subject + Verb + Object"
+      "Subject-Verb Agreement (Concord): Singular subjects demand singular verbs; plural subjects demand plural verbs. Exceptions: Collective nouns.",
+      "Email structural layout blueprint: [Subject line clear] → [Salutation] → [Context/Opening] → [Actionable Details] → [Closing signature].",
+      "Direct to Indirect Voicing shifts: Active: Subject + Verb + Object. Passive: Object + Auxiliary Verb + Past Participle + by + Subject.",
+      "Paragraph Cohesion ratio: Topic Sentence (Theme statement) + Supporting Sentences (Expansions) + Concluding Sentence (Bridge transitions)."
     ],
     "memory_tricks": [
-      "FANBOYS for coordinating conjunctions (For, And, Nor, But, Or, Yet, So)"
+      "FANBOYS coordinating links: For, And, Nor, But, Or, Yet, So. Use to connect independent clauses in compound sentences correctly.",
+      "Technical brevity rule: Keep sentential limits below 20 words. Simplify complex descriptions into direct action-driven sentences.",
+      "Subject Verb separation trap: Ignore parenthetical modifiers ('along with', 'as well as'). Verb must agree purely with the principal subject.",
+      "Passive usage trigger: Use passive voice when the actor is unknown, or if the mechanical action is more critical than the person performing it."
     ],
     "revision_points": [
-      "Keep technical emails concise and professional.",
-      "Use transition words to maintain paragraph flow.",
-      "Proofread for Subject-Verb agreement."
+      "Always write concise, action-oriented email subjects. Never send empty subjects as they trigger SPAM filtering rules.",
+      "Keep resumes clean and readable. Use chronological order for educational details, highlighting metrics over vague generic summaries.",
+      "Common grammatical error: Run-on sentences. Avoid splicing independent clauses using simple commas. Place a semicolon or period.",
+      "Use transitional phrases ('Furthermore', 'Consequently', 'On the contrary') to guide readers smoothly across paragraph shifts."
     ]
   },
   "engineering_graphics": {
     "title": "Engineering Graphics",
     "formulas": [
-      "Representative Fraction (RF): Drawing size / Actual size",
-      "True Length: √(Front View² + Plan²)",
-      "Eccentricity: Distance from Focus / Distance from Directrix"
+      "Representative Fraction: RF = [Dimension of Object on Drawing] / [Actual Physical Dimension of the Object]. Dimensionally uniform fraction.",
+      "Diagonal Scale alignment: Length of Scale (LOS) = RF * [Maximum length to be measured by scale]. Spaced out to read up to three units.",
+      "Conic Eccentricity formulation: e = [Distance of point from Focus] / [Distance of point from Directrix]. e < 1 (Ellipse), e = 1 (Parabola), e > 1 (Hyperbola).",
+      "Line projection lengths: True Length (TL) relates to apparent lengths: TL^2 = [Front View length]^2 + [Plan view length]^2.",
+      "Isometric Scale sizing ratio: Isometric Length (Iso L) = √(2/3) * True Length ≈ 0.816 * True Length."
     ],
     "memory_tricks": [
-      "Eccentricity: e=1 (Parabola), e<1 (Ellipse), e>1 (Hyperbola)"
+      "RF units check: Convert both drawing distances and real-world dimensions to the exact same units (typically mm) before dividing to isolate RF.",
+      "Diagonal scale rise angle: Use diagonal line divisions to divide tiny scale divisions into exactly 10 equal parts using properties of similar triangles.",
+      "Quadrant viewing mnemonic: First Angle Projection has Front View above line, Top View below line. Observe from Top, project downward.",
+      "True Length projection traces: When a straight line is inclined to both HP and VP, its front view is shorter than true length, inclined at apparent angle α.",
+      "Isometric visual tilt: Isometric view uses standard true scales. Isometric projection scales down by 180° rotation projections (0.82 ratio)."
     ],
     "revision_points": [
-      "First Angle: Object is between Observer and Plane.",
-      "Third Angle: Plane is between Observer and Object.",
-      "Continuous thick lines for visible outlines, dashed for hidden edges."
+      "Always ensure scales are drawn with units explicitly labeled. Leave sufficient margins for dimensions to avoid paper clutter.",
+      "In first angle projections, the Left-Side View is projected on the Right-Profile Plane, positioned right of the front view layout.",
+      "When a plane is parallel to HP, its True Shape is visible in the Top View. Its Front View collapses into a single parallel straight line.",
+      "Identify solid projection variables: Section planes cutting solid shapes creates truncated surfaces. Lateral surface boundaries determine patterns.",
+      "Continuous thick lines represent visible contour lines. Dashed medium lines represent hidden edges. Chain thin lines indicate central axes."
     ]
   },
   "bcme": {
-    "title": "BCME",
+    "title": "Basic Civil and Mechanical Engineering",
     "formulas": [
-      "Stress: σ = Force / Area",
-      "Strain: ε = Change in Length / Original Length",
-      "Work Done: W = Force * Distance * cos(θ)"
+      "Stress & Strain definitions: Stress σ = Normal Force / Area (N/m² or Pa). Strain ε = δL / L (Dimensionless ratio). Modulus E = σ / ε.",
+      "Hooke's Law bounds: σ = E * ε, valid up to Elastic Limit parameters on stress-strain engineering diagrams.",
+      "Thermal Efficiency bounds: Carnot: η_c = 1 - T_{cold}/T_{hot}. Otto Cycle: η_o = 1 - 1 / r^{γ-1}, where r is compression ratio.",
+      "Power transmitted by Belts: P = (T_1 - T_2) * v (Watts), where T_1 is tight side tension, T_2 is slack side tension, v is linear speed.",
+      "Refrigeration performance metric: COP = Q_{cold} / W_{input}. Ideal COP_{refrigerator} = T_{cold} / (T_{hot} - T_{cold})."
     ],
     "memory_tricks": [
-      "Hooke's Law: Stress is proportional to Strain (within elastic limit)"
+      "Stress is internal pushback: Stress is not the external force itself. It is the internal restoring pushback force per unit area in the material.",
+      "Modulus memory map: modulus of elasticity is structural stiffness. Higher E-value means high modulus (steel is stiffer/more elastic than rubber).",
+      "Four Stroke movement chain: Intake (Suck), Compression (Squeeze), Power (Bang), Exhaust (Blow). Cycle covers two complete revolutions.",
+      "Carnot thermodynamic ceiling: No thermal engine operating between two given hot-cold reservoirs can exceed Carnot's efficiency limits.",
+      "COP vs Efficiency logic: COP can exceed 1 because we are moving energy instead of converting it fully from heat parameters."
     ],
     "revision_points": [
-      "Concrete is strong in compression, weak in tension.",
-      "Four-stroke engine cycle: Intake, Compression, Power, Exhaust."
+      "Stress-strain curve key points: Proportional limit, Elastic limit, Yield point, Ultimate strength point, Rupture/Breaking point.",
+      "Concrete possesses high compressive strengths but fails easily in tension. Reinforce concrete bases using steel rods (RCC setup).",
+      "Four-stroke engines produce one power stroke every 2 full revolutions, whereas two-stroke engines produce power on every single rotation.",
+      "Refrigerants must possess low boiling points, high latent heats of vaporization, and non-toxic parameters (e.g. eco friendly hydrofluorocarbons).",
+      "Power transmission belt slip reduces output speeds. Use toothed belts or gear trains to guarantee synchronous solid transmissions."
     ]
   }
 }
