@@ -36,13 +36,15 @@ export const signInWithGoogle = async (redirectTo) => {
   return data
 }
 
-export const signInWithLinkedIn = async (redirectTo) => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'linkedin_oidc',
-    options: {
-      redirectTo: redirectTo || window.location.origin + '/auth.html',
-    },
-  })
+export const saveOnboardingProfile = async (userId, profileData) => {
+  const { data, error } = await supabase
+    .from('profiles')
+    .upsert({
+      id: userId,
+      ...profileData,
+      updated_at: new Date().toISOString(),
+    })
+    
   if (error) throw error
   return data
 }

@@ -5,9 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smarter Engineering Learnings | EngiPrepHub</title>
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#0F172A">
+    <meta name="theme-color" content="#1e293b">
     <link rel="apple-touch-icon" href="/public/logo.png">
     <link rel="canonical" href="https://engiprephub.in/auth">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <meta name="description" content="Access JNTUK R23 notes, PYQs, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal.">
     
     <script>
@@ -20,12 +56,12 @@
     <link rel="stylesheet" href="/src/style.css">
 
     <!-- Open Graph tags for premium branding -->
-    <meta property="og:title" content="Premium Engineering Study Notes | EngiPrepHub">
-    <meta property="og:description" content="Syllabus-aligned study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
-    <meta property="og:url" content="https://engiprephub.in/auth">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="EngiPrep Hub">
-    <meta name="twitter:card" content="summary_large_image">
+    
+    
+    
+    
+    
+    
 
     <style>
         /* Glassmorphism utility custom enhancements */
@@ -54,6 +90,100 @@
             animation: ripple 2s infinite ease-out;
         }
     </style>
+
+    <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/auth">
+    <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/auth">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    <meta property="og:title" content="Premium JNTUK Study Notes | EngiPrepHub">
+    <meta property="og:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
+    <meta property="og:url" content="https://engiprephub.in/auth">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="EngiPrep Hub">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Premium JNTUK Study Notes | EngiPrepHub">
+    <meta name="twitter:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
+
 </head>
 <body class="selection:bg-blue-600 selection:text-white flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 antialiased font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
     
@@ -187,15 +317,6 @@
                                 <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.5-2.72c-.97.65-2.22 1.04-4.46 1.04-3.25 0-5.99-2.33-6.9-5.46L1.5 15.8C3.39 19.65 7.35 23 12 23z"/>
                             </svg>
                             <span>Continue with Google</span>
-                        </button>
-
-                        <!-- LinkedIn Signup Button -->
-                        <button type="button" id="linkedin-login-btn" class="w-full h-12 flex items-center justify-center gap-3 bg-[#0A66C2] hover:bg-[#004182] text-white rounded-2xl text-sm font-bold transition-all hover:-translate-y-0.5 shadow-sm active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <!-- SVG LinkedIn Icon -->
-                            <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                            <span>Continue with LinkedIn</span>
                         </button>
                     </div>
 
@@ -392,7 +513,7 @@
 
     <!-- LOGIC INTEGRATION SCALING -->
     <script type="module">
-        import { signIn, signUp, signInWithGoogle, signInWithLinkedIn, resetPassword } from './src/auth.js'
+        import { signIn, signUp, signInWithGoogle, resetPassword, saveOnboardingProfile } from './src/auth.js'
         import { supabase, getCurrentUser, getUserProfile, updateUserProfile } from './src/supabase.js'
         
         // Element caching
@@ -620,26 +741,18 @@
             };
 
             try {
-                // Attempt direct save to profile
-                const result = await updateUserProfile(loggedInUser.id, updates);
-                if (result.error) {
-                    console.warn('Standard columns write failed, trying fallback payload structure...', result.error);
-                    // Retrying with basic columns in case of remote DB column mismatches
-                    const fallbackUpdates = {
-                        id: loggedInUser.id,
-                        full_name: name,
-                        branch: branch,
-                        semester: parseInt(semesterStr),
-                        bio: JSON.stringify({
-                            university,
-                            college_year: parseInt(yearStr),
-                            goals: goalsOptions,
-                            onboarded_at: new Date().toISOString()
-                        })
-                    };
-                    const fallbackResult = await updateUserProfile(loggedInUser.id, fallbackUpdates);
-                    if (fallbackResult.error) throw new Error(fallbackResult.error);
-                }
+                // Save onboarding
+                await saveOnboardingProfile(loggedInUser.id, {
+                    full_name: name,
+                    branch: branch,
+                    semester: parseInt(semesterStr),
+                    college_year: parseInt(yearStr),
+                    bio: JSON.stringify({
+                        university: university,
+                        goals: goalsOptions,
+                        onboarded_at: new Date().toISOString()
+                    })
+                });
 
                 analytics.trackEvent('OnboardingComplete', { university, branch, year: yearStr, semester: semesterStr, goals: goalsOptions });
                 
@@ -687,21 +800,6 @@
                 errorDiv.innerText = err.message || 'Connecting Google OAuth failed. Please retry.';
                 errorDiv.classList.remove('hidden');
                 analytics.trackEvent('OAuthError', { provider: 'google', error: err.message });
-            }
-        });
-
-        document.getElementById('linkedin-login-btn').addEventListener('click', async () => {
-            try {
-                errorDiv.classList.add('hidden');
-                analytics.trackEvent('OAuthClick', { provider: 'linkedin' });
-                localStorage.setItem('engiprep_last_provider', 'linkedin');
-                const urlParams = new URLSearchParams(window.location.search);
-                const redirect = urlParams.get('redirect') ? `?redirect=${urlParams.get('redirect')}` : '';
-                await signInWithLinkedIn(window.location.origin + '/auth.html' + redirect);
-            } catch (err) {
-                errorDiv.innerText = err.message || 'Connecting LinkedIn OAuth failed. Please retry.';
-                errorDiv.classList.remove('hidden');
-                analytics.trackEvent('OAuthError', { provider: 'linkedin', error: err.message });
             }
         });
 
@@ -794,5 +892,54 @@
             }
         });
     </script>
+
+
+
+
+    <!-- Universal Academic Navigator & Active Live Alerts -->
+    <script type="module" src="/src/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- EngiPrepHubFooter -->
+<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
+    <a href="/about.html" class="hover:text-white">About</a>
+    <a href="/contact.html" class="hover:text-white">Contact</a>
+    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq.html" class="hover:text-white">FAQ</a>
+  </div>
+  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
