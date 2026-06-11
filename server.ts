@@ -80,9 +80,9 @@ app.use((req, res, next) => {
   // Robust CSP supporting Google AdSense + Fonts + Subspace DB Connections
   const cspDirectives = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.gstatic.com https://*.googleapis.com https://www.googletagmanager.com",
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com data:",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.gstatic.com https://*.googleapis.com https://www.googletagmanager.com https://cdn.jsdelivr.net",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net",
+    "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net data:",
     "img-src 'self' data: https://*.doubleclick.net https://*.google.com https://*.googlesyndication.com https://*.google-analytics.com https://*.supabase.co https://*.supabase.com https://*.supabase.net",
     "connect-src 'self' https://*.supabase.co https://*.supabase.com https://*.supabase.in https://*.supabase.net https://*.google-analytics.com https://*.analytics.google.com https://*.doubleclick.net https://*.google.com https://pagead2.googlesyndication.com",
     "frame-src 'self' https://*.doubleclick.net https://*.google.com https://*.googlesyndication.com https://*.supabase.co",
