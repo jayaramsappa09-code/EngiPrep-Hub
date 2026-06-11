@@ -165,6 +165,54 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -220,6 +268,126 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/cheat-sheets">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/cheat-sheets">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -1435,9 +1603,20 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Fetch and render cheat sheets
-            fetch('/public/cheat-sheets.json')
-                .then(res => res.json())
+            // Fetch and render cheat sheets with a resilient fallback
+            const fetchCheatSheets = async () => {
+                try {
+                    const response = await fetch('/cheat-sheets.json');
+                    if (!response.ok) throw new Error('Not found at root');
+                    return await response.json();
+                } catch (e) {
+                    const fallback = await fetch('/public/cheat-sheets.json');
+                    if (!fallback.ok) throw new Error('Failed to load from fallback path');
+                    return await fallback.json();
+                }
+            };
+
+            fetchCheatSheets()
                 .then(data => {
                     const grid = document.getElementById('subjects-grid');
                     const skeleton = document.getElementById('sheets-loading-skeleton');
@@ -1955,6 +2134,54 @@
         </div>
     </nav>
     <style>@media (max-width: 768px) { body { padding-bottom: 5rem; } }</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
