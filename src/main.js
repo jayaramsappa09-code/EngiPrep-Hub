@@ -928,11 +928,75 @@ async function updateAuthUI(providedUser = null) {
                         <span class="text-[10px] font-black tracking-widest text-[#0d0d12] dark:text-white uppercase truncate max-w-[80px]">${displayName}</span>
                     </a>
                     <button id="global-logout-btn" class="flex items-center justify-center p-2 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 text-red-500 transition-colors" title="Logout">
-                        <svg class="w-4 h-4 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        <svg class="w-4 h-4 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1"></path></svg>
                         <span class="hidden md:block text-[10px] font-bold uppercase tracking-widest">Logout</span>
                     </button>
                 </div>
             `;
+
+            // If we are on dashboard, update welcome greeting and academic targets
+            const dashGreeting = document.getElementById('dash-greeting');
+            if (dashGreeting) {
+                const hour = new Date().getHours();
+                let time = "Day";
+                if (hour < 12) time = "Morning";
+                else if (hour < 17) time = "Afternoon";
+                else time = "Evening";
+
+                const name = profile?.full_name ? profile.full_name : displayName;
+                const firstName = name.split(' ')[0];
+                dashGreeting.innerHTML = `Good ${time}, ${firstName} 👋`;
+
+                const dashSubtitle = document.getElementById('dash-subtitle');
+                if (dashSubtitle) {
+                    dashSubtitle.innerHTML = "Glad to have you back on EngiPrepHub! Let's continue matching your JNTUK R23 examination goals today.";
+                }
+
+                // Render academic display chips!
+                const dashAcademic = document.getElementById('dash-academic-display');
+                if (dashAcademic && profile) {
+                    let bioData = {};
+                    try {
+                        if (profile.bio) {
+                            bioData = JSON.parse(profile.bio);
+                        }
+                    } catch (e) {
+                        bioData = { university: profile.bio || '' };
+                    }
+
+                    const university = bioData.university || 'Jawaharlal Nehru Technological University Kakinada (JNTUK)';
+                    const goalsList = bioData.goals || ['Pass Semester Exams', 'Improve GPA'];
+                    const branch = profile.branch || 'General Engineering';
+                    const yr = profile.college_year || 1;
+                    const sem = profile.semester || 1;
+
+                    dashAcademic.innerHTML = `
+                        <div class="flex flex-wrap items-center gap-2 mt-2">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-500/10 rounded-xl font-bold uppercase tracking-wider text-[9px]">
+                                🎓 ${branch}
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-100 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border border-indigo-500/10 rounded-xl font-bold uppercase tracking-wider text-[9px]">
+                                📅 Year ${yr} • Sem ${sem}
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 rounded-xl font-bold uppercase tracking-wider text-[9px] max-w-[200px] truncate" title="${university}">
+                                🏛️ ${university}
+                            </span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-1.5 mt-3 text-[10px] text-slate-500 font-bold uppercase tracking-widest pl-1">
+                            🎯 Active Targets:
+                            ${goalsList.map(g => `<span class="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/10 px-2 py-0.5 rounded-md font-extrabold uppercase tracking-widest text-[8px]">${g}</span>`).join('')}
+                        </div>
+                    `;
+                }
+
+                if (profile.xp !== undefined && document.getElementById('dash-xp-count')) {
+                    document.getElementById('dash-xp-count').innerText = `${profile.xp || 0} XP`;
+                }
+                if (profile.streak !== undefined && document.getElementById('dash-streak-count')) {
+                    document.getElementById('dash-streak-count').innerText = `${profile.streak || 0} Days`;
+                }
+            }
+
             setTimeout(() => {
                 const logoutBtn = document.getElementById('global-logout-btn');
                 if (logoutBtn) {

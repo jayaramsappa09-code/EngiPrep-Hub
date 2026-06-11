@@ -25,6 +25,28 @@ export const signUp = async (email, password, fullName, username) => {
   return data
 }
 
+export const signInWithGoogle = async (redirectTo) => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: redirectTo || window.location.origin + '/auth.html',
+    },
+  })
+  if (error) throw error
+  return data
+}
+
+export const signInWithLinkedIn = async (redirectTo) => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'linkedin_oidc',
+    options: {
+      redirectTo: redirectTo || window.location.origin + '/auth.html',
+    },
+  })
+  if (error) throw error
+  return data
+}
+
 export const signOut = async () => {
   const { error } = await supabase.auth.signOut()
   if (error) throw error
@@ -52,3 +74,4 @@ export const onAuthStateChange = (callback) => {
     callback(event, session)
   })
 }
+
