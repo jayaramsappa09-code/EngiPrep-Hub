@@ -1145,6 +1145,49 @@ export const AI_ENGINE = {
       `;
     }
 
+    // Convert theoretical chemistry into dynamic widgets
+    let chemistryWidgets = "";
+    if (data.subject && data.subject.toLowerCase().includes("chemistry")) {
+      chemistryWidgets = `
+        <div class="p-3.5 bg-slate-900 border border-cyan-500/30 rounded-xl relative overflow-hidden mt-4 group w-full">
+            <h5 class="text-[9px] font-black uppercase text-cyan-400 mb-3 tracking-widest flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></span> Intelligent Chemistry Widget</h5>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                <!-- Molecular Orbital Flow & Electron SVG -->
+                <div class="bg-black/40 rounded-lg p-4 flex flex-col items-center justify-center border border-slate-800 h-32 relative">
+                    <svg class="w-16 h-16 animate-[spin_8s_linear_infinite]" viewBox="0 0 100 100">
+                        <ellipse cx="50" cy="50" rx="40" ry="15" fill="none" stroke="#06b6d4" stroke-width="2" class="opacity-50" />
+                        <ellipse cx="50" cy="50" rx="40" ry="15" fill="none" stroke="#3b82f6" stroke-width="2" class="opacity-50" transform="rotate(60 50 50)" />
+                        <ellipse cx="50" cy="50" rx="40" ry="15" fill="none" stroke="#8b5cf6" stroke-width="2" class="opacity-50" transform="rotate(120 50 50)" />
+                        <circle cx="50" cy="50" r="6" fill="#f43f5e" />
+                        
+                        <circle cx="10" cy="50" r="3" fill="#22d3ee" class="animate-ping" />
+                        <circle cx="90" cy="50" r="3" fill="#22d3ee" class="animate-ping" style="animation-delay: 0.5s;" />
+                    </svg>
+                    <span class="text-[8px] uppercase tracking-widest text-slate-500 mt-2 font-bold select-none">Live Electron Flow</span>
+                </div>
+
+                <!-- Interactive Calculators & Viva Text-to-Speech -->
+                <div class="flex flex-col gap-2 justify-center">
+                    <div class="bg-indigo-950/30 border border-indigo-500/30 rounded-lg p-2.5 text-center">
+                        <span class="text-[9px] text-indigo-300 font-black block uppercase tracking-wide mb-1">Bond Order Calculator</span>
+                        <div class="flex gap-1 justify-center">
+                            <input id="elec-bind-qty" type="number" placeholder="B.Elec" class="w-full bg-slate-900 border border-slate-700 rounded px-1 py-0.5 text-[8px] text-white text-center focus:outline-none" value="10">
+                            <input id="elec-antibind-qty" type="number" placeholder="A.Elec" class="w-full bg-slate-900 border border-slate-700 rounded px-1 py-0.5 text-[8px] text-white text-center focus:outline-none" value="5">
+                            <button onclick="alert('Calculated Bond Order = ' + ((document.getElementById('elec-bind-qty').value - document.getElementById('elec-antibind-qty').value)/2))" class="bg-indigo-600 hover:bg-indigo-500 text-white rounded px-2 py-0.5 text-[8px] font-black uppercase transition-colors shrink-0">Calc</button>
+                        </div>
+                    </div>
+                    
+                    <button onclick="if('speechSynthesis' in window) { let msg = new SpeechSynthesisUtterance('${data.explain.core.replace(/'/g, "\\'")}'); window.speechSynthesis.speak(msg); }" class="flex items-center justify-center gap-1.5 w-full p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30 hover:bg-emerald-900/40 transition-colors text-emerald-400 group">
+                        <svg class="w-3.5 h-3.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h2l4 4V4L9 8H7a2 2 0 00-2 2z"/></svg>
+                        <span class="text-[9px] font-black uppercase tracking-widest">Hear Viva Card</span>
+                    </button>
+                </div>
+            </div>
+      </div>
+      `;
+    }
+
     return `
       <div class="space-y-4" id="${containerId}">
           <div class="border-b border-indigo-250/30 dark:border-slate-800 pb-2 flex items-center justify-between flex-wrap gap-2">
@@ -1172,6 +1215,7 @@ export const AI_ENGINE = {
               <!-- Blueprint tab default -->
               <div class="space-y-3.5 chat-sub-tab" data-tab-content="blueprint">
                   ${summaryContentHtml}
+                  ${chemistryWidgets}
               </div>
 
               <!-- Topper summary -->
