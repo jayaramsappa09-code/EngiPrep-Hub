@@ -896,7 +896,6 @@ supabase.auth.onAuthStateChange(async (event, session) => {
 
 async function updateAuthUI(providedUser = null) {
     const navActions = document.getElementById('nav-actions');
-    if (!navActions) return;
 
     const isDark = document.documentElement.classList.contains('dark') || 
                   localStorage.getItem('color-theme') === 'dark';
@@ -915,24 +914,26 @@ async function updateAuthUI(providedUser = null) {
             // Fetch basic profile for the navbar using helper for schema resilience
             let profile = await getUserProfile(user.id);
 
-            const displayName = profile?.username || user.email.split('@')[0];
+            const displayName = profile?.username || profile?.full_name || user.email.split('@')[0];
             const avatar = profile?.avatar_url 
                 ? `<img src="${profile.avatar_url}" class="w-8 h-8 rounded-lg object-cover">`
                 : `<div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white text-[10px] font-black">${displayName.charAt(0).toUpperCase()}</div>`;
 
-            navActions.innerHTML = `
-                <div class="flex items-center gap-4">
-                    ${themeBtnPlaceholder}
-                    <a href="/dashboard.html" class="flex items-center gap-3 p-1 pr-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-100 transition-all">
-                        ${avatar}
-                        <span class="text-[10px] font-black tracking-widest text-[#0d0d12] dark:text-white uppercase truncate max-w-[80px]">${displayName}</span>
-                    </a>
-                    <button id="global-logout-btn" class="flex items-center justify-center p-2 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 text-red-500 transition-colors" title="Logout">
-                        <svg class="w-4 h-4 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1"></path></svg>
-                        <span class="hidden md:block text-[10px] font-bold uppercase tracking-widest">Logout</span>
-                    </button>
-                </div>
-            `;
+            if (navActions) {
+                navActions.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        ${themeBtnPlaceholder}
+                        <a href="/dashboard.html" class="flex items-center gap-3 p-1 pr-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-100 transition-all">
+                            ${avatar}
+                            <span class="text-[10px] font-black tracking-widest text-[#0d0d12] dark:text-white uppercase truncate max-w-[80px]">${displayName}</span>
+                        </a>
+                        <button id="global-logout-btn" class="flex items-center justify-center p-2 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 text-red-500 transition-colors" title="Logout">
+                            <svg class="w-4 h-4 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1"></path></svg>
+                            <span class="hidden md:block text-[10px] font-bold uppercase tracking-widest">Logout</span>
+                        </button>
+                    </div>
+                `;
+            }
 
             // If we are on dashboard, update welcome greeting and academic targets
             const dashGreeting = document.getElementById('dash-greeting');
