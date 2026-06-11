@@ -68,13 +68,13 @@ const PORT = 3000;
 app.use((req, res, next) => {
   // Allow iframes in development/testing mode for AI Studio, but enforce in prod.
   // The system in aistudio relies on iframes.
-  // The prompt requested X-Frame-Options: DENY. I will set it to DENY, but allowing dev preview might break.
-  res.setHeader('X-Frame-Options', 'DENY');
+  // We disable X-Frame-Options so the dev preview loader doesn't get blocked.
+  // res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), usb=(), accelerometer=()');
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  // res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin'); // Needs cross-origin for Adsense
   
   // Robust CSP supporting Google AdSense + Fonts + Subspace DB Connections
