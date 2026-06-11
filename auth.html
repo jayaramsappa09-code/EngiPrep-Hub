@@ -44,6 +44,14 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
     <meta name="description" content="Access JNTUK R23 notes, PYQs, calculators, and Engineering Graphics tutorials on Engi Prep Hub's premium student portal.">
     
     <script>
@@ -93,6 +101,26 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/auth">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/auth">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -743,15 +771,12 @@
             try {
                 // Save onboarding
                 await saveOnboardingProfile(loggedInUser.id, {
-                    full_name: name,
+                    fullName: name,
+                    university: university,
                     branch: branch,
-                    semester: parseInt(semesterStr),
-                    college_year: parseInt(yearStr),
-                    bio: JSON.stringify({
-                        university: university,
-                        goals: goalsOptions,
-                        onboarded_at: new Date().toISOString()
-                    })
+                    semester: semesterStr,
+                    year: yearStr,
+                    goals: goalsOptions
                 });
 
                 analytics.trackEvent('OnboardingComplete', { university, branch, year: yearStr, semester: semesterStr, goals: goalsOptions });
@@ -759,11 +784,6 @@
                 // Show success effect
                 onboardingNextBtn.innerText = 'Profile Prepared &check;';
                 onboardingNextBtn.className = 'w-full h-12 bg-emerald-700 text-white font-bold rounded-2xl text-xs uppercase tracking-wider text-center';
-                
-                // Trigger global XP on launch
-                if (window.parent && window.parent.engiprep && window.parent.engiprep.triggerXP) {
-                    window.parent.engiprep.triggerXP(50, 'Academic Orientation Perfected');
-                }
                 
                 setTimeout(() => {
                     completeProcessAndRedirect();
@@ -898,6 +918,14 @@
 
     <!-- Universal Academic Navigator & Active Live Alerts -->
     <script type="module" src="/src/main.js"></script>
+
+
+
+
+
+
+
+
 
 
 

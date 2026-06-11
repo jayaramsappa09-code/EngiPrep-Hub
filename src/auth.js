@@ -36,16 +36,38 @@ export const signInWithGoogle = async (redirectTo) => {
   return data
 }
 
-export const saveOnboardingProfile = async (userId, profileData) => {
+export const saveOnboardingProfile = async (userId, { fullName, university, branch, semester, year, goals }) => {
+  const profileData = {
+    full_name: fullName,
+    branch: branch,
+    semester: semester ? parseInt(semester) : null,
+    college_year: year ? parseInt(year) : null,
+    bio: JSON.stringify({
+      university: university,
+      goals: goals || [],
+      onboarded_at: new Date().toISOString()
+    }),
+    updated_at: new Date().toISOString(),
+  };
+
   const { data, error } = await supabase
     .from('profiles')
     .upsert({
       id: userId,
-      ...profileData,
-      updated_at: new Date().toISOString(),
+      ...profileData
     })
     
   if (error) throw error
+
+  // Trigger XP event once completed
+  if (window.engiprep && window.engiprep.triggerXP) {
+    window.engiprep.triggerXP(50, 'Academic Orientation Perfected');
+  } else if (window.parent && window.parent.engiprep && window.parent.engiprep.triggerXP) {
+    window.parent.engiprep.triggerXP(50, 'Academic Orientation Perfected');
+  } else if (typeof window.triggerXP === 'function') {
+    window.triggerXP(50, 'Academic Orientation Perfected');
+  }
+
   return data
 }
 
