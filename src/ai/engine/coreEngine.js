@@ -1178,9 +1178,9 @@ export const AI_ENGINE = {
                         </div>
                     </div>
                     
-                    <button onclick="if('speechSynthesis' in window) { let msg = new SpeechSynthesisUtterance('${data.explain.core.replace(/'/g, "\\'")}'); window.speechSynthesis.speak(msg); }" class="flex items-center justify-center gap-1.5 w-full p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30 hover:bg-emerald-900/40 transition-colors text-emerald-400 group">
+                    <button onclick="window.toggleSpeechDemoNotes(document.getElementById('${containerId}-tabs-text').innerText, this)" class="flex items-center justify-center gap-1.5 w-full p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30 hover:bg-emerald-900/40 transition-colors text-emerald-400 group">
                         <svg class="w-3.5 h-3.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h2l4 4V4L9 8H7a2 2 0 00-2 2z"/></svg>
-                        <span class="text-[9px] font-black uppercase tracking-widest">Hear Viva Card</span>
+                        <span class="text-[9px] font-black uppercase tracking-widest text-[#10b981] group-hover:text-emerald-300">Hear Voice Explanation</span>
                     </button>
                 </div>
             </div>
