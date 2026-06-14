@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Tasks JNTUK R23 Notes | Engi Prep Hub</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e293b">
+    <link rel="apple-touch-icon" href="/public/logo.png">
     <link rel="canonical" href="https://engiprephub.in/tasks">
+    
+    
+    
+    
+    
     
     
     
@@ -74,10 +82,12 @@
     
     
     <script>
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
+        const savedTheme = localStorage.getItem('color-theme');
+        if (savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark', 'theme-dark');
         } else {
             document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('theme-light');
         }
     </script>
     <link rel="stylesheet" href="/src/index.css">
@@ -91,6 +101,26 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/tasks">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/tasks">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -973,6 +1003,14 @@
             <p class="text-xs text-center mt-4 text-slate-500 dark:text-slate-500">We respect your inbox. No spam, ever.</p>
         </div>
     </div>
+
+
+
+
+
+
+
+
 
 
 

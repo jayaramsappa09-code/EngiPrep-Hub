@@ -630,30 +630,27 @@ function initAuthorBox() {
     mainContainer.appendChild(authorBox);
 }
 
-// Theme Management & Custom Multi-Theme System
+// Theme Management
 function applyTheme(themeName) {
-    if (!themeName) themeName = 'light';
+    if (themeName === 'system') {
+        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        themeName = isSystemDark ? 'dark' : 'light';
+    }
     
     // Clear all theme classes
     document.documentElement.classList.remove('dark', 'theme-dark', 'theme-light', 'theme-blueprint', 'theme-focus', 'theme-exam');
     
-    // Set custom theme class
-    document.documentElement.classList.add(`theme-${themeName}`);
-    
-    // Add legacy .dark class dynamically for dark-toned themes to preserve Tailwind utility compatibility
-    if (themeName === 'dark' || themeName === 'blueprint' || themeName === 'exam') {
-        document.documentElement.classList.add('dark');
+    if (themeName === 'dark') {
+        document.documentElement.classList.add('dark', 'theme-dark');
+    } else {
+        document.documentElement.classList.add('theme-light');
     }
-    
-    // Store in localStorage
-    localStorage.setItem('color-theme', themeName);
 
-    // Sync button icons based on light vs dark spectrum of the active theme
+    // Sync button icons
     const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
     const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
     
-    const isDarkSpectrum = (themeName === 'dark' || themeName === 'blueprint' || themeName === 'exam');
-    if (isDarkSpectrum) {
+    if (themeName === 'dark') {
         if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
         if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
     } else {
@@ -665,8 +662,20 @@ function applyTheme(themeName) {
 window.applyTheme = applyTheme;
 
 function initTheme() {
-    const savedTheme = localStorage.getItem('color-theme') || 'light';
+    // Check localStorage first, otherwise fallback to system preference
+    if (!('color-theme' in localStorage)) {
+        localStorage.setItem('color-theme', 'system');
+    }
+    
+    const savedTheme = localStorage.getItem('color-theme');
     applyTheme(savedTheme);
+
+    // Listen for system theme changes in real-time
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (localStorage.getItem('color-theme') === 'system') {
+            applyTheme('system');
+        }
+    });
 
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
@@ -676,65 +685,15 @@ function initTheme() {
 
         newThemeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            let dropdown = document.getElementById('theme-dropdown-menu');
-            if (dropdown) {
-                dropdown.remove();
-                return;
-            }
             
-            dropdown = document.createElement('div');
-            dropdown.id = 'theme-dropdown-menu';
-            dropdown.className = 'theme-dropdown-card';
+            // Toggle logic
+            let isDarkCurrently = document.documentElement.classList.contains('dark');
+            let newTheme = isDarkCurrently ? 'light' : 'dark';
             
-            const themes = [
-                { id: 'dark', label: 'Default Dark', dot: '#0B1020', desc: 'Vercel Deep Slate' },
-                { id: 'light', label: 'Light Mode', dot: '#FFFFFF', desc: 'Notion Clean Paper' },
-                { id: 'blueprint', label: 'Blueprint Mode', dot: '#00D2FF', desc: 'Civil/Mech Drafting' },
-                { id: 'focus', label: 'Focus Mode', dot: '#FAF6EE', desc: 'Distraction-free Ink' },
-                { id: 'exam', label: 'Exam Mode', dot: '#F59E0B', desc: 'High-Yield Alert' }
-            ];
-            
-            const activeTheme = localStorage.getItem('color-theme') || 'dark';
-            
-            let htmlContent = '';
-            themes.forEach(t => {
-                const isActive = t.id === activeTheme;
-                htmlContent += `
-                    <div class="theme-dropdown-item ${isActive ? 'active' : ''}" data-theme-id="${t.id}">
-                        <span class="theme-dot" style="background-color: ${t.dot}; border: 1px solid rgba(255, 255, 255, 0.2);"></span>
-                        <div class="flex flex-col">
-                            <span class="font-bold text-[12px] leading-tight text-text-main">${t.label}</span>
-                            <span class="text-[9px] text-slate-400 leading-tight">${t.desc}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            dropdown.innerHTML = htmlContent;
-            
-            newThemeBtn.style.position = 'relative';
-            newThemeBtn.appendChild(dropdown);
-            
-            // Add click events for item selection
-            dropdown.querySelectorAll('.theme-dropdown-item').forEach(item => {
-                item.addEventListener('click', function(evt) {
-                    evt.stopPropagation();
-                    const selTheme = this.getAttribute('data-theme-id');
-                    applyTheme(selTheme);
-                    dropdown.remove();
-                });
-            });
+            localStorage.setItem('color-theme', newTheme);
+            applyTheme(newTheme);
         });
     }
-
-    // Close on clicking outside
-    document.addEventListener('click', function(e) {
-        const dropdown = document.getElementById('theme-dropdown-menu');
-        const themeBtn = document.getElementById('theme-toggle');
-        if (dropdown && themeBtn && !themeBtn.contains(e.target)) {
-            dropdown.remove();
-        }
-    });
 }
 
 function initCookieConsent() {
@@ -2251,5 +2210,81 @@ if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
             });
     });
 }
+
+// Guest Access Guard System
+if (typeof window !== 'undefined') {
+    let isUserLoggedIn = false;
+
+    // Check initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+        isUserLoggedIn = !!session;
+    });
+
+    // Track auth changes
+    supabase.auth.onAuthStateChange((event, session) => {
+        isUserLoggedIn = !!session;
+    });
+
+    function showGuestModal(targetHref) {
+        let modal = document.getElementById('guest-guard-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'guest-guard-modal';
+            modal.className = "fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 opacity-0 pointer-events-none transition-opacity duration-300";
+            modal.innerHTML = `
+                <div class="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-sm shadow-2xl scale-95 transition-transform duration-300 overflow-hidden border border-slate-200 dark:border-slate-800">
+                    <div class="p-8 text-center flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-6 shadow-inner border border-blue-100 dark:border-blue-800/50">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-3 font-['Space_Grotesk'] tracking-tight">Premium Feature</h3>
+                        <p class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Create a free account to unlock AI interactions, save your bookmarks, and track your personalized performance analytics.</p>
+                        <div class="flex flex-col gap-3 w-full">
+                            <a href="/auth.html" id="guest-guard-login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-500/20 hover:-translate-y-0.5">Continue to Login</a>
+                            <button type="button" id="guest-guard-cancel" class="py-2 text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 tracking-wider uppercase">Stay as Guest</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            document.getElementById('guest-guard-cancel').addEventListener('click', () => {
+                modal.classList.replace('opacity-100', 'opacity-0');
+                modal.classList.replace('pointer-events-auto', 'pointer-events-none');
+                modal.querySelector('div').classList.replace('scale-100', 'scale-95');
+            });
+        }
+
+        const loginBtn = document.getElementById('guest-guard-login-btn');
+        loginBtn.href = `/auth.html?redirect=${encodeURIComponent(targetHref)}`;
+
+        // Force reflow
+        void modal.offsetWidth;
+        modal.classList.replace('opacity-0', 'opacity-100');
+        modal.classList.replace('pointer-events-none', 'pointer-events-auto');
+        modal.querySelector('div').classList.replace('scale-95', 'scale-100');
+    }
+
+    document.addEventListener('click', (e) => {
+        if (isUserLoggedIn) return;
+
+        // Find closest anchor tag
+        const link = e.target.closest('a');
+        if (!link) return;
+
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        const restrictedPaths = ['/ai-professor', 'ai-professor.html', '/bookmarks', 'bookmarks.html', '/dashboard', 'dashboard.html', 'tasks.html', '/tasks'];
+        
+        const isRestricted = restrictedPaths.some(path => href.includes(path));
+
+        if (isRestricted) {
+            e.preventDefault();
+            showGuestModal(href);
+        }
+    });
+}
+
 
 

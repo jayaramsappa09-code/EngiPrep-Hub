@@ -286,6 +286,14 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -312,10 +320,12 @@
     
     
     <script>
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
+        const savedTheme = localStorage.getItem('color-theme');
+        if (savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark', 'theme-dark');
         } else {
             document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('theme-light');
         }
     </script>
     <link rel="stylesheet" href="/src/style.css">
@@ -363,6 +373,26 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/ai-professor">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/ai-professor">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -5709,6 +5739,14 @@ L -> 100,150 -> 100,225 [Top View 75mm below]
         </div>
     </nav>
     <style>@media (max-width: 768px) { body { padding-bottom: 5rem; } }</style>
+
+
+
+
+
+
+
+
 
 
 

@@ -103,14 +103,24 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
     <meta name="description" content="The page you are looking for could not be found. Return to EngiPrepHub to continue your engineering studies.">
     
     <link rel="stylesheet" href="/src/index.css">
     <script>
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
+        const savedTheme = localStorage.getItem('color-theme');
+        if (savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark', 'theme-dark');
         } else {
             document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('theme-light');
         }
     </script>
 
@@ -123,6 +133,26 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/404">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/404">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -729,18 +759,7 @@
 
 
 
-<!-- EngiPrepHubFooter -->
-<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
-  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
-    <a href="/about.html" class="hover:text-white">About</a>
-    <a href="/contact.html" class="hover:text-white">Contact</a>
-    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
-    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
-    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
-    <a href="/faq.html" class="hover:text-white">FAQ</a>
-  </div>
-  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
-</footer>
+
 
 
     <!-- Mobile Bottom Navigation -->
@@ -769,6 +788,25 @@
         </div>
     </nav>
     <style>@media (max-width: 768px) { body { padding-bottom: 5rem; } }</style>
+
+
+
+
+
+
+
+<!-- EngiPrepHubFooter -->
+<footer class="engi-injected-footer bg-slate-900 border-t border-slate-800 text-center p-8 mt-20">
+  <div class="flex justify-center flex-wrap gap-4 text-sm text-slate-400">
+    <a href="/about.html" class="hover:text-white">About</a>
+    <a href="/contact.html" class="hover:text-white">Contact</a>
+    <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+    <a href="/terms-conditions.html" class="hover:text-white">Terms</a>
+    <a href="/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+    <a href="/faq.html" class="hover:text-white">FAQ</a>
+  </div>
+  <p class="text-slate-600 mt-4 text-xs">© 2026 EngiPrepHub. All rights reserved.</p>
+</footer>
 
 </body>
 </html>

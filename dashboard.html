@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        const savedTheme = localStorage.getItem('color-theme');
+        if (savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark', 'theme-dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('theme-light');
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Student Dashboard | EngiPrepHub</title>
@@ -8,6 +17,14 @@
     <meta name="theme-color" content="#1e293b">
     <link rel="apple-touch-icon" href="/public/logo.png">
     <link rel="canonical" href="https://engiprephub.in/dashboard">
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1005,6 +1022,26 @@
     
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
     <meta property="og:title" content="Premium JNTUK Study Notes | EngiPrepHub">
     <meta property="og:description" content="Verify JNTUK R23 syllabus study materials, solved PYQ question sheets, and interactive student dashboards on EngiPrepHub.">
     <meta property="og:url" content="https://engiprephub.in/dashboard">
@@ -1107,7 +1144,7 @@
                     <span class="w-2 h-2 rounded-full bg-blue-500"></span> Semester Exams Commencing Shortly • JNTUK R23
                 </div>
                 <h1 id="dash-greeting" class="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 font-['Space_Grotesk'] tracking-tight leading-tight">
-                    Good Morning, Jayaram 👋
+                    <span class="animate-pulse w-48 h-10 bg-slate-200 dark:bg-slate-800 rounded-lg inline-block"></span>
                 </h1>
                 <p id="dash-subtitle" class="text-lg text-slate-500 dark:text-slate-400">
                     Ready to continue your preparation? Your exam readiness is looking strong today.
@@ -1450,35 +1487,8 @@
                     <h3 class="text-base font-black text-slate-900 dark:text-slate-50 font-['Space_Grotesk'] tracking-tight mb-4 flex items-center gap-2">
                         <span>🎯</span> Exam Readiness Center
                     </h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl flex items-center justify-between">
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">M1 Calculus Formulae</h4>
-                                <span class="text-[9px] font-black uppercase tracking-wider text-green-600 dark:text-green-400 block mt-1">● High Preparedness (82%)</span>
-                            </div>
-                            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-                        </div>
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl flex items-center justify-between">
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">Physics semiconductor laws</h4>
-                                <span class="text-[9px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 block mt-1">● Moderate Prep (61%)</span>
-                            </div>
-                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                        </div>
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl flex items-center justify-between">
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">Chemistry Electrodes recap</h4>
-                                <span class="text-[9px] font-black uppercase tracking-wider text-green-600 dark:text-green-400 block mt-1">● Outstanding Prep (93%)</span>
-                            </div>
-                            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-                        </div>
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl flex items-center justify-between">
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">C Pointer Memory allocation</h4>
-                                <span class="text-[9px] font-black uppercase tracking-wider text-green-600 dark:text-green-400 block mt-1">● High Preparedness (75%)</span>
-                            </div>
-                            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-                        </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="exam-readiness-container">
+                        <div class="text-xs text-slate-500 font-mono py-4 col-span-2">Calculating syllabus coverage...</div>
                     </div>
                 </div>
 
@@ -1493,36 +1503,7 @@
                     </div>
                     
                     <div class="space-y-3" id="todays-plan-container">
-                        <label class="flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 rounded-xl cursor-pointer group hover:border-[#3b82f6]">
-                            <div class="flex items-center gap-3" id="nav-actions">
-                                <input type="checkbox" onclick="tickStudyGoal(this, 30)" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 font-bold scale-110">
-                                <div>
-                                    <p class="text-sm font-black text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Finish Chemistry Unit 3 recap</p>
-                                    <p class="text-[9px] text-[#64748b] uppercase font-black uppercase mt-0.5">Syllabus Complete • +30 XP</p>
-                                </div>
-                            </div>
-                            <span class="text-[10px] font-bold text-slate-400">45 Mins</span>
-                        </label>
-                        <label class="flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 rounded-xl cursor-pointer group hover:border-[#3b82f6]">
-                            <div class="flex items-center gap-3" id="nav-actions">
-                                <input type="checkbox" onclick="tickStudyGoal(this, 50)" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 font-bold scale-110">
-                                <div>
-                                    <p class="text-sm font-black text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Solve 10 Differential Equations PYQs</p>
-                                    <p class="text-[9px] text-[#64748b] uppercase font-black uppercase mt-0.5">Highly Repeated • +50 XP</p>
-                                </div>
-                            </div>
-                            <span class="text-[10px] font-bold text-slate-400">40 Mins</span>
-                        </label>
-                        <label class="flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 rounded-xl cursor-pointer group hover:border-[#3b82f6]">
-                            <div class="flex items-center gap-3" id="nav-actions">
-                                <input type="checkbox" onclick="tickStudyGoal(this, 20)" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 font-bold scale-110">
-                                <div>
-                                    <p class="text-sm font-black text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Revise Engineering Physics lasers formulas</p>
-                                    <p class="text-[9px] text-[#64748b] uppercase font-black uppercase mt-0.5">Quick memory booster • +20 XP</p>
-                                </div>
-                            </div>
-                            <span class="text-[10px] font-bold text-slate-400">20 Mins</span>
-                        </label>
+                        <div class="text-xs text-slate-500 font-mono text-center py-4">Generating optimal study path...</div>
                     </div>
                 </div>
 
@@ -1617,27 +1598,7 @@
                     </div>
                     <div class="space-y-3" id="bookmarks-dashboard-list">
                         <!-- Render stored bookmarks dynamically -->
-                        <div class="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl flex items-center justify-between border border-slate-200/40 dark:border-slate-800/40">
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">Cayley-Hamilton Theorem Derivation</h4>
-                                <p class="text-[9px] text-[#64748b] font-mono mt-0.5">MATHS I • FORMULA SHEET</p>
-                            </div>
-                            <button onclick="removeBookmarkItem(this)" class="text-red-500 hover:text-red-700 text-xs font-mono p-1">Remove</button>
-                        </div>
-                        <div class="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl flex items-center justify-between border border-slate-200/40 dark:border-slate-800/40">
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">Ruby & He-Ne Gas Lasers Schematics</h4>
-                                <p class="text-[9px] text-[#64748b] font-mono mt-0.5">PHYSICS • DIAGRAM DEEP-DIVE</p>
-                            </div>
-                            <button onclick="removeBookmarkItem(this)" class="text-red-500 hover:text-red-700 text-xs font-mono p-1">Remove</button>
-                        </div>
-                        <div class="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl flex items-center justify-between border border-slate-200/40 dark:border-slate-800/40">
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">Bubble Sort vs Selection Sort</h4>
-                                <p class="text-[9px] text-[#64748b] font-mono mt-0.5">C PROGRAMMING • COMPARISON CARD</p>
-                            </div>
-                            <button onclick="removeBookmarkItem(this)" class="text-red-500 hover:text-red-700 text-xs font-mono p-1">Remove</button>
-                        </div>
+                        <div class="text-xs text-slate-500 font-mono text-center py-4" id="bookmark-loading">Fetching bookmarks securely from cloud...</div>
                     </div>
                 </div>
 
@@ -1646,11 +1607,8 @@
                     <h3 class="text-base font-black text-slate-900 dark:text-slate-50 font-['Space_Grotesk'] mb-3 flex items-center gap-2">
                         <span>🕒</span> Recent Activity
                     </h3>
-                    <div class="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-850">
-                        <p class="text-[10px] uppercase font-bold text-indigo-600 dark:text-indigo-400 tracking-wider">LAST VIEWED SUBJECT</p>
-                        <h4 class="text-sm font-black text-slate-800 dark:text-white mt-1">Engineering Mathematics-II</h4>
-                        <p class="text-xs text-slate-500 mt-1">Session stopped at Unit 3: Differential Equations.</p>
-                        <a href="/pyqs.html" class="mt-3 inline-block text-[10px] uppercase font-black tracking-widest text-blue-600 dark:text-blue-400 hover:underline">⚡ Instant Resume</a>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-850" id="recent-activity-container">
+                        <p class="text-[10px] uppercase font-bold text-indigo-600 dark:text-indigo-400 tracking-wider">Loading Recent Activity...</p>
                     </div>
                 </div>
 
@@ -1660,34 +1618,7 @@
                         <span>🏆</span> Earned Achievements
                     </h3>
                     <div class="grid grid-cols-2 gap-3" id="achievements-dashboard-grid-box">
-                        <div class="p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 rounded-xl flex items-center gap-2.5">
-                            <span class="text-xl">🔥</span>
-                            <div>
-                                <h4 class="text-[10px] font-black uppercase text-slate-800 dark:text-slate-200 tracking-tight leading-none">7-Day Streak</h4>
-                                <span class="text-[8px] text-amber-600 mt-1 block font-mono">UNLOCKED</span>
-                            </div>
-                        </div>
-                        <div class="p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 rounded-xl flex items-center gap-2.5">
-                            <span class="text-xl">🎯</span>
-                            <div>
-                                <h4 class="text-[10px] font-black uppercase text-slate-800 dark:text-slate-200 tracking-tight leading-none">100 PYQs Solved</h4>
-                                <span class="text-[8px] text-amber-600 mt-1 block font-mono">UNLOCKED</span>
-                            </div>
-                        </div>
-                        <div class="p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 rounded-xl flex items-center gap-2.5">
-                            <span class="text-xl">⚡</span>
-                            <div>
-                                <h4 class="text-[10px] font-black uppercase text-slate-800 dark:text-slate-200 tracking-tight leading-none">Revision Master</h4>
-                                <span class="text-[8px] text-amber-600 mt-1 block font-mono">UNLOCKED</span>
-                            </div>
-                        </div>
-                        <div class="p-3 bg-slate-50 dark:bg-[#090911]/40 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center gap-2.5 opacity-50 grayscale">
-                            <span class="text-xl">👑</span>
-                            <div>
-                                <h4 class="text-[10px] font-black uppercase text-slate-800 dark:text-slate-200 tracking-tight leading-none">Sem Smasher</h4>
-                                <span class="text-[8px] text-slate-500 mt-1 block font-mono">LOCKED</span>
-                            </div>
-                        </div>
+                        <div class="text-xs text-slate-500 font-mono py-4 col-span-2 text-center">Syncing latest achievements...</div>
                     </div>
                 </div>
 
@@ -2030,6 +1961,7 @@
         });
     </script>
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/dashboard-dynamic.js"></script>
 
 
 
@@ -2307,6 +2239,14 @@
         </div>
     </nav>
     <style>@media (max-width: 768px) { body { padding-bottom: 5rem; } }</style>
+
+
+
+
+
+
+
+
 
 
 

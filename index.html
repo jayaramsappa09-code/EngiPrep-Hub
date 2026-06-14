@@ -307,6 +307,14 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -351,10 +359,12 @@
 
     <script>
         // Check local storage theme settings on startup
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
+        const savedTheme = localStorage.getItem('color-theme');
+        if (savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark', 'theme-dark');
         } else {
             document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('theme-light');
         }
     </script>
     <meta name="google-site-verification" content="tv-qW3K6Ph6PxepzBkI3VZT1nN3rFxcspQZ0Mg6AD7Q" />
@@ -368,6 +378,32 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
 
 
     
@@ -2686,6 +2722,66 @@
                     </div>
                 </div>
 
+                <!-- Testimonials Section -->
+                <div class="py-16 mt-8">
+                    <div class="text-center mb-12">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/60 dark:bg-blue-900/10 text-blue-700 dark:text-blue-400 text-xs font-bold uppercase tracking-wide mb-4">
+                            ⭐ Student Success Stories
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100 leading-tight">
+                            Trusted by thousands of JNTUK Engineers.
+                        </h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Card 1 -->
+                        <div class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm hover:shadow-lg transition-all flex flex-col gap-4">
+                            <div class="flex items-center gap-1 text-amber-500 text-sm">
+                                ★★★★★
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 italic">"The AI Professor completely saved me during my Engineering Mathematics II exams. I finally understand PDEs instead of just memorizing the steps."</p>
+                            <div class="flex items-center gap-3 mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
+                                <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center text-xs">AK</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-slate-100">Aryan K.</h4>
+                                    <p class="text-[10px] text-slate-500 uppercase tracking-widest font-mono">B.Tech Sem 2 • CSE</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm hover:shadow-lg transition-all flex flex-col gap-4 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 dark:bg-blue-900/10 rounded-bl-full -z-0"></div>
+                            <div class="relative z-10 flex items-center gap-1 text-amber-500 text-sm">
+                                ★★★★★
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 italic relative z-10">"I used the Cheat Sheets just 3 hours before my Engineering Chemistry exam. Ended up scoring an 8.5 SGPA. Literally life-saving platform."</p>
+                            <div class="flex items-center gap-3 mt-auto pt-4 border-t border-slate-100 dark:border-slate-800 relative z-10">
+                                <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 font-bold flex items-center justify-center text-xs">SV</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-slate-100">Sriya V.</h4>
+                                    <p class="text-[10px] text-slate-500 uppercase tracking-widest font-mono">B.Tech Sem 1 • IT</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm hover:shadow-lg transition-all flex flex-col gap-4">
+                            <div class="flex items-center gap-1 text-amber-500 text-sm">
+                                ★★★★★
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 italic">"Engineering Graphics labs were a nightmare until I found the interactive geometric visuals here. Being able to see 3D projections spin made it click."</p>
+                            <div class="flex items-center gap-3 mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
+                                <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-xs">MR</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-slate-100">Manoj R.</h4>
+                                    <p class="text-[10px] text-slate-500 uppercase tracking-widest font-mono">B.Tech Sem 2 • ECE</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Section 7: Call to Action -->
                 <div class="p-8 md:p-12 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-xl mt-12 flex flex-col lg:flex-row items-center justify-between gap-8">
                     <div class="max-w-2xl text-center lg:text-left">
@@ -3017,6 +3113,14 @@
         </div>
     </nav>
     <style>@media (max-width: 768px) { body { padding-bottom: 5rem; } }</style>
+
+
+
+
+
+
+
+
 
 
 

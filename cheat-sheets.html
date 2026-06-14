@@ -277,6 +277,14 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -304,10 +312,12 @@
     
     
     <script>
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
+        const savedTheme = localStorage.getItem('color-theme');
+        if (savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark', 'theme-dark');
         } else {
             document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('theme-light');
         }
     </script>
     <link rel="stylesheet" href="/src/style.css">
@@ -332,6 +342,26 @@
 
     <link rel="alternate" hreflang="en-IN" href="https://engiprephub.in/cheat-sheets">
     <link rel="alternate" hreflang="x-default" href="https://engiprephub.in/cheat-sheets">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     
@@ -1635,7 +1665,7 @@
             </section>
 
             <!-- 2. Matrices -->
-            <section id="rev-sec-2" class="space-y-4 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
+            <section id="rev-sec-2" class="space-y-6 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
                 <div class="flex items-center gap-3" id="nav-actions">
                     <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Unit 2</span>
                     <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Linear Algebra: Matrices & Row Echelon Ranks</h3>
@@ -1645,6 +1675,61 @@
                      <p>1. Ensure maximum non-zero numbers shift upwards.</p>
                      <p>2. Count non-zero row maps after zeroes reach bottom limits.</p>
                      <p>3. Rank(A) = non-zero rows integer.</p>
+                </div>
+
+                <div class="space-y-3 mt-6">
+                    <h4 class="text-sm font-bold text-slate-300">Cayley-Hamilton Theorem</h4>
+                    <p class="text-slate-400 leading-relaxed">Every square matrix satisfies its own characteristic equation. If the characteristic equation is <em>|A - λI| = 0</em>, which expands to a polynomial <em>p(λ) = λ<sup>n</sup> + c<sub>n-1</sub>λ<sup>n-1</sup> + ... + c<sub>0</sub> = 0</em>, then by Cayley-Hamilton:</p>
+                    <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-x-auto text-center flex items-center justify-center">
+                        <span class="text-base md:text-xl font-bold tracking-wider text-emerald-400">p(A) = A<sup>n</sup> + c<sub>n-1</sub>A<sup>n-1</sup> + ... + c<sub>0</sub>I = 0</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3 mt-6">
+                    <h4 class="text-sm font-bold text-slate-300">Eigenvalues and Eigenvectors</h4>
+                    <p class="text-slate-400 leading-relaxed">For a square matrix A, an eigenvalue λ and its corresponding eigenvector X satisfy the fundamental equation:</p>
+                    <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-x-auto text-center flex items-center justify-center">
+                        <span class="text-base md:text-xl font-bold tracking-wider text-emerald-400">AX = λX &nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp; (A - λI)X = 0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Physics Laws & Wave Equations -->
+            <section id="rev-sec-3" class="space-y-6 scroll-mt-24 font-mono text-xs pt-8 border-t border-zinc-900">
+                <div class="flex items-center gap-3">
+                    <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-emerald-500 rounded">Physics</span>
+                    <h3 class="text-base font-black text-slate-900 dark:text-slate-50">Essential Physics Equations</h3>
+                </div>
+                
+                <div class="space-y-3">
+                    <h4 class="text-sm font-bold text-slate-300">Schrödinger Time-Independent Wave Equation</h4>
+                    <p class="text-slate-400 leading-relaxed">The fundamental equation of quantum mechanics describing stationary states of a particle of mass <em>m</em> in a potential field <em>V</em>:</p>
+                    <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-x-auto text-center flex flex-col items-center justify-center gap-3">
+                        <span class="text-base md:text-xl font-bold tracking-wider text-emerald-400">∇²ψ + (2m / ħ²)(E - V)ψ = 0</span>
+                        <span class="text-xs text-slate-500">where ħ = h / 2π</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-sm font-bold text-slate-300">Maxwell's Equations (Differential Form)</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-5 bg-zinc-950 rounded-xl border border-zinc-900 flex flex-col gap-2">
+                            <span class="text-slate-500 font-bold text-[10px] uppercase">Gauss's Law</span>
+                            <span class="text-sm font-bold text-emerald-400">∇ · E = ρ / ε₀</span>
+                        </div>
+                        <div class="p-5 bg-zinc-950 rounded-xl border border-zinc-900 flex flex-col gap-2">
+                            <span class="text-slate-500 font-bold text-[10px] uppercase">Gauss's Law for Magnetism</span>
+                            <span class="text-sm font-bold text-emerald-400">∇ · B = 0</span>
+                        </div>
+                        <div class="p-5 bg-zinc-950 rounded-xl border border-zinc-900 flex flex-col gap-2">
+                            <span class="text-slate-500 font-bold text-[10px] uppercase">Faraday's Law</span>
+                            <span class="text-sm font-bold text-emerald-400">∇ × E = -∂B/∂t</span>
+                        </div>
+                        <div class="p-5 bg-zinc-950 rounded-xl border border-zinc-900 flex flex-col gap-2">
+                            <span class="text-slate-500 font-bold text-[10px] uppercase">Ampere-Maxwell Law</span>
+                            <span class="text-sm font-bold text-emerald-400">∇ × B = μ₀(J + ε₀∂E/∂t)</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -2358,6 +2443,14 @@
         </div>
     </nav>
     <style>@media (max-width: 768px) { body { padding-bottom: 5rem; } }</style>
+
+
+
+
+
+
+
+
 
 
 
