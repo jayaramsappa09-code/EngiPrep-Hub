@@ -731,3 +731,62 @@ CREATE POLICY "Owner can delete files in archive" ON storage.objects
 
 -- Force sync/refresh cache warning
 NOTIFY pgrst, 'reload schema';
+CREATE TABLE IF NOT EXISTS public.years (
+    id int PRIMARY KEY,
+    name text UNIQUE NOT NULL,
+    description text
+);
+
+CREATE TABLE IF NOT EXISTS public.semesters (
+    id int PRIMARY KEY,
+    year_id int REFERENCES public.years(id),
+    name text NOT NULL,
+    is_active boolean DEFAULT false, -- Feature flag for public access
+    description text
+);
+
+-- Update subjects table
+ALTER TABLE public.subjects ADD COLUMN IF NOT EXISTS year_id int REFERENCES public.years(id);
+ALTER TABLE public.subjects ADD COLUMN IF NOT EXISTS semester_id int REFERENCES public.semesters(id);
+
+CREATE TABLE IF NOT EXISTS public.units (
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    subject_id uuid REFERENCES public.subjects(id),
+    unit_number int NOT NULL,
+    title text NOT NULL,
+    description text
+);
+
+CREATE TABLE IF NOT EXISTS public.topics (
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    unit_id uuid REFERENCES public.units(id),
+    title text NOT NULL,
+    content text, -- Optional rich text
+    video_url text
+);
+
+-- Map existing notes to topics or units if necessary, 
+-- or link notes to topics:
+ALTER TABLE public.notes ADD COLUMN IF NOT EXISTS topic_id uuid REFERENCES public.topics(id);
+ALTER TABLE public.notes ADD COLUMN IF NOT EXISTS unit_id uuid REFERENCES public.units(id);
+
+-- Curriculum Seed Data
+INSERT INTO public.years (id, name, description) VALUES
+(1, 'First Year (Freshman)', 'Foundational sciences and basic engineering'),
+(2, 'Second Year (Sophomore)', 'Core departmental subjects and foundations'),
+(3, 'Third Year (Junior)', 'Advanced departmental electives and projects'),
+(4, 'Fourth Year (Senior)', 'Specializations and Major Projects')
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO public.semesters (id, year_id, name, is_active, description) VALUES
+(1, 1, 'Semester 1', true, 'Foundational sciences, basic mathematics.'),
+(2, 1, 'Semester 2', true, 'Advanced calculus, advanced physics.'),
+(3, 2, 'Semester 3', false, 'Core departmental subjects, data structures.'),
+(4, 2, 'Semester 4', false, 'Design principles, operating systems.'),
+(5, 3, 'Semester 5', false, 'Advanced departmental electives, networks.'),
+(6, 3, 'Semester 6', false, 'AI, Machine Learning, structural analysis.'),
+(7, 4, 'Semester 7', false, 'Major project phase I, industrial electives.'),
+(8, 4, 'Semester 8', false, 'Major project phase II, internship.')
+ON CONFLICT (id) DO NOTHING;
+
+-- Since subjects exist, we might update them, or just let users add via UI.

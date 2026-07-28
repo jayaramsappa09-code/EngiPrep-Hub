@@ -63,4 +63,4 @@ To standardize all Tier A & B pages, we will implement this exact structure on e
 
 ### Conclusion
 
-By isolating utility pages from the index and enriching the educational pages with structural depth (PYQs, FAQs, Real-world applications), EngiPrepHub will shift from a standard notes repository to a high-authority educational platform, meeting all Google AdSense and Search Quality Rater Guidelines (E-E-A-T).
+By isolating utility pages from the index and enriching the educational pages with structural depth (PYQs, FAQs, Real-world applications), EngiPrepHub will shift from a standard notes repository to a high-authority educational platform, meeting all Google AdSense and Search Quality Rater Guidelines (E-E-A-T).`

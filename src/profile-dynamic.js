@@ -46,6 +46,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Simulate reading from DB or localStorage (for dynamic logic)
         let html = '';
+        let totalCompletedModules = 0;
+        
         subjects.forEach(sub => {
             // Check cache or randomize a realistic progress
             const cacheKey = "engiprep_prog_" + sub.name.replace(/\s+/g, '_');
@@ -56,6 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else {
                 completed = parseInt(completed);
             }
+            totalCompletedModules += completed;
             
             const percentage = Math.round((completed / sub.modulesTotal) * 100);
 
@@ -85,6 +88,63 @@ document.addEventListener('DOMContentLoaded', async () => {
                 bar.style.width = bar.getAttribute('data-target-width');
             });
         }, 100);
+
+        // Update XP and Streak Tracker
+        const xpEarned = totalCompletedModules * 50;
+        let streak = localStorage.getItem('engiprep_dash_stats');
+        if (streak) {
+            streak = JSON.parse(streak).streak || 0;
+        } else {
+            streak = Math.floor(Math.random() * 10) + 1;
+        }
+
+        const streakEl = document.getElementById('profile-streak');
+        if (streakEl) streakEl.innerText = `${streak} Day Streak`;
+
+        const badgeIconEl = document.getElementById('profile-badge-icon');
+        const badgeTitleEl = document.getElementById('profile-level-badge');
+        const xpTextEl = document.getElementById('profile-xp-text');
+        const xpBarEl = document.getElementById('profile-xp-bar');
+        const xpNextEl = document.getElementById('profile-xp-next');
+
+        let levelTitle = "Novice";
+        let levelIcon = "⭐";
+        let nextXp = 250;
+        let prevXp = 0;
+
+        if (xpEarned >= 1000) {
+            levelTitle = "Master Engineer";
+            levelIcon = "👑";
+            nextXp = 2000;
+            prevXp = 1000;
+        } else if (xpEarned >= 500) {
+            levelTitle = "Scholar";
+            levelIcon = "🎓";
+            nextXp = 1000;
+            prevXp = 500;
+        } else if (xpEarned >= 250) {
+            levelTitle = "Apprentice";
+            levelIcon = "🏅";
+            nextXp = 500;
+            prevXp = 250;
+        }
+
+        if (badgeIconEl) badgeIconEl.innerText = levelIcon;
+        if (badgeTitleEl) badgeTitleEl.innerText = levelTitle;
+        if (xpTextEl) xpTextEl.innerText = `${xpEarned} XP`;
+        
+        if (xpNextEl) {
+            xpNextEl.innerText = `${nextXp - xpEarned} XP to next level`;
+        }
+
+        if (xpBarEl) {
+            const range = nextXp - prevXp;
+            const currentIntoRange = xpEarned - prevXp;
+            const xpPercentage = Math.min(100, Math.max(0, (currentIntoRange / range) * 100));
+            setTimeout(() => {
+                xpBarEl.style.width = `${xpPercentage}%`;
+            }, 300);
+        }
     }
 
     const logoutBtn = document.getElementById('logout-btn');
