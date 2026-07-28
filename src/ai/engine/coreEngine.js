@@ -1,5 +1,6 @@
 import { ROUTES } from '../db/routes.js';
 import { PREDEFINED_TOPICS_DB } from '../../predefinedProfessorResponses.js';
+import { FacultyReviewEngine } from '../facultyReview.ts';
 
 // Simple Levenshtein distance for fuzzy matching
 function getLevenshteinDistance(a, b) {
@@ -1188,7 +1189,7 @@ export const AI_ENGINE = {
       `;
     }
 
-    return `
+    const cardHtml = `
       <div class="space-y-4" id="${containerId}">
           <div class="border-b border-indigo-250/30 dark:border-slate-800 pb-2 flex items-center justify-between flex-wrap gap-2">
               <div>
@@ -1265,5 +1266,7 @@ export const AI_ENGINE = {
           </p>
       </div>
     `;
+
+    return FacultyReviewEngine.processQualityGate(data.title, cardHtml, data.subject || 'Engineering Studies').html;
   }
 };

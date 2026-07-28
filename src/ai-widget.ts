@@ -1,3 +1,5 @@
+import { FacultyReviewEngine } from './ai/facultyReview';
+
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('ai-assistant-widget')) return;
 
@@ -120,17 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function generateResponse(query: string) {
         const lower = query.toLowerCase();
         setTimeout(() => {
+            let rawMsg = "";
             if(lower.includes('revision') || lower.includes('smart')) {
-                addMessage("<strong class='text-white text-base'>⚡ 5-Minute Smart Revision Generated</strong><br><br>• <strong>Chemistry:</strong> Nernst Eq & Batteries are high priority.<br>• <strong>Data Structures:</strong> Linked Lists pointers logic is crucial.<br>• <strong>Physics:</strong> Interference vs Diffraction 5-mark differences.<br><br><em>Tip: Check your Dashboard for full revision tracking.</em>");
+                rawMsg = "<strong class='text-white text-base'>⚡ 5-Minute Smart Revision Generated</strong><br><br>• <strong>Chemistry:</strong> Nernst Eq & Batteries are high priority.<br>• <strong>Data Structures:</strong> Linked Lists pointers logic is crucial.<br>• <strong>Physics:</strong> Interference vs Diffraction 5-mark differences.<br><br><em>Tip: Check your Dashboard for full revision tracking.</em>";
             } else if (lower.includes('predict') || lower.includes('pyq')) {
-                addMessage("<strong class='text-rose-400 text-base'>🔥 PYQ Intelligence Prediction</strong><br><br>Based on the last 5 years R23 papers:<br>1. <span class='text-white font-bold'>Explain Schrödinger Wave Equation</span> (98% repeat)<br>2. <span class='text-white font-bold'>Differentiate Plastics, Resins, Elastomers</span> (Ask: 7 times)<br>3. <span class='text-white font-bold'>Implement Queue using Array</span> (Very High)");
+                rawMsg = "<strong class='text-rose-400 text-base'>🔥 PYQ Intelligence Prediction</strong><br><br>Based on the last 5 years R23 papers:<br>1. <span class='text-white font-bold'>Explain Schrödinger Wave Equation</span> (98% repeat)<br>2. <span class='text-white font-bold'>Differentiate Plastics, Resins, Elastomers</span> (Ask: 7 times)<br>3. <span class='text-white font-bold'>Implement Queue using Array</span> (Very High)";
             } else if (lower.includes('viva')) {
-                addMessage("<strong class='text-emerald-400 text-base'>🎙️ Rapid Viva Prep Active</strong><br><br><strong>Q: What is a dangling pointer?</strong><br>A: A pointer pointing to freed memory. Accessing it causes undefined behavior.<br><button class='mt-2 px-3 py-1.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded text-xs font-bold'>Next Question →</button>");
+                rawMsg = "<strong class='text-emerald-400 text-base'>🎙️ Rapid Viva Prep Active</strong><br><br><strong>Q: What is a dangling pointer?</strong><br>A: A pointer pointing to freed memory. Accessing it causes undefined behavior.<br><button class='mt-2 px-3 py-1.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded text-xs font-bold'>Next Question →</button>";
             } else if (lower.includes('derive') || lower.includes('formula')) {
-                addMessage("<div class='bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-sky-400 my-2 shadow-inner text-center font-bold tracking-wider'>A · v = λ · v</div><strong>Concept:</strong> Eigenvalues (λ) & Eigenvectors (v).<br>When a matrix multiplies a special vector, it only scales it (λ) instead of rotating it. Crucial for M1 Unit 3.");
+                rawMsg = "<div class='bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-sky-400 my-2 shadow-inner text-center font-bold tracking-wider'>A · v = λ · v</div><strong>Concept:</strong> Eigenvalues (λ) & Eigenvectors (v).<br>When a matrix multiplies a special vector, it only scales it (λ) instead of rotating it. Crucial for M1 Unit 3.";
             } else {
-                addMessage("This is the AI Engine. Try clicking the Quick Action tags above or asking for <strong>Viva Prep</strong>, <strong>PYQ Predictor</strong>, or <strong>Smart Revision</strong>.");
+                rawMsg = "This is the AI Engine. Try clicking the Quick Action tags above or asking for <strong>Viva Prep</strong>, <strong>PYQ Predictor</strong>, or <strong>Smart Revision</strong>.";
             }
+
+            const processed = FacultyReviewEngine.processQualityGate(query, rawMsg, 'JNTUK R23 Engineering');
+            addMessage(processed.html);
         }, 1000);
     }
 
